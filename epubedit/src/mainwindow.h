@@ -16,6 +16,7 @@
 #include <QStatusBar>
 #include <QToolBar>
 
+#include "document/epubdocument.h"
 #include "libepubedit/epubedit.h"
 
 typedef QSharedPointer<QDomDocument> DomDocument;
@@ -35,6 +36,8 @@ private:
   QMenu *m_fileMenu, *m_editMenu, *m_helpMenu;
   QLabel *m_lineLbl, *m_colLbl;
   EPubEdit* m_editor;
+
+  Document m_document;
 
   void newEpub();
   void openFile();

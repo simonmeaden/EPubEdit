@@ -37,7 +37,6 @@ find_library(tidy_LIBRARY
 
 if (tidy_FOUND)
   message("Tidy found : " ${Tidy_LIBRARY})
-  message("Includes : " ${Tidy_INCLUDE_DIR})
 endif()
 
 #set(tidy_VERSION ${PC_Tidy_VERSION})

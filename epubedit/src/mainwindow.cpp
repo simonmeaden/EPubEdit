@@ -5,29 +5,38 @@ MainWindow::MainWindow(QWidget* parent)
   , m_width(800)
   , m_height(400)
 {
-  initGui();
+  //  initGui();
 
-  const auto sr = qApp->screens().at(0)->availableGeometry();
-  const QRect wr({}, this->frameSize().boundedTo(sr.size()));
-  const auto offset = sr.center() - wr.center();
+  //  const auto sr = qApp->screens().at(0)->availableGeometry();
+  //  const QRect wr({}, this->frameSize().boundedTo(sr.size()));
+  //  const auto offset = sr.center() - wr.center();
 
-  setGeometry(offset.x(), offset.y(), m_width, m_height);
-  setStatusLineAndCol(0, 0);
+  //  setGeometry(offset.x(), offset.y(), m_width, m_height);
+  //  setStatusLineAndCol(0, 0);
+  auto document = Document(new EPubDocument());
+  document->loadDocument(
+    "/home/simonmeaden/workspace/epubedit/book/mobydick/moby-dick.epub");
 }
 
 MainWindow::~MainWindow() {}
 
 void
 MainWindow::newEpub()
-{}
+{
+  m_document = Document(new EPubDocument());
+}
 
 void
 MainWindow::openFile()
 {
+
+  auto document = Document(new EPubDocument());
   auto filename = QFileDialog::getOpenFileName(
     this, tr("Select file to open"), ".", tr("EPub Files (*.epub)"));
   if (!filename.isEmpty()) {
-    m_editor->loadEpubDocument(filename);
+    if (document->loadDocument(filename)) {
+      m_document = document;
+    }
   }
 }
 

@@ -9,7 +9,7 @@
 #include <QSize>
 #include <QString>
 
-#include "libepubedit/ebookcommon.h"
+//#include "libepubedit/ebookcommon.h"
 
 class EBookSeriesDB;
 typedef QSharedPointer<EBookSeriesDB> SeriesDB;

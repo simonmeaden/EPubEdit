@@ -31,15 +31,8 @@ set(TS_FILES lang/epubedit_en_GB.ts)
 
 list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_SOURCE_DIR}/cmake)
 
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Gui Widgets Xml Svg LinguistTools REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Gui Widgets Xml Svg LinguistTools REQUIRED)
-
-find_package(QuaZip-Qt${QT_VERSION_MAJOR})
-if (NOT QuaZip-Qt${QT_VERSION_MAJOR}_FOUND)
-  message("QuaZip NOT found")
-else()
-  message("QuaZip include path : " ${QuaZip-Qt${QT_VERSION_MAJOR}_INCLUDE_DIR})
-endif()
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Core5Compat Gui Widgets Xml Svg LinguistTools REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core5Compat Gui Widgets Xml Svg LinguistTools REQUIRED)
 
 set(MIN_Tidy_VERSION 6)
 find_package(Tidy ${MIN_Tidy_VERSION} REQUIRED)
@@ -54,12 +47,16 @@ endif()
 add_library(libepubedit SHARED "")
 add_library(EPubEdit::epubedit ALIAS libepubedit)
 
+set(QUAZIP_QT_MAJOR_VERSION ${QT_VERSION_MAJOR})
+add_subdirectory(quazip)
+
 target_compile_options(libepubedit PRIVATE -Werror)
 target_compile_features(libepubedit PRIVATE cxx_std_17)
 set_target_properties(libepubedit PROPERTIES DEBUG_POSTFIX "d")
 
 target_link_libraries(libepubedit
   PRIVATE
+    Qt${QT_VERSION_MAJOR}::Core5Compat
     Qt${QT_VERSION_MAJOR}::Gui
     Qt${QT_VERSION_MAJOR}::Widgets
     Qt${QT_VERSION_MAJOR}::Xml
@@ -85,23 +82,21 @@ target_sources(libepubedit
     src/forms/metadataform.h
     src/forms/metadataform.cpp
 
+    src/document/epubdocument.h
     src/document/epubdocument.cpp
-    src/document/epubdocument_p.h
-    src/document/epubdocument_p.cpp
+    src/document/epubpackage.h
+    src/document/epubpackage.cpp
+    src/document/epubcontainer.h
     src/document/epubcontainer.cpp
-    src/document/htmlparser.h
-    src/document/htmlparser.cpp
+    src/document/epubmetadata.h
+    src/document/epubmetadata.cpp
+    src/document/epubtitle.h
+    src/document/epubtitle.cpp
+    src/document/epubauthor.h
+    src/document/epubauthor.cpp
+
     src/document/htmltidy.h
     src/document/htmltidy.cpp
-
-    src/metadata/ebookmetadata.cpp
-    src/metadata/authors.cpp
-    src/metadata/library.cpp
-    src/metadata/dcterms.cpp
-    src/metadata/foaf.cpp
-    src/metadata/ebookbasemetadata.cpp
-    src/metadata/ebookmetadata.cpp
-    src/metadata/marcrelator.cpp
 
     src/options.cpp
 
@@ -119,4 +114,4 @@ target_sources(libepubedit
 )
 
 add_subdirectory(epubedit)
-add_subdirectory(plugins)
+#add_subdirectory(plugins)

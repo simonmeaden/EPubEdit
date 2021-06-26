@@ -10,7 +10,8 @@
 #include <QPushButton>
 #include <QTableView>
 
-#include "libepubedit/ebookbasemetadata.h"
+#include "document/epubauthor.h"
+#include "document/epubtitle.h"
 
 class TitleModel : public QAbstractTableModel
 {

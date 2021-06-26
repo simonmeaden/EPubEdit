@@ -1,283 +1,164 @@
-#include "libepubedit/document/epubdocument.h"
+#include "epubdocument.h"
 
-//#include <qlogger/qlogger.h>
-// using namespace qlogger;
-
-#include "document/htmlparser.h"
-#include "epubdocument_p.h"
-#include "libepubedit/authors.h"
-#include "libepubedit/document/epubcontainer.h"
-#include "libepubedit/ebookcommon.h"
-#include "libepubedit/iebookdocument.h"
-#include "libepubedit/interface_global.h"
-#include "libepubedit/library.h"
+const QString EPubDocument::MIMETYPE_FILE = "mimetype";
+const QByteArray EPubDocument::MIMETYPE = "application/epub+zip";
+const QString EPubDocument::CONTAINER_FILE = "META-INF/container.xml";
+// const QString EPubDocument::TOC_TITLE = "<h2>%1</h2>";
+// const QString EPubDocument::LIST_START = "<html><body><ul>";
+// const QString EPubDocument::LIST_END = "</ul></body></html>";
+// const QString EPubDocument::LIST_ITEM = "<li><a href=\"%1\">%2</li>";
+// const QString EPubDocument::LIST_BUILD_ITEM = "<li><a
+// href=\"%1#%2\">%3</li>"; const QString EPubDocument::LIST_FILEPOS =
+// "position%1"; const QString EPubDocument::HTML_DOCTYPE =
+//  "<!DOCTYPE html PUBLIC "
+//  "\"-//W3C//DTD XHTML 1.1//EN\" "
+//  "\"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">";
+// const QString EPubDocument::XML_HEADER =
+//  "<?xml version='1.0' encoding='utf-8'?>";
+// const QString EPubDocument::HTML_XMLNS = "http://www.w3.org/1999/xhtml";
 
 EPubDocument::EPubDocument(QObject* parent)
-  : ITextDocument(parent)
-  , d_ptr(new EPubDocumentPrivate(this))
+  : QObject(parent)
 {
-  //  setUndoRedoEnabled(false);
-}
-
-EPubDocument::EPubDocument(EPubDocumentPrivate* doc, QObject* parent)
-  : ITextDocument(parent)
-  , d_ptr(doc)
-{
-  //  setUndoRedoEnabled(false);
-}
-
-EPubDocument::EPubDocument(const EPubDocument& doc)
-  : ITextDocument(doc.parent())
-  , d_ptr(doc.d_ptr)
-{}
-
-EPubDocument::EPubDocument(EPubDocumentPrivate& d)
-  : ITextDocument(d.q_ptr)
-{}
-
-QString
-EPubDocument::buildTocFromData()
-{
-  Q_D(EPubDocument);
-  return d->buildTocFromFiles();
+  m_container = Container(new EPubContainer(this));
 }
 
 bool
-EPubDocument::isModified()
+EPubDocument::loadDocument(const QString& filename)
 {
-  Q_D(EPubDocument);
-  return d->isModified();
-}
-
-EPubDocument::~EPubDocument() {}
-
-bool
-EPubDocument::loaded()
-{
-  Q_D(EPubDocument);
-  return d->loaded();
-}
-
-void
-EPubDocument::openDocument(const QString& path)
-{
-  Q_D(EPubDocument);
-  d->openDocument(path);
-}
-
-void
-EPubDocument::saveDocument(const QString& path)
-{
-  Q_D(EPubDocument);
-  d->closeDocument(path);
-}
-
-EPubContents*
-EPubDocument::cloneData()
-{
-  Q_D(EPubDocument);
-  return d->cloneData();
-}
-
-void
-EPubDocument::setClonedData(EPubContents* cloneData)
-{
-  Q_D(EPubDocument);
-  d->setClonedData(cloneData);
-}
-
-QString
-EPubDocument::filename()
-{
-  Q_D(EPubDocument);
-  return d->filename();
-}
-
-void
-EPubDocument::setFilename(const QString& filename)
-{
-  Q_D(EPubDocument);
-  d->setFilename(filename);
-}
-
-QString
-EPubDocument::tocAsString()
-{
-  Q_D(EPubDocument);
-  return d->toc();
-}
-
-QString
-EPubDocument::title()
-{
-  Q_D(EPubDocument);
-  return d->title();
-}
-
-void
-EPubDocument::setTitle(const QString& title)
-{
-  Q_D(EPubDocument);
-  d->setTitle(title);
-}
-
-QString
-EPubDocument::subject()
-{
-  Q_D(EPubDocument);
-  return d->subject();
-}
-
-void
-EPubDocument::setSubject(const QString& subject)
-{
-  Q_D(EPubDocument);
-  d->setSubject(subject);
-}
-
-QString
-EPubDocument::language()
-{
-  Q_D(EPubDocument);
-  // TODO
-  return QString();
-}
-
-void
-EPubDocument::setLanguage(const QString& language)
-{
-  Q_D(EPubDocument);
-  // TODO
-}
-
-QDateTime
-EPubDocument::date()
-{
-  Q_D(EPubDocument);
-  // TODO
-  return QDateTime();
-}
-
-void
-EPubDocument::setDate(const QDateTime& date)
-{
-  Q_D(EPubDocument);
-  // TODO
-}
-
-QStringList
-EPubDocument::creators()
-{
-  Q_D(EPubDocument);
-  return d->creators();
-}
-
-QString
-EPubDocument::creatorNames(const QStringList& authors)
-{
-  Q_D(EPubDocument);
-  if (authors.isEmpty())
-    return d->creatorNames(d->creators());
-  else {
-    return d->creatorNames(authors);
+  // epub file are basically a zipped set of files, primarily
+  // html files.
+  // open the zip file
+  m_filename.clear();
+  auto archive = new QuaZip(filename);
+  if (!archive->open(QuaZip::mdUnzip)) {
+    qDebug() << tr("Failed to open %1").arg(filename);
+    return false;
   }
+
+  // read the internal file list
+  auto files = archive->getFileNameList();
+  if (files.isEmpty()) {
+    qDebug() << tr("Empty EPUB file").arg(filename);
+    return false;
+  }
+
+  // Get and check that the mimetype is correct.
+  // According to the standard this must be unencrypted.
+  if (!parseMimetype(files, archive)) {
+    return false;
+  }
+
+  if (!parseContainer(files, archive)) {
+    return false;
+  }
+
+  emit updateMetadata();
+
+  m_filename = filename;
+  return true;
 }
 
 QString
-EPubDocument::publisher()
+EPubDocument::mimetype()
 {
-  Q_D(EPubDocument);
-  return d->publisher();
+  return m_mimetype;
 }
 
-void
-EPubDocument::setPublisher(const QString& publisher)
+bool
+EPubDocument::isMimetypeValid()
 {
-  Q_D(EPubDocument);
-  d->setPublisher(publisher);
-}
-
-Metadata
-EPubDocument::metadata()
-{
-  Q_D(EPubDocument);
-  return d->metadata();
-}
-
-// QMap<QString, QString>
-ManifestItemMap
-EPubDocument::pages()
-{
-  Q_D(EPubDocument);
-  return d->pages();
-}
-
-QStringList
-EPubDocument::spine()
-{
-  Q_D(EPubDocument);
-  return d->spine();
-}
-
-QStringList
-EPubDocument::cssKeys()
-{
-  Q_D(EPubDocument);
-  return d->cssKeys();
-}
-
-CSSMap
-EPubDocument::css()
-{
-  Q_D(EPubDocument);
-  return d->cssMap();
+  return (m_mimetype == MIMETYPE);
 }
 
 QString
-EPubDocument::css(QString key)
+EPubDocument::filename() const
 {
-  Q_D(EPubDocument);
-  return d->css(key);
+  return m_filename;
 }
 
-QString
-EPubDocument::javascript(QString key)
+bool
+EPubDocument::parseMimetype(QStringList files, QuaZip* archive)
 {
-  Q_D(EPubDocument);
-  return d->javascript(key);
+  if (files.contains(MIMETYPE_FILE)) {
+    archive->setCurrentFile(MIMETYPE_FILE);
+    QuaZipFile mimetypeFile(archive);
+
+    if (!mimetypeFile.open(QIODevice::ReadOnly)) {
+      int error = archive->getZipError();
+      qDebug() << tr("Unable to open mimetype file : error %1").arg(error);
+      return false;
+    }
+
+    auto mimetype = mimetypeFile.readAll();
+    if (mimetype != MIMETYPE) {
+      qDebug() << tr("Unexpected mimetype %1").arg(QString(mimetype));
+      m_mimetype = QString();
+    } else {
+      m_mimetype = QString(mimetype);
+    }
+  } else {
+    qDebug() << tr("Unable to find mimetype in file");
+    return false;
+  }
+  return true;
 }
 
-ManifestItem
-EPubDocument::itemByHref(QString href)
+bool
+EPubDocument::parseContainer(QStringList files, QuaZip* archive)
 {
-  Q_D(EPubDocument);
-  return d->itemByHref(href);
-}
+  if (files.contains(CONTAINER_FILE)) {
+    archive->setCurrentFile(CONTAINER_FILE);
+    QuaZipFile containerFile(archive);
+    containerFile.setZip(archive);
 
-IEBookInterface*
-EPubDocument::plugin()
-{
-  Q_D(EPubDocument);
-  return d->plugin();
-}
+    if (!containerFile.open(QIODevice::ReadOnly)) {
+      int error = archive->getZipError();
+      qDebug() << tr("Unable to open container file error %1").arg(error);
+      return false;
+    }
 
-void
-EPubDocument::setPlugin(IEBookInterface* plugin)
-{
-  Q_D(EPubDocument);
-  d->setPlugin(plugin);
-}
+    QString container(containerFile.readAll());
+    QDomDocument containerDocument;
+    containerDocument.setContent(container);
+    QDomElement rootElem = containerDocument.documentElement();
+    QDomNamedNodeMap attMap = rootElem.attributes();
+    auto containerVersion = rootElem.attribute("version");
+    auto containerXmlns = rootElem.attribute("xmlns");
+    m_container->setData(containerVersion, containerXmlns);
 
-QDate
-EPubDocument::published()
-{
-  Q_D(EPubDocument);
-  return d->published();
-}
+    QDomNodeList rootFiles = rootElem.elementsByTagName("rootfiles");
+    if (rootFiles.size() > 0) {
+      QDomElement rootfilesElem = rootFiles.at(0).toElement();
+      QDomNodeList rootNodes = rootElem.elementsByTagName("rootfile");
+      for (int i = 0; i < rootNodes.count(); i++) {
+        QDomElement rootElement = rootNodes.at(i).toElement();
+        auto containerFullpath = rootElement.attribute("full-path");
+        auto containerMediatype = rootElement.attribute("media-type");
+        if (containerFullpath.isEmpty()) {
+          qWarning() << tr("Invalid root file entry");
+          continue;
+        }
+        auto package =
+          m_container->addPackage(containerFullpath, containerMediatype);
+        package->parse(archive);
+      }
+    }
 
-void
-EPubDocument::setPublished(const QDate& published)
-{
-  Q_D(EPubDocument);
-  return d->setPublished(published);
+  } else {
+    qDebug() << tr("Unable to find container information");
+    return false;
+  }
+
+  //  // Limitations:
+  //  //  - We only read one rootfile
+  //  //  - We don't read the following from META-INF/
+  //  //     - manifest.xml (unknown contents, just reserved)
+  //  //     - metadata.xml (unused according to spec, just reserved)
+  //  //     - rights.xml (reserved for DRM, not standardized)
+  //  //     - signatures.xml (signatures for files, standardized)
+  //  // Actually these are rarely included in an epub file anyway.
+
+  //  qDebug() << tr("Unable to find and use any content files");
+  return false;
 }

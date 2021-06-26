@@ -125,9 +125,9 @@ TitleModel::data(const QModelIndex& index, int role) const
           }
           break;
         case 1:
-          return m_titles[row]->id;
+          return m_titles[row]->id();
         case 2:
-          return m_titles[row]->title;
+          return m_titles[row]->title();
       }
     }
   }
@@ -165,12 +165,12 @@ TitleModel::setData(const QModelIndex& index, const QVariant& value, int role)
     auto title = m_titles[index.row()];
     switch (index.column()) {
       case 1:
-        title->id = value.toString();
+        title->setId(value.toString());
         m_titles.replace(index.row(), title);
         m_modified.replace(index.row(), true);
         return true;
       case 2:
-        title->title = value.toString();
+        title->setTitle(value.toString());
         m_titles.replace(index.row(), title);
         m_modified.replace(index.row(), true);
         return true;
