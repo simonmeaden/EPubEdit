@@ -13,8 +13,7 @@ MainWindow::MainWindow(QWidget* parent)
 
   //  setGeometry(offset.x(), offset.y(), m_width, m_height);
   //  setStatusLineAndCol(0, 0);
-  auto document = Document(new EPubDocument());
-  document->loadDocument(
+  m_editor->loadDocument(
     "/home/simonmeaden/workspace/epubedit/book/mobydick/moby-dick.epub");
 }
 
@@ -23,20 +22,17 @@ MainWindow::~MainWindow() {}
 void
 MainWindow::newEpub()
 {
-  m_document = Document(new EPubDocument());
+  m_editor->newDocument();
 }
 
 void
 MainWindow::openFile()
 {
 
-  auto document = Document(new EPubDocument());
   auto filename = QFileDialog::getOpenFileName(
     this, tr("Select file to open"), ".", tr("EPub Files (*.epub)"));
   if (!filename.isEmpty()) {
-    if (document->loadDocument(filename)) {
-      m_document = document;
-    }
+    m_editor->loadDocument(filename);
   }
 }
 

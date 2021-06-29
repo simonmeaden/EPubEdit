@@ -1,45 +1,34 @@
-add_executable(epubedit "")
+cmake_minimum_required(VERSION 3.5)
+cmake_policy(SET CMP0076 NEW)
+cmake_policy(SET CMP0079 NEW)
 
-#if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-#  message("using Qt >= 6")
-#  add_executable(epubedit "")
-#  qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
-#else()
-#    if(ANDROID)
-#      message("using Qt < 6 Android")
-#      add_library(libepubedit SHARED "")
-#    else()
-#      message("using Qt < 6")
-#      add_executable(libepubedit "")
-#    endif()
+project(epubedit LANGUAGES CXX)
 
-#    qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
-#endif()
+add_executable(${PROJECT_NAME} "")
 
-target_compile_options(epubedit PRIVATE -Werror)
+target_compile_options(${PROJECT_NAME} PRIVATE -Werror)
 
-target_sources(epubedit
+target_sources(${PROJECT_NAME}
   PRIVATE
     src/main.cpp
     src/mainwindow.h
     src/mainwindow.cpp
 )
 
-target_include_directories(epubedit
+target_include_directories(${PROJECT_NAME}
     PUBLIC
-        $<INSTALL_INTERFACE:include>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+      $<INSTALL_INTERFACE:include>
+      $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
-    ${CMAKE_CURRENT_SOURCE_DIR}/../src
-
+      ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-target_link_libraries(epubedit
+target_link_libraries(${PROJECT_NAME}
   PRIVATE
     Qt${QT_VERSION_MAJOR}::Gui
     Qt${QT_VERSION_MAJOR}::Widgets
     Qt${QT_VERSION_MAJOR}::Xml
     QuaZip::QuaZip
-    libepubedit
+    QYamlCpp::qyamlcpp
+    EPubEdit::libepubedit
 )
