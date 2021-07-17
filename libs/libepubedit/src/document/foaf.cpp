@@ -133,118 +133,118 @@ Foaf::toString(Foaf::Term term)
   }
 }
 
-Foaf
+QSharedPointer<Foaf>
 Foaf::fromString(QString term_name)
 {
-  Foaf terms;
+  auto terms = QSharedPointer<Foaf>(new Foaf());
   QString name;
   if (term_name.toLower().startsWith("foaf:")) {
-    QStringList splits = term_name.toLower().split(":");
+    auto splits = term_name.toLower().split(":");
     if (splits.size() == 2) {
       name = splits.at(1).toLower();
     } else {
-      terms.setTerm(Term::NO_TERM);
+      terms->setTerm(Term::NO_TERM);
     }
   }
 
   if (name == "agent") {
-    terms.setTerm(AGENT);
+    terms->setTerm(AGENT);
   } else if (name == "person") {
-    terms.setTerm(PERSON);
+    terms->setTerm(PERSON);
   } else if (name == "name") {
-    terms.setTerm(NAME);
+    terms->setTerm(NAME);
   } else if (name == "title") {
-    terms.setTerm(TITLE);
+    terms->setTerm(TITLE);
   } else if (name == "img") {
-    terms.setTerm(IMG);
+    terms->setTerm(IMG);
   } else if (name == "depiction") {
-    terms.setTerm(DEPICTION);
+    terms->setTerm(DEPICTION);
   } else if (name == "depicts") {
-    terms.setTerm(DEPICTS);
+    terms->setTerm(DEPICTS);
   } else if (name == "familyname") {
-    terms.setTerm(FAMILY_NAME);
+    terms->setTerm(FAMILY_NAME);
   } else if (name == "givenname") {
-    terms.setTerm(GIVEN_NAME);
+    terms->setTerm(GIVEN_NAME);
   } else if (name == "knows") {
-    terms.setTerm(KNOWS);
+    terms->setTerm(KNOWS);
   } else if (name == "based_near") {
-    terms.setTerm(BASED_NEAR);
+    terms->setTerm(BASED_NEAR);
   } else if (name == "age") {
-    terms.setTerm(AGE);
+    terms->setTerm(AGE);
   } else if (name == "made") {
-    terms.setTerm(MADE);
+    terms->setTerm(MADE);
   } else if (name == "maker") {
-    terms.setTerm(MAKER);
+    terms->setTerm(MAKER);
   } else if (name == "primarytopic") {
-    terms.setTerm(PRIMARY_TOPIC);
+    terms->setTerm(PRIMARY_TOPIC);
   } else if (name == "primarytopicof") {
-    terms.setTerm(PRIMARY_TOPIC_OF);
+    terms->setTerm(PRIMARY_TOPIC_OF);
   } else if (name == "project") {
-    terms.setTerm(PROJECT);
+    terms->setTerm(PROJECT);
   } else if (name == "organization") {
-    terms.setTerm(ORGANISATION);
+    terms->setTerm(ORGANISATION);
   } else if (name == "group") {
-    terms.setTerm(GROUP);
+    terms->setTerm(GROUP);
   } else if (name == "member") {
-    terms.setTerm(MEMBER);
+    terms->setTerm(MEMBER);
   } else if (name == "document") {
-    terms.setTerm(DOCUMENT);
+    terms->setTerm(DOCUMENT);
   } else if (name == "image") {
-    terms.setTerm(IMAGE);
+    terms->setTerm(IMAGE);
   } else if (name == "nick") {
-    terms.setTerm(NICK);
+    terms->setTerm(NICK);
   } else if (name == "mbox") {
-    terms.setTerm(MBOX);
+    terms->setTerm(MBOX);
   } else if (name == "homepage") {
-    terms.setTerm(HOMEPAGE);
+    terms->setTerm(HOMEPAGE);
   } else if (name == "weblog") {
-    terms.setTerm(WEBLOG);
+    terms->setTerm(WEBLOG);
   } else if (name == "openid") {
-    terms.setTerm(OPENID);
+    terms->setTerm(OPENID);
   } else if (name == "jabberid") {
-    terms.setTerm(JABBER_ID);
+    terms->setTerm(JABBER_ID);
   } else if (name == "mbox_sha1sum") {
-    terms.setTerm(MBOX_SHA1SUM);
+    terms->setTerm(MBOX_SHA1SUM);
   } else if (name == "interest") {
-    terms.setTerm(INTEREST);
+    terms->setTerm(INTEREST);
   } else if (name == "topic_interest") {
-    terms.setTerm(TOPIC_INTEREST);
+    terms->setTerm(TOPIC_INTEREST);
   } else if (name == "topic") {
-    terms.setTerm(TOPIC);
+    terms->setTerm(TOPIC);
   } else if (name == "page") {
-    terms.setTerm(PAGE);
+    terms->setTerm(PAGE);
   } else if (name == "workplacehomepage") {
-    terms.setTerm(WORKPLACE_HOMEPAGE);
+    terms->setTerm(WORKPLACE_HOMEPAGE);
   } else if (name == "workinfohomepage") {
-    terms.setTerm(WORK_INFO_HOMEPAGE);
+    terms->setTerm(WORK_INFO_HOMEPAGE);
   } else if (name == "schoolhomepage") {
-    terms.setTerm(SCHOOL_HOMEPAGE);
+    terms->setTerm(SCHOOL_HOMEPAGE);
   } else if (name == "publications") {
-    terms.setTerm(PUBLICATIONS);
+    terms->setTerm(PUBLICATIONS);
   } else if (name == "currentproject") {
-    terms.setTerm(CURRENT_PROJECT);
+    terms->setTerm(CURRENT_PROJECT);
   } else if (name == "pastproject") {
-    terms.setTerm(PAST_PROJECT);
+    terms->setTerm(PAST_PROJECT);
   } else if (name == "account") {
-    terms.setTerm(ACCOUNT);
+    terms->setTerm(ACCOUNT);
   } else if (name == "onlineaccount") {
-    terms.setTerm(ONLINE_ACCOUNT);
+    terms->setTerm(ONLINE_ACCOUNT);
   } else if (name == "accountname") {
-    terms.setTerm(ACCOUNT_NAME);
+    terms->setTerm(ACCOUNT_NAME);
   } else if (name == "accountservicehomepage") {
-    terms.setTerm(ACCOUNT_SERVICE_HOMEPAGE);
+    terms->setTerm(ACCOUNT_SERVICE_HOMEPAGE);
   } else if (name == "personalprofiledocument") {
-    terms.setTerm(PERSONAL_PROFILE_DOCUMENT);
+    terms->setTerm(PERSONAL_PROFILE_DOCUMENT);
   } else if (name == "tipjar") {
-    terms.setTerm(TIPJAR);
+    terms->setTerm(TIPJAR);
   } else if (name == "sha1") {
-    terms.setTerm(SHA1);
+    terms->setTerm(SHA1);
   } else if (name == "thumbnail") {
-    terms.setTerm(THUMBNAIL);
+    terms->setTerm(THUMBNAIL);
   } else if (name == "logo") {
-    terms.setTerm(LOGO);
+    terms->setTerm(LOGO);
   }
-  terms.setCode(name);
+  terms->setCode(name);
   return terms;
 }
 
@@ -252,8 +252,8 @@ bool
 Foaf::isFoaf(QString tag_name)
 {
   if (tag_name.toLower().startsWith("foaf:")) {
-    Foaf foaf = fromString(tag_name);
-    if (foaf.term() != NO_TERM)
+    auto foaf = fromString(tag_name);
+    if (foaf->term() != NO_TERM)
       return true;
   }
 
@@ -278,14 +278,14 @@ Foaf::setLang(const QString& lang)
   m_lang = lang;
 }
 
-QString
+UniqueString
 Foaf::id() const
 {
   return m_id;
 }
 
 void
-Foaf::setId(const QString& id)
+Foaf::setId(const UniqueString& id)
 {
   m_id = id;
 }

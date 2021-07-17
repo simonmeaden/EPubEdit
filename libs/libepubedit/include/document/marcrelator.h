@@ -1,12 +1,14 @@
 #ifndef MARCRELATOR_H
 #define MARCRELATOR_H
 
+#include <QSharedPointer>
 #include <QString>
 
 class MarcRelator
 {
 public:
-  enum Relator {
+  enum Relator
+  {
     NO_TYPE = 0,
     ABRIDGER,
     ART_COPYIST,
@@ -282,6 +284,7 @@ public:
   };
 
   MarcRelator();
+  ~MarcRelator() {}
 
   Relator type();
   void setType(Relator type);
@@ -291,7 +294,7 @@ public:
   bool isRelator();
 
   static QString toString(Relator relator);
-  static MarcRelator fromString(QString relator_name);
+  static QSharedPointer<MarcRelator> fromString(QString relator_name);
 
   static bool isRelator(QString name);
 

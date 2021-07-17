@@ -1,4 +1,5 @@
 #include "document/series.h"
+#include "options.h"
 
 quint64 EBookSeriesData::m_highest_uid = 0;
 
@@ -44,8 +45,9 @@ EBookSeriesData::setSeriesWords(const QStringList& series_words)
   m_series_words = series_words;
 }
 
-EBookSeriesDB::EBookSeriesDB(Options options)
-  : m_options(options)
+EBookSeriesDB::EBookSeriesDB(EBookOptions* options)
+  : QObject(options)
+  , m_options(options)
   , m_series_changed(false)
 {
   loadSeries();

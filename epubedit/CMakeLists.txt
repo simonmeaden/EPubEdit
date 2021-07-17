@@ -13,6 +13,16 @@ target_sources(${PROJECT_NAME}
     src/main.cpp
     src/mainwindow.h
     src/mainwindow.cpp
+
+    src/forms/metadataform.h
+    src/forms/metadataform.cpp
+    src/forms/epubedit.h
+    src/forms/epubedit.cpp
+    src/forms/epubeditor.h
+    src/forms/epubeditor.cpp
+    src/forms/configurationeditor.cpp
+    src/forms/config.cpp
+
 )
 
 target_include_directories(${PROJECT_NAME}
@@ -25,10 +35,12 @@ target_include_directories(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
+    EPubEdit::libepubedit
+    QuaZip::QuaZip
+    QYamlCpp::qyamlcpp
+    yaml-cpp
+#    tidy
     Qt${QT_VERSION_MAJOR}::Gui
     Qt${QT_VERSION_MAJOR}::Widgets
     Qt${QT_VERSION_MAJOR}::Xml
-    QuaZip::QuaZip
-    QYamlCpp::qyamlcpp
-    EPubEdit::libepubedit
 )

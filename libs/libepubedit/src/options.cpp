@@ -1,36 +1,43 @@
 #include "options.h"
+#include "document/authors.h"
+#include "document/library.h"
+#include "document/series.h"
 
 #include "qyamlcpp.h"
 
-QString BiblosOptions::POSITION = "window";
-QString BiblosOptions::DIALOG = "options dialog";
-QString BiblosOptions::PREF_CURRENT_INDEX = "current book";
-QString BiblosOptions::PREF_CURRENT_ITEMS = "current book item";
-QString BiblosOptions::PREF_CURRENT_LINE_NOS = "current book line nos";
-QString BiblosOptions::PREF_COUNT = "count";
-QString BiblosOptions::PREF_BOOKLIST = "book list";
-QString BiblosOptions::PREF_LIBRARY = "library list";
-QString BiblosOptions::CODE_OPTIONS = "code editor";
-QString BiblosOptions::CODE_FONT = "font";
-QString BiblosOptions::CODE_NORMAL = "normal";
-QString BiblosOptions::CODE_ATTRIBUTE = "attribute";
-QString BiblosOptions::CODE_TAG = "tag";
-QString BiblosOptions::CODE_ERROR = "error";
-QString BiblosOptions::CODE_STRING = "string";
-QString BiblosOptions::CODE_STYLE = "style";
-QString BiblosOptions::CODE_SCRIPT = "script";
-QString BiblosOptions::CODE_COLOR = "color";
-QString BiblosOptions::CODE_BACK = "background";
-QString BiblosOptions::CODE_WEIGHT = "weight";
-QString BiblosOptions::CODE_ITALIC = "italic";
-QString BiblosOptions::COPY_BOOKS_TO_STORE = "copy books to store";
-QString BiblosOptions::DELETE_OLD_BOOK = "delete old book";
-QString BiblosOptions::SHOW_TOC = "show toc";
-QString BiblosOptions::TOC_POSITION = "toc position";
-QString BiblosOptions::VIEW_STATE = "view state";
+QString EBookOptions::POSITION = "window";
+QString EBookOptions::DIALOG = "options dialog";
+QString EBookOptions::PREF_CURRENT_INDEX = "current book";
+QString EBookOptions::PREF_CURRENT_ITEMS = "current book item";
+QString EBookOptions::PREF_CURRENT_LINE_NOS = "current book line nos";
+QString EBookOptions::PREF_COUNT = "count";
+QString EBookOptions::PREF_BOOKLIST = "book list";
+QString EBookOptions::PREF_LIBRARY = "library list";
+QString EBookOptions::CODE_OPTIONS = "code editor";
+QString EBookOptions::CODE_FONT = "font";
+QString EBookOptions::CODE_NORMAL = "normal";
+QString EBookOptions::CODE_ATTRIBUTE = "attribute";
+QString EBookOptions::CODE_TAG = "tag";
+QString EBookOptions::CODE_ERROR = "error";
+QString EBookOptions::CODE_STRING = "string";
+QString EBookOptions::CODE_STYLE = "style";
+QString EBookOptions::CODE_SCRIPT = "script";
+QString EBookOptions::CODE_COLOR = "color";
+QString EBookOptions::CODE_BACK = "background";
+QString EBookOptions::CODE_WEIGHT = "weight";
+QString EBookOptions::CODE_ITALIC = "italic";
+QString EBookOptions::COPY_BOOKS_TO_STORE = "copy books to store";
+QString EBookOptions::DELETE_OLD_BOOK = "delete old book";
+QString EBookOptions::SHOW_TOC = "show toc";
+QString EBookOptions::TOC_POSITION = "toc position";
+QString EBookOptions::VIEW_STATE = "view state";
 
-BiblosOptions::BiblosOptions()
-  : m_code_font(QFont("Courier", 10))
+EBookOptions::EBookOptions(QObject* parent)
+  : QObject(parent)
+  , series_db(new EBookSeriesDB(this))
+  , library_db(new EBookLibraryDB(this, series_db))
+  , authors_db(new EBookAuthorsDB(this))
+  , m_code_font(QFont("Courier", 10))
   , m_normal_color(Qt::black)
   , m_normal_back(Qt::white)
   , m_normal_italic(false)
@@ -99,10 +106,10 @@ BiblosOptions::BiblosOptions()
   file.close();
 }
 
-BiblosOptions::~BiblosOptions() {}
+EBookOptions::~EBookOptions() {}
 
 void
-BiblosOptions::save(const QString filename)
+EBookOptions::save(const QString filename)
 {
   QFile* file;
   if (filename.isEmpty())
@@ -125,7 +132,7 @@ BiblosOptions::save(const QString filename)
         emitter << YAML::Value << m_toc_visible;
         emitter << YAML::Key << TOC_POSITION;
         emitter << YAML::Value
-                << (m_toc_position == BiblosOptions::LEFT ? "LEFT" : "RIGHT");
+                << (m_toc_position == EBookOptions::LEFT ? "LEFT" : "RIGHT");
         emitter << YAML::Key << PREF_BOOKLIST;
         {
           // Start of PREF_BOOKLIST
@@ -250,7 +257,7 @@ BiblosOptions::save(const QString filename)
 }
 
 void
-BiblosOptions::load(const QString filename)
+EBookOptions::load(const QString filename)
 {
   QFile file(filename);
   if (file.exists()) {
@@ -280,9 +287,9 @@ BiblosOptions::load(const QString filename)
     if (preferences[TOC_POSITION]) {
       QString pos = preferences[TOC_POSITION].as<QString>();
       m_toc_position =
-        (pos == "LEFT" ? BiblosOptions::LEFT : BiblosOptions::RIGHT);
+        (pos == "LEFT" ? EBookOptions::LEFT : EBookOptions::RIGHT);
     } else {
-      m_toc_position = BiblosOptions::LEFT;
+      m_toc_position = EBookOptions::LEFT;
     }
     // Last books loaded in library.
     YAML::Node books = preferences[PREF_BOOKLIST];
@@ -357,34 +364,34 @@ BiblosOptions::load(const QString filename)
   }
 }
 
-BiblosOptions::TocPosition
-BiblosOptions::tocPosition() const
+EBookOptions::TocPosition
+EBookOptions::tocPosition() const
 {
   return m_toc_position;
 }
 
 void
-BiblosOptions::setTocPosition(const TocPosition position)
+EBookOptions::setTocPosition(const TocPosition position)
 {
   m_toc_position = position;
   m_pref_changed = true;
 }
 
 bool
-BiblosOptions::tocVisible() const
+EBookOptions::tocVisible() const
 {
   return m_toc_visible;
 }
 
 void
-BiblosOptions::setTocVisible(const bool visible)
+EBookOptions::setTocVisible(const bool visible)
 {
   m_toc_visible = visible;
   m_pref_changed = true;
 }
 
 QString
-BiblosOptions::codeOptionToString(const CodeOptions options)
+EBookOptions::codeOptionToString(const CodeOptions options)
 {
   switch (options) {
     case NORMAL:
@@ -406,7 +413,7 @@ BiblosOptions::codeOptionToString(const CodeOptions options)
 }
 
 QString
-BiblosOptions::weightToString(const QFont::Weight weight)
+EBookOptions::weightToString(const QFont::Weight weight)
 {
   switch (weight) {
     case QFont::Thin:
@@ -432,537 +439,537 @@ BiblosOptions::weightToString(const QFont::Weight weight)
 }
 
 QColor
-BiblosOptions::normalColor() const
+EBookOptions::normalColor() const
 {
   return m_normal_color;
 }
 
 void
-BiblosOptions::setNormalColor(const QColor& normal_color)
+EBookOptions::setNormalColor(const QColor& normal_color)
 {
   m_normal_color = normal_color;
   m_pref_changed = true;
 }
 
 QColor
-BiblosOptions::normalBack() const
+EBookOptions::normalBack() const
 {
   return m_normal_back;
 }
 
 void
-BiblosOptions::setNormalBack(const QColor& normal_back)
+EBookOptions::setNormalBack(const QColor& normal_back)
 {
   m_normal_back = normal_back;
   m_pref_changed = true;
 }
 
 bool
-BiblosOptions::normalItalic() const
+EBookOptions::normalItalic() const
 {
   return m_normal_italic;
 }
 
 void
-BiblosOptions::setNormalItalic(bool normal_italic)
+EBookOptions::setNormalItalic(bool normal_italic)
 {
   m_normal_italic = normal_italic;
   m_pref_changed = true;
 }
 
 QFont
-BiblosOptions::codeFont() const
+EBookOptions::codeFont() const
 {
   return m_code_font;
 }
 
 void
-BiblosOptions::setCodeFont(const QFont& code_font)
+EBookOptions::setCodeFont(const QFont& code_font)
 {
   m_code_font = code_font;
   m_pref_changed = true;
 }
 
 QFont::Weight
-BiblosOptions::normalWeight() const
+EBookOptions::normalWeight() const
 {
   return m_normal_weight;
 }
 
 void
-BiblosOptions::setNormalWeight(const QFont::Weight& normal_weight)
+EBookOptions::setNormalWeight(const QFont::Weight& normal_weight)
 {
   m_normal_weight = normal_weight;
   m_pref_changed = true;
 }
 
 QColor
-BiblosOptions::attributeColor() const
+EBookOptions::attributeColor() const
 {
   return m_attribute_color;
 }
 
 void
-BiblosOptions::setAttributeColor(const QColor& attribute_color)
+EBookOptions::setAttributeColor(const QColor& attribute_color)
 {
   m_attribute_color = attribute_color;
   m_pref_changed = true;
 }
 
 QColor
-BiblosOptions::attributeBack() const
+EBookOptions::attributeBack() const
 {
   return m_attribute_back;
 }
 
 void
-BiblosOptions::setAttributeBack(const QColor& attribute_back)
+EBookOptions::setAttributeBack(const QColor& attribute_back)
 {
   m_attribute_back = attribute_back;
   m_pref_changed = true;
 }
 
 bool
-BiblosOptions::attributeItalic() const
+EBookOptions::attributeItalic() const
 {
   return m_attribute_italic;
 }
 
 void
-BiblosOptions::setAttribute_italic(bool attribute_italic)
+EBookOptions::setAttribute_italic(bool attribute_italic)
 {
   m_attribute_italic = attribute_italic;
   m_pref_changed = true;
 }
 
 QFont::Weight
-BiblosOptions::attributeWeight() const
+EBookOptions::attributeWeight() const
 {
   return m_attribute_weight;
 }
 
 void
-BiblosOptions::setAttributeWeight(const QFont::Weight& attribute_weight)
+EBookOptions::setAttributeWeight(const QFont::Weight& attribute_weight)
 {
   m_attribute_weight = attribute_weight;
   m_pref_changed = true;
 }
 
 QColor
-BiblosOptions::tagColor() const
+EBookOptions::tagColor() const
 {
   return m_tag_color;
 }
 
 void
-BiblosOptions::setTagColor(const QColor& tag_color)
+EBookOptions::setTagColor(const QColor& tag_color)
 {
   m_tag_color = tag_color;
   m_pref_changed = true;
 }
 
 QColor
-BiblosOptions::tagBack() const
+EBookOptions::tagBack() const
 {
   return m_tag_back;
 }
 
 void
-BiblosOptions::setTagBack(const QColor& tag_back)
+EBookOptions::setTagBack(const QColor& tag_back)
 {
   m_tag_back = tag_back;
   m_pref_changed = true;
 }
 
 bool
-BiblosOptions::tagItalic() const
+EBookOptions::tagItalic() const
 {
   return m_tag_italic;
 }
 
 void
-BiblosOptions::setTagItalic(bool tag_italic)
+EBookOptions::setTagItalic(bool tag_italic)
 {
   m_tag_italic = tag_italic;
   m_pref_changed = true;
 }
 
 QFont::Weight
-BiblosOptions::tagWeight() const
+EBookOptions::tagWeight() const
 {
   return m_tag_weight;
 }
 
 void
-BiblosOptions::setTagWeight(const QFont::Weight& tag_weight)
+EBookOptions::setTagWeight(const QFont::Weight& tag_weight)
 {
   m_tag_weight = tag_weight;
   m_pref_changed = true;
 }
 
 QColor
-BiblosOptions::stringColor() const
+EBookOptions::stringColor() const
 {
   return m_string_color;
 }
 
 void
-BiblosOptions::setStringColor(const QColor& string_color)
+EBookOptions::setStringColor(const QColor& string_color)
 {
   m_string_color = string_color;
   m_pref_changed = true;
 }
 
 QColor
-BiblosOptions::stringBack() const
+EBookOptions::stringBack() const
 {
   return m_string_back;
 }
 
 void
-BiblosOptions::setStringBack(const QColor& string_back)
+EBookOptions::setStringBack(const QColor& string_back)
 {
   m_string_back = string_back;
   m_pref_changed = true;
 }
 
 bool
-BiblosOptions::stringItalic() const
+EBookOptions::stringItalic() const
 {
   return m_string_italic;
 }
 
 void
-BiblosOptions::setStringItalic(bool string_italic)
+EBookOptions::setStringItalic(bool string_italic)
 {
   m_string_italic = string_italic;
   m_pref_changed = true;
 }
 
 QFont::Weight
-BiblosOptions::stringWeight() const
+EBookOptions::stringWeight() const
 {
   return m_string_weight;
 }
 
 void
-BiblosOptions::setStringWeight(const QFont::Weight& string_weight)
+EBookOptions::setStringWeight(const QFont::Weight& string_weight)
 {
   m_string_weight = string_weight;
   m_pref_changed = true;
 }
 
 QColor
-BiblosOptions::errorColor() const
+EBookOptions::errorColor() const
 {
   return m_error_color;
 }
 
 void
-BiblosOptions::setErrorColor(const QColor& error_color)
+EBookOptions::setErrorColor(const QColor& error_color)
 {
   m_error_color = error_color;
   m_pref_changed = true;
 }
 
 QColor
-BiblosOptions::errorBack() const
+EBookOptions::errorBack() const
 {
   return m_error_back;
 }
 
 void
-BiblosOptions::setErrorBack(const QColor& error_back)
+EBookOptions::setErrorBack(const QColor& error_back)
 {
   m_error_back = error_back;
   m_pref_changed = true;
 }
 
 bool
-BiblosOptions::errorItalic() const
+EBookOptions::errorItalic() const
 {
   return m_error_italic;
 }
 
 void
-BiblosOptions::setErrorItalic(bool error_italic)
+EBookOptions::setErrorItalic(bool error_italic)
 {
   m_error_italic = error_italic;
   m_pref_changed = true;
 }
 
 QFont::Weight
-BiblosOptions::errorWeight() const
+EBookOptions::errorWeight() const
 {
   return m_error_weight;
 }
 
 void
-BiblosOptions::setErrorWeight(const QFont::Weight& error_weight)
+EBookOptions::setErrorWeight(const QFont::Weight& error_weight)
 {
   m_error_weight = error_weight;
   m_pref_changed = true;
 }
 
 QColor
-BiblosOptions::scriptColor() const
+EBookOptions::scriptColor() const
 {
   return m_script_color;
 }
 
 void
-BiblosOptions::setScriptColor(const QColor& script_color)
+EBookOptions::setScriptColor(const QColor& script_color)
 {
   m_script_color = script_color;
   m_pref_changed = true;
 }
 
 QColor
-BiblosOptions::scriptBack() const
+EBookOptions::scriptBack() const
 {
   return m_script_back;
 }
 
 void
-BiblosOptions::setScriptBack(const QColor& script_back)
+EBookOptions::setScriptBack(const QColor& script_back)
 {
   m_script_back = script_back;
   m_pref_changed = true;
 }
 
 bool
-BiblosOptions::scriptItalic() const
+EBookOptions::scriptItalic() const
 {
   return m_script_italic;
 }
 
 void
-BiblosOptions::setScriptItalic(bool script_italic)
+EBookOptions::setScriptItalic(bool script_italic)
 {
   m_script_italic = script_italic;
   m_pref_changed = true;
 }
 
 QFont::Weight
-BiblosOptions::scriptWeight() const
+EBookOptions::scriptWeight() const
 {
   return m_script_weight;
 }
 
 void
-BiblosOptions::setScriptWeight(const QFont::Weight& script_weight)
+EBookOptions::setScriptWeight(const QFont::Weight& script_weight)
 {
   m_script_weight = script_weight;
   m_pref_changed = true;
 }
 
 QColor
-BiblosOptions::styleColor() const
+EBookOptions::styleColor() const
 {
   return m_style_color;
 }
 
 void
-BiblosOptions::setStyleColor(const QColor& style_color)
+EBookOptions::setStyleColor(const QColor& style_color)
 {
   m_style_color = style_color;
   m_pref_changed = true;
 }
 
 QColor
-BiblosOptions::styleBack() const
+EBookOptions::styleBack() const
 {
   return m_style_back;
 }
 
 void
-BiblosOptions::setStyleBack(const QColor& style_back)
+EBookOptions::setStyleBack(const QColor& style_back)
 {
   m_style_back = style_back;
   m_pref_changed = true;
 }
 
 bool
-BiblosOptions::styleItalic() const
+EBookOptions::styleItalic() const
 {
   return m_style_italic;
 }
 
 void
-BiblosOptions::setStyleItalic(bool style_italic)
+EBookOptions::setStyleItalic(bool style_italic)
 {
   m_style_italic = style_italic;
   m_pref_changed = true;
 }
 
 QFont::Weight
-BiblosOptions::styleWeight() const
+EBookOptions::styleWeight() const
 {
   return m_style_weight;
 }
 
 void
-BiblosOptions::setStyleWeight(const QFont::Weight& style_weight)
+EBookOptions::setStyleWeight(const QFont::Weight& style_weight)
 {
   m_style_weight = style_weight;
   m_pref_changed = true;
 }
 
 QString
-BiblosOptions::homeDir() const
+EBookOptions::homeDir() const
 {
   return m_home_directory;
 }
 
 void
-BiblosOptions::setHomeDir(const QString& home_directiory)
+EBookOptions::setHomeDir(const QString& home_directiory)
 {
   m_home_directory = home_directiory;
 }
 
 QString
-BiblosOptions::libraryDir() const
+EBookOptions::libraryDir() const
 {
   return m_library_directory;
 }
 
 void
-BiblosOptions::setLibraryDir(const QString& library_directory)
+EBookOptions::setLibraryDir(const QString& library_directory)
 {
   m_library_directory = library_directory;
 }
 
 QString
-BiblosOptions::configDir() const
+EBookOptions::configDir() const
 {
   return m_config_directory;
 }
 
 void
-BiblosOptions::setConfigDir(const QString& config_directory)
+EBookOptions::setConfigDir(const QString& config_directory)
 {
   m_config_directory = config_directory;
 }
 
 QString
-BiblosOptions::configFile() const
+EBookOptions::configFile() const
 {
   return m_config_file;
 }
 
 void
-BiblosOptions::setConfigFile(const QString& config_file)
+EBookOptions::setConfigFile(const QString& config_file)
 {
   m_config_file = config_file;
 }
 
 QString
-BiblosOptions::libraryFile() const
+EBookOptions::libraryFile() const
 {
   return m_lib_file;
 }
 
 void
-BiblosOptions::setLibraryFile(const QString& lib_file)
+EBookOptions::setLibraryFile(const QString& lib_file)
 {
   m_lib_file = lib_file;
 }
 
 QString
-BiblosOptions::authorsFile() const
+EBookOptions::authorsFile() const
 {
   return m_authors_file;
 }
 
 void
-BiblosOptions::setAuthorsFile(const QString& authors_file)
+EBookOptions::setAuthorsFile(const QString& authors_file)
 {
   m_authors_file = authors_file;
 }
 
 QString
-BiblosOptions::dicDir() const
+EBookOptions::dicDir() const
 {
   return m_dic_directory;
 }
 
 void
-BiblosOptions::setDicDir(const QString& dic_dir)
+EBookOptions::setDicDir(const QString& dic_dir)
 {
   m_dic_directory = dic_dir;
 }
 
 QString
-BiblosOptions::bdicDir() const
+EBookOptions::bdicDir() const
 {
   return m_bdic_directory;
 }
 
 void
-BiblosOptions::setBdicDir(const QString& dic_dir)
+EBookOptions::setBdicDir(const QString& dic_dir)
 {
   m_bdic_directory = dic_dir;
 }
 
 QString
-BiblosOptions::seriesFile() const
+EBookOptions::seriesFile() const
 {
   return m_series_file;
 }
 
 void
-BiblosOptions::setSeriesFile(const QString& seriesFile)
+EBookOptions::setSeriesFile(const QString& seriesFile)
 {
   m_series_file = seriesFile;
 }
 
 QRect
-BiblosOptions::rect() const
+EBookOptions::rect() const
 {
   return m_rect;
 }
 
 void
-BiblosOptions::setRect(const QRect& rect)
+EBookOptions::setRect(const QRect& rect)
 {
   m_rect = rect;
   m_pref_changed = true;
 }
 
 QSize
-BiblosOptions::optionsDlgSize() const
+EBookOptions::optionsDlgSize() const
 {
   return m_options_dlg_size;
 }
 
 void
-BiblosOptions::setOptionsDlgSize(const QSize& options_dlg)
+EBookOptions::setOptionsDlgSize(const QSize& options_dlg)
 {
   m_options_dlg_size = options_dlg;
   m_pref_changed = true;
 }
 
 int
-BiblosOptions::currentIndex() const
+EBookOptions::currentIndex() const
 {
   return m_currentindex;
 }
 
 void
-BiblosOptions::setCurrentIndex(const int index)
+EBookOptions::setCurrentIndex(const int index)
 {
   m_currentindex = index;
   m_pref_changed = true;
 }
 
 bool
-BiblosOptions::currentFilesContains(const QString filename)
+EBookOptions::currentFilesContains(const QString filename)
 {
   return m_current_files.contains(filename);
 }
 
 void
-BiblosOptions::appendCurrentFile(const QString filename)
+EBookOptions::appendCurrentFile(const QString filename)
 {
   if (!m_current_files.contains(filename)) {
     m_current_files.append(filename);
@@ -971,88 +978,88 @@ BiblosOptions::appendCurrentFile(const QString filename)
 }
 
 void
-BiblosOptions::replaceCurrentFile(const QString filename)
+EBookOptions::replaceCurrentFile(const QString filename)
 {
   m_current_files.replace(m_currentindex, filename);
   m_pref_changed = true;
 }
 
 QStringList
-BiblosOptions::currentfiles() const
+EBookOptions::currentfiles() const
 {
   return m_current_files;
 }
 
 int
-BiblosOptions::bookCount() const
+EBookOptions::bookCount() const
 {
   return m_current_files.size();
 }
 
-BiblosOptions::ViewState
-BiblosOptions::viewState() const
+EBookOptions::ViewState
+EBookOptions::viewState() const
 {
   return m_view_state;
 }
 
 void
-BiblosOptions::setViewState(const BiblosOptions::ViewState& view_state)
+EBookOptions::setViewState(const EBookOptions::ViewState& view_state)
 {
   m_view_state = view_state;
   m_pref_changed = true;
 }
 
 QColor
-BiblosOptions::color(const CodeOptions options) const
+EBookOptions::color(const CodeOptions options) const
 {
   switch (options) {
-    case BiblosOptions::NORMAL:
+    case EBookOptions::NORMAL:
       return m_normal_color;
-    case BiblosOptions::TAG:
+    case EBookOptions::TAG:
       return m_tag_color;
-    case BiblosOptions::ATTRIBUTE:
+    case EBookOptions::ATTRIBUTE:
       return m_attribute_color;
-    case BiblosOptions::ERROR:
+    case EBookOptions::ERROR:
       return m_error_color;
-    case BiblosOptions::STRING:
+    case EBookOptions::STRING:
       return m_string_color;
-    case BiblosOptions::SCRIPT:
+    case EBookOptions::SCRIPT:
       return m_script_color;
-    case BiblosOptions::STYLE:
+    case EBookOptions::STYLE:
       return m_style_color;
   }
   return QColor();
 }
 
 void
-BiblosOptions::setColor(const CodeOptions options, const QColor color)
+EBookOptions::setColor(const CodeOptions options, const QColor color)
 {
   switch (options) {
-    case BiblosOptions::NORMAL:
+    case EBookOptions::NORMAL:
       m_normal_color = color;
       m_pref_changed = true;
       break;
-    case BiblosOptions::TAG:
+    case EBookOptions::TAG:
       m_tag_color = color;
       m_pref_changed = true;
       break;
-    case BiblosOptions::ATTRIBUTE:
+    case EBookOptions::ATTRIBUTE:
       m_attribute_color = color;
       m_pref_changed = true;
       break;
-    case BiblosOptions::ERROR:
+    case EBookOptions::ERROR:
       m_error_color = color;
       m_pref_changed = true;
       break;
-    case BiblosOptions::STRING:
+    case EBookOptions::STRING:
       m_string_color = color;
       m_pref_changed = true;
       break;
-    case BiblosOptions::SCRIPT:
+    case EBookOptions::SCRIPT:
       m_script_color = color;
       m_pref_changed = true;
       break;
-    case BiblosOptions::STYLE:
+    case EBookOptions::STYLE:
       m_style_color = color;
       m_pref_changed = true;
       break;
@@ -1060,56 +1067,56 @@ BiblosOptions::setColor(const CodeOptions options, const QColor color)
 }
 
 QColor
-BiblosOptions::background(const CodeOptions options) const
+EBookOptions::background(const CodeOptions options) const
 {
   switch (options) {
-    case BiblosOptions::NORMAL:
+    case EBookOptions::NORMAL:
       return m_normal_back;
-    case BiblosOptions::TAG:
+    case EBookOptions::TAG:
       return m_tag_back;
-    case BiblosOptions::ATTRIBUTE:
+    case EBookOptions::ATTRIBUTE:
       return m_attribute_back;
-    case BiblosOptions::ERROR:
+    case EBookOptions::ERROR:
       return m_error_back;
-    case BiblosOptions::STRING:
+    case EBookOptions::STRING:
       return m_string_back;
-    case BiblosOptions::SCRIPT:
+    case EBookOptions::SCRIPT:
       return m_script_back;
-    case BiblosOptions::STYLE:
+    case EBookOptions::STYLE:
       return m_style_back;
   }
   return QColor();
 }
 
 void
-BiblosOptions::setBackground(const CodeOptions options, const QColor color)
+EBookOptions::setBackground(const CodeOptions options, const QColor color)
 {
   switch (options) {
-    case BiblosOptions::NORMAL:
+    case EBookOptions::NORMAL:
       m_normal_back = color;
       m_pref_changed = true;
       break;
-    case BiblosOptions::TAG:
+    case EBookOptions::TAG:
       m_tag_back = color;
       m_pref_changed = true;
       break;
-    case BiblosOptions::ATTRIBUTE:
+    case EBookOptions::ATTRIBUTE:
       m_attribute_back = color;
       m_pref_changed = true;
       break;
-    case BiblosOptions::ERROR:
+    case EBookOptions::ERROR:
       m_error_back = color;
       m_pref_changed = true;
       break;
-    case BiblosOptions::STRING:
+    case EBookOptions::STRING:
       m_string_back = color;
       m_pref_changed = true;
       break;
-    case BiblosOptions::SCRIPT:
+    case EBookOptions::SCRIPT:
       m_script_back = color;
       m_pref_changed = true;
       break;
-    case BiblosOptions::STYLE:
+    case EBookOptions::STYLE:
       m_style_back = color;
       m_pref_changed = true;
       break;
@@ -1117,56 +1124,56 @@ BiblosOptions::setBackground(const CodeOptions options, const QColor color)
 }
 
 bool
-BiblosOptions::italic(const CodeOptions options) const
+EBookOptions::italic(const CodeOptions options) const
 {
   switch (options) {
-    case BiblosOptions::NORMAL:
+    case EBookOptions::NORMAL:
       return m_normal_italic;
-    case BiblosOptions::TAG:
+    case EBookOptions::TAG:
       return m_tag_italic;
-    case BiblosOptions::ATTRIBUTE:
+    case EBookOptions::ATTRIBUTE:
       return m_attribute_italic;
-    case BiblosOptions::ERROR:
+    case EBookOptions::ERROR:
       return m_error_italic;
-    case BiblosOptions::STRING:
+    case EBookOptions::STRING:
       return m_string_italic;
-    case BiblosOptions::SCRIPT:
+    case EBookOptions::SCRIPT:
       return m_script_italic;
-    case BiblosOptions::STYLE:
+    case EBookOptions::STYLE:
       return m_style_italic;
   }
   return false;
 }
 
 void
-BiblosOptions::setItalic(const CodeOptions options, const bool italic)
+EBookOptions::setItalic(const CodeOptions options, const bool italic)
 {
   switch (options) {
-    case BiblosOptions::NORMAL:
+    case EBookOptions::NORMAL:
       m_normal_italic = italic;
       m_pref_changed = true;
       break;
-    case BiblosOptions::TAG:
+    case EBookOptions::TAG:
       m_tag_italic = italic;
       m_pref_changed = true;
       break;
-    case BiblosOptions::ATTRIBUTE:
+    case EBookOptions::ATTRIBUTE:
       m_attribute_italic = italic;
       m_pref_changed = true;
       break;
-    case BiblosOptions::ERROR:
+    case EBookOptions::ERROR:
       m_error_italic = italic;
       m_pref_changed = true;
       break;
-    case BiblosOptions::STRING:
+    case EBookOptions::STRING:
       m_string_italic = italic;
       m_pref_changed = true;
       break;
-    case BiblosOptions::SCRIPT:
+    case EBookOptions::SCRIPT:
       m_script_italic = italic;
       m_pref_changed = true;
       break;
-    case BiblosOptions::STYLE:
+    case EBookOptions::STYLE:
       m_style_italic = italic;
       m_pref_changed = true;
       break;
@@ -1174,56 +1181,56 @@ BiblosOptions::setItalic(const CodeOptions options, const bool italic)
 }
 
 QFont::Weight
-BiblosOptions::weight(const CodeOptions options) const
+EBookOptions::weight(const CodeOptions options) const
 {
   switch (options) {
-    case BiblosOptions::NORMAL:
+    case EBookOptions::NORMAL:
       return m_normal_weight;
-    case BiblosOptions::TAG:
+    case EBookOptions::TAG:
       return m_tag_weight;
-    case BiblosOptions::ATTRIBUTE:
+    case EBookOptions::ATTRIBUTE:
       return m_attribute_weight;
-    case BiblosOptions::ERROR:
+    case EBookOptions::ERROR:
       return m_error_weight;
-    case BiblosOptions::STRING:
+    case EBookOptions::STRING:
       return m_string_weight;
-    case BiblosOptions::SCRIPT:
+    case EBookOptions::SCRIPT:
       return m_script_weight;
-    case BiblosOptions::STYLE:
+    case EBookOptions::STYLE:
       return m_style_weight;
   }
   return QFont::Normal;
 }
 
 void
-BiblosOptions::setWeight(const CodeOptions options, const QFont::Weight weight)
+EBookOptions::setWeight(const CodeOptions options, const QFont::Weight weight)
 {
   switch (options) {
-    case BiblosOptions::NORMAL:
+    case EBookOptions::NORMAL:
       m_normal_weight = weight;
       m_pref_changed = true;
       break;
-    case BiblosOptions::TAG:
+    case EBookOptions::TAG:
       m_tag_weight = weight;
       m_pref_changed = true;
       break;
-    case BiblosOptions::ATTRIBUTE:
+    case EBookOptions::ATTRIBUTE:
       m_pref_changed = true;
       m_attribute_weight = weight;
       break;
-    case BiblosOptions::ERROR:
+    case EBookOptions::ERROR:
       m_error_weight = weight;
       m_pref_changed = true;
       break;
-    case BiblosOptions::STRING:
+    case EBookOptions::STRING:
       m_string_weight = weight;
       m_pref_changed = true;
       break;
-    case BiblosOptions::SCRIPT:
+    case EBookOptions::SCRIPT:
       m_script_weight = weight;
       m_pref_changed = true;
       break;
-    case BiblosOptions::STYLE:
+    case EBookOptions::STYLE:
       m_style_weight = weight;
       m_pref_changed = true;
       break;
@@ -1231,7 +1238,7 @@ BiblosOptions::setWeight(const CodeOptions options, const QFont::Weight weight)
 }
 
 QColor
-BiblosOptions::contrastingColor(const QColor color)
+EBookOptions::contrastingColor(const QColor color)
 {
   int v = (color.red() + color.green() + color.blue()) / 3 > 127 ? 0 : 255;
   return QColor(v, v, v);

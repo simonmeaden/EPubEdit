@@ -1,14 +1,17 @@
 #ifndef FOAF_H
 #define FOAF_H
 
+#include <QSharedPointer>
 #include <QString>
 #include <QStringList>
-#include <QSharedPointer>
+
+#include "document/epubmetadata.h"
 
 class Foaf
 {
 public:
-  enum Term {
+  enum Term
+  {
     NO_TERM,
     AGENT,
     PERSON,
@@ -73,21 +76,21 @@ public:
   void setScheme(QString scheme);
 
   static QString toString(Term term);
-  static Foaf fromString(QString term_name);
+  static QSharedPointer<Foaf> fromString(QString term_name);
   static bool isFoaf(QString tag_name);
   static QString prefix();
 
   QString lang() const;
-  void setLang(const QString &lang);
+  void setLang(const QString& lang);
 
-  QString id() const;
-  void setId(const QString &id);
+  UniqueString id() const;
+  void setId(const UniqueString& id);
 
   QString content() const;
-  void setContent(const QString &content);
+  void setContent(const QString& content);
 
   QString about() const;
-  void setAbout(const QString &about);
+  void setAbout(const QString& about);
 
 protected:
   Term m_term;
@@ -95,7 +98,7 @@ protected:
   static const QString m_prefix;
   QString m_scheme;
   QString m_lang;
-  QString m_id;
+  UniqueString m_id;
   QString m_content;
   QString m_about;
 

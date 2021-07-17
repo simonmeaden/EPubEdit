@@ -594,562 +594,563 @@ MarcRelator::toString(MarcRelator::Relator relator)
   }
 }
 
-MarcRelator
+QSharedPointer<MarcRelator>
 MarcRelator::fromString(QString relator_name)
 {
-  MarcRelator relator;
+  QSharedPointer<MarcRelator> relator =
+    QSharedPointer<MarcRelator>(new MarcRelator());
   QString name = relator_name.toLower();
   if (name == "abr") {
-    relator.setType(MarcRelator::ABRIDGER);
+    relator->setType(MarcRelator::ABRIDGER);
   } else if (name == "acp") {
-    relator.setType(MarcRelator::ART_COPYIST);
+    relator->setType(MarcRelator::ART_COPYIST);
   } else if (name == "act") {
-    relator.setType(MarcRelator::ACTOR);
+    relator->setType(MarcRelator::ACTOR);
   } else if (name == "adi") {
-    relator.setType(MarcRelator::ART_DIRECTOR);
+    relator->setType(MarcRelator::ART_DIRECTOR);
   } else if (name == "adp") {
-    relator.setType(MarcRelator::ADAPTER);
+    relator->setType(MarcRelator::ADAPTER);
   } else if (name == "aft") {
-    relator.setType(MarcRelator::AUTHOR_OF_AFTERWORD);
+    relator->setType(MarcRelator::AUTHOR_OF_AFTERWORD);
   } else if (name == "anl") {
-    relator.setType(MarcRelator::ANALYST);
+    relator->setType(MarcRelator::ANALYST);
   } else if (name == "anm") {
-    relator.setType(MarcRelator::ANIMATOR);
+    relator->setType(MarcRelator::ANIMATOR);
   } else if (name == "ann") {
-    relator.setType(MarcRelator::ANNOTATOR);
+    relator->setType(MarcRelator::ANNOTATOR);
   } else if (name == "ant") {
-    relator.setType(MarcRelator::BIBLIOGRAPHIC_ANTECEDENT);
+    relator->setType(MarcRelator::BIBLIOGRAPHIC_ANTECEDENT);
   } else if (name == "ape") {
-    relator.setType(MarcRelator::APPELLEE);
+    relator->setType(MarcRelator::APPELLEE);
   } else if (name == "apl") {
-    relator.setType(MarcRelator::APPELLANT);
+    relator->setType(MarcRelator::APPELLANT);
   } else if (name == "app") {
-    relator.setType(MarcRelator::APPLICANT);
+    relator->setType(MarcRelator::APPLICANT);
   } else if (name == "aqt") {
-    relator.setType(MarcRelator::AUTHOR_IN_QUOTATIONS);
+    relator->setType(MarcRelator::AUTHOR_IN_QUOTATIONS);
   } else if (name == "arc") {
-    relator.setType(MarcRelator::ARCHITECT);
+    relator->setType(MarcRelator::ARCHITECT);
   } else if (name == "ard") {
-    relator.setType(MarcRelator::ARTISTIC_DIRECTOR);
+    relator->setType(MarcRelator::ARTISTIC_DIRECTOR);
   } else if (name == "arr") {
-    relator.setType(MarcRelator::ARRANGER);
+    relator->setType(MarcRelator::ARRANGER);
   } else if (name == "art") {
-    relator.setType(MarcRelator::ARTIST);
+    relator->setType(MarcRelator::ARTIST);
   } else if (name == "asg") {
-    relator.setType(MarcRelator::ASSIGNEE);
+    relator->setType(MarcRelator::ASSIGNEE);
   } else if (name == "asn") {
-    relator.setType(MarcRelator::ASSOCIATED_NAME);
+    relator->setType(MarcRelator::ASSOCIATED_NAME);
   } else if (name == "ato") {
-    relator.setType(MarcRelator::AUTOGRAPHER);
+    relator->setType(MarcRelator::AUTOGRAPHER);
   } else if (name == "att") {
-    relator.setType(MarcRelator::ATTRIBUTED_NAME);
+    relator->setType(MarcRelator::ATTRIBUTED_NAME);
   } else if (name == "auc") {
-    relator.setType(MarcRelator::AUCTIONEER);
+    relator->setType(MarcRelator::AUCTIONEER);
   } else if (name == "aut") {
-    relator.setType(MarcRelator::AUTHOR);
+    relator->setType(MarcRelator::AUTHOR);
   } else if (name == "aud") {
-    relator.setType(MarcRelator::AUTHOR_OF_DIALOG);
+    relator->setType(MarcRelator::AUTHOR_OF_DIALOG);
   } else if (name == "aui") {
-    relator.setType(MarcRelator::AUTHOR_OF_INTRODUCTION);
+    relator->setType(MarcRelator::AUTHOR_OF_INTRODUCTION);
   } else if (name == "aus") {
-    relator.setType(MarcRelator::SCREENWRITER);
+    relator->setType(MarcRelator::SCREENWRITER);
   } else if (name == "bdd") {
-    relator.setType(MarcRelator::BINDING_DESIGNER);
+    relator->setType(MarcRelator::BINDING_DESIGNER);
   } else if (name == "bjd") {
-    relator.setType(MarcRelator::BOOKJACKET_DESIGNER);
+    relator->setType(MarcRelator::BOOKJACKET_DESIGNER);
   } else if (name == "bkd") {
-    relator.setType(MarcRelator::BOOK_DESIGNER);
+    relator->setType(MarcRelator::BOOK_DESIGNER);
   } else if (name == "bkp") {
-    relator.setType(MarcRelator::BOOK_PRODUCER);
+    relator->setType(MarcRelator::BOOK_PRODUCER);
   } else if (name == "blw") {
-    relator.setType(MarcRelator::BLURB_WRITER);
+    relator->setType(MarcRelator::BLURB_WRITER);
   } else if (name == "bnd") {
-    relator.setType(MarcRelator::BINDER);
+    relator->setType(MarcRelator::BINDER);
   } else if (name == "bpd") {
-    relator.setType(MarcRelator::BOOKPLATE_DESIGNER);
+    relator->setType(MarcRelator::BOOKPLATE_DESIGNER);
   } else if (name == "brd") {
-    relator.setType(MarcRelator::BROADCASTER);
+    relator->setType(MarcRelator::BROADCASTER);
   } else if (name == "brl") {
-    relator.setType(MarcRelator::BRAILE_EMBOSSER);
+    relator->setType(MarcRelator::BRAILE_EMBOSSER);
   } else if (name == "bsl") {
-    relator.setType(MarcRelator::BOOKSELLER);
+    relator->setType(MarcRelator::BOOKSELLER);
   } else if (name == "cas") {
-    relator.setType(MarcRelator::CASTER);
+    relator->setType(MarcRelator::CASTER);
   } else if (name == "ccp") {
-    relator.setType(MarcRelator::CONCEPTOR);
+    relator->setType(MarcRelator::CONCEPTOR);
   } else if (name == "chr") {
-    relator.setType(MarcRelator::CHOREOGRAPHER);
+    relator->setType(MarcRelator::CHOREOGRAPHER);
   } else if (name == "clb") {
-    relator.setType(MarcRelator::COLLABORATOR); // Discontinued
+    relator->setType(MarcRelator::COLLABORATOR); // Discontinued
   } else if (name == "cli") {
-    relator.setType(MarcRelator::CLIENT);
+    relator->setType(MarcRelator::CLIENT);
   } else if (name == "cll") {
-    relator.setType(MarcRelator::CALLIGRAPHER);
+    relator->setType(MarcRelator::CALLIGRAPHER);
   } else if (name == "clr") {
-    relator.setType(MarcRelator::COLORIST);
+    relator->setType(MarcRelator::COLORIST);
   } else if (name == "clt") {
-    relator.setType(MarcRelator::COLLOTYPER);
+    relator->setType(MarcRelator::COLLOTYPER);
   } else if (name == "cmm") {
-    relator.setType(MarcRelator::COMMENTATOR);
+    relator->setType(MarcRelator::COMMENTATOR);
   } else if (name == "cmp") {
-    relator.setType(MarcRelator::COMPOSER);
+    relator->setType(MarcRelator::COMPOSER);
   } else if (name == "cmt") {
-    relator.setType(MarcRelator::COMPOSITOR);
+    relator->setType(MarcRelator::COMPOSITOR);
   } else if (name == "cnd") {
-    relator.setType(MarcRelator::CONDUCTOR);
+    relator->setType(MarcRelator::CONDUCTOR);
   } else if (name == "cng") {
-    relator.setType(MarcRelator::CINEMATOGRAPHER);
+    relator->setType(MarcRelator::CINEMATOGRAPHER);
   } else if (name == "cns") {
-    relator.setType(MarcRelator::CENSOR);
+    relator->setType(MarcRelator::CENSOR);
   } else if (name == "coe") {
-    relator.setType(MarcRelator::CONTESTANT_APPELLEE);
+    relator->setType(MarcRelator::CONTESTANT_APPELLEE);
   } else if (name == "col") {
-    relator.setType(MarcRelator::CONTESTOR);
+    relator->setType(MarcRelator::CONTESTOR);
   } else if (name == "com") {
-    relator.setType(MarcRelator::COMPILER);
+    relator->setType(MarcRelator::COMPILER);
   } else if (name == "con") {
-    relator.setType(MarcRelator::CONSERVATOR);
+    relator->setType(MarcRelator::CONSERVATOR);
   } else if (name == "cor") {
-    relator.setType(MarcRelator::COLLECTION_REGISTRAR);
+    relator->setType(MarcRelator::COLLECTION_REGISTRAR);
   } else if (name == "cos") {
-    relator.setType(MarcRelator::CONTESTANT);
+    relator->setType(MarcRelator::CONTESTANT);
   } else if (name == "cot") {
-    relator.setType(MarcRelator::CONTESTEE_APPELLANT);
+    relator->setType(MarcRelator::CONTESTEE_APPELLANT);
   } else if (name == "cou") {
-    relator.setType(MarcRelator::COURT_GOVERNED);
+    relator->setType(MarcRelator::COURT_GOVERNED);
   } else if (name == "cov") {
-    relator.setType(MarcRelator::COVER_DESIGNER);
+    relator->setType(MarcRelator::COVER_DESIGNER);
   } else if (name == "cpc") {
-    relator.setType(MarcRelator::COPYRIGHT_CLAIMANT);
+    relator->setType(MarcRelator::COPYRIGHT_CLAIMANT);
   } else if (name == "cpe") {
-    relator.setType(MarcRelator::COMPLAINANT_APPELLEE);
+    relator->setType(MarcRelator::COMPLAINANT_APPELLEE);
   } else if (name == "cph") {
-    relator.setType(MarcRelator::COPYRIGHT_HOLDER);
+    relator->setType(MarcRelator::COPYRIGHT_HOLDER);
   } else if (name == "cpl") {
-    relator.setType(MarcRelator::COMPLAINANT);
+    relator->setType(MarcRelator::COMPLAINANT);
   } else if (name == "cpt") {
-    relator.setType(MarcRelator::COMPLAINANT_APPELLANT);
+    relator->setType(MarcRelator::COMPLAINANT_APPELLANT);
   } else if (name == "cre") {
-    relator.setType(MarcRelator::CREATOR);
+    relator->setType(MarcRelator::CREATOR);
   } else if (name == "crp") {
-    relator.setType(MarcRelator::CORRESPONDANT);
+    relator->setType(MarcRelator::CORRESPONDANT);
   } else if (name == "crr") {
-    relator.setType(MarcRelator::CORRECTOR);
+    relator->setType(MarcRelator::CORRECTOR);
   } else if (name == "crt") {
-    relator.setType(MarcRelator::COURT_REPORTER);
+    relator->setType(MarcRelator::COURT_REPORTER);
   } else if (name == "csl") {
-    relator.setType(MarcRelator::CONSULTANT);
+    relator->setType(MarcRelator::CONSULTANT);
   } else if (name == "csp") {
-    relator.setType(MarcRelator::CONSULTANT_TO_A_PROJECT);
+    relator->setType(MarcRelator::CONSULTANT_TO_A_PROJECT);
   } else if (name == "cst") {
-    relator.setType(MarcRelator::COSTUME_DESIGNER);
+    relator->setType(MarcRelator::COSTUME_DESIGNER);
   } else if (name == "ctb") {
-    relator.setType(MarcRelator::CONTRIBUTOR);
+    relator->setType(MarcRelator::CONTRIBUTOR);
   } else if (name == "cte") {
-    relator.setType(MarcRelator::CONTESTEE_APPELLEE);
+    relator->setType(MarcRelator::CONTESTEE_APPELLEE);
   } else if (name == "ctg") {
-    relator.setType(MarcRelator::CARTOGRAPHER);
+    relator->setType(MarcRelator::CARTOGRAPHER);
   } else if (name == "ctr") {
-    relator.setType(MarcRelator::CONTRACTOR);
+    relator->setType(MarcRelator::CONTRACTOR);
   } else if (name == "cts") {
-    relator.setType(MarcRelator::CONTESTEE);
+    relator->setType(MarcRelator::CONTESTEE);
   } else if (name == "ctt") {
-    relator.setType(MarcRelator::CONTESTANT_APPELLANT);
+    relator->setType(MarcRelator::CONTESTANT_APPELLANT);
   } else if (name == "cur") {
-    relator.setType(MarcRelator::CURATOR);
+    relator->setType(MarcRelator::CURATOR);
   } else if (name == "cwt") {
-    relator.setType(MarcRelator::COMMENTATOR_FOR_WRITTEN_TEXT);
+    relator->setType(MarcRelator::COMMENTATOR_FOR_WRITTEN_TEXT);
   } else if (name == "dbp") {
-    relator.setType(MarcRelator::DISTIBUTION_PLACE);
+    relator->setType(MarcRelator::DISTIBUTION_PLACE);
   } else if (name == "dfd") {
-    relator.setType(MarcRelator::DEFENDANT);
+    relator->setType(MarcRelator::DEFENDANT);
   } else if (name == "dfe") {
-    relator.setType(MarcRelator::DEFENDANT_APPELLEE);
+    relator->setType(MarcRelator::DEFENDANT_APPELLEE);
   } else if (name == "dft") {
-    relator.setType(MarcRelator::DEFENDANT_APPELLANT);
+    relator->setType(MarcRelator::DEFENDANT_APPELLANT);
   } else if (name == "dgg") {
-    relator.setType(MarcRelator::DEGREE_GRANTING_INSTITUTION);
+    relator->setType(MarcRelator::DEGREE_GRANTING_INSTITUTION);
   } else if (name == "dgs") {
-    relator.setType(MarcRelator::DEGREE_SUPERVISOR);
+    relator->setType(MarcRelator::DEGREE_SUPERVISOR);
   } else if (name == "dis") {
-    relator.setType(MarcRelator::DISSERTANT);
+    relator->setType(MarcRelator::DISSERTANT);
   } else if (name == "dln") {
-    relator.setType(MarcRelator::DELINEATOR);
+    relator->setType(MarcRelator::DELINEATOR);
   } else if (name == "dnc") {
-    relator.setType(MarcRelator::DANCER);
+    relator->setType(MarcRelator::DANCER);
   } else if (name == "dnr") {
-    relator.setType(MarcRelator::DONOR);
+    relator->setType(MarcRelator::DONOR);
   } else if (name == "dpc") {
-    relator.setType(MarcRelator::DEPICTED);
+    relator->setType(MarcRelator::DEPICTED);
   } else if (name == "dpt") {
-    relator.setType(MarcRelator::DEPOSITOR);
+    relator->setType(MarcRelator::DEPOSITOR);
   } else if (name == "drm") {
-    relator.setType(MarcRelator::DRAFTSMAN);
+    relator->setType(MarcRelator::DRAFTSMAN);
   } else if (name == "drt") {
-    relator.setType(MarcRelator::DIRECTOR);
+    relator->setType(MarcRelator::DIRECTOR);
   } else if (name == "dsr") {
-    relator.setType(MarcRelator::DESIGNER);
+    relator->setType(MarcRelator::DESIGNER);
   } else if (name == "dst") {
-    relator.setType(MarcRelator::DISTRIBUTOR);
+    relator->setType(MarcRelator::DISTRIBUTOR);
   } else if (name == "dtc") {
-    relator.setType(MarcRelator::DATA_CONTRIBUTOR);
+    relator->setType(MarcRelator::DATA_CONTRIBUTOR);
   } else if (name == "dte") {
-    relator.setType(MarcRelator::DEDICATEE);
+    relator->setType(MarcRelator::DEDICATEE);
   } else if (name == "dtm") {
-    relator.setType(MarcRelator::DATA_MANAGER);
+    relator->setType(MarcRelator::DATA_MANAGER);
   } else if (name == "dto") {
-    relator.setType(MarcRelator::DEDICATOR);
+    relator->setType(MarcRelator::DEDICATOR);
   } else if (name == "dub") {
-    relator.setType(MarcRelator::DUBIOUS_AUTHOR);
+    relator->setType(MarcRelator::DUBIOUS_AUTHOR);
   } else if (name == "edc") {
-    relator.setType(MarcRelator::EDITOR_OF_COMPILATION);
+    relator->setType(MarcRelator::EDITOR_OF_COMPILATION);
   } else if (name == "edm") {
-    relator.setType(MarcRelator::EDITOR_OF_MOVING_IMAGE_WORK);
+    relator->setType(MarcRelator::EDITOR_OF_MOVING_IMAGE_WORK);
   } else if (name == "edt") {
-    relator.setType(MarcRelator::EDITOR);
+    relator->setType(MarcRelator::EDITOR);
   } else if (name == "egr") {
-    relator.setType(MarcRelator::ENGRAVER);
+    relator->setType(MarcRelator::ENGRAVER);
   } else if (name == "elg") {
-    relator.setType(MarcRelator::ELECTRICIAN);
+    relator->setType(MarcRelator::ELECTRICIAN);
   } else if (name == "elt") {
-    relator.setType(MarcRelator::ELECTROTYPER);
+    relator->setType(MarcRelator::ELECTROTYPER);
   } else if (name == "eng") {
-    relator.setType(MarcRelator::ENGINEER);
+    relator->setType(MarcRelator::ENGINEER);
   } else if (name == "enj") {
-    relator.setType(MarcRelator::ENACTING_JURISTICTION);
+    relator->setType(MarcRelator::ENACTING_JURISTICTION);
   } else if (name == "etr") {
-    relator.setType(MarcRelator::ETCHER);
+    relator->setType(MarcRelator::ETCHER);
   } else if (name == "evp") {
-    relator.setType(MarcRelator::EVENT_PLACE);
+    relator->setType(MarcRelator::EVENT_PLACE);
   } else if (name == "exp") {
-    relator.setType(MarcRelator::EXPERT);
+    relator->setType(MarcRelator::EXPERT);
   } else if (name == "fac") {
-    relator.setType(MarcRelator::FACSIMILIST);
+    relator->setType(MarcRelator::FACSIMILIST);
   } else if (name == "fds") {
-    relator.setType(MarcRelator::FILM_DISTRIBUTOR);
+    relator->setType(MarcRelator::FILM_DISTRIBUTOR);
   } else if (name == "fld") {
-    relator.setType(MarcRelator::FIELD_DIRECTOR);
+    relator->setType(MarcRelator::FIELD_DIRECTOR);
   } else if (name == "flm") {
-    relator.setType(MarcRelator::FILM_EDITOR);
+    relator->setType(MarcRelator::FILM_EDITOR);
   } else if (name == "fmd") {
-    relator.setType(MarcRelator::FILM_DIRECTOR);
+    relator->setType(MarcRelator::FILM_DIRECTOR);
   } else if (name == "fmk") {
-    relator.setType(MarcRelator::FILM_MAKER);
+    relator->setType(MarcRelator::FILM_MAKER);
   } else if (name == "fmo") {
-    relator.setType(MarcRelator::FORMER_OWNOR);
+    relator->setType(MarcRelator::FORMER_OWNOR);
   } else if (name == "fmp") {
-    relator.setType(MarcRelator::FILM_PRODUCER);
+    relator->setType(MarcRelator::FILM_PRODUCER);
   } else if (name == "fnd") {
-    relator.setType(MarcRelator::FUNDER);
+    relator->setType(MarcRelator::FUNDER);
   } else if (name == "fpy") {
-    relator.setType(MarcRelator::FIRST_PARTY);
+    relator->setType(MarcRelator::FIRST_PARTY);
   } else if (name == "frg") {
-    relator.setType(MarcRelator::FORGER);
+    relator->setType(MarcRelator::FORGER);
   } else if (name == "gis") {
-    relator.setType(MarcRelator::GEOGRAPHIC_INFORMATION_SPECIALIST);
+    relator->setType(MarcRelator::GEOGRAPHIC_INFORMATION_SPECIALIST);
   } else if (name == "grt") {
-    relator.setType(MarcRelator::GRAPHIC_TECHNICIAN); // Discontinued
+    relator->setType(MarcRelator::GRAPHIC_TECHNICIAN); // Discontinued
   } else if (name == "his") {
-    relator.setType(MarcRelator::HOST_INSTITUTION);
+    relator->setType(MarcRelator::HOST_INSTITUTION);
   } else if (name == "hnr") {
-    relator.setType(MarcRelator::HONOREE);
+    relator->setType(MarcRelator::HONOREE);
   } else if (name == "hst") {
-    relator.setType(MarcRelator::HOST);
+    relator->setType(MarcRelator::HOST);
   } else if (name == "ill") {
-    relator.setType(MarcRelator::ILLISTRATOR);
+    relator->setType(MarcRelator::ILLISTRATOR);
   } else if (name == "ilu") {
-    relator.setType(MarcRelator::ILLUMINATOR);
+    relator->setType(MarcRelator::ILLUMINATOR);
   } else if (name == "ins") {
-    relator.setType(MarcRelator::INSCRIBER);
+    relator->setType(MarcRelator::INSCRIBER);
   } else if (name == "inv") {
-    relator.setType(MarcRelator::INVENTOR);
+    relator->setType(MarcRelator::INVENTOR);
   } else if (name == "isb") {
-    relator.setType(MarcRelator::ISSUING_BODY);
+    relator->setType(MarcRelator::ISSUING_BODY);
   } else if (name == "itr") {
-    relator.setType(MarcRelator::INSTRUMENTALIST);
+    relator->setType(MarcRelator::INSTRUMENTALIST);
   } else if (name == "ive") {
-    relator.setType(MarcRelator::INTERVIEWEE);
+    relator->setType(MarcRelator::INTERVIEWEE);
   } else if (name == "ivr") {
-    relator.setType(MarcRelator::INTERVIEWER);
+    relator->setType(MarcRelator::INTERVIEWER);
   } else if (name == "jud") {
-    relator.setType(MarcRelator::JUDGE);
+    relator->setType(MarcRelator::JUDGE);
   } else if (name == "jug") {
-    relator.setType(MarcRelator::JURISTICTION_GOVERNED);
+    relator->setType(MarcRelator::JURISTICTION_GOVERNED);
   } else if (name == "lbr") {
-    relator.setType(MarcRelator::LABORATORY);
+    relator->setType(MarcRelator::LABORATORY);
   } else if (name == "lbt") {
-    relator.setType(MarcRelator::LIBRETTIST);
+    relator->setType(MarcRelator::LIBRETTIST);
   } else if (name == "ldr") {
-    relator.setType(MarcRelator::LABORATORY_DIRECTOR);
+    relator->setType(MarcRelator::LABORATORY_DIRECTOR);
   } else if (name == "led") {
-    relator.setType(MarcRelator::LEAD);
+    relator->setType(MarcRelator::LEAD);
   } else if (name == "lee") {
-    relator.setType(MarcRelator::LIBELLEE_APPELEE);
+    relator->setType(MarcRelator::LIBELLEE_APPELEE);
   } else if (name == "lel") {
-    relator.setType(MarcRelator::LIBELLEE);
+    relator->setType(MarcRelator::LIBELLEE);
   } else if (name == "len") {
-    relator.setType(MarcRelator::LENDER);
+    relator->setType(MarcRelator::LENDER);
   } else if (name == "let") {
-    relator.setType(MarcRelator::LIBELLEE_APPELLANT);
+    relator->setType(MarcRelator::LIBELLEE_APPELLANT);
   } else if (name == "lgd") {
-    relator.setType(MarcRelator::LIGHTING_DESIGNER);
+    relator->setType(MarcRelator::LIGHTING_DESIGNER);
   } else if (name == "lie") {
-    relator.setType(MarcRelator::LIBELANT_APPELLEE);
+    relator->setType(MarcRelator::LIBELANT_APPELLEE);
   } else if (name == "lil") {
-    relator.setType(MarcRelator::LIBELLANT);
+    relator->setType(MarcRelator::LIBELLANT);
   } else if (name == "lit") {
-    relator.setType(MarcRelator::LIBELANT_APPELLANT);
+    relator->setType(MarcRelator::LIBELANT_APPELLANT);
   } else if (name == "lsa") {
-    relator.setType(MarcRelator::LANDSCAPE_ARCHITECT);
+    relator->setType(MarcRelator::LANDSCAPE_ARCHITECT);
   } else if (name == "lse") {
-    relator.setType(MarcRelator::LICENSEE);
+    relator->setType(MarcRelator::LICENSEE);
   } else if (name == "lso") {
-    relator.setType(MarcRelator::LICENSOR);
+    relator->setType(MarcRelator::LICENSOR);
   } else if (name == "ltg") {
-    relator.setType(MarcRelator::LITHOGRAPHER);
+    relator->setType(MarcRelator::LITHOGRAPHER);
   } else if (name == "lyr") {
-    relator.setType(MarcRelator::LYRICIST);
+    relator->setType(MarcRelator::LYRICIST);
   } else if (name == "mcp") {
-    relator.setType(MarcRelator::MUSIC_COPYIST);
+    relator->setType(MarcRelator::MUSIC_COPYIST);
   } else if (name == "mdc") {
-    relator.setType(MarcRelator::METADATA_CONTACT);
+    relator->setType(MarcRelator::METADATA_CONTACT);
   } else if (name == "med") {
-    relator.setType(MarcRelator::MEDIUM);
+    relator->setType(MarcRelator::MEDIUM);
   } else if (name == "mfp") {
-    relator.setType(MarcRelator::MANUFACTURE_PLACE);
+    relator->setType(MarcRelator::MANUFACTURE_PLACE);
   } else if (name == "mfr") {
-    relator.setType(MarcRelator::MANFACTURER);
+    relator->setType(MarcRelator::MANFACTURER);
   } else if (name == "mod") {
-    relator.setType(MarcRelator::MODERATOR);
+    relator->setType(MarcRelator::MODERATOR);
   } else if (name == "mon") {
-    relator.setType(MarcRelator::MONITOR);
+    relator->setType(MarcRelator::MONITOR);
   } else if (name == "mrb") {
-    relator.setType(MarcRelator::MARBLER);
+    relator->setType(MarcRelator::MARBLER);
   } else if (name == "mrk") {
-    relator.setType(MarcRelator::MARKUP_EDITOR);
+    relator->setType(MarcRelator::MARKUP_EDITOR);
   } else if (name == "msd") {
-    relator.setType(MarcRelator::MUSICAL_DIRECTOR);
+    relator->setType(MarcRelator::MUSICAL_DIRECTOR);
   } else if (name == "mte") {
-    relator.setType(MarcRelator::METAL_ENGRAVER);
+    relator->setType(MarcRelator::METAL_ENGRAVER);
   } else if (name == "mtk") {
-    relator.setType(MarcRelator::MINUTE_TAKER);
+    relator->setType(MarcRelator::MINUTE_TAKER);
   } else if (name == "mus") {
-    relator.setType(MarcRelator::MUSICIAN);
+    relator->setType(MarcRelator::MUSICIAN);
   } else if (name == "nrt") {
-    relator.setType(MarcRelator::NARRATOR);
+    relator->setType(MarcRelator::NARRATOR);
   } else if (name == "opn") {
-    relator.setType(MarcRelator::OPPONENT);
+    relator->setType(MarcRelator::OPPONENT);
   } else if (name == "org") {
-    relator.setType(MarcRelator::ORIGINATOR);
+    relator->setType(MarcRelator::ORIGINATOR);
   } else if (name == "orm") {
-    relator.setType(MarcRelator::ORGANISER);
+    relator->setType(MarcRelator::ORGANISER);
   } else if (name == "osp") {
-    relator.setType(MarcRelator::ONSCREEN_PRESENTER);
+    relator->setType(MarcRelator::ONSCREEN_PRESENTER);
   } else if (name.startsWith("oth")) {
     // starts with because non-standard relators are defined as
     // Other and start with 'oth.' followed by custon definition.
-    relator.setType(MarcRelator::OTHER);
+    relator->setType(MarcRelator::OTHER);
   } else if (name == "own") {
-    relator.setType(MarcRelator::OWNER);
+    relator->setType(MarcRelator::OWNER);
   } else if (name == "pan") {
-    relator.setType(MarcRelator::PANELIST);
+    relator->setType(MarcRelator::PANELIST);
   } else if (name == "pat") {
-    relator.setType(MarcRelator::PATRON);
+    relator->setType(MarcRelator::PATRON);
   } else if (name == "pbd") {
-    relator.setType(MarcRelator::PUBLISHING_DIRECTOR);
+    relator->setType(MarcRelator::PUBLISHING_DIRECTOR);
   } else if (name == "pbl") {
-    relator.setType(MarcRelator::PUBLISHER);
+    relator->setType(MarcRelator::PUBLISHER);
   } else if (name == "pdr") {
-    relator.setType(MarcRelator::PROJECT_DIRECTOR);
+    relator->setType(MarcRelator::PROJECT_DIRECTOR);
   } else if (name == "pfr") {
-    relator.setType(MarcRelator::PROOFREADER);
+    relator->setType(MarcRelator::PROOFREADER);
   } else if (name == "pht") {
-    relator.setType(MarcRelator::PHOTOGRAPHER);
+    relator->setType(MarcRelator::PHOTOGRAPHER);
   } else if (name == "plt") {
-    relator.setType(MarcRelator::PLATEMAKER);
+    relator->setType(MarcRelator::PLATEMAKER);
   } else if (name == "pma") {
-    relator.setType(MarcRelator::PERMIITIN_AGENCY);
+    relator->setType(MarcRelator::PERMIITIN_AGENCY);
   } else if (name == "pmn") {
-    relator.setType(MarcRelator::PRODUCTION_MANAGER);
+    relator->setType(MarcRelator::PRODUCTION_MANAGER);
   } else if (name == "pop") {
-    relator.setType(MarcRelator::PRINTER_OF_PLATES);
+    relator->setType(MarcRelator::PRINTER_OF_PLATES);
   } else if (name == "ppm") {
-    relator.setType(MarcRelator::PAPERMAKE);
+    relator->setType(MarcRelator::PAPERMAKE);
   } else if (name == "ppt") {
-    relator.setType(MarcRelator::PUPPETEER);
+    relator->setType(MarcRelator::PUPPETEER);
   } else if (name == "pra") {
-    relator.setType(MarcRelator::PRAESES);
+    relator->setType(MarcRelator::PRAESES);
   } else if (name == "prc") {
-    relator.setType(MarcRelator::PROCESS_CONTACT);
+    relator->setType(MarcRelator::PROCESS_CONTACT);
   } else if (name == "prd") {
-    relator.setType(MarcRelator::PRODUCTION_PERSONNAL);
+    relator->setType(MarcRelator::PRODUCTION_PERSONNAL);
   } else if (name == "pre") {
-    relator.setType(MarcRelator::PRESENTER);
+    relator->setType(MarcRelator::PRESENTER);
   } else if (name == "prf") {
-    relator.setType(MarcRelator::PERFORMER);
+    relator->setType(MarcRelator::PERFORMER);
   } else if (name == "prg") {
-    relator.setType(MarcRelator::PROGRAMMER);
+    relator->setType(MarcRelator::PROGRAMMER);
   } else if (name == "prm") {
-    relator.setType(MarcRelator::PRINTMAKER);
+    relator->setType(MarcRelator::PRINTMAKER);
   } else if (name == "prn") {
-    relator.setType(MarcRelator::PRODUCTION_COMPANY);
+    relator->setType(MarcRelator::PRODUCTION_COMPANY);
   } else if (name == "pro") {
-    relator.setType(MarcRelator::PRODUCER);
+    relator->setType(MarcRelator::PRODUCER);
   } else if (name == "prp") {
-    relator.setType(MarcRelator::PRODUCTION_PLACE);
+    relator->setType(MarcRelator::PRODUCTION_PLACE);
   } else if (name == "prs") {
-    relator.setType(MarcRelator::PRODUCTION_DESIGNER);
+    relator->setType(MarcRelator::PRODUCTION_DESIGNER);
   } else if (name == "prt") {
-    relator.setType(MarcRelator::PRINTER);
+    relator->setType(MarcRelator::PRINTER);
   } else if (name == "prv") {
-    relator.setType(MarcRelator::PROVIDER);
+    relator->setType(MarcRelator::PROVIDER);
   } else if (name == "pta") {
-    relator.setType(MarcRelator::PATENT_APPLICATION);
+    relator->setType(MarcRelator::PATENT_APPLICATION);
   } else if (name == "pte") {
-    relator.setType(MarcRelator::PLAINTIFF_APPELLEE);
+    relator->setType(MarcRelator::PLAINTIFF_APPELLEE);
   } else if (name == "ptf") {
-    relator.setType(MarcRelator::PLAINTIFF);
+    relator->setType(MarcRelator::PLAINTIFF);
   } else if (name == "pth") {
-    relator.setType(MarcRelator::PATENT_HOLDER);
+    relator->setType(MarcRelator::PATENT_HOLDER);
   } else if (name == "ptt") {
-    relator.setType(MarcRelator::PLAINTIFF_APPELLANT);
+    relator->setType(MarcRelator::PLAINTIFF_APPELLANT);
   } else if (name == "pup") {
-    relator.setType(MarcRelator::PUBLICATION_PLACE);
+    relator->setType(MarcRelator::PUBLICATION_PLACE);
   } else if (name == "rbr") {
-    relator.setType(MarcRelator::RUBRICATOR);
+    relator->setType(MarcRelator::RUBRICATOR);
   } else if (name == "rcd") {
-    relator.setType(MarcRelator::RECORDIST);
+    relator->setType(MarcRelator::RECORDIST);
   } else if (name == "rce") {
-    relator.setType(MarcRelator::RECORDING_ENGINEER);
+    relator->setType(MarcRelator::RECORDING_ENGINEER);
   } else if (name == "rcp") {
-    relator.setType(MarcRelator::ADDRESSEE);
+    relator->setType(MarcRelator::ADDRESSEE);
   } else if (name == "rdd") {
-    relator.setType(MarcRelator::RADIO_DIRECTOR);
+    relator->setType(MarcRelator::RADIO_DIRECTOR);
   } else if (name == "red") {
-    relator.setType(MarcRelator::REDAKTOR);
+    relator->setType(MarcRelator::REDAKTOR);
   } else if (name == "ren") {
-    relator.setType(MarcRelator::RENDERER);
+    relator->setType(MarcRelator::RENDERER);
   } else if (name == "res") {
-    relator.setType(MarcRelator::RESEARCHER);
+    relator->setType(MarcRelator::RESEARCHER);
   } else if (name == "rev") {
-    relator.setType(MarcRelator::REVIEWER);
+    relator->setType(MarcRelator::REVIEWER);
   } else if (name == "rpc") {
-    relator.setType(MarcRelator::RADIO_PRODUCER);
+    relator->setType(MarcRelator::RADIO_PRODUCER);
   } else if (name == "rps") {
-    relator.setType(MarcRelator::REPOSITORY);
+    relator->setType(MarcRelator::REPOSITORY);
   } else if (name == "rpt") {
-    relator.setType(MarcRelator::REPOSRTER);
+    relator->setType(MarcRelator::REPOSRTER);
   } else if (name == "rpy") {
-    relator.setType(MarcRelator::RESPONSIBLE_PARTY);
+    relator->setType(MarcRelator::RESPONSIBLE_PARTY);
   } else if (name == "rse") {
-    relator.setType(MarcRelator::RESPONDANT_APPELLEE);
+    relator->setType(MarcRelator::RESPONDANT_APPELLEE);
   } else if (name == "rsg") {
-    relator.setType(MarcRelator::RESTAGER);
+    relator->setType(MarcRelator::RESTAGER);
   } else if (name == "rsp") {
-    relator.setType(MarcRelator::RESPONDANT);
+    relator->setType(MarcRelator::RESPONDANT);
   } else if (name == "rsr") {
-    relator.setType(MarcRelator::RESTORATIONIST);
+    relator->setType(MarcRelator::RESTORATIONIST);
   } else if (name == "rst") {
-    relator.setType(MarcRelator::RESPONDANT_APPELLANT);
+    relator->setType(MarcRelator::RESPONDANT_APPELLANT);
   } else if (name == "rth") {
-    relator.setType(MarcRelator::RESEARCH_TEAM_HEAD);
+    relator->setType(MarcRelator::RESEARCH_TEAM_HEAD);
   } else if (name == "rtm") {
-    relator.setType(MarcRelator::RESEARCH_TEAM_MEMBER);
+    relator->setType(MarcRelator::RESEARCH_TEAM_MEMBER);
   } else if (name == "sad") {
-    relator.setType(MarcRelator::SCIENTIFIC_ADVISOR);
+    relator->setType(MarcRelator::SCIENTIFIC_ADVISOR);
   } else if (name == "sce") {
-    relator.setType(MarcRelator::SCENARIST);
+    relator->setType(MarcRelator::SCENARIST);
   } else if (name == "scl") {
-    relator.setType(MarcRelator::SCULPTOR);
+    relator->setType(MarcRelator::SCULPTOR);
   } else if (name == "scr") {
-    relator.setType(MarcRelator::SCRIBE);
+    relator->setType(MarcRelator::SCRIBE);
   } else if (name == "sds") {
-    relator.setType(MarcRelator::SOUND_DESIGNER);
+    relator->setType(MarcRelator::SOUND_DESIGNER);
   } else if (name == "sec") {
-    relator.setType(MarcRelator::SECRETARY);
+    relator->setType(MarcRelator::SECRETARY);
   } else if (name == "sgd") {
-    relator.setType(MarcRelator::STAGE_DIRECTOR);
+    relator->setType(MarcRelator::STAGE_DIRECTOR);
   } else if (name == "sgn") {
-    relator.setType(MarcRelator::SIGNER);
+    relator->setType(MarcRelator::SIGNER);
   } else if (name == "sht") {
-    relator.setType(MarcRelator::SUPPORTING_HOST);
+    relator->setType(MarcRelator::SUPPORTING_HOST);
   } else if (name == "sll") {
-    relator.setType(MarcRelator::SELLER);
+    relator->setType(MarcRelator::SELLER);
   } else if (name == "sng") {
-    relator.setType(MarcRelator::SINGER);
+    relator->setType(MarcRelator::SINGER);
   } else if (name == "spk") {
-    relator.setType(MarcRelator::SPEAKER);
+    relator->setType(MarcRelator::SPEAKER);
   } else if (name == "spn") {
-    relator.setType(MarcRelator::SPONSOR);
+    relator->setType(MarcRelator::SPONSOR);
   } else if (name == "spy") {
-    relator.setType(MarcRelator::SECOND_PARTY);
+    relator->setType(MarcRelator::SECOND_PARTY);
   } else if (name == "srv") {
-    relator.setType(MarcRelator::SURVEYOR);
+    relator->setType(MarcRelator::SURVEYOR);
   } else if (name == "std") {
-    relator.setType(MarcRelator::SET_DESIGNER);
+    relator->setType(MarcRelator::SET_DESIGNER);
   } else if (name == "stg") {
-    relator.setType(MarcRelator::SETTING);
+    relator->setType(MarcRelator::SETTING);
   } else if (name == "stl") {
-    relator.setType(MarcRelator::STORYTELLER);
+    relator->setType(MarcRelator::STORYTELLER);
   } else if (name == "stm") {
-    relator.setType(MarcRelator::STAGE_MANAGER);
+    relator->setType(MarcRelator::STAGE_MANAGER);
   } else if (name == "stn") {
-    relator.setType(MarcRelator::STANDARDS_BODY);
+    relator->setType(MarcRelator::STANDARDS_BODY);
   } else if (name == "str") {
-    relator.setType(MarcRelator::STEREOTYPER);
+    relator->setType(MarcRelator::STEREOTYPER);
   } else if (name == "tcd") {
-    relator.setType(MarcRelator::TECHNICAL_DIRECTOR);
+    relator->setType(MarcRelator::TECHNICAL_DIRECTOR);
   } else if (name == "tch") {
-    relator.setType(MarcRelator::TEACHER);
+    relator->setType(MarcRelator::TEACHER);
   } else if (name == "ths") {
-    relator.setType(MarcRelator::THESIS_ADVISOR);
+    relator->setType(MarcRelator::THESIS_ADVISOR);
   } else if (name == "tld") {
-    relator.setType(MarcRelator::TELEVISION_DIRECTOR);
+    relator->setType(MarcRelator::TELEVISION_DIRECTOR);
   } else if (name == "tlp") {
-    relator.setType(MarcRelator::TELEVISION_PRODUCER);
+    relator->setType(MarcRelator::TELEVISION_PRODUCER);
   } else if (name == "trc") {
-    relator.setType(MarcRelator::TRANSCRIBER);
+    relator->setType(MarcRelator::TRANSCRIBER);
   } else if (name == "trl") {
-    relator.setType(MarcRelator::TRANSLATOR);
+    relator->setType(MarcRelator::TRANSLATOR);
   } else if (name == "tyd") {
-    relator.setType(MarcRelator::TYPE_DESIGNER);
+    relator->setType(MarcRelator::TYPE_DESIGNER);
   } else if (name == "tyg") {
-    relator.setType(MarcRelator::TYPOGRAPHER);
+    relator->setType(MarcRelator::TYPOGRAPHER);
   } else if (name == "uvp") {
-    relator.setType(MarcRelator::UNIVERSITY_PLACE);
+    relator->setType(MarcRelator::UNIVERSITY_PLACE);
   } else if (name == "vac") {
-    relator.setType(MarcRelator::VOICE_ACTOR);
+    relator->setType(MarcRelator::VOICE_ACTOR);
   } else if (name == "vdg") {
-    relator.setType(MarcRelator::VIDEOGRAPHER);
+    relator->setType(MarcRelator::VIDEOGRAPHER);
   } else if (name == "voc") {
-    relator.setType(MarcRelator::VOCALIST); // Discontinued
+    relator->setType(MarcRelator::VOCALIST); // Discontinued
   } else if (name == "wac") {
-    relator.setType(MarcRelator::WRITER_OF_ADDED_COMMENTARY);
+    relator->setType(MarcRelator::WRITER_OF_ADDED_COMMENTARY);
   } else if (name == "wal") {
-    relator.setType(MarcRelator::WRITER_OF_ADDED_LYRICS);
+    relator->setType(MarcRelator::WRITER_OF_ADDED_LYRICS);
   } else if (name == "wam") {
-    relator.setType(MarcRelator::WRITER_OF_ACCOMPANYING_MATERIAL);
+    relator->setType(MarcRelator::WRITER_OF_ACCOMPANYING_MATERIAL);
   } else if (name == "wat") {
-    relator.setType(MarcRelator::WRITER_OF_ADDED_TEXT);
+    relator->setType(MarcRelator::WRITER_OF_ADDED_TEXT);
   } else if (name == "wdc") {
-    relator.setType(MarcRelator::WOODCUTTER);
+    relator->setType(MarcRelator::WOODCUTTER);
   } else if (name == "wde") {
-    relator.setType(MarcRelator::WOOD_ENGRAVER);
+    relator->setType(MarcRelator::WOOD_ENGRAVER);
   } else if (name == "win") {
-    relator.setType(MarcRelator::WRITER_OF_INTRODUCTION);
+    relator->setType(MarcRelator::WRITER_OF_INTRODUCTION);
   } else if (name == "wit") {
-    relator.setType(MarcRelator::WITNESS);
+    relator->setType(MarcRelator::WITNESS);
   } else if (name == "wpr") {
-    relator.setType(MarcRelator::WRITER_OF_PREFACE);
+    relator->setType(MarcRelator::WRITER_OF_PREFACE);
   } else if (name == "wst") {
-    relator.setType(MarcRelator::WRITER_OF_SUPPLEMENTARY_TEXTUAL_CONTENT);
+    relator->setType(MarcRelator::WRITER_OF_SUPPLEMENTARY_TEXTUAL_CONTENT);
   } else {
-    relator.setType(MarcRelator::NO_TYPE);
+    relator->setType(MarcRelator::NO_TYPE);
   }
-  if (relator.type() != NO_TYPE) {
-    relator.setCode(name);
+  if (relator->type() != NO_TYPE) {
+    relator->setCode(name);
   } else {
-    relator.setCode("");
+    relator->setCode("");
   }
   return relator;
 }
@@ -1157,8 +1158,8 @@ MarcRelator::fromString(QString relator_name)
 bool
 MarcRelator::isRelator(QString name)
 {
-  MarcRelator relator = fromString(name);
-  if (relator.type() != NO_TYPE)
+  auto relator = fromString(name);
+  if (relator->type() != NO_TYPE)
     return true;
   return false;
 }

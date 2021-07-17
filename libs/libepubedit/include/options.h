@@ -12,15 +12,15 @@
 //#include "libepubedit/ebookcommon.h"
 
 class EBookSeriesDB;
-typedef QSharedPointer<EBookSeriesDB> SeriesDB;
+// typedef QSharedPointer<EBookSeriesDB> SeriesDB;
 
 class EBookAuthorsDB;
-typedef QSharedPointer<EBookAuthorsDB> AuthorsDB;
+// typedef QSharedPointer<EBookAuthorsDB> AuthorsDB;
 
 class EBookLibraryDB;
-typedef QSharedPointer<EBookLibraryDB> LibraryDB;
+// typedef QSharedPointer<EBookLibraryDB> LibraryDB;
 
-class BiblosOptions
+class EBookOptions : public QObject
 {
 public:
   enum CodeOptions
@@ -45,8 +45,8 @@ public:
     VIEW_EDITOR,
   };
 
-  BiblosOptions();
-  ~BiblosOptions();
+  EBookOptions(QObject* parent = nullptr);
+  ~EBookOptions();
 
   void save(const QString filename = QString());
   void load(const QString filename);
@@ -202,9 +202,9 @@ public:
   QString jwebchannel;
   QString jwebpage;
 
-  SeriesDB series_db;
-  LibraryDB library_db;
-  AuthorsDB authors_db;
+  EBookSeriesDB* series_db;
+  EBookLibraryDB* library_db;
+  EBookAuthorsDB* authors_db;
 
   QString homeDir() const;
   void setHomeDir(const QString& home_directiory);
@@ -323,6 +323,6 @@ protected:
   static QString TOC_POSITION;
   static QString VIEW_STATE;
 };
-typedef QSharedPointer<BiblosOptions> Options;
+typedef QSharedPointer<EBookOptions> Options;
 
 #endif // OPTIONS_H

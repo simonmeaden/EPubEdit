@@ -4,7 +4,14 @@ cmake_policy(SET CMP0079 NEW)
 
 project(libepubedit LANGUAGES CXX)
 
-add_library(${PROJECT_NAME} SHARED "")
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+add_library(${PROJECT_NAME} STATIC "")
 add_library(EPubEdit::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 target_compile_options(${PROJECT_NAME} PRIVATE -Werror)
@@ -20,7 +27,7 @@ target_link_libraries(${PROJECT_NAME}
     QuaZip::QuaZip
     yaml-cpp
     QYamlCpp::qyamlcpp
-    tidy
+#    tidy
 )
 
 target_include_directories(${PROJECT_NAME}
@@ -35,23 +42,16 @@ target_sources(${PROJECT_NAME}
 #  PUBLIC
 
   PRIVATE
-    src/epubedit.cpp
-
-    src/forms/metadataform.cpp
-    src/document/ebookcommon.cpp
     src/document/epubdocument.cpp
-    src/document/epubdocument_p.h
-    src/document/epubdocument_p.cpp
-    src/document/ebookmetadata.cpp
+    src/document/epubmetadata.cpp
     src/document/authors.cpp
     src/document/library.cpp
     src/document/dcterms.cpp
     src/document/foaf.cpp
     src/document/marcrelator.cpp
     src/document/series.cpp
-    src/document/htmlparser.cpp
-    src/document/htmltidy.h
-    src/document/htmltidy.cpp
+#    src/document/htmlparser.cpp
+#    src/document/htmltidy.cpp
 
     src/options.cpp
 

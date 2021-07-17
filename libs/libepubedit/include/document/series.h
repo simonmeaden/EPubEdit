@@ -7,7 +7,7 @@
 
 #include "qyamlcpp.h"
 
-#include "options.h"
+class EBookOptions;
 
 class EBookSeriesData
 {
@@ -38,10 +38,10 @@ typedef QMap<quint64, SeriesData> SeriesMap;
 typedef QMap<QString, SeriesData> SeriesByString;
 typedef QStringList SeriesList;
 
-class EBookSeriesDB
+class EBookSeriesDB : public QObject
 {
 public:
-  explicit EBookSeriesDB(Options options);
+  explicit EBookSeriesDB(EBookOptions* options);
   EBookSeriesDB(const EBookSeriesDB& other);
   ~EBookSeriesDB();
 
@@ -61,7 +61,7 @@ public:
   SeriesData seriesByName(QString name);
 
 protected:
-  Options m_options;
+  EBookOptions* m_options;
   QString m_filename;
   bool m_series_changed;
   SeriesMap m_series_map;

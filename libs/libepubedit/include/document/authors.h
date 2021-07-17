@@ -4,10 +4,10 @@
 #include <QObject>
 #include <QPixmap>
 
+#include "document/epubmetadata.h"
 #include "qyamlcpp.h"
 
-#include "document/ebookbasemetadata.h"
-#include "options.h"
+class EBookOptions;
 
 class EBookAuthorData
 {
@@ -90,10 +90,10 @@ typedef QMap<quint64, AuthorData> AuthorMap;
 typedef QMultiMap<QString, AuthorData> AuthorByString;
 Q_DECLARE_METATYPE(AuthorData);
 
-class EBookAuthorsDB
+class EBookAuthorsDB : public QObject
 {
 public:
-  explicit EBookAuthorsDB(Options options);
+  explicit EBookAuthorsDB(EBookOptions* options);
   ~EBookAuthorsDB();
 
   void setFilename(QString filename);
@@ -110,7 +110,8 @@ public:
   AuthorData authorByFileAs(QString file_as);
   quint64 insertAuthor(AuthorData author);
   AuthorData addAuthor(QString display_name,
-                       FileAsList file_as_list = FileAsList());
+                       QList<QSharedPointer<EPubFileAs>> file_as_list =
+                         QList<QSharedPointer<EPubFileAs>>());
   void addAuthor(AuthorData author_data);
   QStringList compareAndDiscard(QStringList names);
 
@@ -121,7 +122,7 @@ signals:
 public slots:
 
 protected:
-  Options m_options;
+  EBookOptions* m_options;
   QString m_filename;
   AuthorMap m_author_data;
   AuthorByString m_author_by_fileas;

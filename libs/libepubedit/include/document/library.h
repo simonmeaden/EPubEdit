@@ -7,7 +7,8 @@
 
 #include "qyamlcpp.h"
 
-#include "options.h"
+class EBookOptions;
+class EBookSeriesDB;
 
 struct EBookData
 {
@@ -33,10 +34,10 @@ typedef QList<BookData> BookList;
 typedef QMap<quint64, BookData> BookMap;
 typedef QMultiMap<QString, BookData> BookByString;
 
-class EBookLibraryDB
+class EBookLibraryDB : public QObject
 {
 public:
-  explicit EBookLibraryDB(Options options, SeriesDB series_db);
+  explicit EBookLibraryDB(EBookOptions* options, EBookSeriesDB* series_db);
   ~EBookLibraryDB();
 
   // yaml file stuff
@@ -58,8 +59,8 @@ public:
   void setModified(bool modified);
 
 protected:
-  Options m_options;
-  SeriesDB m_series_db;
+  EBookOptions* m_options;
+  EBookSeriesDB* m_series_db;
   QString m_filename;
   BookMap m_book_data;
   BookByString m_book_by_title;

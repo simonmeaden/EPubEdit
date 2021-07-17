@@ -1,10 +1,12 @@
 #include "document/authors.h"
+#include "options.h"
 
 // starts at 1 - 0 == null value
 quint64 EBookAuthorsDB::m_highest_uid = 1;
 
-EBookAuthorsDB::EBookAuthorsDB(Options options)
-  : m_options(options)
+EBookAuthorsDB::EBookAuthorsDB(EBookOptions* options)
+  : QObject(options)
+  , m_options(options)
   , m_author_changed(false)
 {
   loadAuthors();
@@ -341,7 +343,8 @@ EBookAuthorsDB::saveAuthors()
 }
 
 AuthorData
-EBookAuthorsDB::addAuthor(QString display_name, FileAsList /*file_as_list*/)
+EBookAuthorsDB::addAuthor(QString display_name,
+                          QList<QSharedPointer<EPubFileAs>> /*file_as_list*/)
 {
   // TODO maybe this is not used.
   /* The display name is normally in the form 'FORENAME SURNAME' or

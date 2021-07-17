@@ -1,9 +1,12 @@
 #include "document/library.h"
+#include "document/series.h"
+#include "options.h"
 
 quint64 EBookData::m_highest_uid = 0;
 
-EBookLibraryDB::EBookLibraryDB(Options options, SeriesDB series_db)
-  : m_options(options)
+EBookLibraryDB::EBookLibraryDB(EBookOptions* options, EBookSeriesDB* series_db)
+  : QObject(options)
+  , m_options(options)
   , m_series_db(series_db)
   , m_modified(false)
 {
