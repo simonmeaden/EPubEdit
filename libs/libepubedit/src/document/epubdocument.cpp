@@ -1095,9 +1095,9 @@ EPubDocument::tocAsString()
 QString
 EPubDocument::title()
 {
-  QSharedPointer<EPubTitle> first = m_metadata->orderedTitles().first();
-  if (!first.isNull())
-    return first->title;
+  QSharedPointer<EPubTitle> firstTitle = m_metadata->orderedTitles().first();
+  if (!firstTitle.isNull())
+    return firstTitle->title;
   else {
     return QString();
   }

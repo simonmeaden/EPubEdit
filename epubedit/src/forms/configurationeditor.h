@@ -18,15 +18,15 @@ class ConfigurationEditor : public QDialog
 {
   Q_OBJECT
 public:
-  explicit ConfigurationEditor(Config config, QWidget* parent = nullptr);
+  explicit ConfigurationEditor(Config* config, QWidget* parent = nullptr);
 
-  Config config() const;
+  Config* config() const;
   bool modified() const;
 
 signals:
 
 private:
-  Config m_config;
+  Config* m_config;
   bool m_modified;
 
   void initGui();

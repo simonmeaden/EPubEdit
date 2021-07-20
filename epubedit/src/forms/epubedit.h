@@ -16,8 +16,8 @@
 #include <QWidget>
 
 #include "forms/configurationeditor.h"
+#include "forms/metadataform.h"
 
-class MetadataForm;
 class EPubEditor;
 class EPubDocument;
 
@@ -26,10 +26,10 @@ class EPubEdit : public QWidget
   Q_OBJECT
 
 public:
-  explicit EPubEdit(Config config, QWidget* parent = nullptr);
+  explicit EPubEdit(Config* config, QWidget* parent = nullptr);
   ~EPubEdit();
 
-  void setConfig(const Config& config);
+  void setConfig(Config* config);
   void saveConfig(const QString& filename = QString());
 
   bool loadDocument(const QString& filename);
@@ -47,7 +47,7 @@ signals:
 private:
   QUndoStack* m_undoStack;
   QUndoView* m_undoView;
-  Config m_config;
+  Config* m_config;
   QTabWidget* m_tabs;
   MetadataForm* m_metadataForm;
   EPubEditor* m_editor;
@@ -59,7 +59,7 @@ private:
   void loadConfig(const QString& filename = QString());
 
   void updateMetadataForm();
-  void metadataHasChanged();
+  void metadataHasChanged(MetadataForm::Modifications modifications);
 
   static const QString STATUS_TIMEOUT;
 };

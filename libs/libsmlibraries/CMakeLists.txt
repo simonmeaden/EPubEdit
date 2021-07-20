@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.5)
 cmake_policy(SET CMP0076 NEW)
 cmake_policy(SET CMP0079 NEW)
 
-project(libepubedit LANGUAGES CXX)
+project(libsmlibraries LANGUAGES CXX)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -12,7 +12,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_library(${PROJECT_NAME} STATIC "")
-add_library(EPubEdit::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
+add_library(SMLibraries::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 target_compile_options(${PROJECT_NAME} PRIVATE -Werror)
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
@@ -43,28 +43,9 @@ target_sources(${PROJECT_NAME}
 
   PRIVATE
     # NEED to include the header files her otherwise MOC won't handle them.
-    include/document/epubdocument.h
-    src/document/epubdocument.cpp
-    include/document/epubmetadata.h
-    src/document/epubmetadata.cpp
-    include/document/authors.h
-    src/document/authors.cpp
-    include/document/library.h
-    src/document/library.cpp
-    include/document/dcterms.h
-    src/document/dcterms.cpp
-    include/document/foaf.h
-    src/document/foaf.cpp
-    include/document/marcrelator.h
-    src/document/marcrelator.cpp
-    include/document/series.h
-    src/document/series.cpp
-#    src/document/htmlparser.cpp
-#    src/document/htmltidy.cpp
-
-    src/options.cpp
-
-    # Utility classes
-    src/util/csvsplitter.cpp
+    include/languages.h
+    src/languages.cpp
+    include/filedownloader.h
+    src/filedownloader.cpp
 
 )

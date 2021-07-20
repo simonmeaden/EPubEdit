@@ -36,6 +36,7 @@ target_include_directories(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
     EPubEdit::libepubedit
+    SMLibraries::libsmlibraries
     QuaZip::QuaZip
     QYamlCpp::qyamlcpp
     yaml-cpp
@@ -43,4 +44,5 @@ target_link_libraries(${PROJECT_NAME}
     Qt${QT_VERSION_MAJOR}::Gui
     Qt${QT_VERSION_MAJOR}::Widgets
     Qt${QT_VERSION_MAJOR}::Xml
+    Qt${QT_VERSION_MAJOR}::Network
 )

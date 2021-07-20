@@ -13,7 +13,6 @@ MetadataForm::MetadataForm(QUndoStack* undoStack, QWidget* parent)
   : QFrame(parent)
   , m_undoStack(undoStack)
   , m_currentIndex(QModelIndex())
-  , m_modified(false)
 {
 
   initGui();
@@ -82,8 +81,12 @@ MetadataForm::initMaindataFrame()
 void
 MetadataForm::acceptChanges()
 {
-  if (m_modified) {
-    emit dataHasChanged(m_modifications);
+  if (m_modifications != MetadataForm::NO_CHANGES) {
+    if (m_modifications.testFlag(MetadataForm::TITLES_CHANGED)) {
+      //      m_document->setTitle();
+    }
+    if (m_modifications.testFlag(MetadataForm::AUTHORS_CHANGED)) {
+    }
   }
 }
 
@@ -104,7 +107,6 @@ MetadataForm::addTitle()
     // actually need to add the title manually.
     auto addCommand = new AddTitleCommand(m_titleView, text, row);
     m_undoStack->push(addCommand);
-    m_modified = true;
     m_modifications.setFlag(TITLES_CHANGED, true);
     emit sendStatusMessage(
       tr("Adding new title \"%1\"").arg(m_titleView->titleStrAt(row)));
@@ -129,12 +131,16 @@ MetadataForm::titleContextMenu(QPoint pos)
   auto primaryAct = new QAction("Set title as Primary", this);
   connect(
     primaryAct, &QAction::triggered, this, &MetadataForm::setPrimaryTitle);
+  auto editTitleAct = new QAction("Edit Title values", this);
+  connect(primaryAct, &QAction::triggered, this, &MetadataForm::editTitle);
 
   menu->addAction(addTitleAct);
   menu->addAction(modifyAct);
   menu->addAction(removeAct);
   menu->addAction(primaryAct);
   menu->addAction(setIdAct);
+  menu->addSeparator();
+  menu->addAction(editTitleAct);
 
   menu->popup(m_titleView->viewport()->mapToGlobal(pos));
 }
@@ -179,12 +185,11 @@ MetadataForm::setId()
       if (m_uniqueIdList->contains(idStr2)) {
         QMessageBox::warning(this,
                              tr("Non-Unique ID value!"),
-                             tr("Attempting to use an ID nore than once.\n"
+                             tr("Attempting to use an ID more than once.\n"
                                 "ID's must be unique."),
                              QMessageBox::Ok,
                              QMessageBox::Ok);
       } else {
-        //        m_titleView->setId(row, m_uniqueIdList->append(idStr2, -1));
         m_undoStack->push(new SetIdCommand(m_titleView, idStr1, idStr2, row));
         m_modifications.setFlag(TITLES_CHANGED, true);
         emit sendStatusMessage(
@@ -224,7 +229,6 @@ MetadataForm::removeTitle()
         m_undoStack->push(
           new RemoveTitleCommand(m_titleView, title, m_currentIndex.row()));
         m_currentIndex = m_titleView->primaryTitleIndex();
-        m_modified = true;
         m_modifications.setFlag(TITLES_CHANGED, true);
         emit sendStatusMessage(
           tr("Removed title \"%1\"")
@@ -281,6 +285,10 @@ MetadataForm::setPrimaryTitle()
     }
   }
 }
+
+void
+MetadataForm::editTitle()
+{}
 
 void
 MetadataForm::setDocument(QSharedPointer<EPubDocument> document)
@@ -997,4 +1005,77 @@ SetIdCommand::redo()
 {
   auto title = m_view->titleAt(m_row);
   title->id = m_view->uniqueIdList()->append(m_oldId, -1);
+}
+
+//====================================================================
+//=== TitleEditDialog
+//====================================================================
+void
+TitleEditDialog::initGui()
+{
+  auto layout = new QFormLayout;
+  setLayout(layout);
+
+  auto idEdit = new QLineEdit(this);
+  layout->addRow(tr("ID :"), idEdit);
+  connect(idEdit, &QLineEdit::textChanged, this, &TitleEditDialog::idChanged);
+
+  auto titleEdit = new QLineEdit(this);
+  layout->addRow(tr("Title :"), titleEdit);
+  connect(
+    titleEdit, &QLineEdit::textChanged, this, &TitleEditDialog::titleChanged);
+
+  m_dirEdit = new QComboBox(this);
+  m_dirEdit->addItem(tr("Left to Right"), "LTR");
+  m_dirEdit->addItem(tr("Right to Left"), "RTL");
+  layout->addRow(tr("Direction :"), m_dirEdit);
+  connect(m_dirEdit,
+          &QComboBox::currentTextChanged,
+          this,
+          &TitleEditDialog::directionChanged);
+
+  auto langEdit = new QLineEdit(this);
+  layout->addRow(tr("Language :"), langEdit);
+  connect(
+    langEdit, &QLineEdit::textChanged, this, &TitleEditDialog::langChanged);
+
+  auto dateEdit = new QDateEdit(this);
+  layout->addRow(tr("Date :"), dateEdit);
+  connect(
+    dateEdit, &QDateEdit::dateChanged, this, &TitleEditDialog::dateChanged);
+}
+
+void
+TitleEditDialog::idChanged(const QString& text)
+{
+  m_title->id = text;
+}
+
+void
+TitleEditDialog::titleChanged(const QString& text)
+{
+  m_title->title = text;
+}
+
+void
+TitleEditDialog::directionChanged(const QString& text)
+{
+  auto dir = m_dirEdit->currentData().toString();
+  if (dir == "LTR") {
+    m_title->dir = Direction::LTR;
+  } else {
+    m_title->dir = Direction::RTL;
+  }
+}
+
+void
+TitleEditDialog::langChanged(const QString& text)
+{
+  m_title->lang = text;
+}
+
+void
+TitleEditDialog::dateChanged(const QDate& date)
+{
+  m_title->date = date;
 }

@@ -1,12 +1,15 @@
 #include "mainwindow.h"
 #include "forms/configurationeditor.h"
 #include "forms/epubedit.h"
+#include "languages.h"
 
 MainWindow::MainWindow(QWidget* parent)
   : QMainWindow(parent)
   , m_width(800)
   , m_height(800)
 {
+  m_config = new Config(this);
+
   initGui();
 
   const auto sr = qApp->screens().at(0)->availableGeometry();
@@ -17,6 +20,10 @@ MainWindow::MainWindow(QWidget* parent)
   setStatusLineAndCol(0, 0);
   m_editor->loadDocument(
     "/home/simonmeaden/workspace/epubedit/book/mobydick/moby-dick.epub");
+
+  //  auto languages = new BCP47Languages();
+  //  connect(languages, &BCP47Languages::completed, languages,
+  //  BCP47Languages::saveToLocalFile()); languages->rebuildFromRegistry();
 }
 
 MainWindow::~MainWindow() {}
@@ -247,7 +254,7 @@ MainWindow::setStatusMessage(const QString& message, int timeout)
 {
   auto t = timeout;
   if (t == 0)
-    t = m_config.getStatusTimeout();
+    t = m_config->getStatusTimeout();
 
   auto timer = new QTimer(this);
   connect(timer, &QTimer::timeout, this, &MainWindow::clearStatusMessage);

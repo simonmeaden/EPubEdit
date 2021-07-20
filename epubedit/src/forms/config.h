@@ -1,29 +1,36 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#include <QString>
+#include <QDir>
+#include <QFile>
 #include <QStandardPaths>
+#include <QString>
+#include <QThread>
 
-class Config
+class BCP47Languages;
+
+class Config : public QObject
 {
 public:
-  Config();
+  Config(QObject* parent);
   ~Config();
 
-
   QString getConfigDir() const;
-  void setConfigDir(const QString &value);
+  void setConfigDir(const QString& value);
   QString getConfigFile() const;
-  void setConfigFile(const QString &value);
+  void setConfigFile(const QString& value);
 
   int getStatusTimeout() const;
   void setStatusTimeout(int value);
 
 private:
+  BCP47Languages* m_languages;
   QString configDir;
   QString configFile;
 
   int statusTimeout = 20; // timeout in seconds
+
+  void saveLanguageFile();
 };
 
 #endif // CONFIG_H

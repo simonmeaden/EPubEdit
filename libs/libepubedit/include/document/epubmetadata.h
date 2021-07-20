@@ -16,6 +16,7 @@ enum Direction
   LTR,
   RTL,
 };
+Q_DECLARE_METATYPE(Direction)
 
 Direction
 direction(const QString& dir);
@@ -226,7 +227,7 @@ struct EPubTitle
   QString lang;
   QList<QSharedPointer<EPubAltRep>> altRepList;
   QList<QSharedPointer<EPubFileAs>> fileAsList;
-  QDateTime date;
+  QDate date;
 };
 
 class EPubLanguage

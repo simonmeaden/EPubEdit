@@ -3,6 +3,8 @@
 
 #include <QAbstractTableModel>
 #include <QAction>
+#include <QComboBox>
+#include <QDateEdit>
 #include <QFormLayout>
 #include <QFrame>
 #include <QHeaderView>
@@ -28,6 +30,31 @@ class EPubMetadata;
 class EPubTitle;
 
 #include "document/epubmetadata.h"
+
+class TitleEditDialog : public QDialog
+{
+  Q_OBJECT
+public:
+  TitleEditDialog(QSharedPointer<EPubTitle> title, QWidget* parent)
+    : QDialog(parent)
+    , m_title(title)
+  {
+    initGui();
+  }
+
+  inline QSharedPointer<EPubTitle> title() { return m_title; }
+
+private:
+  QComboBox* m_dirEdit;
+  QSharedPointer<EPubTitle> m_title;
+
+  void initGui();
+  void idChanged(const QString& text);
+  void titleChanged(const QString& text);
+  void directionChanged(const QString& text);
+  void langChanged(const QString& text);
+  void dateChanged(const QDate& date);
+};
 
 class TitleModel : public QAbstractTableModel
 {
@@ -268,9 +295,9 @@ public:
   {
     NO_CHANGES = 0,
     TITLES_CHANGED = 1,
-    AUTHORS_CHANDED = 2,
+    AUTHORS_CHANGED = 2,
 
-    ALL = TITLES_CHANGED | AUTHORS_CHANDED,
+    ALL = TITLES_CHANGED | AUTHORS_CHANGED,
   };
   Q_DECLARE_FLAGS(Modifications, Modified)
   Q_FLAG(MetadataForm::Modifications)
@@ -294,7 +321,6 @@ private:
   QSharedPointer<EPubDocument> m_document;
   QModelIndex m_currentIndex;
   Modifications m_modifications = NO_CHANGES;
-  bool m_modified;
 
   static const QString TITLESTR;
 
@@ -309,6 +335,7 @@ private:
   void removeTitle();
   void titleRemoved(int row);
   void setPrimaryTitle();
+  void editTitle();
 };
 // Q_DECLARE_OPERATORS_FOR_FLAGS(MetadataForm::Types)
 

@@ -31,7 +31,7 @@ public:
 
 protected:
 private:
-  Config m_config;
+  Config* m_config;
   int m_width, m_height;
   QAction *m_fileNewAct, *m_fileOpenAct, *m_fileSaveAct, *m_fileExitAct;
   QAction *m_editUndoAct, *m_editRedoAct, *m_editDeleteAct, *m_editCutAct,

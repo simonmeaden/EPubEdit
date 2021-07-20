@@ -13,7 +13,7 @@
 
 const QString EPubEdit::STATUS_TIMEOUT = "status_timeout";
 
-EPubEdit::EPubEdit(Config config, QWidget* parent)
+EPubEdit::EPubEdit(Config* config, QWidget* parent)
   : QWidget(parent)
   , m_undoStack(new QUndoStack(this))
   , m_config(config)
@@ -90,7 +90,7 @@ EPubEdit::getRedoAction()
 }
 
 void
-EPubEdit::setConfig(const Config& config)
+EPubEdit::setConfig(Config* config)
 {
   m_config = config;
   saveConfig();
@@ -104,16 +104,14 @@ EPubEdit::updateMetadataForm()
 }
 
 void
-EPubEdit::metadataHasChanged()
+EPubEdit::metadataHasChanged(MetadataForm::Modifications modifications)
 {
-  //  if (m_metadataForm->titlesModified()) {
-  //    auto titles = m_metadataForm->titles();
-  //    m_metadata->setOrderedTitles(titles);
-  //  }
-
-  //  if (m_metadataForm->authorsModified()) {
-  //    auto authors = m_metadataForm->authors();
-  //    m_metadata->setCreatorList(authors);
+  if (modifications.testFlag(MetadataForm::TITLES_CHANGED)) {
+    // TODO save titles.
+  }
+  if (modifications.testFlag(MetadataForm::AUTHORS_CHANGED)) {
+    // TODO save authors.
+  }
 }
 
 void
@@ -131,6 +129,10 @@ EPubEdit::initGui()
 
   m_metadataForm = new MetadataForm(m_undoStack, this);
   m_metadataForm->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  connect(m_metadataForm,
+          &MetadataForm::dataHasChanged,
+          this,
+          &EPubEdit::metadataHasChanged);
   fLayout->addWidget(m_metadataForm, 0, 0);
 
   fLayout->addWidget(m_undoView, 0, 1);
@@ -147,8 +149,8 @@ EPubEdit::loadConfig(const QString& filename)
   QFile* file;
   if (filename.isEmpty()) {
     QDir dir;
-    dir.mkpath(m_config.getConfigDir());
-    file = new QFile(dir.filePath(m_config.getConfigFile()), this);
+    dir.mkpath(m_config->getConfigDir());
+    file = new QFile(dir.filePath(m_config->getConfigFile()), this);
   } else {
     file = new QFile(filename, this);
   }
@@ -157,10 +159,10 @@ EPubEdit::loadConfig(const QString& filename)
     auto config = YAML::LoadFile(*file);
     if (config[STATUS_TIMEOUT]) {
       auto node = config[STATUS_TIMEOUT];
-      m_config.setStatusTimeout(node.as<int>());
+      m_config->setStatusTimeout(node.as<int>());
     }
   } else {
-    m_config.setStatusTimeout(20);
+    m_config->setStatusTimeout(20);
   }
 }
 
@@ -170,7 +172,7 @@ EPubEdit::saveConfig(const QString& filename)
   QFile* file;
   if (filename.isEmpty())
     file = new QFile(
-      QDir(m_config.getConfigDir()).filePath(m_config.getConfigFile()), this);
+      QDir(m_config->getConfigDir()).filePath(m_config->getConfigFile()), this);
   else
     file = new QFile(filename, this);
 
@@ -183,9 +185,9 @@ EPubEdit::saveConfig(const QString& filename)
       "as the wrong key-value pair could cause problems.\n"
       "The best way is to use the in application configuration editor.\n\n"));
     emitter << YAML::BeginMap;
-    if (m_config.getStatusTimeout() > 0) {
+    if (m_config->getStatusTimeout() > 0) {
       emitter << YAML::Key << STATUS_TIMEOUT << YAML::Value
-              << m_config.getStatusTimeout()
+              << m_config->getStatusTimeout()
               << YAML::Comment(
                    tr("Status display timeout in seconds. int value."));
     }

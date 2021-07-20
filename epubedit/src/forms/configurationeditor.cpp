@@ -1,6 +1,6 @@
 #include "configurationeditor.h"
 
-ConfigurationEditor::ConfigurationEditor(Config config, QWidget* parent)
+ConfigurationEditor::ConfigurationEditor(Config* config, QWidget* parent)
   : QDialog(parent)
   , m_config(config)
   , m_modified(false)
@@ -8,7 +8,7 @@ ConfigurationEditor::ConfigurationEditor(Config config, QWidget* parent)
   initGui();
 }
 
-Config
+Config*
 ConfigurationEditor::config() const
 {
   return m_config;
@@ -29,7 +29,7 @@ ConfigurationEditor::initPage1()
 
   auto statusTimeoutEdit = new QSpinBox(this);
   layout->addRow(tr("Status bar message timeout (secs)"), statusTimeoutEdit);
-  statusTimeoutEdit->setValue(m_config.getStatusTimeout());
+  statusTimeoutEdit->setValue(m_config->getStatusTimeout());
   connect(statusTimeoutEdit,
           &QSpinBox::valueChanged,
           this,
@@ -41,7 +41,7 @@ ConfigurationEditor::initPage1()
 void
 ConfigurationEditor::statusTimeoutChanged(int value)
 {
-  m_config.setStatusTimeout(value);
+  m_config->setStatusTimeout(value);
   m_modified = true;
 }
 

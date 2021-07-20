@@ -446,8 +446,7 @@ void
 EPubMetadata::parseTitleDateRefines(QSharedPointer<EPubTitle> sharedTitle,
                                     QDomElement& metadataElement)
 {
-  sharedTitle->date =
-    QDateTime::fromString(metadataElement.text(), Qt::ISODate);
+  sharedTitle->date = QDate::fromString(metadataElement.text(), Qt::ISODate);
 }
 
 QSharedPointer<Foaf>

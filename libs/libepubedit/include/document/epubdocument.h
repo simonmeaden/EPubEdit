@@ -100,7 +100,6 @@ private:
   QString m_publisher;
   QDate m_published;
   QString m_subject;
-  QString m_title;
   QuaZip* m_archive = nullptr;
   QStringList m_files;
   QByteArray m_mimetype;
