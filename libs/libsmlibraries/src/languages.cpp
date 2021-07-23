@@ -25,16 +25,29 @@ BCP47Language::subtag() const
 void
 BCP47Language::addDescription(const QString& desc)
 {
-  if (m_descriptions.isEmpty()) {
-    m_description = desc;
-  }
   m_descriptions.append(desc);
+}
+
+void
+BCP47Language::appendDescription(const QString& desc)
+{
+  if (m_descriptions.length() == 0)
+    m_descriptions.append(desc);
+  else {
+    int i = m_descriptions.size() - 1;
+    QString description = m_descriptions.at(i);
+    description += "\n";
+    description += desc;
+    m_descriptions.replace(i, description);
+  }
 }
 
 QString
 BCP47Language::description() const
 {
-  return m_description;
+  if (!m_descriptions.isEmpty())
+    return m_descriptions.first();
+  return QString();
 }
 
 QStringList
@@ -116,7 +129,7 @@ BCP47Language::setComments(const QString& comments)
 }
 
 void
-BCP47Language::addComment(const QString& extra)
+BCP47Language::appendComment(const QString& extra)
 {
   m_comments.append("\n");
   m_comments.append(extra);
@@ -171,6 +184,24 @@ BCP47Language::setTag(const QString& tag)
 }
 
 BCP47Language::Type
+BCP47Language::fromString(const QString& name)
+{
+  if (name.toLower() == "language")
+    return LANGUAGE;
+  else if (name.toLower() == "extlang")
+    return EXTLANG;
+  else if (name.toLower() == "script")
+    return SCRIPT;
+  else if (name.toLower() == "region")
+    return REGION;
+  else if (name.toLower() == "variant")
+    return VARIANT;
+  else if (name.toLower() == "grandfathered")
+    return GRANDFATHERED;
+  return LANGUAGE;
+}
+
+BCP47Language::Type
 BCP47Language::type() const
 {
   return m_type;
@@ -205,6 +236,19 @@ BCP47Language::typeString()
 //====================================================================
 //=== BCP47Languages
 //====================================================================
+const QStringList BCP47Languages::m_types = QStringList() << "type"
+                                                          << "tag"
+                                                          << "subtag"
+                                                          << "description"
+                                                          << "added"
+                                                          << "suppress-script"
+                                                          << "prefix"
+                                                          << "macrolanguage"
+                                                          << "deprecated"
+                                                          << "preferred-value"
+                                                          << "scope"
+                                                          << "comments";
+
 BCP47Languages::BCP47Languages(QObject* parent)
   : QObject(parent)
 {}
@@ -215,14 +259,26 @@ BCP47Languages::saveToLocalFile(QFile& file)
   if (file.open((QFile::ReadWrite | QFile::Truncate))) {
     YAML::Emitter emitter;
     QString value;
-    emitter << YAML::Comment(
-      tr("BCP47 is a conversion of the IANA Language Subtag Registry\n"
-         "into a more user friendly form. For the original file see:\n"
-         "https://www.iana.org/assignments/language-subtag-registry/"
-         "language-subtag-registry.\n\n"));
+    emitter << YAML::Comment(tr(
+      "BCP47 is a conversion of the IANA Language Subtag Registry\n"
+      "into a more user friendly form. For the original file see:\n"
+      "https://www.iana.org/assignments/language-subtag-registry/"
+      "language-subtag-registry.\n\n"
+      "This file was generated automatically from the IANA Language Subtag\n"
+      "Registry!\n"
+      "You should not modify this file by hand as it is VERY easy\n"
+      "make a mistake. You should delete the file and regenerate using\n"
+      "the BCP47Languages::rebuildFromRegistry() method if the file becomes\n"
+      "corrupted or outdated.\n\n"));
+    emitter << YAML::BeginMap;
+    emitter << YAML::Key << "file-date" << YAML::Value
+            << fileDate().toString(Qt::ISODate);
+    emitter << YAML::Key << "languages" << YAML::Value;
     emitter << YAML::BeginSeq;
     for (auto language : m_languages) {
       emitter << YAML::BeginMap;
+      //      emitter << YAML::Key << "COUNT" << YAML::Value <<
+      //      language->count();
       emitter << YAML::Key << "type" << YAML::Value << language->typeString();
       value = language->subtag();
       if (!value.isEmpty()) {
@@ -232,9 +288,12 @@ BCP47Languages::saveToLocalFile(QFile& file)
       if (!value.isEmpty()) {
         emitter << YAML::Key << "tag" << YAML::Value << value;
       }
-      value = language->description();
-      if (!value.isEmpty()) {
-        emitter << YAML::Key << "description" << YAML::Value << value;
+      auto descriptions = language->descriptions();
+      if (!descriptions.isEmpty()) {
+        emitter << YAML::Key << "description" << YAML::Value;
+        emitter << YAML::BeginSeq;
+        emitter << YAML::Flow << descriptions;
+        emitter << YAML::EndSeq;
       }
       value = language->dateAdded().toString(Qt::ISODate);
       if (!value.isEmpty()) {
@@ -271,6 +330,7 @@ BCP47Languages::saveToLocalFile(QFile& file)
       emitter << YAML::EndMap;
     }
     emitter << YAML::EndSeq;
+    emitter << YAML::EndMap;
 
     QTextStream outStream(&file);
     outStream << emitter.c_str();
@@ -279,9 +339,75 @@ BCP47Languages::saveToLocalFile(QFile& file)
 }
 
 void
-BCP47Languages::readLocalFile(QFile& file)
+BCP47Languages::readFromLocalFile(QFile& file)
 {
-  // TODO
+  if (file.exists()) {
+    auto yaml = YAML::LoadFile(file);
+    if (yaml["file-date"]) {
+      auto node = yaml["file-date"];
+      m_fileDate = QDate::fromString(node.as<QString>(), Qt::ISODate);
+    }
+    if (yaml["languages"]) {
+      auto languagesNode = yaml["languages"];
+      if (languagesNode && languagesNode.IsSequence()) {
+        for (auto languageNode : languagesNode) {
+          if (languageNode && languageNode.IsMap()) {
+            auto language = QSharedPointer<BCP47Language>(new BCP47Language());
+            if (languageNode["type"]) {
+              auto value = languageNode["type"].as<QString>();
+              language->setType(BCP47Language::fromString(value));
+            }
+            if (languageNode["subtag"]) {
+              auto value = languageNode["subtag"].as<QString>();
+              language->setSubtag(value);
+            }
+            if (languageNode["tag"]) {
+              auto value = languageNode["tag"].as<QString>();
+              language->setTag(value);
+            }
+            if (languageNode["added"]) {
+              auto value = languageNode["added"].as<QString>();
+              language->setDateAdded(QDate::fromString(value, Qt::ISODate));
+            }
+            if (languageNode["suppress-script"]) {
+              auto value = languageNode["suppress-script"].as<QString>();
+              language->setSuppressScript(value);
+            }
+            if (languageNode["macrolanguage"]) {
+              auto value = languageNode["macrolanguage"].as<QString>();
+              language->setMacrolanguageName(value);
+            }
+            if (languageNode["preferred-value"]) {
+              auto value = languageNode["preferred-value"].as<QString>();
+              language->setPreferredValue(value);
+            }
+            if (languageNode["scope"]) {
+              auto value = languageNode["scope"].as<QString>();
+              if (value == "deprecated")
+                language->setDeprecated(true);
+              else if (value == "collection")
+                language->setCollection(true);
+              else if (value == "macrolanguage")
+                language->setMacrolanguage(true);
+            }
+            auto descriptions = languageNode["description"];
+            if (descriptions && descriptions.IsSequence()) {
+              for (auto description : descriptions) {
+                language->addDescription(description.as<QString>());
+              }
+            }
+            auto prefixes = languageNode["prefix"];
+            if (prefixes && prefixes.IsSequence()) {
+              for (auto prefix : prefixes) {
+                language->addPrefix(prefix.as<QString>());
+              }
+            }
+            addLanguage(language->description(), language);
+          }
+        }
+      }
+    }
+  }
 }
 
 QSharedPointer<BCP47Language>
@@ -328,6 +454,21 @@ QStringList
 BCP47Languages::grandfatheredNames() const
 {
   return m_grandfatheredNames;
+}
+
+bool
+BCP47Languages::isType(const QString& type)
+{
+  if (m_types.contains(type, Qt::CaseInsensitive)) {
+    return true;
+  }
+  return false;
+}
+
+QDate
+BCP47Languages::fileDate() const
+{
+  return m_fileDate;
 }
 
 QStringList
@@ -385,27 +526,27 @@ BCP47Languages::addLanguage(const QString& name,
   m_languages.insert(name, language);
   switch (language->type()) {
     case BCP47Language::LANGUAGE:
-      m_languageNames.append(language->descriptions());
+      m_languageNames.append(language->description());
       m_language.insert(name, language);
       break;
     case BCP47Language::EXTLANG:
-      m_extlangNames.append(language->descriptions());
+      m_extlangNames.append(language->description());
       m_extlan.insert(name, language);
       break;
     case BCP47Language::REGION:
-      m_regionNames.append(language->descriptions());
+      m_regionNames.append(language->description());
       m_region.insert(name, language);
       break;
     case BCP47Language::SCRIPT:
-      m_scriptNames.append(language->descriptions());
+      m_scriptNames.append(language->description());
       m_script.insert(name, language);
       break;
     case BCP47Language::VARIANT:
-      m_variantNames.append(language->descriptions());
+      m_variantNames.append(language->description());
       m_variant.insert(name, language);
       break;
     case BCP47Language::GRANDFATHERED:
-      m_grandfatheredNames.append(language->descriptions());
+      m_grandfatheredNames.append(language->description());
       break;
   }
 }
@@ -419,118 +560,191 @@ BCP47Languages::rebuildFromRegistry()
   connect(m_downloader,
           &FileDownloader::downloadComplete,
           this,
-          &BCP47Languages::loadData);
+          &BCP47Languages::parseData);
 }
 
 void
-BCP47Languages::loadData()
+BCP47Languages::parseData()
 {
   if (!m_languages.isEmpty()) {
     m_languages.clear();
   }
 
   QString data(m_downloader->downloadedData());
-  QString date;
+  QString line;
+  auto state = UNKNOWN;
+  //  auto type = NONE;
+  bool dateFound = false;
+  QSharedPointer<BCP47Language> language;
+  int count = 0;
   for (auto c : data) {
     if (c == '\n') {
-      break;
-    } else {
-      date += c;
-    }
-  }
-
-  if (date.toLower().startsWith("file-date")) {
-    auto splits = date.split(":");
-    if (splits.length() == 2) {
-      // MUST be trimmed, otherwise pre spaces cause convertion failure.
-      auto dateStr = splits.at(1).trimmed();
-      auto d = QDate::fromString(dateStr, Qt::ISODate);
-      m_fileDate = d;
-    }
-    data = data.mid(date.length() + 1);
-  }
-
-  QSharedPointer<BCP47Language> language;
-  QString languageName;
-  int count = 0;
-  auto splits = data.split("%%", Qt::SkipEmptyParts);
-  bool commented = false;
-  for (auto section : splits) {
-    auto subsections = section.split("\n", Qt::SkipEmptyParts);
-    for (auto subsection : subsections) {
-      // comments come at the end and can be multi-line
-      if (commented) {
-        language->addComment(subsection);
-        continue;
-      }
-      auto parts = subsection.split(":", Qt::SkipEmptyParts);
-      if (parts.size() == 2) {
-        auto name = parts.at(0).trimmed().toLower();
-        auto value = parts.at(1).trimmed();
-        if (name == "type") {
-          language = QSharedPointer<BCP47Language>(new BCP47Language());
-          if (value == "language")
-            language->setType(BCP47Language::LANGUAGE);
-          else if (value == "extlang")
-            language->setType(BCP47Language::EXTLANG);
-          else if (value == "script")
-            language->setType(BCP47Language::SCRIPT);
-          else if (value == "region")
-            language->setType(BCP47Language::REGION);
-          else if (value == "variant")
-            language->setType(BCP47Language::VARIANT);
-          else if (value == "grandfathered")
-            language->setType(BCP47Language::GRANDFATHERED);
-          else
-            qDebug() << tr("Unknown language type \"%1\".").arg(name);
-        } else if (name == "tag") {
-          if (language)
-            language->setTag(value);
-        } else if (name == "subtag") {
-          if (language)
-            language->setSubtag(value);
-        } else if (name == "description") {
-          if (language)
-            language->addDescription(value);
-        } else if (name == "added") {
-          if (language)
-            language->setDateAdded(QDate::fromString(value, Qt::ISODate));
-        } else if (name == "suppress-script") {
-          if (language)
-            language->setSuppressScript(value);
-        } else if (name == "prefix") {
-          if (language)
-            language->addPrefix(value);
-        } else if (name == "macrolanguage") {
-          if (language)
-            language->setMacrolanguageName(value);
-        } else if (name == "deprecated") {
-          if (language)
-            language->setDeprecated(true);
-        } else if (name == "preferred-value") {
-          if (language)
-            language->setPreferredValue(value);
-        } else if (name == "scope") {
-          if (value == "macrolanguge") {
-            if (language)
-              language->setMacrolanguage(true);
-          } else if (value == "collection") {
-            if (language)
-              language->setCollection(true);
+      if (!dateFound) {
+        if (line.startsWith("file-date", Qt::CaseInsensitive)) {
+          auto splits = line.split(":");
+          if (splits.length() == 2) {
+            // MUST be trimmed, otherwise pre spaces cause convertion failure.
+            auto dateStr = splits.at(1).trimmed();
+            auto d = QDate::fromString(dateStr, Qt::ISODate);
+            m_fileDate = d;
+            dateFound = true;
+            line.clear();
           }
-        } else if (name == "comments") {
-          if (language) {
-            language->setComments(value);
-            commented = true;
+        }
+      } else {
+        QString name, value;
+        if (line == "%%") { // SEPERATOR for sections
+          if (state != STARTED) {
+            state = STARTED;
+            language = QSharedPointer<BCP47Language>(new BCP47Language());
+            //            language->setCount(count);
+          }
+          line.clear();
+        } else if (line.contains(":")) {
+          auto splits = line.split(":", Qt::SkipEmptyParts);
+          auto size = splits.size();
+          bool nameIsType = false;
+          // clear any old values.
+          name.clear();
+          value.clear();
+
+          if (size == 0) // should never happen
+            continue;
+          else if (size == 1) {
+            value = line;
+          } else if (size == 2) {
+            name = splits.at(0).trimmed();
+            nameIsType = isType(name);
+            value = splits.at(1).trimmed();
+          } else {
+            // If there are more than 1 colon then probably a comment
+            // or description so reassemble splits into one value
+            name = splits.at(0).trimmed();
+            nameIsType = isType(name);
+            int i;
+            if (nameIsType) {
+              i = 1;
+              value = name;
+            } else {
+              i = 2;
+              value = splits.at(1);
+            }
+            for (; i < size; i++) {
+              value += (":" + splits.at(i));
+            }
+            // remove excess start/end spaces
+            value = value.trimmed();
+            size = 2;
+          }
+
+          if (size == 2 && nameIsType) {
+            auto name = splits.at(0).trimmed().toLower();
+            auto lName = name.toLower();
+            auto lValue = value.toLower();
+            if (lName == "type") {
+              if (lValue == "language")
+                language->setType(BCP47Language::LANGUAGE);
+              else if (lValue == "extlang")
+                language->setType(BCP47Language::EXTLANG);
+              else if (lValue == "script")
+                language->setType(BCP47Language::SCRIPT);
+              else if (lValue == "region")
+                language->setType(BCP47Language::REGION);
+              else if (lValue == "variant")
+                language->setType(BCP47Language::VARIANT);
+              else if (lValue == "grandfathered")
+                language->setType(BCP47Language::GRANDFATHERED);
+              else
+                qDebug() << tr("Unknown language type \"%1\".").arg(name);
+              line.clear();
+            } else if (lName == "tag") {
+              if (language)
+                language->setTag(value);
+              line.clear();
+            } else if (lName == "subtag") {
+              if (language)
+                language->setSubtag(value);
+              line.clear();
+            } else if (lName == "description") {
+              if (language) {
+                language->addDescription(value);
+                addLanguage(language->description(), language);
+                count++;
+                state = DESCRIPTION;
+              }
+              line.clear();
+            } else if (lName == "added") {
+              if (language)
+                language->setDateAdded(QDate::fromString(value, Qt::ISODate));
+              line.clear();
+            } else if (lName == "suppress-script") {
+              if (language)
+                language->setSuppressScript(value);
+              line.clear();
+            } else if (lName == "prefix") {
+              if (language)
+                language->addPrefix(value);
+              line.clear();
+            } else if (lName == "macrolanguage") {
+              if (language)
+                language->setMacrolanguageName(value);
+              line.clear();
+            } else if (lName == "deprecated") {
+              if (language)
+                language->setDeprecated(true);
+              line.clear();
+            } else if (lName == "preferred-value") {
+              if (language)
+                language->setPreferredValue(value);
+              line.clear();
+            } else if (lName == "scope") {
+              if (value == "macrolanguge") {
+                if (language)
+                  language->setMacrolanguage(true);
+              } else if (value == "collection") {
+                if (language)
+                  language->setCollection(true);
+              }
+              line.clear();
+            } else if (lName == "comments") {
+              if (language) {
+                language->setComments(value);
+                state = COMMENT;
+              }
+              line.clear();
+            }
+          } else {
+            // extra line. Probably a comment or description that runs over.
+            switch (state) {
+              case DESCRIPTION:
+                language->appendDescription(line);
+                break;
+              case COMMENT:
+                language->appendComment(line);
+                break;
+              default:
+                break;
+            }
+            line.clear();
           }
         } else {
-          qDebug() << tr("Unknown language value \"%1\"").arg(name);
+          // extra line. Probably a comment or description that runs over.
+          switch (state) {
+            case DESCRIPTION:
+              language->appendDescription(line);
+              break;
+            case COMMENT:
+              language->appendComment(line);
+              break;
+            default:
+              break;
+          }
+          line.clear();
         }
       }
+    } else {
+      line += c;
     }
-    commented = false;
-    addLanguage(language->description(), language);
-    qDebug() << tr("Count : %1").arg(count++);
   }
 
   emit completed();

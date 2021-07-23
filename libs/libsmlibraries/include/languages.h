@@ -10,6 +10,8 @@
 #include <QByteArray>
 #include <QObject>
 
+#include <QtDebug>
+
 #include "filedownloader.h"
 
 class BCP47Language
@@ -29,11 +31,13 @@ public:
 
   Type type() const;
   void setType(const Type& type);
+  void setTypeFromString(const QString& typeStr) {}
   QString typeString();
   void setSubtag(const QString& tag);
   QString subtag() const;
   QString description() const;
   void addDescription(const QString& desc);
+  void appendDescription(const QString& desc);
   QStringList descriptions() const;
   void setDateAdded(const QDate& date);
   QDate dateAdded() const;
@@ -47,7 +51,7 @@ public:
   bool isMacrolanguage() const;
   QString comments() const;
   void setComments(const QString& comments);
-  void addComment(const QString& extra);
+  void appendComment(const QString& extra);
   bool isDeprecated() const;
   void setDeprecated(bool deprecated);
   QString preferredValue() const;
@@ -57,11 +61,14 @@ public:
   QString tag() const;
   void setTag(const QString& tag);
 
+  //  void setCount(int count) { COUNT = count; }
+  //  int count() { return COUNT; }
+  static Type fromString(const QString& name);
+
 private:
   Type m_type = LANGUAGE;
   QString m_subtag;
   QString m_tag;
-  QString m_description;
   QStringList m_descriptions;
   QDate m_added;
   QString m_suppressScriptLang;
@@ -72,6 +79,8 @@ private:
   bool m_macrolanguage;
   bool m_collection;
   bool m_deprecated;
+
+  //  int COUNT;
 };
 
 /*!
@@ -89,6 +98,15 @@ private:
  */
 class BCP47Languages : public QObject
 {
+  enum State
+  {
+    UNKNOWN = 0,
+    STARTED = 1,
+    FINISHED = 2,
+    DESCRIPTION = 4,
+    COMMENT = 8,
+  };
+
   Q_OBJECT
 public:
   BCP47Languages(QObject* parent = nullptr);
@@ -99,7 +117,7 @@ public:
   void rebuildFromRegistry();
 
   virtual void saveToLocalFile(QFile& file);
-  virtual void readLocalFile(QFile& file);
+  virtual void readFromLocalFile(QFile& file);
 
   //! Returns the set of main language names as a list of QString.
   //!
@@ -187,6 +205,10 @@ public:
   //! and are retained for historical reasons.
   QStringList grandfatheredNames() const;
 
+  bool isType(const QString& type);
+
+  QDate fileDate() const;
+
 signals:
   void completed();
 
@@ -206,7 +228,9 @@ private:
   QDate m_fileDate;
   FileDownloader* m_downloader;
 
-  void loadData();
+  const static QStringList m_types;
+
+  void parseData();
 };
 
 #endif // LANGUAGES_H

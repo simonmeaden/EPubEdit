@@ -25,8 +25,8 @@ public:
 
 private:
   BCP47Languages* m_languages;
-  QString configDir;
-  QString configFile;
+  QString m_configDir;
+  QString m_configFile;
 
   int statusTimeout = 20; // timeout in seconds
 
