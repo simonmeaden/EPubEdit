@@ -10,30 +10,16 @@ Config::Config(QObject* parent)
   , m_configFile("epubedit.yaml")
 {
   m_languages = new BCP47Languages();
-  QDir dir;
+  connect(m_languages,
+          &BCP47Languages::sendMessage,
+          this,
+          &Config::receiveStatusMessage);
+  connect(
+    m_languages, &BCP47Languages::parsingError, this, &Config::sendLogMessage);
+  QDir dir(m_configDir);
   dir.mkpath(m_configDir);
   auto file = QFile(dir.filePath("languages.yaml"));
-  //  QFileInfo info(dir.filePath("languages.yaml"));
-  //  info.absoluteFilePath();
-  if (file.exists()) {
-    m_languages->readFromLocalFile(file);
-  } else {
-    auto languagesThread = new QThread();
-    connect(
-      m_languages, &BCP47Languages::completed, languagesThread, &QThread::quit);
-    connect(m_languages,
-            &BCP47Languages::completed,
-            languagesThread,
-            &QThread::deleteLater);
-    connect(
-      m_languages, &BCP47Languages::completed, this, &Config::saveLanguageFile);
-    connect(languagesThread,
-            &QThread::started,
-            m_languages,
-            &BCP47Languages::rebuildFromRegistry);
-    languagesThread->start();
-    m_languages->moveToThread(languagesThread);
-  }
+  m_languages->readFromLocalFile(file);
 }
 
 Config::~Config() {}
@@ -45,6 +31,13 @@ Config::saveLanguageFile()
   dir.mkpath(getConfigDir());
   auto file = QFile(dir.filePath("languages.yaml"));
   m_languages->saveToLocalFile(file);
+  emit tr("Language files load completed.");
+}
+
+void
+Config::receiveStatusMessage(const QString& message)
+{
+  emit sendStatusMessage(message, m_statusTimeout);
 }
 
 QString
@@ -62,7 +55,7 @@ Config::setConfigDir(const QString& value)
 int
 Config::getStatusTimeout() const
 {
-  return statusTimeout;
+  return m_statusTimeout;
 }
 
 void
@@ -74,7 +67,7 @@ Config::setConfigFile(const QString& value)
 void
 Config::setStatusTimeout(int value)
 {
-  statusTimeout = value;
+  m_statusTimeout = value;
 }
 
 QString

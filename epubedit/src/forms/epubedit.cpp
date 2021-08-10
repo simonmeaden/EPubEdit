@@ -93,8 +93,16 @@ void
 EPubEdit::setConfig(Config* config)
 {
   m_config = config;
+  connect(m_config, &Config::sendLogMessage, this, &EPubEdit::appendLogMessage);
   saveConfig();
 }
+
+void
+EPubEdit::appendLogMessage(const QString& message)
+{
+  m_logPage->moveCursor(QTextCursor::End);
+  m_logPage->appendPlainText(message);
+};
 
 void
 EPubEdit::updateMetadataForm()
@@ -141,6 +149,11 @@ EPubEdit::initGui()
 
   m_editor = new EPubEditor(this);
   m_tabs->addTab(m_editor, tr("EPUB Editor"));
+
+  // TODO possibly move this to a dialog???
+  m_logPage = new QPlainTextEdit(this);
+  m_logPage->setReadOnly(true);
+  m_tabs->addTab(m_logPage, tr("Logs"));
 }
 
 void

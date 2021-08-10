@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "forms/configurationeditor.h"
 #include "forms/epubedit.h"
-#include "languages.h"
+//#include "languages.h"
 
 MainWindow::MainWindow(QWidget* parent)
   : QMainWindow(parent)
@@ -9,6 +9,8 @@ MainWindow::MainWindow(QWidget* parent)
   , m_height(800)
 {
   m_config = new Config(this);
+  connect(
+    m_config, &Config::sendStatusMessage, this, &MainWindow::setStatusMessage);
 
   initGui();
 

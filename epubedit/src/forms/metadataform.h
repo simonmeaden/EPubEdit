@@ -81,9 +81,11 @@ public:
   bool modifyId(int row, const QString& idStr);
   bool swapWithFirst(int row);
   bool setTitle(int row, QSharedPointer<EPubTitle> title);
+  bool hasId(int row);
 
   QSharedPointer<EPubTitle> titleAt(int row);
   QString titleStrAt(int row);
+  UniqueString idStrAt(int row);
 
   QList<QSharedPointer<EPubTitle>> titles();
   bool areModified();
@@ -126,10 +128,13 @@ public:
   bool modifyTitle(int row, const QString& title);
   bool setTitle(int row, const QString& title);
   bool setId(int row, const UniqueString& id);
+  UniqueString id(int row);
   bool swapToPrimaryPosition(int row);
   QSharedPointer<EPubTitle> titleAt(int row);
+  UniqueString idAt(int row);
   QString titleStrAt(int row);
   QModelIndex primaryTitleIndex();
+  bool hasId(int row);
 
   QSize sizeHint() const override;
 
@@ -268,6 +273,27 @@ private:
   int m_row2;
 };
 
+class SwapIdCommand : public QUndoCommand
+{
+public:
+  SwapIdCommand(TitleView* view,
+                UniqueString id1,
+                int row1,
+                UniqueString id2,
+                int row2,
+                QUndoCommand* parent = nullptr);
+
+  void undo() override;
+  void redo() override;
+
+private:
+  TitleView* m_view;
+  UniqueString m_id1;
+  int m_row1;
+  UniqueString m_id2;
+  int m_row2;
+};
+
 class ModifyTitleCommand : public QUndoCommand
 {
 public:
@@ -296,6 +322,7 @@ public:
     NO_CHANGES = 0,
     TITLES_CHANGED = 1,
     AUTHORS_CHANGED = 2,
+    ID_CHANGED = 4,
 
     ALL = TITLES_CHANGED | AUTHORS_CHANGED,
   };
@@ -335,6 +362,7 @@ private:
   void removeTitle();
   void titleRemoved(int row);
   void setPrimaryTitle();
+  void moveIdToPrimary();
   void editTitle();
 };
 // Q_DECLARE_OPERATORS_FOR_FLAGS(MetadataForm::Types)

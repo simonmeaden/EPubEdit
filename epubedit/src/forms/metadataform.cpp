@@ -121,26 +121,33 @@ MetadataForm::titleContextMenu(QPoint pos)
 
   auto menu = new QMenu(this);
   auto addTitleAct = new QAction("Add title", this);
+  menu->addAction(addTitleAct);
   connect(addTitleAct, &QAction::triggered, this, &MetadataForm::addTitle);
   auto modifyAct = new QAction("Modify title", this);
+  menu->addAction(modifyAct);
   connect(modifyAct, &QAction::triggered, this, &MetadataForm::modifyTitle);
-  auto setIdAct = new QAction("Set id", this);
-  connect(setIdAct, &QAction::triggered, this, &MetadataForm::setId);
   auto removeAct = new QAction("Remove title", this);
+  menu->addAction(removeAct);
   connect(removeAct, &QAction::triggered, this, &MetadataForm::removeTitle);
+  auto setIdAct = new QAction("Set id", this);
+  menu->addAction(setIdAct);
+  connect(setIdAct, &QAction::triggered, this, &MetadataForm::setId);
   auto primaryAct = new QAction("Set title as Primary", this);
+  menu->addAction(primaryAct);
   connect(
     primaryAct, &QAction::triggered, this, &MetadataForm::setPrimaryTitle);
-  auto editTitleAct = new QAction("Edit Title values", this);
-  connect(primaryAct, &QAction::triggered, this, &MetadataForm::editTitle);
-
-  menu->addAction(addTitleAct);
-  menu->addAction(modifyAct);
-  menu->addAction(removeAct);
-  menu->addAction(primaryAct);
-  menu->addAction(setIdAct);
+  if (m_titleView->hasId(m_currentIndex.row()) && m_currentIndex.row() > 0) {
+    auto idToPrimaryAct = new QAction("Move Id to Primary", this);
+    menu->addAction(idToPrimaryAct);
+    connect(idToPrimaryAct,
+            &QAction::triggered,
+            this,
+            &MetadataForm::moveIdToPrimary);
+  }
   menu->addSeparator();
+  auto editTitleAct = new QAction("Edit Title values", this);
   menu->addAction(editTitleAct);
+  connect(primaryAct, &QAction::triggered, this, &MetadataForm::editTitle);
 
   menu->popup(m_titleView->viewport()->mapToGlobal(pos));
 }
@@ -282,6 +289,35 @@ MetadataForm::setPrimaryTitle()
           tr("\"%1\" is now the primary title!")
             .arg(m_titleView->titleStrAt(m_currentIndex.row())));
       }
+    }
+  }
+}
+
+void
+MetadataForm::moveIdToPrimary()
+{
+  if (m_currentIndex.isValid()) {
+    int btn =
+      QMessageBox::question(this,
+                            tr("Moving current ID to  Primary"),
+                            tr("You are attempting to move an alternate\n"
+                               "ID to the primary position.\n"
+                               "Are you sure? Press \"Yes\" to continue\n"
+                               "or \"No\" to cancel the operation."),
+                            QMessageBox::Yes | QMessageBox::No,
+                            QMessageBox::No);
+    if (btn == QMessageBox::Yes) {
+      auto id1 = m_titleView->idAt(0);
+      auto row2 = m_currentIndex.row();
+      auto id2 = m_titleView->idAt(row2);
+      // adding the command to the stack calls redo() on the command so we
+      // don't actually need to swap the title manually.
+      m_undoStack->push(new SwapIdCommand(m_titleView, id1, 0, id2, row2));
+      m_currentIndex = m_titleView->primaryTitleIndex();
+      m_modifications.setFlag(ID_CHANGED, true);
+      emit sendStatusMessage(
+        tr("\"%1\" is now the primary title!")
+          .arg(m_titleView->titleStrAt(m_currentIndex.row())));
     }
   }
 }
@@ -445,7 +481,6 @@ TitleModel::modifyId(int row, const QString& idStr)
   }
   auto title = m_titles.at(row);
   title->id = m_uniqueIdList->append(idStr, -1);
-  ;
   m_modified.replace(row, true);
   return true;
 }
@@ -477,6 +512,14 @@ TitleModel::setTitle(int row, QSharedPointer<EPubTitle> title)
   return false;
 }
 
+bool
+TitleModel::hasId(int row)
+{
+  if (row >= 0 || row < m_titles.size())
+    return !m_titles.at(row)->id.isEmpty();
+  return false;
+}
+
 QSharedPointer<EPubTitle>
 TitleModel::titleAt(int row)
 {
@@ -491,6 +534,14 @@ TitleModel::titleStrAt(int row)
   if (row >= 0 && row < m_titles.size())
     return m_titles.at(row)->title;
   return QString();
+}
+
+UniqueString
+TitleModel::idStrAt(int row)
+{
+  if (row >= 0 && row < m_titles.size())
+    return m_titles.at(row)->id;
+  return UniqueString();
 }
 
 QList<QSharedPointer<EPubTitle>>
@@ -713,21 +764,6 @@ TitleView::initialiseData(QList<QSharedPointer<EPubTitle>> data,
   resizeTableVertically();
 }
 
-// bool
-// TitleView::addTitle(const QString& text, const UniqueString& id)
-//{
-//  auto row = m_model->rowCount(QModelIndex());
-//  auto success = m_model->insertRow(row, QModelIndex());
-//  if (success) {
-//    auto title = m_model->titleAt(row);
-//    title->title = text;
-//    title->id = id;
-//    resizeTableVertically();
-//    //    emit updateSize(row);
-//  }
-//  return success;
-//}
-
 bool
 TitleView::removeTitle(int row)
 {
@@ -774,6 +810,12 @@ TitleView::setId(int row, const UniqueString& id)
   return false;
 }
 
+UniqueString
+TitleView::id(int row)
+{
+  return m_model->idStrAt(row);
+}
+
 bool
 TitleView::swapToPrimaryPosition(int row)
 {
@@ -786,6 +828,12 @@ TitleView::titleAt(int row)
   return m_model->titleAt(row);
 }
 
+UniqueString
+TitleView::idAt(int row)
+{
+  return m_model->idStrAt(row);
+}
+
 QString
 TitleView::titleStrAt(int row)
 {
@@ -796,6 +844,12 @@ QModelIndex
 TitleView::primaryTitleIndex()
 {
   return m_model->index(0, 0);
+}
+
+bool
+TitleView::hasId(int row)
+{
+  return m_model->hasId(row);
 }
 
 QSize
@@ -939,6 +993,37 @@ void
 SwapTitleCommand::redo()
 {
   m_view->swapToPrimaryPosition(m_row2);
+}
+
+//====================================================================
+//=== SwapTitleCommand
+//====================================================================
+SwapIdCommand::SwapIdCommand(TitleView* view,
+                             UniqueString id1,
+                             int row1,
+                             UniqueString id2,
+                             int row2,
+                             QUndoCommand* parent)
+  : QUndoCommand(parent)
+  , m_view(view)
+  , m_id1(id1)
+  , m_row1(row1)
+  , m_id2(id2)
+  , m_row2(row2)
+{}
+
+void
+SwapIdCommand::undo()
+{
+  m_view->setId(0, m_id1);
+  m_view->setId(m_row2, m_id2);
+}
+
+void
+SwapIdCommand::redo()
+{
+  m_view->setId(0, m_id2);
+  m_view->setId(m_row2, UniqueString());
 }
 
 //====================================================================

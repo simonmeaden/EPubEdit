@@ -8,6 +8,7 @@
 #include <QFormLayout>
 #include <QImageReader>
 #include <QLineEdit>
+#include <QPlainTextEdit>
 #include <QSharedPointer>
 #include <QStandardPaths>
 #include <QTabWidget>
@@ -51,6 +52,7 @@ private:
   QTabWidget* m_tabs;
   MetadataForm* m_metadataForm;
   EPubEditor* m_editor;
+  QPlainTextEdit* m_logPage;
   QSharedPointer<EPubDocument> m_document;
   bool m_loaded;
 
@@ -62,6 +64,7 @@ private:
   void metadataHasChanged(MetadataForm::Modifications modifications);
 
   static const QString STATUS_TIMEOUT;
+  void appendLogMessage(const QString& message);
 };
 
 #endif // EPUBEDIT_H

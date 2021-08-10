@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.5)
 cmake_policy(SET CMP0076 NEW)
 cmake_policy(SET CMP0079 NEW)
 
-project(libsmlibraries LANGUAGES CXX)
+project(libsmlibraries VERSION 0.1.0 LANGUAGES CXX)
 
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
@@ -42,10 +42,106 @@ target_sources(${PROJECT_NAME}
 #  PUBLIC
 
   PRIVATE
-    # NEED to include the header files her otherwise MOC won't handle them.
+    # NEED to include the header files here otherwise MOC won't handle them.
+    # they are also automatically included in the target_include_directories 
+    # section above
     include/languages.h
     src/languages.cpp
     include/filedownloader.h
     src/filedownloader.cpp
-
+    include/abstractlabelledspinbox.h
+    src/abstractlabelledspinbox.cpp
+    include/abstractlabelledwidget.h
+    src/abstractlabelledwidget.cpp
+    include/exspinbox.h
+    src/exspinbox.cpp
+    include/extendedcolordialog.h
+    src/extendedcolordialog.cpp
+    include/extendedcolordialog.h
+    src/extendedcolordialog.cpp
+    include/hexformatdelegate.h
+    src/hexformatdelegate.cpp
+    include/labelledcombobox.h
+    src/labelledcombobox.cpp
+    include/labelleddoublespinbox.h
+    src/labelleddoublespinbox.cpp
+    include/labelledexspinbox.h
+    src/labelledexspinbox.cpp
+    include/labelledlineedit.h
+    src/labelledlineedit.cpp
+    include/labelledspinbox.h
+    src/labelledspinbox.cpp
+    include/labelledtextfield.h
+    src/labelledtextfield.cpp
+    src/sm_widgets_global.h
+    include/x11colors.h
+    src/x11colors.cpp
 )
+
+########################################################################
+## The section includes the install section.
+########################################################################
+
+# Not working needs QuaZip and qyamlcpp in export set so need to work that out.
+
+#include(GNUInstallDirs)
+
+#install(TARGETS ${PROJECT_NAME}
+#    EXPORT ${PROJECT_NAME}-targets
+#    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+#    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+#)
+##This is required so that the exported target has the name SMLibraries and not smlibraries
+#set_target_properties(${PROJECT_NAME} PROPERTIES EXPORT_NAME SMLibraries)
+
+#install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+#install(EXPORT ${PROJECT_NAME}-targets
+#  FILE
+#    SMLibrariesTargets.cmake
+#  NAMESPACE
+#    SMLibraries::
+#  DESTINATION
+#    ${CMAKE_INSTALL_LIBDIR}/cmake/SMLibraries
+#)
+
+##Create a ConfigVersion.cmake file
+#set(INSTALL_CONFIGDIR ${CMAKE_INSTALL_LIBDIR}/cmake/SMLibraries)
+#include(CMakePackageConfigHelpers)
+#write_basic_package_version_file(
+#    ${CMAKE_CURRENT_BINARY_DIR}/SMLibrariesConfigVersion.cmake
+#    VERSION ${PROJECT_VERSION}
+#    COMPATIBILITY AnyNewerVersion
+#)
+
+#configure_package_config_file(${CMAKE_CURRENT_LIST_DIR}/cmake/SMLibrariesConfig.cmake.in
+#    ${CMAKE_CURRENT_BINARY_DIR}/SMLibrariesConfig.cmake
+#    INSTALL_DESTINATION ${INSTALL_CONFIGDIR}
+#)
+
+##Install the config, configversion and custom find modules
+#install(FILES
+#    ${CMAKE_CURRENT_BINARY_DIR}/SMLibrariesConfig.cmake
+#    ${CMAKE_CURRENT_BINARY_DIR}/SMLibrariesConfigVersion.cmake
+#    DESTINATION ${INSTALL_CONFIGDIR}
+#)
+
+###############################################
+### Exporting from the build tree
+#export(EXPORT ${PROJECT_NAME}-targets
+#    FILE ${CMAKE_CURRENT_BINARY_DIR}/SMLibrariesTargets.cmake
+#    NAMESPACE SMLibraries::)
+
+## install additional files
+#set(INSTALL_INCLUDE_DIR "include")
+#install(FILES ${SMWIDGETS_EXTRAS}
+#  DESTINATION ${INSTALL_INCLUDE_DIR}/sm_widgets
+#  CONFIGURATIONS Release
+#  )
+#install(FILES ${QYAMLCPP_EXTRAS}
+#  DESTINATION ${INSTALL_INCLUDE_DIR}/qyamlcpp
+#  CONFIGURATIONS Release
+#  )
+
+##Register package in the User Package Registry
+#export(PACKAGE SMLibraries)

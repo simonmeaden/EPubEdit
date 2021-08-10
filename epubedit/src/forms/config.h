@@ -5,12 +5,13 @@
 #include <QFile>
 #include <QStandardPaths>
 #include <QString>
-#include <QThread>
+//#include <QThread>
 
 class BCP47Languages;
 
 class Config : public QObject
 {
+  Q_OBJECT
 public:
   Config(QObject* parent);
   ~Config();
@@ -23,14 +24,19 @@ public:
   int getStatusTimeout() const;
   void setStatusTimeout(int value);
 
+signals:
+  void sendStatusMessage(const QString& message, int timeout);
+  void sendLogMessage(const QString& message);
+
 private:
   BCP47Languages* m_languages;
   QString m_configDir;
   QString m_configFile;
 
-  int statusTimeout = 20; // timeout in seconds
+  int m_statusTimeout = 20; // timeout in seconds
 
   void saveLanguageFile();
+  void receiveStatusMessage(const QString& message);
 };
 
 #endif // CONFIG_H

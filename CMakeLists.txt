@@ -19,8 +19,33 @@ set(TS_FILES lang/epubedit_en_GB.ts)
 
 list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_SOURCE_DIR}/cmake)
 
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Core5Compat Gui Widgets Xml Svg Network LinguistTools REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core5Compat Gui Widgets Xml Svg Network LinguistTools REQUIRED)
+find_package(
+  QT
+  NAMES
+    Qt6
+    Qt5
+  COMPONENTS
+    Core5Compat
+    Gui
+    Widgets
+    Xml
+    Svg
+    Network
+    Concurrent
+    LinguistTools
+  REQUIRED)
+find_package(
+  Qt${QT_VERSION_MAJOR}
+  COMPONENTS
+    Core5Compat
+    Gui
+    Widgets
+    Xml
+    Svg
+    Network
+    Concurrent
+    LinguistTools
+  REQUIRED)
 
 #set(MIN_Tidy_VERSION 6)
 #find_package(Tidy ${MIN_Tidy_VERSION} REQUIRED)
