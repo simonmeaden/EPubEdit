@@ -137,7 +137,7 @@ EBookOptions::save(const QString filename)
         {
           // Start of PREF_BOOKLIST
           emitter << YAML::BeginSeq;
-          foreach (QString book, m_current_files) {
+          for (auto& book : m_current_files) {
             emitter << book;
           }
           emitter << YAML::EndSeq;

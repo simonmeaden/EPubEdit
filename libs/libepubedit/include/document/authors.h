@@ -85,7 +85,7 @@ public:
 };
 
 typedef QSharedPointer<EBookAuthorData> AuthorData;
-typedef QList<AuthorData> AuthorList;
+// typedef QList<AuthorData> AuthorList;
 typedef QMap<quint64, AuthorData> AuthorMap;
 typedef QMultiMap<QString, AuthorData> AuthorByString;
 Q_DECLARE_METATYPE(AuthorData);
@@ -104,9 +104,9 @@ public:
 
   AuthorData author(QString name);
   AuthorData author(quint64 uid);
-  AuthorList authors();
-  AuthorList authorsBySurname(QString surname);
-  AuthorList authorsByForename(QString surname);
+  QList<AuthorData> authors();
+  QList<AuthorData> authorsBySurname(QString surname);
+  QList<AuthorData> authorsByForename(QString surname);
   AuthorData authorByFileAs(QString file_as);
   quint64 insertAuthor(AuthorData author);
   AuthorData addAuthor(QString display_name,

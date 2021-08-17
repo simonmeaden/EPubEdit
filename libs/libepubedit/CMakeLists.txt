@@ -61,10 +61,13 @@ target_sources(${PROJECT_NAME}
     src/document/series.cpp
 #    src/document/htmlparser.cpp
 #    src/document/htmltidy.cpp
+    include/document/uniquestring.h
+    src/document/uniquestring.cpp
 
     src/options.cpp
 
     # Utility classes
+    src/util/csvsplitter.h
     src/util/csvsplitter.cpp
 
 )

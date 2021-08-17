@@ -64,6 +64,7 @@ private:
   void metadataHasChanged(MetadataForm::Modifications modifications);
 
   static const QString STATUS_TIMEOUT;
+  static const QString SAVE_VERSION;
   void appendLogMessage(const QString& message);
 };
 

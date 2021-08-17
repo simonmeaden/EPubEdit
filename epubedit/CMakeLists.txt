@@ -16,6 +16,12 @@ target_sources(${PROJECT_NAME}
 
     src/forms/metadataform.h
     src/forms/metadataform.cpp
+    src/forms/undocommands.h
+    src/forms/undocommands.cpp
+    src/forms/titleview.h
+    src/forms/titleview.cpp
+    src/forms/authorlist.h
+    src/forms/authorlist.cpp
     src/forms/epubedit.h
     src/forms/epubedit.cpp
     src/forms/epubeditor.h

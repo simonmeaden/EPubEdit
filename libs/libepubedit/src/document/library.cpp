@@ -169,7 +169,7 @@ EBookLibraryDB::saveLibrary()
 
       emitter << YAML::BeginMap; // books map
       {
-        foreach (BookData book_data, m_book_data) {
+        for (auto& book_data : m_book_data) {
           emitter << YAML::Key << book_data->uid;
           emitter << YAML::Value;
           emitter << YAML::BeginMap;

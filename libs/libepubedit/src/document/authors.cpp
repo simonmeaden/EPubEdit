@@ -96,11 +96,11 @@ QStringList
 EBookAuthorsDB::compareAndDiscard(QStringList names)
 {
   QStringList cleaned;
-  foreach (QString value, names) {
+  for (auto& value : names) {
     QString lower = value.toLower();
     // check if the surname list has a match.
-    AuthorList list = m_author_by_surname.values(value);
-    foreach (AuthorData data, list) {
+    QList<AuthorData> list = m_author_by_surname.values(value);
+    for (auto& data : list) {
       if (lower == data->forename().toLower() ||
           lower == data->surname().toLower()) {
         if (!cleaned.contains(value))
@@ -109,7 +109,7 @@ EBookAuthorsDB::compareAndDiscard(QStringList names)
     }
     // check if the forename list has a match.
     list = m_author_by_forename.values(value);
-    foreach (AuthorData data, list) {
+    for (auto& data : list) {
       if (lower == data->forename().toLower() ||
           lower == data->surname().toLower()) {
         if (!cleaned.contains(value))
@@ -183,19 +183,19 @@ EBookAuthorsDB::author(quint64 uid)
   return m_author_data.value(uid);
 }
 
-AuthorList
+QList<AuthorData>
 EBookAuthorsDB::authors()
 {
   return m_author_data.values();
 }
 
-AuthorList
+QList<AuthorData>
 EBookAuthorsDB::authorsBySurname(QString surname)
 {
   return m_author_by_surname.values(surname);
 }
 
-AuthorList
+QList<AuthorData>
 EBookAuthorsDB::authorsByForename(QString surname)
 {
   return m_author_by_forename.values(surname);
@@ -286,7 +286,7 @@ EBookAuthorsDB::saveAuthors()
                 "you repeat one the second will overwrite the first."));
 
       emitter << YAML::BeginMap;
-      foreach (AuthorData author_data, m_author_data) {
+      for (auto& author_data : m_author_data) {
         // for some reason emitter wont take the result directly from the
         // method. might need some work on the YAML files.
         quint64 uid = author_data->uid();

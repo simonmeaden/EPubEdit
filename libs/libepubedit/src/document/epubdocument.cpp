@@ -93,7 +93,7 @@ EPubDocument::loadDocument()
     return false;
   }
 
-  //  foreach (ManifestItem item, m_manifest->html_items.values()) {
+  //  for (auto& item: m_manifest->html_items.values()) {
   //    CSSMap css_strings = cssMap();
   //    QString doc_string = item->document_string;
   //    //    if (m_parser->parse(item->id, doc_string, css_strings)) {
@@ -545,7 +545,7 @@ EPubDocument::parseSpineItem(const QDomNode& spine_node,
       // space separated list
       QStringList properties = value.split(' ', Qt::SkipEmptyParts);
 
-      foreach (QString prop, properties) {
+      for (auto& prop : properties) {
         if (prop == "page-spread-left") {
           item->pageSpreadLeft = true;
         } else if (prop == "page-spread-right") {
@@ -929,7 +929,7 @@ EPubDocument::writeContainer(QuaZip* save_zip)
     out << QStringLiteral("</title>\n");
     out << QStringLiteral("<meta http-equiv=\"Content-Type\" "
                           "content=\"text/html; charset=utf-8\"/>\n");
-    foreach (QString href, item->cssLinks) {
+    for (auto& href : item->cssLinks) {
       out << QString(
                "<link href=\"%1\" rel=\"stylesheet\" type=\"text/css\"/>\n")
                .arg(href);

@@ -11,6 +11,8 @@ class QXmlStreamWriter;
 class Foaf;
 class MarcRelator;
 
+#include "uniquestring.h"
+
 enum Direction
 {
   LTR,
@@ -23,69 +25,6 @@ direction(const QString& dir);
 
 QString
 directionStr(Direction dir);
-
-class UniqueString
-{
-public:
-  UniqueString();
-  UniqueString(const QString& other, bool unique);
-  ~UniqueString();
-
-  bool isUnique() const;
-  void setUnique(bool unique);
-
-  inline QString toString() const { return m_data; }
-  inline bool isEmpty() const { return m_data.isEmpty(); }
-
-  inline void operator=(const QString& rhs) { m_data = rhs; }
-
-  inline bool operator==(const QString& rhs) { return (m_data == rhs); }
-  inline bool operator==(const char* rhs) const { return (m_data == rhs); }
-  inline bool operator==(const UniqueString& rhs)
-  {
-    return (m_data == rhs.m_data);
-  }
-  friend bool operator==(const QString&, const UniqueString&);
-  friend bool operator==(const UniqueString&, const QString&);
-  friend bool operator==(const UniqueString&, const UniqueString&);
-
-  inline bool operator<(const UniqueString& rhs)
-  {
-    return (m_data < rhs.m_data);
-  }
-  friend bool operator<(const UniqueString&, const UniqueString&);
-  inline bool operator<(const QString& rhs) { return (m_data < rhs); }
-  inline bool operator<(const char* rhs) { return (m_data < rhs); }
-
-private:
-  QString m_data;
-  bool m_unique = true;
-};
-
-class UniqueStringList
-{
-public:
-  UniqueStringList();
-  ~UniqueStringList();
-
-  UniqueString append(const QString& value, int lineNumber);
-
-  QStringList nonUniqueStringList();
-  QStringList uniqueList() const;
-  QStringList allValues() const;
-  QList<int> lineNumbers(QString value);
-
-  bool contains(const QString& value);
-  bool contains(const UniqueString& value);
-
-private:
-  QStringList m_allValues;
-  QList<int> m_lineNumbers;
-  QStringList m_unique;
-  QStringList m_nonUnique;
-};
-
-typedef QMap<UniqueString, QString> UniqueStringMap;
 
 struct EPubNavPoint
 {
@@ -235,6 +174,13 @@ class EPubLanguage
 public:
   UniqueString id;
   QString language;
+};
+
+struct EPubAttribution
+{
+  QString url;
+  QString name;
+  QString license;
 };
 
 class EPubSubject
@@ -509,10 +455,10 @@ private:
     m_identifiers;
   UniqueString m_primaryTitleId;
   QString m_primaryTitle;
-  QMap<UniqueString, QSharedPointer<EPubTitle>> m_titlesById;
+  QMap<QString, QSharedPointer<EPubTitle>> m_titlesById;
   QMap<QString, QSharedPointer<EPubTitle>> m_titlesByName;
   QList<QSharedPointer<EPubTitle>> m_orderedTitles;
-  QMultiMap<UniqueString, QSharedPointer<EPubCreator>> m_creatorsById;
+  QMap<QString, QSharedPointer<EPubCreator>> m_creatorsById;
   QMultiMap<QString, QSharedPointer<EPubCreator>> m_creatorsByName;
   //  SharedCreatorMap creators_by_name;
   QMultiMap<UniqueString, QSharedPointer<EPubContributor>> contributorsById;
@@ -524,6 +470,7 @@ private:
   EPubModified m_modified;
   QDateTime m_date;
   QSharedPointer<EPubSource> m_source;
+  QSharedPointer<EPubAttribution> m_attribution;
   QSharedPointer<EPubPublisher> m_publisher;
   QSharedPointer<EPubFormat> m_format;
   QSharedPointer<EPubRelation> m_relation;
@@ -535,45 +482,64 @@ private:
   bool m_isFoaf;
 
   bool parseMetadataItem(const QDomNode& metadata_node);
-  void parseTitleMetadata(QDomElement metadataElement);
-  void parseCreatorMetadata(QDomElement metadataElement);
-  void parseContributorMetadata(QDomElement metadataElement);
-  void parseDescriptionMetadata(QDomElement metadataElement);
-  void parseIdentifierMetadata(QDomElement metadataElement);
-  void parseLanguageMetadata(QDomElement metadataElement);
-  void parseSubjectMetadata(QDomElement metadataElement);
-  void parseDateModified(QDomNamedNodeMap nodeMap, QString text);
-  void parseSourceMetadata(const QDomElement& metadataElement);
-  void parsePublisherMetadata(const QDomElement& metadataElement);
-  void parseFormatMetadata(const QDomElement& metadataElement);
-  void parseTypeMetadata(const QDomElement& metadataElement);
-  void parseRelationMetadata(const QDomElement& metadataElement);
-  void parseCoverageMetadata(const QDomElement& metadataElement);
-  void parseRightsMetadata(const QDomElement& metadataElement);
+  void parseDCTitleMetadata(QDomElement metadataElement,
+                            QDomNamedNodeMap& attributeMap);
+  void parseDCCreatorMetadata(QDomElement metadataElement,
+                              QDomNamedNodeMap& attributeMap);
+  void parseDCContributorMetadata(QDomElement metadataElement,
+                                  QDomNamedNodeMap& attributeMap);
+  void parseDCDescriptionMetadata(QDomElement metadataElement,
+                                  QDomNamedNodeMap& attributeMap);
+  void parseDCIdentifierMetadata(QDomElement metadataElement,
+                                 QDomNamedNodeMap& attributeMap);
+  void parseDCLanguageMetadata(QDomElement metadataElement,
+                               QDomNamedNodeMap& attributeMap);
+  void parseDCSubjectMetadata(QDomElement metadataElement,
+                              QDomNamedNodeMap& attributeMap);
+  void parseDateModified(QDomNamedNodeMap attributeMap, QString text);
+  void parseDCSourceMetadata(const QDomElement& metadataElement,
+                             QDomNamedNodeMap& attributeMap);
+  void parseDCPublisherMetadata(const QDomElement& metadataElement,
+                                QDomNamedNodeMap& attributeMap);
+  void parseDCFormatMetadata(const QDomElement& metadataElement,
+                             QDomNamedNodeMap& attributeMap);
+  void parseDCTypeMetadata(const QDomElement& metadataElement,
+                           QDomNamedNodeMap& attributeMap);
+  void parseDCRelationMetadata(const QDomElement& metadataElement,
+                               QDomNamedNodeMap& attributeMap);
+  void parseDCCoverageMetadata(const QDomElement& metadataElement,
+                               QDomNamedNodeMap& attributeMap);
+  void parseDCRightsMetadata(const QDomElement& metadataElement,
+                             QDomNamedNodeMap& attributeMap);
+  void parseDCDateMetadata(const QDomElement& metadataElement,
+                           QDomNamedNodeMap& attributeMap);
 
   void parseDublinCoreMeta(QString tagName,
                            QDomElement& metadataElement,
-                           QDomNamedNodeMap& nodeMap);
+                           QDomNamedNodeMap& attributeMap);
   void parseOpfMeta(QString tagName,
                     QDomElement& metadataElement,
                     QDomNamedNodeMap&);
   void parseCalibreMetas(const UniqueString& id, QDomNode& node);
   void parseRefineMetas(QDomElement& metadataElement,
                         QDomNode& node,
-                        QDomNamedNodeMap& nodeMap);
+                        QDomNamedNodeMap& attributeMap);
   void parseTitleDateRefines(QSharedPointer<EPubTitle> shared_title,
                              QDomElement& metadataElement);
   void parseCreatorContributorRefines(
     QSharedPointer<EPubCreator> shared_creator,
     QDomElement& metadataElement,
     const UniqueString& id,
-    QDomNamedNodeMap nodeMap);
-  void parseTitleRefines(const UniqueString& id,
+    QDomNamedNodeMap attributeMap);
+  void parseTitleRefines(const QString& id,
                          QDomElement metadataElement,
-                         QDomNamedNodeMap nodeMap);
+                         QDomNamedNodeMap attributeMap);
+  void parseCreatorRefines(const QString& id,
+                           QDomElement metadataElement,
+                           QDomNamedNodeMap attributeMap);
   QSharedPointer<Foaf> parseCreatorContributorFoafAttributes(
     QString property,
-    QDomNamedNodeMap nodeMap);
+    QDomNamedNodeMap attributeMap);
 
   void writeCreator(QXmlStreamWriter* xml_writer,
                     QSharedPointer<EPubCreator> shared_creator);
@@ -629,21 +595,40 @@ public:
   EPubMetadata3_0(QSharedPointer<UniqueStringList> uniqueIdList)
     : EPubMetadata(uniqueIdList)
   {}
+
+  QList<QSharedPointer<EPubTitle>> orderedTitles() const;
+  void setOrderedTitles(const QList<QSharedPointer<EPubTitle>>& ordered_titles);
 };
 
-class EPubMetadata3_1 : public EPubMetadata
+class EPubMetadata3_0_1 : public EPubMetadata3_0
 {
 public:
-  EPubMetadata3_1(QSharedPointer<UniqueStringList> uniqueIdList)
-    : EPubMetadata(uniqueIdList)
+  EPubMetadata3_0_1(QSharedPointer<UniqueStringList> uniqueIdList)
+    : EPubMetadata3_0(uniqueIdList)
   {}
 };
 
-class EPubMetadata3_2 : public EPubMetadata
+class EPubMetadata3_1 : public EPubMetadata3_0_1
+{
+public:
+  EPubMetadata3_1(QSharedPointer<UniqueStringList> uniqueIdList)
+    : EPubMetadata3_0_1(uniqueIdList)
+  {}
+};
+
+class EPubMetadata3_2 : public EPubMetadata3_1
 {
 public:
   EPubMetadata3_2(QSharedPointer<UniqueStringList> uniqueIdList)
-    : EPubMetadata(uniqueIdList)
+    : EPubMetadata3_1(uniqueIdList)
+  {}
+};
+
+class EPubMetadata3_3 : public EPubMetadata3_2
+{
+public:
+  EPubMetadata3_3(QSharedPointer<UniqueStringList> uniqueIdList)
+    : EPubMetadata3_2(uniqueIdList)
   {}
 };
 

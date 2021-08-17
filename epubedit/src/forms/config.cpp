@@ -8,6 +8,7 @@ Config::Config(QObject* parent)
       QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) +
       "/epubedit")
   , m_configFile("epubedit.yaml")
+  , m_saveType(EPUB_3_2)
 {
   m_languages = new BCP47Languages();
   connect(m_languages,
@@ -53,7 +54,7 @@ Config::setConfigDir(const QString& value)
 }
 
 int
-Config::getStatusTimeout() const
+Config::statusTimeout() const
 {
   return m_statusTimeout;
 }

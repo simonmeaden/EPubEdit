@@ -12,6 +12,7 @@
 //#include "util/csvsplitter.h"
 
 const QString EPubEdit::STATUS_TIMEOUT = "status_timeout";
+const QString EPubEdit::SAVE_VERSION = "save_version";
 
 EPubEdit::EPubEdit(Config* config, QWidget* parent)
   : QWidget(parent)
@@ -26,7 +27,10 @@ EPubEdit::EPubEdit(Config* config, QWidget* parent)
   initGui();
 }
 
-EPubEdit::~EPubEdit() {}
+EPubEdit::~EPubEdit()
+{
+  saveConfig();
+}
 
 bool
 EPubEdit::loadDocument(const QString& filename)
@@ -135,6 +139,9 @@ EPubEdit::initGui()
   auto fLayout = new QGridLayout;
   f->setLayout(fLayout);
 
+  m_editor = new EPubEditor(this);
+  m_tabs->addTab(m_editor, tr("EPUB Editor"));
+
   m_metadataForm = new MetadataForm(m_undoStack, this);
   m_metadataForm->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   connect(m_metadataForm,
@@ -143,17 +150,16 @@ EPubEdit::initGui()
           &EPubEdit::metadataHasChanged);
   fLayout->addWidget(m_metadataForm, 0, 0);
 
-  fLayout->addWidget(m_undoView, 0, 1);
+  //  fLayout->addWidget(m_undoView, 0, 1);
 
   m_tabs->addTab(f, tr("Metadata"));
-
-  m_editor = new EPubEditor(this);
-  m_tabs->addTab(m_editor, tr("EPUB Editor"));
 
   // TODO possibly move this to a dialog???
   m_logPage = new QPlainTextEdit(this);
   m_logPage->setReadOnly(true);
   m_tabs->addTab(m_logPage, tr("Logs"));
+
+  m_tabs->setCurrentIndex(1);
 }
 
 void
@@ -163,6 +169,7 @@ EPubEdit::loadConfig(const QString& filename)
   if (filename.isEmpty()) {
     QDir dir;
     dir.mkpath(m_config->getConfigDir());
+    dir.setPath(m_config->getConfigDir());
     file = new QFile(dir.filePath(m_config->getConfigFile()), this);
   } else {
     file = new QFile(filename, this);
@@ -174,6 +181,10 @@ EPubEdit::loadConfig(const QString& filename)
       auto node = config[STATUS_TIMEOUT];
       m_config->setStatusTimeout(node.as<int>());
     }
+    if (config[SAVE_VERSION]) {
+      auto node = config[SAVE_VERSION];
+      m_config->setSaveVersion(Config::SaveType(node.as<int>()));
+    }
   } else {
     m_config->setStatusTimeout(20);
   }
@@ -183,6 +194,15 @@ void
 EPubEdit::saveConfig(const QString& filename)
 {
   QFile* file;
+  if (filename.isEmpty()) {
+    QDir dir;
+    dir.mkpath(m_config->getConfigDir());
+    dir.setPath(m_config->getConfigDir());
+    file = new QFile(dir.filePath(m_config->getConfigFile()), this);
+  } else {
+    file = new QFile(filename, this);
+  }
+
   if (filename.isEmpty())
     file = new QFile(
       QDir(m_config->getConfigDir()).filePath(m_config->getConfigFile()), this);
@@ -198,12 +218,14 @@ EPubEdit::saveConfig(const QString& filename)
       "as the wrong key-value pair could cause problems.\n"
       "The best way is to use the in application configuration editor.\n\n"));
     emitter << YAML::BeginMap;
-    if (m_config->getStatusTimeout() > 0) {
+    if (m_config->statusTimeout() > 0) {
       emitter << YAML::Key << STATUS_TIMEOUT << YAML::Value
-              << m_config->getStatusTimeout()
+              << m_config->statusTimeout()
               << YAML::Comment(
                    tr("Status display timeout in seconds. int value."));
     }
+    emitter << YAML::Key << SAVE_VERSION << YAML::Value
+            << int(m_config->saveVersion());
     emitter << YAML::EndMap;
 
     if (!emitter.good()) {

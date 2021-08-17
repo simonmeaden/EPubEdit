@@ -29,7 +29,7 @@ ConfigurationEditor::initPage1()
 
   auto statusTimeoutEdit = new QSpinBox(this);
   layout->addRow(tr("Status bar message timeout (secs)"), statusTimeoutEdit);
-  statusTimeoutEdit->setValue(m_config->getStatusTimeout());
+  statusTimeoutEdit->setValue(m_config->statusTimeout());
   connect(statusTimeoutEdit,
           &QSpinBox::valueChanged,
           this,

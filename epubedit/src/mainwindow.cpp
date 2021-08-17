@@ -1,13 +1,22 @@
 #include "mainwindow.h"
+#include "document/epubmetadata.h"
 #include "forms/configurationeditor.h"
 #include "forms/epubedit.h"
 //#include "languages.h"
 
+//#define VERSION_2
+//#define VERSION_3_0
+#define VERSION_3_1
+//#define VERSION_3_2
+//#define VERSION_3_3
+
 MainWindow::MainWindow(QWidget* parent)
   : QMainWindow(parent)
-  , m_width(800)
+  , m_width(1200)
   , m_height(800)
 {
+  qRegisterMetaType<Direction>("Direction");
+
   m_config = new Config(this);
   connect(
     m_config, &Config::sendStatusMessage, this, &MainWindow::setStatusMessage);
@@ -20,9 +29,23 @@ MainWindow::MainWindow(QWidget* parent)
 
   setGeometry(offset.x(), offset.y(), m_width, m_height);
   setStatusLineAndCol(0, 0);
+
+  // Version 2.0
+#if defined(VERSION_2)
+  m_editor->loadDocument(
+    "/home/simonmeaden/workspace/epubedit/book/Who/Algis Budrys - Who.epub");
+
+#elif defined(VERSION_3_0)
+
+#elif defined(VERSION_3_1)
+  // Version 3.1
   m_editor->loadDocument(
     "/home/simonmeaden/workspace/epubedit/book/mobydick/moby-dick.epub");
+#elif defined(VERSION_3_2)
 
+#elif defined(VERSION_3_3)
+
+#endif
   //  auto languages = new BCP47Languages();
   //  connect(languages, &BCP47Languages::completed, languages,
   //  BCP47Languages::saveToLocalFile()); languages->rebuildFromRegistry();
@@ -256,7 +279,7 @@ MainWindow::setStatusMessage(const QString& message, int timeout)
 {
   auto t = timeout;
   if (t == 0)
-    t = m_config->getStatusTimeout();
+    t = m_config->statusTimeout();
 
   auto timer = new QTimer(this);
   connect(timer, &QTimer::timeout, this, &MainWindow::clearStatusMessage);
