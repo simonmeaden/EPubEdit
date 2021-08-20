@@ -10,8 +10,11 @@
 #include <QIODevice>
 #include <QImage>
 #include <QImageReader>
+#include <QMessageBox>
 #include <QObject>
 #include <QPainter>
+#include <QPushButton>
+#include <QRandomGenerator>
 #include <QSharedPointer>
 #include <QTextBlock>
 #include <QTextCursor>
@@ -27,6 +30,7 @@
 
 class EPubMetadata;
 class QuaZip;
+class Config;
 
 struct EPubContents
 {
@@ -35,14 +39,14 @@ struct EPubContents
   bool m_loaded;
 };
 
-class EPubDocument
+class EPubDocument : public QObject
 {
 public:
-  explicit EPubDocument();
+  explicit EPubDocument(Config* config, QObject* parent);
   virtual ~EPubDocument();
 
   bool loaded();
-  void openDocument(const QString& path);
+  void loadDocument(const QString& path);
   void saveDocument(const QString& path = QString());
   EPubContents* cloneData();
   void setClonedData(EPubContents* cloneData);
@@ -90,6 +94,7 @@ public:
   QSharedPointer<UniqueStringList> uniqueIdList() const;
 
 private:
+  Config* m_config;
   bool m_loaded;
   bool m_current_document_index;
   bool m_current_document_lineno;
@@ -124,7 +129,8 @@ private:
   bool m_readonly;
 
   QString buildTocfromHtml();
-  bool loadDocument();
+  bool loadDocumentFromFile();
+  bool saveDocumentToFile();
   bool parseMimetype();
   bool parseContainer();
   bool parsePackageFile(QString& fullPath);
@@ -139,7 +145,6 @@ private:
                                             QString& formatted_toc_data);
   void extractHeadInformationFromHtmlFile(QSharedPointer<EPubManifestItem> item,
                                           QString container);
-  bool saveDocumentToFile();
   bool writeMimetype(QuaZip* save_zip);
   bool writeContainer(QuaZip* save_zip);
   bool writePackageFile(QuaZip* save_zip);

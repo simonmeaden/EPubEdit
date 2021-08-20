@@ -13,13 +13,14 @@
 #include <QMenu>
 #include <QMenuBar>
 #include <QMoveEvent>
+#include <QPlainTextEdit>
 #include <QStatusBar>
+#include <QTabWidget>
 #include <QTimer>
 #include <QToolBar>
 
-#include "forms/config.h"
-
 class EPubEdit;
+class Config;
 
 class MainWindow : public QMainWindow
 {
@@ -42,6 +43,7 @@ private:
   QMenu *m_fileMenu, *m_editMenu, *m_toolsMenu, *m_helpMenu;
   QLabel *m_lineLbl, *m_colLbl, *m_msgLbl;
   EPubEdit* m_editor;
+  QPlainTextEdit* m_logPage;
 
   void newEpub();
   void openFile();
@@ -67,6 +69,7 @@ private:
   void center(const QScreen* s);
   void setStatusLineAndCol(int line, int col);
   void setStatusMessage(const QString& message, int timeout = 0);
+  void setLogMessage(const QString& message);
   void clearStatusMessage();
 
   void editUndo();

@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "config.h"
 #include "document/epubmetadata.h"
 #include "forms/configurationeditor.h"
 #include "forms/epubedit.h"
@@ -18,10 +19,18 @@ MainWindow::MainWindow(QWidget* parent)
   qRegisterMetaType<Direction>("Direction");
 
   m_config = new Config(this);
-  connect(
-    m_config, &Config::sendStatusMessage, this, &MainWindow::setStatusMessage);
 
   initGui();
+
+  connect(
+    m_config, &Config::sendStatusMessage, this, &MainWindow::setStatusMessage);
+  connect(m_config, &Config::sendLogMessage, this, &MainWindow::setLogMessage);
+  connect(m_editor,
+          &EPubEdit::sendStatusMessage,
+          this,
+          &MainWindow::setStatusMessage);
+  connect(
+    m_editor, &EPubEdit::sendLogMessage, this, &MainWindow::setLogMessage);
 
   const auto sr = qApp->screens().at(0)->availableGeometry();
   const QRect wr({}, this->frameSize().boundedTo(sr.size()));
@@ -46,6 +55,9 @@ MainWindow::MainWindow(QWidget* parent)
 #elif defined(VERSION_3_3)
 
 #endif
+
+  m_editor->saveDocument();
+
   //  auto languages = new BCP47Languages();
   //  connect(languages, &BCP47Languages::completed, languages,
   //  BCP47Languages::saveToLocalFile()); languages->rebuildFromRegistry();
@@ -89,15 +101,19 @@ MainWindow::initGui()
   auto layout = new QGridLayout;
   mainFrame->setLayout(layout);
 
-  m_editor = new EPubEdit(m_config, this);
-  layout->addWidget(m_editor, 0, 0);
-  connect(m_editor,
-          &EPubEdit::sendStatusMessage,
-          this,
-          &MainWindow::setStatusMessage);
+  auto tabs = new QTabWidget(this);
 
-  //  auto undoView = m_editor->getUndoView();
-  //  layout->addWidget(undoView, 0, 1);
+  m_editor = new EPubEdit(m_config, this);
+  tabs->addTab(m_editor, tr("Editor"));
+
+  m_logPage = new QPlainTextEdit(this);
+  m_logPage->setReadOnly(true);
+  tabs->addTab(m_logPage, tr("Logs"));
+
+  auto undoView = m_editor->getUndoView();
+  tabs->addTab(undoView, tr("Undo View"));
+
+  layout->addWidget(tabs, 0, 0);
 
   initActions();
   initMenus();
@@ -285,6 +301,13 @@ MainWindow::setStatusMessage(const QString& message, int timeout)
   connect(timer, &QTimer::timeout, this, &MainWindow::clearStatusMessage);
   timer->start(t * 1000);
   m_msgLbl->setText(message);
+}
+
+void
+MainWindow::setLogMessage(const QString& message)
+{
+  m_logPage->moveCursor(QTextCursor::End);
+  m_logPage->appendPlainText(message);
 }
 
 void

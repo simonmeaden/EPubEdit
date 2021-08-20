@@ -28,6 +28,7 @@ target_link_libraries(${PROJECT_NAME}
     QuaZip::QuaZip
     yaml-cpp
     QYamlCpp::qyamlcpp
+    SMLibraries::libsmlibraries
 )
 
 target_include_directories(${PROJECT_NAME}
@@ -61,9 +62,15 @@ target_sources(${PROJECT_NAME}
     src/document/series.cpp
 #    src/document/htmlparser.cpp
 #    src/document/htmltidy.cpp
+
     include/document/uniquestring.h
     src/document/uniquestring.cpp
 
+    include/config.h
+    src/config.cpp
+    include/forms/configurationeditor.h
+    src/forms/configurationeditor.cpp
+    include/options.h
     src/options.cpp
 
     # Utility classes

@@ -1,4 +1,4 @@
-#include "configurationeditor.h"
+#include "forms/configurationeditor.h"
 
 ConfigurationEditor::ConfigurationEditor(Config* config, QWidget* parent)
   : QDialog(parent)

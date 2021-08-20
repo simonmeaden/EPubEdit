@@ -1,8 +1,11 @@
 #include "document/epubdocument.h"
 
+#include <stdlib.h>
+
 #include "quazip.h"
 #include "quazipfile.h"
 
+#include "config.h"
 #include "document/epubmetadata.h"
 #include "document/foaf.h"
 
@@ -30,7 +33,9 @@ const QString EPubDocument::HTML_DOCTYPE =
 const QString EPubDocument::XML_HEADER =
   "<?xml version='1.0' encoding='utf-8'?>";
 
-EPubDocument::EPubDocument()
+EPubDocument::EPubDocument(Config* config, QObject* parent)
+  : QObject(parent)
+  , m_config(config)
 {
   m_uniqueIdList = QSharedPointer<UniqueStringList>(new UniqueStringList());
   m_metadata = QSharedPointer<EPubMetadata>(new EPubMetadata(m_uniqueIdList));
@@ -57,52 +62,6 @@ bool
 EPubDocument::loaded()
 {
   return m_loaded;
-}
-
-void
-EPubDocument::openDocument(const QString& path)
-{
-  setFilename(path);
-  loadDocument();
-}
-
-bool
-EPubDocument::loadDocument()
-{
-  // open the epub as a zip file
-  m_archive = new QuaZip(m_filename);
-  if (!m_archive->open(QuaZip::mdUnzip)) {
-    qDebug() << QObject::QObject::tr("Failed to open %1").arg(m_filename);
-    return false;
-  }
-
-  // get list of filenames from zip file
-  m_files = m_archive->getFileNameList();
-  if (m_files.isEmpty()) {
-    qDebug() << QObject::QObject::tr("Failed to read %1").arg(m_filename);
-    return false;
-  }
-
-  // Get and check that the mimetype is correct.
-  // According to the standard this must be unencrypted.
-  if (!parseMimetype()) {
-    return false;
-  }
-
-  if (!parseContainer()) {
-    return false;
-  }
-
-  //  for (auto& item: m_manifest->html_items.values()) {
-  //    CSSMap css_strings = cssMap();
-  //    QString doc_string = item->document_string;
-  //    //    if (m_parser->parse(item->id, doc_string, css_strings)) {
-  //    //      // TODO use data?
-  //    //    }
-  //  }
-
-  //  emit q->loadCompleted();
-  return true;
 }
 
 bool
@@ -805,45 +764,152 @@ EPubDocument::extractHeadInformationFromHtmlFile(
 void
 EPubDocument::saveDocument(const QString& path)
 {
-  if (m_modified) {
-    m_filename = path;
-    saveDocumentToFile();
-  }
+  setFilename(path);
+  saveDocumentToFile();
 }
 
 bool
 EPubDocument::saveDocumentToFile()
 {
   QFileInfo info;
-  if (m_filename.isEmpty())
+  QDir dir;
+  QFile* file;
+
+  if (!m_filename.isEmpty())
     info = QFileInfo(m_filename);
-  else
-    info = QFileInfo(m_filename);
+
   QString path = info.path();
   QString name = info.fileName();
-  //  path = path + QDir::separator() + "temp";
-  QDir dir;
+
+  if (!path.startsWith(m_config->libraryPath())) { // is in library.
+    auto box = new QMessageBox();
+    box->setIcon(QMessageBox::Warning);
+    box->setWindowTitle(tr("Non-Library Location"));
+    box->setText(tr("You are saving this file to a non-library location.\n"
+                    "Press \"Continue\" to save to this location, or\n\"Save "
+                    "to Library\" to save to your library."));
+    box->setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    auto buttonY = box->button(QMessageBox::Yes);
+    buttonY->setText(tr("Continue"));
+    auto buttonN = box->button(QMessageBox::No);
+    buttonN->setText(tr("Save to Library"));
+    box->setDefaultButton(QMessageBox::Yes);
+    if (box->exec() == QMessageBox::No) {
+      path = m_config->libraryPath();
+    }
+  }
+
+  if (path.startsWith(m_config->libraryPath())) { // is in library.
+    auto authors = m_metadata->creatorList();
+    auto titles = m_metadata->orderedTitles();
+    QString author, title;
+    if (authors.isEmpty()) {
+      author = QObject::tr("Unknown");
+    } else {
+      author = authors.first();
+    }
+    if (!titles.isEmpty()) {
+      title = titles.first()->title;
+    } else {
+      quint32 value = 0;
+      while (value < 0xFFFFFF) {
+        value = QRandomGenerator::global()->generate();
+      }
+      auto filename =
+        QString("TMPEPUB_%1").arg(QString::number(value, 16).right(8));
+      qDebug();
+    }
+    path = QDir(path).filePath(author);
+    path = QDir(path).filePath(title);
+    if (QDir().mkpath(path)) {
+      //      file = new QFile(title+".epub"));
+    }
+  } else {
+  }
+
   dir.mkpath(path);
 
-  QuaZip temp_file(path + QDir::separator() + name);
-  if (temp_file.open(QuaZip::mdAdd)) {
+  //  QuaZip temp_file(path + QDir::separator() + name);
+  //  if (temp_file.open(QuaZip::mdAdd)) {
 
-    if (!writeMimetype(&temp_file)) {
-      return false;
-    }
-    if (!writeContainer(&temp_file)) {
-      return false;
-    }
-    // TODO the rest
-  }
-  temp_file.close();
+  //    switch (m_config->saveVersion()) {
+  //      case Config::EPUB_3_0: {
+  //        // TODO
+  //        break;
+  //      }
+  //      case Config::EPUB_3_1: {
+  //        // TODO
+  //        break;
+  //      }
+  //      case Config::EPUB_3_2: {
 
+  //        if (!writeMimetype(&temp_file)) {
+  //          return false;
+  //        }
+  //        if (!writeContainer(&temp_file)) {
+  //          return false;
+  //        }
+  //        // TODO the rest
+  //        break;
+  //      }
+  //      case Config::EPUB_3_3: {
+  //        break;
+  //      }
+  //    }
+
+  //    temp_file.close();
+  //  }
   // TODO backup/rename etc.
   // TODO remove temp file/dir - maybe on application close/cleanup
 
   return true;
 }
 
+void
+EPubDocument::loadDocument(const QString& path)
+{
+  setFilename(path);
+  loadDocumentFromFile();
+}
+
+bool
+EPubDocument::loadDocumentFromFile()
+{
+  // open the epub as a zip file
+  m_archive = new QuaZip(m_filename);
+  if (!m_archive->open(QuaZip::mdUnzip)) {
+    qDebug() << QObject::QObject::tr("Failed to open %1").arg(m_filename);
+    return false;
+  }
+
+  // get list of filenames from zip file
+  m_files = m_archive->getFileNameList();
+  if (m_files.isEmpty()) {
+    qDebug() << QObject::QObject::tr("Failed to read %1").arg(m_filename);
+    return false;
+  }
+
+  // Get and check that the mimetype is correct.
+  // According to the standard this must be unencrypted.
+  if (!parseMimetype()) {
+    return false;
+  }
+
+  if (!parseContainer()) {
+    return false;
+  }
+
+  //  for (auto& item: m_manifest->html_items.values()) {
+  //    CSSMap css_strings = cssMap();
+  //    QString doc_string = item->document_string;
+  //    //    if (m_parser->parse(item->id, doc_string, css_strings)) {
+  //    //      // TODO use data?
+  //    //    }
+  //  }
+
+  //  emit q->loadCompleted();
+  return true;
+}
 bool
 EPubDocument::writeMimetype(QuaZip* save_zip)
 {
@@ -1083,7 +1149,8 @@ EPubDocument::filename()
 void
 EPubDocument::setFilename(const QString& filename)
 {
-  m_filename = filename;
+  if (!filename.isEmpty())
+    m_filename = filename;
 }
 
 QString

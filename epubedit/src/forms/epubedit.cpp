@@ -6,13 +6,11 @@
 #include "qyamlcpp.h"
 #include <yaml-cpp/yaml.h>
 
+#include "config.h"
 #include "document/epubdocument.h"
 #include "forms/epubeditor.h"
 #include "forms/metadataform.h"
 //#include "util/csvsplitter.h"
-
-const QString EPubEdit::STATUS_TIMEOUT = "status_timeout";
-const QString EPubEdit::SAVE_VERSION = "save_version";
 
 EPubEdit::EPubEdit(Config* config, QWidget* parent)
   : QWidget(parent)
@@ -23,7 +21,6 @@ EPubEdit::EPubEdit(Config* config, QWidget* parent)
   m_undoView = new QUndoView(m_undoStack);
   m_undoView->setWindowTitle(tr("Metadata Undo List"));
 
-  loadConfig();
   initGui();
 }
 
@@ -37,10 +34,10 @@ EPubEdit::loadDocument(const QString& filename)
 {
   if (m_loaded) {
     //    QMessageBox::warning(this, )
-    // TOD drop changes/save document / cancel load
+    // TODO drop changes/save document / cancel load maybe multi tabs?
   } else {
-    m_document = QSharedPointer<EPubDocument>(new EPubDocument());
-    m_document->openDocument(filename);
+    m_document = QSharedPointer<EPubDocument>(new EPubDocument(m_config, this));
+    m_document->loadDocument(filename);
     m_metadataForm->setDocument(m_document);
     connect(m_metadataForm,
             &MetadataForm::sendStatusMessage,
@@ -54,13 +51,22 @@ EPubEdit::loadDocument(const QString& filename)
 }
 
 bool
+EPubEdit::saveDocument(const QString& filename)
+{
+  if (!m_document.isNull()) {
+    m_document->saveDocument(filename);
+  }
+  return false;
+}
+
+bool
 EPubEdit::newDocument()
 {
   if (m_loaded) {
     //    QMessageBox::warning(this, )
     // TOD drop changes/save document / cancel load
   } else {
-    m_document = QSharedPointer<EPubDocument>(new EPubDocument());
+    m_document = QSharedPointer<EPubDocument>(new EPubDocument(m_config, this));
     m_metadataForm->setDocument(m_document);
     m_loaded = true;
   }
@@ -97,16 +103,8 @@ void
 EPubEdit::setConfig(Config* config)
 {
   m_config = config;
-  connect(m_config, &Config::sendLogMessage, this, &EPubEdit::appendLogMessage);
   saveConfig();
 }
-
-void
-EPubEdit::appendLogMessage(const QString& message)
-{
-  m_logPage->moveCursor(QTextCursor::End);
-  m_logPage->appendPlainText(message);
-};
 
 void
 EPubEdit::updateMetadataForm()
@@ -139,7 +137,7 @@ EPubEdit::initGui()
   auto fLayout = new QGridLayout;
   f->setLayout(fLayout);
 
-  m_editor = new EPubEditor(this);
+  m_editor = new EPubEditor(m_config, this);
   m_tabs->addTab(m_editor, tr("EPUB Editor"));
 
   m_metadataForm = new MetadataForm(m_undoStack, this);
@@ -154,87 +152,17 @@ EPubEdit::initGui()
 
   m_tabs->addTab(f, tr("Metadata"));
 
-  // TODO possibly move this to a dialog???
-  m_logPage = new QPlainTextEdit(this);
-  m_logPage->setReadOnly(true);
-  m_tabs->addTab(m_logPage, tr("Logs"));
-
   m_tabs->setCurrentIndex(1);
 }
 
 void
 EPubEdit::loadConfig(const QString& filename)
 {
-  QFile* file;
-  if (filename.isEmpty()) {
-    QDir dir;
-    dir.mkpath(m_config->getConfigDir());
-    dir.setPath(m_config->getConfigDir());
-    file = new QFile(dir.filePath(m_config->getConfigFile()), this);
-  } else {
-    file = new QFile(filename, this);
-  }
-
-  if (file->exists()) {
-    auto config = YAML::LoadFile(*file);
-    if (config[STATUS_TIMEOUT]) {
-      auto node = config[STATUS_TIMEOUT];
-      m_config->setStatusTimeout(node.as<int>());
-    }
-    if (config[SAVE_VERSION]) {
-      auto node = config[SAVE_VERSION];
-      m_config->setSaveVersion(Config::SaveType(node.as<int>()));
-    }
-  } else {
-    m_config->setStatusTimeout(20);
-  }
+  m_config->load(filename);
 }
 
 void
 EPubEdit::saveConfig(const QString& filename)
 {
-  QFile* file;
-  if (filename.isEmpty()) {
-    QDir dir;
-    dir.mkpath(m_config->getConfigDir());
-    dir.setPath(m_config->getConfigDir());
-    file = new QFile(dir.filePath(m_config->getConfigFile()), this);
-  } else {
-    file = new QFile(filename, this);
-  }
-
-  if (filename.isEmpty())
-    file = new QFile(
-      QDir(m_config->getConfigDir()).filePath(m_config->getConfigFile()), this);
-  else
-    file = new QFile(filename, this);
-
-  if (file->open((QFile::ReadWrite | QFile::Truncate))) {
-    YAML::Emitter emitter;
-
-    emitter << YAML::Comment(tr(
-      "EPubEditor Configuration file.\n\n"
-      "Care should be taken editing this file manually\n"
-      "as the wrong key-value pair could cause problems.\n"
-      "The best way is to use the in application configuration editor.\n\n"));
-    emitter << YAML::BeginMap;
-    if (m_config->statusTimeout() > 0) {
-      emitter << YAML::Key << STATUS_TIMEOUT << YAML::Value
-              << m_config->statusTimeout()
-              << YAML::Comment(
-                   tr("Status display timeout in seconds. int value."));
-    }
-    emitter << YAML::Key << SAVE_VERSION << YAML::Value
-            << int(m_config->saveVersion());
-    emitter << YAML::EndMap;
-
-    if (!emitter.good()) {
-      qWarning() << tr("Configuration Emitter error: ")
-                 << QString::fromStdString(emitter.GetLastError()) << "\n";
-    }
-
-    QTextStream outStream(file);
-    outStream << emitter.c_str();
-    file->close();
-  }
+  m_config->save(filename);
 }

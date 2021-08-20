@@ -21,6 +21,7 @@
 
 class EPubEditor;
 class EPubDocument;
+class Config;
 
 class EPubEdit : public QWidget
 {
@@ -34,6 +35,7 @@ public:
   void saveConfig(const QString& filename = QString());
 
   bool loadDocument(const QString& filename);
+  bool saveDocument(const QString& filename = QString());
   bool newDocument();
 
   bool isLoaded() const;
@@ -43,7 +45,9 @@ public:
   QAction* getRedoAction();
 
 signals:
-  void sendStatusMessage(const QString& message, int timeout = 20);
+  void sendStatusMessage(const QString& message,
+                         int timeout = Config::StatusTimeout);
+  void sendLogMessage(const QString& message);
 
 private:
   QUndoStack* m_undoStack;
@@ -52,7 +56,6 @@ private:
   QTabWidget* m_tabs;
   MetadataForm* m_metadataForm;
   EPubEditor* m_editor;
-  QPlainTextEdit* m_logPage;
   QSharedPointer<EPubDocument> m_document;
   bool m_loaded;
 
@@ -62,10 +65,6 @@ private:
 
   void updateMetadataForm();
   void metadataHasChanged(MetadataForm::Modifications modifications);
-
-  static const QString STATUS_TIMEOUT;
-  static const QString SAVE_VERSION;
-  void appendLogMessage(const QString& message);
 };
 
 #endif // EPUBEDIT_H

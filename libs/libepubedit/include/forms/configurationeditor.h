@@ -12,7 +12,7 @@
 #include <QSpinBox>
 #include <QTabWidget>
 
-#include "forms/config.h"
+#include "config.h"
 
 class ConfigurationEditor : public QDialog
 {

@@ -26,8 +26,6 @@ target_sources(${PROJECT_NAME}
     src/forms/epubedit.cpp
     src/forms/epubeditor.h
     src/forms/epubeditor.cpp
-    src/forms/configurationeditor.cpp
-    src/forms/config.cpp
 
 )
 

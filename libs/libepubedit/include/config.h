@@ -23,15 +23,29 @@ public:
   Config(QObject* parent);
   ~Config();
 
-  QString getConfigDir() const;
+  QString configDir() const;
   void setConfigDir(const QString& value);
-  QString getConfigFile() const;
+  QString configFile() const;
   void setConfigFile(const QString& value);
 
   int statusTimeout() const;
   void setStatusTimeout(int value);
-  SaveType saveVersion() { return SaveType(m_saveType); }
-  void setSaveVersion(SaveType type) { m_saveType = type; }
+
+  SaveType saveVersion();
+  void setSaveVersion(SaveType type);
+
+  //! Returns the path to the directory in which files will be stored.
+  QString libraryPath() const;
+  //! Sets the directory in which files will be stored.
+  //!
+  //! By default this will be the standard place for the operating system.
+  //!
+  void setLibraryPath(const QString& filepath);
+
+  void save(const QString& filename = QString());
+  void load(const QString& filename = QString());
+
+  static const int StatusTimeout = 20;
 
 signals:
   void sendStatusMessage(const QString& message, int timeout);
@@ -42,11 +56,16 @@ private:
   QString m_configDir;
   QString m_configFile;
   SaveType m_saveType;
+  QString m_libraryPath;
+  int m_statusTimeout; // timeout in seconds
 
-  int m_statusTimeout = 20; // timeout in seconds
+  static const QString STATUS_TIMEOUT;
+  static const QString SAVE_VERSION;
+  static const QString LIBRARY_PATH;
 
   void saveLanguageFile();
   void receiveStatusMessage(const QString& message);
+  QFile* setupConfigFile(const QString& filename = QString());
 };
 
 #endif // CONFIG_H

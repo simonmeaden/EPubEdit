@@ -4,12 +4,13 @@
 #include <QWidget>
 
 class EPubDocument;
+class Config;
 
 class EPubEditor : public QWidget
 {
   Q_OBJECT
 public:
-  explicit EPubEditor(QWidget* parent = nullptr);
+  explicit EPubEditor(Config* config, QWidget* parent = nullptr);
   ~EPubEditor();
 
   void setDocument(QSharedPointer<EPubDocument> document);
@@ -17,6 +18,7 @@ public:
 signals:
 
 private:
+  Config* m_config;
   QSharedPointer<EPubDocument> m_document;
 
   void updateDocument();
