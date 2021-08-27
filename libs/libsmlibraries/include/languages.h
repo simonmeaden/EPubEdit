@@ -37,6 +37,8 @@ loadYamlFile(QFile& file);
     really be used any more. They generally have a preferedValue() that
     shows the tag that you should now use. This can be recovered using
     preferedValue().
+  - REDUNDANT These are generally older tag names which shouldn't
+    really be used any more.
 
   For a more extensive handling see
   <https://www.w3.org/International/articles/language-tags/>.
@@ -57,7 +59,8 @@ public:
     SCRIPT,        //!< Script tags
     REGION,        //!< Regional tags
     VARIANT,       //!< Variant tags
-    GRANDFATHERED, // Grandfathered tags
+    GRANDFATHERED, //!< Grandfathered tags
+    REDUNDANT,     //!< Reduntant tag
   };
   BCP47Language();
   virtual ~BCP47Language() = default;
@@ -390,6 +393,7 @@ private:
   QStringList m_scriptNames;
   QStringList m_variantNames;
   QStringList m_grandfatheredNames;
+  QStringList m_redundantNames;
   QDate m_fileDate;
   LanguageParser* worker;
   QFile m_languageFile;

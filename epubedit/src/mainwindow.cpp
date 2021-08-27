@@ -110,7 +110,7 @@ MainWindow::initGui()
   m_logPage->setReadOnly(true);
   tabs->addTab(m_logPage, tr("Logs"));
 
-  auto undoView = m_editor->getUndoView();
+  auto undoView = m_editor->undoView();
   tabs->addTab(undoView, tr("Undo View"));
 
   layout->addWidget(tabs, 0, 0);
@@ -154,11 +154,11 @@ MainWindow::initFileActions()
 void
 MainWindow::initEditActions()
 { //, *, *, *,*, *
-  m_editUndoAct = m_editor->getUndoAction();
+  m_editUndoAct = m_editor->undoAction();
   m_editUndoAct->setShortcuts(QKeySequence::Undo);
   connect(m_editUndoAct, &QAction::triggered, this, &MainWindow::editUndo);
 
-  m_editRedoAct = m_editor->getRedoAction();
+  m_editRedoAct = m_editor->redoAction();
   m_editRedoAct->setShortcuts(QKeySequence::Redo);
   connect(m_editRedoAct, &QAction::triggered, this, &MainWindow::editRedo);
 

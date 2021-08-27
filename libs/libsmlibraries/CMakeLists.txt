@@ -76,6 +76,8 @@ target_sources(${PROJECT_NAME}
     src/sm_widgets_global.h
     include/x11colors.h
     src/x11colors.cpp
+    include/paths.h
+    src/paths.cpp
 )
 
 ########################################################################

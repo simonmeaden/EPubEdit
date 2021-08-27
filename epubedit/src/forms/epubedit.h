@@ -40,9 +40,9 @@ public:
 
   bool isLoaded() const;
 
-  QUndoView* getUndoView();
-  QAction* getUndoAction();
-  QAction* getRedoAction();
+  QUndoView* undoView();
+  QAction* undoAction();
+  QAction* redoAction();
 
 signals:
   void sendStatusMessage(const QString& message,

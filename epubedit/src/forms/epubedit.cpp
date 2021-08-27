@@ -80,7 +80,7 @@ EPubEdit::isLoaded() const
 }
 
 QUndoView*
-EPubEdit::getUndoView()
+EPubEdit::undoView()
 {
   m_undoView = new QUndoView(m_undoStack);
   m_undoView->setWindowTitle(tr("Metadata Undo List"));
@@ -88,13 +88,13 @@ EPubEdit::getUndoView()
 }
 
 QAction*
-EPubEdit::getUndoAction()
+EPubEdit::undoAction()
 {
   return m_undoStack->createUndoAction(this, tr("&Undo"));
 }
 
 QAction*
-EPubEdit::getRedoAction()
+EPubEdit::redoAction()
 {
   return m_undoStack->createRedoAction(this, tr("&Redo"));
 }

@@ -16,6 +16,8 @@
 #include <QPushButton>
 #include <QRandomGenerator>
 #include <QSharedPointer>
+#include <QTemporaryDir>
+#include <QTemporaryFile>
 #include <QTextBlock>
 #include <QTextCursor>
 #include <QTextDocument>
@@ -41,7 +43,20 @@ struct EPubContents
 
 class EPubDocument : public QObject
 {
+  Q_OBJECT
 public:
+  enum Error
+  {
+    NO_ERROR = 0,
+    DOCUMENT_WRITE_ERROR = 0x1,
+    METATYPE_ERROR = 0x2,
+    CONTAINER_ERROR = 0x4,
+
+    WRITE_ERROR = 0x400000,
+    SIZE_ERROR = 0x800000,
+  };
+  Q_DECLARE_FLAGS(Errors, Error)
+
   explicit EPubDocument(Config* config, QObject* parent);
   virtual ~EPubDocument();
 
@@ -93,6 +108,9 @@ public:
 
   QSharedPointer<UniqueStringList> uniqueIdList() const;
 
+signals:
+  void sendLogMessage(const QString& message);
+
 private:
   Config* m_config;
   bool m_loaded;
@@ -125,34 +143,12 @@ private:
   UniqueString m_packageId;
   int m_tocChapterIndex;
   //  HtmlParser* m_parser;
-
   bool m_readonly;
-
-  QString buildTocfromHtml();
-  bool loadDocumentFromFile();
-  bool saveDocumentToFile();
-  bool parseMimetype();
-  bool parseContainer();
-  bool parsePackageFile(QString& fullPath);
-  bool parseManifestItem(const QDomNode& manifest_node,
-                         const QString current_folder);
-  QSharedPointer<EPubSpineItem> parseSpineItem(
-    const QDomNode& spine_node,
-    QSharedPointer<EPubSpineItem> item);
-  bool parseTocFile();
-  void handleNestedNavpoints(QDomElement elem, QString& formatted_toc_string);
-  QSharedPointer<EPubTocItem> parseNavPoint(QDomElement navpoint,
-                                            QString& formatted_toc_data);
-  void extractHeadInformationFromHtmlFile(QSharedPointer<EPubManifestItem> item,
-                                          QString container);
-  bool writeMimetype(QuaZip* save_zip);
-  bool writeContainer(QuaZip* save_zip);
-  bool writePackageFile(QuaZip* save_zip);
-  QString extractTagText(int anchor_start, QString document_string);
 
   static const QString MIMETYPE_FILE;
   static const QByteArray MIMETYPE;
-  static const QString METADATA_FOLDER;
+  static const QString METAINF_FOLDER;
+  static const QString OEBPS_FOLDER;
   static const QString CONTAINER_FILE;
   static const QString TOC_FILE;
 
@@ -171,7 +167,34 @@ private:
   static const QString HTML_DOCTYPE;
   static const QString XML_HEADER;
   static const QString HTML_XMLNS;
+
+  QString buildTocfromHtml();
+  bool loadDocumentFromFile();
+  bool saveDocumentToFile();
+  bool parseMimetype();
+  bool parseContainer();
+  bool parsePackageFile(QString& fullPath);
+  bool parseManifestItem(const QDomNode& manifest_node,
+                         const QString current_folder);
+  QSharedPointer<EPubSpineItem> parseSpineItem(
+    const QDomNode& spine_node,
+    QSharedPointer<EPubSpineItem> item);
+  bool parseTocFile();
+  void handleNestedNavpoints(QDomElement elem, QString& formatted_toc_string);
+  QSharedPointer<EPubTocItem> parseNavPoint(QDomElement navpoint,
+                                            QString& formatted_toc_data);
+  void extractHeadInformationFromHtmlFile(QSharedPointer<EPubManifestItem> item,
+                                          QString container);
+  Errors writeMimetype(const QString& filename);
+  Errors writeContainer(QuaZip* save_zip);
+  Errors writePackageFile(QuaZip* save_zip);
+  QString extractTagText(int anchor_start, QString document_string);
+  bool confirmPathOrLibraryPath(QString& path);
+  QString getFirstAuthorNameOrUnknown(const QStringList& authors);
+  QString getFirstTitleOrTemp(QList<QSharedPointer<EPubTitle>> titles);
 };
+Q_DECLARE_OPERATORS_FOR_FLAGS(EPubDocument::Errors)
+
 typedef QSharedPointer<EPubDocument> Document;
 
 Q_DECLARE_METATYPE(EPubDocument);

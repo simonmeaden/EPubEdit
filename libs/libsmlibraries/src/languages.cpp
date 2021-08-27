@@ -200,6 +200,8 @@ BCP47Language::fromString(const QString& name)
     return VARIANT;
   else if (name.toLower() == "grandfathered")
     return GRANDFATHERED;
+  else if (name.toLower() == "redundant")
+    return REDUNDANT;
   return LANGUAGE;
 }
 
@@ -231,6 +233,8 @@ BCP47Language::typeString()
       return "variant";
     case GRANDFATHERED:
       return "grandfathered";
+    case REDUNDANT:
+      return "redundant";
   }
   return QString();
 }
@@ -298,7 +302,7 @@ BCP47Languages::saveToLocalFile(QFile& file)
       if (!descriptions.isEmpty()) {
         emitter << YAML::Key << "description" << YAML::Value;
         emitter << YAML::BeginSeq;
-        for (auto description : descriptions) {
+        for (auto& description : descriptions) {
           emitter << description.toStdString().c_str();
         }
         emitter << YAML::EndSeq;
@@ -323,7 +327,7 @@ BCP47Languages::saveToLocalFile(QFile& file)
       if (!prefixes.isEmpty()) {
         emitter << YAML::Key << "prefix" << YAML::Value;
         emitter << YAML::BeginSeq;
-        for (auto prefix : prefixes) {
+        for (auto& prefix : prefixes) {
           emitter << prefix.toStdString().c_str();
         }
         emitter << YAML::EndSeq;
@@ -336,6 +340,10 @@ BCP47Languages::saveToLocalFile(QFile& file)
       }
       if (language->isDeprecated()) {
         emitter << YAML::Key << "scope" << YAML::Value << "deprecated";
+      }
+      if (!language->comments().isEmpty()) {
+        emitter << YAML::Key << "comments" << YAML::Value
+                << language->comments();
       }
       emitter << YAML::EndMap;
     }
@@ -401,13 +409,13 @@ BCP47Languages::loadYamlFile(QFile& file)
           }
           auto descriptions = languageNode["description"];
           if (descriptions && descriptions.IsSequence()) {
-            for (auto description : descriptions) {
+            for (auto const& description : descriptions) {
               language->addDescription(description.as<QString>());
             }
           }
           auto prefixes = languageNode["prefix"];
           if (prefixes && prefixes.IsSequence()) {
-            for (auto prefix : prefixes) {
+            for (auto const& prefix : prefixes) {
               language->addPrefix(prefix.as<QString>());
             }
           }
@@ -456,6 +464,9 @@ BCP47Languages::updateMaps()
         break;
       case BCP47Language::GRANDFATHERED:
         m_grandfatheredNames.append(language->description());
+        break;
+      case BCP47Language::REDUNDANT:
+        m_redundantNames.append(language->description());
         break;
     }
   }
@@ -837,13 +848,15 @@ LanguageParser::parse()
             value = splits.at(1).trimmed();
 
             Errors e = NO_ERROR;
-            if (!nameIsType) {
-              e.setFlag(UNKNOWN_TAG_TYPE, true);
+            if (state != BCP47Languages::COMMENT) {
+              if (!nameIsType) {
+                e.setFlag(UNKNOWN_TAG_TYPE, true);
+              }
+              if (value.isEmpty()) {
+                e.setFlag(EMPTY_VALUE, true);
+              }
             }
-            if (value.isEmpty()) {
-              e.setFlag(EMPTY_VALUE, true);
-            }
-            if (!e)
+            if (e != NO_ERROR)
               errors.insert(m_lineNumber, EMPTY_NAME);
           } else {
             // If there are more than 1 colon then probably a comment
@@ -883,6 +896,8 @@ LanguageParser::parse()
                 language->setType(BCP47Language::VARIANT);
               else if (lValue == "grandfathered")
                 language->setType(BCP47Language::GRANDFATHERED);
+              else if (lValue == "redundant")
+                language->setType(BCP47Language::REDUNDANT);
               else {
                 errors.insert(m_lineNumber, UNKNOWN_TAG_TYPE);
               };

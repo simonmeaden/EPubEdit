@@ -26,7 +26,7 @@ public:
   QString configDir() const;
   void setConfigDir(const QString& value);
   QString configFile() const;
-  void setConfigFile(const QString& value);
+  void setConfigFile(const QString& filepath);
 
   int statusTimeout() const;
   void setStatusTimeout(int value);
@@ -53,10 +53,10 @@ signals:
 
 private:
   BCP47Languages* m_languages;
-  QString m_configDir;
-  QString m_configFile;
+  QDir m_configDir;
+  QDir m_libraryDir;
+  QFile m_configFile;
   SaveType m_saveType;
-  QString m_libraryPath;
   int m_statusTimeout; // timeout in seconds
 
   static const QString STATUS_TIMEOUT;
@@ -65,7 +65,7 @@ private:
 
   void saveLanguageFile();
   void receiveStatusMessage(const QString& message);
-  QFile* setupConfigFile(const QString& filename = QString());
+  void setupConfigFile(const QString& filename = QString());
 };
 
 #endif // CONFIG_H

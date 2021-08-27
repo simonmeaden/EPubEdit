@@ -1,6 +1,7 @@
 #include "config.h"
 
 #include "languages.h"
+#include "paths.h"
 
 const QString Config::STATUS_TIMEOUT = "status_timeout";
 const QString Config::SAVE_VERSION = "save_version";
@@ -9,12 +10,12 @@ const QString Config::LIBRARY_PATH = "library_path";
 Config::Config(QObject* parent)
   : QObject(parent)
   , m_configDir(
-      QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) +
-      "/epubedit")
-  , m_configFile("epubedit.yaml")
+      QDir(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation)))
+  , m_configFile(QFile(Paths::join(m_configDir.path(), "epubedit.yaml")))
   , m_saveType(EPUB_3_2)
-  , m_libraryPath(
-      QStandardPaths::writableLocation(QStandardPaths::AppDataLocation))
+  , m_libraryDir(QDir(Paths::join(
+      QStandardPaths::writableLocation(QStandardPaths::AppDataLocation),
+      "library")))
   , m_statusTimeout(StatusTimeout)
 {
   load();
@@ -25,9 +26,8 @@ Config::Config(QObject* parent)
           &Config::receiveStatusMessage);
   connect(
     m_languages, &BCP47Languages::parsingError, this, &Config::sendLogMessage);
-  QDir dir(m_configDir);
-  dir.mkpath(m_configDir);
-  auto file = QFile(dir.filePath("languages.yaml"));
+  m_configDir.mkpath(m_configDir.path());
+  auto file = QFile(m_configDir.filePath("languages.yaml"));
   m_languages->readFromLocalFile(file);
 }
 
@@ -52,13 +52,13 @@ Config::receiveStatusMessage(const QString& message)
 QString
 Config::configDir() const
 {
-  return m_configDir;
+  return m_configDir.path();
 }
 
 void
 Config::setConfigDir(const QString& value)
 {
-  m_configDir = value;
+  m_configDir = QDir(value);
 }
 
 int
@@ -68,9 +68,9 @@ Config::statusTimeout() const
 }
 
 void
-Config::setConfigFile(const QString& value)
+Config::setConfigFile(const QString& filepath)
 {
-  m_configFile = value;
+  m_configFile.setFileName(filepath);
 }
 
 void
@@ -95,36 +95,29 @@ Config::saveVersion()
 QString
 Config::libraryPath() const
 {
-  return m_libraryPath;
+  return m_libraryDir.path();
 }
 
 void
 Config::setLibraryPath(const QString& filepath)
 {
-  m_libraryPath = filepath;
+  m_libraryDir = QDir(filepath);
 }
 
-QFile*
+void
 Config::setupConfigFile(const QString& filename)
 {
-  QFile* file;
-  if (filename.isEmpty()) {
-    QDir dir;
-    dir.mkpath(m_configDir);
-    dir.setPath(m_configDir);
-    file = new QFile(dir.filePath(m_configFile), this);
-  } else {
-    file = new QFile(filename, this);
+  if (!filename.isEmpty()) {
+    m_configFile.setFileName(filename);
   }
-  return file;
 }
 
 void
 Config::save(const QString& filename)
 {
-  QFile* file = setupConfigFile(filename);
+  setupConfigFile(filename);
 
-  if (file->open((QFile::ReadWrite | QFile::Truncate))) {
+  if (m_configFile.open((QFile::ReadWrite | QFile::Truncate))) {
     YAML::Emitter emitter;
 
     emitter << YAML::Comment(tr(
@@ -138,7 +131,7 @@ Config::save(const QString& filename)
             << YAML::Comment(
                  tr("Status display timeout in seconds. int value."));
 
-    emitter << YAML::Key << LIBRARY_PATH << YAML::Value << m_libraryPath
+    emitter << YAML::Key << LIBRARY_PATH << YAML::Value << m_libraryDir.path()
             << YAML::Comment(
                  tr("Files will be stored here unless otherwise specified."));
 
@@ -153,19 +146,19 @@ Config::save(const QString& filename)
                  << QString::fromStdString(emitter.GetLastError()) << "\n";
     }
 
-    QTextStream outStream(file);
+    QTextStream outStream(&m_configFile);
     outStream << emitter.c_str();
-    file->close();
+    m_configFile.close();
   }
 }
 
 void
 Config::load(const QString& filename)
 {
-  QFile* file = setupConfigFile(filename);
+  setupConfigFile(filename);
 
-  if (file->exists()) {
-    auto config = YAML::LoadFile(*file);
+  if (m_configFile.exists()) {
+    auto config = YAML::LoadFile(m_configFile);
 
     if (config[SAVE_VERSION]) {
       auto node = config[SAVE_VERSION];
@@ -174,7 +167,7 @@ Config::load(const QString& filename)
 
     if (config[LIBRARY_PATH]) {
       auto node = config[LIBRARY_PATH];
-      m_libraryPath = config[LIBRARY_PATH].as<QString>();
+      m_libraryDir = config[LIBRARY_PATH].as<QString>();
     }
 
     if (config[STATUS_TIMEOUT]) {
@@ -187,5 +180,5 @@ Config::load(const QString& filename)
 QString
 Config::configFile() const
 {
-  return m_configFile;
+  return m_configFile.fileName();
 }
