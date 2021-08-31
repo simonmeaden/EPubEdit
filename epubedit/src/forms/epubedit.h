@@ -16,12 +16,11 @@
 #include <QUndoView>
 #include <QWidget>
 
-#include "forms/configurationeditor.h"
 #include "forms/metadataform.h"
+#include "config.h"
 
 class EPubEditor;
 class EPubDocument;
-class Config;
 
 class EPubEdit : public QWidget
 {

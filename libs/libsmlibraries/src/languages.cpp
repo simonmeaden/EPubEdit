@@ -692,6 +692,106 @@ BCP47Languages::isType(const QString& type)
   return false;
 }
 
+BCP47Language::Values
+BCP47Languages::testPrimaryLanguage(const QString& value)
+{
+  if (value == "i" || value == "x")
+    return BCP47Language::PRIVATE_LANGUAGE;
+  else if (m_languageNames.contains(value))
+    return BCP47Language::LANGUAGE;
+  return BCP47Language::BAD_LANGUAGE;
+}
+
+BCP47Language::Values
+BCP47Languages::testScript(const QString& value)
+{
+  if (value >= "Qaaa" && value <= "Qabx")
+    return BCP47Language::PRIVATE_SCRIPT;
+  else if (m_scriptNames.contains(value))
+    return BCP47Language::SCRIPT;
+  else
+    return BCP47Language::NO_SCRIPT;
+}
+
+BCP47Language::Values
+BCP47Languages::testRegion(const QString& value)
+{
+  auto lValue = value.toLower();
+  if (lValue == "aa" || (lValue >= "qm" && lValue <= "qz") ||
+      (lValue >= "xa" && lValue <= "xz") || lValue == "zz")
+    return BCP47Language::PRIVATE_REGION;
+  else if (m_regionNames.contains(value))
+    return BCP47Language::REGION;
+  //  else if (UNStatisticalCodes)
+  else
+    return BCP47Language::NO_REGION;
+}
+
+bool
+BCP47Languages::isExtLang(const QString& value)
+{
+  return m_extlangNames.contains(value);
+}
+
+BCP47Language::Values
+BCP47Languages::checkTag(QString& value)
+{
+  BCP47Language::Values values = BCP47Language::BAD_LANGUAGE;
+  auto sections = value.split("-");
+  for (auto section : sections) {
+    if (!(values.testFlag(BCP47Language::LANGUAGE) ||
+          values.testFlag(BCP47Language::PRIVATE_LANGUAGE))) {
+      // MUST be a primary language otherwise bad_tag
+      values = testPrimaryLanguage(section);
+      if (values.testFlag(BCP47Language::BAD_LANGUAGE))
+        return values;
+    } else {
+      // tested for language tag.
+      // next check for extlang
+      if (isExtLang(section)) {
+        auto tag = m_extlan.value(section);
+        if (tag->prefix().contains(section)) {
+          values.setFlag(BCP47Language::EXTLANG);
+        } else {
+          values.setFlag(BCP47Language::EXTLANG_MISMATCH);
+        }
+      }
+
+      if (!(values.testFlag(BCP47Language::EXTLANG) ||
+            values.testFlag(BCP47Language::EXTLANG_MISMATCH))) {
+        // then if NOT extlang check for script.
+        auto v = testScript(section);
+        if (!v.testFlag(BCP47Language::NO_SCRIPT)) {
+          values |= v;
+        } else {
+          // thirdly check for region.
+          v = testRegion(section);
+          if (!v.testFlag(BCP47Language::NO_REGION)) {
+            values |= v;
+          }
+        }
+      }
+    }
+  }
+
+  //    if (size >= 3) {
+  //      third = sections.at(2);
+  //      // script cannot be repeated
+  //      if (isScript(third)) {
+  //        if (!values.testFlag(BCP47Language::SCRIPT)) {
+  //          values.setFlag(BCP47Language::SCRIPT);
+  //        } else {
+  //          values = BCP47Language::DUPLICATE_SCRIPT;
+  //        }
+  //      }
+  //    }
+
+  //    if (size > 3) {
+  //    }
+}
+return values;
+}
+
 QDate
 BCP47Languages::fileDate() const
 {

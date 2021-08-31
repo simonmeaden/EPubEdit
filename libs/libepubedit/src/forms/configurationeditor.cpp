@@ -1,9 +1,9 @@
 #include "forms/configurationeditor.h"
+#include "config.h"
 
 ConfigurationEditor::ConfigurationEditor(Config* config, QWidget* parent)
   : QDialog(parent)
   , m_config(config)
-  , m_modified(false)
 {
   initGui();
 }
@@ -14,12 +14,6 @@ ConfigurationEditor::config() const
   return m_config;
 }
 
-bool
-ConfigurationEditor::modified() const
-{
-  return m_modified;
-}
-
 QWidget*
 ConfigurationEditor::initPage1()
 {
@@ -27,22 +21,24 @@ ConfigurationEditor::initPage1()
   auto layout = new QFormLayout;
   page->setLayout(layout);
 
+  auto preferredSaveVersion = new QComboBox(this);
+  preferredSaveVersion->addItems(Config::versions());
+  preferredSaveVersion->setCurrentText(m_config->versionToString());
+  layout->addRow(tr("Preferred Save Version"), preferredSaveVersion);
+  connect(preferredSaveVersion,
+          &QComboBox::currentTextChanged,
+          m_config,
+          qOverload<QString>(&Config::setSaveVersion));
+
   auto statusTimeoutEdit = new QSpinBox(this);
   layout->addRow(tr("Status bar message timeout (secs)"), statusTimeoutEdit);
   statusTimeoutEdit->setValue(m_config->statusTimeout());
   connect(statusTimeoutEdit,
           &QSpinBox::valueChanged,
-          this,
-          &ConfigurationEditor::statusTimeoutChanged);
+          m_config,
+          &Config::setStatusTimeout);
 
   return page;
-}
-
-void
-ConfigurationEditor::statusTimeoutChanged(int value)
-{
-  m_config->setStatusTimeout(value);
-  m_modified = true;
 }
 
 void

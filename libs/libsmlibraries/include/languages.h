@@ -7,6 +7,7 @@
 //#include <QFuture>
 //#include <QFutureWatcher>
 #include <QString>
+#include <QStringLiteral>
 #include <QThread>
 #include <QUrl>
 //#include <QtConcurrent/QtConcurrent>
@@ -18,6 +19,7 @@
 
 #include "filedownloader.h"
 #include "qyamlcpp.h"
+#include "unstatistical.h"
 
 void
 loadYamlFile(QFile& file);
@@ -54,14 +56,28 @@ class BCP47Language
 public:
   enum Type
   {
-    LANGUAGE,      //!< Language tags
-    EXTLANG,       //!< ExtLang tags
-    SCRIPT,        //!< Script tags
-    REGION,        //!< Regional tags
-    VARIANT,       //!< Variant tags
-    GRANDFATHERED, //!< Grandfathered tags
-    REDUNDANT,     //!< Reduntant tag
+    // below used both in tags and values flags
+    LANGUAGE = 0x1,           //!< Language tags or Values flag
+    EXTLANG = 0x2,            //!< ExtLang tags or Values flag
+    SCRIPT = 0x4,             //!< Script tags or Values flag
+    REGION = 0x8,             //!< Regional tags or Values flag
+    VARIANT = 0x10,           //!< Variant tags or Values flag
+    GRANDFATHERED = 0x20,     //!< Grandfathered tags or Values flag
+    REDUNDANT = 0x40,         //!< Reduntant tag or Values flag
+                              // below here only used in Values flags
+    DUPLICATE_SCRIPT = 0x80,  //!< DUPLICATE SCRIPT flag
+    EXTLANG_MISMATCH = 0x100, //!< Language and extended language don't match
+    PRIVATE_LANGUAGE = 0x200, //!< 'x' or 'i' indicate a private language
+    PRIVATE_SCRIPT = 0x400,   //!< A private script language.
+    NO_SCRIPT = 0x800,        //!< No script section
+    PRIVATE_REGION = 0x1000,  //!< A private region.
+    NO_REGION = 0x2000,       //!< No region section
+
+    BAD_LANGUAGE = 0x1000000, //!< Bag tag, only used in Values flag
+
   };
+  Q_DECLARE_FLAGS(Values, Type)
+
   BCP47Language();
   virtual ~BCP47Language() = default;
 
@@ -344,6 +360,12 @@ public:
 
   static bool isType(const QString& type);
 
+  BCP47Language::Values testPrimaryLanguage(const QString& value);
+  BCP47Language::Values testScript(const QString& value);
+  BCP47Language::Values testRegion(const QString& value);
+  bool isExtLang(const QString& value);
+  BCP47Language::Values checkTag(QString& value);
+
   QDate fileDate() const;
 
   //! Returns the entire map of Description to BCP47Language objects.
@@ -415,5 +437,7 @@ private:
                       QDate,
                       bool noErrors);
 };
+
+Q_DECLARE_OPERATORS_FOR_FLAGS(BCP47Language::Values)
 
 #endif // LANGUAGES_H

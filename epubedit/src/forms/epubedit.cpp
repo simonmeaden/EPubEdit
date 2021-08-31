@@ -6,11 +6,10 @@
 #include "qyamlcpp.h"
 #include <yaml-cpp/yaml.h>
 
-#include "config.h"
 #include "document/epubdocument.h"
 #include "forms/epubeditor.h"
 #include "forms/metadataform.h"
-//#include "util/csvsplitter.h"
+
 
 EPubEdit::EPubEdit(Config* config, QWidget* parent)
   : QWidget(parent)

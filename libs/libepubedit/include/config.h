@@ -13,12 +13,13 @@ class Config : public QObject
 {
   Q_OBJECT
 public:
-  enum SaveType
+  enum SaveVersion
   {
     EPUB_3_0 = 30,
     EPUB_3_1 = 31,
     EPUB_3_2 = 32,
     EPUB_3_3 = 33,
+    EPUB_3_4 = 34,
   };
   Config(QObject* parent);
   ~Config();
@@ -31,8 +32,12 @@ public:
   int statusTimeout() const;
   void setStatusTimeout(int value);
 
-  SaveType saveVersion();
-  void setSaveVersion(SaveType type);
+  SaveVersion saveVersion();
+  void setSaveVersion(SaveVersion type);
+  void setSaveVersion(const QString versionStr);
+  static QStringList versions();
+  static SaveVersion version(const QString& versionStr);
+  QString versionToString();
 
   //! Returns the path to the directory in which files will be stored.
   QString libraryPath() const;
@@ -42,7 +47,7 @@ public:
   //!
   void setLibraryPath(const QString& filepath);
 
-  void save(const QString& filename = QString());
+  bool save(const QString& filename = QString());
   void load(const QString& filename = QString());
 
   static const int StatusTimeout = 20;
@@ -56,9 +61,11 @@ private:
   QDir m_configDir;
   QDir m_libraryDir;
   QFile m_configFile;
-  SaveType m_saveType;
+  SaveVersion m_saveVersion;
   int m_statusTimeout; // timeout in seconds
+  bool m_modified;
 
+  static QStringList VERSION_STRINGS;
   static const QString STATUS_TIMEOUT;
   static const QString SAVE_VERSION;
   static const QString LIBRARY_PATH;

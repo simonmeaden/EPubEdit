@@ -14,10 +14,11 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-
 set(TS_FILES lang/epubedit_en_GB.ts)
 
 list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_SOURCE_DIR}/cmake)
+
+#include_directories(/usr/lib64/clang/12.0.1)
 
 find_package(
   QT

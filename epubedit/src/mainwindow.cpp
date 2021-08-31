@@ -354,10 +354,10 @@ void
 MainWindow::preferences()
 {
   auto configEdit = new ConfigurationEditor(m_config, this);
-  if (configEdit->exec() == QDialog::Accepted && configEdit->modified()) {
-    m_config = configEdit->config();
-    m_editor->setConfig(m_config);
-    m_editor->saveConfig();
+  if (configEdit->exec() == QDialog::Accepted) {
+    if (!m_config->save()) {
+      setLogMessage(tr("Configuration save failed."));
+    }
   }
 }
 

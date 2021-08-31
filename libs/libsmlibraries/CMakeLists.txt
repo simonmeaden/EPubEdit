@@ -47,6 +47,8 @@ target_sources(${PROJECT_NAME}
     # section above
     include/languages.h
     src/languages.cpp
+    include/unstatistical.h
+    src/unstatistical.cpp
     include/filedownloader.h
     src/filedownloader.cpp
     include/abstractlabelledspinbox.h
