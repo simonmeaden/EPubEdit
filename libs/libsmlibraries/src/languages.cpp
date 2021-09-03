@@ -788,8 +788,8 @@ BCP47Languages::checkTag(QString& value)
 
   //    if (size > 3) {
   //    }
-}
-return values;
+
+  return values;
 }
 
 QDate
