@@ -1932,11 +1932,13 @@ UNStatisticalCodes::UNStatisticalCodesBase::alphaCode(const QString& name)
 bool
 UNStatisticalCodes::UNStatisticalCodesBase::isM49Valid(const QString& value)
 {
-  bool ok;
-  int code = value.toUInt(&ok);
-  if (ok) {
-    return M49CODES.contains(code);
-  }
+    if (value.trimmed().length()==3) {
+        bool ok;
+        int code = value.toUInt(&ok);
+        if (ok) {
+            return M49CODES.contains(code);
+        }
+    }
   return false;
 }
 
