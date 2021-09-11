@@ -1,0 +1,3514 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<tagfile doxygen_version="1.9.1">
+  <compound kind="file">
+    <name>abstractlabelledspinbox.h</name>
+    <path>/home/simonmeaden/workspace/common_lib/sm_libraries/include/sm_widgets/</path>
+    <filename>abstractlabelledspinbox_8h.html</filename>
+    <includes id="abstractlabelledwidget_8h" name="abstractlabelledwidget.h" local="yes" imported="no">abstractlabelledwidget.h</includes>
+    <class kind="class">AbstractLabelledSpinBox</class>
+  </compound>
+  <compound kind="file">
+    <name>abstractlabelledwidget.h</name>
+    <path>/home/simonmeaden/workspace/common_lib/sm_libraries/include/sm_widgets/</path>
+    <filename>abstractlabelledwidget_8h.html</filename>
+    <class kind="class">AbstractLabelledWidget</class>
+    <class kind="interface">AlignableWidgetInterface</class>
+    <class kind="interface">TextFormatInterface</class>
+  </compound>
+  <compound kind="file">
+    <name>circularbuffer.h</name>
+    <path>/home/simonmeaden/workspace/common_lib/sm_libraries/include/sm_widgets/</path>
+    <filename>circularbuffer_8h.html</filename>
+  </compound>
+  <compound kind="file">
+    <name>exspinbox.h</name>
+    <path>/home/simonmeaden/workspace/common_lib/sm_libraries/include/sm_widgets/</path>
+    <filename>exspinbox_8h.html</filename>
+    <class kind="class">ExSpinBox</class>
+  </compound>
+  <compound kind="file">
+    <name>extendedcolordialog.h</name>
+    <path>/home/simonmeaden/workspace/common_lib/sm_libraries/include/sm_widgets/</path>
+    <filename>extendedcolordialog_8h.html</filename>
+    <class kind="class">ExtendedColorDialog</class>
+    <member kind="enumeration">
+      <type></type>
+      <name>ColorType</name>
+      <anchorfile>extendedcolordialog_8h.html</anchorfile>
+      <anchor>a5e133660cf9d4bcd1cb6a49e3ec16f83</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>Secondary</name>
+      <anchorfile>extendedcolordialog_8h.html</anchorfile>
+      <anchor>a5e133660cf9d4bcd1cb6a49e3ec16f83acdd030c6485c7b0801d32116fd9d7103</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="file">
+    <name>hexformatdelegate.h</name>
+    <path>/home/simonmeaden/workspace/common_lib/sm_libraries/include/sm_widgets/</path>
+    <filename>hexformatdelegate_8h.html</filename>
+    <class kind="class">HexFormatDelegate</class>
+  </compound>
+  <compound kind="file">
+    <name>labelledcombobox.h</name>
+    <path>/home/simonmeaden/workspace/common_lib/sm_libraries/include/sm_widgets/</path>
+    <filename>labelledcombobox_8h.html</filename>
+    <includes id="abstractlabelledwidget_8h" name="abstractlabelledwidget.h" local="yes" imported="no">abstractlabelledwidget.h</includes>
+    <class kind="class">LabelledComboBox</class>
+  </compound>
+  <compound kind="file">
+    <name>labelleddoublespinbox.h</name>
+    <path>/home/simonmeaden/workspace/common_lib/sm_libraries/include/sm_widgets/</path>
+    <filename>labelleddoublespinbox_8h.html</filename>
+    <includes id="abstractlabelledspinbox_8h" name="abstractlabelledspinbox.h" local="yes" imported="no">abstractlabelledspinbox.h</includes>
+    <class kind="class">LabelledDoubleSpinBox</class>
+  </compound>
+  <compound kind="file">
+    <name>labelledexspinbox.h</name>
+    <path>/home/simonmeaden/workspace/common_lib/sm_libraries/include/sm_widgets/</path>
+    <filename>labelledexspinbox_8h.html</filename>
+    <includes id="abstractlabelledspinbox_8h" name="abstractlabelledspinbox.h" local="yes" imported="no">abstractlabelledspinbox.h</includes>
+    <includes id="exspinbox_8h" name="exspinbox.h" local="yes" imported="no">exspinbox.h</includes>
+    <class kind="class">LabelledExSpinBox</class>
+  </compound>
+  <compound kind="file">
+    <name>labelledlineedit.h</name>
+    <path>/home/simonmeaden/workspace/common_lib/sm_libraries/include/sm_widgets/</path>
+    <filename>labelledlineedit_8h.html</filename>
+    <includes id="abstractlabelledwidget_8h" name="abstractlabelledwidget.h" local="yes" imported="no">abstractlabelledwidget.h</includes>
+    <class kind="class">LabelledLineEdit</class>
+  </compound>
+  <compound kind="file">
+    <name>labelledspinbox.h</name>
+    <path>/home/simonmeaden/workspace/common_lib/sm_libraries/include/sm_widgets/</path>
+    <filename>labelledspinbox_8h.html</filename>
+    <includes id="abstractlabelledspinbox_8h" name="abstractlabelledspinbox.h" local="yes" imported="no">abstractlabelledspinbox.h</includes>
+    <class kind="class">LabelledSpinBox</class>
+  </compound>
+  <compound kind="file">
+    <name>labelledtextfield.h</name>
+    <path>/home/simonmeaden/workspace/common_lib/sm_libraries/include/sm_widgets/</path>
+    <filename>labelledtextfield_8h.html</filename>
+    <includes id="abstractlabelledwidget_8h" name="abstractlabelledwidget.h" local="yes" imported="no">abstractlabelledwidget.h</includes>
+    <class kind="class">LabelledTextField</class>
+  </compound>
+  <compound kind="file">
+    <name>x11colors.h</name>
+    <path>/home/simonmeaden/workspace/common_lib/sm_libraries/include/sm_widgets/</path>
+    <filename>x11colors_8h.html</filename>
+  </compound>
+  <compound kind="class">
+    <name>AbstractLabelledSpinBox</name>
+    <filename>classAbstractLabelledSpinBox.html</filename>
+    <base>AbstractLabelledWidget</base>
+    <base>AlignableWidgetInterface</base>
+    <member kind="signal">
+      <type>void</type>
+      <name>textChanged</name>
+      <anchorfile>classAbstractLabelledSpinBox.html</anchorfile>
+      <anchor>a9e95b13024ab859f86ea66e6bc756034</anchor>
+      <arglist>(const QString &amp;labelText)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>AbstractLabelledSpinBox</name>
+      <anchorfile>classAbstractLabelledSpinBox.html</anchorfile>
+      <anchor>aee6be0952422cb8604b858334683938a</anchor>
+      <arglist>(const QString &amp;labelText=QString(), QWidget *parent=nullptr, WidgetFactory const &amp;factory=WidgetFactory())</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>suffix</name>
+      <anchorfile>classAbstractLabelledSpinBox.html</anchorfile>
+      <anchor>a06120ff2e354d0387c0fbe79f93266d7</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setSuffix</name>
+      <anchorfile>classAbstractLabelledSpinBox.html</anchorfile>
+      <anchor>a9c718ea37af897d1a4e410ee012ed994</anchor>
+      <arglist>(const QString &amp;labelText)</arglist>
+    </member>
+    <member kind="function">
+      <type>QAbstractSpinBox::StepType</type>
+      <name>stepType</name>
+      <anchorfile>classAbstractLabelledSpinBox.html</anchorfile>
+      <anchor>a10c51ec701fb702721b2d7f29fef83cf</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setStepType</name>
+      <anchorfile>classAbstractLabelledSpinBox.html</anchorfile>
+      <anchor>a0f32cdf69e85744936fb7d29c83a8351</anchor>
+      <arglist>(QAbstractSpinBox::StepType type)</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>cleanText</name>
+      <anchorfile>classAbstractLabelledSpinBox.html</anchorfile>
+      <anchor>ada791ffac292499a591cc8b056559593</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setWidgetAlignment</name>
+      <anchorfile>classAbstractLabelledSpinBox.html</anchorfile>
+      <anchor>ab4455d96c41195bd0bd40fe3bd41b695</anchor>
+      <arglist>(const Qt::Alignment &amp;widgetAlignment)</arglist>
+    </member>
+    <member kind="function">
+      <type>Qt::Alignment</type>
+      <name>widgetAlignment</name>
+      <anchorfile>classAbstractLabelledSpinBox.html</anchorfile>
+      <anchor>ac6598c93f27d93087cd24fc51373affa</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>suffix</name>
+      <anchorfile>classAbstractLabelledSpinBox.html</anchorfile>
+      <anchor>a4506d7a50b56008cc74d1ae9c1c2e65b</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>AbstractLabelledWidget</name>
+    <filename>classAbstractLabelledWidget.html</filename>
+    <member kind="enumeration">
+      <type></type>
+      <name>LabelPosition</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>a515ccd200da0cb366834d7443e56f77c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>Left</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>a515ccd200da0cb366834d7443e56f77ca5471473c982b99eb9e2fd63bcd73ba29</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>Right</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>a515ccd200da0cb366834d7443e56f77ca92348190b7078717e5c15d0985c12173</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>Above</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>a515ccd200da0cb366834d7443e56f77cad97b25bfaee5de264539733e19b09d0b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>Below</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>a515ccd200da0cb366834d7443e56f77ca548d7533c25d4771e67b2e827aee99d9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>Left</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>a515ccd200da0cb366834d7443e56f77ca5471473c982b99eb9e2fd63bcd73ba29</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>Right</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>a515ccd200da0cb366834d7443e56f77ca92348190b7078717e5c15d0985c12173</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>Above</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>a515ccd200da0cb366834d7443e56f77cad97b25bfaee5de264539733e19b09d0b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>Below</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>a515ccd200da0cb366834d7443e56f77ca548d7533c25d4771e67b2e827aee99d9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>AbstractLabelledWidget</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>a550773688c685f8a928232cf14278595</anchor>
+      <arglist>(QString labelText=QString(), QWidget *parent=nullptr, WidgetFactory const &amp;factory=WidgetFactory())</arglist>
+    </member>
+    <member kind="function" virtualness="virtual">
+      <type>virtual</type>
+      <name>~AbstractLabelledWidget</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>a681e9bcc666291ef7e22fbb336e243cc</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setLabelText</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>a38d2595884b2daffcd5c79c77fc88c34</anchor>
+      <arglist>(const QString &amp;labelText)</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>labelText</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>a26cb7eb1476524f79df96a99b1ae69fb</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>LabelPosition</type>
+      <name>labelPosition</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>a322f7ea3ebe2b0fe60e48e7a8bb3dee6</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setLabelPosition</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>aa7367ad902b65a6fffab7aa2bc7fa593</anchor>
+      <arglist>(const LabelPosition &amp;labelPosition)</arglist>
+    </member>
+    <member kind="function">
+      <type>Qt::Alignment</type>
+      <name>labelAlignment</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>ac707b6e59c8a1cada8149792094eee8d</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setLabelAlignment</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>a77c44c5b838802bdc63eefd75196e161</anchor>
+      <arglist>(const Qt::Alignment &amp;widgetAlignment)</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>spacing</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>ae153997dd4d0200a3945be83c201e6b7</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setSpacing</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>abc25f5afc5b38e368409c72767d8a249</anchor>
+      <arglist>(int spacing)</arglist>
+    </member>
+    <member kind="function">
+      <type>Qt::TextFormat</type>
+      <name>labelTextFormat</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>a84b7b8b1807a7ddc04004ba4c36f865c</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setLabelTextFormat</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>aec8386a4bbae1ccc1d874dccadf0c041</anchor>
+      <arglist>(Qt::TextFormat format)</arglist>
+    </member>
+    <member kind="function">
+      <type>QSize</type>
+      <name>sizeHint</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>aec5ec41fd62e6227aecec246b673e3b9</anchor>
+      <arglist>() const override</arglist>
+    </member>
+    <member kind="function">
+      <type>QSize</type>
+      <name>minimumSizeHint</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>abf39de5733df4943e4dc4179adf0e7c9</anchor>
+      <arglist>() const override</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setLabelSizePolicy</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>a5f8a68b3cdaca7e00d58f969794eb690</anchor>
+      <arglist>(QSizePolicy policy)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setLabelSizePolicy</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>af9a54a2deb198e95e282b0aea635d68d</anchor>
+      <arglist>(QSizePolicy::Policy horizontal, QSizePolicy::Policy vertical)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setWidgetSizePolicy</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>aad69e3b423e19535f96ebdc735a90d63</anchor>
+      <arglist>(QSizePolicy policy)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setWidgetSizePolicy</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>a042cac07f22db71767e627a6b046c0d6</anchor>
+      <arglist>(QSizePolicy::Policy horizontal, QSizePolicy::Policy vertical)</arglist>
+    </member>
+    <member kind="function">
+      <type>QSizePolicy</type>
+      <name>labelSizePolicy</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>accc2107ac1ad0b4426bda2330648caf3</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>QSizePolicy</type>
+      <name>widgetSizePolicy</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>a69a360d61f0a023b6e86fc2e01df71cd</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>labelStyleSheet</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>a1efbe9b53ca712c56188ff8e4ae974c9</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setLabelStyleSheet</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>aa10a84728f9948a9e0f00d5ba65e03df</anchor>
+      <arglist>(const QString &amp;styleSheet)</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>widgetStyleSheet</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>a5b7abbf3bacb2da44e23eef762f6b0e3</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setWidgetStyleSheet</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>a63decd65ba70d04c59c091041d0caade</anchor>
+      <arglist>(const QString &amp;styleSheet)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>clearLabel</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>a49d08b6d8ab9abf664f09cdcc02da7d6</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>QLabel *</type>
+      <name>label</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>a5043a8b825c19c3056aa94491f25f9d5</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setLabel</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>a74a5c10d316393da8aebbba84ed931a1</anchor>
+      <arglist>(QLabel *label)</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>void</type>
+      <name>positionLabel</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>a19fa823fef89435af8c98e51e860ad58</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>QLabel *</type>
+      <name>m_label</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>a7caa25a480938d572e49944c772116fa</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>QWidget *</type>
+      <name>m_widget</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>accd1dd08565b9f593ebe858481a7f086</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>QGridLayout *</type>
+      <name>m_layout</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>a292b2608ce431e9d29c22bc27040e6c3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="variable" protection="protected">
+      <type>LabelPosition</type>
+      <name>m_position</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>a266079159f32fd845ed1431c2ab628fa</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>labelText</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>a38a4d448633db671496c5ef5b9591a9d</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>Qt::TextFormat</type>
+      <name>labelTextFormat</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>a0761cba9de9e8e5bd3abca0919cb27b9</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>Qt::Alignment</type>
+      <name>labelAlignment</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>a684a13c24a80f2ffbe14b32fb1c56197</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>AbstractLabelledWidget::LabelPosition labelPosition READ</type>
+      <name>labelPosition</name>
+      <anchorfile>classAbstractLabelledWidget.html</anchorfile>
+      <anchor>afcb242dfc1717d5f90d23351f35c4af6</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="interface">
+    <name>AlignableWidgetInterface</name>
+    <filename>classAlignableWidgetInterface.html</filename>
+    <member kind="function" virtualness="pure">
+      <type>virtual Qt::Alignment</type>
+      <name>widgetAlignment</name>
+      <anchorfile>classAlignableWidgetInterface.html</anchorfile>
+      <anchor>a0a389d1e13ad1ff8051814eecc56f932</anchor>
+      <arglist>() const =0</arglist>
+    </member>
+    <member kind="function" virtualness="pure">
+      <type>virtual void</type>
+      <name>setWidgetAlignment</name>
+      <anchorfile>classAlignableWidgetInterface.html</anchorfile>
+      <anchor>a24c2835a8140a608839d3257775153f7</anchor>
+      <arglist>(const Qt::Alignment &amp;)=0</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>CircularBuffer</name>
+    <filename>classCircularBuffer.html</filename>
+    <templarg></templarg>
+    <templarg>always_accept_data_when_full</templarg>
+    <templarg></templarg>
+    <member kind="function">
+      <type></type>
+      <name>CircularBuffer</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>ab5b3c8de70e924bdec71dc915365e260</anchor>
+      <arglist>(int capacity)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>CircularBuffer</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>abacad2af962b5b0d969ad14c0fb2dc83</anchor>
+      <arglist>(const QList&lt; value_type &gt; &amp;items, int capacity=-1)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>CircularBuffer</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>ae2e3c4727a8fb2ad8cc48a2b9d9bbe48</anchor>
+      <arglist>(const QVector&lt; value_type &gt; &amp;items, int capacity=-1)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>CircularBuffer</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a2217da374388fdefffff2e91b6f325ce</anchor>
+      <arglist>(const CircularBuffer&lt; value_type &gt; &amp;other)</arglist>
+    </member>
+    <member kind="function">
+      <type>iterator</type>
+      <name>begin</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a9b89607fa7a2e28ea69dbcf44ede6996</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>const_iterator</type>
+      <name>begin</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a40aceb6e8fecead7298e363dbb867a9e</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>const_iterator</type>
+      <name>cbegin</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>abd7a49179bd7b00d660db479a131b489</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>const_iterator</type>
+      <name>constBegin</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>ad6c827cbb0d4dfd800a8642818a657be</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>iterator</type>
+      <name>end</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a00ea98e112e1a796e289b1f919aa636c</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>const_iterator</type>
+      <name>end</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>aa0155d87e6abc9e4fdeef79522c0f8df</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const_iterator</type>
+      <name>cend</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a2b594bd84e8ce7866c17af5ced3a8f1d</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>const_iterator</type>
+      <name>constEnd</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a7dda4abbb4c6cb1b0f340672d412b4cc</anchor>
+      <arglist>() const noexcept</arglist>
+    </member>
+    <member kind="function">
+      <type>reverse_iterator</type>
+      <name>rbegin</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a83dd285d4977d731b133671e5878b39b</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>reverse_iterator</type>
+      <name>rend</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>ae2112d8ce0cacbd66d1720b5bbde2e2c</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>const_reverse_iterator</type>
+      <name>rbegin</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>ae5d61c6b00cdcda6fd2db5bbc9acbd79</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>const_reverse_iterator</type>
+      <name>rend</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>af4ca83491768aaaf02280b509c49029b</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>const_reverse_iterator</type>
+      <name>crbegin</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a3d061b98913ff530ee31331f866f2042</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>const_reverse_iterator</type>
+      <name>crend</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>acd95a773bc0bd8d4ccbb3e914abca5e3</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>pop</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a81a09a6e0d8567d5b9af9f956bd7be55</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>removeFirst</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>ae0a7b658a605d6421c9bb187a5e1f406</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>pop_front</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>abde089c9e08735367fb80783be334780</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>popFront</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>aef1791c6160fe8daa0d84c4788a4bbc4</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>popFirst</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a3ca2994bd5cce14dc72ecd1d5bb40fdc</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>push</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>ab5da153a3f7c33b972f4f91694813c97</anchor>
+      <arglist>(const value_type &amp;value)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>push_back</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a29b56924fc7cb412ed89e32d8322a508</anchor>
+      <arglist>(const value_type &amp;value)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>append</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a6a3ccbdb781cce2a2799c52af68ecd48</anchor>
+      <arglist>(const value_type &amp;value)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>push</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a91f5d316f1fae066fdeb1978155479d7</anchor>
+      <arglist>(const QList&lt; value_type &gt; values)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>append</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a01434fe991daa3020e26aa290bf37aaf</anchor>
+      <arglist>(const QList&lt; value_type &gt; values)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>push</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a9305ca519cd0d7bc850298709d2d043e</anchor>
+      <arglist>(const QVector&lt; value_type &gt; &amp;values)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>append</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>ac084fd3bc6096ea544950508ef5c949e</anchor>
+      <arglist>(const QVector&lt; value_type &gt; &amp;values)</arglist>
+    </member>
+    <member kind="function">
+      <type>const value_type</type>
+      <name>get</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a2ccd41c830b60c72a1d8605fecde67e5</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>const value_type</type>
+      <name>takeFirst</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a88ce5231f66d39548844703f93cd4bf9</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>const value_type</type>
+      <name>takeFront</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a28e14174200a3d99e53da805da70d003</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>const QVector&lt; value_type &gt;</type>
+      <name>get</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a090c9c6ec8f544fd19c2b6a0055c1805</anchor>
+      <arglist>(int count)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>fill</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a1d7cc7952570f9066b2c278f503444cb</anchor>
+      <arglist>(value_type &amp;value, int size=-1)</arglist>
+    </member>
+    <member kind="function">
+      <type>reference</type>
+      <name>at</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a11000942e29ce9625dc35683becef9e0</anchor>
+      <arglist>(int index)</arglist>
+    </member>
+    <member kind="function">
+      <type>const_reference</type>
+      <name>at</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a5c4dfdd88975c243d17c0d7b623bc03c</anchor>
+      <arglist>(int index) const</arglist>
+    </member>
+    <member kind="function">
+      <type>value_type</type>
+      <name>value</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>ab49b0c13f2a4af3efbddf5832614d6a0</anchor>
+      <arglist>(int index)</arglist>
+    </member>
+    <member kind="function">
+      <type>value_type</type>
+      <name>value</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>acadfcf767d3efcfed33d6c08cd8c98c1</anchor>
+      <arglist>(int index, const value_type defaultValue)</arglist>
+    </member>
+    <member kind="function">
+      <type>reference</type>
+      <name>first</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a5fc2878ede1b6b8c2612f77a0b4752c5</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>const_reference &amp;</type>
+      <name>first</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a4847cd4379d1ce36055b0cf74ddc4acf</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>reference</type>
+      <name>front</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a1d3b8caeed73e0384045ba4f4081f15b</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>const_reference</type>
+      <name>front</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a6ff6b930a002cef801b4722bb92c762d</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>const_reference &amp;</type>
+      <name>constFirst</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a926ea46b3d459ec32db2a420d7b5a640</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>const_reference &amp;</type>
+      <name>constFront</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>affcb65586740b7873cd7c91467aa98fa</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>reference</type>
+      <name>back</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a73b27a250169aea48f03a3187de6f238</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>const_reference</type>
+      <name>back</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>abc9dfa40c186a050982259c2493a1286</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>reference</type>
+      <name>last</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a0e91cf81442adb22e413e2d1ec0d6177</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>const_reference</type>
+      <name>last</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>ab56ae7118e07ac69180e26f1f6b44cb3</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>const_reference</type>
+      <name>constLast</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>ab50bbd5c853bdae84d201e95cfbc1dcd</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>const QVector&lt; value_type &gt;</type>
+      <name>toVector</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>ad2f7f8e6edc9189b8938222776bcbe68</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>const QVector&lt; value_type &gt;</type>
+      <name>pullVector</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>ae21ff905f06a74db2dce6bc3527ec4d3</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>const std::vector&lt; value_type &gt;</type>
+      <name>toStdVector</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a69996ee0803ab3543f4904d4fc5c9985</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>const std::vector&lt; value_type &gt;</type>
+      <name>pullStdVector</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>adb0282ed740c6dd8f58e5645d3670836</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>const QList&lt; value_type &gt;</type>
+      <name>toList</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>ab4edf2083cb71ee06c6249cf0f486f83</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>const QList&lt; value_type &gt;</type>
+      <name>pullList</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a63a93aa0b1a6e6c14a2180ecb9be231b</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>const std::list&lt; value_type &gt;</type>
+      <name>toStdList</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a56ffb6a42f0377c2ada4b2ff03db23a3</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>const std::list&lt; value_type &gt;</type>
+      <name>pullStdList</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a0ad8aece5983ba783632a7daf2ccad22</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>size</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a6600179eace34c6de4ae0781246ee0b4</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>count</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a6ec5132660c3a9c41f6c0584e74c4a8b</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>length</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>ac0e3d8da20b284f9159309e6e4d60273</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>capacity</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a59530258197a44c29342291568f427bf</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>available</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>af52a24e18b39e92fa36b7c48b1feaadf</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>empty</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a2078a5f761bbe226681a422b1f35d0bb</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isEmpty</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a3981716c7fd8d014a02fafd6b3db1e62</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isFull</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a6c6bc2d47789b7a5d1b61b65b18df9a2</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>clear</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a60c780f5d1b46d7519e057d65ea8be8e</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>reserve</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>abd0bd3ff763b344c9a9c514dd044f32c</anchor>
+      <arglist>(const int capacity)</arglist>
+    </member>
+    <member kind="function">
+      <type>reference</type>
+      <name>operator[]</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a03a4250a22aeb8777ee17fa192d8ac36</anchor>
+      <arglist>(int index)</arglist>
+    </member>
+    <member kind="function">
+      <type>const_reference</type>
+      <name>operator[]</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a29fff81d518245ded92a4d1f433e3778</anchor>
+      <arglist>(int index) const</arglist>
+    </member>
+    <member kind="function">
+      <type>CircularBuffer &amp;</type>
+      <name>operator=</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>ab4b86c094e83d3b9efe903dc65954298</anchor>
+      <arglist>(self_type &amp;other)</arglist>
+    </member>
+    <member kind="function">
+      <type>CircularBuffer &amp;</type>
+      <name>operator=</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>af11d51fe9b91080b8388395324cb4db2</anchor>
+      <arglist>(const self_type &amp;other)</arglist>
+    </member>
+    <member kind="function">
+      <type>CircularBuffer&lt; value_type &gt; &amp;</type>
+      <name>operator&lt;&lt;</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>aa9afaff501c953375a85cf634a27f3c1</anchor>
+      <arglist>(const value_type value)</arglist>
+    </member>
+    <member kind="function">
+      <type>CircularBuffer&lt; value_type &gt; &amp;</type>
+      <name>operator&lt;&lt;</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>ab3a94923b0319035036187a63ce4e760</anchor>
+      <arglist>(const QVector&lt; value_type &gt; &amp;other)</arglist>
+    </member>
+    <member kind="function">
+      <type>CircularBuffer&lt; value_type &gt; &amp;</type>
+      <name>operator&lt;&lt;</name>
+      <anchorfile>classCircularBuffer.html</anchorfile>
+      <anchor>a563e9dca98c880f12c8ba0ddbd5eccbd</anchor>
+      <arglist>(const QList&lt; value_type &gt; &amp;other)</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>ExSpinBox</name>
+    <filename>classExSpinBox.html</filename>
+    <member kind="enumeration">
+      <type></type>
+      <name>DisplayType</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>aa253d1b6202dba708ea336a06c34a9dc</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>Decimal</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>aa253d1b6202dba708ea336a06c34a9dca005b0dc862993b49b1b34c8467b59cc0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>Hexadecimal</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>aa253d1b6202dba708ea336a06c34a9dca8fd7fa451debde033dc2d7e953387a8a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>Binary</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>aa253d1b6202dba708ea336a06c34a9dcad67efd040488af0239679f7645a53624</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>Octal</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>aa253d1b6202dba708ea336a06c34a9dcace5500fd19b487c7b78a5ec3ee240e79</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumeration">
+      <type></type>
+      <name>DisplayCase</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>a1d2046fd6c4bb5ac896ed56280954048</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>Uppercase</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>a1d2046fd6c4bb5ac896ed56280954048a3950585d5d45d4f7dd13cdd789ad42c5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>Lowercase</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>a1d2046fd6c4bb5ac896ed56280954048ade624ec351ddf559f4f43bbf89d692a3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>Decimal</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>aa253d1b6202dba708ea336a06c34a9dca005b0dc862993b49b1b34c8467b59cc0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>Hexadecimal</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>aa253d1b6202dba708ea336a06c34a9dca8fd7fa451debde033dc2d7e953387a8a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>Binary</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>aa253d1b6202dba708ea336a06c34a9dcad67efd040488af0239679f7645a53624</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>Octal</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>aa253d1b6202dba708ea336a06c34a9dcace5500fd19b487c7b78a5ec3ee240e79</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>Uppercase</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>a1d2046fd6c4bb5ac896ed56280954048a3950585d5d45d4f7dd13cdd789ad42c5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="enumvalue">
+      <name>Lowercase</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>a1d2046fd6c4bb5ac896ed56280954048ade624ec351ddf559f4f43bbf89d692a3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>displayTypeChanged</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>ad5dd6ba555c28eb4ca3e91ce56d5d748</anchor>
+      <arglist>(DisplayType)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>displayDigitsChanged</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>a472cf01d3ffa32825447f33c775c80f0</anchor>
+      <arglist>(int)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>ExSpinBox</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>a2687fe55afa2fc9495d283e509101826</anchor>
+      <arglist>(QWidget *parent=0)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>ExSpinBox</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>afd308fb114b2179f1f96bc4b22fd26ca</anchor>
+      <arglist>(DisplayType displayType, QWidget *parent=0)</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>displayDigits</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>ac4f118a5aa1c76851b60cdc211aa5193</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>DisplayType</type>
+      <name>displayType</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>a5010083c484dd0d1da4d392985041f78</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setDisplayType</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>a582e9029b2f9028647d6f7e7d6afe828</anchor>
+      <arglist>(DisplayType displayType)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>showLeadingZeroes</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>a24d1e92bca838667e17de4c5c9a6999f</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setShowLeadingZeroes</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>a105712bd4ac967f9f668aec0748343e7</anchor>
+      <arglist>(bool showLeadingZeroes)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setRange</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>adbf71e6d7bd99905cf26a900820395ae</anchor>
+      <arglist>(int min, int max)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setMinimum</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>a9f62f9819403128352e6804969463f79</anchor>
+      <arglist>(int min)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setMaximum</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>a33b964b951760ffad02076d5a7c57d32</anchor>
+      <arglist>(int max)</arglist>
+    </member>
+    <member kind="function">
+      <type>DisplayCase</type>
+      <name>charCase</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>ac92c47d7cdaf231cd951adf50a666137</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setCharCase</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>ac99dc6b067e00e4ec440294b501ebfe5</anchor>
+      <arglist>(DisplayCase charcase)</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>prefix</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>a117424fa7b449a96a4393c1c619332c0</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setPrefix</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>a52b02d606688773b3d1dd1ce9b328f8a</anchor>
+      <arglist>(const QString &amp;prefix)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>negBeforePrefix</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>ae3e6b6617e482cef18c3ab80976a6e6a</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setNegBeforePrefix</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>a7175cdd05dc7e68a151c127a79a3a5f4</anchor>
+      <arglist>(bool negBeforePrefix)</arglist>
+    </member>
+    <member kind="property">
+      <type>DisplayType</type>
+      <name>displayType</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>a5c3f5e3028741122f339266be3c2c0ac</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>displayDigits</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>a8ebe6d90cbccf5646ab766f0dde4ba49</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>bool</type>
+      <name>showLeadingZeroes</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>a50863672454e9703b69040135241ecd3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>DisplayCase</type>
+      <name>charCase</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>a20d08201af70275c6b26fd6d201309d7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>prefix</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>aa3b9d600441786c2a45ee8dc66797491</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>bool</type>
+      <name>negBeforePrefix</name>
+      <anchorfile>classExSpinBox.html</anchorfile>
+      <anchor>af887e94bea81428a29b325073fc18191</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>ExtendedColorDialog</name>
+    <filename>classExtendedColorDialog.html</filename>
+    <member kind="signal">
+      <type>void</type>
+      <name>primaryColorChanged</name>
+      <anchorfile>classExtendedColorDialog.html</anchorfile>
+      <anchor>ab682c439bb076edf33bb1ad6302b11cf</anchor>
+      <arglist>(const QColor &amp;color, const QString &amp;name)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>primaryTextColorChanged</name>
+      <anchorfile>classExtendedColorDialog.html</anchorfile>
+      <anchor>a8e0d467873ff7c69ef6dd2a1308277e1</anchor>
+      <arglist>(const QColor &amp;color, const QString &amp;name)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>secondaryColorChanged</name>
+      <anchorfile>classExtendedColorDialog.html</anchorfile>
+      <anchor>adb2f40eb91d9f9e1110ffa74bf022f10</anchor>
+      <arglist>(const QColor &amp;color, const QString &amp;name)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>secondaryTextColorChanged</name>
+      <anchorfile>classExtendedColorDialog.html</anchorfile>
+      <anchor>a84c793d5a7ceca6aa25f5511f43d3dd7</anchor>
+      <arglist>(const QColor &amp;color, const QString &amp;name)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>ExtendedColorDialog</name>
+      <anchorfile>classExtendedColorDialog.html</anchorfile>
+      <anchor>a3551f0abb1a5014ee514cc6a9c7aa444</anchor>
+      <arglist>(QWidget *parent=nullptr)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>ExtendedColorDialog</name>
+      <anchorfile>classExtendedColorDialog.html</anchorfile>
+      <anchor>aae62df0ce0599c545535af6153df7bb3</anchor>
+      <arglist>(const QColor &amp;primaryColor, QWidget *parent=nullptr)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>ExtendedColorDialog</name>
+      <anchorfile>classExtendedColorDialog.html</anchorfile>
+      <anchor>a11a7ac24374171cb4a652a9feb842c2e</anchor>
+      <arglist>(const QString &amp;primaryColor, QWidget *parent=nullptr)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>ExtendedColorDialog</name>
+      <anchorfile>classExtendedColorDialog.html</anchorfile>
+      <anchor>a0cd3bd6a6253437c1a01073d8e272f33</anchor>
+      <arglist>(const QColor &amp;primaryColor, const QColor &amp;secondaryColor, QWidget *parent=nullptr)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>ExtendedColorDialog</name>
+      <anchorfile>classExtendedColorDialog.html</anchorfile>
+      <anchor>ae4effb24cc9b5fa490022e93d4cc61e8</anchor>
+      <arglist>(const QString &amp;primaryColor, const QString &amp;secondaryColor, QWidget *parent=nullptr)</arglist>
+    </member>
+    <member kind="function">
+      <type>QColor</type>
+      <name>color</name>
+      <anchorfile>classExtendedColorDialog.html</anchorfile>
+      <anchor>ade3ea5ef25c0cf54f405969c77ae8ae4</anchor>
+      <arglist>(ColorType type) const</arglist>
+    </member>
+    <member kind="function">
+      <type>QColor</type>
+      <name>textColor</name>
+      <anchorfile>classExtendedColorDialog.html</anchorfile>
+      <anchor>aabc32e00733c429af0f2ec6d0d21f922</anchor>
+      <arglist>(ColorType type) const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setColor</name>
+      <anchorfile>classExtendedColorDialog.html</anchorfile>
+      <anchor>a671d108665b9db86c70c78279181dc99</anchor>
+      <arglist>(ColorType type, const QColor &amp;color)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setColor</name>
+      <anchorfile>classExtendedColorDialog.html</anchorfile>
+      <anchor>a874a7106f56bea7ac880736d1b4ca4b3</anchor>
+      <arglist>(ColorType type, const QString &amp;name)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setTextColor</name>
+      <anchorfile>classExtendedColorDialog.html</anchorfile>
+      <anchor>a246501d129e8e4d667b7bbd9daf211a6</anchor>
+      <arglist>(ColorType type, const QColor &amp;color)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setTextColor</name>
+      <anchorfile>classExtendedColorDialog.html</anchorfile>
+      <anchor>a5853383b992d7dae31d5b67436a04c04</anchor>
+      <arglist>(ColorType type, const QString &amp;name)</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>rgb</name>
+      <anchorfile>classExtendedColorDialog.html</anchorfile>
+      <anchor>aa04fce4d683910bc9566b3f7ed29b85d</anchor>
+      <arglist>(ColorType type, int alpha=-1) const</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>hsv</name>
+      <anchorfile>classExtendedColorDialog.html</anchorfile>
+      <anchor>aa55f25deef750c214f1143b59c82d8f5</anchor>
+      <arglist>(ColorType type, int alpha=100) const</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>hsl</name>
+      <anchorfile>classExtendedColorDialog.html</anchorfile>
+      <anchor>a5e560fc53f3170143daba67f98f33617</anchor>
+      <arglist>(ColorType type, int alpha=100) const</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>name</name>
+      <anchorfile>classExtendedColorDialog.html</anchorfile>
+      <anchor>ae87e6b192b79bf813906df0cdbc7496c</anchor>
+      <arglist>(ColorType type) const</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>hash</name>
+      <anchorfile>classExtendedColorDialog.html</anchorfile>
+      <anchor>a956d84d39e83e2f7fad4d389c1a3b39e</anchor>
+      <arglist>(ColorType type, int alpha=false) const</arglist>
+    </member>
+    <member kind="function" protection="protected">
+      <type>QSize</type>
+      <name>sizeHint</name>
+      <anchorfile>classExtendedColorDialog.html</anchorfile>
+      <anchor>a5cc2743b8b30b9beaf0f2077df05e2c7</anchor>
+      <arglist>() const override</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>HexFormatDelegate</name>
+    <filename>classHexFormatDelegate.html</filename>
+    <member kind="function">
+      <type></type>
+      <name>HexFormatDelegate</name>
+      <anchorfile>classHexFormatDelegate.html</anchorfile>
+      <anchor>ac056b0c37c642b82371270180778665c</anchor>
+      <arglist>(QObject *parent=nullptr)</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>displayText</name>
+      <anchorfile>classHexFormatDelegate.html</anchorfile>
+      <anchor>a07f58b74254aa93d4255f45cae90188e</anchor>
+      <arglist>(const QVariant &amp;value, const QLocale &amp;locale) const</arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>LabelledComboBox</name>
+    <filename>classLabelledComboBox.html</filename>
+    <base>AbstractLabelledWidget</base>
+    <member kind="signal">
+      <type>void</type>
+      <name>activated</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a3c07f1914520272104e9fe8fdf834ea9</anchor>
+      <arglist>(int index)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>currentIndexChanged</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>ae6c248e9d6ec4b34b96d81b1fe911a4c</anchor>
+      <arglist>(int index)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>currentTextChanged</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a07ed9591d28f6dd3eb6c36d5b9d911f9</anchor>
+      <arglist>(const QString &amp;labelText)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>editTextChanged</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a5d950760e4d6cd16737d80d91190530e</anchor>
+      <arglist>(const QString &amp;labelText)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>highlighted</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a70017858bb4d0022cb75a1c39bfd049f</anchor>
+      <arglist>(int index)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>textActivated</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a1e5abae4b7075229610eaed37572400f</anchor>
+      <arglist>(const QString &amp;labelText)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>textHighlighted</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a075c331b9ece9780f75f2458182f6edb</anchor>
+      <arglist>(const QString &amp;labelText)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>LabelledComboBox</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>acd7df2ebf6903bb9f1682c86f0f79296</anchor>
+      <arglist>(const QString &amp;labelText, QWidget *parent=nullptr)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setCustomComboBox</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>aac5553cb0b29ac46aaa1afe2d10914cf</anchor>
+      <arglist>(QComboBox *replacement)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>addItem</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a3104e38bff8dfa35f6bc2763e5cdc51a</anchor>
+      <arglist>(const QString &amp;labelText, const QVariant &amp;userdata=QVariant())</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>addItem</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>aed9f41e82731418334052efec61dcb77</anchor>
+      <arglist>(const QIcon &amp;icon, const QString &amp;labelText, const QVariant &amp;userdata=QVariant())</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>addItems</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a9d7d3384a52b7d573a42dde08713e4c4</anchor>
+      <arglist>(const QStringList &amp;items)</arglist>
+    </member>
+    <member kind="function">
+      <type>QCompleter *</type>
+      <name>completer</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a3050115d82a9d61b54aed658c5e5d461</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setCompleter</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a0ddf87d91ad3c778008d7dbc301f565f</anchor>
+      <arglist>(QCompleter *completer)</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>count</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>abfe581a1e576defd8dbcacff5651aed1</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>maxCount</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>ac3cf47fdd0bc2f22536bb99073b3887a</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setMaxCount</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>ad7e1e5e722866d4af80e47a960d9b973</anchor>
+      <arglist>(int max)</arglist>
+    </member>
+    <member kind="function">
+      <type>QVariant</type>
+      <name>currentData</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a02606ebc3647c17da4f60d2a7f6ef1d7</anchor>
+      <arglist>(int role=Qt::UserRole) const</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>currentIndex</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>af877b8380ed96539864fbd57d045b504</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>currentText</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a99362d5a17002c28b854f7fc25cbfc59</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>duplicatesEnabled</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>aced76315a7f84a1ddc73b3d0d69ace56</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setDuplicatesEnabled</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>aedad3aa2933803fb3aeb70f34c567165</anchor>
+      <arglist>(bool enable)</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>findData</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>aa70e56119d761d7d6a1912c15fe6bcae</anchor>
+      <arglist>(const QVariant &amp;data, int role=Qt::UserRole, Qt::MatchFlags flags=static_cast&lt; Qt::MatchFlags &gt;(Qt::MatchExactly|Qt::MatchCaseSensitive)) const</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>findText</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>abf6c1602af6e7fbf2b9c73d550fdd83f</anchor>
+      <arglist>(const QString &amp;labelText, Qt::MatchFlags flags=Qt::MatchExactly|Qt::MatchCaseSensitive) const</arglist>
+    </member>
+    <member kind="function">
+      <type>QSize</type>
+      <name>iconSize</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>ae15701182578d2115ad9a7e990d1abe8</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>hidePopup</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a87222f34b266394a4780088bd059b393</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>insertItem</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>abb8669346dcd28b41bcf61c8027a4568</anchor>
+      <arglist>(int index, const QString &amp;labelText, const QVariant &amp;userData=QVariant())</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>insertItem</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a86aebdddcb5f6241aa3679789ef3348b</anchor>
+      <arglist>(int index, const QIcon &amp;icon, const QString &amp;labelText, const QVariant &amp;userData=QVariant())</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>insertItems</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>ae197c89f47db05950bb1e5b9a16fd2a2</anchor>
+      <arglist>(int index, const QStringList &amp;list)</arglist>
+    </member>
+    <member kind="function">
+      <type>QComboBox::InsertPolicy</type>
+      <name>insertPolicy</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a2d76f569df2231443069ddf28b282c98</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>insertSeparator</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a732fc58ef4e78e874b9a2a91346b4afb</anchor>
+      <arglist>(int index)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isEditable</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a779885b79f7b211134472d0e76af0920</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QVariant</type>
+      <name>itemData</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a35d216c2323f79cdd70f7e18029ac09d</anchor>
+      <arglist>(int index, int role=Qt::UserRole) const</arglist>
+    </member>
+    <member kind="function">
+      <type>QAbstractItemDelegate *</type>
+      <name>itemDelegate</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>ad530bc95dfe78dda979ac1f5e2826235</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QIcon</type>
+      <name>itemIcon</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a569718d122d7ec9e8213875fb9f0b1c0</anchor>
+      <arglist>(int index) const</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>itemText</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>aef58715e55dbbe2ced1e9ba84f6b829a</anchor>
+      <arglist>(int index) const</arglist>
+    </member>
+    <member kind="function">
+      <type>QLineEdit *</type>
+      <name>lineEdit</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>aea0f3acc2abd81b0ea69768156b24095</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>maxVisibleItems</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a95ef3228911c5288a288b5fb9a726bd4</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>minimumContentsLength</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a2861c73f664dc8e9e41a4d31f8ebdcbc</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QAbstractItemModel *</type>
+      <name>model</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a74dad4ea1806d361b2f93dca2354e89e</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>modelColumn</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a29c8121d807d555d4d7e516d10d26267</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>placeholderText</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>ac29f6def646447e8157887c37d9e244f</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setPlaceholderText</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a0dbf12d33ae4f7d878af0a608bbbb361</anchor>
+      <arglist>(const QString &amp;placeholderText)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>removeItem</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a54c8a3317945d32882a363ce325614dc</anchor>
+      <arglist>(int index)</arglist>
+    </member>
+    <member kind="function">
+      <type>QModelIndex</type>
+      <name>rootModelIndex</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a9a05291ea4f942cd8347ced29aaa01ce</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setEditable</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a1d6b3152fc9b76b7b611a9f547c756e1</anchor>
+      <arglist>(bool editable)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setIconSize</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>aaa9de42ebe225c5c043ee86db0e3c491</anchor>
+      <arglist>(const QSize &amp;size)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setInsertPolicy</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a59f958b58fed8548223bfed8fbb04683</anchor>
+      <arglist>(QComboBox::InsertPolicy policy)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setItemData</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a1f8728084e1d13d8d629a5267a053d30</anchor>
+      <arglist>(int index, const QVariant &amp;value, int role=Qt::UserRole)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setItemDelegate</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a0759b21c590acdd578f16d13a9240cd3</anchor>
+      <arglist>(QAbstractItemDelegate *delegate)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setItemIcon</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a119e8bf0f78f5bb00c21b1b377538455</anchor>
+      <arglist>(int index, const QIcon &amp;icon)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setItemText</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a0d56624a1c8d93a6b980d27d743efad4</anchor>
+      <arglist>(int index, const QString &amp;labelText)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setLineEdit</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>af2bf53f9fc2c53b514b9c3cce29fd497</anchor>
+      <arglist>(QLineEdit *edit)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setMaxVisibleItems</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a53435f4f002651dc9246e429453c06c2</anchor>
+      <arglist>(int maxItems)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setMinimumContentsLength</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a4c55daf936ea90464771e3e958b2d7ac</anchor>
+      <arglist>(int characters)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setModel</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a66ad01a48be86130e535ad3fc9ba5780</anchor>
+      <arglist>(QAbstractItemModel *model)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setModelColumn</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>aa0eed2240da1880107ea9bab372c95b3</anchor>
+      <arglist>(int visibleColumn)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setRootModelIndex</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a798e8f87c73b13618afcefba2ccb1d58</anchor>
+      <arglist>(const QModelIndex &amp;index)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setSizeAdjustPolicy</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a7408b9c0bc74b43d4f9c2063b10ce8b3</anchor>
+      <arglist>(QComboBox::SizeAdjustPolicy policy)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setValidator</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>afa68fd5b7d99f0573d8fb98723773049</anchor>
+      <arglist>(const QValidator *validator)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setView</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a84b671d150af8163cde443d0001085ba</anchor>
+      <arglist>(QAbstractItemView *itemView)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>showPopup</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a1e332a86686851dc0572c5eb73cbd7c3</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>QComboBox::SizeAdjustPolicy</type>
+      <name>sizeAdjustPolicy</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a2d735b7e843175e3f33684dff62000e7</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>const QValidator *</type>
+      <name>validator</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a14d96006e10de5fe797fb12dd13e37e8</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QAbstractItemView *</type>
+      <name>view</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a5de5c786c814b07da1111b2ed178c5d7</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setCurrentText</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>acb4861ed9e522293f8938bab6ee1c23c</anchor>
+      <arglist>(const QString &amp;labelText)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setCurrentIndex</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a5050f8050efb4f9e19c2b85e3adc99aa</anchor>
+      <arglist>(int index)</arglist>
+    </member>
+    <member kind="property">
+      <type>bool</type>
+      <name>editable</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a133337de220895015bdbd3f108c691c6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>count</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>aa69fb334b507b548b0246a09e0abf4e5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>currentText</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a6eaa45cfa766d6542d0ef323ab91b324</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>currentIndex</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a6f7524e395791d661fedede0ebda465b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QVariant</type>
+      <name>currentData</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>af376a733f042a1ac6cf768155cbe745c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>maxVisibleItems</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a79fd87dc31e1b4248e2fbe4e33a0e656</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>maxCount</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a2f0a6330a5647440352cbe1b148ce1f3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QComboBox::InsertPolicy</type>
+      <name>insertPolicy</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>ae6e0c40017f4b790e993974f18d3b8fa</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QComboBox::SizeAdjustPolicy</type>
+      <name>sizeAdjustPolicy</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>ae34813348f7a2e48b18561ceaca1facf</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>minimumContentsLength</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a968b3e4d3310a1c9a2801bd316c10892</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QSize</type>
+      <name>iconSize</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>ad399ca89f5deeadf516d198d9acbd415</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>placeholderText</name>
+      <anchorfile>classLabelledComboBox.html</anchorfile>
+      <anchor>a61f8fcc1e3c4f6ab9934401cfec5aacd</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>LabelledDoubleSpinBox</name>
+    <filename>classLabelledDoubleSpinBox.html</filename>
+    <base>AbstractLabelledSpinBox</base>
+    <member kind="signal">
+      <type>void</type>
+      <name>valueChanged</name>
+      <anchorfile>classLabelledDoubleSpinBox.html</anchorfile>
+      <anchor>aae558f4c10d6f16346c302f94f69a6cf</anchor>
+      <arglist>(double)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>LabelledDoubleSpinBox</name>
+      <anchorfile>classLabelledDoubleSpinBox.html</anchorfile>
+      <anchor>a6ab1a73e6bc296066d41188bf47092fa</anchor>
+      <arglist>(const QString &amp;labelText=QString(), QWidget *parent=nullptr)</arglist>
+    </member>
+    <member kind="function">
+      <type>double</type>
+      <name>value</name>
+      <anchorfile>classLabelledDoubleSpinBox.html</anchorfile>
+      <anchor>afff276974932b08caac6c54ad9a697fe</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setValue</name>
+      <anchorfile>classLabelledDoubleSpinBox.html</anchorfile>
+      <anchor>a445c888828e6202c5634dd9d5cdcdb54</anchor>
+      <arglist>(double v)</arglist>
+    </member>
+    <member kind="function">
+      <type>double</type>
+      <name>maximum</name>
+      <anchorfile>classLabelledDoubleSpinBox.html</anchorfile>
+      <anchor>a6c609896a3e6a08de9c600cd7d850ea6</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setMaximum</name>
+      <anchorfile>classLabelledDoubleSpinBox.html</anchorfile>
+      <anchor>a64a5b3c0b0f7b5249a8b2afaa7a1b4a1</anchor>
+      <arglist>(double max)</arglist>
+    </member>
+    <member kind="function">
+      <type>double</type>
+      <name>minimum</name>
+      <anchorfile>classLabelledDoubleSpinBox.html</anchorfile>
+      <anchor>adbd0025ba47aecd88ee5784559d25201</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setMinimum</name>
+      <anchorfile>classLabelledDoubleSpinBox.html</anchorfile>
+      <anchor>a699d85546c574cd38b9b37dba1b67dfa</anchor>
+      <arglist>(double min)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setRange</name>
+      <anchorfile>classLabelledDoubleSpinBox.html</anchorfile>
+      <anchor>ae0d05fd130b6ee916eda8c3be9e3392a</anchor>
+      <arglist>(double min, double max)</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>decimals</name>
+      <anchorfile>classLabelledDoubleSpinBox.html</anchorfile>
+      <anchor>a8bd2f001aa5808a4eef75cbc3099274a</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setDecimals</name>
+      <anchorfile>classLabelledDoubleSpinBox.html</anchorfile>
+      <anchor>ad60724a1d332b71107962ee17a3714c6</anchor>
+      <arglist>(int precision)</arglist>
+    </member>
+    <member kind="function">
+      <type>double</type>
+      <name>singleStep</name>
+      <anchorfile>classLabelledDoubleSpinBox.html</anchorfile>
+      <anchor>a21edc440ec901d551f64df30e65222b5</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setSingleStep</name>
+      <anchorfile>classLabelledDoubleSpinBox.html</anchorfile>
+      <anchor>ab4fee46b3e53c24acd4c6c68e84a2619</anchor>
+      <arglist>(double step)</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>prefix</name>
+      <anchorfile>classLabelledDoubleSpinBox.html</anchorfile>
+      <anchor>a18e1f09732690dfd04078abf8c63dca3</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setPrefix</name>
+      <anchorfile>classLabelledDoubleSpinBox.html</anchorfile>
+      <anchor>a88607090eece13efd87e29652ff46d0c</anchor>
+      <arglist>(const QString &amp;labelText)</arglist>
+    </member>
+    <member kind="property">
+      <type>double</type>
+      <name>value</name>
+      <anchorfile>classLabelledDoubleSpinBox.html</anchorfile>
+      <anchor>a3a8788d66633a68740d55b3614399a61</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>double</type>
+      <name>maximum</name>
+      <anchorfile>classLabelledDoubleSpinBox.html</anchorfile>
+      <anchor>a5796888c2ee3ce7140f9a57abff716c0</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>double</type>
+      <name>minimum</name>
+      <anchorfile>classLabelledDoubleSpinBox.html</anchorfile>
+      <anchor>ad4b2ec7c137e4bfc7e2d14fb7c92d889</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>prefix</name>
+      <anchorfile>classLabelledDoubleSpinBox.html</anchorfile>
+      <anchor>a882c127dd2c71d0e633fcf85cd401d5d</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>LabelledExSpinBox</name>
+    <filename>classLabelledExSpinBox.html</filename>
+    <base>AbstractLabelledSpinBox</base>
+    <member kind="signal">
+      <type>void</type>
+      <name>displayTypeChanged</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>a237c4c378e5e5ae786244c78e54b6fcf</anchor>
+      <arglist>(ExSpinBox::DisplayType)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>valueChanged</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>a7a8fddaaf207215fb15754988842344c</anchor>
+      <arglist>(int)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>LabelledExSpinBox</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>a6fda58bb47d8fc7cba4b55b978c449cd</anchor>
+      <arglist>(const QString &amp;labelText=QString(), QWidget *parent=nullptr)</arglist>
+    </member>
+    <member kind="function">
+      <type>quint8</type>
+      <name>displayDigits</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>ae0fdbd5ebe0817014183d23639da3283</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>ExSpinBox::DisplayType</type>
+      <name>displayType</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>a871bd55162670c56506f43027d16f7bb</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>singleStep</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>aa0a116357fb738c18b95fe82fdab0a46</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setSingleStep</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>ac9b02345647019c6e6d1c0379a12967a</anchor>
+      <arglist>(int step)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setDisplayType</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>a7823c583c3fdf74113c8fd9b22d45808</anchor>
+      <arglist>(ExSpinBox::DisplayType type)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>showLeadingZeroes</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>af1bcbed14e33027978fe591655ad3a0f</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setShowLeadingZeroes</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>a70f97675ce57aaa884f30483d133d475</anchor>
+      <arglist>(bool showLeadingZeroes)</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>value</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>ad95d8be45e0cb184d0c5ef30c22d4bbf</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setValue</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>a0f104ca461d556662e8b4c39537a2ad0</anchor>
+      <arglist>(int v)</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>maximum</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>a68056289d686595ec7ba4c29f9ecca04</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setMaximum</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>aae31c7d5e63f0025755c568286daec2c</anchor>
+      <arglist>(int max)</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>minimum</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>aa13f48f6ba718ea07439e7bb33b68bae</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setMinimum</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>a11601ed7809b9f3ec60c207921a34bd6</anchor>
+      <arglist>(int min)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setRange</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>a7c58149779cb95d774c3a4d47be9d740</anchor>
+      <arglist>(int min, int max)</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>prefix</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>a867592cdceae57acbaee1047859e580f</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setPrefix</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>aa79483176db42a34b006490786c72815</anchor>
+      <arglist>(const QString &amp;labelText)</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>suffix</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>aa97dfd95968ab819265e1b4681354c6a</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setSuffix</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>a59f9b9ffc675cf642ee1d69305966d2d</anchor>
+      <arglist>(const QString &amp;text)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>negBeforePrefix</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>a894ef29460a56c4902bf8be0e13b2815</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setNegBeforePrefix</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>ad3e34ea9852043ecafd3b289359fb4c1</anchor>
+      <arglist>(bool negBeforePrefix)</arglist>
+    </member>
+    <member kind="function">
+      <type>QAbstractSpinBox::StepType</type>
+      <name>stepType</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>a912f5a8cc4e9c3fd68771f80cfcbbad9</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setStepType</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>a912557884c946acb3d7c80021feca640</anchor>
+      <arglist>(QAbstractSpinBox::StepType type)</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>cleanText</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>aad3ffa43d23fc2415c4f6cdcc851258a</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setWidgetAlignment</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>afaea37129941e3302d78fcaef6007da6</anchor>
+      <arglist>(const Qt::Alignment &amp;widgetAlignment)</arglist>
+    </member>
+    <member kind="function">
+      <type>Qt::Alignment</type>
+      <name>widgetAlignment</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>a9a123b7530a9b363047daa733be52d77</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>displayDigits</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>ac40effb5702f6b89cf87c91fd37239e2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>ExSpinBox::DisplayType</type>
+      <name>displayType</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>a84857f274b5e9fa24b35efe498e82b9a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>bool</type>
+      <name>showLeadingZeroes</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>a2434d6ba468a64a255e4bc1a01194ebc</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QSpinBox::StepType</type>
+      <name>stepType</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>a7ce4fb79159986b8e85d76f30dc5fbeb</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>prefix</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>af3700ed7cc2df2a219310e2975ac9c7c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>bool</type>
+      <name>negBeforePrefix</name>
+      <anchorfile>classLabelledExSpinBox.html</anchorfile>
+      <anchor>a9ed42d5678bd049fc3be695640c9a75b</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>LabelledLineEdit</name>
+    <filename>classLabelledLineEdit.html</filename>
+    <base>AbstractLabelledWidget</base>
+    <base>AlignableWidgetInterface</base>
+    <member kind="signal">
+      <type>void</type>
+      <name>cursorPositionChanged</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a26590393f480517470129f601b9d80f4</anchor>
+      <arglist>(int oldPos, int newPos)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>editingFinished</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a65fee9e57554532246768c03ba741b81</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>returnPressed</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a524dd435b7c8c5a5067d0068b3ef14f1</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>selectionChanged</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a833237c5610753b4f91f7ae95b56b9a2</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>textChanged</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a2d4abb8fb669d26f974bb435b0188d19</anchor>
+      <arglist>(const QString &amp;)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>textEdited</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a1b24a422a2a66fbbcb5b2f74d912d430</anchor>
+      <arglist>(const QString &amp;)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>inputRejected</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a0894cb9546e80bd63b383aeaf2b8b1ec</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>LabelledLineEdit</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>aef286d9202c71d0c689410e4e70398b9</anchor>
+      <arglist>(const QString &amp;labelText, QWidget *parent=nullptr)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>LabelledLineEdit</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a7e05d181daf0c1d5b76b8b76fed3b4ff</anchor>
+      <arglist>(const QString &amp;labelText, const QString &amp;contents, QWidget *parent=nullptr)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>addAction</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a3474b800f80754b69edbd2ffac09eafd</anchor>
+      <arglist>(QAction *action, QLineEdit::ActionPosition labelPosition)</arglist>
+    </member>
+    <member kind="function">
+      <type>QAction *</type>
+      <name>addAction</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a643b53b6d728f42650d22a09ce511372</anchor>
+      <arglist>(const QIcon &amp;icon, QLineEdit::ActionPosition labelPosition)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>backspace</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a23295ecfe74429edd2d807614ff1f672</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>QCompleter *</type>
+      <name>completer</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a1b2b49105b5a85500b798f20080c79ad</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QMenu *</type>
+      <name>createStandardContextMenu</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a384e4ee2b9745dd0d1efd61b6d955fd3</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>cursorBackward</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a1192077707c3cacf23c6ebca3b335d59</anchor>
+      <arglist>(bool mark, int steps=1)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>cursorForward</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>ab39b083ebca172bd2b0ec6d827d03969</anchor>
+      <arglist>(bool mark, int steps=1)</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>cursorPositionAt</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>ad1897de319dc7521af5b989feb945cab</anchor>
+      <arglist>(const QPoint &amp;pos)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>cursorWordBackward</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>ad713d93577bdfc1e6faab2a4bc409ab0</anchor>
+      <arglist>(bool mark)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>cursorWordForward</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a01f3bb995f7f70a4520926f9b2960f61</anchor>
+      <arglist>(bool mark)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>del</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a0fcc8c95bc16cb0c0d5adabde6a92b6e</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>deselect</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a60f450c2b6cf4d30f47f40755406415c</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>end</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>aa41e4d3240d4aca385a45bd30a8d3f12</anchor>
+      <arglist>(bool mark)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>home</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>acc48a0ca62736ba5a3a1d3955a78906b</anchor>
+      <arglist>(bool mark)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>insert</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>aab7df97a6ca1840b11d5aea2606de4a1</anchor>
+      <arglist>(const QString &amp;newText)</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>selectionEnd</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a8e1fa145d62f11c8a82314ab02463414</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>selectionLength</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a974fb935686a504317753971bcd5c288</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>selectionStart</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>ad27dce8d6dd6b26efa019c02ce19628f</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setCompleter</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>af6be0a01b682816506f81d3619e9a1d4</anchor>
+      <arglist>(QCompleter *c)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setSelection</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a41e19ab3930ecfcbaa89213bcd07044f</anchor>
+      <arglist>(int start, int length)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setTextMargins</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a610a7bbd1d1937f3bc0ed20cd9c16d8b</anchor>
+      <arglist>(int left, int top, int right, int bottom)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setValidator</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>ac867a45eacced0fc47be9dbdc09ca253</anchor>
+      <arglist>(const QValidator *v)</arglist>
+    </member>
+    <member kind="function">
+      <type>QMargins</type>
+      <name>textMargins</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a381643cc2e2c93e7db980a146e3f5fd0</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>const QValidator *</type>
+      <name>validator</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a28cf64542fb0269e6bf23fe42bcd8909</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>text</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a1b0fa13bf547318a95dadc29e4a73f58</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setText</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>aa014be30c23f830d71423e76533027a3</anchor>
+      <arglist>(const QString &amp;text)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>hasAcceptableInput</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a4108f4dc0c5695deebc0768b3846f3d9</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setWidgetAlignment</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a31c9925461ce5cdabb42796b5a2751db</anchor>
+      <arglist>(const Qt::Alignment &amp;widgetAlignment) override</arglist>
+    </member>
+    <member kind="function">
+      <type>Qt::Alignment</type>
+      <name>widgetAlignment</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a6d490d9cc40e4808ad322f5d8ecd6739</anchor>
+      <arglist>() const override</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isClearButtonEnabled</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>ad3cf2da5cab7c5ee18854342538f24d3</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setClearButtonEnabled</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>ae7a63d86afead3b085cebe7f69efc684</anchor>
+      <arglist>(bool enable)</arglist>
+    </member>
+    <member kind="function">
+      <type>Qt::CursorMoveStyle</type>
+      <name>cursorMoveStyle</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>afc4b64569231a3cadf6c56b0d6e93a20</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setCursorMoveStyle</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a04b6891f491ffc7b80b3a6fd0e76fb9b</anchor>
+      <arglist>(Qt::CursorMoveStyle style)</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>cursorPosition</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>abb886c8bbb7d141711c6eb353f76d303</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setCursorPosition</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a07ae32e92d910be7e849ea0193215e15</anchor>
+      <arglist>(int position)</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>displayText</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a3347d1a4ce166057f66f76c0c267017f</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>dragEnabled</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a2c41e0b3cd619208cfef3a0727b996be</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setDragEnabled</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a8c6a3b91c1153569fc19e69ab11f8e3f</anchor>
+      <arglist>(bool enabled)</arglist>
+    </member>
+    <member kind="function">
+      <type>QLineEdit::EchoMode</type>
+      <name>echoMode</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a1ac9a309256be5ad363eaee91a3dbbe2</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setEchoMode</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a344864f5f2e42461581672a06c655fd6</anchor>
+      <arglist>(QLineEdit::EchoMode echomode)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>hasSelectedText</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a8c17a3047ac5a81a98be0e30de3aca73</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>inputMask</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a3660c8de5a70b29fa6934ad474604bbc</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setInputMask</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a84610c2a90e2c275b04bb11e6cf79dbf</anchor>
+      <arglist>(const QString &amp;inputMask)</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>maxLength</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a5a9b6f6d7e4209c9c348f4f0feea07a1</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setMaxLength</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>ac6034e849e77706a9867b17afb582d01</anchor>
+      <arglist>(int length)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isModified</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a138f93c78b79bdfb85745dd72bb026b2</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setModified</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a8b50d7918937ab30e1effee7e79f3d50</anchor>
+      <arglist>(bool modified)</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>placeholderText</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a5f400ec541eda6cff6423e7ac5b8970a</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setPlaceholderText</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>aca434e9a46b27ea2669568e5ce30e405</anchor>
+      <arglist>(const QString &amp;placeholderText)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isReadOnly</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>aca375e8188d3aa0f78eb8b31952ed90c</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setReadOnly</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>adab82986a78814c9cf21c9404d9b39ea</anchor>
+      <arglist>(bool readonly)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isRedoAvailable</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a18bcf3357b6a85091d7fbdabddd20b39</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>selectedText</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a50538e3963328fa6c5e991f86220f98a</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isUndoAvailable</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a7a6be50e3e7eccb241989f4fd9a19d0e</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>isEmpty</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a18142b9af7e65268c9263dc73f63dd20</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>size</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a137921083cd2ded2782627ab4c326f3a</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>length</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a5b82213b959fa17e2e078dcd760f288f</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>clear</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a1ae685b2eca1287bcd6b35bad02718f1</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>text</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>ab2fa9b7a00ff20333329e7b8a0f484b3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>bool</type>
+      <name>acceptableInput</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>aa329ff15cd1d50420e702ebf62b872ca</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>Qt::Alignment</type>
+      <name>widgetAlignment</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a2274dc2117b595921111606532f07abb</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>bool</type>
+      <name>clearButtonEnabled</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>ae8bbb523e743e1a4b6c99aa03c48ac4e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>Qt::CursorMoveStyle</type>
+      <name>cursorMoveStyle</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a42eeb387837af127544a3ba45af5439a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>cursorPosition</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a5fae2b35ed618dc2c0c7dc6615699701</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>displayText</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a45fb5f9001ef196132ca81c008aebfd7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>dragEnabled</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>afeb13cafc1e5338e44498ea002507d11</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QLineEdit::EchoMode</type>
+      <name>echoMode</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a73219b13de99effad62145ffbc5587c3</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>bool</type>
+      <name>selectedText</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a2c2e284c1dc28d8b200efd854bd7743c</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>inputMask</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>ad60c59e32037f9d2db9489dac9138b11</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>maxLength</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>aab62e6b42c8c3f2033e2e14532d7632b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>modified</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>ac26d249e78010be3d60e41acf25cabb6</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>placeholderText</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a48a21eae7aaf18bd347e55ae2f2b0c02</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>bool</type>
+      <name>readOnly</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a8f4f54294d1c5885f940d9662d0ad0e7</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>bool</type>
+      <name>redoAvailable</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a39f78ca12169aa07cc75c4776ee6f8de</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>bool</type>
+      <name>undoAvailable</name>
+      <anchorfile>classLabelledLineEdit.html</anchorfile>
+      <anchor>a9100286e821dea60ad97d638bc737cda</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>LabelledSpinBox</name>
+    <filename>classLabelledSpinBox.html</filename>
+    <base>AbstractLabelledSpinBox</base>
+    <member kind="signal">
+      <type>void</type>
+      <name>valueChanged</name>
+      <anchorfile>classLabelledSpinBox.html</anchorfile>
+      <anchor>ad252009f463d2e580b12481a3bd5118c</anchor>
+      <arglist>(int)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>LabelledSpinBox</name>
+      <anchorfile>classLabelledSpinBox.html</anchorfile>
+      <anchor>ae48d0edab44db0f6d1320f94042e0f77</anchor>
+      <arglist>(const QString &amp;labelText=QString(), QWidget *parent=nullptr)</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>value</name>
+      <anchorfile>classLabelledSpinBox.html</anchorfile>
+      <anchor>a363cadb643e15ea0a03d512d91512d0c</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setValue</name>
+      <anchorfile>classLabelledSpinBox.html</anchorfile>
+      <anchor>a803bb3ac553a168520b036e1c8657f30</anchor>
+      <arglist>(int v)</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>maximum</name>
+      <anchorfile>classLabelledSpinBox.html</anchorfile>
+      <anchor>ababd2451dc5b3ac721c30bc16f4b2b61</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setMaximum</name>
+      <anchorfile>classLabelledSpinBox.html</anchorfile>
+      <anchor>a3bd76b225d550c7a6ea74353bccbc1b2</anchor>
+      <arglist>(int max)</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>minimum</name>
+      <anchorfile>classLabelledSpinBox.html</anchorfile>
+      <anchor>a653d2ad11d58a553168026215740d9da</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setMinimum</name>
+      <anchorfile>classLabelledSpinBox.html</anchorfile>
+      <anchor>a2f0ad82a8d97afed3119e443ea935bc3</anchor>
+      <arglist>(int min)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setRange</name>
+      <anchorfile>classLabelledSpinBox.html</anchorfile>
+      <anchor>a42f0e7ec6fdd83437bacb38f7bbd72e8</anchor>
+      <arglist>(int min, int max)</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>singleStep</name>
+      <anchorfile>classLabelledSpinBox.html</anchorfile>
+      <anchor>afae2a38a9ecfe1b0b5b7ccd6e95dcc5c</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setSingleStep</name>
+      <anchorfile>classLabelledSpinBox.html</anchorfile>
+      <anchor>a3437e00660ea63538b407bd919c258ef</anchor>
+      <arglist>(int step)</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>displayIntegerBase</name>
+      <anchorfile>classLabelledSpinBox.html</anchorfile>
+      <anchor>ab2018d108ce7cf892cb9f728c3ec80fe</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setDisplayIntegerBase</name>
+      <anchorfile>classLabelledSpinBox.html</anchorfile>
+      <anchor>a5e3303e5afaac6bc4d4dab90d8186eb2</anchor>
+      <arglist>(int base)</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>prefix</name>
+      <anchorfile>classLabelledSpinBox.html</anchorfile>
+      <anchor>a41b821e5ec94f6120dde9cdd2d8df454</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setPrefix</name>
+      <anchorfile>classLabelledSpinBox.html</anchorfile>
+      <anchor>a7e9f9ec17fdb579607156ab97c8a3bff</anchor>
+      <arglist>(const QString &amp;labelText)</arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>value</name>
+      <anchorfile>classLabelledSpinBox.html</anchorfile>
+      <anchor>a760acb996393415e5b1373e33c9e8138</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>maximum</name>
+      <anchorfile>classLabelledSpinBox.html</anchorfile>
+      <anchor>aa1e09539930223aaa473767ef5d73981</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>minimum</name>
+      <anchorfile>classLabelledSpinBox.html</anchorfile>
+      <anchor>adb14796fce472147d1c8e2b8be59e21a</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>displayIntegerBase</name>
+      <anchorfile>classLabelledSpinBox.html</anchorfile>
+      <anchor>a145268aa068c30782c75811903f95ad5</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>singleStep</name>
+      <anchorfile>classLabelledSpinBox.html</anchorfile>
+      <anchor>a652ab5f40355f23527a18c2e32515823</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>prefix</name>
+      <anchorfile>classLabelledSpinBox.html</anchorfile>
+      <anchor>a56fbc8fdf77e61f39cb7f27d22b532f3</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="class">
+    <name>LabelledTextField</name>
+    <filename>classLabelledTextField.html</filename>
+    <base>AbstractLabelledWidget</base>
+    <base>AlignableWidgetInterface</base>
+    <base>TextFormatInterface</base>
+    <member kind="signal">
+      <type>void</type>
+      <name>linkActivated</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>ab2f8aaa32a941c51af03b8ba5ea40ab6</anchor>
+      <arglist>(const QString &amp;link)</arglist>
+    </member>
+    <member kind="signal">
+      <type>void</type>
+      <name>linkHovered</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>ad35bf7cd4efbde631ee08a41577a6354</anchor>
+      <arglist>(const QString &amp;link)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>LabelledTextField</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>a22868b973c6d559cc5abe000a9e79fff</anchor>
+      <arglist>(const QString &amp;labelText, QWidget *parent=nullptr)</arglist>
+    </member>
+    <member kind="function">
+      <type></type>
+      <name>LabelledTextField</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>a142fa4f5f1c695d4cb2b9e6c41f0fa72</anchor>
+      <arglist>(const QString &amp;labelText, const QString &amp;contents=QString(), QWidget *parent=nullptr)</arglist>
+    </member>
+    <member kind="function">
+      <type>QLabel *</type>
+      <name>textfield</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>ad75f71cb7f9f84eb15147c419a012d7b</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>text</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>aebe27534f5641c1227318817c60fedb1</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setText</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>ab0f70b9d4d9a050cdfb63c8448d1cba7</anchor>
+      <arglist>(const QString &amp;text)</arglist>
+    </member>
+    <member kind="function">
+      <type>Qt::TextFormat</type>
+      <name>textFormat</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>a580ebf8f1986bc38d1fe39fe13cc0624</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setTextFormat</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>acf10dccc4e29362dfe391170a8fa443b</anchor>
+      <arglist>(Qt::TextFormat format)</arglist>
+    </member>
+    <member kind="function">
+      <type>QPixmap</type>
+      <name>pixmap</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>a641f4c21055713963fb24bca8451c4a9</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setPixmap</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>a3f9eb52068fff4f02d11fe8d7bbe0a09</anchor>
+      <arglist>(const QPixmap &amp;pixmap)</arglist>
+    </member>
+    <member kind="function">
+      <type>QPicture</type>
+      <name>picture</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>a73529481a50bb9c7c825d3c015dd9a34</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setPicture</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>af826baaab60e65e9e71a3f97462700ee</anchor>
+      <arglist>(const QPicture &amp;picture)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>hasScaledContents</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>a9e1743a94b540c697fe8633f96778d2b</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setScaledContents</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>a0ca34e5167b32311ccdaaeae5235b5ec</anchor>
+      <arglist>(bool scaled)</arglist>
+    </member>
+    <member kind="function">
+      <type>Qt::Alignment</type>
+      <name>widgetAlignment</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>a54e42144f2f37e055b8205c45b085459</anchor>
+      <arglist>() const override</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setWidgetAlignment</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>ab14f2e3130370835765d3efa81581659</anchor>
+      <arglist>(const Qt::Alignment &amp;widgetAlignment) override</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>wordWrap</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>a795128858ccc0514d670c4329931ba83</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setWordWrap</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>a327c21e330bf2b471b151f72b419daf8</anchor>
+      <arglist>(bool on)</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>indent</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>ad34520a00e8a526df0f9cc45fda955a0</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setIndent</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>a6415169061e106b59dc6497ee21d6458</anchor>
+      <arglist>(int)</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>margin</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>a7ab036f00ca4d266e3ff85754b5907e1</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setMargin</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>afe3c25e6b2282c6b1d920eaadeed182e</anchor>
+      <arglist>(int)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>openExternalLinks</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>a7a4e3f4e7ad83dc84095b468638435b2</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setOpenExternalLinks</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>a89d0a32c4d2061522c497c1e4f96f689</anchor>
+      <arglist>(bool open)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setTextInteractionFlags</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>a48eaca270f4f22d05a9be0a1600a0048</anchor>
+      <arglist>(Qt::TextInteractionFlags flags)</arglist>
+    </member>
+    <member kind="function">
+      <type>Qt::TextInteractionFlags</type>
+      <name>textInteractionFlags</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>aa18033b2486afb2554120afe0cd9b216</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setSelection</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>ab1daa894a49bf77017be35c7d4913829</anchor>
+      <arglist>(int start, int length)</arglist>
+    </member>
+    <member kind="function">
+      <type>bool</type>
+      <name>hasSelectedText</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>a978e114f65873b332b072822a54fe1ed</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>QString</type>
+      <name>selectedText</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>a57eebb6412f4274dfd47ba37aec146d1</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>selectionStart</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>a1da076df848d1d9370fb3536981f5a4a</anchor>
+      <arglist>() const</arglist>
+    </member>
+    <member kind="function">
+      <type>int</type>
+      <name>heightForWidth</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>a19c8a50faa1e79fe8109dacbb808eb01</anchor>
+      <arglist>(int height) const override</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setNum</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>a5f944464b08816c01a593b604d0451ec</anchor>
+      <arglist>(int)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>setNum</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>ab6b4382d0e82606cd19a390f971144f5</anchor>
+      <arglist>(double)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
+      <name>clearField</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>a63d820e59f0b3a398ada15cf196be229</anchor>
+      <arglist>()</arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>text</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>ac21bd629e518c90a0654266a935ff866</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>Qt::TextFormat</type>
+      <name>textFormat</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>a8c5864fc2faaf9621068f941d9b5fe50</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QPixmap</type>
+      <name>pixmap</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>abec34b2f69212cd0be80500b1cb3bcb8</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>bool</type>
+      <name>scaledContents</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>a61414f4f24c3973c1610282c874fd796</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>Qt::Alignment</type>
+      <name>widgetAlignment</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>a5a250ec7a15993f255424e97b76c1f9e</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>bool</type>
+      <name>wordWrap</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>a66b8646305b94a2496d4f89771c59aec</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>margin</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>aad90ec776bbbc2c621e312490e4d8665</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>int</type>
+      <name>indent</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>a56c4370908e55e6dba0a56a2188d7083</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>bool</type>
+      <name>openExternalLinks</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>a8c82f6c5e05604ae1637ce4ab4ff6dc2</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>Qt::TextInteractionFlags textInteractionFlags READ</type>
+      <name>textInteractionFlags</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>a4152bbc13928cf6b842e286c53a7cf3b</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>bool</type>
+      <name>hasSelectedText</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>a34d258d944f14fe0ac2d664eed69d556</anchor>
+      <arglist></arglist>
+    </member>
+    <member kind="property">
+      <type>QString</type>
+      <name>selectedText</name>
+      <anchorfile>classLabelledTextField.html</anchorfile>
+      <anchor>aded28750040d42b9d753ee75384510c6</anchor>
+      <arglist></arglist>
+    </member>
+  </compound>
+  <compound kind="interface">
+    <name>TextFormatInterface</name>
+    <filename>classTextFormatInterface.html</filename>
+    <member kind="function" virtualness="pure">
+      <type>virtual Qt::TextFormat</type>
+      <name>textFormat</name>
+      <anchorfile>classTextFormatInterface.html</anchorfile>
+      <anchor>ae4a28409421ed86c5675948417f324d9</anchor>
+      <arglist>() const =0</arglist>
+    </member>
+    <member kind="function" virtualness="pure">
+      <type>virtual void</type>
+      <name>setTextFormat</name>
+      <anchorfile>classTextFormatInterface.html</anchorfile>
+      <anchor>ad21c77875b4443d5bf24a1a7e6ca01fd</anchor>
+      <arglist>(Qt::TextFormat format)=0</arglist>
+    </member>
+  </compound>
+  <compound kind="page">
+    <name>index</name>
+    <title>SM Libraries - A few useful Qt classes I have developed.</title>
+    <filename>index.html</filename>
+    <docanchor file="index.html" title="Introduction">intro</docanchor>
+    <docanchor file="index.html" title="Installation">install</docanchor>
+    <docanchor file="index.html" title="Step 1: Cloning the git repository.">gitclone</docanchor>
+    <docanchor file="index.html" title="Step 2: Building the library.">build</docanchor>
+  </compound>
+</tagfile>

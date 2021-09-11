@@ -12,11 +12,11 @@ Config::Config(QObject* parent)
   : QObject(parent)
   , m_configDir(
       QDir(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation)))
-  , m_configFile(QFile(Paths::join(m_configDir.path(), "epubedit.yaml")))
-  , m_saveVersion(EPUB_3_2)
   , m_libraryDir(QDir(Paths::join(
       QStandardPaths::writableLocation(QStandardPaths::AppDataLocation),
       "library")))
+  , m_configFile(QFile(Paths::join(m_configDir.path(), "epubedit.yaml")))
+  , m_saveVersion(EPUB_3_2)
   , m_statusTimeout(StatusTimeout)
   , m_modified(false)
 {

@@ -18,8 +18,6 @@ set(TS_FILES lang/epubedit_en_GB.ts)
 
 list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_SOURCE_DIR}/cmake)
 
-#include_directories(/usr/lib64/clang/12.0.1)
-
 find_package(
   QT
   NAMES
@@ -48,8 +46,10 @@ find_package(
     LinguistTools
   REQUIRED)
 
-#set(MIN_Tidy_VERSION 6)
-#find_package(Tidy ${MIN_Tidy_VERSION} REQUIRED)
+find_package(gtest REQUIRED gtest>=1.7.0 PATHS /usr/lib64/cmake/GTest NAMES GTest)
+set(gtest_disable_pthreads on)
+
+#find_package(gmock REQUIRED gmock>=1.7.0)
 
 set(MIN_YAMLCPP_VERSION 0.6.0)
 find_package(yaml-cpp REQUIRED)
@@ -58,6 +58,17 @@ if (NOT yaml-cpp_FOUND)
   message("yaml-cpp NOT found")
 endif()
 
+set(MAKE_APPLICATION TRUE)
+# epubedit plugins (future use)
 #add_subdirectory(plugins)
+
+# extlibs holds other peoples libraries
+add_subdirectory(extlibs)
+
+# libs hold mine
 add_subdirectory(libs)
-add_subdirectory(epubedit)
+
+# epubedit general library files
+if (MAKE_APPLICATION)
+  add_subdirectory(epubedit)
+endif()

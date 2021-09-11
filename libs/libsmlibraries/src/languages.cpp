@@ -235,6 +235,8 @@ BCP47Language::typeString()
       return "grandfathered";
     case REDUNDANT:
       return "redundant";
+    default:
+      return QString();
   }
   return QString();
 }
@@ -261,12 +263,16 @@ const QString BCP47Languages::IAINREGISTRY =
 BCP47Languages::BCP47Languages(QObject* parent)
   : QObject(parent)
   , m_registryName(IAINREGISTRY)
+  , m_unStatistical(new UNStatisticalCodes())
 {}
 
 void
 BCP47Languages::saveToLocalFile(QFile& file)
 {
   if (file.open((QFile::ReadWrite | QFile::Truncate))) {
+    // remove non-unique languages. (Those with multiple descriptions)
+    QList<QSharedPointer<BCP47Language>> uniqueLanguages = getUniqueLanguages();
+
     YAML::Emitter emitter;
     QString value;
     emitter << YAML::Comment(tr(
@@ -285,7 +291,7 @@ BCP47Languages::saveToLocalFile(QFile& file)
             << fileDate().toString(Qt::ISODate);
     emitter << YAML::Key << "languages" << YAML::Value;
     emitter << YAML::BeginSeq;
-    for (auto& language : m_languages) {
+    for (auto& language : uniqueLanguages) {
       emitter << YAML::BeginMap;
       //      emitter << YAML::Key << "COUNT" << YAML::Value <<
       //      language->count();
@@ -468,6 +474,8 @@ BCP47Languages::updateMaps()
       case BCP47Language::REDUNDANT:
         m_redundantNames.append(language->description());
         break;
+      default:
+        break;
     }
   }
 }
@@ -509,7 +517,7 @@ BCP47Languages::readFromLocalFile(QFile& file)
     emit completed();
   }
 
-  // reloadss the language data from the registry in the background,
+  // reloads the language data from the registry in the background,
   // and checks the file date. If the local language file doesn't exist
   // or it is outdated then the file will be replaced with new data.
   rebuildFromRegistry();
@@ -618,6 +626,18 @@ BCP47Languages::parseData(const QByteArray& data)
   thread->start();
 }
 
+QList<QSharedPointer<BCP47Language>>
+BCP47Languages::getUniqueLanguages()
+{
+  QList<QSharedPointer<BCP47Language>> uniqueLanguages;
+  for (auto language : m_languages.values()) {
+    if (!uniqueLanguages.contains(language)) {
+      uniqueLanguages.append(language);
+    }
+  }
+  return uniqueLanguages;
+}
+
 void
 BCP47Languages::iainFileParsed(
   QMultiMap<QString, QSharedPointer<BCP47Language>> languages,
@@ -692,39 +712,76 @@ BCP47Languages::isType(const QString& type)
   return false;
 }
 
-BCP47Language::Values
+BCP47Language::TagTypes
 BCP47Languages::testPrimaryLanguage(const QString& value)
 {
   if (value == "i" || value == "x")
     return BCP47Language::PRIVATE_LANGUAGE;
   else if (m_languageNames.contains(value))
-    return BCP47Language::LANGUAGE;
-  return BCP47Language::BAD_LANGUAGE;
+    return BCP47Language::PRIMARY_LANGUAGE;
+  else if (m_extlangNames.contains(value))
+    return BCP47Language::EXTENDED_AS_PRIMARY;
+  return BCP47Language::BAD_PRIMARY_LANGUAGE;
 }
 
-BCP47Language::Values
-BCP47Languages::testScript(const QString& value)
+void
+BCP47Languages::testExtendedlanguage(const QString& value,
+                                     BCP47Language::TagTypes& tagTypes)
 {
-  if (value >= "Qaaa" && value <= "Qabx")
-    return BCP47Language::PRIVATE_SCRIPT;
-  else if (m_scriptNames.contains(value))
-    return BCP47Language::SCRIPT;
-  else
-    return BCP47Language::NO_SCRIPT;
+  if (isExtLang(value)) {
+    auto tag = m_extlan.value(value);
+    if (tagTypes.testFlag(BCP47Language::PRIMARY_LANGUAGE) ||
+        tagTypes.testFlag(BCP47Language::PRIVATE_LANGUAGE) ||
+        tagTypes.testFlag(BCP47Language::BAD_PRIMARY_LANGUAGE)) {
+      if (tag->prefix().contains(value)) {
+        tagTypes.setFlag(BCP47Language::EXTENDED_LANGUAGE);
+      } else {
+        tagTypes.setFlag(BCP47Language::EXTLANG_MISMATCH);
+      }
+    } else if (tagTypes.testFlag(BCP47Language::EXTENDED_AS_PRIMARY)) {
+      tagTypes.setFlag(BCP47Language::DUPLICATE_EXTENDED);
+    } else if (tagTypes.testFlag(BCP47Language::SCRIPT_LANGUAGE) ||
+               tagTypes.testFlag(BCP47Language::PRIVATE_SCRIPT)) {
+      tagTypes.setFlag(BCP47Language::EXTENDED_FOLLOWS_SCRIPT);
+    } else if (tagTypes.testFlag(BCP47Language::REGIONAL_LANGUAGE) ||
+               tagTypes.testFlag(BCP47Language::PRIVATE_REGION)) {
+      tagTypes.setFlag(BCP47Language::EXTENDED_FOLLOWS_REGION);
+    }
+  }
 }
 
-BCP47Language::Values
-BCP47Languages::testRegion(const QString& value)
+void
+BCP47Languages::testScript(const QString& value,
+                           BCP47Language::TagTypes& tagTypes)
+{
+  if (tagTypes.testFlag(BCP47Language::SCRIPT_LANGUAGE) ||
+      tagTypes.testFlag(BCP47Language::PRIVATE_SCRIPT)) {
+    tagTypes.setFlag(BCP47Language::DUPLICATE_SCRIPT);
+  } else if (value >= "Qaaa" && value <= "Qabx")
+    tagTypes.setFlag(BCP47Language::PRIVATE_SCRIPT);
+  else if (m_scriptNames.contains(value))
+    tagTypes.setFlag(BCP47Language::SCRIPT_LANGUAGE);
+  else
+    tagTypes.setFlag(BCP47Language::NO_SCRIPT);
+}
+
+void
+BCP47Languages::testRegion(const QString& value,
+                           BCP47Language::TagTypes& tagTypes)
 {
   auto lValue = value.toLower();
-  if (lValue == "aa" || (lValue >= "qm" && lValue <= "qz") ||
-      (lValue >= "xa" && lValue <= "xz") || lValue == "zz")
-    return BCP47Language::PRIVATE_REGION;
+  if (tagTypes.testFlag(BCP47Language::REGIONAL_LANGUAGE) ||
+      tagTypes.testFlag(BCP47Language::PRIVATE_REGION)) {
+    tagTypes.setFlag(BCP47Language::DUPLICATE_REGION);
+  } else if (lValue == "aa" || (lValue >= "qm" && lValue <= "qz") ||
+             (lValue >= "xa" && lValue <= "xz") || lValue == "zz")
+    tagTypes.setFlag(BCP47Language::PRIVATE_REGION);
   else if (m_regionNames.contains(value))
-    return BCP47Language::REGION;
-  //  else if (UNStatisticalCodes)
+    tagTypes.setFlag(BCP47Language::REGIONAL_LANGUAGE);
+  else if (m_unStatistical->isM49Valid(value))
+    tagTypes.setFlag(BCP47Language::UN_STATISTICAL_REGION);
   else
-    return BCP47Language::NO_REGION;
+    tagTypes.setFlag(BCP47Language::NO_REGION);
 }
 
 bool
@@ -733,46 +790,58 @@ BCP47Languages::isExtLang(const QString& value)
   return m_extlangNames.contains(value);
 }
 
-BCP47Language::Values
-BCP47Languages::checkTag(QString& value)
+BCP47Language::TagTypes
+BCP47Languages::testTag(QString& value)
 {
-  BCP47Language::Values values = BCP47Language::BAD_LANGUAGE;
   auto sections = value.split("-");
-  for (auto section : sections) {
-    if (!(values.testFlag(BCP47Language::LANGUAGE) ||
-          values.testFlag(BCP47Language::PRIVATE_LANGUAGE))) {
-      // MUST be a primary language otherwise bad_tag
-      values = testPrimaryLanguage(section);
-      if (values.testFlag(BCP47Language::BAD_LANGUAGE))
-        return values;
-    } else {
-      // tested for language tag.
-      // next check for extlang
-      if (isExtLang(section)) {
-        auto tag = m_extlan.value(section);
-        if (tag->prefix().contains(section)) {
-          values.setFlag(BCP47Language::EXTLANG);
-        } else {
-          values.setFlag(BCP47Language::EXTLANG_MISMATCH);
-        }
-      }
-
-      if (!(values.testFlag(BCP47Language::EXTLANG) ||
-            values.testFlag(BCP47Language::EXTLANG_MISMATCH))) {
-        // then if NOT extlang check for script.
-        auto v = testScript(section);
-        if (!v.testFlag(BCP47Language::NO_SCRIPT)) {
-          values |= v;
-        } else {
-          // thirdly check for region.
-          v = testRegion(section);
-          if (!v.testFlag(BCP47Language::NO_REGION)) {
-            values |= v;
-          }
-        }
-      }
+  BCP47Language::TagTypes tagTypes;
+  if (sections.size() > 0) {
+    tagTypes = testPrimaryLanguage(sections.first());
+    for (auto i = 1; i < sections.size(); i++) {
+      auto section = sections.at(i);
+      testExtendedlanguage(section, tagTypes);
+      testRegion(section, tagTypes);
+      //      if (isExtLang(section)) {
+      //        auto tag = m_extlan.value(section);
+      //        if (tag->prefix().contains(section)) {
+      //          values.setFlag(BCP47Language::EXTENDED_LANGUAGE);
+      //        } else {
+      //          values.setFlag(BCP47Language::EXTLANG_MISMATCH);
+      //        }
+      //      }
     }
   }
+  qWarning();
+  //    if (!(values.testFlag(BCP47Language::PRIMARY_LANGUAGE) ||
+  //          values.testFlag(BCP47Language::PRIVATE_LANGUAGE) ||
+  //          values.testFlag(BCP47Language::BAD_LANGUAGE))) {
+  //      // MUST be a primary language otherwise bad language tag
+  //      values = testPrimaryLanguage(section);
+  //      //      if (values.testFlag(BCP47Language::BAD_LANGUAGE))
+  //      //        return values;
+  //    } else {
+  //      // tested for language tag.
+  //      // next check for extlang
+  //      if (isExtLang(section)) {
+  //        auto tag = m_extlan.value(section);
+  //        if (tag->prefix().contains(section)) {
+  //          values.setFlag(BCP47Language::EXTENDED_LANGUAGE);
+  //        } else {
+  //          values.setFlag(BCP47Language::EXTLANG_MISMATCH);
+  //        }
+  //      }
+
+  //      if (!(values.testFlag(BCP47Language::EXTLANG) ||
+  //            values.testFlag(BCP47Language::EXTLANG_MISMATCH))) {
+  //        // then if NOT extlang check for script.
+  //        values |= testScript(section);
+  //        if (values.testFlag(BCP47Language::NO_SCRIPT)) {
+  //          // thirdly check for region.
+  //          values |= testRegion(section);
+  //        }
+  //      }
+  //    }
+  //  }
 
   //    if (size >= 3) {
   //      third = sections.at(2);
@@ -789,7 +858,7 @@ BCP47Languages::checkTag(QString& value)
   //    if (size > 3) {
   //    }
 
-  return values;
+  return tagTypes;
 }
 
 QDate
@@ -902,6 +971,7 @@ LanguageParser::parse()
   QMultiMap<QString, QSharedPointer<BCP47Language>> languageMap;
   QMultiMap<int, Errors> errors;
   QDate fileDate;
+  QString name, value;
 
   for (auto& c : m_data) {
     if (c == '\n') {
@@ -921,8 +991,14 @@ LanguageParser::parse()
           errors.insert(m_lineNumber, BAD_FILE_DATE);
         }
       } else {
-        QString name, value;
         if (line == "%%") { // SEPARATOR for sections
+          if (language) {
+            for (auto& description : language->descriptions()) {
+              languageMap.insert(description, language);
+            }
+            language = nullptr;
+            state = BCP47Languages::FINISHED;
+          }
           if (state != BCP47Languages::STARTED) {
             state = BCP47Languages::STARTED;
             language = QSharedPointer<BCP47Language>(new BCP47Language());
@@ -1013,7 +1089,6 @@ LanguageParser::parse()
             } else if (lName == "description") {
               if (language) {
                 language->addDescription(value);
-                languageMap.insert(name, language);
                 count++;
                 state = BCP47Languages::DESCRIPTION;
               }
@@ -1092,6 +1167,13 @@ LanguageParser::parse()
     } else {
       line += c;
     }
+  }
+  if (language) {
+    for (auto& description : language->descriptions()) {
+      languageMap.insert(description, language);
+    }
+    language = nullptr;
+    state = BCP47Languages::FINISHED;
   }
   emit parseCompleted(languageMap, fileDate, errors.isEmpty());
   if (!errors.isEmpty())

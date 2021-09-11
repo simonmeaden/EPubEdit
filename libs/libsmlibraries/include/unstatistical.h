@@ -29,119 +29,31 @@ delimitation of its frontiers or boundaries.
 
 class UNStatisticalCodes
 {
-  class UNStatisticalCodesBase
+  class RegionalNames
   {
   public:
-    //! \brief Returns a QStringList containing all of the UN statistical named
-    //! areas.
-    QStringList names();
+    QStringList getNames();
+    int regionIndex(const QString& name);
+    void addCode(const QString& region);
 
-    //! \brief returns the numerical code for the UN area as an integer value.
-    //!
-    //! Normally these codes are required as a three character code. For this
-    //! use the static numericalCodeString(const QString&) method.
-    int m49(const QString& name);
-
-    //! \brief Returns the numerical code for the UN area an a three character
-    //! numerical code ("049" rather than an int).
-    //!
-    //! If you need the code as a numerical int value use numericalCode(const
-    //! QString&).
-    QString m49AsString(const QString& name);
-
-    //! \brief Returns the three character alpha code for the UN area as a
-    //! QString.
-    QString alphaCode(const QString& name);
-
-    //! Checks whether the M49 (as an int) is a valid code. Returns true if it
-    //! is, otherwise returns false.
-    bool isM49Valid(int value);
-
-    //! Checks whether the M49 (as a 3 digit QString) is a valid code. Returns
-    //! true if it is, otherwise returns false.
-    bool isM49Valid(const QString& value);
-
-    //! Checks whether the alpha 3 value is a valid code. Returns
-    //! true if it is, otherwise returns false.
-    bool isAlpha3Valid(const QString& value);
-
-    //    static QList<int> M49CODES;
-    //    static QStringList ALPHA3CODES;
-
-    virtual QStringList getNames() = 0;
-    virtual int regionIndex(const QString& name) = 0;
-  }; // end UNStatisticalCodesBase
-
-  class UNStatisticalCodesEnglish : public UNStatisticalCodesBase
-  {
-  public:
-    static QStringList REGIONS;
-    static void addCode(QString region);
-
-    int regionIndex(const QString& name) { return REGIONS.indexOf(name); }
-    QStringList getNames() { return REGIONS; }
-  }; // end UNStatisticalCodesEn
-
-  class UNStatisticalCodesRussian : public UNStatisticalCodesBase
-  {
-  public:
-    static QStringList REGIONS;
-    static void addCode(QString region);
-
-    int regionIndex(const QString& name) { return REGIONS.indexOf(name); }
-    QStringList getNames() { return REGIONS; }
-  }; // end UNStatisticalCodesRus
-
-  class UNStatisticalCodesFrench : public UNStatisticalCodesBase
-  {
-  public:
-    static QStringList REGIONS;
-    static void addCode(QString region);
-
-    int regionIndex(const QString& name) { return REGIONS.indexOf(name); }
-    QStringList getNames() { return REGIONS; }
-  }; // end UNStatisticalCodesRus
-
-  class UNStatisticalCodesSpanish : public UNStatisticalCodesBase
-  {
-  public:
-    static QStringList REGIONS;
-    static void addCode(QString region);
-
-    int regionIndex(const QString& name) { return REGIONS.indexOf(name); }
-    QStringList getNames() { return REGIONS; }
-  }; // end UNStatisticalCodesRus
-
-  class UNStatisticalCodesChinese : public UNStatisticalCodesBase
-  {
-  public:
-    static QStringList REGIONS;
-    static void addCode(QString region);
-
-    int regionIndex(const QString& name) { return REGIONS.indexOf(name); }
-    QStringList getNames() { return REGIONS; }
-  }; // end UNStatisticalCodesRus
-
-  class UNStatisticalCodesArabic : public UNStatisticalCodesBase
-  {
-  public:
-    static QStringList REGIONS;
-    static void addCode(QString region);
-
-    int regionIndex(const QString& name) { return REGIONS.indexOf(name); }
-    QStringList getNames() { return REGIONS; }
-  }; // end UNStatisticalCodesRus
+  protected:
+    QStringList REGIONS;
+  }; // end internal UNStatisticalCodesBase
 
 public:
+  //! Supported languages. These are the only languages shown
+  //! on the UN website.
   enum Language
   {
-    English,
-    Russian,
-    Chinese,
-    French,
-    Spanish,
-    Arabic,
+    English, //!< English language names
+    Russian, //!< Russian language names
+    Chinese, //!< Chinese language names
+    French,  //!< French language names
+    Spanish, //!< Spanish language names
+    Arabic,  //!< Arabic language names
   };
+  UNStatisticalCodes();
+
   //! \brief Returns a QStringList containing all of the UN statistical named
   //! areas.
   QStringList names(Language lang);
@@ -165,30 +77,33 @@ public:
 
   //! Checks whether the M49 (as an int) is a valid code. Returns true if it is,
   //! otherwise returns false.
-  bool isM49Valid(Language lang, int value);
+  bool isM49Valid(int value) { return M49CODES.contains(value); }
 
   //! Checks whether the M49 (as a 3 digit QString) is a valid code. Returns
   //! true if it is, otherwise returns false.
-  bool isM49Valid(Language lang, const QString& value);
+  bool isM49Valid(const QString& value);
 
   //! Checks whether the alpha 3 value is a valid code. Returns
   //! true if it is, otherwise returns false.
-  bool isAlpha3Valid(Language lang, const QString& value);
+  bool isAlpha3Valid(const QString& value)
+  {
+    return ALPHA3CODES.contains(value);
+  }
 
-protected:
 private:
-  static QList<int> M49CODES;
-  static QStringList ALPHA3CODES;
+  QList<int> M49CODES;
+  QStringList ALPHA3CODES;
 
-  static UNStatisticalCodesEnglish m_english;
-  static UNStatisticalCodesRussian m_russian;
-  static UNStatisticalCodesFrench m_french;
-  static UNStatisticalCodesSpanish m_spanish;
-  static UNStatisticalCodesChinese m_chinese;
-  static UNStatisticalCodesArabic m_arabic;
+  RegionalNames m_english;
+  RegionalNames m_russian;
+  RegionalNames m_french;
+  RegionalNames m_spanish;
+  RegionalNames m_chinese;
+  RegionalNames m_arabic;
 
-  static void addCodes();
-  static void addCode(int m49, const QString& alpha3);
+  void addCodes();
+  void addCode(int m49, const QString& alpha3);
+  int getIndexOfName(Language lang, const QString& name);
 };
 
 #endif // UNSTATISTICAL_H

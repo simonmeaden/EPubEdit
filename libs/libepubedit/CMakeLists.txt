@@ -1,15 +1,15 @@
-cmake_minimum_required(VERSION 3.5)
-cmake_policy(SET CMP0076 NEW)
-cmake_policy(SET CMP0079 NEW)
+#cmake_minimum_required(VERSION 3.5)
+#cmake_policy(SET CMP0076 NEW)
+#cmake_policy(SET CMP0079 NEW)
 
 project(libepubedit LANGUAGES CXX)
 
-set(CMAKE_AUTOUIC ON)
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
+#set(CMAKE_AUTOUIC ON)
+#set(CMAKE_AUTOMOC ON)
+#set(CMAKE_AUTORCC ON)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+#set(CMAKE_CXX_STANDARD 17)
+#set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_library(${PROJECT_NAME} STATIC "")
 add_library(EPubEdit::${PROJECT_NAME} ALIAS ${PROJECT_NAME})

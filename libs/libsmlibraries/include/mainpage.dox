@@ -1,0 +1,61 @@
+/*!
+\mainpage SM Libraries - A few useful Qt classes I have developed.
+
+Well I created them for my own use so I suppose I found them useful. They are
+released under the MIT license which is pretty loose so use them if you also
+find them useful. The normal disclaimer: They are totally free to use but if
+your house sinks into the marsh afterwards, well you are on your own. Use them,
+modify them as you wish.
+
+These include
+- X11Colors
+  This is an extension to the QColorConstants namespace that defines a set of
+  color names that match the X11 rgb.txt color set. It also declares a number
+  of static helper functions to handle name string <-> QColor conversions.
+- ExtendedColorDialog
+  A more complex color dialog that includes tables of both SVG and X11 color names
+  and allows you to select various background and text colors and compare them.
+- A CircularBuffer class.
+  This is basically just a wrapper around the stl style circular_buffer calls
+  by Peter Goodliffe.
+- ExSpinBox
+  A spin box that will display the value in decimal, hexadecimal, octal or binary.
+- A set of labelled widgets
+  Widgets that include a label and a widget, similar to the QFormLayout. These
+  include a spin box, a double spin box, a combo box, a lineedit and a text field
+  (basically two labels) and an ExSpinBox. Methods allow you to place the label
+  on either side, to adjust alignment etc. Internal signals from the widgets are
+  passed back out.
+
+\section intro Introduction
+
+These libraries include a few Qt widgets and classes that I developed for
+my own use. If they are useful then please feel free to use them.
+
+\section install Installation
+
+To use them you can either clone the library from GitHub, then use the standard cmake
+commands to construct and install them. Alternatively just download and install the
+files you want directly in your project, remebering that some of the widgets have
+earlier abstract forms that you will also need.
+
+\subsection gitclone Step 1: Cloning the git repository.
+
+This clones the repository into a sm_libraries directory.
+\code
+  git clone https://github.com/simonmeaden/sm_libraries.git
+\endcode
+
+\subsection build Step 2: Building the library.
+
+in linux:
+mkdir build
+cd build
+
+Then either a debug or release build
+- cmake -DCMAKE_BUILD_TYPE=Debug .. && sudo make install
+- cmake -DCMAKE_BUILD_TYPE=Release .. && sudo make install
+
+Please note that the release will also make the documentation but doxygen
+
+*/

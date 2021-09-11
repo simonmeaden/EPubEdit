@@ -1,15 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
-cmake_policy(SET CMP0076 NEW)
-cmake_policy(SET CMP0079 NEW)
-
-project(libsmlibraries VERSION 0.1.0 LANGUAGES CXX)
-
-set(CMAKE_AUTOUIC ON)
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
-
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+project(libsmlibraries LANGUAGES CXX)
 
 add_library(${PROJECT_NAME} STATIC "")
 add_library(SMLibraries::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
@@ -28,6 +17,7 @@ target_link_libraries(${PROJECT_NAME}
     QuaZip::QuaZip
     yaml-cpp
     QYamlCpp::qyamlcpp
+    gtest
 )
 
 target_include_directories(${PROJECT_NAME}
@@ -49,6 +39,8 @@ target_sources(${PROJECT_NAME}
     src/languages.cpp
     include/unstatistical.h
     src/unstatistical.cpp
+#    include/iso639codes.h
+#    src/iso639codes.cpp
     include/filedownloader.h
     src/filedownloader.cpp
     include/abstractlabelledspinbox.h
@@ -81,6 +73,11 @@ target_sources(${PROJECT_NAME}
     include/paths.h
     src/paths.cpp
 )
+
+add_subdirectory(tests)
+
+#message("SM Qt major version " ${QT_MAJOR_VERSION})
+#message("SM Qt interface version " ${INTERFACE_QT_MAJOR_VERSION})
 
 ########################################################################
 ## The section includes the install section.

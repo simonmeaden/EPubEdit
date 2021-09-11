@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(qyamlcpp)
+project(qyamlcpp LANGUAGES CXX)
 
 add_library(${PROJECT_NAME} INTERFACE)
 add_library(QYamlCpp::${PROJECT_NAME} ALIAS ${PROJECT_NAME})

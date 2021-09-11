@@ -1,0 +1,19 @@
+get_filename_component(SMLIBRARIES_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+include(CMakeFindDependencyMacro)
+
+list(APPEND CMAKE_MODULE_PATH ${SMLIBRARIES_CMAKE_DIR})
+
+if (PROJECT_QT STREQUAL 5)
+  find_dependency(Qt5 COMPONENTS  Core Gui Widgets)
+elseif(PROJECT_QT STREQUAL 6)
+  find_dependency(Qt6 COMPONENTS  Core Gui Widgets)
+endif()
+
+find_dependency(yaml-cpp @MIN_YAMLCPP_VERSION@)
+
+if(NOT TARGET SMLibraries::SMLibraries)
+    include("${SMLIBRARIES_CMAKE_DIR}/SMLibrariesTargets.cmake")
+endif()
+
+set(SMWIDGETS_LIBRARIES SMLibraries::SMLibraries)
+

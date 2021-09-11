@@ -1,54 +1,69 @@
 #include "unstatistical.h"
 #include <map>
 
+UNStatisticalCodes::UNStatisticalCodes()
+{
+  addCodes();
+}
+
 QStringList
 UNStatisticalCodes::names(UNStatisticalCodes::Language lang)
 {
   switch (lang) {
     case English:
-      return m_english.names();
+      return m_english.getNames();
     case Russian:
-      return m_russian.names();
+      return m_russian.getNames();
     case Chinese:
+      return m_chinese.getNames();
     case French:
+      return m_french.getNames();
     case Spanish:
+      return m_spanish.getNames();
     case Arabic:
-      return QStringList();
+      return m_arabic.getNames();
   }
   return QStringList();
+}
+
+int
+UNStatisticalCodes::getIndexOfName(UNStatisticalCodes::Language lang,
+                                   const QString& name)
+{
+  switch (lang) {
+    case English:
+      return m_english.regionIndex(name);
+    case Russian:
+      return m_russian.regionIndex(name);
+    case Chinese:
+      return m_chinese.regionIndex(name);
+    case French:
+      return m_french.regionIndex(name);
+    case Spanish:
+      return m_spanish.regionIndex(name);
+    case Arabic:
+      return m_arabic.regionIndex(name);
+  }
+  return -1;
 }
 
 int
 UNStatisticalCodes::m49AsInt(UNStatisticalCodes::Language lang,
                              const QString& name)
 {
-  switch (lang) {
-    case English:
-      return m_english.m49(name);
-    case Russian:
-      return m_russian.m49(name);
-    case Chinese:
-    case French:
-    case Spanish:
-    case Arabic:
-      return -1;
-  }
+  int index = getIndexOfName(lang, name);
+  if (index >= 0 && index < M49CODES.size())
+    return M49CODES.at(index);
   return -1;
 }
 
 QString
 UNStatisticalCodes::m49(UNStatisticalCodes::Language lang, const QString& name)
 {
-  switch (lang) {
-    case English:
-      return m_english.m49AsString(name);
-    case Russian:
-      return m_russian.m49AsString(name);
-    case Chinese:
-    case French:
-    case Spanish:
-    case Arabic:
-      return QString();
+  auto index = getIndexOfName(lang, name);
+  if (index >= 0 && index < M49CODES.size()) {
+    QString numerical("%1");
+    return numerical.arg(M49CODES.at(index), 3, 10, QChar('0'));
   }
   return QString();
 }
@@ -57,71 +72,53 @@ QString
 UNStatisticalCodes::alphaCode(UNStatisticalCodes::Language lang,
                               const QString& name)
 {
-  switch (lang) {
-    case English:
-      return m_english.alphaCode(name);
-    case Russian:
-      return m_russian.alphaCode(name);
-    case Chinese:
-    case French:
-    case Spanish:
-    case Arabic:
-      return QString();
+  auto index = getIndexOfName(lang, name);
+  if (index >= 0 && index < ALPHA3CODES.size()) {
+    return ALPHA3CODES.at(index);
   }
   return QString();
 }
 
 bool
-UNStatisticalCodes::isM49Valid(UNStatisticalCodes::Language lang, int value)
+UNStatisticalCodes::isM49Valid(const QString& value)
 {
-  switch (lang) {
-    case English:
-      return m_english.isM49Valid(value);
-    case Russian:
-      return m_russian.isM49Valid(value);
-    case Chinese:
-    case French:
-    case Spanish:
-    case Arabic:
-      return false;
+  // all valid codes are three characters long.
+  if (value.trimmed().length() == 3) {
+    bool ok;
+    int code = value.toUInt(&ok);
+    if (ok) {
+      return M49CODES.contains(code);
+    }
   }
   return false;
 }
 
-bool
-UNStatisticalCodes::isM49Valid(UNStatisticalCodes::Language lang,
-                               const QString& value)
+void
+UNStatisticalCodes::addCode(int m49, const QString& alpha3)
 {
-  switch (lang) {
-    case English:
-      return m_english.isM49Valid(value);
-    case Russian:
-      return m_russian.isM49Valid(value);
-    case Chinese:
-    case French:
-    case Spanish:
-    case Arabic:
-      return false;
-  }
-  return false;
+//  Q_ASSERT(M49CODES.contains(m49));
+//  Q_ASSERT(ALPHA3CODES.contains(alpha3));
+//  Q_ASSERT(alpha3 == "ALPHA");
+  M49CODES.append(m49);
+  ALPHA3CODES.append(alpha3);
 }
 
-bool
-UNStatisticalCodes::isAlpha3Valid(UNStatisticalCodes::Language lang,
-                                  const QString& value)
+QStringList
+UNStatisticalCodes::RegionalNames::getNames()
 {
-  switch (lang) {
-    case English:
-      return m_english.isAlpha3Valid(value);
-    case Russian:
-      return m_russian.isAlpha3Valid(value);
-    case Chinese:
-    case French:
-    case Spanish:
-    case Arabic:
-      return false;
-  }
-  return false;
+  return REGIONS;
+}
+
+int
+UNStatisticalCodes::RegionalNames::regionIndex(const QString& name)
+{
+  return REGIONS.indexOf(name);
+}
+
+void
+UNStatisticalCodes::RegionalNames::addCode(const QString& region)
+{
+  REGIONS.append(region);
 }
 
 void
@@ -1889,104 +1886,5 @@ UNStatisticalCodes::addCodes()
   m_french.addCode(QStringLiteral("Zimbabwe"));
   m_russian.addCode(QStringLiteral("Зимбабве"));
   m_spanish.addCode(QStringLiteral("Zimbabwe"));
-}
-
-void
-UNStatisticalCodes::addCode(int m49, const QString& alpha3)
-{
-  Q_ASSERT(M49CODES.contains(m49));
-  Q_ASSERT(ALPHA3CODES.contains(alpha3));
-  Q_ASSERT(alpha3 == "ALPHA");
-  M49CODES.append(m49);
-  ALPHA3CODES.append(alpha3);
-}
-
-QStringList
-UNStatisticalCodes::UNStatisticalCodesBase::names()
-{
-  return getNames();
-}
-
-int
-UNStatisticalCodes::UNStatisticalCodesBase::m49(const QString& name)
-{
-  auto index = regionIndex(name);
-  return M49CODES.at(index);
-}
-
-QString
-UNStatisticalCodes::UNStatisticalCodesBase::m49AsString(const QString& name)
-{
-  auto index = regionIndex(name);
-  QString numerical("%1");
-  return numerical.arg(M49CODES.at(index), 3, 10, QChar('0'));
-}
-
-QString
-UNStatisticalCodes::UNStatisticalCodesBase::alphaCode(const QString& name)
-{
-  auto index = regionIndex(name);
-  return ALPHA3CODES.at(index);
-}
-
-bool
-UNStatisticalCodes::UNStatisticalCodesBase::isM49Valid(const QString& value)
-{
-    if (value.trimmed().length()==3) {
-        bool ok;
-        int code = value.toUInt(&ok);
-        if (ok) {
-            return M49CODES.contains(code);
-        }
-    }
-  return false;
-}
-
-bool
-UNStatisticalCodes::UNStatisticalCodesBase::isAlpha3Valid(const QString& value)
-{
-  return ALPHA3CODES.contains(value);
-}
-
-void
-UNStatisticalCodes::UNStatisticalCodesEnglish::addCode(QString region)
-{
-  Q_ASSERT(region == "ENGLISH");
-  REGIONS.append(region);
-}
-
-void
-UNStatisticalCodes::UNStatisticalCodesRussian::addCode(QString region)
-{
-  Q_ASSERT(region == "RUSSIAN");
-  REGIONS.append(region);
-}
-
-void
-UNStatisticalCodes::UNStatisticalCodesFrench::addCode(QString region)
-{
-  Q_ASSERT(region == "FRENCH");
-  REGIONS.append(region);
-}
-
-void
-UNStatisticalCodes::UNStatisticalCodesSpanish::addCode(QString region)
-{
-  Q_ASSERT(region == "SPANISH");
-  REGIONS.append(region);
-}
-
-void
-UNStatisticalCodes::UNStatisticalCodesChinese::addCode(QString region)
-{
-  Q_ASSERT(region == "CHINESE");
-  REGIONS.append(region);
-}
-
-void
-UNStatisticalCodes::UNStatisticalCodesArabic::addCode(QString region)
-{
-  Q_ASSERT(region == "ARABIC");
-  REGIONS.append(region);
 }
 
