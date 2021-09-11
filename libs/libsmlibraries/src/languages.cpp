@@ -425,7 +425,14 @@ BCP47Languages::loadYamlFile(QFile& file)
               language->addPrefix(prefix.as<QString>());
             }
           }
-          addLanguage(language->description(), language);
+          auto comments = languageNode["comments"];
+          if (comments && comments.IsScalar()) {
+            language->setComments(comments.as<QString>());
+          }
+          // save language data (multi language description supported)
+          for (auto& description : language->descriptions()) {
+            addLanguage(description, language);
+          }
         }
       }
     }
