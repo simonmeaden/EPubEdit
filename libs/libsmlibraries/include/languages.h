@@ -21,8 +21,8 @@
 #include "qyamlcpp.h"
 #include "unstatistical.h"
 
-void
-loadYamlFile(QFile& file);
+//void
+//loadYamlFile(QFile& file);
 
 /*!
   \class BCP47Language languages.h
@@ -321,16 +321,85 @@ public:
   //! Use these values to access the entire list of types.
   QStringList descriptions() const;
 
-  //! \brief Returns the BCP47Language data for the supplied description.
+  //! \brief Returns a list of the BCP47Language data objects for the supplied
+  //! description.
   //!
   //! \note This does not check the type of the language. It could be
   //! either a main language, a regional language or an extended language
   //! or something else.
   //!
-  //! You will need to check the type using BCPLanguage::type() and
-  //! handle it accordingly.
-  QSharedPointer<BCP47Language> fromDescription(const QString& description);
-  QSharedPointer<BCP47Language> fromSubtag(const QString& subtag);
+  //! \note If you know for example that you are requiring a
+  //! BCP47Language::LANGUAGE use the languageForDescription(QString) method,
+  //! similarly for SCRIPT, VARIANT etc. Alternatively you will need to iterate
+  //! through the list until you find the type you require.
+  //!
+  //! \note the GRANDFATHERED type has one special case where tyhere are two
+  //! grandfathered objects with the same description.
+  //!
+  //! \sa languageForDescription(QString)
+  //! \sa extlangForDescription(QString)
+  //! \sa regionForDescription(QString)
+  //! \sa variantForDescription(QString)
+  //! \sa scriptForDescription(QString)
+  //! \sa grandfatheredForDescription(QString)
+  //! \sa redundantForDescription(QString)
+  QList<QSharedPointer<BCP47Language>> fromDescription(
+    const QString& description);
+
+  //! \brief Returns the BCP47Language data for the supplied description for
+  //! BCP47Language::LANGUAGE types.
+  QSharedPointer<BCP47Language> languageFromDescription(
+    const QString& description);
+  //! \brief Returns the BCP47Language data for the supplied description for
+  //! BCP47Language::EXTLANG types.
+  QSharedPointer<BCP47Language> extlangFromDescription(
+    const QString& description);
+  //! \brief Returns the BCP47Language data for the supplied description for
+  //! BCP47Language::VARIANT types.
+  QSharedPointer<BCP47Language> variantFromDescription(
+    const QString& description);
+  //! \brief Returns the BCP47Language data for the supplied description for
+  //! BCP47Language::REGION types.
+  QSharedPointer<BCP47Language> regionFromDescription(
+    const QString& description);
+  //! \brief Returns the BCP47Language data for the supplied description for
+  //! BCP47Language::SCRIPT types.
+  QSharedPointer<BCP47Language> scriptFromDescription(
+    const QString& description);
+  //! \brief Returns the BCP47Language data for the supplied description for
+  //! BCP47Language::REDUNDANT types.
+  QSharedPointer<BCP47Language> redundantFromDescription(
+    const QString& description);
+  //! \brief Returns the BCP47Language data for the supplied description for
+  //! BCP47Language::GRANDFATHERED types.
+  QSharedPointer<BCP47Language> grandfatheredFromDescription(
+    const QString& description);
+
+  //! \brief Returns the BCP47Language data for the supplied subtag for
+  //! BCP47Language::LANGUAGE types.
+  QSharedPointer<BCP47Language> languageFromSubtag(const QString& subtag);
+  //! \brief Returns the BCP47Language data for the supplied subtag for
+  //! BCP47Language::EXTLANG types.
+  QSharedPointer<BCP47Language> extlangFromSubtag(
+    const QString& subtag);
+  //! \brief Returns the BCP47Language data for the supplied subtag for
+  //! BCP47Language::VARIANT types.
+  QSharedPointer<BCP47Language> variantFromSubtag(const QString& subtag);
+  //! \brief Returns the BCP47Language data for the supplied subtag for
+  //! BCP47Language::REGION types.
+  QSharedPointer<BCP47Language> regionFromSubtag(
+    const QString& subtag);
+  //! \brief Returns the BCP47Language data for the supplied subtag for
+  //! BCP47Language::SCRIPT types.
+  QSharedPointer<BCP47Language> scriptFromSubtag(const QString& subtag);
+  //! \brief Returns the BCP47Language data for the supplied tag for
+  //! BCP47Language::REDUNDANT types.
+  QSharedPointer<BCP47Language> redundantFromTag(
+    const QString& tag);
+  //! \brief Returns the BCP47Language data for the supplied tag for
+  //! BCP47Language::GRANDFATHERED types.
+  QSharedPointer<BCP47Language> grandfatheredFromTag(
+    const QString& tag);
 
   //! \brief Returns the set of primary language descriptions as a list of
   //! QString.
@@ -371,11 +440,11 @@ public:
   //! reasons.
   QStringList grandfatheredDescriptions() const;
 
-  //! \brief The list of grandfathered  subtags as a list of QStrings.
+  //! \brief The list of grandfathered  tags as a list of QStrings.
   //!
   //! These tags should generally not be used and are retained for historical
   //! reasons.
-  QStringList grandfatheredSubtags() const;
+  QStringList grandfatheredTags() const;
 
   //! \brief The list of redundant  descriptions as a list of QStrings.
   //!
@@ -383,11 +452,11 @@ public:
   //! reasons.
   QStringList redundantDescriptions() const;
 
-  //! \brief The list of redundant  subtags as a list of QStrings.
+  //! \brief The list of redundant  tags as a list of QStrings.
   //!
   //! These tags should generally not be used and are retained for historical
   //! reasons.
-  QStringList redundantSubtags() const;
+  QStringList redundantTags() const;
 
   //! \brief Returns the tag for the supplied language name, with optional
   //! region name.
@@ -502,7 +571,7 @@ signals:
 
 private:
   QMultiMap<QString, QSharedPointer<BCP47Language>> m_datasetByDescription;
-  QMultiMap<QString, QSharedPointer<BCP47Language>> m_datasetBySubtag;
+//  QMultiMap<QString, QSharedPointer<BCP47Language>> m_datasetBySubtag;
   QMap<QString, QSharedPointer<BCP47Language>> m_languageByDescription;
   QMap<QString, QSharedPointer<BCP47Language>> m_languageBySubtag;
   QMap<QString, QSharedPointer<BCP47Language>> m_extlangByDescription;
@@ -514,10 +583,11 @@ private:
   QMap<QString, QSharedPointer<BCP47Language>> m_variantByDescription;
   QMap<QString, QSharedPointer<BCP47Language>> m_variantBySubtag;
   // some grandfathered descriptions are NOT unique.
-  QMultiMap<QString, QSharedPointer<BCP47Language>> m_grandfatheredByDescription;
-  QMap<QString, QSharedPointer<BCP47Language>> m_grandfatheredBySubtag;
+  QMultiMap<QString, QSharedPointer<BCP47Language>>
+    m_grandfatheredByDescription;
+  QMap<QString, QSharedPointer<BCP47Language>> m_grandfatheredByTag;
   QMap<QString, QSharedPointer<BCP47Language>> m_redundantByDescription;
-  QMap<QString, QSharedPointer<BCP47Language>> m_redundantBySubtag;
+  QMap<QString, QSharedPointer<BCP47Language>> m_redundantByTag;
 
   QDate m_fileDate;
   LanguageParser* worker;

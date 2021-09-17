@@ -31,11 +31,11 @@ TEST_F(BCP47LanguagesTest, FileLoaded)
 TEST_F(BCP47LanguagesTest, Languages)
 {
   // Nonexistant language
-  auto language = languages.fromDescription("Arrrrgh");
-  ASSERT_EQ(language, nullptr);
+  auto language = languages.languageFromDescription("Arrrrgh");
+  ASSERT_TRUE(language.isNull());
 
-  language = languages.fromDescription("Abkhazian");
-  ASSERT_NE(language, nullptr);
+  language = languages.languageFromDescription("Abkhazian");
+  ASSERT_FALSE(language.isNull()) << "Language not empty";
   ASSERT_TRUE(language->type() == BCP47Language::LANGUAGE);
   ASSERT_TRUE(language->subtag() == "ab");
   ASSERT_TRUE(language->description() == "Abkhazian");
@@ -43,8 +43,8 @@ TEST_F(BCP47LanguagesTest, Languages)
   ASSERT_TRUE(language->suppressScriptLang() == "Cyrl");
   ASSERT_TRUE(language->macrolanguageName() == "");
 
-  language = languages.fromDescription("Chuanqiandian Cluster Miao");
-  ASSERT_NE(language, nullptr);
+  language = languages.languageFromDescription("Chuanqiandian Cluster Miao");
+  ASSERT_FALSE(language.isNull()) << "Language not empty";
   ASSERT_TRUE(language->type() == BCP47Language::LANGUAGE);
   ASSERT_TRUE(language->subtag() == "cqd");
   ASSERT_TRUE(language->description() == "Chuanqiandian Cluster Miao");
@@ -54,10 +54,10 @@ TEST_F(BCP47LanguagesTest, Languages)
 
   // Multi description languages. Both descriptions should point to
   // the same BCP47Language node.
-  language = languages.fromDescription("Bengali");
-  auto language2 = languages.fromDescription("Bangla");
+  language = languages.languageFromDescription("Bengali");
+  auto language2 = languages.languageFromDescription("Bangla");
   ASSERT_TRUE(language == language2);
-  ASSERT_NE(language, nullptr) << "Language empty";
+  ASSERT_FALSE(language.isNull()) << "Language not empty";
   ASSERT_TRUE(language->type() == BCP47Language::LANGUAGE);
   ASSERT_TRUE(language->subtag() == "bn");
   ASSERT_TRUE(language->descriptions().at(0) == "Bengali");
@@ -67,8 +67,8 @@ TEST_F(BCP47LanguagesTest, Languages)
   ASSERT_TRUE(language->macrolanguageName() == "");
 
   // // Multi value script
-  language = languages.fromDescription("Church Slavic");
-  ASSERT_NE(language, nullptr) << "Language empty";
+  language = languages.languageFromDescription("Church Slavic");
+  ASSERT_FALSE(language.isNull()) << "Language not empty";
   ASSERT_TRUE(language->type() == BCP47Language::LANGUAGE);
   ASSERT_TRUE(language->subtag() == "cu");
   ASSERT_TRUE(language->description() == "Church Slavic");
@@ -79,7 +79,7 @@ TEST_F(BCP47LanguagesTest, Languages)
   for (auto& description : language->descriptions()) {
     if (description == "Naxi Geba")
       continue;
-    language2 = languages.fromDescription(description);
+    language2 = languages.languageFromDescription(description);
     ASSERT_TRUE(language == language2);
   }
 }
@@ -87,8 +87,8 @@ TEST_F(BCP47LanguagesTest, Languages)
 TEST_F(BCP47LanguagesTest, Scripts)
 {
   // // Multi value script
-  auto language = languages.fromDescription("Naxi Geba");
-  ASSERT_NE(language, nullptr) << "Languge not empty";
+  auto language = languages.scriptFromDescription("Naxi Geba");
+  ASSERT_FALSE(language.isNull()) << "Language not empty";
   ASSERT_TRUE(language->type() == BCP47Language::SCRIPT);
   ASSERT_TRUE(language->subtag() == "Nkgb");
   ASSERT_TRUE(language->description() == "Naxi Geba");
@@ -98,7 +98,7 @@ TEST_F(BCP47LanguagesTest, Scripts)
   for (auto& description : language->descriptions()) {
     if (description == "Naxi Geba")
       continue;
-    auto language2 = languages.fromDescription(description);
+    auto language2 = languages.scriptFromDescription(description);
     ASSERT_TRUE(language == language2);
   }
 }
@@ -107,8 +107,8 @@ TEST_F(BCP47LanguagesTest, Variants)
 {
   // // Multi value script
   auto language =
-    languages.fromDescription("ALA-LC Romanization, 1997 edition");
-  ASSERT_NE(language, nullptr) << "Languge not empty";
+    languages.variantFromDescription("ALA-LC Romanization, 1997 edition");
+  ASSERT_FALSE(language.isNull()) << "Language not empty";
   ASSERT_TRUE(language->type() == BCP47Language::VARIANT);
   ASSERT_TRUE(language->subtag() == "alalc97");
   ASSERT_TRUE(language->description() == "ALA-LC Romanization, 1997 edition");
@@ -129,21 +129,21 @@ TEST_F(BCP47LanguagesTest, PrimaryLanguage)
   ASSERT_FALSE(values.isEmpty());
   for (auto& name : values) {
     // First check that all of the names have an associated language.
-    auto language = languages.fromDescription(name);
+    auto language = languages.languageFromDescription(name);
     ASSERT_FALSE(language.isNull());
-    ASSERT_TRUE(language->type() == BCP47Language::LANGUAGE);
+    ASSERT_TRUE(language->type() == BCP47Language::LANGUAGE) << QString("Language: %1, %2").arg(language->typeString()).arg(language->description()).toStdString();
   }
 
   values = languages.languageSubtags();
   ASSERT_FALSE(values.isEmpty());
   for (auto& subtag : values) {
     // First check that all of the names have an associated language.
-    auto language = languages.fromSubtag(subtag);
+    auto language = languages.languageFromSubtag(subtag);
     ASSERT_FALSE(language.isNull());
-    ASSERT_TRUE(language->type() == BCP47Language::LANGUAGE);
+    ASSERT_TRUE(language->type() == BCP47Language::LANGUAGE) << QString("Language: %1, %2").arg(language->typeString()).arg(language->description()).toStdString();
   }
 
-  auto language = languages.fromSubtag("alu");
+  auto language = languages.languageFromSubtag("alu");
   ASSERT_FALSE(language.isNull());
 }
 
@@ -153,7 +153,7 @@ TEST_F(BCP47LanguagesTest, Region)
   ASSERT_FALSE(values.isEmpty());
   for (auto& name : values) {
     // First check that all of the names have an associated regions.
-    auto language = languages.fromDescription(name);
+    auto language = languages.regionFromDescription(name);
     ASSERT_FALSE(language.isNull());
     ASSERT_TRUE(language->type() == BCP47Language::REGION);
   }
@@ -162,7 +162,7 @@ TEST_F(BCP47LanguagesTest, Region)
   ASSERT_FALSE(values.isEmpty());
   for (auto& subtag : values) {
     // First check that all of the names have an associated language.
-    auto language = languages.fromSubtag(subtag);
+    auto language = languages.regionFromSubtag(subtag);
     ASSERT_FALSE(language.isNull());
     ASSERT_TRUE(language->type() == BCP47Language::REGION);
   }
@@ -174,7 +174,7 @@ TEST_F(BCP47LanguagesTest, Variant)
   ASSERT_FALSE(values.isEmpty());
   for (auto& name : values) {
     // First check that all of the names have an associated variant.
-    auto language = languages.fromDescription(name);
+    auto language = languages.variantFromDescription(name);
     ASSERT_FALSE(language.isNull());
     ASSERT_TRUE(language->type() == BCP47Language::VARIANT);
   }
@@ -183,7 +183,7 @@ TEST_F(BCP47LanguagesTest, Variant)
   ASSERT_FALSE(values.isEmpty());
   for (auto& subtag : values) {
     // First check that all of the names have an associated language.
-    auto language = languages.fromSubtag(subtag);
+    auto language = languages.variantFromSubtag(subtag);
     ASSERT_FALSE(language.isNull());
     ASSERT_TRUE(language->type() == BCP47Language::VARIANT);
   }
@@ -195,7 +195,7 @@ TEST_F(BCP47LanguagesTest, ExtLang)
   ASSERT_FALSE(values.isEmpty());
   for (auto& name : values) {
     // First check that all of the names have an associated extlang.
-    auto language = languages.fromDescription(name);
+    auto language = languages.extlangFromDescription(name);
     ASSERT_FALSE(language.isNull());
     ASSERT_TRUE(language->type() == BCP47Language::EXTLANG);
   }
@@ -204,7 +204,7 @@ TEST_F(BCP47LanguagesTest, ExtLang)
   ASSERT_FALSE(values.isEmpty());
   for (auto& subtag : values) {
     // First check that all of the names have an associated language.
-    auto language = languages.fromSubtag(subtag);
+    auto language = languages.extlangFromSubtag(subtag);
     ASSERT_FALSE(language.isNull());
     ASSERT_TRUE(language->type() == BCP47Language::EXTLANG);
   }
@@ -216,7 +216,7 @@ TEST_F(BCP47LanguagesTest, Script)
   ASSERT_FALSE(values.isEmpty());
   for (auto& name : values) {
     // First check that all of the names have an associated extlang.
-    auto language = languages.fromDescription(name);
+    auto language = languages.scriptFromDescription(name);
     ASSERT_FALSE(language.isNull());
     ASSERT_TRUE(language->type() == BCP47Language::SCRIPT);
   }
@@ -225,7 +225,7 @@ TEST_F(BCP47LanguagesTest, Script)
   ASSERT_FALSE(values.isEmpty());
   for (auto& subtag : values) {
     // First check that all of the names have an associated language.
-    auto language = languages.fromSubtag(subtag);
+    auto language = languages.scriptFromSubtag(subtag);
     ASSERT_FALSE(language.isNull());
     ASSERT_TRUE(language->type() == BCP47Language::SCRIPT);
   }
@@ -237,16 +237,16 @@ TEST_F(BCP47LanguagesTest, Grandfathered)
   ASSERT_FALSE(values.isEmpty());
  for (auto& name : values) {
     // First check that all of the names have an associated extlang.
-    auto language = languages.fromDescription(name);
+    auto language = languages.grandfatheredFromDescription(name);
     ASSERT_FALSE(language.isNull());
     ASSERT_TRUE(language->type() == BCP47Language::GRANDFATHERED);
   }
 
-  values = languages.grandfatheredSubtags();
+  values = languages.grandfatheredTags();
   ASSERT_FALSE(values.isEmpty());
   for (auto& subtag : values) {
     // First check that all of the names have an associated language.
-    auto language = languages.fromSubtag(subtag);
+    auto language = languages.grandfatheredFromTag(subtag);
     ASSERT_FALSE(language.isNull());
     ASSERT_TRUE(language->type() == BCP47Language::GRANDFATHERED);
   }
@@ -258,19 +258,24 @@ TEST_F(BCP47LanguagesTest, Redundant)
   ASSERT_FALSE(values.isEmpty());
   for (auto& name : values) {
     // First check that all of the names have an associated extlang.
-    auto language = languages.fromDescription(name);
+    auto language = languages.redundantFromDescription(name);
     ASSERT_FALSE(language.isNull());
     ASSERT_TRUE(language->type() == BCP47Language::REDUNDANT);
   }
 
-  values = languages.redundantSubtags();
+  values = languages.redundantTags();
   ASSERT_FALSE(values.isEmpty());
   for (auto& subtag : values) {
     // First check that all of the names have an associated language.
-    auto language = languages.fromSubtag(subtag);
+    auto language = languages.redundantFromTag(subtag);
     ASSERT_FALSE(language.isNull());
     ASSERT_TRUE(language->type() == BCP47Language::REDUNDANT);
   }
+}
+
+TEST_F(BCP47LanguagesTest, TestPrimaryLanguage) {
+    auto types=languages.isPrimaryLanguage("en");
+    types=languages.isPrimaryLanguage("EN");
 }
 
 } // end of anonymous namespace

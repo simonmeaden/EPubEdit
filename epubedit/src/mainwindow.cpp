@@ -4,6 +4,7 @@
 #include "forms/configurationeditor.h"
 #include "forms/epubedit.h"
 //#include "languages.h"
+#include "languagetagbuilderdialog.h"
 
 //#define VERSION_2
 //#define VERSION_3_0
@@ -102,6 +103,9 @@ MainWindow::initGui()
   mainFrame->setLayout(layout);
 
   auto tabs = new QTabWidget(this);
+
+  auto builder = new LanguageTagBuilderDialog(this);
+  tabs->addTab(builder, tr("Language Builder"));
 
   m_editor = new EPubEdit(m_config, this);
   tabs->addTab(m_editor, tr("Editor"));
