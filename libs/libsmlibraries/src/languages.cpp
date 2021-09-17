@@ -7,7 +7,8 @@
 //=== BCP47Language
 //====================================================================
 BCP47Language::BCP47Language()
-  : m_macrolanguage(false)
+  : m_type(LANGUAGE)
+  , m_macrolanguage(false)
   , m_collection(false)
   , m_deprecated(false)
 {}
@@ -137,6 +138,12 @@ BCP47Language::appendComment(const QString& extra)
   m_comments.append(extra);
 }
 
+bool
+BCP47Language::hasComment()
+{
+  return (!m_comments.isEmpty());
+}
+
 QString
 BCP47Language::preferredValue() const
 {
@@ -202,7 +209,7 @@ BCP47Language::fromString(const QString& name)
     return GRANDFATHERED;
   else if (name.toLower() == "redundant")
     return REDUNDANT;
-  return LANGUAGE;
+  return BAD_TAG;
 }
 
 BCP47Language::Type
@@ -437,52 +444,60 @@ BCP47Languages::loadYamlFile(QFile& file)
       }
     }
   }
+  updateMaps();
 }
 
 void
 BCP47Languages::updateMaps()
 {
-  m_language.clear();
-  m_languageNames.clear();
-  m_extlan.clear();
-  m_extlangNames.clear();
-  m_region.clear();
-  m_regionNames.clear();
-  m_script.clear();
-  m_scriptNames.clear();
-  m_variant.clear();
-  m_variantNames.clear();
-  m_grandfatheredNames.clear();
-  for (auto& language : m_languages) {
-    switch (language->type()) {
-      case BCP47Language::LANGUAGE:
-        m_languageNames.append(language->description());
-        m_language.insert(language->description(), language);
-        break;
-      case BCP47Language::EXTLANG:
-        m_extlangNames.append(language->description());
-        m_extlan.insert(language->description(), language);
-        break;
-      case BCP47Language::REGION:
-        m_regionNames.append(language->description());
-        m_region.insert(language->description(), language);
-        break;
-      case BCP47Language::SCRIPT:
-        m_scriptNames.append(language->description());
-        m_script.insert(language->description(), language);
-        break;
-      case BCP47Language::VARIANT:
-        m_variantNames.append(language->description());
-        m_variant.insert(language->description(), language);
-        break;
-      case BCP47Language::GRANDFATHERED:
-        m_grandfatheredNames.append(language->description());
-        break;
-      case BCP47Language::REDUNDANT:
-        m_redundantNames.append(language->description());
-        break;
-      default:
-        break;
+  m_languageBySubtag.clear();
+  m_extlangBySubtag.clear();
+  m_regionBySubtag.clear();
+  m_scriptBySubtag.clear();
+  m_variantBySubtag.clear();
+  m_grandfatheredBySubtag.clear();
+  m_redundantBySubtag.clear();
+
+  auto uniqueDescriptions = m_datasetByDescription.uniqueKeys();
+  for (auto& description : uniqueDescriptions) {
+    auto languages = m_datasetByDescription.values(description);
+    for (auto& language : languages) {
+      auto subtag = language->subtag();
+      auto tag = language->tag();
+      auto type = language->type();
+      m_datasetBySubtag.insert(subtag, language);
+      switch (type) {
+        case BCP47Language::LANGUAGE:
+            m_languageByDescription.insert(description, language);
+            m_languageBySubtag.insert(subtag, language);
+          break;
+        case BCP47Language::EXTLANG:
+          m_extlangByDescription.insert(description, language);
+          m_extlangBySubtag.insert(subtag, language);
+          break;
+        case BCP47Language::REGION:
+          m_regionByDescription.insert(description, language);
+          m_regionBySubtag.insert(subtag, language);
+          break;
+        case BCP47Language::SCRIPT:
+          m_scriptByDescription.insert(description, language);
+          m_scriptBySubtag.insert(subtag, language);
+          break;
+        case BCP47Language::VARIANT:
+          m_variantByDescription.insert(description, language);
+          m_variantBySubtag.insert(subtag, language);
+          break;
+        case BCP47Language::GRANDFATHERED:
+          m_grandfatheredByDescription.insert(description, language);
+          m_grandfatheredBySubtag.insert(tag, language);
+          break;
+        case BCP47Language::REDUNDANT:
+          m_redundantByDescription.insert(description, language);
+          m_redundantBySubtag.insert(tag, language);
+          break;
+        default:
+          break;
+      }
     }
   }
 }
@@ -493,7 +508,7 @@ BCP47Languages::checkLocalFileForNewer(
   QDate fileDate)
 {
   if (m_fileDate < fileDate) {
-    m_languages = map;
+    m_datasetByDescription = map;
     updateMaps();
     emit languagesReset();
     saveToLocalFile(m_languageFile);
@@ -637,7 +652,7 @@ QList<QSharedPointer<BCP47Language>>
 BCP47Languages::getUniqueLanguages()
 {
   QList<QSharedPointer<BCP47Language>> uniqueLanguages;
-  for (auto language : m_languages.values()) {
+  for (auto& language : m_datasetByDescription.values()) {
     if (!uniqueLanguages.contains(language)) {
       uniqueLanguages.append(language);
     }
@@ -654,7 +669,7 @@ BCP47Languages::iainFileParsed(
   if (m_fileDate < fileDate) {
     if (noErrors) {
       m_fileDate = fileDate;
-      m_languages = languages;
+      m_datasetByDescription = languages;
       saveToLocalFile(m_languageFile);
       emit sendMessage(
         tr("Language file updated %1").arg(m_fileDate.toString(Qt::ISODate)));
@@ -664,24 +679,24 @@ BCP47Languages::iainFileParsed(
   }
 }
 
-QSharedPointer<BCP47Language>
-BCP47Languages::language(const QString& name)
+QStringList
+BCP47Languages::scriptDescriptions() const
 {
-  return m_languages.value(name);
+  return m_scriptByDescription.keys();
 }
 
 QStringList
-BCP47Languages::scriptNames() const
+BCP47Languages::scriptSubtags() const
 {
-  return m_scriptNames;
+  return m_scriptBySubtag.keys();
 }
 
 QString
 BCP47Languages::scriptTag(const QString& languageName,
                           const QString& scriptName)
 {
-  auto tags = m_language.value(languageName);
-  auto scriptTag = m_script.value(scriptName);
+  auto tags = m_languageBySubtag.value(languageName);
+  auto scriptTag = m_scriptBySubtag.value(scriptName);
   if (!tags.isNull() || !scriptTag.isNull())
     return tags->prefix().at(0) + "-" + scriptTag->subtag() + "-" +
            tags->subtag();
@@ -691,12 +706,12 @@ BCP47Languages::scriptTag(const QString& languageName,
 QString
 BCP47Languages::variantTag(const QString& scriptName, const QString& region)
 {
-  auto tags = m_variant.value(scriptName);
+  auto tags = m_variantBySubtag.value(scriptName);
   if (region.isEmpty()) {
     if (!tags.isNull())
       return tags->prefix().at(0) + "-" + tags->subtag();
   } else {
-    auto regTag = m_region.value(region);
+    auto regTag = m_regionBySubtag.value(region);
     if (!tags.isNull() || !regTag.isNull())
       return tags->prefix().at(0) + "-" + regTag->subtag() + "-" +
              tags->subtag();
@@ -705,9 +720,15 @@ BCP47Languages::variantTag(const QString& scriptName, const QString& region)
 }
 
 QStringList
-BCP47Languages::grandfatheredNames() const
+BCP47Languages::grandfatheredDescriptions() const
 {
-  return m_grandfatheredNames;
+  return m_grandfatheredByDescription.keys();
+}
+
+QStringList
+BCP47Languages::grandfatheredSubtags() const
+{
+  return m_grandfatheredBySubtag.keys();
 }
 
 bool
@@ -719,14 +740,34 @@ BCP47Languages::isType(const QString& type)
   return false;
 }
 
+BCP47Language::Type
+BCP47Languages::type(const QString& value)
+{
+  if (isPrimaryLanguage(value))
+    return BCP47Language::LANGUAGE;
+  else if (isExtLang(value))
+    return BCP47Language::EXTLANG;
+  else if (isVariant(value))
+    return BCP47Language::VARIANT;
+  else if (isRegion(value))
+    return BCP47Language::REGION;
+  else if (isScript(value))
+    return BCP47Language::SCRIPT;
+  else if (isGrandfathered(value))
+    return BCP47Language::GRANDFATHERED;
+  else if (isRedundant(value))
+    return BCP47Language::REDUNDANT;
+  return BCP47Language::BAD_TAG;
+}
+
 BCP47Language::TagTypes
 BCP47Languages::testPrimaryLanguage(const QString& value)
 {
   if (value == "i" || value == "x")
     return BCP47Language::PRIVATE_LANGUAGE;
-  else if (m_languageNames.contains(value))
+  else if (isPrimaryLanguage(value))
     return BCP47Language::PRIMARY_LANGUAGE;
-  else if (m_extlangNames.contains(value))
+  else if (isExtLang(value))
     return BCP47Language::EXTENDED_AS_PRIMARY;
   return BCP47Language::BAD_PRIMARY_LANGUAGE;
 }
@@ -736,7 +777,7 @@ BCP47Languages::testExtendedlanguage(const QString& value,
                                      BCP47Language::TagTypes& tagTypes)
 {
   if (isExtLang(value)) {
-    auto tag = m_extlan.value(value);
+    auto tag = m_extlangBySubtag.value(value);
     if (tagTypes.testFlag(BCP47Language::PRIMARY_LANGUAGE) ||
         tagTypes.testFlag(BCP47Language::PRIVATE_LANGUAGE) ||
         tagTypes.testFlag(BCP47Language::BAD_PRIMARY_LANGUAGE)) {
@@ -766,7 +807,7 @@ BCP47Languages::testScript(const QString& value,
     tagTypes.setFlag(BCP47Language::DUPLICATE_SCRIPT);
   } else if (value >= "Qaaa" && value <= "Qabx")
     tagTypes.setFlag(BCP47Language::PRIVATE_SCRIPT);
-  else if (m_scriptNames.contains(value))
+  else if (m_scriptByDescription.contains(value))
     tagTypes.setFlag(BCP47Language::SCRIPT_LANGUAGE);
   else
     tagTypes.setFlag(BCP47Language::NO_SCRIPT);
@@ -783,7 +824,7 @@ BCP47Languages::testRegion(const QString& value,
   } else if (lValue == "aa" || (lValue >= "qm" && lValue <= "qz") ||
              (lValue >= "xa" && lValue <= "xz") || lValue == "zz")
     tagTypes.setFlag(BCP47Language::PRIVATE_REGION);
-  else if (m_regionNames.contains(value))
+  else if (m_regionByDescription.contains(value))
     tagTypes.setFlag(BCP47Language::REGIONAL_LANGUAGE);
   else if (m_unStatistical->isM49Valid(value))
     tagTypes.setFlag(BCP47Language::UN_STATISTICAL_REGION);
@@ -792,9 +833,45 @@ BCP47Languages::testRegion(const QString& value,
 }
 
 bool
-BCP47Languages::isExtLang(const QString& value)
+BCP47Languages::isPrimaryLanguage(const QString& subtag)
 {
-  return m_extlangNames.contains(value);
+  return m_languageBySubtag.keys().contains(subtag);
+}
+
+bool
+BCP47Languages::isExtLang(const QString& subtag)
+{
+  return m_extlangBySubtag.keys().contains(subtag);
+}
+
+bool
+BCP47Languages::isVariant(const QString& subtag)
+{
+  return m_variantBySubtag.keys().contains(subtag);
+}
+
+bool
+BCP47Languages::isRegion(const QString& subtag)
+{
+  return m_extlangBySubtag.keys().contains(subtag);
+}
+
+bool
+BCP47Languages::isScript(const QString& subtag)
+{
+  return m_scriptBySubtag.keys().contains(subtag);
+}
+
+bool
+BCP47Languages::isGrandfathered(const QString& subtag)
+{
+  return m_grandfatheredBySubtag.keys().contains(subtag);
+}
+
+bool
+BCP47Languages::isRedundant(const QString& subtag)
+{
+  return m_redundantBySubtag.keys().contains(subtag);
 }
 
 BCP47Language::TagTypes
@@ -874,28 +951,82 @@ BCP47Languages::fileDate() const
   return m_fileDate;
 }
 
-QStringList
-BCP47Languages::regionNames() const
+QSharedPointer<BCP47Language>
+BCP47Languages::fromDescription(const QString& description)
 {
-  return m_regionNames;
+  return m_datasetByDescription.value(description);
+}
+
+QSharedPointer<BCP47Language>
+BCP47Languages::fromSubtag(const QString& subtag)
+{
+  return m_datasetBySubtag.value(subtag);
 }
 
 QStringList
-BCP47Languages::languageNames() const
+BCP47Languages::descriptions() const
 {
-  return m_languageNames;
+  return m_datasetByDescription.keys();
+}
+
+QStringList
+BCP47Languages::languageDescriptions() const
+{
+  return m_languageByDescription.keys();
+}
+
+QStringList
+BCP47Languages::languageSubtags() const
+{
+  return m_languageBySubtag.keys();
+}
+
+QStringList
+BCP47Languages::regionDescriptions() const
+{
+  return m_regionByDescription.keys();
+}
+
+QStringList
+BCP47Languages::regionSubtags() const
+{
+  return m_regionBySubtag.keys();
+}
+
+QStringList
+BCP47Languages::variantDescriptions() const
+{
+  return m_variantByDescription.keys();
+}
+
+QStringList
+BCP47Languages::variantSubtags() const
+{
+  return m_variantBySubtag.keys();
+}
+
+QStringList
+BCP47Languages::redundantDescriptions() const
+{
+  return m_redundantByDescription.keys();
+}
+
+QStringList
+BCP47Languages::redundantSubtags() const
+{
+  return m_redundantBySubtag.keys();
 }
 
 QString
 BCP47Languages::languageTag(const QString& languageName,
                             const QString& regionName)
 {
-  auto tag = m_language.value(languageName);
+  auto tag = m_languageBySubtag.value(languageName);
   if (regionName.isEmpty()) {
     if (!tag.isNull())
       return tag->subtag();
   } else {
-    auto regTag = m_region.value(regionName);
+    auto regTag = m_regionBySubtag.value(regionName);
     if (!tag.isNull() && !regTag.isNull()) {
       return tag->subtag() + "-" + regTag->subtag();
     }
@@ -904,59 +1035,35 @@ BCP47Languages::languageTag(const QString& languageName,
 }
 
 QMultiMap<QString, QSharedPointer<BCP47Language>>
-BCP47Languages::completeMap()
+BCP47Languages::dataset()
 {
-  return m_languages;
-}
-
-QMap<QString, QSharedPointer<BCP47Language>>
-BCP47Languages::languageMap()
-{
-  return m_language;
-}
-
-QMap<QString, QSharedPointer<BCP47Language>>
-BCP47Languages::extlanMap()
-{
-  return m_extlan;
-}
-
-QMap<QString, QSharedPointer<BCP47Language>>
-BCP47Languages::regionMap()
-{
-  return m_region;
-}
-
-QMap<QString, QSharedPointer<BCP47Language>>
-BCP47Languages::scriptMap()
-{
-  return m_script;
-}
-
-QMap<QString, QSharedPointer<BCP47Language>>
-BCP47Languages::variantMap()
-{
-  return m_variant;
+  return m_datasetByDescription;
 }
 
 QStringList
-BCP47Languages::extlangNames() const
+BCP47Languages::extlangDescriptions() const
 {
-  return m_extlangNames;
+  return m_extlangByDescription.keys();
+}
+
+QStringList
+BCP47Languages::extlangSubtags() const
+{
+  return m_extlangBySubtag.keys();
 }
 
 QString
 BCP47Languages::extLangTag(const QString& extlanName)
 {
-  auto langTag = m_language.value(extlanName);
+  auto langTag = m_languageBySubtag.value(extlanName);
   return langTag->prefix().at(0) + "-" + langTag->preferredValue();
 }
 
 void
-BCP47Languages::addLanguage(const QString& name,
+BCP47Languages::addLanguage(const QString& description,
                             QSharedPointer<BCP47Language> language)
 {
-  m_languages.insert(name, language);
+  m_datasetByDescription.insert(description, language);
 }
 
 //====================================================================
@@ -1180,7 +1287,6 @@ LanguageParser::parse()
       languageMap.insert(description, language);
     }
     language = nullptr;
-    state = BCP47Languages::FINISHED;
   }
   emit parseCompleted(languageMap, fileDate, errors.isEmpty());
   if (!errors.isEmpty())

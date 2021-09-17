@@ -57,13 +57,14 @@ public:
   enum Type
   {
     // below used both in tags and values flags
-    LANGUAGE = 0x1,       //!< Language tags or Values flag
-    EXTLANG = 0x2,        //!< ExtLang tags or Values flag
-    SCRIPT = 0x4,         //!< Script tags or Values flag
-    REGION = 0x8,         //!< Regional tags or Values flag
-    VARIANT = 0x10,       //!< Variant tags or Values flag
-    GRANDFATHERED = 0x20, //!< Grandfathered tags or Values flag
-    REDUNDANT = 0x40,     //!< Reduntant tag or Values flag
+    BAD_TAG,
+    LANGUAGE,      //!< Language tags or Values flag
+    EXTLANG,       //!< ExtLang tags or Values flag
+    SCRIPT,        //!< Script tags or Values flag
+    REGION,        //!< Regional tags or Values flag
+    VARIANT,       //!< Variant tags or Values flag
+    GRANDFATHERED, //!< Grandfathered tags or Values flag
+    REDUNDANT,     //!< Reduntant tag or Values flag
   };
   enum TagType
   {
@@ -74,10 +75,10 @@ public:
     EXTENDED_LANGUAGE = 0x8,
     EXTLANG_MISMATCH = 0x10,   //!< Language and extended language don't match
     DUPLICATE_EXTENDED = 0x20, //!< extended followed by extended not allowed
-      EXTENDED_FOLLOWS_SCRIPT =
-        0x40, //!< script MUST follow extlang if it exists.
-      EXTENDED_FOLLOWS_REGION =
-        0x80, //!< region MUST follow extlang if it exists.
+    EXTENDED_FOLLOWS_SCRIPT =
+      0x40, //!< script MUST follow extlang if it exists.
+    EXTENDED_FOLLOWS_REGION =
+      0x80, //!< region MUST follow extlang if it exists.
             //
     SCRIPT_LANGUAGE = 0x100,
     DUPLICATE_SCRIPT = 0x200, //!< DUPLICATE SCRIPT flag
@@ -88,7 +89,7 @@ public:
     PRIVATE_REGION = 0x20000,        //!< A private region.
     NO_REGION = 0x40000,             //!< No region section
     UN_STATISTICAL_REGION = 0x80000, //!< A UN statistical area code.
-    DUPLICATE_REGION = 0x100000,    //!< A UN statistical area code.
+    DUPLICATE_REGION = 0x100000,     //!< A UN statistical area code.
 
     BAD_PRIMARY_LANGUAGE = 0x1000000, //!< Bad tag, only used in TagTypes flag
 
@@ -149,6 +150,9 @@ public:
   void setComments(const QString& comments);
   //! Appends further  characters to the comment string.
   void appendComment(const QString& extra);
+  //! Returns true if the BCPLanguage object has a comment, otherwise returns
+  //! false.
+  bool hasComment();
   //! Returns true if this tag is deprecated.
   bool isDeprecated() const;
   //! Sets the value of the deprecated flag.
@@ -173,7 +177,7 @@ public:
   static Type fromString(const QString& name);
 
 private:
-  Type m_type = LANGUAGE;
+  Type m_type;
   QString m_subtag;
   QString m_tag;
   QStringList m_descriptions;
@@ -250,8 +254,28 @@ Q_DECLARE_OPERATORS_FOR_FLAGS(LanguageParser::Errors)
   in a YAML file to enable faster access. Downloading and parsing are both
   done in seperate threads so as not to delay the main application.
 
-  data is stored in a map of registry deascription against BCP47Language
+  Data is stored in a map of registry description against BCP47Language
   objects.
+
+   Region names, defined by the BCP47Language::REGION type are
+   used to extend a language in a similar way to the EXTLANG types.
+   However these types ONLY define the regional code and do not specify
+   the primary language.
+
+   Region names are used with a hyphon to specify a regional variation
+   of a primary language for example Canadian French would be specified
+   by fr-CA with fr being the primary language and CA specifying Canada
+   as a region.
+
+   Prefixes are defined using the xx_yyy format where
+   xx is the main language defined by BCP47Language::prefix().at(0)
+   and yyy is the sub-language defined by BCP47Language::preferredValue().
+   For example 'Algerian Saharan Arabic' has a prefix of Arabic (ar) and
+   a preferredValue() of (aao) and would be specified using 'ar_aao'.
+
+   \note extlang languages have a single prefix, however other types can#
+   have more than one, VARIANT for example which is why prefix() returns a
+   QStringList rather than a single value.
 
   You can force a data rebuild by calling rebuildFromRegistry();
 
@@ -291,11 +315,79 @@ public:
   //! has been updated and updates the stored data and YAML file accordingly.
   virtual void readFromLocalFile(QFile& file);
 
-  //! \brief Returns the set of main language names as a list of QString.
+  //! \brief Returns the set of description strings.
   //!
-  //! Main language types, defined by the BCP47Language::LANGUAGE type
+  //! This is the entire list of descriptions for ALL BCP47Language types.
+  //! Use these values to access the entire list of types.
+  QStringList descriptions() const;
+
+  //! \brief Returns the BCP47Language data for the supplied description.
   //!
-  QStringList languageNames() const;
+  //! \note This does not check the type of the language. It could be
+  //! either a main language, a regional language or an extended language
+  //! or something else.
+  //!
+  //! You will need to check the type using BCPLanguage::type() and
+  //! handle it accordingly.
+  QSharedPointer<BCP47Language> fromDescription(const QString& description);
+  QSharedPointer<BCP47Language> fromSubtag(const QString& subtag);
+
+  //! \brief Returns the set of primary language descriptions as a list of
+  //! QString.
+  QStringList languageDescriptions() const;
+
+  //! \brief Returns the set of primary language subtags as a list of
+  //! QString.
+  QStringList languageSubtags() const;
+
+  //! \brief Returns the set of regional descriptions as a list of QString.
+  QStringList regionDescriptions() const;
+
+  //! \brief Returns the set of regional subtags as a list of QString.
+  QStringList regionSubtags() const;
+
+  //! \brief Returns the set of extended language descriptions as a list of
+  //! QStrings.
+  QStringList extlangDescriptions() const;
+
+  //! \brief Returns the set of extended language subtags as a list of QStrings.
+  QStringList extlangSubtags() const;
+
+  //! \brief The list of script  descriptions as a list of QStrings.
+  QStringList scriptDescriptions() const;
+
+  //! \brief The list of script  subtags as a list of QStrings.
+  QStringList scriptSubtags() const;
+
+  //! \brief The list of variant  descriptions as a list of QStrings.
+  QStringList variantDescriptions() const;
+
+  //! \brief The list of variant  subtags as a list of QStrings.
+  QStringList variantSubtags() const;
+
+  //! \brief The list of grandfathered  descriptions as a list of QStrings.
+  //!
+  //! These tags should generally not be used and are retained for historical
+  //! reasons.
+  QStringList grandfatheredDescriptions() const;
+
+  //! \brief The list of grandfathered  subtags as a list of QStrings.
+  //!
+  //! These tags should generally not be used and are retained for historical
+  //! reasons.
+  QStringList grandfatheredSubtags() const;
+
+  //! \brief The list of redundant  descriptions as a list of QStrings.
+  //!
+  //! These tags should generally not be used and are retained for historical
+  //! reasons.
+  QStringList redundantDescriptions() const;
+
+  //! \brief The list of redundant  subtags as a list of QStrings.
+  //!
+  //! These tags should generally not be used and are retained for historical
+  //! reasons.
+  QStringList redundantSubtags() const;
 
   //! \brief Returns the tag for the supplied language name, with optional
   //! region name.
@@ -305,31 +397,6 @@ public:
   //! be returned.
   QString languageTag(const QString& languageName, const QString& regionName);
 
-  //! \brief Returns the set of regional names as a list of QString.
-  //!
-  //! Region names, defined by the BCP47Language::REGION type are
-  //! used to extend a language in a similar way to the EXTLANG types.
-  //! However these types ONLY define the regional code and do not specify
-  //! the primary language.
-  //!
-  //! Region names are used with a hyphon to specify a regional variation
-  //! of a primary language for example Canadian French would be specified
-  //! by fr-CA with fr being the primary language and CA specifying Canada
-  //! as a region.
-  QStringList regionNames() const;
-
-  //! \brief Returns the set of extended language names as a list of QStrings.
-  //!
-  //! These are defined using the xx_yyy format where
-  //! xx is the main language defined by BCP47Language::prefix().at(0)
-  //! and yyy is the sub-language defined by BCP47Language::preferredValue().
-  //! For example 'Algerian Saharan Arabic' has a prefix of Arabic (ar) and
-  //! a preferredValue() of (aao) and would be specified using 'ar_aao'.
-  //!
-  //! \note extlang languages have a single prefix, however other types can#
-  //! have more than one, VARIANT for example which is why prefix() returns a
-  //! QStringList rather than a single value.
-  QStringList extlangNames() const;
   //! \brief Return the tag value for the supplied extlang name .
   //!
   //! For example for the Gulf Arabic it would return **ar-afb** would be
@@ -337,20 +404,6 @@ public:
   //!
   //! If the name in invalid then an empty string will be returned.
   QString extLangTag(const QString& extlanName);
-
-  //! \brief Returns the BCP47Language data for the supplied name.
-  //!
-  //! \note This does not check the type of the language. It could be
-  //! either a main language, a regional language or an extended language
-  //! or something else.
-  //!
-  //! You will need to check the type using BCPLanguage::type() and
-  //! handle it accordingly.
-  QSharedPointer<BCP47Language> language(const QString& name);
-
-  //! \brief Returns the BCP47Language data for the script name.
-  //!
-  QStringList scriptNames() const;
 
   //! \brief Return the tag value for the supplied language name and script
   //! name.
@@ -371,35 +424,52 @@ public:
   //! If either of the names in invalid then an empty string will be returned.
   QString variantTag(const QString& scriptName, const QString& region);
 
-  //! \brief The list of grandfathered tags can ba found using one of these
-  //! names with the languages() method.
-  //!
-  //! These tags should generally not be used and are retained for historical
-  //! reasons.
-  QStringList grandfatheredNames() const;
-
   //! \brief static method which checks whether the supplied string is one of
   //! the valid tag names. Returns true if it is, otherwise returns false.
   //!
   //! The string comparison is case insensitive.
   static bool isType(const QString& type);
 
+  //! Returns the BCP47Language::Type for the supplied subtag string or BAD_TAG
+  //! if it is not a valid subtag of any type.
+  //!
+  //! \sa BCP47Language::Type
+  BCP47Language::Type type(const QString& value);
+
   BCP47Language::TagTypes testTag(QString& value);
+
+  //! Tests whether the subtag string is a valid primary language tag. Returns
+  //! true if it is otherwise returns false.
+  bool isPrimaryLanguage(const QString& subtag);
+
+  //! Tests whether the subtag string is a valid extlang tag. Returns
+  //! true if it is otherwise returns false.
+  bool isExtLang(const QString& subtag);
+
+  //! Tests whether the subtag string is a valid variant tag. Returns
+  //! true if it is otherwise returns false.
+  bool isVariant(const QString& subtag);
+
+  //! Tests whether the subtag string is a valid region tag. Returns
+  //! true if it is otherwise returns false.
+  bool isRegion(const QString& subtag);
+
+  //! Tests whether the subtag string is a valid script tag. Returns
+  //! true if it is otherwise returns false.
+  bool isScript(const QString& subtag);
+
+  //! Tests whether the subtag string is a valid grandfathered tag. Returns
+  //! true if it is otherwise returns false.
+  bool isGrandfathered(const QString& subtag);
+
+  //! Tests whether the subtag string is a valid redundant tag. Returns
+  //! true if it is otherwise returns false.
+  bool isRedundant(const QString& subtag);
 
   QDate fileDate() const;
 
   //! Returns the entire map of Description to BCP47Language objects.
-  QMultiMap<QString, QSharedPointer<BCP47Language>> completeMap();
-  //! Returns the map of Description to LANGUAGE types.
-  QMap<QString, QSharedPointer<BCP47Language>> languageMap();
-  //! Returns the map of Description to EXTLAN types.
-  QMap<QString, QSharedPointer<BCP47Language>> extlanMap();
-  //! Returns the map of Description to REGION types.
-  QMap<QString, QSharedPointer<BCP47Language>> regionMap();
-  //! Returns the map of Description to SCRIPT types.
-  QMap<QString, QSharedPointer<BCP47Language>> scriptMap();
-  //! Returns the map of Description to VARIANT types.
-  QMap<QString, QSharedPointer<BCP47Language>> variantMap();
+  QMultiMap<QString, QSharedPointer<BCP47Language>> dataset();
 
   //! Saves the data to a local file.
   //!
@@ -431,19 +501,24 @@ signals:
   void parsingError(const QString& errorStr);
 
 private:
-  QMultiMap<QString, QSharedPointer<BCP47Language>> m_languages;
-  QMap<QString, QSharedPointer<BCP47Language>> m_language;
-  QMap<QString, QSharedPointer<BCP47Language>> m_extlan;
-  QMap<QString, QSharedPointer<BCP47Language>> m_region;
-  QMap<QString, QSharedPointer<BCP47Language>> m_script;
-  QMap<QString, QSharedPointer<BCP47Language>> m_variant;
-  QStringList m_languageNames;
-  QStringList m_extlangNames;
-  QStringList m_regionNames;
-  QStringList m_scriptNames;
-  QStringList m_variantNames;
-  QStringList m_grandfatheredNames;
-  QStringList m_redundantNames;
+  QMultiMap<QString, QSharedPointer<BCP47Language>> m_datasetByDescription;
+  QMultiMap<QString, QSharedPointer<BCP47Language>> m_datasetBySubtag;
+  QMap<QString, QSharedPointer<BCP47Language>> m_languageByDescription;
+  QMap<QString, QSharedPointer<BCP47Language>> m_languageBySubtag;
+  QMap<QString, QSharedPointer<BCP47Language>> m_extlangByDescription;
+  QMap<QString, QSharedPointer<BCP47Language>> m_extlangBySubtag;
+  QMap<QString, QSharedPointer<BCP47Language>> m_regionByDescription;
+  QMap<QString, QSharedPointer<BCP47Language>> m_regionBySubtag;
+  QMap<QString, QSharedPointer<BCP47Language>> m_scriptByDescription;
+  QMap<QString, QSharedPointer<BCP47Language>> m_scriptBySubtag;
+  QMap<QString, QSharedPointer<BCP47Language>> m_variantByDescription;
+  QMap<QString, QSharedPointer<BCP47Language>> m_variantBySubtag;
+  // some grandfathered descriptions are NOT unique.
+  QMultiMap<QString, QSharedPointer<BCP47Language>> m_grandfatheredByDescription;
+  QMap<QString, QSharedPointer<BCP47Language>> m_grandfatheredBySubtag;
+  QMap<QString, QSharedPointer<BCP47Language>> m_redundantByDescription;
+  QMap<QString, QSharedPointer<BCP47Language>> m_redundantBySubtag;
+
   QDate m_fileDate;
   LanguageParser* worker;
   QFile m_languageFile;
@@ -453,7 +528,8 @@ private:
   const static QStringList TAGTYPES;
   const static QString IAINREGISTRY;
 
-  void addLanguage(const QString& name, QSharedPointer<BCP47Language> language);
+  void addLanguage(const QString& description,
+                   QSharedPointer<BCP47Language> language);
   void loadYamlFile(QFile& file);
   void checkLocalFileForNewer(
     QMultiMap<QString, QSharedPointer<BCP47Language>> map,
@@ -466,17 +542,15 @@ private:
                       QDate,
                       bool noErrors);
   void updateMaps();
+
   BCP47Language::TagTypes testPrimaryLanguage(const QString& value);
-  void testExtendedlanguage(
-    const QString& value,
-    BCP47Language::TagTypes& tagTypes);
+  void testExtendedlanguage(const QString& value,
+                            BCP47Language::TagTypes& tagTypes);
   void testScript(const QString& value, BCP47Language::TagTypes& tagTypes);
-  void testRegion(const QString& value,
-                                     BCP47Language::TagTypes& tagTypes);
-  bool isExtLang(const QString& value);
+  void testRegion(const QString& value, BCP47Language::TagTypes& tagTypes);
 
   friend class LanguageParser;
-  QList<QSharedPointer<BCP47Language> > getUniqueLanguages();
+  QList<QSharedPointer<BCP47Language>> getUniqueLanguages();
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(BCP47Language::TagTypes)
