@@ -12,6 +12,8 @@
 //#define VERSION_3_2
 //#define VERSION_3_3
 
+#define TESTDIALOG
+
 MainWindow::MainWindow(QWidget* parent)
   : QMainWindow(parent)
   , m_width(1200)
@@ -21,6 +23,16 @@ MainWindow::MainWindow(QWidget* parent)
 
   m_config = new Config(this);
 
+#if defined(TESTDIALOG)
+  // TEMPORARY TEST STUFF
+  auto builder = new LanguageTagBuilderDialog(this);
+  if (builder->exec()==QDialog::Accepted) {
+    auto data = builder->tag();
+  }
+
+  QCoreApplication::exit(0);
+  // TEMPORARY TEST STUFF
+#elif
   initGui();
 
   connect(
@@ -58,10 +70,7 @@ MainWindow::MainWindow(QWidget* parent)
 #endif
 
   m_editor->saveDocument();
-
-  //  auto languages = new BCP47Languages();
-  //  connect(languages, &BCP47Languages::completed, languages,
-  //  BCP47Languages::saveToLocalFile()); languages->rebuildFromRegistry();
+#endif
 }
 
 MainWindow::~MainWindow() {}
@@ -104,9 +113,6 @@ MainWindow::initGui()
 
   auto tabs = new QTabWidget(this);
 
-  auto builder = new LanguageTagBuilderDialog(this);
-  tabs->addTab(builder, tr("Language Builder"));
-
   m_editor = new EPubEdit(m_config, this);
   tabs->addTab(m_editor, tr("Editor"));
 
@@ -129,6 +135,7 @@ MainWindow::initGui()
   statusBar()->addPermanentWidget(m_msgLbl, 1);
   statusBar()->addPermanentWidget(m_lineLbl);
   statusBar()->addPermanentWidget(m_colLbl);
+
 }
 
 void

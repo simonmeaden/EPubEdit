@@ -841,43 +841,50 @@ BCP47Languages::testRegion(const QString& value,
 bool
 BCP47Languages::isPrimaryLanguage(const QString& subtag)
 {
-  return m_languageBySubtag.keys().contains(subtag);
+  auto keys = m_languageBySubtag.keys();
+  return keys.contains(subtag);
 }
 
 bool
 BCP47Languages::isExtLang(const QString& subtag)
 {
-  return m_extlangBySubtag.keys().contains(subtag);
+  auto keys = m_extlangBySubtag.keys();
+  return keys.contains(subtag);
 }
 
 bool
 BCP47Languages::isVariant(const QString& subtag)
 {
-  return m_variantBySubtag.keys().contains(subtag);
+  auto keys = m_variantBySubtag.keys();
+  return keys.contains(subtag);
 }
 
 bool
 BCP47Languages::isRegion(const QString& subtag)
 {
-  return m_extlangBySubtag.keys().contains(subtag);
+  auto keys = m_extlangBySubtag.keys();
+  return keys.contains(subtag);
 }
 
 bool
 BCP47Languages::isScript(const QString& subtag)
 {
-  return m_scriptBySubtag.keys().contains(subtag);
+  auto keys = m_scriptBySubtag.keys();
+  return keys.contains(subtag);
 }
 
 bool
 BCP47Languages::isGrandfathered(const QString& subtag)
 {
-  return m_grandfatheredByTag.keys().contains(subtag);
+  auto keys = m_grandfatheredByTag.keys();
+  return keys.contains(subtag);
 }
 
 bool
 BCP47Languages::isRedundant(const QString& subtag)
 {
-  return m_redundantByTag.keys().contains(subtag);
+  auto keys = m_redundantByTag.keys();
+  return keys.contains(subtag);
 }
 
 BCP47Language::TagTypes

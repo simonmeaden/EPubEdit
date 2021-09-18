@@ -400,6 +400,17 @@ public:
   //! BCP47Language::GRANDFATHERED types.
   QSharedPointer<BCP47Language> grandfatheredFromTag(
     const QString& tag);
+  //! \brief Returns a list of descriptions of all those BCP47Language::EXTLANG
+  //! types that have the supplied subtag, or an empty list if none exist.
+  QStringList extlangsWithPrefix(const QString subtag) {
+    QStringList list;
+    for (auto extlang : m_extlangBySubtag.values()) {
+      if (extlang && extlang->prefix().contains(subtag)) {
+        list << extlang->description();
+      }
+    }
+    return list;
+  }
 
   //! \brief Returns the set of primary language descriptions as a list of
   //! QString.
