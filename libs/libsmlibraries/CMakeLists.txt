@@ -28,6 +28,8 @@ target_include_directories(${PROJECT_NAME}
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
+set(TS_FILES ${CMAKE_SOURCE_DIR}/i18n/${PROJECT_NAME}_en_gb.ts ${CMAKE_SOURCE_DIR}/i18n/${PROJECT_NAME}_en_us.ts ${CMAKE_SOURCE_DIR}/i18n/${PROJECT_NAME}_de.ts)
+
 target_sources(${PROJECT_NAME}
 #  PUBLIC
 
@@ -74,6 +76,8 @@ target_sources(${PROJECT_NAME}
     src/x11colors.cpp
     include/paths.h
     src/paths.cpp
+    include/helpdialogs.h
+    src/helpdialogs.cpp
 )
 
 add_subdirectory(tests)

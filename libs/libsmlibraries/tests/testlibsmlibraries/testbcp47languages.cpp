@@ -131,7 +131,7 @@ TEST_F(BCP47LanguagesTest, PrimaryLanguage)
     // First check that all of the names have an associated language.
     auto language = languages.languageFromDescription(name);
     ASSERT_FALSE(language.isNull());
-    ASSERT_TRUE(language->type() == BCP47Language::LANGUAGE) << QString("Language: %1, %2").arg(language->typeString()).arg(language->description()).toStdString();
+    ASSERT_TRUE(language->type() == BCP47Language::LANGUAGE) << QObject::tr("Language: %1, %2").arg(language->typeString()).arg(language->description()).toStdString();
   }
 
   values = languages.languageSubtags();
@@ -140,7 +140,7 @@ TEST_F(BCP47LanguagesTest, PrimaryLanguage)
     // First check that all of the names have an associated language.
     auto language = languages.languageFromSubtag(subtag);
     ASSERT_FALSE(language.isNull());
-    ASSERT_TRUE(language->type() == BCP47Language::LANGUAGE) << QString("Language: %1, %2").arg(language->typeString()).arg(language->description()).toStdString();
+    ASSERT_TRUE(language->type() == BCP47Language::LANGUAGE) << QObject::tr("Language: %1, %2").arg(language->typeString()).arg(language->description()).toStdString();
   }
 
   auto language = languages.languageFromSubtag("alu");

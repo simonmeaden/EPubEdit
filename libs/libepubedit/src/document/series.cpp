@@ -156,7 +156,7 @@ EBookSeriesDB::saveSeries()
     if (file.open((QFile::ReadWrite | QFile::Truncate))) {
       YAML::Emitter emitter;
       emitter << YAML::Comment(
-        QString("A YAML File is supposed to be user readable/editable but\n"
+        QObject::tr("A YAML File is supposed to be user readable/editable but\n"
                 "you need to be careful when manually editing.\n"
                 "Remember that the uid numbers stand for unique identifier\n"
                 "so if you edit these MAKE SURE THAT THEY ARE UNIQUE. If\n"

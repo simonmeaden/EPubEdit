@@ -1,4 +1,7 @@
 #include "languagetagbuilderdialog.h"
+#include "helpdialogs.h"
+#include "paths.h"
+#include "x11colors.h"
 
 //====================================================================
 //=== LanguageTagBuilderDialog
@@ -10,6 +13,7 @@ LanguageTagBuilderDialog::LanguageTagBuilderDialog(QWidget* parent)
       QDir(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation)))
   , m_configFile(
       (Paths::join(m_configDir.path(), "epubedit", "languages.yaml")))
+  , m_languageTag(tr("MISSING-PRIMARY-LANGUAGE"))
 {
   setWindowTitle(tr("Language tag Builder"));
   m_languages->readFromLocalFile(m_configFile);
@@ -35,12 +39,26 @@ LanguageTagBuilderDialog::createProxyModel()
 }
 
 void
+LanguageTagBuilderDialog::testTag()
+{
+  auto tag = m_resultLbl->currentTag();
+  auto tags = m_languages->testTag(tag);
+  qWarning();
+}
+
+void LanguageTagBuilderDialog::clearTag()
+{
+  m_resultLbl->clear();
+}
+
+void
 LanguageTagBuilderDialog::initGui()
 {
   auto layout = new QVBoxLayout;
   setLayout(layout);
 
-  auto box = new QGroupBox(tr("Primary Language"), this);
+  auto box =
+    new QGroupBox(tr("Primary Language", "Primary Language box title"), this);
   auto boxLayout = new QGridLayout;
   box->setLayout(boxLayout);
   layout->addWidget(box);
@@ -53,13 +71,15 @@ LanguageTagBuilderDialog::initGui()
           this,
           &LanguageTagBuilderDialog::languageChanged);
 
-  box = new QGroupBox(tr("Second Layer"), this);
+  box = new QGroupBox(tr("Language Extensions", "Language extension box title"),
+                      this);
   boxLayout = new QGridLayout;
   box->setLayout(boxLayout);
   layout->addWidget(box);
   m_extlangFilterEdit =
     new FilterEdit(m_languages->extlangDescriptions(), true, this);
-  boxLayout->addWidget(new QLabel(tr("Ext Lang"), this), 0, 0);
+  boxLayout->addWidget(
+    new QLabel(tr("Ext Lang", "EXTLANG label title"), this), 0, 0);
   boxLayout->addWidget(m_extlangFilterEdit, 0, 1);
   boxLayout->addWidget(m_extlangFilterEdit->comboBox(), 0, 2);
   boxLayout->addWidget(m_extlangFilterEdit->checkBox(), 0, 3);
@@ -73,7 +93,8 @@ LanguageTagBuilderDialog::initGui()
           &LanguageTagBuilderDialog::extlangChanged);
   m_scriptFilterEdit =
     new FilterEdit(m_languages->scriptDescriptions(), true, this);
-  boxLayout->addWidget(new QLabel(tr("Script"), this), 1, 0);
+  boxLayout->addWidget(
+    new QLabel(tr("Script", "Script label title"), this), 1, 0);
   boxLayout->addWidget(m_scriptFilterEdit, 1, 1);
   boxLayout->addWidget(m_scriptFilterEdit->comboBox(), 1, 2);
   boxLayout->addWidget(m_scriptFilterEdit->checkBox(), 1, 3);
@@ -87,7 +108,8 @@ LanguageTagBuilderDialog::initGui()
           &LanguageTagBuilderDialog::scriptChanged);
   m_regionFilterEdit =
     new FilterEdit(m_languages->regionDescriptions(), true, this);
-  boxLayout->addWidget(new QLabel(tr("Region"), this), 2, 0);
+  boxLayout->addWidget(
+    new QLabel(tr("Region", "Region label title"), this), 2, 0);
   boxLayout->addWidget(m_regionFilterEdit, 2, 1);
   boxLayout->addWidget(m_regionFilterEdit->comboBox(), 2, 2);
   boxLayout->addWidget(m_regionFilterEdit->checkBox(), 2, 3);
@@ -100,13 +122,20 @@ LanguageTagBuilderDialog::initGui()
           this,
           &LanguageTagBuilderDialog::regionChanged);
 
-  box = new QGroupBox(tr("Language Tag"), this);
-  auto resultLayout = new QVBoxLayout;
+  box = new QGroupBox(tr("Language Tag", "Tag dislay box title"), this);
+  auto resultLayout = new QHBoxLayout;
   box->setLayout(resultLayout);
   layout->addWidget(box);
-  m_resultLbl = new QLabel(
-    tr("A primary language is required by ISO639-1 and later!"), this);
-  resultLayout->addWidget(m_resultLbl);
+  m_resultLbl = new FilterLabel(this);
+  resultLayout->addWidget(m_resultLbl, 2);
+  auto TESTBTN = new QPushButton(tr("Test Tag", "Test tag button label"), this);
+  resultLayout->addWidget(TESTBTN, 1);
+  connect(
+    TESTBTN, &QPushButton::clicked, this, &LanguageTagBuilderDialog::testTag);
+  auto clearBtn = new QPushButton(tr("Clear tag", "Clear tag button label"), this);
+  resultLayout->addWidget(clearBtn, 1);
+  connect(
+    TESTBTN, &QPushButton::clicked, this, &LanguageTagBuilderDialog::clearTag);
 
   auto buttonBox = new QDialogButtonBox(
     QDialogButtonBox::Cancel | QDialogButtonBox::Apply | QDialogButtonBox::Help,
@@ -128,21 +157,22 @@ void
 LanguageTagBuilderDialog::languageChanged()
 {
   if (m_primaryFilterEdit->hasCurrentText()) {
-    auto language =
+    m_language =
       m_languages->languageFromDescription(m_primaryFilterEdit->currentText());
     // find matching extlang if any.
-    auto extlangs = m_languages->extlangsWithPrefix(language->subtag());
+    auto extlangs = m_languages->extlangsWithPrefix(m_language->subtag());
     if (!extlangs.isEmpty()) {
       // set extlang to only acceptable values.
       m_extlangFilterEdit->setValues(extlangs);
     } else {
       m_extlangFilterEdit->clearValues();
     }
-    if (language) {
-      m_language = language->subtag();
+    if (m_language) {
+      m_languageTag = m_language->subtag();
     }
   } else {
-    m_language = tr("MISSING-PRIMARY-LANGUAGE");
+    m_languageTag = tr("MISSING-PRIMARY-LANGUAGE",
+                       "Missing primary language warning message.");
   }
   updateTag();
 }
@@ -152,11 +182,11 @@ LanguageTagBuilderDialog::extlangChanged()
 {
   if (m_extlangFilterEdit->hasCurrentText() &&
       m_extlangFilterEdit->isRequired()) {
-    m_extlang = "-";
     auto language =
       m_languages->extlangFromDescription(m_extlangFilterEdit->currentText());
     if (language) {
-      m_extlang += language->subtag();
+      m_extlangTag = language->subtag();
+      m_extlangFilterEdit->setRequired(true);
     }
   }
   updateTag();
@@ -165,13 +195,22 @@ LanguageTagBuilderDialog::extlangChanged()
 void
 LanguageTagBuilderDialog::scriptChanged()
 {
-  if (m_scriptFilterEdit->hasCurrentText() &&
-      m_scriptFilterEdit->isRequired()) {
-    m_script = "-";
-    auto language =
-      m_languages->scriptFromDescription(m_scriptFilterEdit->currentText());
-    if (language) {
-      m_script += language->subtag();
+  if (!m_language->suppressScriptLang().isEmpty()) {
+    m_scriptFilterEdit->setUnavailableText(
+      tr("Script is suppressed for language %1",
+         "Requested script tag has been suppressed by ISO639")
+        .arg(m_language->description()));
+  } else {
+    m_scriptFilterEdit->setUnavailableText(
+      tr(" == None Available == ", "Displayed when no possible value exists"));
+    if (m_scriptFilterEdit->hasCurrentText() &&
+        m_scriptFilterEdit->isRequired()) {
+      auto language =
+        m_languages->scriptFromDescription(m_scriptFilterEdit->currentText());
+      if (language) {
+        m_scriptTag = language->subtag();
+        m_scriptFilterEdit->setRequired(true);
+      }
     }
   }
   updateTag();
@@ -182,11 +221,11 @@ LanguageTagBuilderDialog::regionChanged()
 {
   if (m_regionFilterEdit->hasCurrentText() &&
       m_regionFilterEdit->isRequired()) {
-    m_region = "-";
     auto language =
-      m_languages->regionFromDescription(m_extlangFilterEdit->currentText());
+      m_languages->regionFromDescription(m_regionFilterEdit->currentText());
     if (language) {
-      m_region += language->subtag();
+      m_regionTag = language->subtag();
+      m_regionFilterEdit->setRequired(true);
     }
   }
   updateTag();
@@ -196,89 +235,54 @@ void
 LanguageTagBuilderDialog::updateTag()
 {
   QString result;
-  if (!m_language.isEmpty())
-    result = m_language;
+  if (!m_languageTag.isEmpty())
+    result = m_languageTag;
 
-  if (!m_extlang.isEmpty() && m_extlangFilterEdit->isRequired()) {
-    result += QString("-%1").arg(m_extlang);
+  if (!m_extlangTag.isEmpty() && m_extlangFilterEdit->isRequired()) {
+    result += QString("-%1").arg(m_extlangTag);
   }
 
-  if (!m_script.isEmpty() && m_scriptFilterEdit->isRequired()) {
-    result += QString("-%1").arg(m_script);
+  if (!m_scriptTag.isEmpty() && m_scriptFilterEdit->isRequired()) {
+    result += QString("-%1").arg(m_scriptTag);
   }
 
-  if (!m_region.isEmpty() && m_regionFilterEdit->isRequired()) {
-    result += QString("-%1").arg(m_region);
+  if (!m_regionTag.isEmpty() && m_regionFilterEdit->isRequired()) {
+    result += QString("-%1").arg(m_regionTag);
   }
 
-  m_resultLbl->setText(result);
-  //  if (m_languages->testTag(result) == 0) {
+  m_resultLbl->setCurrentTag(result);
+  //  auto tags = m_languages->testTag(result);
+  //  qWarning();
+  //  if (tags == 0) {
   //    m_resultLbl->setStyleSheet("QLabel {color: green; }");
   //  } else {
   //    m_resultLbl->setStyleSheet("QLabel {color: green; }");
   //  }
 }
 
+QString
+LanguageTagBuilderDialog::tag()
+{
+  return m_resultLbl->text();
+}
+
 void
 LanguageTagBuilderDialog::help()
 {
-  // TODO help shit
-  auto dlg = new HelpDialog(this);
+  auto dlg = new SimpleHelpDialog(tr("Language Tag Builder Help"), this);
+  dlg
+    ->setHelpText(
+      tr("ISO639-1 and later require that the language tags be\n"
+         "built in a certain order. There MUST be a primary language\n"
+         "tag in the first position.This can be followed by one of\n"
+         "  1. An extended language tag\n"
+         "     This can be followed by further optional tags, a script tag or\n"
+         "     a regional tag, or a script tag followed by a regional tag.\n"
+         "  2. A language script tag\n"
+         "     This can be followed by an optional regional tag\n"
+         "  3. A regional tag.\n"
+         ""));
   dlg->show();
-}
-
-//====================================================================
-//=== HelpDialog
-//====================================================================
-LanguageTagBuilderDialog::HelpDialog::HelpDialog(QWidget* parent)
-  : QDialog(parent)
-{
-  setWindowTitle(tr("Help about Language Tags"));
-
-  auto lbl = new QLabel(this);
-  lbl->setText(
-    tr("ISO639-1 and later require that the language tags be\n"
-       "built in a certain order. There MUST be a primary language\n"
-       "tag in the first position.This can be followed by one of\n"
-       "  1. An extended language tag\n"
-       "     This can be followed by further optional tags, a script tag or\n"
-       "     a regional tag, or a script tag followed by a regional tag.\n"
-       "  2. A language script tag\n"
-       "     This can be followed by an optional regional tag\n"
-       "  3. A regional tag.\n"
-       ""));
-  auto layout = new QGridLayout;
-  setLayout(layout);
-  layout->addWidget(lbl, 0, 0);
-
-  moreBtn = new QPushButton(tr("More"), this);
-  connect(moreBtn, &QPushButton::clicked, this, &HelpDialog::more);
-  layout->addWidget(moreBtn, 0, 1);
-
-  extension = new QWidget(this);
-  auto extensionLayout = new QHBoxLayout;
-  auto lbl2 = new QLabel(tr("Extended help to be done"), this);
-  extensionLayout->setContentsMargins(QMargins());
-  extension->setLayout(extensionLayout);
-  extensionLayout->addWidget(lbl2);
-  extension->hide();
-  layout->addWidget(extension, 1, 0);
-
-  auto closeBtn = new QPushButton(tr("Close"), this);
-  layout->addWidget(closeBtn, 2, 0, 1, 2);
-  connect(closeBtn, &QPushButton::clicked, this, &HelpDialog::reject);
-}
-
-void
-LanguageTagBuilderDialog::HelpDialog::more()
-{
-  if (extension->isVisible()) {
-    moreBtn->setText(tr("More"));
-    extension->setVisible(false);
-  } else {
-    moreBtn->setText(tr("Less"));
-    extension->setVisible(true);
-  }
 }
 
 //====================================================================
@@ -290,11 +294,14 @@ LanguageTagBuilderDialog::FilterEdit::FilterEdit(
   LanguageTagBuilderDialog* parent)
   : QLineEdit(parent)
   , m_showRequired(showRequired)
-  , m_selection(new QComboBox(parent))
+  , m_selection(new FilterComboBox(parent))
   , m_required(showRequired ? new QCheckBox(tr("Use Tag"), parent) : nullptr)
   , m_parent(parent)
 {
-  items.prepend(tr("Nothing selected"));
+  m_filterText = tr(" == Filter == ");
+
+  items.prepend(
+    tr("Nothing selected", "Displayed when no filter text is entered."));
   auto model = new QStringListModel();
   model->setStringList(items);
   auto proxyModel = new QSortFilterProxyModel;
@@ -371,14 +378,32 @@ LanguageTagBuilderDialog::FilterEdit::isRequired()
 }
 
 void
+LanguageTagBuilderDialog::FilterEdit::setRequired(bool value)
+{
+  if (m_required)
+    m_required->setChecked(value);
+}
+
+void
+LanguageTagBuilderDialog::FilterEdit::setFilterText(const QString& text)
+{
+  m_filterText = text;
+}
+
+void
+LanguageTagBuilderDialog::FilterEdit::setUnavailableText(const QString& text)
+{
+  m_selection->setUnavailableText(text);
+}
+
+void
 LanguageTagBuilderDialog::FilterEdit::paintEvent(QPaintEvent* event)
 {
   if (text().isEmpty()) {
     QLineEdit::paintEvent(event);
-    QString filterText = tr(" == Filter == ");
     QPainter painter(this);
-    painter.setPen(QColorConstants::Svg::lightgrey);
-    painter.drawText(rect(), Qt::AlignLeft | Qt::AlignVCenter, filterText);
+    painter.setPen(QColorConstants::X11::grey70);
+    painter.drawText(rect(), Qt::AlignLeft | Qt::AlignVCenter, m_filterText);
   } else {
     QLineEdit::paintEvent(event);
   }
@@ -389,4 +414,75 @@ LanguageTagBuilderDialog::FilterEdit::primaryFilterChanged(const QString& text)
 {
   QRegularExpression regex(text, QRegularExpression::CaseInsensitiveOption);
   model()->setFilterRegularExpression(regex);
+}
+
+//====================================================================
+//=== FilterComboBox
+//====================================================================
+LanguageTagBuilderDialog::FilterEdit::FilterComboBox::FilterComboBox(
+  QWidget* parent)
+  : QComboBox(parent)
+{
+  m_unavailableText =
+    tr(" == None Available == ", "Displayed whenno values are available");
+}
+
+void
+LanguageTagBuilderDialog::FilterEdit::FilterComboBox::paintEvent(
+  QPaintEvent* event)
+{
+  if (currentText().isEmpty()) {
+    QComboBox::paintEvent(event);
+    QPainter painter(this);
+    painter.setPen(QColorConstants::X11::grey50);
+    painter.drawText(
+      rect(), Qt::AlignLeft | Qt::AlignVCenter, m_unavailableText);
+  } else {
+    QComboBox::paintEvent(event);
+  }
+}
+
+//====================================================================
+//=== FilterLabel
+//====================================================================
+LanguageTagBuilderDialog::FilterLabel::FilterLabel(QWidget* parent)
+  : QLabel(parent)
+  , m_initialText(tr("A primary language is required by ISO639-1 and later!",
+                     "Inital text in tag display"))
+{
+  setText(m_initialText);
+}
+
+QString
+LanguageTagBuilderDialog::FilterLabel::currentTag() const
+{
+  return m_tagValue;
+}
+
+void
+LanguageTagBuilderDialog::FilterLabel::setCurrentTag(const QString& tagValue)
+{
+  m_tagValue = tagValue;
+  auto displayText =
+    tr("Current Tag : %1", "Tag display text, value replaces %1")
+      .arg(m_tagValue);
+  setText(displayText);
+}
+
+void LanguageTagBuilderDialog::FilterLabel::clear() {
+  m_tagValue.clear();
+  QLabel::clear();
+}
+
+void
+LanguageTagBuilderDialog::FilterLabel::paintEvent(QPaintEvent* event)
+{
+  if (currentTag().isEmpty()) {
+    QLabel::paintEvent(event);
+    QPainter painter(this);
+    //    painter.setPen(QColorConstants::X11::grey50);
+    painter.drawText(rect(), Qt::AlignLeft | Qt::AlignVCenter, m_tagValue);
+  } else {
+    QLabel::paintEvent(event);
+  }
 }

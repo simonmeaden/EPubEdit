@@ -553,7 +553,7 @@ EPubDocument::parseManifestItem(const QDomNode& manifest_node,
           item->mediaType == "image/png") {
 
         if (!QImageReader::supportedMimeTypes().contains(item->mediaType)) {
-          qDebug() << QString("Requested image type %1 is an unsupported type")
+          qDebug() << tr("Requested image type %1 is an unsupported type")
                         .arg(QString(item->mediaType));
         }
 

@@ -18,6 +18,8 @@ target_compile_options(${PROJECT_NAME} PRIVATE -Werror)
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX "d")
 
+set(TS_FILES ${CMAKE_SOURCE_DIR}/i18n/${PROJECT_NAME}_en_gb.ts ${CMAKE_SOURCE_DIR}/i18n/${PROJECT_NAME}_en_us.ts ${CMAKE_SOURCE_DIR}/i18n/${PROJECT_NAME}_de.ts)
+
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
     Qt${QT_VERSION_MAJOR}::Gui

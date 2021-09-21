@@ -11,10 +11,9 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-set(TS_FILES lang/epubedit_en_GB.ts)
 
 list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_SOURCE_DIR}/cmake)
 
@@ -45,6 +44,12 @@ find_package(
     Concurrent
     LinguistTools
   REQUIRED)
+
+#message("src" ${CMAKE_SOURCE_DIR})
+
+set(TS_FILES ${CMAKE_SOURCE_DIR}/i18n/${PROJECT_NAME}_en_gb.ts ${CMAKE_SOURCE_DIR}/i18n/${PROJECT_NAME}_en_us.ts ${CMAKE_SOURCE_DIR}/i18n/${PROJECT_NAME}_de.ts)
+#set_source_files_properties(${TS_FILES} PROPERTIES OUTPUT_LOCATION "i18n")
+#qt_create_translation(EPubEdit ${CMAKE_SOURCE_DIR} ${TS_FILES} )
 
 find_package(gtest REQUIRED gtest>=1.7.0 PATHS /usr/lib64/cmake/GTest NAMES GTest)
 set(gtest_disable_pthreads on)

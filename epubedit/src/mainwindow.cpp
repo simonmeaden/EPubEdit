@@ -297,8 +297,8 @@ MainWindow::center(const QScreen* s)
 void
 MainWindow::setStatusLineAndCol(int line, int col)
 {
-  m_lineLbl->setText(QString("Line: %1").arg(line));
-  m_colLbl->setText(QString("Col: %1").arg(col));
+  m_lineLbl->setText(tr("Line: %1").arg(line));
+  m_colLbl->setText(tr("Col: %1").arg(col));
 }
 
 void

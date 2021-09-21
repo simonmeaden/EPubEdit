@@ -537,7 +537,7 @@ EPubMetadata::parseCreatorContributorRefines(
             MarcRelator::fromString(metadataElement.text());
           if (sharedCreator->relator->type() == MarcRelator::NO_TYPE) {
             sharedCreator->stringCreator = metadataElement.text();
-            qWarning() << QString("An unexpected role has come up. %1")
+            qWarning() << tr("An unexpected role has come up. %1")
                             .arg(metadataElement.text());
           }
         } else {
@@ -823,7 +823,7 @@ EPubMetadata::parseMetadataItem(const QDomNode& metadata_node)
         } else {
           // TODO other dcterms.
           qWarning()
-            << QString("Unknown DCTerms object : %1").arg(dcterms.code());
+            << tr("Unknown DCTerms object : %1").arg(dcterms.code());
         }
       } else if (idStr == "cc:attributionURL") {
         if (m_attribution.isNull()) {
@@ -876,7 +876,7 @@ EPubMetadata::parseMetadataItem(const QDomNode& metadata_node)
     parseOpfMeta(tagName, metadataElement, attributemap);
   } else {
     // TODO not a dc  or OPF element, maybe calibre?
-    qWarning() << QString("Unknown <meta> detected : TagName=%1, NodeName=%2, "
+    qWarning() << tr("Unknown <meta> detected : TagName=%1, NodeName=%2, "
                           "NodeValue=%3, TagValue=%4")
                     .arg(tagName)
                     .arg(metadataElement.nodeName())
@@ -958,7 +958,7 @@ EPubMetadata::parseDCCreatorMetadata(QDomElement metadataElement,
     if (creator->relator->type() == MarcRelator::NO_TYPE) {
       creator->stringCreator = node.nodeValue();
       qWarning()
-        << QString("An unexpected role has come up. %1").arg(node.nodeValue());
+        << tr("An unexpected role has come up. %1").arg(node.nodeValue());
     }
   }
   node = attributeMap.namedItem("file-as"); // 2.0 & 3.0
@@ -1022,7 +1022,7 @@ EPubMetadata::parseDCContributorMetadata(QDomElement metadataElement,
     if (sharedContributor->relator->type() == MarcRelator::NO_TYPE) {
       sharedContributor->stringCreator = node.nodeValue();
       qWarning()
-        << QString("An unexpected role has come up. %1").arg(node.nodeValue());
+        << tr("An unexpected role has come up. %1").arg(node.nodeValue());
     }
   }
   if (!node.isNull()) {

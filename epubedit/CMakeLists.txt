@@ -8,6 +8,8 @@ add_executable(${PROJECT_NAME} "")
 
 target_compile_options(${PROJECT_NAME} PRIVATE -Werror)
 
+set(TS_FILES ${CMAKE_SOURCE_DIR}/i18n/${PROJECT_NAME}_en_gb.ts ${CMAKE_SOURCE_DIR}/i18n/${PROJECT_NAME}_en_us.ts ${CMAKE_SOURCE_DIR}/i18n/${PROJECT_NAME}_de.ts)
+
 target_sources(${PROJECT_NAME}
   PRIVATE
     src/main.cpp

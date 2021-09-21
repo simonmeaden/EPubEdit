@@ -19,29 +19,44 @@
 #include <QStandardPaths>
 #include <QStringListModel>
 #include <QStyledItemDelegate>
+#include <QCoreApplication>
+#include <QSharedPointer>
 
 #include "languages.h"
-#include "paths.h"
-#include "x11colors.h"
 
 class LanguageTagBuilderDialog : public QDialog
 {
   Q_OBJECT
 
-  class HelpDialog : public QDialog
-  {
+  class FilterLabel: public QLabel {
   public:
-    HelpDialog(QWidget* parent);
+    FilterLabel(QWidget*parent);
 
-  private:
-    QWidget* extension;
-    QPushButton* moreBtn;
+    QString currentTag() const;
+    void setCurrentTag(const QString &tagValue);
+    void clear();
 
-    void more();
+  protected:
+    QString m_tagValue;
+    QString m_initialText;
+    void paintEvent(QPaintEvent* event) override;
   };
+
 
   class FilterEdit : public QLineEdit
   {
+    class FilterComboBox : public QComboBox
+    {
+    public:
+      FilterComboBox(QWidget* parent);
+
+      void setUnavailableText(const QString& text) { m_unavailableText = text; }
+
+    protected:
+      QString m_unavailableText;
+      void paintEvent(QPaintEvent* event) override;
+    };
+
   public:
     FilterEdit(QStringList items,
                bool showRequired,
@@ -60,13 +75,19 @@ class LanguageTagBuilderDialog : public QDialog
     bool hasCurrentText();
     QString currentText();
     bool isRequired();
+    void setRequired(bool value);
+
+    void setFilterText(const QString& text);
+    void setUnavailableText(const QString& text);
 
   protected:
     void paintEvent(QPaintEvent* event) override;
 
   private:
+    QString m_filterText;
+    QString m_tagValue;
     bool m_showRequired;
-    QComboBox* m_selection;
+    FilterComboBox* m_selection;
     QCheckBox* m_required;
     LanguageTagBuilderDialog* m_parent;
 
@@ -84,7 +105,7 @@ public:
   void regionChanged();
   void updateTag();
 
-  QString tag() { return m_resultLbl->text(); }
+  QString tag();
 
 signals:
 
@@ -92,15 +113,18 @@ private:
   BCP47Languages* m_languages;
   QDir m_configDir;
   QFile m_configFile;
-  QLabel* m_resultLbl;
+  FilterLabel* m_resultLbl;
   FilterEdit* m_primaryFilterEdit;
   FilterEdit* m_extlangFilterEdit;
   FilterEdit* m_scriptFilterEdit;
   FilterEdit* m_regionFilterEdit;
-  QString m_language, m_script, m_region, m_extlang;
+  QString m_languageTag, m_scriptTag, m_regionTag, m_extlangTag;
+  QSharedPointer<BCP47Language> m_language;
 
   void initGui();
   QSortFilterProxyModel* createProxyModel();
+  void testTag();
+  void clearTag();
 
   void help();
 };

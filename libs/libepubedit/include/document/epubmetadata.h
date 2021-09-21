@@ -5,6 +5,7 @@
 #include <QDomNodeList>
 #include <QTextCursor>
 #include <QXmlStreamWriter>
+#include <QCoreApplication> // needed for Q_DECLARE_TR_FUNCTIONS macro
 
 class EPubDocument;
 class QXmlStreamWriter;
@@ -425,6 +426,8 @@ protected:
 
 class EPubMetadata
 {
+  Q_DECLARE_TR_FUNCTIONS(EPubMetadata)
+
 public:
   EPubMetadata(QSharedPointer<UniqueStringList> uniqueIdList);
 

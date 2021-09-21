@@ -21,9 +21,6 @@
 #include "qyamlcpp.h"
 #include "unstatistical.h"
 
-//void
-//loadYamlFile(QFile& file);
-
 /*!
   \class BCP47Language languages.h
   \brief A class that specifies information about a single language tag,
