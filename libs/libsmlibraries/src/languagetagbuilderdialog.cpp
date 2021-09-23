@@ -46,7 +46,8 @@ LanguageTagBuilderDialog::testTag()
   qWarning();
 }
 
-void LanguageTagBuilderDialog::clearTag()
+void
+LanguageTagBuilderDialog::clearTag()
 {
   m_resultLbl->clear();
 }
@@ -132,7 +133,8 @@ LanguageTagBuilderDialog::initGui()
   resultLayout->addWidget(TESTBTN, 1);
   connect(
     TESTBTN, &QPushButton::clicked, this, &LanguageTagBuilderDialog::testTag);
-  auto clearBtn = new QPushButton(tr("Clear tag", "Clear tag button label"), this);
+  auto clearBtn =
+    new QPushButton(tr("Clear tag", "Clear tag button label"), this);
   resultLayout->addWidget(clearBtn, 1);
   connect(
     TESTBTN, &QPushButton::clicked, this, &LanguageTagBuilderDialog::clearTag);
@@ -269,19 +271,44 @@ LanguageTagBuilderDialog::tag()
 void
 LanguageTagBuilderDialog::help()
 {
-  auto dlg = new SimpleHelpDialog(tr("Language Tag Builder Help"), this);
-  dlg
-    ->setHelpText(
-      tr("ISO639-1 and later require that the language tags be\n"
-         "built in a certain order. There MUST be a primary language\n"
-         "tag in the first position.This can be followed by one of\n"
-         "  1. An extended language tag\n"
-         "     This can be followed by further optional tags, a script tag or\n"
-         "     a regional tag, or a script tag followed by a regional tag.\n"
-         "  2. A language script tag\n"
-         "     This can be followed by an optional regional tag\n"
-         "  3. A regional tag.\n"
-         ""));
+  auto dlg = new ExtendedHelpWithTabsDialog(
+    tr("Language Tag Builder Help", "Help dialog title"), this);
+  dlg->setPrimaryHelpText(
+    tr("ISO639-1 and later require that the language tags be<br>"
+       "built in a certain order. There MUST be a primary language<br>"
+       "tag in the first position.This can be followed by one of :"
+       "<dl><dt>An extended language tag</dt>"
+       "<dd>This can be followed by further optional tags, a script tag or<br>"
+       "a regional tag, or a script tag followed by a regional tag.</dd>"
+       "<dl>A language script tag</dl>"
+       "<dd>This can be followed by an optional regional tag</dd>"
+       "<dl>A regional tag.</dl></ul>",
+       "Primary help text"));
+  dlg->addAdditionalHelpPage(
+    tr("Extended Languages :", "Extended help page title"),
+    tr(
+      "<ul>"
+      "<li>Primary languages with NO extended languages cause the<br>"
+      "extended language code field to be blank.</li>"
+      "<li>Some languages have both a three character primary language code<br>"
+      "and a two character primary language code plus a three character<br>"
+      "extended language code.<br>"
+      "In this case the three character primary language code is "
+      "preferred.<br>"
+      "Examples are 'Gan Chinese' which has a three character code 'gan'<br>"
+      "and a two character code 'zh' plus a three character code 'gan'<br>"
+      "and 'Gulf Arabic' which has a three character code 'afb' ant two<br>"
+      "character 'ar' plus three character 'afb'.<br>"
+      "In these cases 'gan' and 'afb' three character codes are "
+      "preferred.<br>"
+      "The dialog will remove the extended codes in this case.</li></ul>"
+      "<i>Please note that as far as I can see there are <b>NO</b> cases in "
+      "which<br>"
+      "there is no three character code, so the extended language option<br>"
+      "will probably <b>NEVER</b> appear.<br>"
+      "On the other hand there are a huge number of primary languages<br>"
+      "so I might have missed one.</i>",
+      "Extended languages help page"));
   dlg->show();
 }
 
@@ -469,7 +496,9 @@ LanguageTagBuilderDialog::FilterLabel::setCurrentTag(const QString& tagValue)
   setText(displayText);
 }
 
-void LanguageTagBuilderDialog::FilterLabel::clear() {
+void
+LanguageTagBuilderDialog::FilterLabel::clear()
+{
   m_tagValue.clear();
   QLabel::clear();
 }

@@ -4,6 +4,7 @@
 #include <QCheckBox>
 #include <QComboBox>
 #include <QCompleter>
+#include <QCoreApplication>
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QDir>
@@ -15,12 +16,13 @@
 #include <QPainter>
 #include <QPushButton>
 #include <QRegularExpression>
+#include <QSharedPointer>
 #include <QSortFilterProxyModel>
 #include <QStandardPaths>
 #include <QStringListModel>
 #include <QStyledItemDelegate>
-#include <QCoreApplication>
-#include <QSharedPointer>
+#include <QSyntaxHighlighter>
+#include <QTextCharFormat>
 
 #include "languages.h"
 
@@ -28,20 +30,38 @@ class LanguageTagBuilderDialog : public QDialog
 {
   Q_OBJECT
 
-  class FilterLabel: public QLabel {
+  class FilterLabel : public QLabel
+  {
+    class FilterHighlighter : public QSyntaxHighlighter
+    {
+    public:
+      FilterHighlighter()
+        : QSyntaxHighlighter(document())
+      {
+        
+      }
+
+      void higlightBlock(const QString& text) {}
+    };
+
   public:
-    FilterLabel(QWidget*parent);
+    FilterLabel(QWidget* parent);
 
     QString currentTag() const;
-    void setCurrentTag(const QString &tagValue);
+    void setCurrentTag(const QString& tagValue);
     void clear();
 
+    void setBadFormat(const QTextCharFormat &badFormat);
+    void setGoodFormat(const QTextCharFormat &goodFormat);
+    
   protected:
     QString m_tagValue;
     QString m_initialText;
+    QTextCharFormat m_badFormat;
+    QTextCharFormat m_goodFormat;
+    
     void paintEvent(QPaintEvent* event) override;
   };
-
 
   class FilterEdit : public QLineEdit
   {

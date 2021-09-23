@@ -156,7 +156,7 @@ EBookSeriesDB::saveSeries()
     if (file.open((QFile::ReadWrite | QFile::Truncate))) {
       YAML::Emitter emitter;
       emitter << YAML::Comment(
-        QObject::tr("A YAML File is supposed to be user readable/editable but\n"
+        tr("A YAML File is supposed to be user readable/editable but\n"
                 "you need to be careful when manually editing.\n"
                 "Remember that the uid numbers stand for unique identifier\n"
                 "so if you edit these MAKE SURE THAT THEY ARE UNIQUE. If\n"
@@ -164,8 +164,9 @@ EBookSeriesDB::saveSeries()
 
       emitter << YAML::BeginMap; // series map
       {
-        for (int i = 0; i < m_series_map.keys().size(); i++) {
-          quint64 key = m_series_map.keys().at(i);
+        auto seriesKeys = m_series_map.keys();
+        for (int i = 0; i < seriesKeys.size(); i++) {
+          quint64 key = seriesKeys.at(i);
           SeriesData series_data = m_series_map.value(key);
           QString name = series_data->name();
           QStringList words = series_data->wordList();

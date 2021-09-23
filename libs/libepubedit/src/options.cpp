@@ -111,14 +111,14 @@ EBookOptions::~EBookOptions() {}
 void
 EBookOptions::save(const QString filename)
 {
-  QFile* file;
+  QFile file;
   if (filename.isEmpty())
-    file = new QFile(configFile());
+    file.setFileName(configFile());
   else
-    file = new QFile(filename);
+    file.setFileName(filename);
 
   if (m_pref_changed) {
-    if (file->open((QFile::ReadWrite | QFile::Truncate))) {
+    if (file.open((QFile::ReadWrite | QFile::Truncate))) {
       YAML::Emitter emitter;
       {
         emitter << YAML::BeginMap;
@@ -249,9 +249,9 @@ EBookOptions::save(const QString filename)
         } // End of CODE_OPTIONS
         emitter << YAML::EndMap;
       }
-      QTextStream out(file);
+      QTextStream out(&file);
       out << emitter.c_str();
-      file->close();
+      file.close();
     }
   }
 }
@@ -395,19 +395,19 @@ EBookOptions::codeOptionToString(const CodeOptions options)
 {
   switch (options) {
     case NORMAL:
-      return QObject::tr("Normal");
+      return tr("Normal");
     case TAG:
-      return QObject::tr("Tag");
+      return tr("Tag");
     case STRING:
-      return QObject::tr("String");
+      return tr("String");
     case ATTRIBUTE:
-      return QObject::tr("Attribute");
+      return tr("Attribute");
     case ERROR:
-      return QObject::tr("Error");
+      return tr("Error");
     case STYLE:
-      return QObject::tr("Style");
+      return tr("Style");
     case SCRIPT:
-      return QObject::tr("Script");
+      return tr("Script");
   }
   return QString();
 }

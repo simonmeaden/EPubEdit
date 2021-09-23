@@ -48,7 +48,7 @@ class AbstractLabelledWidget : public QWidget
 
      @accessor %labelText(), %setLabelText()
   */
-  Q_PROPERTY(QString labelText READ labelText WRITE setLabelText)
+  Q_PROPERTY(QString labelText READ labelText WRITE setLabelText NOTIFY labelTextChanged)
 
   /*!
      \property AbstractLabelledWidget::labelTextFormat
@@ -61,7 +61,7 @@ class AbstractLabelledWidget : public QWidget
      @accessor %labelTextFormat(), %setTextFormat(Qt::TextFormat)
   */
   Q_PROPERTY(Qt::TextFormat labelTextFormat READ labelTextFormat WRITE
-               setLabelTextFormat)
+               setLabelTextFormat NOTIFY labelTextFormatChanged)
 
   /*!
      \property AbstractLabelledWidget::labelAlignment
@@ -71,7 +71,7 @@ class AbstractLabelledWidget : public QWidget
      @accessor %labelAlignment(), %setLabelAlignment()
   */
   Q_PROPERTY(
-    Qt::Alignment labelAlignment READ labelAlignment WRITE setLabelAlignment)
+    Qt::Alignment labelAlignment READ labelAlignment WRITE setLabelAlignment NOTIFY labelAlignmentChanged)
 
   /*!
      \property AbstractLabelledWidget::labelPosition
@@ -83,7 +83,7 @@ class AbstractLabelledWidget : public QWidget
      @accessor %position(), %setPosition()
   */
   Q_PROPERTY(AbstractLabelledWidget::LabelPosition labelPosition READ
-               labelPosition WRITE setLabelPosition)
+               labelPosition WRITE setLabelPosition NOTIFY labelPositionChanged)
 
   enum Widget
   {
@@ -194,6 +194,12 @@ public:
   QLabel* label() const;
   //! Allows the user to replace the internal QLabel with an alternative.
   void setLabel(QLabel* label);
+
+signals:
+  void labelTextChanged(const QString& text);
+  void labelTextFormatChanged(Qt::TextFormat format);
+  void labelAlignmentChanged(Qt::Alignment alignment);
+  void labelPositionChanged(AbstractLabelledWidget::LabelPosition position);
 
 protected:
   /// \cond DO_NOT_DOCUMENT

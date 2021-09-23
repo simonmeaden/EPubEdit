@@ -8,6 +8,7 @@
 #include <QRect>
 #include <QSize>
 #include <QString>
+#include <QCoreApplication>
 
 //#include "libepubedit/ebookcommon.h"
 
@@ -22,6 +23,8 @@ class EBookLibraryDB;
 
 class EBookOptions : public QObject
 {
+  Q_DECLARE_TR_FUNCTIONS(ModifyTitleCommand)
+
 public:
   enum CodeOptions
   {

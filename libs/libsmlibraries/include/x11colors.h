@@ -239,7 +239,8 @@ color(const QString& name)
 static QString
 name(const QColor& color)
 {
-  for (auto k : COLORMAP.keys()) {
+  auto colorKeys = COLORMAP.keys();
+  for (auto &k : colorKeys) {
     auto c = COLORMAP.value(k);
     if (c == color) {
       return k;
@@ -3083,7 +3084,8 @@ color(const QString& name)
 static QString
 name(const QColor& color)
 {
-  for (auto k : COLORMAP.keys()) {
+  auto colorKeys = COLORMAP.keys();
+  for (auto &k : colorKeys) {
     auto c = COLORMAP.value(k);
     if (c == color) {
       return k;

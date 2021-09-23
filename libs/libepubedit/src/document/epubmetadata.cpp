@@ -37,7 +37,7 @@ EPubMetadata::write(QXmlStreamWriter* xml_writer)
   xml_writer->writeStartElement("metadata");
 
   if (!m_orderedTitles.isEmpty()) {
-    for (auto title : m_orderedTitles) {
+    for (auto& title : m_orderedTitles) {
       writeTitle(xml_writer, title);
     }
   }
@@ -45,7 +45,7 @@ EPubMetadata::write(QXmlStreamWriter* xml_writer)
   if (!m_creatorsByName.isEmpty()) {
     auto keys = m_creatorsByName.keys();
     auto ids = m_creatorsById.keys();
-    for (auto key : keys) {
+    for (auto& key : keys) {
       auto name = writeCreatorsMetadata(xml_writer, key);
       // remove names that have been handled.
       auto shared_creator = m_creatorsByName.value(name);
@@ -53,7 +53,7 @@ EPubMetadata::write(QXmlStreamWriter* xml_writer)
       ids.removeAll(id);
     }
     // These were probably added from dcterms:creator metas.
-    for (auto creator : ids) {
+    for (auto& creator : ids) {
       auto shared_creator = m_creatorsById.value(creator);
       writeCreator(xml_writer, shared_creator);
     }
@@ -61,7 +61,7 @@ EPubMetadata::write(QXmlStreamWriter* xml_writer)
 
   if (!contributorsByName.isEmpty()) {
     auto keys = contributorsByName.keys();
-    for (QString key : keys) {
+    for (QString& key : keys) {
       writeContributorMetadata(xml_writer, key);
     }
   }
@@ -72,12 +72,12 @@ EPubMetadata::write(QXmlStreamWriter* xml_writer)
 
   // actually should NEVER be empty as at least one is required.
   if (!m_languages.isEmpty()) {
-    auto keys = m_languages.keys();
-    if (keys.size() == 1) {
-      writeLanguageMetadata(xml_writer, m_languages.keys().at(0), true);
+    auto languageKeys = m_languages.keys();
+    if (languageKeys.size() == 1) {
+      writeLanguageMetadata(xml_writer, languageKeys.at(0), true);
     } else {
       bool first = true;
-      for (auto& key : keys) {
+      for (auto& key : languageKeys) {
         writeLanguageMetadata(xml_writer, key, first);
         first = false;
       }
@@ -85,8 +85,8 @@ EPubMetadata::write(QXmlStreamWriter* xml_writer)
   }
 
   if (!m_subjects.isEmpty()) {
-    auto keys = m_subjects.keys();
-    for (auto key : keys) {
+    auto subjectKeys = m_subjects.keys();
+    for (auto& key : subjectKeys) {
       writeSubjectMetadata(xml_writer, key);
     }
   }
@@ -822,8 +822,7 @@ EPubMetadata::parseMetadataItem(const QDomNode& metadata_node)
           // TODO
         } else {
           // TODO other dcterms.
-          qWarning()
-            << tr("Unknown DCTerms object : %1").arg(dcterms.code());
+          qWarning() << tr("Unknown DCTerms object : %1").arg(dcterms.code());
         }
       } else if (idStr == "cc:attributionURL") {
         if (m_attribution.isNull()) {
@@ -877,11 +876,11 @@ EPubMetadata::parseMetadataItem(const QDomNode& metadata_node)
   } else {
     // TODO not a dc  or OPF element, maybe calibre?
     qWarning() << tr("Unknown <meta> detected : TagName=%1, NodeName=%2, "
-                          "NodeValue=%3, TagValue=%4")
-                    .arg(tagName)
-                    .arg(metadataElement.nodeName())
-                    .arg(metadataElement.nodeValue())
-                    .arg(metadataElement.text());
+                     "NodeValue=%3, TagValue=%4")
+                    .arg(tagName,
+                         metadataElement.nodeName(),
+                         metadataElement.nodeValue(),
+                         metadataElement.text());
   }
 
   return true;
@@ -1318,11 +1317,11 @@ EPubMetadata::writeTitle(QXmlStreamWriter* xml_writer,
     writeDirAttribute(xml_writer, sharedTitle->dir);
     writeLangAttribute(xml_writer, sharedTitle->lang);
     QList<QSharedPointer<EPubAltRep>> alt_reps = sharedTitle->altRepList;
-    for (QSharedPointer<EPubAltRep> alt_rep : alt_reps) {
+    for (QSharedPointer<EPubAltRep>& alt_rep : alt_reps) {
       writeAltRepAttribute(xml_writer, alt_rep);
     }
     QList<QSharedPointer<EPubFileAs>> file_as_list = sharedTitle->fileAsList;
-    for (QSharedPointer<EPubFileAs> file_as : file_as_list) {
+    for (QSharedPointer<EPubFileAs>& file_as : file_as_list) {
       writeFileAsAttribute(xml_writer, file_as);
     }
 
@@ -1573,10 +1572,10 @@ EPubMetadata::writeCreatorContributor(QString tag_name,
       xml_writer->writeStartElement(tag_name);
 
       writeIdAttribute(xml_writer, sharedObject->id);
-      for (QSharedPointer<EPubFileAs> file_as : sharedObject->fileAsList) {
+      for (QSharedPointer<EPubFileAs>& file_as : sharedObject->fileAsList) {
         writeFileAsAttribute(xml_writer, file_as);
       }
-      for (QSharedPointer<EPubAltRep> alt_rep : sharedObject->altRepList) {
+      for (QSharedPointer<EPubAltRep>& alt_rep : sharedObject->altRepList) {
         writeAltRepAttribute(xml_writer, alt_rep);
       }
       writeRoleAttribute(xml_writer, sharedObject->relator);

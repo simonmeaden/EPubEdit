@@ -14,7 +14,7 @@ AddTitleCommand::AddTitleCommand(TitleView* view,
   , m_title(title)
   , m_row(row)
 {
-  auto text = QObject::tr("Add %1:%2").arg(m_row).arg(m_title);
+  auto text = tr("Add %1:%2").arg(m_row).arg(m_title);
   setText(text);
 }
 
@@ -45,7 +45,7 @@ AddAuthorCommand::AddAuthorCommand(AuthorList* view,
   , m_author(author)
   , m_row(row)
 {
-  auto text = QObject::tr("Add %1:%2").arg(m_row).arg(m_author);
+  auto text = tr("Add %1:%2").arg(m_row).arg(m_author);
   setText(text);
 }
 
@@ -76,7 +76,7 @@ RemoveTitleCommand::RemoveTitleCommand(TitleView* view,
   , m_title(title)
   , m_row(row)
 {
-  auto text = QObject::tr("remove %1:%2").arg(m_row).arg(m_title->title);
+  auto text = tr("remove %1:%2").arg(m_row).arg(m_title->title);
   setText(text);
 }
 
@@ -133,7 +133,7 @@ SwapTitleCommand::SwapTitleCommand(TitleView* view,
   , m_title2(title2)
   , m_row2(row2)
 {
-  setText(QObject::tr("Swap %1:\"%2\" with %3:\"%4\"")
+  setText(tr("Swap %1:\"%2\" with %3:\"%4\"")
             .arg(row1)
             .arg(title1->title)
             .arg(row2)
@@ -168,7 +168,7 @@ SwapAuthorCommand::SwapAuthorCommand(AuthorList* view,
   , m_author2(author2)
   , m_row2(row2)
 {
-  setText(QObject::tr("Swap %1:\"%2\" with %3:\"%4\"")
+  setText(tr("Swap %1:\"%2\" with %3:\"%4\"")
             .arg(row1)
             .arg(author1)
             .arg(row2)
@@ -232,10 +232,7 @@ ModifyTitleCommand::ModifyTitleCommand(TitleView* view,
   , m_oldTitle(oldTitle)
   , m_row(row)
 {
-  setText(QObject::tr("Modify %1:\"%2\" => \"%3\"")
-            .arg(row)
-            .arg(oldTitle)
-            .arg(newTitle));
+  setText(tr("Modify %1:\"%2\" => \"%3\"").arg(row).arg(oldTitle, newTitle));
 }
 
 void
@@ -264,10 +261,7 @@ ModifyAuthorCommand::ModifyAuthorCommand(AuthorList* view,
   , m_oldAuthor(oldAuthor)
   , m_row(row)
 {
-  setText(QObject::tr("Modify %1:\"%2\" => \"%3\"")
-            .arg(row)
-            .arg(oldAuthor)
-            .arg(newAuthor));
+  setText(tr("Modify %1:\"%2\" => \"%3\"").arg(row).arg(oldAuthor, newAuthor));
 }
 
 void
@@ -296,10 +290,7 @@ SetIdCommand::SetIdCommand(TitleView* view,
   , m_oldId(oldId)
   , m_row(row)
 {
-  setText(QObject::tr("ID for %1:\"%2\" => \"%3\"")
-            .arg(row)
-            .arg(m_oldId)
-            .arg(m_newId));
+  setText(tr("ID for %1:\"%2\" => \"%3\"").arg(row).arg(m_oldId, m_newId));
 }
 
 void

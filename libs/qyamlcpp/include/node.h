@@ -282,7 +282,6 @@ struct convert<QFont>
       return false;
     }
 
-    QFont font;
     rhs.setFamily(node["family"].as<QString>());
     rhs.setBold(node["bold"].as<bool>());
     rhs.setCapitalization(

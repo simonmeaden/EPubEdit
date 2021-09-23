@@ -28,6 +28,12 @@
 
   There are several different types of tag.
   - LANGUAGE These are the primary language tags.
+    - A two character ISO639-1:2002 code.
+    - A three character ISO 639-2:1998, ISO 639-3:2007 or
+      ISO 639-5:2008 code.
+    - A single character 'i' or 'x' or a three character
+      code in the range 'qaa' to 'qtz' which are solely
+      for non-registered private usage.
   - EXTLAN These are language extensions
   - SCRIPT These indicate the possible script for the language.
   - REGION These indicate the regional variation for the language.
@@ -63,14 +69,24 @@ public:
     GRANDFATHERED, //!< Grandfathered tags or Values flag
     REDUNDANT,     //!< Reduntant tag or Values flag
   };
+  //! \enum Enumeration used to detect tag states.
+  //!
+  //! Tags can be made up of several parts, the primary language, a language
+  //! extension (which can be used as a primary language), a script or a
+  //! regional variation.
+  //! - The primary language consists of a two or three character code.
   enum TagType
   {
     // primary language tags
     PRIMARY_LANGUAGE = 0x1, //!< Language tags or Values flag
     PRIVATE_LANGUAGE = 0x2, //!< 'x' or 'i' indicate a private language
-    EXTENDED_AS_PRIMARY = 0x4,
+                            //    EXTENDED_AS_PRIMARY = 0x4,
+    NO_PRIMARY_LANGUAGE =
+      0x1000000, //!< Not a primary, private or extended language.
+
     EXTENDED_LANGUAGE = 0x8,
     EXTLANG_MISMATCH = 0x10,   //!< Language and extended language don't match
+    NO_EXTENDED_LANGUAGE,
     DUPLICATE_EXTENDED = 0x20, //!< extended followed by extended not allowed
     EXTENDED_FOLLOWS_SCRIPT =
       0x40, //!< script MUST follow extlang if it exists.
@@ -88,9 +104,28 @@ public:
     UN_STATISTICAL_REGION = 0x80000, //!< A UN statistical area code.
     DUPLICATE_REGION = 0x100000,     //!< A UN statistical area code.
 
-    BAD_PRIMARY_LANGUAGE = 0x1000000, //!< Bad tag, only used in TagTypes flag
-
+    BAD_SPACE = 0x200000,
+    BAD_SUBTAG = 0x400000,
   };
+  enum Position
+  {
+    UNSET,
+    FIRST,
+    SECOND,
+    THIRD,
+    FOURTH,
+    AFTER,
+    BAD_POSITION,
+  };
+  struct TagTestResult
+  {
+    TagType type;
+    int start;
+    int length;
+    QString value;
+    Position position;
+  };
+
   Q_DECLARE_FLAGS(TagTypes, TagType)
 
   BCP47Language();
@@ -377,31 +412,29 @@ public:
   QSharedPointer<BCP47Language> languageFromSubtag(const QString& subtag);
   //! \brief Returns the BCP47Language data for the supplied subtag for
   //! BCP47Language::EXTLANG types.
-  QSharedPointer<BCP47Language> extlangFromSubtag(
-    const QString& subtag);
+  QSharedPointer<BCP47Language> extlangFromSubtag(const QString& subtag);
   //! \brief Returns the BCP47Language data for the supplied subtag for
   //! BCP47Language::VARIANT types.
   QSharedPointer<BCP47Language> variantFromSubtag(const QString& subtag);
   //! \brief Returns the BCP47Language data for the supplied subtag for
   //! BCP47Language::REGION types.
-  QSharedPointer<BCP47Language> regionFromSubtag(
-    const QString& subtag);
+  QSharedPointer<BCP47Language> regionFromSubtag(const QString& subtag);
   //! \brief Returns the BCP47Language data for the supplied subtag for
   //! BCP47Language::SCRIPT types.
   QSharedPointer<BCP47Language> scriptFromSubtag(const QString& subtag);
   //! \brief Returns the BCP47Language data for the supplied tag for
   //! BCP47Language::REDUNDANT types.
-  QSharedPointer<BCP47Language> redundantFromTag(
-    const QString& tag);
+  QSharedPointer<BCP47Language> redundantFromTag(const QString& tag);
   //! \brief Returns the BCP47Language data for the supplied tag for
   //! BCP47Language::GRANDFATHERED types.
-  QSharedPointer<BCP47Language> grandfatheredFromTag(
-    const QString& tag);
+  QSharedPointer<BCP47Language> grandfatheredFromTag(const QString& tag);
   //! \brief Returns a list of descriptions of all those BCP47Language::EXTLANG
   //! types that have the supplied subtag, or an empty list if none exist.
-  QStringList extlangsWithPrefix(const QString subtag) {
+  QStringList extlangsWithPrefix(const QString subtag)
+  {
     QStringList list;
-    for (auto extlang : m_extlangBySubtag.values()) {
+    auto values = m_extlangBySubtag.values();
+    for (auto& extlang : values) {
       if (extlang && extlang->prefix().contains(subtag)) {
         list << extlang->description();
       }
@@ -511,9 +544,9 @@ public:
   //! if it is not a valid subtag of any type.
   //!
   //! \sa BCP47Language::Type
-  BCP47Language::Type type(const QString& value);
+  BCP47Language::Type typeFromString(const QString& value);
 
-  BCP47Language::TagTypes testTag(QString& value);
+  QList<QSharedPointer<BCP47Language::TagTestResult>> testTag(QString& tag);
 
   //! Tests whether the subtag string is a valid primary language tag. Returns
   //! true if it is otherwise returns false.
@@ -579,7 +612,7 @@ signals:
 
 private:
   QMultiMap<QString, QSharedPointer<BCP47Language>> m_datasetByDescription;
-//  QMultiMap<QString, QSharedPointer<BCP47Language>> m_datasetBySubtag;
+  //  QMultiMap<QString, QSharedPointer<BCP47Language>> m_datasetBySubtag;
   QMap<QString, QSharedPointer<BCP47Language>> m_languageByDescription;
   QMap<QString, QSharedPointer<BCP47Language>> m_languageBySubtag;
   QMap<QString, QSharedPointer<BCP47Language>> m_extlangByDescription;
@@ -621,11 +654,10 @@ private:
                       bool noErrors);
   void updateMaps();
 
-  BCP47Language::TagTypes testPrimaryLanguage(const QString& value);
-  void testExtendedlanguage(const QString& value,
-                            BCP47Language::TagTypes& tagTypes);
-  void testScript(const QString& value, BCP47Language::TagTypes& tagTypes);
-  void testRegion(const QString& value, BCP47Language::TagTypes& tagTypes);
+  BCP47Language::TagType testPrimaryLanguage(const QString& value);
+  BCP47Language::TagType testExtendedlanguage(const QString& value);
+  BCP47Language::TagType testScript(const QString& value);
+  BCP47Language::TagType testRegion(const QString& value);
 
   friend class LanguageParser;
   QList<QSharedPointer<BCP47Language>> getUniqueLanguages();

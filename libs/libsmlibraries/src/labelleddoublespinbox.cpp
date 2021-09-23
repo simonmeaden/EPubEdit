@@ -141,6 +141,6 @@ LabelledDoubleSpinBox::initGui(const QString& /*text*/)
   connect(reinterpret_cast<QDoubleSpinBox*>(m_widget),
           qOverload<const QString&>(&QDoubleSpinBox::valueChanged),
           this,
-          &LabelledDoubleSpinBox::textChanged);
+          &LabelledDoubleSpinBox::labelTextChanged);
 #endif
 }

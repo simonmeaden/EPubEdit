@@ -26,8 +26,8 @@ MainWindow::MainWindow(QWidget* parent)
 #if defined(TESTDIALOG)
   // TEMPORARY TEST STUFF
   auto builder = new LanguageTagBuilderDialog(this);
-  if (builder->exec()==QDialog::Accepted) {
-    auto data = builder->tag();
+  if (builder->exec() == QDialog::Accepted) {
+    /*auto data =*/ builder->tag();
   }
 
   QCoreApplication::exit(0);
@@ -135,7 +135,6 @@ MainWindow::initGui()
   statusBar()->addPermanentWidget(m_msgLbl, 1);
   statusBar()->addPermanentWidget(m_lineLbl);
   statusBar()->addPermanentWidget(m_colLbl);
-
 }
 
 void

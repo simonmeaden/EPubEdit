@@ -4,6 +4,7 @@
 #include <QFile>
 #include <QObject>
 #include <QTextStream>
+#include <QCoreApplication>
 
 #include "qyamlcpp.h"
 
@@ -11,6 +12,7 @@ class EBookOptions;
 
 class EBookSeriesData
 {
+  Q_DECLARE_TR_FUNCTIONS(ModifyTitleCommand)
 
 public:
   EBookSeriesData();
@@ -40,6 +42,8 @@ typedef QStringList SeriesList;
 
 class EBookSeriesDB : public QObject
 {
+  Q_DECLARE_TR_FUNCTIONS(ModifyTitleCommand)
+
 public:
   explicit EBookSeriesDB(EBookOptions* options);
   EBookSeriesDB(const EBookSeriesDB& other);

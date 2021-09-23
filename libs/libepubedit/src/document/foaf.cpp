@@ -138,7 +138,7 @@ Foaf::fromString(QString term_name)
 {
   auto terms = QSharedPointer<Foaf>(new Foaf());
   QString name;
-  if (term_name.toLower().startsWith("foaf:")) {
+  if (term_name.startsWith("foaf:", Qt::CaseInsensitive)) {
     auto splits = term_name.toLower().split(":");
     if (splits.size() == 2) {
       name = splits.at(1).toLower();
@@ -251,7 +251,7 @@ Foaf::fromString(QString term_name)
 bool
 Foaf::isFoaf(QString tag_name)
 {
-  if (tag_name.toLower().startsWith("foaf:")) {
+  if (tag_name.startsWith("foaf:", Qt::CaseInsensitive)) {
     auto foaf = fromString(tag_name);
     if (foaf->term() != NO_TERM)
       return true;

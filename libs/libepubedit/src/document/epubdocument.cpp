@@ -279,13 +279,15 @@ EPubDocument::parsePackageFile(QString& fullPath)
   }
 
   // TODO doctor the image paths to point to local files.
-  for (int i1 = 0; i1 < m_manifest->htmlItems.keys().size(); i1++) {
-    UniqueString key = m_manifest->htmlItems.keys().at(i1);
+  auto htmlKeys = m_manifest->htmlItems.keys();
+  for (int i1 = 0; i1 < htmlKeys.size(); i1++) {
+    UniqueString key = htmlKeys.at(i1);
     QSharedPointer<EPubManifestItem> item = m_manifest->htmlItems.value(key);
     QString documentString = item->documentString;
     bool changed = false;
     for (int i2 = 0; i2 < m_manifest->images.size(); i2++) {
-      UniqueString imageId = m_manifest->images.keys().at(i2);
+      auto imageKeys = m_manifest->images.keys();
+      UniqueString imageId = imageKeys.at(i2);
       QString imagePath = m_manifest->images.value(imageId);
       if (documentString.contains(imageId.toString())) {
         documentString.replace(
@@ -335,7 +337,6 @@ EPubDocument::parseTocFile()
   m_tocChapterIndex = -1;
   node_list = document.elementsByTagName("navMap");
   if (!node_list.isEmpty()) {
-    QString name, value;
     QDomNode node = node_list.at(0);
     QDomElement elem = node.toElement();
     QDomElement navpoint = elem.firstChildElement("navPoint");
@@ -415,7 +416,7 @@ EPubDocument::parseNavPoint(QDomElement navpoint, QString& formatted_toc_data)
     //            itemref : no idref value"))
   }
 
-  formatted_toc_data += LIST_ITEM.arg(toc_item->source).arg(toc_item->label);
+  formatted_toc_data += LIST_ITEM.arg(toc_item->source, toc_item->label);
 
   // parse nested navPoints.
   QDomElement sub_navpoint = navpoint.firstChildElement("navPoint");
@@ -657,7 +658,7 @@ EPubDocument::parseManifestItem(const QDomNode& manifest_node,
       QStringList properties = value.split(' ', Qt::SkipEmptyParts);
       item->properties = properties;
 
-      for (QString prop : properties) {
+      for (QString& prop : properties) {
         if (prop == "cover-image") {
           // only one cover-image allowed.
           m_manifest->coverImage = item;
@@ -812,13 +813,12 @@ EPubDocument::saveDocumentToFile()
 {
   QFileInfo info;
   QDir dir;
-  QFile* file;
+  QFile file;
 
   if (!m_filename.isEmpty())
     info = QFileInfo(m_filename);
 
   auto path = info.path();
-  auto name = info.fileName();
   auto baseName = info.baseName();
 
   auto isLibraryPath = confirmPathOrLibraryPath(path);
@@ -829,18 +829,18 @@ EPubDocument::saveDocumentToFile()
     path = Paths::join(path, author, title);
     if (dir.mkpath(path)) {
       if (dir.cd(path)) {
-        file = new QFile(title + ".epub");
+        file.setFileName(title + ".epub");
         baseName = title;
       }
     }
   } else {
     if (dir.mkpath(path)) {
       dir.cd(path);
-      file = new QFile(m_filename);
+      file.setFileName(m_filename);
     }
   }
 
-  if (file->exists()) {
+  if (file.exists()) {
     auto box = new QMessageBox();
     box->setIcon(QMessageBox::Warning);
     box->setWindowTitle(tr("File already exists!"));
@@ -1395,7 +1395,8 @@ EPubDocument::buildTocfromHtml()
   QRegularExpression re_href("href=\\\"[^\"]*\"");
   int anchor_start, pos = 0;
 
-  for (QSharedPointer<EPubManifestItem> item : m_manifest->htmlItems.values()) {
+  auto files = m_manifest->htmlItems.values();
+  for (QSharedPointer<EPubManifestItem>& item : files) {
     QString document_string = item->documentString;
     if (!document_string.isEmpty()) {
       QRegularExpressionMatchIterator i =
@@ -1425,9 +1426,9 @@ EPubDocument::buildTocfromHtml()
             QStringList splits = href_attr.split("#", Qt::KeepEmptyParts);
             if (splits.length() == 1) {
               QString filename = splits.at(0);
-              QList<QSharedPointer<EPubManifestItem>> files =
-                m_manifest->htmlItems.values();
-              for (QSharedPointer<EPubManifestItem> item : files) {
+              //              QList<QSharedPointer<EPubManifestItem>> files =
+              //                m_manifest->htmlItems.values();
+              for (QSharedPointer<EPubManifestItem>& item : files) {
                 UniqueString href = item->href;
                 if (href == filename) {
                   // TODO add anchor & make anchor tag.
@@ -1436,12 +1437,12 @@ EPubDocument::buildTocfromHtml()
             } else if (!splits.at(0).isEmpty() && !splits.at(1).isEmpty()) {
               // existing file + anchor points exist.
               formatted_toc_string +=
-                LIST_BUILD_ITEM.arg(splits.at(0)).arg(splits.at(1)).arg(text);
+                LIST_BUILD_ITEM.arg(splits.at(0), splits.at(1), text);
             } else if (!splits.at(0).isEmpty() && splits.at(1).isEmpty()) {
               // existing file but no anchor point.
               QString pos_tag = LIST_FILEPOS.arg(pos++);
               formatted_toc_string +=
-                LIST_BUILD_ITEM.arg(splits.at(0)).arg(pos_tag).arg(text);
+                LIST_BUILD_ITEM.arg(splits.at(0), pos_tag, text);
               // TODO introduce anchor tag
             } else if (splits.at(0).isEmpty() && !splits.at(1).isEmpty()) {
               // existing anchor tag but no file.

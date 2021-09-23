@@ -62,7 +62,7 @@ public:
   QWidget* initMaindataFrame();
 
 signals:
-  void dataHasChanged(Modifications mods);
+  void dataHasChanged(MetadataForm::Modifications mods);
   void sendStatusMessage(const QString& message, int timeout = 20);
 
 private:

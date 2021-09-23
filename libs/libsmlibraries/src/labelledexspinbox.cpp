@@ -202,7 +202,7 @@ LabelledExSpinBox::initGui(const QString&)
   connect(qobject_cast<ExSpinBox*>(m_widget),
           qOverload<const QString&>(&QSpinBox::valueChanged),
           this,
-          &LabelledExSpinBox::textChanged);
+          &LabelledExSpinBox::labelTextChanged);
 #endif
   connect(qobject_cast<ExSpinBox*>(m_widget),
           &ExSpinBox::displayTypeChanged,

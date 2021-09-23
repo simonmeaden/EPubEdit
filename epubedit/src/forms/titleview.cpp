@@ -59,7 +59,7 @@ TitleView::setTitle(int row, const QString& title)
   if (index.isValid()) {
     auto success = m_model->setData(index, QVariant::fromValue(title));
     auto index = m_model->index(row, 2);
-    emit dataChanged(index, index);
+    dataChanged(index, index);
     return success;
   }
   return false;
@@ -72,7 +72,7 @@ TitleView::setId(int row, const UniqueString& id)
   if (index.isValid()) {
     auto success = m_model->setData(index, QVariant::fromValue(id.toString()));
     auto index = m_model->index(row, 1);
-    emit dataChanged(index, index);
+    dataChanged(index, index);
     return success;
   }
   return false;

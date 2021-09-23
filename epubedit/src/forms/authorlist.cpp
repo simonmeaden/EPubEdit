@@ -250,7 +250,7 @@ AuthorList::modifyAuthor(int row, const QString& author)
 {
   auto success = m_model->modifyAuthor(row, author);
   auto index = m_model->index(row, 0);
-  emit dataChanged(index, index);
+  dataChanged(index, index);
   return success;
 }
 

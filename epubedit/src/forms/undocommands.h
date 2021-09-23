@@ -4,6 +4,7 @@
 #include <QSharedPointer>
 #include <QString>
 #include <QUndoCommand>
+#include <QCoreApplication>
 
 class TitleView;
 class AuthorList;
@@ -13,6 +14,8 @@ class EPubTitle;
 
 class AddTitleCommand : public QUndoCommand
 {
+  Q_DECLARE_TR_FUNCTIONS(ModifyTitleCommand)
+
 public:
   AddTitleCommand(TitleView* view,
                   const QString& title,
@@ -30,6 +33,8 @@ private:
 
 class AddAuthorCommand : public QUndoCommand
 {
+  Q_DECLARE_TR_FUNCTIONS(ModifyTitleCommand)
+
 public:
   AddAuthorCommand(AuthorList* view,
                    const QString& author,
@@ -47,6 +52,8 @@ private:
 
 class SetIdCommand : public QUndoCommand
 {
+  Q_DECLARE_TR_FUNCTIONS(ModifyTitleCommand)
+
 public:
   SetIdCommand(TitleView* view,
                const QString& newId,
@@ -66,6 +73,8 @@ private:
 
 class RemoveTitleCommand : public QUndoCommand
 {
+  Q_DECLARE_TR_FUNCTIONS(ModifyTitleCommand)
+
 public:
   RemoveTitleCommand(TitleView* view,
                      QSharedPointer<EPubTitle> title,
@@ -83,6 +92,8 @@ private:
 
 class RemoveAuthorCommand : public QUndoCommand
 {
+  Q_DECLARE_TR_FUNCTIONS(ModifyTitleCommand)
+
 public:
   RemoveAuthorCommand(AuthorList* view,
                       const QString& author,
@@ -100,6 +111,8 @@ private:
 
 class SwapTitleCommand : public QUndoCommand
 {
+  Q_DECLARE_TR_FUNCTIONS(ModifyTitleCommand)
+
 public:
   SwapTitleCommand(TitleView* view,
                    QSharedPointer<EPubTitle> title1,
@@ -121,6 +134,8 @@ private:
 
 class SwapAuthorCommand : public QUndoCommand
 {
+  Q_DECLARE_TR_FUNCTIONS(ModifyTitleCommand)
+
 public:
   SwapAuthorCommand(AuthorList* view,
                     const QString& author1,
@@ -142,6 +157,8 @@ private:
 
 class SwapIdCommand : public QUndoCommand
 {
+  Q_DECLARE_TR_FUNCTIONS(ModifyTitleCommand)
+
 public:
   SwapIdCommand(TitleView* view,
                 UniqueString id1,
@@ -163,6 +180,8 @@ private:
 
 class ModifyTitleCommand : public QUndoCommand
 {
+  Q_DECLARE_TR_FUNCTIONS(ModifyTitleCommand)
+
 public:
   ModifyTitleCommand(TitleView* view,
                      const QString& newTitle,
@@ -182,6 +201,8 @@ private:
 
 class ModifyAuthorCommand : public QUndoCommand
 {
+  Q_DECLARE_TR_FUNCTIONS(ModifyTitleCommand)
+
 public:
   ModifyAuthorCommand(AuthorList* view,
                       const QString& newAuthor,

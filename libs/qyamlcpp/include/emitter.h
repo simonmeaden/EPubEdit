@@ -91,7 +91,7 @@ operator<<(Emitter& emitter, QStringList v)
 
   emitter << YAML::BeginSeq;
 
-  for (QString s : v) {
+  for (const QString &s : v) {
     emitter << s;
   }
 
@@ -322,7 +322,6 @@ operator<<(Emitter& emitter, QSizeF v)
 inline Emitter&
 operator<<(Emitter& emitter, QImage image)
 {
-  QPixmap pixmap = QPixmap::fromImage(image);
   QByteArray array;
   QBuffer buffer(&array);
   buffer.open(QIODevice::WriteOnly);

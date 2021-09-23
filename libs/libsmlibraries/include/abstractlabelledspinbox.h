@@ -51,7 +51,7 @@ class AbstractLabelledSpinBox
      @reimplements QSpinBox::suffix
       @accessor %suffix(), %setSuffix()
   */
-  Q_PROPERTY(QString suffix READ suffix WRITE setSuffix)
+  Q_PROPERTY(QString suffix READ suffix WRITE setSuffix NOTIFY suffixChanged)
 
   Q_OBJECT
 
@@ -91,5 +91,12 @@ signals:
      @notprop value.
   */
   void textChanged(const QString& labelText);
+
+  /*!
+   * \fn AbstractLabelledSpinBox::suffixChanged
+   *
+   * Notifies when the suffix changes.
+   */
+  void suffixChanged(const QString& suffix);
 };
 #endif // ABSTRACTLABELLEDSPINBOX_H

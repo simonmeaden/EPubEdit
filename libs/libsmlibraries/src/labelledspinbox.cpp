@@ -128,6 +128,6 @@ LabelledSpinBox::initGui(const QString& /*text*/)
   connect(reinterpret_cast<QSpinBox*>(m_widget),
           qOverload<const QString&>(&QSpinBox::valueChanged),
           this,
-          &LabelledSpinBox::textChanged);
+          &LabelledSpinBox::labelTextChanged);
 #endif
 }
