@@ -131,7 +131,10 @@ TEST_F(BCP47LanguagesTest, PrimaryLanguage)
     // First check that all of the names have an associated language.
     auto language = languages.languageFromDescription(name);
     ASSERT_FALSE(language.isNull());
-    ASSERT_TRUE(language->type() == BCP47Language::LANGUAGE) << QObject::tr("Language: %1, %2").arg(language->typeString()).arg(language->description()).toStdString();
+    ASSERT_TRUE(language->type() == BCP47Language::LANGUAGE)
+      << QObject::tr("Language: %1, %2")
+           .arg(language->typeString(), language->description())
+           .toStdString();
   }
 
   values = languages.languageSubtags();
@@ -140,7 +143,10 @@ TEST_F(BCP47LanguagesTest, PrimaryLanguage)
     // First check that all of the names have an associated language.
     auto language = languages.languageFromSubtag(subtag);
     ASSERT_FALSE(language.isNull());
-    ASSERT_TRUE(language->type() == BCP47Language::LANGUAGE) << QObject::tr("Language: %1, %2").arg(language->typeString()).arg(language->description()).toStdString();
+    ASSERT_TRUE(language->type() == BCP47Language::LANGUAGE)
+      << QObject::tr("Language: %1, %2")
+           .arg(language->typeString(), language->description())
+           .toStdString();
   }
 
   auto language = languages.languageFromSubtag("alu");
@@ -235,7 +241,7 @@ TEST_F(BCP47LanguagesTest, Grandfathered)
 {
   auto values = languages.grandfatheredDescriptions();
   ASSERT_FALSE(values.isEmpty());
- for (auto& name : values) {
+  for (auto& name : values) {
     // First check that all of the names have an associated extlang.
     auto language = languages.grandfatheredFromDescription(name);
     ASSERT_FALSE(language.isNull());
@@ -273,9 +279,10 @@ TEST_F(BCP47LanguagesTest, Redundant)
   }
 }
 
-TEST_F(BCP47LanguagesTest, TestPrimaryLanguage) {
-    auto types=languages.isPrimaryLanguage("en");
-    types=languages.isPrimaryLanguage("EN");
+TEST_F(BCP47LanguagesTest, TestPrimaryLanguage)
+{
+  auto types = languages.isPrimaryLanguage("en");
+  types = languages.isPrimaryLanguage("EN");
 }
 
 } // end of anonymous namespace

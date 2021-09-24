@@ -63,8 +63,11 @@ LanguageTagBuilderDialog::initGui()
   auto boxLayout = new QGridLayout;
   box->setLayout(boxLayout);
   layout->addWidget(box);
-  m_primaryFilterEdit =
-    new FilterEdit(m_languages->languageDescriptions(), false, this);
+  auto list = m_languages->languageDescriptions();
+  list.append(tr("Private 'x'", "Private language 'x' tag"));
+  list.append(tr("Private 'i'", "Private language 'i' tag"));
+  list.append(tr("Private 'qaa-qtz'", "Private language 'qaa-qtz' tag"));
+  m_primaryFilterEdit = new FilterEdit(list, false, this);
   boxLayout->addWidget(m_primaryFilterEdit, 0, 0);
   boxLayout->addWidget(m_primaryFilterEdit->comboBox(), 0, 1);
   connect(m_primaryFilterEdit->comboBox(),
@@ -159,8 +162,16 @@ void
 LanguageTagBuilderDialog::languageChanged()
 {
   if (m_primaryFilterEdit->hasCurrentText()) {
-    m_language =
-      m_languages->languageFromDescription(m_primaryFilterEdit->currentText());
+    auto editText = m_primaryFilterEdit->currentText();
+    if (editText.startsWith(tr("Private",
+                               "Private tag, this should match that used in "
+                               "private language description")),
+        Qt::CaseInsensitive) {
+      if (editText.endsWith("x")) {
+      }
+    } else {
+      m_language = m_languages->languageFromDescription(editText);
+    }
     // find matching extlang if any.
     auto extlangs = m_languages->extlangsWithPrefix(m_language->subtag());
     if (!extlangs.isEmpty()) {
@@ -271,44 +282,60 @@ LanguageTagBuilderDialog::tag()
 void
 LanguageTagBuilderDialog::help()
 {
-  auto dlg = new ExtendedHelpWithTabsDialog(
+  auto dlg = new ExtendedHelpWithComboDialog(
     tr("Language Tag Builder Help", "Help dialog title"), this);
-  dlg->setPrimaryHelpText(
-    tr("ISO639-1 and later require that the language tags be<br>"
-       "built in a certain order. There MUST be a primary language<br>"
-       "tag in the first position.This can be followed by one of :"
-       "<dl><dt>An extended language tag</dt>"
-       "<dd>This can be followed by further optional tags, a script tag or<br>"
-       "a regional tag, or a script tag followed by a regional tag.</dd>"
-       "<dl>A language script tag</dl>"
-       "<dd>This can be followed by an optional regional tag</dd>"
-       "<dl>A regional tag.</dl></ul>",
+  dlg->setMinimumWidth(1500);
+  // clang-format off
+  dlg->setHelpText(
+    tr("ISO639-1 and later require that the language tags be\n"
+       "built in a certain order. There MUST be a primary language\n"
+       "tag in the first position.This can be followed by one of :\n"
+       "- An extended language tag\n"
+       "  This can be followed by further optional tags, a script tag or\n"
+       "  a regional tag, or a script tag followed by a regional tag.\n"
+       "- A language script tag\n"
+       "  This can be followed by an optional regional tag\n"
+       "- A regional tag.\n",
        "Primary help text"));
   dlg->addAdditionalHelpPage(
     tr("Extended Languages :", "Extended help page title"),
     tr(
-      "<ul>"
-      "<li>Primary languages with NO extended languages cause the<br>"
-      "extended language code field to be blank.</li>"
-      "<li>Some languages have both a three character primary language code<br>"
-      "and a two character primary language code plus a three character<br>"
-      "extended language code.<br>"
-      "In this case the three character primary language code is "
-      "preferred.<br>"
-      "Examples are 'Gan Chinese' which has a three character code 'gan'<br>"
-      "and a two character code 'zh' plus a three character code 'gan'<br>"
-      "and 'Gulf Arabic' which has a three character code 'afb' ant two<br>"
-      "character 'ar' plus three character 'afb'.<br>"
-      "In these cases 'gan' and 'afb' three character codes are "
-      "preferred.<br>"
-      "The dialog will remove the extended codes in this case.</li></ul>"
-      "<i>Please note that as far as I can see there are <b>NO</b> cases in "
-      "which<br>"
-      "there is no three character code, so the extended language option<br>"
-      "will probably <b>NEVER</b> appear.<br>"
-      "On the other hand there are a huge number of primary languages<br>"
-      "so I might have missed one.</i>",
+      "- No extended language support.\n"
+      "  Primary languages with NO extended languages cause the extended language\n"
+      "  code field to be blank.\n"
+      "- Extended language support\n"
+      "   Some languages have both a three character primary language code and  a\n"
+      "   two character primary language code plus a three character extended\n"
+      "   language code.\n"
+      "   In this case the three character primary language code is  preferred.\n"
+      "   Examples are 'Gan Chinese' which has a three character code 'gan'\n"
+      "   and a two character code 'zh' plus a three character code 'gan'\n"
+      "   and 'Gulf Arabic' which has a three character code 'afb' ant two\n"
+      "   character 'ar' plus three character 'afb'.\n"
+      "   In these cases 'gan' and 'afb' three character codes are preferred.\n"
+      "\n"
+      "The dialog will remove the extended codes in this case.\n\n"
+      "*Please note that as far as I can see there are **NO** cases in which\n"
+      "there is no three character code, so the extended language option\n"
+      "will probably <b>NEVER</b> appear.\n"
+      "On the other hand there are a huge number of primary languages so\n"
+      "I might have missed one.*",
       "Extended languages help page"));
+  dlg->addAdditionalHelpPage(
+    tr("Private use Languages :", "Private primary language help page title"),
+    tr(
+      "Private use language tags area allowable when used in agreement\n"
+      "between agreed parties for internal use. Available values are in the\n"
+      "range 'qaa' to 'qtz.\n\n"
+      "Alternatively you can use the characters 'x' followed by private\n"
+      "subtag values. Subtags following the 'x' will be ignored by\n"
+      "non-private users.\n\n"
+      "The 'qXX' values are preferred over the 'x' primary tags and the 'i'\n"
+      "tag should only be used if used in an existing system.\n"
+      "The 'i' private tag is included only for grandfathered use for example\n"
+      "'i-klingon' and 'i-bnn'.",
+      "Private languages help page"));
+  // clang-format on
   dlg->show();
 }
 
