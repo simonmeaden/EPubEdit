@@ -2,16 +2,13 @@
 #define LANGUAGES_H
 
 #include <QDate>
+#include <QDialog>
 #include <QDir>
 #include <QFile>
-//#include <QFuture>
-//#include <QFutureWatcher>
 #include <QString>
 #include <QStringLiteral>
 #include <QThread>
 #include <QUrl>
-//#include <QtConcurrent/QtConcurrent>
-
 #include <QByteArray>
 #include <QObject>
 
@@ -78,6 +75,7 @@ public:
   enum TagType
   {
     // primary language tags
+    NO_VALUE = 0,
     PRIMARY_LANGUAGE = 0x1, //!< Language tags or Values flag
     PRIVATE_LANGUAGE = 0x2, //!< 'x' or 'i' indicate a private language
                             //    EXTENDED_AS_PRIMARY = 0x4,
@@ -85,7 +83,7 @@ public:
       0x1000000, //!< Not a primary, private or extended language.
 
     EXTENDED_LANGUAGE = 0x8,
-    EXTLANG_MISMATCH = 0x10,   //!< Language and extended language don't match
+    EXTLANG_MISMATCH = 0x10, //!< Language and extended language don't match
     NO_EXTENDED_LANGUAGE,
     DUPLICATE_EXTENDED = 0x20, //!< extended followed by extended not allowed
     EXTENDED_FOLLOWS_SCRIPT =
@@ -193,6 +191,8 @@ public:
   QString preferredValue() const;
   //! Sets the preferred value of this tag, if any.
   void setPreferredValue(const QString& preferredValue);
+  //! Returns true if the language has a preferred value.
+  bool hasPreferredValue();
   //! Returns the list of possible prefix values.
   QStringList prefix() const;
   // Adds a prefix to the list.

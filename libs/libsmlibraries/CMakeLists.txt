@@ -80,6 +80,7 @@ target_sources(${PROJECT_NAME}
     src/helpdialogs.cpp
     include/stringutil.h
     src/stringutil.cpp
+    src/languagetagbuilderdialog.qrc
 )
 
 add_subdirectory(tests)

@@ -158,6 +158,12 @@ BCP47Language::setPreferredValue(const QString& preferredValue)
 }
 
 bool
+BCP47Language::hasPreferredValue()
+{
+  return !m_preferredValue.isEmpty();
+}
+
+bool
 BCP47Language::isDeprecated() const
 {
   return m_deprecated;
@@ -780,7 +786,7 @@ BCP47Languages::testTag(QString& tag)
 
   for (int i = 0; i < testValue.length(); i++) {
     auto c = testValue.at(i);
-    auto pos = i+1;
+    auto pos = i + 1;
     if (c != '-' && pos <= testValue.length()) {
       subvalue += c;
       if (!result) {

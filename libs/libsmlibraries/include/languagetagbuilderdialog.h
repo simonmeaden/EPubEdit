@@ -15,6 +15,7 @@
 #include <QLineEdit>
 #include <QPainter>
 #include <QPushButton>
+#include <QRadioButton>
 #include <QRegularExpression>
 #include <QSharedPointer>
 #include <QSortFilterProxyModel>
@@ -23,6 +24,7 @@
 #include <QStyledItemDelegate>
 #include <QSyntaxHighlighter>
 #include <QTextCharFormat>
+#include <QRegularExpressionValidator>
 
 #include "languages.h"
 
@@ -32,18 +34,6 @@ class LanguageTagBuilderDialog : public QDialog
 
   class FilterLabel : public QLabel
   {
-    class FilterHighlighter : public QSyntaxHighlighter
-    {
-    public:
-      FilterHighlighter()
-        : QSyntaxHighlighter(document())
-      {
-        
-      }
-
-      void higlightBlock(const QString& text) {}
-    };
-
   public:
     FilterLabel(QWidget* parent);
 
@@ -51,15 +41,15 @@ class LanguageTagBuilderDialog : public QDialog
     void setCurrentTag(const QString& tagValue);
     void clear();
 
-    void setBadFormat(const QTextCharFormat &badFormat);
-    void setGoodFormat(const QTextCharFormat &goodFormat);
-    
+    void setBadFormat(const QTextCharFormat& badFormat);
+    void setGoodFormat(const QTextCharFormat& goodFormat);
+
   protected:
     QString m_tagValue;
     QString m_initialText;
     QTextCharFormat m_badFormat;
     QTextCharFormat m_goodFormat;
-    
+
     void paintEvent(QPaintEvent* event) override;
   };
 
@@ -114,6 +104,90 @@ class LanguageTagBuilderDialog : public QDialog
     void primaryFilterChanged(const QString& text);
   };
 
+  class PrivateLanguageDialog : public QDialog
+  {
+    class PrivateEdit : public QLineEdit
+    {
+    public:
+      PrivateEdit(QWidget* parent)
+        : QLineEdit("qaa", parent)
+      {
+        QRegularExpression re("q[a-t][a-z]");
+        auto validator = new QRegularExpressionValidator(re, this);
+        setValidator(validator);
+      }
+
+      void up(int column)
+      {
+        switch (column) {
+          case 1:
+            if (col2 < 't')
+              col2++;
+            break;
+          case 2:
+            if (col3 < 'z')
+              col3++;
+            break;
+        }
+        build();
+      }
+      void down(int column)
+      {
+        switch (column) {
+          case 1:
+            if (col2 > 'a')
+              col2--;
+            break;
+          case 2:
+            if (col3 < 'a')
+              col3--;
+            break;
+        }
+        build();
+      }
+
+    signals:
+      void newValue(const QString&);
+
+    private:
+      char col1 = 'q';
+      char col2 = 'a';
+      char col3 = 'a';
+
+      void build()
+      {
+        QString value;
+        value.append(col1).append(col2).append(col3);
+        emit newValue(value);
+      }
+    };
+
+  public:
+    PrivateLanguageDialog(QWidget* parent)
+      : QDialog(parent)
+    {
+      auto layout = new QGridLayout;
+      setLayout(layout);
+
+      auto xBox = new QRadioButton(tr("x - not preferred"), this);
+      layout->addWidget(xBox,0, 0);
+
+      auto iBox =
+        new QRadioButton(tr("i - grandfathered, not preferred"), this);
+      layout->addWidget(iBox,1, 0);
+
+      auto pBox = new QRadioButton("qaa-qtz, preferred", this);
+      pBox->setChecked(true);
+      layout->addWidget(pBox,2, 0);
+
+      auto valueEdit = new PrivateEdit(this);
+      valueEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+      layout->addWidget(valueEdit, 3, 0);
+
+      auto upCol1Btn = new QPushButton(this);
+    }
+  };
+
 public:
   explicit LanguageTagBuilderDialog(QWidget* parent = nullptr);
 
@@ -123,7 +197,8 @@ public:
   void extlangChanged();
   void scriptChanged();
   void regionChanged();
-  void updateTag();
+  void updateTag(BCP47Language::TagType type = BCP47Language::NO_VALUE);
+  void usePreferredValue();
 
   QString tag();
 
@@ -133,11 +208,13 @@ private:
   BCP47Languages* m_languages;
   QDir m_configDir;
   QFile m_configFile;
+  QLabel* m_reportLbl;
   FilterLabel* m_resultLbl;
   FilterEdit* m_primaryFilterEdit;
   FilterEdit* m_extlangFilterEdit;
   FilterEdit* m_scriptFilterEdit;
   FilterEdit* m_regionFilterEdit;
+  QPushButton* m_usePreferredBtn;
   QString m_languageTag, m_scriptTag, m_regionTag, m_extlangTag;
   QSharedPointer<BCP47Language> m_language;
 
@@ -145,6 +222,7 @@ private:
   QSortFilterProxyModel* createProxyModel();
   void testTag();
   void clearTag();
+  void setReport(const QString& report);
 
   void help();
 };
