@@ -30,6 +30,9 @@ public:
   MainWindow(QWidget* parent = nullptr);
   ~MainWindow();
 
+signals:
+  void shutdown(int returnCode = 0);
+
 protected:
 private:
   Config* m_config;
@@ -48,7 +51,7 @@ private:
   void newEpub();
   void openFile();
   void saveFile();
-  void exit();
+  void cleanup();
 
   bool loadEpubDocument(const QString& filename);
 

@@ -1,7 +1,7 @@
 <RCC>
-    <qresource prefix="/images">
+    <qresource prefix="/icons">
         <file alias="bottom_dbl">images/go-bottom.svg</file>
-        <file alias="down">images/go-down.svg</file>
+        <file alias="down-arrow">images/go-down.svg</file>
         <file alias="down_dbl">images/go-down-skip.svg</file>
         <file alias="first">images/go-first.svg</file>
         <file alias="last">images/go-last.svg</file>
@@ -10,7 +10,7 @@
         <file alias="left">images/go-previous.svg</file>
         <file alias="left_dbl">images/go-previous-skip.svg</file>
         <file alias="top">images/go-top.svg</file>
-        <file alias="up">images/go-up.svg</file>
+        <file alias="up-arrow">images/go-up.svg</file>
         <file alias="up_dbl">images/go-up-skip.svg</file>
     </qresource>
 </RCC>

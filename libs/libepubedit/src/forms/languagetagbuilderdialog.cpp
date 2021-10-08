@@ -1,4 +1,4 @@
-#include "languagetagbuilderdialog.h"
+#include "forms/languagetagbuilderdialog.h"
 #include "helpdialogs.h"
 #include "paths.h"
 #include "x11colors.h"
@@ -6,17 +6,22 @@
 //====================================================================
 //=== LanguageTagBuilderDialog
 //====================================================================
-LanguageTagBuilderDialog::LanguageTagBuilderDialog(QWidget* parent)
+LanguageTagBuilderDialog::LanguageTagBuilderDialog(Config* config,
+                                                   QWidget* parent)
   : QDialog(parent)
-  , m_languages(new BCP47Languages(this))
-  , m_configDir(
-      QDir(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation)))
-  , m_configFile(
-      (Paths::join(m_configDir.path(), "epubedit", "languages.yaml")))
+  , m_languages(config->languages())
+  , m_configDir(QDir(config->configDir()))
+  , m_configFile(config->configFile())
   , m_languageTag(tr("MISSING-PRIMARY-LANGUAGE"))
 {
+  Q_INIT_RESOURCE(languagetagbuilderdialogresource);
+
   setWindowTitle(tr("Language tag Builder"));
-  m_languages->readFromLocalFile(m_configFile);
+
+  if (m_languages->languageDescriptions().isEmpty()) {
+    m_languages->readFromLocalFile(m_configFile);
+  }
+
   initGui();
 }
 
@@ -64,16 +69,24 @@ LanguageTagBuilderDialog::initGui()
   auto layout = new QVBoxLayout;
   setLayout(layout);
 
+  // PRIMARY LANGUAGE BOX
   auto box =
     new QGroupBox(tr("Primary Language", "Primary Language box title"), this);
   auto boxLayout = new QGridLayout;
   box->setLayout(boxLayout);
   layout->addWidget(box);
   auto list = m_languages->languageDescriptions();
-  m_primaryFilterEdit = new FilterEdit(list, false, this);
+  m_primaryFilterEdit = new Private__::FilterEdit(list, false, this);
   boxLayout->addWidget(m_primaryFilterEdit, 0, 0);
   auto btn = new QPushButton(tr("Clear", "Clear edit text"), this);
-  connect(btn, &QPushButton::clicked, m_primaryFilterEdit, &FilterEdit::clear);
+  connect(btn,
+          &QPushButton::clicked,
+          m_primaryFilterEdit,
+          &Private__::FilterEdit::clear);
+  connect(btn, &QPushButton::clicked, this, [=]() {
+    this->updateTag(BCP47Language::NO_VALUE);
+    this->showPrivateLanguageBox(BCP47Language::NO_VALUE);
+  });
   boxLayout->addWidget(btn, 0, 1);
   boxLayout->addWidget(m_primaryFilterEdit->comboBox(), 0, 2);
   connect(m_primaryFilterEdit->comboBox(),
@@ -81,21 +94,41 @@ LanguageTagBuilderDialog::initGui()
           this,
           &LanguageTagBuilderDialog::languageChanged);
 
+  // HIDDEN PRIVATE LANGUAGE
+  m_privateLangBox =
+    new Private__::PrivateLanguageFrame("(q[a-t][a-z])|x|i", "qaa", this);
+  m_privateLangBox->setHidden(true);
+  connect(m_privateLangBox,
+          &Private__::PrivateFrame::privateValueChanged,
+          this,
+          &LanguageTagBuilderDialog::privateLanguageChanged);
+  boxLayout->addWidget(m_privateLangBox, 1, 0, 1, 3);
+
+  // EXTENSION BOX
   box = new QGroupBox(tr("Language Extensions", "Language extension box title"),
                       this);
   boxLayout = new QGridLayout;
   box->setLayout(boxLayout);
   layout->addWidget(box);
+
+  // EXTLANG
+  int row = 0;
   m_extlangFilterEdit =
-    new FilterEdit(m_languages->extlangDescriptions(), true, this);
+    new Private__::FilterEdit(m_languages->extlangDescriptions(), true, this);
   boxLayout->addWidget(
-    new QLabel(tr("Ext Lang", "EXTLANG label title"), this), 0, 0);
-  boxLayout->addWidget(m_extlangFilterEdit, 0, 1);
+    new QLabel(tr("Ext Lang", "EXTLANG label title"), this), row, 0);
+  boxLayout->addWidget(m_extlangFilterEdit, row, 1);
   btn = new QPushButton(tr("Clear", "Clear edit text"), this);
-  connect(btn, &QPushButton::clicked, m_extlangFilterEdit, &FilterEdit::clear);
-  boxLayout->addWidget(btn, 0, 2);
-  boxLayout->addWidget(m_extlangFilterEdit->comboBox(), 0, 3);
-  boxLayout->addWidget(m_extlangFilterEdit->checkBox(), 0, 4);
+  connect(btn,
+          &QPushButton::clicked,
+          m_extlangFilterEdit,
+          &Private__::FilterEdit::clear);
+  connect(btn, &QPushButton::clicked, this, [=]() {
+    this->updateTag(BCP47Language::NO_VALUE);
+  });
+  boxLayout->addWidget(btn, row, 2);
+  boxLayout->addWidget(m_extlangFilterEdit->comboBox(), row, 3);
+  boxLayout->addWidget(m_extlangFilterEdit->checkBox(), row, 4);
   connect(m_extlangFilterEdit->comboBox(),
           &QComboBox::activated,
           this,
@@ -104,16 +137,36 @@ LanguageTagBuilderDialog::initGui()
           &QCheckBox::stateChanged,
           this,
           &LanguageTagBuilderDialog::extlangChanged);
+
+  row++;
+  // SCRIPT
+  m_privateScriptBox = new Private__::PrivateScriptFrame(
+    "Qa(([a][a-z])|([b][a-x]))", "Qaaa", this);
+  m_privateScriptBox->setHidden(true);
+  connect(m_privateScriptBox,
+          &Private__::PrivateFrame::privateValueChanged,
+          this,
+          &LanguageTagBuilderDialog::privateScriptChanged);
+  boxLayout->addWidget(m_privateScriptBox, row, 0, 1, 3);
+
+  row++;
   m_scriptFilterEdit =
-    new FilterEdit(m_languages->scriptDescriptions(), true, this);
+    new Private__::FilterEdit(m_languages->scriptDescriptions(), true, this);
   boxLayout->addWidget(
-    new QLabel(tr("Script", "Script label title"), this), 1, 0);
-  boxLayout->addWidget(m_scriptFilterEdit, 1, 1);
+    new QLabel(tr("Script", "Script label title"), this), row, 0);
+  boxLayout->addWidget(m_scriptFilterEdit, row, 1);
   btn = new QPushButton(tr("Clear", "Clear edit text"), this);
-  connect(btn, &QPushButton::clicked, m_scriptFilterEdit, &FilterEdit::clear);
-  boxLayout->addWidget(btn, 1, 2);
-  boxLayout->addWidget(m_scriptFilterEdit->comboBox(), 1, 3);
-  boxLayout->addWidget(m_scriptFilterEdit->checkBox(), 1, 4);
+  connect(btn,
+          &QPushButton::clicked,
+          m_scriptFilterEdit,
+          &Private__::FilterEdit::clear);
+  connect(btn, &QPushButton::clicked, this, [=]() {
+    this->updateTag(BCP47Language::NO_VALUE);
+    this->hidePrivateScriptBox(BCP47Language::NO_VALUE);
+  });
+  boxLayout->addWidget(btn, row, 2);
+  boxLayout->addWidget(m_scriptFilterEdit->comboBox(), row, 3);
+  boxLayout->addWidget(m_scriptFilterEdit->checkBox(), row, 4);
   connect(m_scriptFilterEdit->comboBox(),
           &QComboBox::activated,
           this,
@@ -122,16 +175,35 @@ LanguageTagBuilderDialog::initGui()
           &QCheckBox::stateChanged,
           this,
           &LanguageTagBuilderDialog::scriptChanged);
+
+  row++;
+  // REGION
+  m_privateRegionBox =
+    new Private__::PrivateRegionFrame("AA|ZZ|Q[M-Z]|X[A-Z])", "AA", this);
+  m_privateRegionBox->setHidden(true);
+  connect(m_privateRegionBox,
+          &Private__::PrivateFrame::privateValueChanged,
+          this,
+          &LanguageTagBuilderDialog::privateRegionChanged);
+  boxLayout->addWidget(m_privateRegionBox, row, 0, 1, 3);
+
   m_regionFilterEdit =
-    new FilterEdit(m_languages->regionDescriptions(), true, this);
+    new Private__::FilterEdit(m_languages->regionDescriptions(), true, this);
   boxLayout->addWidget(
-    new QLabel(tr("Region", "Region label title"), this), 2, 0);
-  boxLayout->addWidget(m_regionFilterEdit, 2, 1);
+    new QLabel(tr("Region", "Region label title"), this), row, 0);
+  boxLayout->addWidget(m_regionFilterEdit, row, 1);
   btn = new QPushButton(tr("Clear", "Clear edit text"), this);
-  connect(btn, &QPushButton::clicked, m_regionFilterEdit, &FilterEdit::clear);
-  boxLayout->addWidget(btn, 2, 2);
-  boxLayout->addWidget(m_regionFilterEdit->comboBox(), 2, 3);
-  boxLayout->addWidget(m_regionFilterEdit->checkBox(), 2, 4);
+  connect(btn,
+          &QPushButton::clicked,
+          m_regionFilterEdit,
+          &Private__::FilterEdit::clear);
+  connect(btn, &QPushButton::clicked, this, [=]() {
+    this->updateTag(BCP47Language::NO_VALUE);
+    this->hidePrivateRegionBox(BCP47Language::NO_VALUE);
+  });
+  boxLayout->addWidget(btn, row, 2);
+  boxLayout->addWidget(m_regionFilterEdit->comboBox(), row, 3);
+  boxLayout->addWidget(m_regionFilterEdit->checkBox(), row, 4);
   connect(m_regionFilterEdit->comboBox(),
           &QComboBox::activated,
           this,
@@ -149,7 +221,7 @@ LanguageTagBuilderDialog::initGui()
 
   m_reportLbl = new QLabel(this);
   resultLayout->addWidget(m_reportLbl, 0, 0, 1, 2);
-  m_resultLbl = new FilterLabel(this);
+  m_resultLbl = new Private__::FilterLabel(this);
   resultLayout->addWidget(m_resultLbl, 1, 0);
   m_usePreferredBtn = new QPushButton(
     tr("Use Preferred", "Use preferred option button text."), this);
@@ -186,25 +258,85 @@ LanguageTagBuilderDialog::initGui()
 }
 
 void
+LanguageTagBuilderDialog::privateLanguageChanged(const QString& value)
+{
+  m_languageTag = value;
+  updateTag(BCP47Language::PRIVATE_LANGUAGE);
+}
+
+void
+LanguageTagBuilderDialog::privateScriptChanged(const QString& value)
+{
+  m_scriptTag = value;
+  updateTag(BCP47Language::PRIVATE_SCRIPT);
+}
+
+void
+LanguageTagBuilderDialog::privateRegionChanged(const QString& value)
+{
+  m_regionTag = value;
+  updateTag(BCP47Language::PRIVATE_REGION);
+}
+
+void
+LanguageTagBuilderDialog::showPrivateLanguageBox(
+  BCP47Language::TagType languageType)
+{
+  if (languageType == BCP47Language::PRIVATE_LANGUAGE) {
+    m_privateLangBox->setHidden(false);
+  } else {
+    m_privateLangBox->setHidden(true);
+  }
+}
+
+void
+LanguageTagBuilderDialog::hidePrivateScriptBox(
+  BCP47Language::TagType languageType)
+{
+  if (languageType == BCP47Language::PRIVATE_SCRIPT) {
+    m_privateScriptBox->setHidden(false);
+  } else {
+    m_privateScriptBox->setHidden(true);
+  }
+}
+
+void
+LanguageTagBuilderDialog::hidePrivateRegionBox(
+  BCP47Language::TagType languageType)
+{
+  if (languageType == BCP47Language::PRIVATE_REGION) {
+    m_privateRegionBox->setHidden(false);
+  } else {
+    m_privateRegionBox->setHidden(true);
+  }
+}
+
+void
 LanguageTagBuilderDialog::languageChanged()
 {
+  BCP47Language::TagType languageType = BCP47Language::NO_PRIMARY_LANGUAGE;
   if (m_primaryFilterEdit->hasCurrentText()) {
     auto editText = m_primaryFilterEdit->currentText();
     m_language = m_languages->languageFromDescription(editText);
-    // find matching extlang if any.
-    auto extlangs = m_languages->extlangsWithPrefix(m_language->subtag());
-    // set extlang to only acceptable values.
-    m_extlangFilterEdit->setValues(extlangs);
     if (m_language) {
+      // find matching extlang if any.
+      auto extlangs = m_languages->extlangsWithPrefix(m_language->subtag());
+      // set extlang to only acceptable values.
+      m_extlangFilterEdit->setValues(extlangs);
       m_languageTag = m_language->subtag();
+      if (m_language->description() == "Private use")
+        languageType = BCP47Language::PRIVATE_LANGUAGE;
+      else
+        languageType = BCP47Language::PRIMARY_LANGUAGE;
+    } else {
+      m_extlangFilterEdit->clear();
     }
   } else {
     m_languageTag = tr("MISSING-PRIMARY-LANGUAGE",
                        "Missing primary language warning message.");
   }
-  updateTag(m_language->description() == "Private use"
-              ? BCP47Language::PRIVATE_LANGUAGE
-              : BCP47Language::PRIMARY_LANGUAGE);
+  showPrivateLanguageBox(languageType);
+  updateTag(languageType);
 }
 
 void
@@ -243,12 +375,14 @@ LanguageTagBuilderDialog::extlangChanged()
       m_extlangFilterEdit->setRequired(true);
     }
   }
-  updateTag();
+  updateTag(BCP47Language::NO_VALUE);
 }
 
 void
 LanguageTagBuilderDialog::usePreferredValue()
-{}
+{
+  // TODO action this
+}
 
 void
 LanguageTagBuilderDialog::scriptChanged()
@@ -271,7 +405,11 @@ LanguageTagBuilderDialog::scriptChanged()
       }
     }
   }
-  updateTag();
+  auto languageType = m_language->description() == "Private use"
+                        ? BCP47Language::PRIVATE_SCRIPT
+                        : BCP47Language::SCRIPT_LANGUAGE;
+  showPrivateLanguageBox(languageType);
+  updateTag(languageType);
 }
 
 void
@@ -286,7 +424,7 @@ LanguageTagBuilderDialog::regionChanged()
       m_regionFilterEdit->setRequired(true);
     }
   }
-  updateTag();
+  updateTag(BCP47Language::NO_VALUE);
 }
 
 void
@@ -295,10 +433,7 @@ LanguageTagBuilderDialog::updateTag(BCP47Language::TagType type)
   QString result;
   if (!m_languageTag.isEmpty()) {
     if (type == BCP47Language::PRIVATE_LANGUAGE) {
-      auto dlg = new PrivateLanguageDialog(this);
-      if (dlg->exec() == QDialog::Accepted) {
-        qWarning();
-      }
+      result = m_privateLangBox->value();
     } else {
       result = m_languageTag;
     }
@@ -309,14 +444,23 @@ LanguageTagBuilderDialog::updateTag(BCP47Language::TagType type)
   }
 
   if (!m_scriptTag.isEmpty() && m_scriptFilterEdit->isRequired()) {
-    result += QString("-%1").arg(m_scriptTag);
+    if (type == BCP47Language::PRIVATE_SCRIPT) {
+      result += QString("-%1").arg(m_privateScriptBox->value());
+    } else {
+      result += QString("-%1").arg(m_scriptTag);
+    }
   }
 
   if (!m_regionTag.isEmpty() && m_regionFilterEdit->isRequired()) {
-    result += QString("-%1").arg(m_regionTag);
+    if (type == BCP47Language::PRIVATE_REGION) {
+      result += QString("-%1").arg(m_privateRegionBox->value());
+    } else {
+      result += QString("-%1").arg(m_regionTag);
+    }
   }
 
   m_resultLbl->setCurrentTag(result);
+  // TODO highlight label value.
   //  auto tags = m_languages->testTag(result);
   //  qWarning();
   //  if (tags == 0) {
@@ -348,7 +492,10 @@ LanguageTagBuilderDialog::help()
        "  a regional tag, or a script tag followed by a regional tag.\n"
        "- A language script tag\n"
        "  This can be followed by an optional regional tag\n"
-       "- A regional tag.\n",
+       "- A regional tag.\n\n"
+       "Filter edit boxes can be used to limit choices. For instance, entering\n"
+       "'arabic' into the primary languages filter will limit choices to\n"
+       "various Arabic languages.",
        "Primary help text"));
   dlg->addAdditionalHelpPage(
     tr("Extended Languages :", "Extended help page title"),
@@ -392,21 +539,24 @@ LanguageTagBuilderDialog::help()
   dlg->show();
 }
 
+namespace Private__ {
+
 //====================================================================
 //=== FilterEdit
 //====================================================================
-LanguageTagBuilderDialog::FilterEdit::FilterEdit(
-  QStringList items,
-  bool showRequired,
-  LanguageTagBuilderDialog* parent)
+FilterEdit::FilterEdit(QStringList items,
+                       bool showRequired,
+                       LanguageTagBuilderDialog* parent)
   : QLineEdit(parent)
+  , m_filterText(tr("== Filter ==", "FilterEdit initial empty value text"))
   , m_showRequired(showRequired)
   , m_selection(new FilterComboBox(parent))
-  , m_required(showRequired ? new QCheckBox(tr("Use Tag"), parent) : nullptr)
+  , m_required(
+      showRequired
+        ? new QCheckBox(tr("Use Tag", "Use tag required checkbox text"), parent)
+        : nullptr)
   , m_parent(parent)
 {
-  items.prepend(
-    tr("Nothing selected", "Displayed when no filter text is entered."));
   auto model = new QStringListModel();
   model->setStringList(items);
   auto proxyModel = new QSortFilterProxyModel;
@@ -418,64 +568,64 @@ LanguageTagBuilderDialog::FilterEdit::FilterEdit(
 }
 
 QComboBox*
-LanguageTagBuilderDialog::FilterEdit::comboBox()
+FilterEdit::comboBox()
 {
   return m_selection;
 }
 
 QCheckBox*
-LanguageTagBuilderDialog::FilterEdit::checkBox()
+FilterEdit::checkBox()
 {
   return m_required;
 }
 
 QSortFilterProxyModel*
-LanguageTagBuilderDialog::FilterEdit::model()
+FilterEdit::model()
 {
   return qobject_cast<QSortFilterProxyModel*>(m_selection->model());
 }
 
 void
-LanguageTagBuilderDialog::FilterEdit::setEnabled(bool enable)
+FilterEdit::setEnabled(bool enable)
 {
   QLineEdit::setEnabled(enable);
   m_selection->setEnabled(enable);
 }
 
 void
-LanguageTagBuilderDialog::FilterEdit::clearValues()
+FilterEdit::clearValues()
 {
   m_selection->clear();
 }
 
 void
-LanguageTagBuilderDialog::FilterEdit::setValue(const QString& value)
+FilterEdit::setValue(const QString& value)
 {
   m_selection->clear();
   m_selection->addItem(value);
 }
 
 void
-LanguageTagBuilderDialog::FilterEdit::setValues(const QStringList& values)
+FilterEdit::setValues(const QStringList& values)
 {
   m_selection->clear();
   m_selection->addItems(values);
 }
 
 bool
-LanguageTagBuilderDialog::FilterEdit::hasCurrentText()
+FilterEdit::hasCurrentText()
 {
   return !m_selection->currentText().isEmpty();
 }
 
 QString
-LanguageTagBuilderDialog::FilterEdit::currentText()
+FilterEdit::currentText()
 {
   return m_selection->currentText();
 }
 
 bool
-LanguageTagBuilderDialog::FilterEdit::isRequired()
+FilterEdit::isRequired()
 {
   if (m_required)
     return m_required->isChecked();
@@ -483,26 +633,26 @@ LanguageTagBuilderDialog::FilterEdit::isRequired()
 }
 
 void
-LanguageTagBuilderDialog::FilterEdit::setRequired(bool value)
+FilterEdit::setRequired(bool value)
 {
   if (m_required)
     m_required->setChecked(value);
 }
 
 void
-LanguageTagBuilderDialog::FilterEdit::setFilterText(const QString& text)
+FilterEdit::setFilterText(const QString& text)
 {
   m_filterText = text;
 }
 
 void
-LanguageTagBuilderDialog::FilterEdit::setUnavailableText(const QString& text)
+FilterEdit::setUnavailableText(const QString& text)
 {
   m_selection->setUnavailableText(text);
 }
 
 void
-LanguageTagBuilderDialog::FilterEdit::paintEvent(QPaintEvent* event)
+FilterEdit::paintEvent(QPaintEvent* event)
 {
   if (text().isEmpty()) {
     QLineEdit::paintEvent(event);
@@ -515,26 +665,28 @@ LanguageTagBuilderDialog::FilterEdit::paintEvent(QPaintEvent* event)
 }
 
 void
-LanguageTagBuilderDialog::FilterEdit::primaryFilterChanged(const QString& text)
+FilterEdit::primaryFilterChanged(const QString& text)
 {
   QRegularExpression regex(text, QRegularExpression::CaseInsensitiveOption);
   model()->setFilterRegularExpression(regex);
+  m_selection->setCurrentIndex(0);
+  if (m_selection->count() == 1) {
+    emit m_selection->activated(0);
+  }
 }
 
 //====================================================================
 //=== FilterComboBox
 //====================================================================
-LanguageTagBuilderDialog::FilterEdit::FilterComboBox::FilterComboBox(
-  QWidget* parent)
+FilterEdit::FilterComboBox::FilterComboBox(QWidget* parent)
   : QComboBox(parent)
 {
   m_unavailableText =
-    tr(" == None Available == ", "Displayed whenno values are available");
+    tr(" == None Available == ", "Displayed when no values are available");
 }
 
 void
-LanguageTagBuilderDialog::FilterEdit::FilterComboBox::paintEvent(
-  QPaintEvent* event)
+FilterEdit::FilterComboBox::paintEvent(QPaintEvent* event)
 {
   if (currentText().isEmpty()) {
     QComboBox::paintEvent(event);
@@ -550,7 +702,7 @@ LanguageTagBuilderDialog::FilterEdit::FilterComboBox::paintEvent(
 //====================================================================
 //=== FilterLabel
 //====================================================================
-LanguageTagBuilderDialog::FilterLabel::FilterLabel(QWidget* parent)
+FilterLabel::FilterLabel(QWidget* parent)
   : QLabel(parent)
   , m_initialText(tr("A primary language is required by ISO639-1 and later!",
                      "Inital text in tag display"))
@@ -559,13 +711,13 @@ LanguageTagBuilderDialog::FilterLabel::FilterLabel(QWidget* parent)
 }
 
 QString
-LanguageTagBuilderDialog::FilterLabel::currentTag() const
+FilterLabel::currentTag() const
 {
   return m_tagValue;
 }
 
 void
-LanguageTagBuilderDialog::FilterLabel::setCurrentTag(const QString& tagValue)
+FilterLabel::setCurrentTag(const QString& tagValue)
 {
   m_tagValue = tagValue;
   auto displayText =
@@ -575,14 +727,14 @@ LanguageTagBuilderDialog::FilterLabel::setCurrentTag(const QString& tagValue)
 }
 
 void
-LanguageTagBuilderDialog::FilterLabel::clear()
+FilterLabel::clear()
 {
   m_tagValue.clear();
   QLabel::clear();
 }
 
 void
-LanguageTagBuilderDialog::FilterLabel::paintEvent(QPaintEvent* event)
+FilterLabel::paintEvent(QPaintEvent* event)
 {
   if (currentTag().isEmpty()) {
     QLabel::paintEvent(event);
@@ -597,17 +749,36 @@ LanguageTagBuilderDialog::FilterLabel::paintEvent(QPaintEvent* event)
 //====================================================================
 //=== PrivateEdit
 //====================================================================
-LanguageTagBuilderDialog::PrivateLanguageDialog::PrivateEdit::PrivateEdit(
-  QWidget* parent)
-  : QLineEdit("qaa", parent)
+PrivateEdit::PrivateEdit(const QString& regex,
+                         const QString& initialValue,
+                         QWidget* parent)
+  : QLineEdit(initialValue, parent)
 {
-  QRegularExpression re("(q[a-t][a-z])|x|i");
+  QRegularExpression re(regex); // x & i not required here
   auto validator = new QRegularExpressionValidator(re, parent);
   setValidator(validator);
 }
 
+QString
+PrivateEdit::value() const
+{
+  return m_value;
+}
+
+//====================================================================
+//=== PrivateLanguageEdit
+//====================================================================
+PrivateLanguageEdit::PrivateLanguageEdit(const QString& regex,
+                                         const QString& initialValue,
+                                         QWidget* parent)
+  : PrivateEdit(regex, initialValue, parent)
+{
+  connect(
+    this, &QLineEdit::textChanged, this, &PrivateLanguageEdit::manualChange);
+}
+
 void
-LanguageTagBuilderDialog::PrivateLanguageDialog::PrivateEdit::up1()
+PrivateLanguageEdit::up1()
 {
   if (col2 < 't')
     col2++;
@@ -615,7 +786,7 @@ LanguageTagBuilderDialog::PrivateLanguageDialog::PrivateEdit::up1()
 }
 
 void
-LanguageTagBuilderDialog::PrivateLanguageDialog::PrivateEdit::up2()
+PrivateLanguageEdit::up2()
 {
   if (col3 < 'z')
     col3++;
@@ -623,7 +794,7 @@ LanguageTagBuilderDialog::PrivateLanguageDialog::PrivateEdit::up2()
 }
 
 void
-LanguageTagBuilderDialog::PrivateLanguageDialog::PrivateEdit::down1()
+PrivateLanguageEdit::down1()
 {
   if (col2 > 'a')
     col2--;
@@ -631,123 +802,201 @@ LanguageTagBuilderDialog::PrivateLanguageDialog::PrivateEdit::down1()
 }
 
 void
-LanguageTagBuilderDialog::PrivateLanguageDialog::PrivateEdit::down2()
+PrivateLanguageEdit::down2()
 {
   if (col3 > 'a')
     col3--;
   build();
 }
 
-QString
-LanguageTagBuilderDialog::PrivateLanguageDialog::PrivateEdit::value() const
-{
-  return m_value;
-}
-
 void
-LanguageTagBuilderDialog::PrivateLanguageDialog::PrivateEdit::build()
+PrivateLanguageEdit::build()
 {
   m_value.clear();
   m_value.append(col1).append(col2).append(col3);
   setText(m_value);
+  emit valueChanged(m_value);
 }
 
 //====================================================================
-//=== PrivateLanguageDialog
+//=== PrivateFrame
 //====================================================================
-LanguageTagBuilderDialog::PrivateLanguageDialog::PrivateLanguageDialog(
-  QWidget* parent)
-  : QDialog(parent)
+PrivateFrame::PrivateFrame(const QString& regex,
+                           const QString& initialValue,
+                           QWidget* parent)
+  : QFrame(parent)
 {
   auto layout = new QGridLayout;
   setLayout(layout);
+}
 
-  m_xBox = new QRadioButton(tr("x - not preferred"), this);
-  layout->addWidget(m_xBox, 0, 0, 1, 3);
-  connect(
-    m_xBox, &QRadioButton::clicked, this, &PrivateLanguageDialog::xClicked);
+QString
+PrivateFrame::value() const
+{
+  return m_edit->text();
+}
 
-  m_iBox = new QRadioButton(tr("i - grandfathered, not preferred"), this);
-  layout->addWidget(m_iBox, 1, 0, 1, 3);
-  connect(
-    m_iBox, &QRadioButton::clicked, this, &PrivateLanguageDialog::iClicked);
-
-  m_pBox = new QRadioButton("qaa-qtz, preferred", this);
-  m_pBox->setChecked(true);
-  layout->addWidget(m_pBox, 2, 0, 1, 3);
-  connect(
-    m_pBox, &QRadioButton::clicked, this, &PrivateLanguageDialog::pClicked);
-
-  m_edit = new PrivateEdit(this);
-  m_edit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-  layout->addWidget(m_edit, 3, 0);
-
-  m_up1Btn = new QPushButton(this);
-  m_up1Btn->setIcon(QIcon(QStringLiteral(":/images/go-up.svg")));
-  m_up1Btn->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-  connect(m_up1Btn, &QPushButton::clicked, m_edit, &PrivateEdit::up1);
-  m_up2Btn = new QPushButton(this);
-  m_up2Btn->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-  m_up2Btn->setIcon(QIcon(":/images/up"));
-  connect(m_up2Btn, &QPushButton::clicked, m_edit, &PrivateEdit::up2);
-  m_down1Btn = new QPushButton(this);
-  m_down1Btn->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-  m_down1Btn->setIcon(QIcon(":/images/down"));
-  connect(m_down1Btn, &QPushButton::clicked, m_edit, &PrivateEdit::down1);
-  m_down2Btn = new QPushButton(this);
-  m_down2Btn->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-  m_down2Btn->setIcon(QIcon(":/images/down"));
-  connect(m_down2Btn, &QPushButton::clicked, m_edit, &PrivateEdit::down2);
-  layout->addWidget(m_up1Btn, 3, 1);
-  layout->addWidget(m_up2Btn, 3, 2);
-  layout->addWidget(m_down1Btn, 4, 1);
-  layout->addWidget(m_down2Btn, 4, 2);
-
-  auto box = new QDialogButtonBox(
-    QDialogButtonBox::Cancel | QDialogButtonBox::Apply | QDialogButtonBox::Help,
+//====================================================================
+//=== PrivateLanguageFrame
+//====================================================================
+PrivateLanguageFrame::PrivateLanguageFrame(const QString& regex,
+                                           const QString& initialValue,
+                                           QWidget* parent)
+  : PrivateFrame(regex, initialValue, parent)
+{
+  auto layout = qobject_cast<QGridLayout*>(this->layout());
+  auto lbl = new QLabel(
+    tr("Private language tags should be one of :<ul>"
+       "<li>'i' grandfathered (only use if you are ALREADY using it).</li>"
+       "<li>'x' valid but not preferred.</li>"
+       "<li>The range 'qaa' to 'qtz' preferred</li></ul>"),
     this);
-  layout->addWidget(box, 5, 0, 1, 3);
-  connect(
-    box, &QDialogButtonBox::helpRequested, this, &PrivateLanguageDialog::help);
-  connect(box, &QDialogButtonBox::accepted, this, &QDialog::accept);
-  connect(box, &QDialogButtonBox::rejected, this, &QDialog::reject);
+  layout->addWidget(lbl, 0, 0, 3, 1);
+
+  m_edit = new PrivateLanguageEdit(regex, initialValue, this);
+  m_edit->setToolTip(tr("Private language tag. Use the up and down buttons\n"
+                        "to change values or enter manually for 'x' or 'i'.",
+                        "Private language edit tooltip text"));
+  layout->addWidget(m_edit, 0, 1, 2, 1, Qt::AlignVCenter);
+  connect(m_edit,
+          &PrivateEdit::valueChanged,
+          this,
+          &PrivateFrame::privateValueChanged);
+
+  QString resourcePath = ":/icons/down-arrow";
+  auto downArrow = QPixmap(":/icons/down-arrow");
+  auto upArrow = QPixmap(":/icons/up-arrow");
+
+  m_up1Btn = new QToolButton(this);
+  m_up1Btn->setToolButtonStyle(Qt::ToolButtonIconOnly);
+  m_up1Btn->setIcon(upArrow);
+  m_up1Btn->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
+  m_up1Btn->setToolTip(
+    tr("Second character up",
+       "Private language second character up button tooltip text"));
+  connect(m_up1Btn,
+          &QToolButton::clicked,
+          qobject_cast<PrivateLanguageEdit*>(m_edit),
+          &PrivateLanguageEdit::up1);
+  m_up2Btn = new QToolButton(this);
+  m_up2Btn->setToolButtonStyle(Qt::ToolButtonIconOnly);
+  m_up2Btn->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
+  m_up2Btn->setIcon(upArrow);
+  m_up2Btn->setToolTip(
+    tr("Third character up",
+       "Private language third character up button tooltip text"));
+  connect(m_up2Btn,
+          &QToolButton::clicked,
+          qobject_cast<PrivateLanguageEdit*>(m_edit),
+          &PrivateLanguageEdit::up2);
+  m_down1Btn = new QToolButton(this);
+  m_down1Btn->setToolButtonStyle(Qt::ToolButtonIconOnly);
+  m_down1Btn->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
+  m_down1Btn->setIcon(downArrow);
+  m_down1Btn->setToolTip(
+    tr("Second character down",
+       "Private language second character down button tooltip text"));
+  connect(m_down1Btn,
+          &QToolButton::clicked,
+          qobject_cast<PrivateLanguageEdit*>(m_edit),
+          &PrivateLanguageEdit::down1);
+  m_down2Btn = new QToolButton(this);
+  m_down2Btn->setToolButtonStyle(Qt::ToolButtonIconOnly);
+  m_down2Btn->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
+  m_down2Btn->setIcon(downArrow);
+  m_down2Btn->setToolTip(
+    tr("Third character down",
+       "Private language third character down button tooltip text"));
+  connect(m_down2Btn,
+          &QToolButton::clicked,
+          qobject_cast<PrivateLanguageEdit*>(m_edit),
+          &PrivateLanguageEdit::down2);
+  layout->addWidget(m_up1Btn, 0, 2);
+  layout->addWidget(m_up2Btn, 0, 3);
+  layout->addWidget(m_down1Btn, 1, 2);
+  layout->addWidget(m_down2Btn, 1, 3);
+  auto spacer = new QWidget();
+  spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  layout->addWidget(spacer, 2, 1, 1, 2);
 }
 
 void
-LanguageTagBuilderDialog::PrivateLanguageDialog::help()
+PrivateLanguageFrame::enableEdit(bool enable)
 {
-  // TODO help for
+  m_edit->setEnabled(enable);
+  m_up1Btn->setEnabled(enable);
+  m_up2Btn->setEnabled(enable);
+  m_down1Btn->setEnabled(enable);
+  m_down2Btn->setEnabled(enable);
 }
 
-void LanguageTagBuilderDialog::PrivateLanguageDialog::iClicked(bool checked)
+//////====================================================================
+//////=== PrivateExtLangFrame
+//////====================================================================
+// PrivateExtLangFrame::PrivateExtLangFrame(const QString &regex, const QString
+// &initialValue, QWidget *parent)
+//  : PrivateFrame(regex, initialValue, parent)
+//{
+//  auto layout = qobject_cast<QGridLayout*>(this->layout());
+
+//  m_edit = new PrivateEdit(regex, initialValue, this);
+//  layout->addWidget(m_edit, 1, 0);
+//  connect(m_edit, &PrivateEdit::valueChanged, this,
+//  &PrivateFrame::privateValueChanged);
+
+//}
+
+// void PrivateExtLangFrame::enableEdit(bool enable)
+//{
+//  m_edit->setEnabled(enable);
+//}
+
+////====================================================================
+////=== PrivateScriptFrame
+////====================================================================
+PrivateScriptFrame::PrivateScriptFrame(const QString& regex,
+                                       const QString& initialValue,
+                                       QWidget* parent)
+  : PrivateFrame(regex, initialValue, parent)
 {
-  if (checked) {
-    m_edit->setEnabled(false);
-    m_up1Btn->setEnabled(false);
-    m_up2Btn->setEnabled(false);
-    m_down1Btn->setEnabled(false);
-    m_down2Btn->setEnabled(false);
-  }
+  auto layout = qobject_cast<QGridLayout*>(this->layout());
+
+  m_edit = new PrivateEdit(regex, initialValue, this);
+  layout->addWidget(m_edit, 1, 0);
+  connect(m_edit,
+          &PrivateEdit::valueChanged,
+          this,
+          &PrivateFrame::privateValueChanged);
 }
 
-void LanguageTagBuilderDialog::PrivateLanguageDialog::xClicked(bool checked)
+void
+PrivateScriptFrame::enableEdit(bool enable)
 {
-  if (checked) {
-    m_edit->setEnabled(false);
-    m_up1Btn->setEnabled(false);
-    m_up2Btn->setEnabled(false);
-    m_down1Btn->setEnabled(false);
-    m_down2Btn->setEnabled(false);
-  }
+  m_edit->setEnabled(enable);
 }
 
-void LanguageTagBuilderDialog::PrivateLanguageDialog::pClicked(bool checked)
+////====================================================================
+////=== PrivateRegionFrame
+////====================================================================
+PrivateRegionFrame::PrivateRegionFrame(const QString& regex,
+                                       const QString& initialValue,
+                                       QWidget* parent)
+  : PrivateFrame(regex, initialValue, parent)
 {
-  if (checked) {
-    m_edit->setEnabled(true);
-    m_up1Btn->setEnabled(true);
-    m_up2Btn->setEnabled(true);
-    m_down1Btn->setEnabled(true);
-    m_down2Btn->setEnabled(true);
-  }
+  auto layout = qobject_cast<QGridLayout*>(this->layout());
+
+  m_edit = new PrivateEdit(regex, initialValue, this);
+  layout->addWidget(m_edit, 1, 0);
+  connect(m_edit,
+          &PrivateEdit::valueChanged,
+          this,
+          &PrivateFrame::privateValueChanged);
 }
+
+void
+PrivateRegionFrame::enableEdit(bool enable)
+{
+  m_edit->setEnabled(enable);
+}
+
+} // end of namespace Private__

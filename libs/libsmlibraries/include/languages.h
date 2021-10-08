@@ -249,7 +249,6 @@ public:
   LanguageParser(QObject* parent = nullptr);
 
   void parse();
-
   void setData(const QByteArray& data);
 
 signals:
@@ -260,11 +259,8 @@ signals:
   void parsingErrors(QMultiMap<int, LanguageParser::Errors>);
 
 private:
-  //  QMultiMap<int, Errors> m_errors;
   int m_lineNumber;
   QString m_data;
-  //  QMultiMap<QString, QSharedPointer<BCP47Language>> m_map;
-  //  QDate m_fileDate;
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(LanguageParser::Errors)
 

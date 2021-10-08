@@ -74,6 +74,9 @@ target_sources(${PROJECT_NAME}
     src/forms/configurationeditor.cpp
     include/options.h
     src/options.cpp
+    src/forms/languagetagbuilderdialogresource.qrc
+    include/forms/languagetagbuilderdialog.h
+    src/forms/languagetagbuilderdialog.cpp
 
     # Utility classes
     src/util/csvsplitter.h

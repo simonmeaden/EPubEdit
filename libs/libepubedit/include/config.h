@@ -52,6 +52,8 @@ public:
 
   static const int StatusTimeout = 20;
 
+  BCP47Languages *languages() const;
+
 signals:
   void sendStatusMessage(const QString& message, int timeout);
   void sendLogMessage(const QString& message);

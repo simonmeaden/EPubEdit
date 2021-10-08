@@ -248,6 +248,11 @@ Config::load(const QString& filename)
   }
 }
 
+BCP47Languages *Config::languages() const
+{
+  return m_languages;
+}
+
 QString
 Config::configFile() const
 {

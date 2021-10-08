@@ -41,8 +41,6 @@ target_sources(${PROJECT_NAME}
     src/languages.cpp
     include/unstatistical.h
     src/unstatistical.cpp
-    include/languagetagbuilderdialog.h
-    src/languagetagbuilderdialog.cpp
 #    include/iso639codes.h
 #    src/iso639codes.cpp
     include/filedownloader.h
@@ -80,7 +78,6 @@ target_sources(${PROJECT_NAME}
     src/helpdialogs.cpp
     include/stringutil.h
     src/stringutil.cpp
-    src/languagetagbuilderdialog.qrc
 )
 
 add_subdirectory(tests)

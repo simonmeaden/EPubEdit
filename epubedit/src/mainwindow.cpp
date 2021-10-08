@@ -4,7 +4,7 @@
 #include "forms/configurationeditor.h"
 #include "forms/epubedit.h"
 //#include "languages.h"
-#include "languagetagbuilderdialog.h"
+#include "forms/languagetagbuilderdialog.h"
 
 //#define VERSION_2
 //#define VERSION_3_0
@@ -22,15 +22,21 @@ MainWindow::MainWindow(QWidget* parent)
   qRegisterMetaType<Direction>("Direction");
 
   m_config = new Config(this);
+  // cleanup shit
+  connect(this, &MainWindow::destroyed, this , &MainWindow::cleanup);
+  // Qt::QueuedConnection is recommended here otherwise close might not happen.
+  connect(this, &MainWindow::shutdown, this , &MainWindow::close, Qt::QueuedConnection);
 
 #if defined(TESTDIALOG)
   // TEMPORARY TEST STUFF
-  auto builder = new LanguageTagBuilderDialog(this);
+  auto builder = new LanguageTagBuilderDialog(m_config, this);
   if (builder->exec() == QDialog::Accepted) {
-    /*auto data =*/ builder->tag();
+    auto data = builder->tag();
+    qDebug() << QString("Tag : ").arg(data);
   }
 
-  QCoreApplication::exit(0);
+  emit shutdown(0);
+
   // TEMPORARY TEST STUFF
 #elif
   initGui();
@@ -98,9 +104,10 @@ MainWindow::saveFile()
 }
 
 void
-MainWindow::exit()
+MainWindow::cleanup()
 {
-  close();
+  // TODO cleanup code
+  qWarning();
 }
 
 void
@@ -158,7 +165,7 @@ MainWindow::initFileActions()
   m_fileExitAct = new QAction(tr("&Quit"), this);
   m_fileExitAct->setShortcuts(QKeySequence::Close);
   m_fileExitAct->setStatusTip(tr("Exit Application"));
-  connect(m_fileExitAct, &QAction::triggered, this, &MainWindow::exit);
+  connect(m_fileExitAct, &QAction::triggered, this, &MainWindow::cleanup);
 }
 
 void
