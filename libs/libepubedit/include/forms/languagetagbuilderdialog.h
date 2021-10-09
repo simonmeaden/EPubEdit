@@ -58,6 +58,7 @@ protected:
 
 class FilterEdit : public QLineEdit
 {
+  Q_OBJECT
   class FilterComboBox : public QComboBox
   {
   public:
@@ -92,6 +93,10 @@ public:
 
   void setFilterText(const QString& text);
   void setUnavailableText(const QString& text);
+
+signals:
+  void activated(int index);
+  void stateChanged(int);
 
 protected:
   void paintEvent(QPaintEvent* event) override;
@@ -145,20 +150,41 @@ private:
   char col3 = 'a';
 
   void build() override;
-  void manualChange(const QString& value) {
-    if (value=="i" || value=="x") {
-      emit valueChanged(value);
-    }
-  }
+  void manualChange(const QString& value);
+};
+
+class PrivateRegionEdit : public PrivateEdit
+{
+  Q_OBJECT
+public:
+  enum Type
+  {
+    AA,
+    QM,
+    XA,
+    ZZ,
+  };
+  PrivateRegionEdit(const QString& regex,
+                    const QString& initialValue,
+                    QWidget* parent);
+
+  void up();
+  void down();
+  void setType(Type type);
+
+private:
+  char col1;
+  char col2;
+  Type m_type;
+
+  void build() override;
 };
 
 class PrivateFrame : public QFrame
 {
   Q_OBJECT
 public:
-  PrivateFrame(const QString& regex,
-               const QString& initialValue,
-               QWidget* parent);
+  PrivateFrame(QWidget* parent);
 
   QString value() const;
 
@@ -185,17 +211,17 @@ protected:
   QToolButton *m_up1Btn, *m_up2Btn, *m_down1Btn, *m_down2Btn;
 };
 
-//class PrivateExtLangFrame : public PrivateFrame
+// class PrivateExtLangFrame : public PrivateFrame
 //{
 //  Q_OBJECT
-//public:
+// public:
 //  PrivateExtLangFrame(const QString& regex,
 //                      const QString& initialValue,
 //                      QWidget* parent);
 
 //  void enableEdit(bool enable) override;
 
-//protected:
+// protected:
 //  QToolButton *m_up1Btn, *m_up2Btn, *m_down1Btn, *m_down2Btn;
 //};
 
@@ -224,7 +250,7 @@ public:
   void enableEdit(bool enable) override;
 
 protected:
-  QToolButton *m_up1Btn, *m_up2Btn, *m_down1Btn, *m_down2Btn;
+  QToolButton *m_upBtn, *m_downBtn;
 };
 
 } // end of namespace Private__
@@ -257,9 +283,9 @@ private:
   Private__::FilterEdit* m_extlangFilterEdit;
   Private__::FilterEdit* m_scriptFilterEdit;
   Private__::FilterEdit* m_regionFilterEdit;
-  Private__::PrivateLanguageFrame* m_privateLangBox;
-  Private__::PrivateScriptFrame* m_privateScriptBox;
-  Private__::PrivateRegionFrame* m_privateRegionBox;
+  Private__::PrivateLanguageFrame* m_privateLangFrame;
+  Private__::PrivateScriptFrame* m_privateScriptFrame;
+  Private__::PrivateRegionFrame* m_privateRegionFrame;
   //  Private__::PrivateLanguageFrame* m_privateLangBox;
   //  Private__::PrivateScriptFrame *m_privateScriptBox;
   QPushButton* m_usePreferredBtn;
@@ -276,9 +302,11 @@ private:
   void privateRegionChanged(const QString& value);
 
   void help();
-  void showPrivateLanguageBox(BCP47Language::TagType languageType);
-  void hidePrivateScriptBox(BCP47Language::TagType languageType);
-  void hidePrivateRegionBox(BCP47Language::TagType languageType);
+  void showPrivateLanguageFrame(BCP47Language::TagType languageType);
+  void showPrivateScriptFrame(BCP47Language::TagType languageType);
+  void showPrivateRegionFrame(BCP47Language::TagType languageType);
+
+  static QString MISSING_PRIMARY_LANGUAGE;
 };
 
 #endif // LANGUAGETAGBUILDERDIALOG_H

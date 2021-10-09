@@ -84,6 +84,11 @@ BCP47Language::suppressScriptLang() const
   return m_suppressScriptLang;
 }
 
+bool BCP47Language::hasSuppressScriptLang() const
+{
+  return (!m_suppressScriptLang.isEmpty());
+}
+
 void
 BCP47Language::setMacrolanguageName(const QString& macrolang)
 {

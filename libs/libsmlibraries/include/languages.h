@@ -159,6 +159,8 @@ public:
   void setSuppressScript(const QString& lang);
   //! Returns the suppress-script name, or an empty QString if none.
   QString suppressScriptLang() const;
+  //! Returns true if there is a suppress script lang, otherwise returns false.
+  bool hasSuppressScriptLang() const;
   //! Sets the macrolanguage name for this tag, if any
   void setMacrolanguageName(const QString& microlang);
   //! Returns the macrolanguage name or an empty string if none.
