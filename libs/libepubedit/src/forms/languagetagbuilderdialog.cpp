@@ -310,9 +310,9 @@ LanguageTagBuilderDialog::showPrivateLanguageFrame(
   BCP47Language::TagType languageType)
 {
   if (languageType == BCP47Language::PRIVATE_LANGUAGE) {
-    m_privateLangFrame->setHidden(false);
+    m_privateLangFrame->show();
   } else {
-    m_privateLangFrame->setHidden(true);
+    m_privateLangFrame->hide();
   }
 }
 
@@ -321,9 +321,9 @@ LanguageTagBuilderDialog::showPrivateScriptFrame(
   BCP47Language::TagType languageType)
 {
   if (languageType == BCP47Language::PRIVATE_SCRIPT) {
-    m_privateScriptFrame->setHidden(false);
+    m_privateScriptFrame->show();
   } else {
-    m_privateScriptFrame->setHidden(true);
+    m_privateScriptFrame->hide();
   }
 }
 
@@ -332,9 +332,9 @@ LanguageTagBuilderDialog::showPrivateRegionFrame(
   BCP47Language::TagType languageType)
 {
   if (languageType == BCP47Language::PRIVATE_REGION) {
-    m_privateRegionFrame->setHidden(false);
+    m_privateRegionFrame->show();
   } else {
-    m_privateRegionFrame->setHidden(true);
+    m_privateRegionFrame->hide();
   }
 }
 
@@ -343,6 +343,7 @@ LanguageTagBuilderDialog::languageChanged()
 {
   BCP47Language::TagType languageType = BCP47Language::NO_PRIMARY_LANGUAGE;
   if (m_primaryFilterEdit->hasCurrentText()) {
+    m_primaryFilterEdit->setRequired(true);
     auto editText = m_primaryFilterEdit->currentText();
     m_language = m_languages->languageFromDescription(editText);
     if (m_language) {
@@ -447,8 +448,8 @@ void
 LanguageTagBuilderDialog::regionChanged()
 {
   BCP47Language::TagType languageType = BCP47Language::NO_REGION;
-  if (m_regionFilterEdit->hasCurrentText() &&
-      m_regionFilterEdit->isRequired()) {
+  if (m_regionFilterEdit->hasCurrentText()) {
+    m_regionFilterEdit->setRequired(true);
     auto editText = m_regionFilterEdit->currentText();
     auto region = m_languages->regionFromDescription(editText);
     if (region) {
@@ -612,8 +613,10 @@ FilterEdit::FilterEdit(QStringList items,
   connect(
     this, &QLineEdit::textChanged, this, &FilterEdit::primaryFilterChanged);
   connect(m_selection, &QComboBox::activated, this, &FilterEdit::activated);
-  connect(
-    m_required, &QCheckBox::stateChanged, this, &FilterEdit::stateChanged);
+  if (m_required) {
+    connect(
+      m_required, &QCheckBox::stateChanged, this, &FilterEdit::stateChanged);
+  }
 }
 
 QComboBox*
@@ -822,12 +825,13 @@ PrivateLanguageEdit::PrivateLanguageEdit(const QString& regex,
                                          QWidget* parent)
   : PrivateEdit(regex, initialValue, parent)
 {
+  setType(qaa);
   connect(
     this, &QLineEdit::textChanged, this, &PrivateLanguageEdit::manualChange);
 }
 
 void
-PrivateLanguageEdit::up1()
+PrivateLanguageEdit::up2()
 {
   if (col2 < 't')
     col2++;
@@ -835,7 +839,7 @@ PrivateLanguageEdit::up1()
 }
 
 void
-PrivateLanguageEdit::up2()
+PrivateLanguageEdit::up3()
 {
   if (col3 < 'z')
     col3++;
@@ -843,7 +847,7 @@ PrivateLanguageEdit::up2()
 }
 
 void
-PrivateLanguageEdit::down1()
+PrivateLanguageEdit::down2()
 {
   if (col2 > 'a')
     col2--;
@@ -851,7 +855,7 @@ PrivateLanguageEdit::down1()
 }
 
 void
-PrivateLanguageEdit::down2()
+PrivateLanguageEdit::down3()
 {
   if (col3 > 'a')
     col3--;
@@ -859,10 +863,40 @@ PrivateLanguageEdit::down2()
 }
 
 void
+PrivateLanguageEdit::setType(PrivateLanguageEdit::Type type)
+{
+  m_type = type;
+  switch (type) {
+    case i:
+      col1 = 'i';
+      build();
+      break;
+    case x:
+      col1 = 'x';
+      build();
+      break;
+    case qaa:
+      col1 = 'q';
+      col2 = 'a';
+      col3 = 'a';
+      build();
+      break;
+  }
+}
+
+void
 PrivateLanguageEdit::build()
 {
-  m_value.clear();
-  m_value.append(col1).append(col2).append(col3);
+  switch (m_type) {
+    case i:
+    case x:
+      m_value = col1;
+      break;
+    case qaa:
+      m_value=col1;
+      m_value.append(col2).append(col3);
+      break;
+  }
   setText(m_value);
   emit valueChanged(m_value);
 }
@@ -874,6 +908,15 @@ PrivateLanguageEdit::manualChange(const QString& value)
     emit valueChanged(value);
   }
 }
+
+//====================================================================
+//=== PrivateScriptEdit
+//====================================================================
+PrivateScriptEdit::PrivateScriptEdit(const QString& regex,
+                                     const QString& initialValue,
+                                     QWidget* parent)
+  : PrivateEdit(regex, initialValue, parent)
+{}
 
 //====================================================================
 //=== PrivateRegionEdit
@@ -978,7 +1021,14 @@ PrivateFrame::PrivateFrame(QWidget* parent)
 QString
 PrivateFrame::value() const
 {
-  return m_edit->text();
+  return m_value;
+}
+
+void
+PrivateFrame::setValue(const QString& value)
+{
+  m_value = value;
+  emit privateValueChanged(value);
 }
 
 //====================================================================
@@ -987,25 +1037,42 @@ PrivateFrame::value() const
 PrivateLanguageFrame::PrivateLanguageFrame(const QString& regex,
                                            const QString& initialValue,
                                            QWidget* parent)
-  : PrivateFrame(/*regex, initialValue, */ parent)
+  : PrivateFrame(parent)
 {
   auto layout = qobject_cast<QGridLayout*>(this->layout());
-  auto lbl = new QLabel(
-    tr("Private language tags should be one of :<ul>"
-       "<li>'i' grandfathered (only use if you are ALREADY using it).</li>"
-       "<li>'x' valid but not preferred.</li>"
-       "<li>The range 'qaa' to 'qtz' preferred</li></ul>"),
-    this);
-  layout->addWidget(lbl, 0, 0, 3, 1);
+  layout->setVerticalSpacing(0);
+  auto lbl =
+    new QLabel(tr("Private language tags should be one of :", ""), this);
+  layout->addWidget(lbl, 0, 0);
 
+  // This needs to be created BEFORE radio buttons.
   auto edit = new PrivateLanguageEdit(regex, initialValue, this);
   m_edit = edit;
   m_edit->setToolTip(tr("Private language tag. Use the up and down buttons\n"
                         "to change values or enter manually for 'x' or 'i'.",
                         "Private language edit tooltip text"));
-  layout->addWidget(edit, 0, 1, 2, 1, Qt::AlignVCenter);
   connect(
-    edit, &PrivateEdit::valueChanged, this, &PrivateFrame::privateValueChanged);
+    edit, &PrivateEdit::valueChanged, this, &PrivateLanguageFrame::setValue);
+  m_value = edit->value();
+
+  auto btn = new QRadioButton(
+    tr("'i' grandfathered (only use if you are ALREADY using it)."), this);
+  btn->setChecked(true);
+  connect(btn, &QRadioButton::clicked, this, [=]() {
+    edit->setType(PrivateLanguageEdit::i);
+  });
+  layout->addWidget(btn, 1, 0);
+  btn = new QRadioButton(tr("'x' valid but not preferred."), this);
+  connect(btn, &QRadioButton::clicked, this, [=]() {
+    edit->setType(PrivateLanguageEdit::x);
+  });
+  layout->addWidget(btn, 2, 0);
+  btn = new QRadioButton(tr("The range 'qaa' to 'qtz' preferred"), this);
+  btn->setChecked(true);
+  connect(btn, &QRadioButton::clicked, this, [=]() {
+    edit->setType(PrivateLanguageEdit::qaa);
+  });
+  layout->addWidget(btn, 3, 0);
 
   auto downArrow = QPixmap(":/icons/down-arrow");
   auto upArrow = QPixmap(":/icons/up-arrow");
@@ -1017,7 +1084,8 @@ PrivateLanguageFrame::PrivateLanguageFrame(const QString& regex,
   m_up1Btn->setToolTip(
     tr("Second character up",
        "Private language second character up button tooltip text"));
-  connect(m_up1Btn, &QToolButton::clicked, edit, &PrivateLanguageEdit::up1);
+  connect(m_up1Btn, &QToolButton::clicked, edit, &PrivateLanguageEdit::up2);
+
   m_up2Btn = new QToolButton(this);
   m_up2Btn->setToolButtonStyle(Qt::ToolButtonIconOnly);
   m_up2Btn->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
@@ -1025,15 +1093,17 @@ PrivateLanguageFrame::PrivateLanguageFrame(const QString& regex,
   m_up2Btn->setToolTip(
     tr("Third character up",
        "Private language third character up button tooltip text"));
-  connect(m_up2Btn, &QToolButton::clicked, edit, &PrivateLanguageEdit::up2);
+  connect(m_up2Btn, &QToolButton::clicked, edit, &PrivateLanguageEdit::up3);
+
   m_down1Btn = new QToolButton(this);
   m_down1Btn->setToolButtonStyle(Qt::ToolButtonIconOnly);
   m_down1Btn->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
   m_down1Btn->setIcon(downArrow);
   m_down1Btn->setToolTip(
-    tr("Second character down",
-       "Private language second character down button tooltip text"));
-  connect(m_down1Btn, &QToolButton::clicked, edit, &PrivateLanguageEdit::down1);
+    tr("Third character up",
+       "Private language third character up button tooltip text"));
+  connect(m_down1Btn, &QToolButton::clicked, edit, &PrivateLanguageEdit::down2);
+
   m_down2Btn = new QToolButton(this);
   m_down2Btn->setToolButtonStyle(Qt::ToolButtonIconOnly);
   m_down2Btn->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
@@ -1041,14 +1111,43 @@ PrivateLanguageFrame::PrivateLanguageFrame(const QString& regex,
   m_down2Btn->setToolTip(
     tr("Third character down",
        "Private language third character down button tooltip text"));
-  connect(m_down2Btn, &QToolButton::clicked, edit, &PrivateLanguageEdit::down2);
-  layout->addWidget(m_up1Btn, 0, 2);
-  layout->addWidget(m_up2Btn, 0, 3);
-  layout->addWidget(m_down1Btn, 1, 2);
-  layout->addWidget(m_down2Btn, 1, 3);
-  auto spacer = new QWidget();
-  spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-  layout->addWidget(spacer, 2, 1, 1, 2);
+  connect(m_down2Btn, &QToolButton::clicked, edit, &PrivateLanguageEdit::down3);
+
+  layout->addWidget(edit, 0, 1, 2, 1, Qt::AlignVCenter);
+  // shouldn't need this but for some reason if I don't m_down1Btn doesn't work.
+  layout->addWidget(new QWidget(this), 0, 2, 4, 1);
+  layout->addWidget(m_up1Btn, 0, 3);
+  layout->addWidget(m_up2Btn, 0, 4);
+  layout->addWidget(m_down1Btn, 1, 3);
+  layout->addWidget(m_down2Btn, 1, 4);
+
+  auto pLayout = new QGridLayout;
+  lbl = new QLabel(
+    tr("Enter private tags : ", "Private non-standard tags label"), this);
+  pLayout->addWidget(lbl, 0, 0);
+  auto pEdit = new QLineEdit(this);
+  pLayout->addWidget(pEdit, 0, 1);
+  connect(
+    pEdit, &QLineEdit::textChanged, this, &PrivateLanguageFrame::setExtension);
+  auto clearBtn = new QPushButton(tr("Clear", "Clear edit text"), this);
+  // lineedit cleared with clear button
+  connect(clearBtn, &QPushButton::clicked, pEdit, &QLineEdit::clear);
+  pLayout->addWidget(clearBtn, 0, 2);
+  layout->addLayout(pLayout, 2, 1, 1, 2);
+}
+
+void
+PrivateLanguageFrame::setValue(const QString& value)
+{
+  PrivateFrame::setValue(value);
+  emit privateValueChanged(buildString());
+}
+
+void
+PrivateLanguageFrame::setExtension(const QString& extension)
+{
+  m_extension = extension;
+  emit privateValueChanged(buildString());
 }
 
 void
@@ -1059,6 +1158,30 @@ PrivateLanguageFrame::enableEdit(bool enable)
   m_up2Btn->setEnabled(enable);
   m_down1Btn->setEnabled(enable);
   m_down2Btn->setEnabled(enable);
+}
+
+void
+PrivateLanguageFrame::show()
+{
+  emit privateValueChanged(buildString());
+  QWidget::show();
+}
+
+QString
+PrivateLanguageFrame::value() const
+{
+  return buildString();
+}
+
+QString
+PrivateLanguageFrame::buildString() const
+{
+  QString value;
+  if (!m_extension.isEmpty())
+    value += QString("%1-%2").arg(m_value, m_extension);
+  else
+    value = m_value;
+  return value;
 }
 
 //////====================================================================
@@ -1092,12 +1215,9 @@ PrivateScriptFrame::PrivateScriptFrame(const QString& regex,
 {
   auto layout = qobject_cast<QGridLayout*>(this->layout());
 
-  m_edit = new PrivateEdit(regex, initialValue, this);
+  m_edit = new PrivateScriptEdit(regex, initialValue, this);
   layout->addWidget(m_edit, 1, 0);
-  connect(m_edit,
-          &PrivateEdit::valueChanged,
-          this,
-          &PrivateFrame::privateValueChanged);
+  connect(m_edit, &PrivateEdit::valueChanged, this, &PrivateFrame::setValue);
 }
 
 void
@@ -1115,16 +1235,18 @@ PrivateRegionFrame::PrivateRegionFrame(const QString& regex,
   : PrivateFrame(parent)
 {
   auto layout = qobject_cast<QGridLayout*>(this->layout());
+  layout->setVerticalSpacing(0);
   auto lbl = new QLabel(tr("Private region tags should be one of :"), this);
   layout->addWidget(lbl, 0, 0);
 
-  // This needs to be created BEFORE buttons.
+  // This needs to be created BEFORE radio buttons.
   auto edit = new PrivateRegionEdit(regex, initialValue, this);
   m_edit = edit;
   edit->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
   edit->setToolTip(tr("Private region tag. Use the up and down buttons\n"
                       "to change values or enter manually for 'Q*' or 'X*'.",
                       "Private region edit tooltip text"));
+  connect(m_edit, &PrivateEdit::valueChanged, this, &PrivateFrame::setValue);
 
   auto btn = new QRadioButton(tr("AA"), this);
   btn->setChecked(true);
@@ -1149,10 +1271,6 @@ PrivateRegionFrame::PrivateRegionFrame(const QString& regex,
   layout->addWidget(btn, 4, 0);
 
   layout->addWidget(m_edit, 1, 1, 2, 1, Qt::AlignVCenter);
-  connect(m_edit,
-          &PrivateEdit::valueChanged,
-          this,
-          &PrivateFrame::privateValueChanged);
 
   auto downArrow = QPixmap(":/icons/down-arrow");
   auto upArrow = QPixmap(":/icons/up-arrow");
@@ -1185,6 +1303,13 @@ void
 PrivateRegionFrame::enableEdit(bool enable)
 {
   m_edit->setEnabled(enable);
+}
+
+void
+PrivateRegionFrame::show()
+{
+  emit privateValueChanged(value());
+  QWidget::show();
 }
 
 } // end of namespace Private__

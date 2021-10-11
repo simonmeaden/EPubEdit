@@ -127,30 +127,48 @@ signals:
 
 protected:
   QString m_value;
-
-  virtual void build() {}
 };
 
 class PrivateLanguageEdit : public PrivateEdit
 {
   Q_OBJECT
 public:
+  enum Type
+  {
+    i,
+    x,
+    qaa,
+  };
   PrivateLanguageEdit(const QString& regex,
                       const QString& initialValue,
                       QWidget* parent);
 
-  void up1();
   void up2();
-  void down1();
+  void up3();
   void down2();
+  void down3();
+  void setType(Type type);
 
 private:
   char col1 = 'q';
   char col2 = 'a';
   char col3 = 'a';
+  Type m_type;
 
-  void build() override;
+  void build();
   void manualChange(const QString& value);
+};
+
+class PrivateScriptEdit : public PrivateEdit
+{
+  Q_OBJECT
+public:
+  PrivateScriptEdit(const QString& regex,
+                    const QString& initialValue,
+                    QWidget* parent);
+
+private:
+  void build() {}
 };
 
 class PrivateRegionEdit : public PrivateEdit
@@ -177,7 +195,7 @@ private:
   char col2;
   Type m_type;
 
-  void build() override;
+  void build();
 };
 
 class PrivateFrame : public QFrame
@@ -186,13 +204,15 @@ class PrivateFrame : public QFrame
 public:
   PrivateFrame(QWidget* parent);
 
-  QString value() const;
+  virtual QString value() const;
+  void setValue(const QString &value);
 
 signals:
   void privateValueChanged(const QString& value);
 
 protected:
   PrivateEdit* m_edit = nullptr;
+  QString m_value;
 
   virtual void enableEdit(bool enable) = 0;
 };
@@ -206,9 +226,17 @@ public:
                        QWidget* parent);
 
   void enableEdit(bool enable) override;
+  void show();
+
+  QString value() const;
 
 protected:
   QToolButton *m_up1Btn, *m_up2Btn, *m_down1Btn, *m_down2Btn;
+  QString  m_extension;
+
+  void setValue(const QString& value);
+  void setExtension(const QString& extension);
+  QString buildString() const;
 };
 
 // class PrivateExtLangFrame : public PrivateFrame
@@ -248,6 +276,7 @@ public:
                      QWidget* parent);
 
   void enableEdit(bool enable) override;
+  void show();
 
 protected:
   QToolButton *m_upBtn, *m_downBtn;

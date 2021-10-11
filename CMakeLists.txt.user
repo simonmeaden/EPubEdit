@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.14.1, 2021-10-09T08:29:59. -->
+<!-- Written by QtCreator 4.14.1, 2021-10-11T10:05:34. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -90,9 +90,9 @@
     <value type="QString" key="ClangTools.DiagnosticConfig">Builtin.DefaultTidyAndClazy</value>
     <value type="int" key="ClangTools.ParallelJobs">4</value>
     <valuelist type="QVariantList" key="ClangTools.SelectedDirs">
+     <value type="QString">/home/simonmeaden/workspace/epubedit/build</value>
      <value type="QString">/home/simonmeaden/workspace/epubedit/libs</value>
      <value type="QString">/home/simonmeaden/workspace/epubedit/epubedit</value>
-     <value type="QString">/home/simonmeaden/workspace/epubedit/build</value>
     </valuelist>
     <valuelist type="QVariantList" key="ClangTools.SelectedFiles"/>
     <valuelist type="QVariantList" key="ClangTools.SuppressedDiagnostics"/>
