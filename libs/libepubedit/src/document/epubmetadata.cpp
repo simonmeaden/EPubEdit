@@ -50,7 +50,7 @@ EPubMetadata::write(QXmlStreamWriter* xml_writer)
       // remove names that have been handled.
       auto shared_creator = m_creatorsByName.value(name);
       auto id = shared_creator->id;
-      ids.removeAll(id);
+      ids.removeAll(id.toString());
     }
     // These were probably added from dcterms:creator metas.
     for (auto& creator : ids) {
@@ -763,7 +763,7 @@ EPubMetadata::parseMetadataItem(const QDomNode& metadata_node)
           // TODO
         } else if (dcterms.term() == DCTerms::CREATOR) {
           auto creator = metadataElement.text();
-          auto keys = contributorsByName.keys();
+          auto keys = QStringList(contributorsByName.keys());
           if (!keys.contains(creator, Qt::CaseInsensitive)) {
             // This might cause a contributor to be duplicated if the spelling
             // is different. I think that that will have to be edited manually
@@ -781,7 +781,7 @@ EPubMetadata::parseMetadataItem(const QDomNode& metadata_node)
           // TODO
         } else if (dcterms.term() == DCTerms::TITLE) {
           auto title = metadataElement.text();
-          auto keys = m_titlesByName.keys();
+          auto keys = QStringList(m_titlesByName.keys());
           if (keys.contains(title, Qt::CaseInsensitive)) {
             auto shared_title = QSharedPointer<EPubTitle>(new EPubTitle());
             shared_title->title = title;
@@ -795,7 +795,7 @@ EPubMetadata::parseMetadataItem(const QDomNode& metadata_node)
           }
         } else if (dcterms.term() == DCTerms::CONTRIBUTOR) {
           auto contributor = metadataElement.text();
-          auto keys = contributorsByName.keys();
+          auto keys = QStringList(contributorsByName.keys());
           if (!keys.contains(contributor, Qt::CaseInsensitive)) {
             // This might cause a contributor to be duplicated if the spelling
             // is different. I think that that will have to be edited manually

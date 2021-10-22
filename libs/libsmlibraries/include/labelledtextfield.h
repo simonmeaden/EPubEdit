@@ -207,10 +207,10 @@ public:
   void setText(const QString& text);
 
   //! @reimplements QLabel::textFormat() const.
-  Qt::TextFormat textFormat() const;
+  Qt::TextFormat textFormat() const override;
 
   //! @reimplements QLabel::setTextFormat().
-  void setTextFormat(Qt::TextFormat format);
+  void setTextFormat(Qt::TextFormat format) override;
 
   //! @reimplements QLabel::pixmap() const.
   QPixmap pixmap() const;
@@ -325,7 +325,7 @@ signals:
   void linkHovered(const QString& link);
 
 private:
-  void initGui(const QString& contents = QString());
+  void initGui(const QString& contents = QString()) override;
 };
 
 #endif // LABELLEDTEXTFIELD_H

@@ -57,7 +57,11 @@ public:
   };
   Q_DECLARE_FLAGS(Errors, Error)
 
+  EPubDocument() {}
   explicit EPubDocument(Config* config, QObject* parent);
+  EPubDocument(const EPubDocument&doc) {
+
+  }
   virtual ~EPubDocument();
 
   bool loaded();

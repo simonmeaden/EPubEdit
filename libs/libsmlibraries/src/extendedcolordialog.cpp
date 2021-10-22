@@ -1426,7 +1426,7 @@ ColorDropDisplay::dragEnterEvent(QDragEnterEvent* event)
 void
 ColorDropDisplay::dropEvent(QDropEvent* event)
 {
-  auto pos = event->position().toPoint();
+  auto pos = event->pos();//position().toPoint();
   auto md = event->mimeData();
   if (md->hasFormat("colordata")) {
     auto mimeData = event->mimeData();

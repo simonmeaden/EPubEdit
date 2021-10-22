@@ -214,7 +214,7 @@ ExtendedHelpWithComboDialog::ExtendedHelpWithComboDialog(const QString& title,
   m_box = new QComboBox(this);
   extLayout->addWidget(m_box, 0, 0);
   connect(m_box,
-          &QComboBox::currentIndexChanged,
+          qOverload<int>(&QComboBox::currentIndexChanged),
           this,
           &ExtendedHelpWithComboDialog::changePage);
 

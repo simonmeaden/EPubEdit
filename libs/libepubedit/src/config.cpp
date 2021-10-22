@@ -238,7 +238,7 @@ Config::load(const QString& filename)
 
     if (config[LIBRARY_PATH]) {
       auto node = config[LIBRARY_PATH];
-      m_libraryDir = node.as<QString>();
+      m_libraryDir.setPath(node.as<QString>());
     }
 
     if (config[STATUS_TIMEOUT]) {

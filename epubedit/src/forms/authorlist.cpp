@@ -117,8 +117,8 @@ AuthorModel::removeRows(int row, int count, const QModelIndex& parent)
   if (row >= 0 || row < rowCount(parent)) {
     beginRemoveRows(QModelIndex(), row, row + count - 1);
     for (int i = row; i < row + count; i++) {
-      m_authors.remove(row);
-      m_modified.remove(row);
+      m_authors.removeAt(row);
+      m_modified.removeAt(row);
     }
     endRemoveRows();
 

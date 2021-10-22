@@ -64,7 +64,7 @@ UniqueStringList::append(const QString& value, int lineNumber)
   if (m_allValues.contains(value)) {
     m_unique.removeAll(value);
     uniqueValue.setUnique(false);
-    if (!m_nonUnique.contains(uniqueValue)) {
+    if (!m_nonUnique.contains(uniqueValue.toString())) {
       m_nonUnique.append(uniqueValue.toString());
     }
   } else {

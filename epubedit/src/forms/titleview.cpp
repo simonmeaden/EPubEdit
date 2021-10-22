@@ -417,8 +417,8 @@ TitleModel::removeRows(int row, int count, const QModelIndex& parent)
   if (row >= 0 || row < rowCount(parent)) {
     beginRemoveRows(QModelIndex(), row, row + count - 1);
     for (int i = row; i < row + count; i++) {
-      m_titles.remove(row);
-      m_modified.remove(row);
+      m_titles.removeAt(row);
+      m_modified.removeAt(row);
     }
     endRemoveRows();
 
@@ -469,7 +469,7 @@ TitleEditDialog::initGui()
   dirEdit->addItem(tr("Right to Left"));
   layout->addRow(tr("Direction :"), dirEdit);
   connect(dirEdit,
-          &QComboBox::currentIndexChanged,
+          qOverload<int>(&QComboBox::currentIndexChanged),
           this,
           &TitleEditDialog::directionChanged);
 

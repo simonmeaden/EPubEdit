@@ -34,7 +34,7 @@ ConfigurationEditor::initPage1()
   layout->addRow(tr("Status bar message timeout (secs)"), statusTimeoutEdit);
   statusTimeoutEdit->setValue(m_config->statusTimeout());
   connect(statusTimeoutEdit,
-          &QSpinBox::valueChanged,
+          qOverload<int>(&QSpinBox::valueChanged),
           m_config,
           &Config::setStatusTimeout);
 

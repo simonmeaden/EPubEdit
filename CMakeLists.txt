@@ -17,12 +17,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_SOURCE_DIR}/cmake)
 
 find_package(
-  QT
-  NAMES
-    Qt6
+#  QT5
+#  NAMES
     Qt5
   COMPONENTS
-    Core5Compat
     Gui
     Widgets
     Xml
@@ -32,7 +30,9 @@ find_package(
     LinguistTools
   REQUIRED)
 find_package(
-  Qt${QT_VERSION_MAJOR}
+#  QT5
+#  NAMES
+    Qt6
   COMPONENTS
     Core5Compat
     Gui
@@ -43,6 +43,30 @@ find_package(
     Concurrent
     LinguistTools
   REQUIRED)
+#find_package(
+#  Qt${QT_VERSION_MAJOR}
+#  COMPONENTS
+#    Core5Compat
+#    Gui
+#    Widgets
+#    Xml
+#    Svg
+#    Network
+#    Concurrent
+#    LinguistTools
+#  REQUIRED)
+#find_package(
+#  Qt${QT_VERSION_MAJOR}
+#  COMPONENTS
+#    Core5Compat
+#    Gui
+#    Widgets
+#    Xml
+#    Svg
+#    Network
+#    Concurrent
+#    LinguistTools
+#  REQUIRED)
 
 #message("src" ${CMAKE_SOURCE_DIR})
 

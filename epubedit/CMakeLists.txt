@@ -47,8 +47,8 @@ target_link_libraries(${PROJECT_NAME}
     QYamlCpp::qyamlcpp
     yaml-cpp
 #    tidy
-    Qt${QT_VERSION_MAJOR}::Gui
-    Qt${QT_VERSION_MAJOR}::Widgets
-    Qt${QT_VERSION_MAJOR}::Xml
-    Qt${QT_VERSION_MAJOR}::Network
+    Qt::Gui
+    Qt::Widgets
+    Qt::Xml
+    Qt::Network
 )

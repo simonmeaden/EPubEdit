@@ -43,7 +43,7 @@ MetadataForm::initGui()
   auto typeLayout = new QStackedLayout;
   frame->setLayout(typeLayout);
   connect(typeBox,
-          &QComboBox::currentIndexChanged,
+          qOverload<int>(&QComboBox::currentIndexChanged),
           typeLayout,
           &QStackedLayout::setCurrentIndex);
   layout->addWidget(frame, 1, 0);

@@ -1,6 +1,7 @@
 #ifndef LANGUAGETAGBUILDERDIALOG_H
 #define LANGUAGETAGBUILDERDIALOG_H
 
+#include <QAbstractTextDocumentLayout>
 #include <QAction>
 #include <QCheckBox>
 #include <QComboBox>
@@ -26,10 +27,16 @@
 #include <QStyledItemDelegate>
 #include <QSyntaxHighlighter>
 #include <QTextCharFormat>
+#include <QTextCursor>
+#include <QTextDocument>
 #include <QToolButton>
+#include <QWidget>
+#include <QPlainTextEdit>
 
 #include "config.h"
 #include "languages.h"
+#include "stringutil.h"
+#include "x11colors.h"
 
 class LanguageTagBuilderDialog;
 
@@ -43,9 +50,6 @@ public:
   QString currentTag() const;
   void setCurrentTag(const QString& tagValue);
   void clear();
-
-  void setBadFormat(const QTextCharFormat& badFormat);
-  void setGoodFormat(const QTextCharFormat& goodFormat);
 
 protected:
   QString m_tagValue;
@@ -82,6 +86,7 @@ public:
 
   void setEnabled(bool enable);
 
+  //  void clear();
   void clearValues();
   void setValue(const QString& value);
   void setValues(const QStringList& values);
@@ -154,6 +159,7 @@ private:
   char col2 = 'a';
   char col3 = 'a';
   Type m_type;
+  QString m_storedValue; // used to save 'q**' value if i or x clicked
 
   void build();
   void manualChange(const QString& value);
@@ -167,8 +173,18 @@ public:
                     const QString& initialValue,
                     QWidget* parent);
 
+  void up3();
+  void up4();
+  void down3();
+  void down4();
+
 private:
-  void build() {}
+  char col1 = 'Q';
+  char col2 = 'a';
+  char col3 = 'a';
+  char col4 = 'a';
+
+  void build();
 };
 
 class PrivateRegionEdit : public PrivateEdit
@@ -194,8 +210,10 @@ private:
   char col1;
   char col2;
   Type m_type;
+  QString m_storedValueQ, m_storedValueX;
 
   void build();
+  void manualChange(const QString& value);
 };
 
 class PrivateFrame : public QFrame
@@ -205,7 +223,7 @@ public:
   PrivateFrame(QWidget* parent);
 
   virtual QString value() const;
-  void setValue(const QString &value);
+  void setValue(const QString& value);
 
 signals:
   void privateValueChanged(const QString& value);
@@ -228,30 +246,17 @@ public:
   void enableEdit(bool enable) override;
   void show();
 
-  QString value() const;
+  QString value() const override;
 
 protected:
   QToolButton *m_up1Btn, *m_up2Btn, *m_down1Btn, *m_down2Btn;
-  QString  m_extension;
+  QRadioButton *m_iBtn, *m_xBtn, *m_qBtn;
+  QString m_extension;
 
   void setValue(const QString& value);
   void setExtension(const QString& extension);
   QString buildString() const;
 };
-
-// class PrivateExtLangFrame : public PrivateFrame
-//{
-//  Q_OBJECT
-// public:
-//  PrivateExtLangFrame(const QString& regex,
-//                      const QString& initialValue,
-//                      QWidget* parent);
-
-//  void enableEdit(bool enable) override;
-
-// protected:
-//  QToolButton *m_up1Btn, *m_up2Btn, *m_down1Btn, *m_down2Btn;
-//};
 
 class PrivateScriptFrame : public PrivateFrame
 {
@@ -264,7 +269,7 @@ public:
   void enableEdit(bool enable) override;
 
 protected:
-  QToolButton *m_up1Btn, *m_up2Btn, *m_down1Btn, *m_down2Btn;
+  QToolButton *m_up3Btn, *m_up4Btn, *m_down3Btn, *m_down4Btn;
 };
 
 class PrivateRegionFrame : public PrivateFrame
@@ -280,6 +285,76 @@ public:
 
 protected:
   QToolButton *m_upBtn, *m_downBtn;
+  QRadioButton *m_aaBtn, *m_zzBtn, *m_qmBtn, *m_xaBtn;
+
+  void setValue(const QString& value);
+};
+
+class LanguageTextHighlighter : public QSyntaxHighlighter
+{
+public:
+  LanguageTextHighlighter(QTextDocument* document)
+    : QSyntaxHighlighter(document)
+  {}
+
+  void highlightBlock(const QString& text) {}
+
+private:
+};
+
+class LanguageLabel : public QLineEdit
+{
+  Q_OBJECT
+  struct HoverBlock {
+    int start=0;
+    int end=0;
+    QString hoverText;
+  };
+public:
+  LanguageLabel(BCP47Languages* languages, QWidget* parent);
+
+  void setPrimaryLanguageColor(const QColor& primaryLanguageColor);
+  void setExtlangColor(const QColor& extlangColor);
+  void setScriptColor(const QColor& scriptColor);
+  void setRegionColor(const QColor& regionColor);
+  void setVariantColor(const QColor& variantColor);
+  void setBadColor(const QColor& badColor);
+  void setPrivateLanguageColor(const QTextCharFormat& privateLanguageColor);
+  void setTextColor(const QTextCharFormat& textColor);
+
+  QString currentTag() const;
+  void setCurrentTag(const QString& text);
+
+protected:
+  void paintEvent(QPaintEvent* event) override;
+//  void mousePressEvent(QMouseEvent* event) override;
+//  void mouseMoveEvent(QMouseEvent* event) override;
+//  void mouseReleaseEvent(QMouseEvent* event) override;
+//  void hoverEnter(QHoverEvent* event);
+//  void hoverLeave(QHoverEvent* event);
+  void hoverMove(QHoverEvent* event);
+  bool event(QEvent* event) override;
+
+private:
+  QString m_currentTag;
+  BCP47Languages* m_languages;
+  QTextDocument* m_document;
+  LanguageTextHighlighter* m_highlighter;
+  QTextCharFormat m_textColor;
+  QTextCharFormat m_primaryLanguageColor;
+  QTextCharFormat m_privateLanguageColor;
+  QTextCharFormat m_extlangColor;
+  QTextCharFormat m_scriptColor;
+  QTextCharFormat m_regionColor;
+  QTextCharFormat m_variantColor;
+  QTextCharFormat m_badColor;
+  QTextCharFormat m_badPositionColor;
+//  int m_hoverPos = -1;
+  QList<HoverBlock*> m_hoverData;
+
+  void parseAndHighlightTag();
+  void highlightTag(
+    QList<QSharedPointer<BCP47Language::TagTestResult>> results);
 };
 
 } // end of namespace Private__
@@ -297,6 +372,7 @@ public:
   void extlangChanged();
   void scriptChanged();
   void regionChanged();
+  void variantChanged();
   void updateTag(BCP47Language::TagType type = BCP47Language::NO_VALUE);
   void usePreferredValue();
 
@@ -307,23 +383,24 @@ private:
   QDir m_configDir;
   QFile m_configFile;
   QLabel* m_reportLbl;
-  Private__::FilterLabel* m_resultLbl;
+  Private__::LanguageLabel* m_resultLbl;
   Private__::FilterEdit* m_primaryFilterEdit;
   Private__::FilterEdit* m_extlangFilterEdit;
   Private__::FilterEdit* m_scriptFilterEdit;
   Private__::FilterEdit* m_regionFilterEdit;
+  Private__::FilterEdit* m_variantFilterEdit;
   Private__::PrivateLanguageFrame* m_privateLangFrame;
   Private__::PrivateScriptFrame* m_privateScriptFrame;
   Private__::PrivateRegionFrame* m_privateRegionFrame;
   //  Private__::PrivateLanguageFrame* m_privateLangBox;
   //  Private__::PrivateScriptFrame *m_privateScriptBox;
   QPushButton* m_usePreferredBtn;
-  QString m_languageTag, m_scriptTag, m_regionTag, m_extlangTag;
+  QString m_languageTag, m_scriptTag, m_regionTag, m_extlangTag, m_variantTag;
   QSharedPointer<BCP47Language> m_language;
 
   void initGui();
   QSortFilterProxyModel* createProxyModel();
-  void testTag();
+  //  void testTag();
   void clearTag();
   void setReport(const QString& report);
   void privateLanguageChanged(const QString& value);
@@ -336,6 +413,7 @@ private:
   void showPrivateRegionFrame(BCP47Language::TagType languageType);
 
   static QString MISSING_PRIMARY_LANGUAGE;
+  void clearAllTagvalues();
 };
 
 #endif // LANGUAGETAGBUILDERDIALOG_H

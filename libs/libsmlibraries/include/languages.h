@@ -53,6 +53,8 @@
  */
 class BCP47Language
 {
+  Q_GADGET
+  Q_FLAGS(TagType)
 public:
   enum Type
   {
@@ -102,29 +104,29 @@ public:
     UN_STATISTICAL_REGION = 0x80000, //!< A UN statistical area code.
     DUPLICATE_REGION = 0x100000,     //!< A UN statistical area code.
 
-    BAD_SPACE = 0x200000,
-    BAD_SUBTAG = 0x400000,
+    VARIANT_LANGUAGE=0x200000, //!< A variant language
+    NO_VARIANT_LANGUAGE=0x400000, //!< Not a variant language
+
+    GRANDFATHERED_LANGUAGE=0x100000, //!< A variant language
+    NO_GRANDFATHERED_LANGUAGE=0x1000000, //!< Not a variant language
+
+    REDUNDANT_LANGUAGE=0x200000, //!< A redundant language
+    NO_REDUNDANT_LANGUAGE=0x4000000, //!< Not a redundant language
+
+    BAD_SPACE = 0x80000000,
+    BAD_SUBTAG = 0x40000000,
+    SUBTAG_OUT_OF_POSITION = 0x80000000,
   };
-  enum Position
-  {
-    UNSET,
-    FIRST,
-    SECOND,
-    THIRD,
-    FOURTH,
-    AFTER,
-    BAD_POSITION,
-  };
+  Q_DECLARE_FLAGS(TagTypes, TagType)
+
   struct TagTestResult
   {
-    TagType type;
+    TagTypes type;
     int start;
     int length;
-    QString value;
-    Position position;
+    QString text;
   };
 
-  Q_DECLARE_FLAGS(TagTypes, TagType)
 
   BCP47Language();
   virtual ~BCP47Language() = default;
@@ -428,17 +430,10 @@ public:
   QSharedPointer<BCP47Language> grandfatheredFromTag(const QString& tag);
   //! \brief Returns a list of descriptions of all those BCP47Language::EXTLANG
   //! types that have the supplied subtag, or an empty list if none exist.
-  QStringList extlangsWithPrefix(const QString subtag)
-  {
-    QStringList list;
-    auto values = m_extlangBySubtag.values();
-    for (auto& extlang : values) {
-      if (extlang && extlang->prefix().contains(subtag)) {
-        list << extlang->description();
-      }
-    }
-    return list;
-  }
+  QStringList extlangsWithPrefix(const QString subtag);
+  //! \brief Returns a list of descriptions of all those BCP47Language::VARIANT
+  //! types that have the supplied subtag, or an empty list if none exist.
+  QStringList variantsWithPrefix(const QString subtag);
 
   //! \brief Returns the set of primary language descriptions as a list of
   //! QString.
@@ -593,6 +588,52 @@ public:
   //! registry.
   void setRegistry(const QString& registry);
 
+  //! Checks whether the tag is a primary language tag.
+  //!
+  //! Returns one of three values:
+  //! - BCP47Language::PRIMARY_LANGUAGE if it is a primary language tag.
+  //! - BCP47Language::PRIVATE_LANGUAGE if it is a private use language tag.
+  //! - BCP47Language::NO_PRIMARY_LANGUAGE if it is NOT a primary language tag.
+  BCP47Language::TagType checkPrimaryLanguage(const QString& value);
+  //! Checks whether the tag is a primary language tag.
+  //!
+  //! Returns one of two values:
+  //! - BCP47Language::EXTENDED_LANGUAGE if it is an extended language tag.
+  //! - BCP47Language::NO_EXTENDED_LANGUAGE if it is NOT an extended language tag.
+  BCP47Language::TagType checkExtendedlanguage(const QString& value);
+  //! Checks whether the tag is a script tag.
+  //!
+  //! Returns one of three values:
+  //! - BCP47Language::SCRIPT_LANGUAGE if it is a script tag.
+  //! - BCP47Language::PRIVATE_SCRIPT if it is a private use script tag.
+  //! - BCP47Language::NO_SCRIPT if it is NOT a script tag.
+  BCP47Language::TagType checkScript(const QString& value);
+  //! Checks whether the tag is a regional tag.
+  //!
+  //! Returns one of three values:
+  //! - BCP47Language::REGIONAL_LANGUAGE if it is a primary language tag.
+  //! - BCP47Language::PRIVATE_REGION if it is a private use language tag.
+  //! - BCP47Language::NO_REGION if it is NOT a primary language tag.
+  BCP47Language::TagType checkRegion(const QString& value);
+  //! Checks whether the tag is a variant language tag.
+  //!
+  //! Returns one of two values:
+  //! - BCP47Language::VARIANT_LANGUAGE if it is an variant language tag.
+  //! - BCP47Language::NO_VARIANT_LANGUAGE if it is NOT an variant language tag.
+  BCP47Language::TagType checkVariant(const QString& value);
+  //! Checks whether the tag is a grandfathered language tag.
+  //!
+  //! Returns one of two values:
+  //! - BCP47Language::GRANDFATHERED_LANGUAGE if it is an grandfathered language tag.
+  //! - BCP47Language::NO_GRANDFATHERED_LANGUAGE if it is NOT an grandfathered language tag.
+  BCP47Language::TagType checkGrandfathered(const QString& value);
+  //! Checks whether the tag is a redundant language tag.
+  //!
+  //! Returns one of two values:
+  //! - BCP47Language::REDUNDANT_LANGUAGE if it is an redundant language tag.
+  //! - BCP47Language::NO_REDUNDANT_LANGUAGE if it is NOT an redundant language tag.
+  BCP47Language::TagType checkRedundant(const QString& value);
+
 signals:
   //! \brief Emitted when the local YAML data file has been fully loaded.
   void completed();
@@ -651,11 +692,6 @@ private:
                       QDate,
                       bool noErrors);
   void updateMaps();
-
-  BCP47Language::TagType testPrimaryLanguage(const QString& value);
-  BCP47Language::TagType testExtendedlanguage(const QString& value);
-  BCP47Language::TagType testScript(const QString& value);
-  BCP47Language::TagType testRegion(const QString& value);
 
   friend class LanguageParser;
   QList<QSharedPointer<BCP47Language>> getUniqueLanguages();

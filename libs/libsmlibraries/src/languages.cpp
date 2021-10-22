@@ -84,7 +84,8 @@ BCP47Language::suppressScriptLang() const
   return m_suppressScriptLang;
 }
 
-bool BCP47Language::hasSuppressScriptLang() const
+bool
+BCP47Language::hasSuppressScriptLang() const
 {
   return (!m_suppressScriptLang.isEmpty());
 }
@@ -802,65 +803,65 @@ BCP47Languages::testTag(QString& tag)
     }
 
     if (c == '-' || pos == testValue.length()) {
-      auto type = testPrimaryLanguage(subvalue);
+      auto type = checkPrimaryLanguage(subvalue);
       if (type != BCP47Language::NO_PRIMARY_LANGUAGE) {
         result->type = type;
-        result->value = subvalue;
+        result->text = subvalue;
         result->length = subvalue.length();
-        if (results.isEmpty()) {
-          result->position = BCP47Language::FIRST;
-        }
+//        if (results.isEmpty()) {
+//          result->position = BCP47Language::FIRST;
+//        }
         results.append(result);
         result.clear();
         continue;
       }
 
-      type = testExtendedlanguage(subvalue);
+      type = checkExtendedlanguage(subvalue);
       if (type != BCP47Language::NO_EXTENDED_LANGUAGE) {
         result->type = type;
-        result->value = subvalue;
+        result->text = subvalue;
         result->length = subvalue.length();
-        if (results.size() == 1) {
-          result->position = BCP47Language::SECOND;
-        } else {
-          result->position = BCP47Language::BAD_POSITION;
-        }
+//        if (results.size() == 1) {
+//          result->position = BCP47Language::SECOND;
+//        } else {
+//          result->position = BCP47Language::BAD_POSITION;
+//        }
         results.append(result);
         result.clear();
         continue;
       }
 
-      type = testScript(subvalue);
+      type = checkScript(subvalue);
       if (type != BCP47Language::NO_SCRIPT) {
         result->type = type;
-        result->value = subvalue;
+        result->text = subvalue;
         result->length = subvalue.length();
-        if (results.size() == 1) {
-          result->position = BCP47Language::SECOND;
-        } else if (results.size() == 2) {
-          result->position = BCP47Language::THIRD;
-        } else {
-          result->position = BCP47Language::BAD_POSITION;
-        }
+//        if (results.size() == 1) {
+//          result->position = BCP47Language::SECOND;
+//        } else if (results.size() == 2) {
+//          result->position = BCP47Language::THIRD;
+//        } else {
+//          result->position = BCP47Language::BAD_POSITION;
+//        }
         results.append(result);
         result.clear();
         continue;
       }
 
-      type = testRegion(subvalue);
+      type = checkRegion(subvalue);
       if (type != BCP47Language::NO_REGION) {
         result->type = type;
-        result->value = subvalue;
+        result->text = subvalue;
         result->length = subvalue.length();
-        if (results.size() == 1) {
-          result->position = BCP47Language::SECOND;
-        } else if (results.size() == 2) {
-          result->position = BCP47Language::THIRD;
-        } else if (results.size() == 3) {
-          result->position = BCP47Language::FOURTH;
-        } else {
-          result->position = BCP47Language::BAD_POSITION;
-        }
+//        if (results.size() == 1) {
+//          result->position = BCP47Language::SECOND;
+//        } else if (results.size() == 2) {
+//          result->position = BCP47Language::THIRD;
+//        } else if (results.size() == 3) {
+//          result->position = BCP47Language::FOURTH;
+//        } else {
+//          result->position = BCP47Language::BAD_POSITION;
+//        }
         results.append(result);
         result.clear();
         continue;
@@ -868,7 +869,7 @@ BCP47Languages::testTag(QString& tag)
 
       result->length = subvalue.length();
       result->type = BCP47Language::BAD_SUBTAG;
-      result->position = BCP47Language::BAD_POSITION;
+//      result->position = BCP47Language::BAD_POSITION;
       results.append(result);
       result.clear();
       continue;
@@ -883,49 +884,26 @@ BCP47Languages::testTag(QString& tag)
 }
 
 BCP47Language::TagType
-BCP47Languages::testPrimaryLanguage(const QString& value)
+BCP47Languages::checkPrimaryLanguage(const QString& value)
 {
   if (value == "i" || value == "x")
     return BCP47Language::PRIVATE_LANGUAGE;
   else if (isPrimaryLanguage(value))
     return BCP47Language::PRIMARY_LANGUAGE;
-  //  else if (isExtLang(value))
-  //    return BCP47Language::EXTENDED_AS_PRIMARY;
   return BCP47Language::NO_PRIMARY_LANGUAGE;
 }
 
 BCP47Language::TagType
-BCP47Languages::testExtendedlanguage(const QString& value)
+BCP47Languages::checkExtendedlanguage(const QString& value)
 {
   if (isExtLang(value)) {
     return BCP47Language::EXTENDED_LANGUAGE;
   }
   return BCP47Language::NO_EXTENDED_LANGUAGE;
-
-  //  if (isExtLang(value)) {
-  //    auto tag = m_extlangBySubtag.value(value);
-  //    if (tagTypes.testFlag(BCP47Language::PRIMARY_LANGUAGE) ||
-  //        tagTypes.testFlag(BCP47Language::PRIVATE_LANGUAGE) ||
-  //        tagTypes.testFlag(BCP47Language::NO_PRIMARY_LANGUAGE)) {
-  //      if (tag->prefix().contains(value)) {
-  //        tagTypes.setFlag(BCP47Language::EXTENDED_LANGUAGE);
-  //      } else {
-  //        tagTypes.setFlag(BCP47Language::EXTLANG_MISMATCH);
-  //      }
-  //    }/* else if (tagTypes.testFlag(BCP47Language::EXTENDED_AS_PRIMARY)) {
-  //      tagTypes.setFlag(BCP47Language::DUPLICATE_EXTENDED);
-  //    }*/ else if (tagTypes.testFlag(BCP47Language::SCRIPT_LANGUAGE) ||
-  //               tagTypes.testFlag(BCP47Language::PRIVATE_SCRIPT)) {
-  //      tagTypes.setFlag(BCP47Language::EXTENDED_FOLLOWS_SCRIPT);
-  //    } else if (tagTypes.testFlag(BCP47Language::REGIONAL_LANGUAGE) ||
-  //               tagTypes.testFlag(BCP47Language::PRIVATE_REGION)) {
-  //      tagTypes.setFlag(BCP47Language::EXTENDED_FOLLOWS_REGION);
-  //    }
-  //  }
 }
 
 BCP47Language::TagType
-BCP47Languages::testScript(const QString& value)
+BCP47Languages::checkScript(const QString& value)
 {
   if (isScript(value)) {
     return BCP47Language::SCRIPT_LANGUAGE;
@@ -936,27 +914,42 @@ BCP47Languages::testScript(const QString& value)
 }
 
 BCP47Language::TagType
-BCP47Languages::testRegion(const QString& value)
+BCP47Languages::checkRegion(const QString& value)
 {
   if (isRegion(value)) {
     return BCP47Language::REGIONAL_LANGUAGE;
-  } else if (value >= "Qaaa" && value <= "Qabx") {
-    return BCP47Language::PRIVATE_SCRIPT;
+  } else if (value == "AA" || (value >= "QM" && value <= "QZ") ||
+             (value >= "XA" && value <= "XZ") || value == "ZZ") {
+    return BCP47Language::PRIVATE_REGION;
   }
-  return BCP47Language::NO_SCRIPT;
-  //  auto lValue = value.toLower();
-  //  if (tagTypes.testFlag(BCP47Language::REGIONAL_LANGUAGE) ||
-  //      tagTypes.testFlag(BCP47Language::PRIVATE_REGION)) {
-  //    tagTypes.setFlag(BCP47Language::DUPLICATE_REGION);
-  //  } else if (lValue == "aa" || (lValue >= "qm" && lValue <= "qz") ||
-  //             (lValue >= "xa" && lValue <= "xz") || lValue == "zz")
-  //    tagTypes.setFlag(BCP47Language::PRIVATE_REGION);
-  //  else if (m_regionByDescription.contains(value))
-  //    tagTypes.setFlag(BCP47Language::REGIONAL_LANGUAGE);
-  //  else if (m_unStatistical->isM49Valid(value))
-  //    tagTypes.setFlag(BCP47Language::UN_STATISTICAL_REGION);
-  //  else
-  //    tagTypes.setFlag(BCP47Language::NO_REGION);
+  return BCP47Language::NO_REGION;
+}
+
+BCP47Language::TagType
+BCP47Languages::checkVariant(const QString& value)
+{
+  if (isVariant(value)) {
+    return BCP47Language::VARIANT_LANGUAGE;
+  }
+  return BCP47Language::NO_VARIANT_LANGUAGE;
+}
+
+BCP47Language::TagType
+BCP47Languages::checkGrandfathered(const QString& value)
+{
+  if (isGrandfathered(value)) {
+    return BCP47Language::GRANDFATHERED_LANGUAGE;
+  }
+  return BCP47Language::NO_GRANDFATHERED_LANGUAGE;
+}
+
+BCP47Language::TagType
+BCP47Languages::checkRedundant(const QString& value)
+{
+  if (isVariant(value)) {
+    return BCP47Language::REDUNDANT_LANGUAGE;
+  }
+  return BCP47Language::NO_REDUNDANT_LANGUAGE;
 }
 
 bool
@@ -983,7 +976,7 @@ BCP47Languages::isVariant(const QString& subtag)
 bool
 BCP47Languages::isRegion(const QString& subtag)
 {
-  auto keys = m_extlangBySubtag.keys();
+  auto keys = m_regionBySubtag.keys();
   return keys.contains(subtag);
 }
 
@@ -1102,6 +1095,31 @@ QSharedPointer<BCP47Language>
 BCP47Languages::grandfatheredFromTag(const QString& tag)
 {
   return m_grandfatheredByTag.value(tag);
+}
+
+QStringList
+BCP47Languages::extlangsWithPrefix(const QString subtag)
+{
+  QStringList list;
+  auto values = m_extlangBySubtag.values();
+  for (auto& extlang : values) {
+    if (extlang && extlang->prefix().contains(subtag)) {
+      list << extlang->description();
+    }
+  }
+  return list;
+}
+
+QStringList BCP47Languages::variantsWithPrefix(const QString subtag)
+{
+  QStringList list;
+  auto values = m_variantBySubtag.values();
+  for (auto& variant : values) {
+    if (variant && variant->prefix().contains(subtag)) {
+      list << variant->description();
+    }
+  }
+  return list;
 }
 
 QStringList

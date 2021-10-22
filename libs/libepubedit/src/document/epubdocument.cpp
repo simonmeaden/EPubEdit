@@ -907,6 +907,9 @@ EPubDocument::saveDocumentToFile()
     case Config::EPUB_3_3: {
       break;
     }
+    case Config::EPUB_3_4: {
+      break;
+    }
   }
 
   //  temp_file->close();
