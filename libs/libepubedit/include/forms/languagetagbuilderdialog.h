@@ -77,24 +77,19 @@ class FilterEdit : public QLineEdit
 
 public:
   FilterEdit(QStringList items,
-             bool showRequired,
              LanguageTagBuilderDialog* parent);
 
   QComboBox* comboBox();
-  QCheckBox* checkBox();
   QSortFilterProxyModel* model();
 
   void setEnabled(bool enable);
 
-  //  void clear();
   void clearValues();
   void setValue(const QString& value);
   void setValues(const QStringList& values);
 
   bool hasSelection();
   QString currentText();
-  bool isRequired();
-  void setRequired(bool value);
   bool isEmpty();
 
   void setFilterText(const QString& text);
@@ -113,9 +108,7 @@ protected:
 private:
   QString m_filterText;
   QString m_tagValue;
-  bool m_showRequired;
   FilterComboBox* m_selection;
-  QCheckBox* m_required;
   LanguageTagBuilderDialog* m_parent;
   int m_currentIndex = -1;
   bool m_currentIndexChanged = false;
