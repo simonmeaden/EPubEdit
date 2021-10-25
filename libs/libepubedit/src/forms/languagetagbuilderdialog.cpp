@@ -8,7 +8,7 @@
 //=== LanguageTagBuilderDialog
 //====================================================================
 QString LanguageTagBuilderDialog::MISSING_PRIMARY_LANGUAGE =
-  tr("[MISSING-PRIMARY-LANGUAGE]", "Missing primary language warning message.");
+  tr("[PRIMARY-LANGUAGE-REQUIRED]", "Missing primary language warning message.");
 
 LanguageTagBuilderDialog::LanguageTagBuilderDialog(Config* config,
                                                    QWidget* parent)
@@ -46,140 +46,6 @@ LanguageTagBuilderDialog::createProxyModel()
   proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
   return proxyModel;
 }
-
-// void
-// LanguageTagBuilderDialog::testTag()
-//{
-//  auto tag = m_resultLbl->currentTag();
-//  QList<QSharedPointer<BCP47Language::TagTestResult>> results;
-//  QSharedPointer<BCP47Language::TagTestResult> result;
-
-//  // remove all spaces.
-//  auto testValue = StringUtil::removeWhitespace(tag);
-
-//  QString subvalue;
-
-//  for (int i = 0; i < testValue.length(); i++) {
-//    auto c = testValue.at(i);
-//    auto pos = i + 1;
-//    if (c != '-' && pos <= testValue.length()) {
-//      subvalue += c;
-//      if (!result) {
-//        result = QSharedPointer<BCP47Language::TagTestResult>(
-//          new BCP47Language::TagTestResult());
-//        result->start = i;
-//      }
-//    }
-
-//    if (c == '-' || pos == testValue.length()) {
-//      auto type = m_languages->checkPrimaryLanguage(subvalue);
-//      if (type != BCP47Language::NO_PRIMARY_LANGUAGE) {
-//        result->type = type;
-//        result->text = subvalue;
-//        result->length = subvalue.length();
-//        //        if (results.isEmpty()) {
-//        //          result->position = BCP47Language::FIRST;
-//        //        }
-//        results.append(result);
-//        result.clear();
-//        continue;
-//      }
-
-//      type = m_languages->checkExtendedlanguage(subvalue);
-//      if (type != BCP47Language::NO_EXTENDED_LANGUAGE) {
-//        result->type = type;
-//        result->text = subvalue;
-//        result->length = subvalue.length();
-//        //        if (results.size() == 1) {
-//        //          result->position = BCP47Language::SECOND;
-//        //        } else {
-//        //          result->position = BCP47Language::BAD_POSITION;
-//        //        }
-//        results.append(result);
-//        result.clear();
-//        continue;
-//      }
-
-//      type = m_languages->checkScript(subvalue);
-//      if (type != BCP47Language::NO_SCRIPT) {
-//        result->type = type;
-//        result->text = subvalue;
-//        result->length = subvalue.length();
-//        //        if (results.size() == 1) {
-//        //          result->position = BCP47Language::SECOND;
-//        //        } else if (results.size() == 2) {
-//        //          result->position = BCP47Language::THIRD;
-//        //        } else {
-//        //          result->position = BCP47Language::BAD_POSITION;
-//        //        }
-//        results.append(result);
-//        result.clear();
-//        continue;
-//      }
-
-//      type = m_languages->checkRegion(subvalue);
-//      if (type != BCP47Language::NO_REGION) {
-//        result->type = type;
-//        result->text = subvalue;
-//        result->length = subvalue.length();
-//        //        if (results.size() == 1) {
-//        //          result->position = BCP47Language::SECOND;
-//        //        } else if (results.size() == 2) {
-//        //          result->position = BCP47Language::THIRD;
-//        //        } else if (results.size() == 3) {
-//        //          result->position = BCP47Language::FOURTH;
-//        //        } else {
-//        //          result->position = BCP47Language::BAD_POSITION;
-//        //        }
-//        results.append(result);
-//        result.clear();
-//        continue;
-//      }
-
-//      type = m_languages->checkVariant(subvalue);
-//      if (type != BCP47Language::NO_VARIANT_LANGUAGE) {
-//        result->type = type;
-//        result->text = subvalue;
-//        result->length = subvalue.length();
-//        results.append(result);
-//        result.clear();
-//        continue;
-//      }
-
-//      type = m_languages->checkGrandfathered(subvalue);
-//      if (type != BCP47Language::NO_GRANDFATHERED_LANGUAGE) {
-//        result->type = type;
-//        result->text = subvalue;
-//        result->length = subvalue.length();
-//        results.append(result);
-//        result.clear();
-//        continue;
-//      }
-
-//      type = m_languages->checkRedundant(subvalue);
-//      if (type != BCP47Language::NO_REDUNDANT_LANGUAGE) {
-//        result->type = type;
-//        result->text = subvalue;
-//        result->length = subvalue.length();
-//        results.append(result);
-//        result.clear();
-//        continue;
-//      }
-
-//      result->length = subvalue.length();
-//      result->type = BCP47Language::BAD_SUBTAG;
-//      //      result->position = BCP47Language::BAD_POSITION;
-//      results.append(result);
-//      result.clear();
-//      continue;
-//    }
-//  }
-
-//  if (result) {
-//    results.append(result);
-//  }
-//  qWarning();
-//}
 
 void
 LanguageTagBuilderDialog::clearTag()
@@ -231,7 +97,7 @@ LanguageTagBuilderDialog::initGui()
           m_primaryFilterEdit,
           &Private__::FilterEdit::clear);
   connect(btn, &QPushButton::clicked, this, [=]() {
-    m_languageTag.clear();
+    m_languageTag = MISSING_PRIMARY_LANGUAGE;
     m_extlangFilterEdit->setValues(m_languages->extlangDescriptions());
     m_variantFilterEdit->setValues(m_languages->variantDescriptions());
     this->updateTag(BCP47Language::NO_PRIMARY_LANGUAGE);
@@ -395,7 +261,7 @@ LanguageTagBuilderDialog::initGui()
   // VARIANT
   row++;
   m_variantFilterEdit =
-    new Private__::FilterEdit(m_languages->extlangDescriptions(), true, this);
+    new Private__::FilterEdit(m_languages->variantDescriptions(), true, this);
   connect(m_variantFilterEdit,
           &Private__::FilterEdit::activated,
           this,
@@ -518,7 +384,7 @@ void
 LanguageTagBuilderDialog::languageChanged()
 {
   BCP47Language::TagType languageType = BCP47Language::NO_PRIMARY_LANGUAGE;
-  if (m_primaryFilterEdit->hasCurrentText()) {
+  if (m_primaryFilterEdit->hasSelection()) {
     m_primaryFilterEdit->setRequired(true);
     auto editText = m_primaryFilterEdit->currentText();
     m_language = m_languages->languageFromDescription(editText);
@@ -529,10 +395,14 @@ LanguageTagBuilderDialog::languageChanged()
       auto prefixesForLanguage =
         m_languages->extlangsWithPrefix(m_language->subtag());
       m_extlangFilterEdit->setValues(prefixesForLanguage);
-      prefixesForLanguage =
+      if (!prefixesForLanguage.contains(m_extlangTag))
+        m_extlangTag.clear();
+
+      auto variantsForLanguage =
         m_languages->variantsWithPrefix(m_language->subtag());
-      (m_language->subtag());
-      m_variantFilterEdit->setValues(prefixesForLanguage);
+      m_variantFilterEdit->setValues(variantsForLanguage);
+      if (!variantsForLanguage.contains(m_variantTag))
+        m_variantTag.clear();
 
       if (m_language->description() == "Private use") {
         languageType = BCP47Language::PRIVATE_LANGUAGE;
@@ -556,8 +426,11 @@ void
 LanguageTagBuilderDialog::extlangChanged()
 {
   BCP47Language::TagType languageType = BCP47Language::NO_VARIANT_LANGUAGE;
-  if (m_extlangFilterEdit->hasCurrentText() &&
-      m_extlangFilterEdit->isRequired()) {
+  if (m_extlangFilterEdit->hasSelection()) {
+    if (m_extlangFilterEdit->hasIndexChanged()) {
+      m_extlangFilterEdit->setRequired(true);
+      m_extlangFilterEdit->clearIndexChanged();
+    }
     auto language =
       m_languages->extlangFromDescription(m_extlangFilterEdit->currentText());
     if (language->hasPreferredValue()) {
@@ -603,8 +476,12 @@ void
 LanguageTagBuilderDialog::scriptChanged()
 {
   BCP47Language::TagType languageType = BCP47Language::NO_SCRIPT;
-  if (m_scriptFilterEdit->hasCurrentText()) {
-    m_scriptFilterEdit->setRequired(true);
+  if (m_scriptFilterEdit->hasSelection()) {
+    if (m_scriptFilterEdit->hasIndexChanged()) {
+      m_scriptFilterEdit->setRequired(true);
+      m_scriptFilterEdit->clearIndexChanged();
+      ;
+    }
     auto editText = m_scriptFilterEdit->currentText();
     auto script = m_languages->scriptFromDescription(editText);
     if (script->hasSuppressScriptLang()) {
@@ -637,8 +514,11 @@ void
 LanguageTagBuilderDialog::regionChanged()
 {
   BCP47Language::TagType languageType = BCP47Language::NO_REGION;
-  if (m_regionFilterEdit->hasCurrentText()) {
-    m_regionFilterEdit->setRequired(true);
+  if (m_regionFilterEdit->hasSelection()) {
+    if (m_regionFilterEdit->hasIndexChanged()) {
+      m_regionFilterEdit->setRequired(true);
+      m_regionFilterEdit->clearIndexChanged();
+    }
     auto editText = m_regionFilterEdit->currentText();
     auto region = m_languages->regionFromDescription(editText);
     if (region) {
@@ -659,8 +539,11 @@ void
 LanguageTagBuilderDialog::variantChanged()
 {
   BCP47Language::TagType languageType = BCP47Language::NO_VARIANT_LANGUAGE;
-  if (m_variantFilterEdit->hasCurrentText()) {
-    m_variantFilterEdit->setRequired(true);
+  if (m_variantFilterEdit->hasSelection()) {
+    if (m_variantFilterEdit->hasIndexChanged()) {
+      m_variantFilterEdit->setRequired(true);
+      m_variantFilterEdit->clearIndexChanged();
+    }
     auto language =
       m_languages->variantFromDescription(m_variantFilterEdit->currentText());
     m_usePreferredBtn->setEnabled(false);
@@ -840,9 +723,18 @@ FilterEdit::FilterEdit(QStringList items,
           qOverload<int>(&QComboBox::activated),
           this,
           &FilterEdit::activated);
+  connect(m_selection,
+          qOverload<int>(&QComboBox::currentIndexChanged),
+          this,
+          &FilterEdit::setIndexChanged);
   if (m_required) {
     connect(
-      m_required, &QCheckBox::stateChanged, this, &FilterEdit::stateChanged);
+      m_required, &QCheckBox::clicked, this, [=](bool checked) {
+      if (checked)
+        emit FilterEdit::stateChanged(Qt::Checked);
+      else
+        emit FilterEdit::stateChanged(Qt::Unchecked);
+    });
   }
 }
 
@@ -893,9 +785,9 @@ FilterEdit::setValues(const QStringList& values)
 }
 
 bool
-FilterEdit::hasCurrentText()
+FilterEdit::hasSelection()
 {
-  return !m_selection->currentText().isEmpty();
+  return (m_selection->currentIndex() != -1);
 }
 
 QString
@@ -919,6 +811,12 @@ FilterEdit::setRequired(bool value)
     m_required->setChecked(value);
 }
 
+bool
+FilterEdit::isEmpty()
+{
+  return text().isEmpty();
+}
+
 void
 FilterEdit::setFilterText(const QString& text)
 {
@@ -929,6 +827,18 @@ void
 FilterEdit::setUnavailableText(const QString& text)
 {
   m_selection->setUnavailableText(text);
+}
+
+bool
+FilterEdit::hasIndexChanged()
+{
+  return m_currentIndexChanged;
+}
+
+void
+FilterEdit::clearIndexChanged()
+{
+  m_currentIndexChanged = false;
 }
 
 void
@@ -952,6 +862,15 @@ FilterEdit::primaryFilterChanged(const QString& text)
   m_selection->setCurrentIndex(0);
   if (m_selection->count() == 1) {
     emit m_selection->activated(0);
+  }
+}
+
+void
+FilterEdit::setIndexChanged(int index)
+{
+  if (index != m_currentIndex) {
+    m_currentIndex = index;
+    m_currentIndexChanged = true;
   }
 }
 
@@ -1744,10 +1663,10 @@ LanguageLabel::LanguageLabel(BCP47Languages* languages, QWidget* parent)
 {
   m_textColor.setForeground(QColorConstants::Black);
   m_primaryLanguageColor.setForeground(QColorConstants::X11::limegreen);
-  m_extlangColor.setForeground(QColorConstants::X11::cornflowerblue);
-  m_scriptColor.setForeground(QColorConstants::X11::darkorchid);
-  m_regionColor.setForeground(QColorConstants::X11::gold);
-  m_variantColor.setForeground(QColorConstants::X11::magenta);
+  m_extlangColor.setForeground(QColorConstants::X11::limegreen);
+  m_scriptColor.setForeground(QColorConstants::X11::limegreen);
+  m_regionColor.setForeground(QColorConstants::X11::limegreen);
+  m_variantColor.setForeground(QColorConstants::X11::limegreen);
   m_badColor.setForeground(QColorConstants::Red);
   m_badColor.setUnderlineStyle(QTextCharFormat::WaveUnderline);
   m_badPositionColor.setForeground(QColorConstants::X11::orange);
@@ -1799,31 +1718,31 @@ LanguageLabel::paintEvent(QPaintEvent* event)
   m_document->drawContents(&painter, rect());
 }
 
-//void
-//LanguageLabel::mousePressEvent(QMouseEvent* event)
+// void
+// LanguageLabel::mousePressEvent(QMouseEvent* event)
 //{
 //  QWidget::mousePressEvent(event);
 //}
 
-//void
-//LanguageLabel::mouseMoveEvent(QMouseEvent* event)
+// void
+// LanguageLabel::mouseMoveEvent(QMouseEvent* event)
 //{
 //  QWidget::mouseMoveEvent(event);
 //}
 
-//void
-//LanguageLabel::mouseReleaseEvent(QMouseEvent* event)
+// void
+// LanguageLabel::mouseReleaseEvent(QMouseEvent* event)
 //{
 //  QWidget::mouseReleaseEvent(event);
 //}
 
-//void
-//LanguageLabel::hoverEnter(QHoverEvent* event)
+// void
+// LanguageLabel::hoverEnter(QHoverEvent* event)
 //{
 //}
 
-//void
-//LanguageLabel::hoverLeave(QHoverEvent* event)
+// void
+// LanguageLabel::hoverLeave(QHoverEvent* event)
 //{
 ////  m_hoverPos = -1;
 //}
@@ -1837,7 +1756,7 @@ LanguageLabel::hoverMove(QHoverEvent* event)
     auto cursorPos = layout->hitTest(pos, Qt::FuzzyHit);
     if (cursorPos > -1) {
       for (auto block : m_hoverData) {
-        if (cursorPos >= block->start && cursorPos<block->end) {
+        if (cursorPos >= block->start && cursorPos < block->end) {
           setToolTip(block->hoverText);
         }
       }
@@ -1849,14 +1768,14 @@ bool
 LanguageLabel::event(QEvent* event)
 {
   switch (event->type()) {
-//    case QEvent::HoverEnter:
-//      hoverEnter(static_cast<QHoverEvent*>(event));
-//      return true;
-//      break;
-//    case QEvent::HoverLeave:
-//      hoverLeave(static_cast<QHoverEvent*>(event));
-//      return true;
-//      break;
+      //    case QEvent::HoverEnter:
+      //      hoverEnter(static_cast<QHoverEvent*>(event));
+      //      return true;
+      //      break;
+      //    case QEvent::HoverLeave:
+      //      hoverLeave(static_cast<QHoverEvent*>(event));
+      //      return true;
+      //      break;
     case QEvent::HoverMove:
       hoverMove(static_cast<QHoverEvent*>(event));
       return true;
@@ -2093,5 +2012,13 @@ LanguageLabel::setBadColor(const QColor& badColor)
 {
   m_badColor.setForeground(badColor);
 }
+
+////====================================================================
+////=== LanguageTextHighlighter
+////====================================================================
+LanguageLabel::LanguageTextHighlighter::LanguageTextHighlighter(
+  QTextDocument* document)
+  : QSyntaxHighlighter(document)
+{}
 
 } // end of Private__ namespace

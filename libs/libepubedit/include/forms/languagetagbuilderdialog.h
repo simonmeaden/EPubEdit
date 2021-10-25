@@ -16,6 +16,7 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QPainter>
+#include <QPlainTextEdit>
 #include <QPushButton>
 #include <QRadioButton>
 #include <QRegularExpression>
@@ -31,7 +32,6 @@
 #include <QTextDocument>
 #include <QToolButton>
 #include <QWidget>
-#include <QPlainTextEdit>
 
 #include "config.h"
 #include "languages.h"
@@ -91,13 +91,17 @@ public:
   void setValue(const QString& value);
   void setValues(const QStringList& values);
 
-  bool hasCurrentText();
+  bool hasSelection();
   QString currentText();
   bool isRequired();
   void setRequired(bool value);
+  bool isEmpty();
 
   void setFilterText(const QString& text);
   void setUnavailableText(const QString& text);
+
+  bool hasIndexChanged();
+  void clearIndexChanged();
 
 signals:
   void activated(int index);
@@ -113,8 +117,11 @@ private:
   FilterComboBox* m_selection;
   QCheckBox* m_required;
   LanguageTagBuilderDialog* m_parent;
+  int m_currentIndex = -1;
+  bool m_currentIndexChanged = false;
 
   void primaryFilterChanged(const QString& text);
+  void setIndexChanged(int index);
 };
 
 class PrivateEdit : public QLineEdit
@@ -290,26 +297,27 @@ protected:
   void setValue(const QString& value);
 };
 
-class LanguageTextHighlighter : public QSyntaxHighlighter
-{
-public:
-  LanguageTextHighlighter(QTextDocument* document)
-    : QSyntaxHighlighter(document)
-  {}
-
-  void highlightBlock(const QString& text) {}
-
-private:
-};
-
 class LanguageLabel : public QLineEdit
 {
   Q_OBJECT
-  struct HoverBlock {
-    int start=0;
-    int end=0;
+
+  struct HoverBlock
+  {
+    int start = 0;
+    int end = 0;
     QString hoverText;
   };
+
+  class LanguageTextHighlighter : public QSyntaxHighlighter
+  {
+  public:
+    LanguageTextHighlighter(QTextDocument* document);
+
+    void highlightBlock(const QString& text) {}
+
+  private:
+  };
+
 public:
   LanguageLabel(BCP47Languages* languages, QWidget* parent);
 
@@ -327,11 +335,11 @@ public:
 
 protected:
   void paintEvent(QPaintEvent* event) override;
-//  void mousePressEvent(QMouseEvent* event) override;
-//  void mouseMoveEvent(QMouseEvent* event) override;
-//  void mouseReleaseEvent(QMouseEvent* event) override;
-//  void hoverEnter(QHoverEvent* event);
-//  void hoverLeave(QHoverEvent* event);
+  //  void mousePressEvent(QMouseEvent* event) override;
+  //  void mouseMoveEvent(QMouseEvent* event) override;
+  //  void mouseReleaseEvent(QMouseEvent* event) override;
+  //  void hoverEnter(QHoverEvent* event);
+  //  void hoverLeave(QHoverEvent* event);
   void hoverMove(QHoverEvent* event);
   bool event(QEvent* event) override;
 
@@ -349,7 +357,6 @@ private:
   QTextCharFormat m_variantColor;
   QTextCharFormat m_badColor;
   QTextCharFormat m_badPositionColor;
-//  int m_hoverPos = -1;
   QList<HoverBlock*> m_hoverData;
 
   void parseAndHighlightTag();
@@ -392,8 +399,6 @@ private:
   Private__::PrivateLanguageFrame* m_privateLangFrame;
   Private__::PrivateScriptFrame* m_privateScriptFrame;
   Private__::PrivateRegionFrame* m_privateRegionFrame;
-  //  Private__::PrivateLanguageFrame* m_privateLangBox;
-  //  Private__::PrivateScriptFrame *m_privateScriptBox;
   QPushButton* m_usePreferredBtn;
   QString m_languageTag, m_scriptTag, m_regionTag, m_extlangTag, m_variantTag;
   QSharedPointer<BCP47Language> m_language;
