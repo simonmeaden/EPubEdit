@@ -3,6 +3,15 @@
 #include "titleview.h"
 
 //====================================================================
+//=== UndoMetadataCommand
+//====================================================================
+UndoMetadataCommand::UndoMetadataCommand(PMetadata metadata,
+                                         QUndoCommand* parent)
+  : QUndoCommand(parent)
+  , m_metadata(metadata)
+{}
+
+//====================================================================
 //=== AddTitleCommand
 //====================================================================
 AddTitleCommand::AddTitleCommand(TitleView* view,
@@ -36,11 +45,12 @@ AddTitleCommand::redo()
 //====================================================================
 //=== AddAuthorCommand
 //====================================================================
-AddAuthorCommand::AddAuthorCommand(AuthorList* view,
+AddAuthorCommand::AddAuthorCommand(MetadataList* view,
+                                   PMetadata metadata,
                                    const QString& author,
                                    int row,
                                    QUndoCommand* parent)
-  : QUndoCommand(parent)
+  : UndoMetadataCommand(metadata, parent)
   , m_view(view)
   , m_author(author)
   , m_row(row)
@@ -95,11 +105,12 @@ RemoveTitleCommand::redo()
 //====================================================================
 //=== RemoveAuthorCommand
 //====================================================================
-RemoveAuthorCommand::RemoveAuthorCommand(AuthorList* view,
+RemoveAuthorCommand::RemoveAuthorCommand(MetadataList* view,
+                                         PMetadata metadata,
                                          const QString& author,
                                          int row,
                                          QUndoCommand* parent)
-  : QUndoCommand(parent)
+  : UndoMetadataCommand(metadata, parent)
   , m_view(view)
   , m_author(author)
   , m_row(row)
@@ -155,7 +166,7 @@ SwapTitleCommand::redo()
 //====================================================================
 //=== SwapAuthorCommand
 //====================================================================
-SwapAuthorCommand::SwapAuthorCommand(AuthorList* view,
+SwapAuthorCommand::SwapAuthorCommand(MetadataList* view,
                                      const QString& author1,
                                      int row1,
                                      const QString& author2,
@@ -222,11 +233,12 @@ SwapIdCommand::redo()
 //=== ModifyTitleCommand
 //====================================================================
 ModifyTitleCommand::ModifyTitleCommand(TitleView* view,
+                                       PMetadata metadata,
                                        const QString& newTitle,
                                        int row,
                                        const QString& oldTitle,
                                        QUndoCommand* parent)
-  : QUndoCommand(parent)
+  : UndoMetadataCommand(metadata, parent)
   , m_view(view)
   , m_newTitle(newTitle)
   , m_oldTitle(oldTitle)
@@ -250,12 +262,13 @@ ModifyTitleCommand::redo()
 //====================================================================
 //=== ModifyTitleCommand
 //====================================================================
-ModifyAuthorCommand::ModifyAuthorCommand(AuthorList* view,
+ModifyAuthorCommand::ModifyAuthorCommand(MetadataList* view,
+                                         PMetadata metadata,
                                          const QString& newAuthor,
                                          int row,
                                          const QString& oldAuthor,
                                          QUndoCommand* parent)
-  : QUndoCommand(parent)
+  : UndoMetadataCommand(metadata, parent)
   , m_view(view)
   , m_newAuthor(newAuthor)
   , m_oldAuthor(oldAuthor)
@@ -297,12 +310,12 @@ void
 SetIdCommand::undo()
 {
   auto title = m_view->titleAt(m_row);
-  title->id = m_view->uniqueIdList()->append(m_newId, -1);
+//  title->id = m_view->uniqueIdList()->append(m_newId, -1);
 }
 
 void
 SetIdCommand::redo()
 {
   auto title = m_view->titleAt(m_row);
-  title->id = m_view->uniqueIdList()->append(m_oldId, -1);
+//  title->id = m_view->uniqueIdList()->append(m_oldId, -1);
 }

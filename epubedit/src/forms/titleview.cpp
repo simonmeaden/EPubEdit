@@ -9,6 +9,7 @@ TitleView::TitleView(QWidget* parent)
   m_model = new TitleModel(this);
   setModel(m_model);
   horizontalHeader()->setStretchLastSection(true);
+  horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
   resizeTableVertically();
   setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
   setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -17,11 +18,9 @@ TitleView::TitleView(QWidget* parent)
 TitleView::~TitleView() {}
 
 void
-TitleView::initialiseData(QList<QSharedPointer<EPubTitle>> data,
-                          QSharedPointer<UniqueStringList> uniqueIdList)
+TitleView::initialiseData(QList<QSharedPointer<EPubTitle>> data)
 {
-  m_uniqueIdList = uniqueIdList;
-  m_model->initialiseData(data, uniqueIdList);
+  m_model->initialiseData(data);
   setCurrentIndex(m_model->index(0, 0));
   resizeTableVertically();
 }
@@ -126,12 +125,6 @@ TitleView::sizeHint() const
   return m_hint;
 }
 
-QSharedPointer<UniqueStringList>
-TitleView::uniqueIdList() const
-{
-  return m_uniqueIdList;
-}
-
 void
 TitleView::resizeTableVertically()
 {
@@ -148,12 +141,6 @@ TitleView::resizeTableVertically()
   m_hint = g.size();
   setGeometry(g);
   updateGeometry();
-}
-
-void
-TitleView::setUniqueIdList(const QSharedPointer<UniqueStringList>& uniqueIdList)
-{
-  m_uniqueIdList = uniqueIdList;
 }
 
 //====================================================================
@@ -244,7 +231,7 @@ TitleModel::setData(const QModelIndex& index, const QVariant& value, int role)
     auto title = m_titles[index.row()];
     switch (index.column()) {
       case 1:
-        title->id = m_uniqueIdList->append(value.toString(), -1);
+        title->id = UniqueString(value.toString());
         m_titles.replace(index.row(), title);
         m_modified.replace(index.row(), true);
         return true;
@@ -260,10 +247,8 @@ TitleModel::setData(const QModelIndex& index, const QVariant& value, int role)
 }
 
 void
-TitleModel::initialiseData(QList<QSharedPointer<EPubTitle>> titles,
-                           QSharedPointer<UniqueStringList> uniqueIdList)
+TitleModel::initialiseData(QList<QSharedPointer<EPubTitle>> titles)
 {
-  m_uniqueIdList = uniqueIdList;
   beginResetModel();
   m_titles.clear();
   for (auto& title : titles) {
@@ -301,7 +286,7 @@ TitleModel::modifyId(int row, const QString& idStr)
     return false;
   }
   auto title = m_titles.at(row);
-  title->id = m_uniqueIdList->append(idStr, -1);
+  title->id = UniqueString(idStr);
   m_modified.replace(row, true);
   return true;
 }
@@ -431,14 +416,18 @@ TitleModel::removeRows(int row, int count, const QModelIndex& parent)
 //=== TitleEditDialog
 //====================================================================
 TitleEditDialog::TitleEditDialog(QSharedPointer<EPubTitle> title,
-                                 QSharedPointer<UniqueStringList> uniqueIdList,
                                  QWidget* parent)
   : QDialog(parent)
   , m_title(title)
-  , m_uniqueIdList(uniqueIdList)
 {
   setWindowTitle(tr("Edit Title Values"));
   initGui();
+}
+
+QSharedPointer<EPubTitle>
+TitleEditDialog::title()
+{
+  return m_title;
 }
 
 void
@@ -496,7 +485,7 @@ TitleEditDialog::initGui()
 void
 TitleEditDialog::idChanged(const QString& text)
 {
-  if (m_uniqueIdList->contains(text)) {
+  if (UniqueString::exists(text)) {
     m_label->setText(tr("ID value supplied id NOT unique!\n"
                         "%1 has been used elsewhere.")
                        .arg(text));

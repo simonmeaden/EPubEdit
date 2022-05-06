@@ -2,24 +2,16 @@
 #define OPTIONS_H
 
 #include <QColor>
+#include <QCoreApplication>
 #include <QFont>
 #include <QObject>
 #include <QPixmapCache>
 #include <QRect>
 #include <QSize>
 #include <QString>
-#include <QCoreApplication>
+#include <QFile>
 
 //#include "libepubedit/ebookcommon.h"
-
-class EBookSeriesDB;
-// typedef QSharedPointer<EBookSeriesDB> SeriesDB;
-
-class EBookAuthorsDB;
-// typedef QSharedPointer<EBookAuthorsDB> AuthorsDB;
-
-class EBookLibraryDB;
-// typedef QSharedPointer<EBookLibraryDB> LibraryDB;
 
 class EBookOptions : public QObject
 {
@@ -51,8 +43,8 @@ public:
   EBookOptions(QObject* parent = nullptr);
   ~EBookOptions();
 
-  void save(const QString filename = QString());
-  void load(const QString filename);
+  void save(const QString &filename);
+  void load(const QString &filename);
 
   TocPosition tocPosition() const;
   void setTocPosition(const TocPosition position);
@@ -205,35 +197,31 @@ public:
   QString jwebchannel;
   QString jwebpage;
 
-  EBookSeriesDB* series_db;
-  EBookLibraryDB* library_db;
-  EBookAuthorsDB* authors_db;
+//  QString homeDir() const;
+//  void setHomeDir(const QString& home_directiory);
 
-  QString homeDir() const;
-  void setHomeDir(const QString& home_directiory);
+//  QString libraryDir() const;
+//  void setLibraryDir(const QString& library_directory);
 
-  QString libraryDir() const;
-  void setLibraryDir(const QString& library_directory);
+//  QString configDir() const;
+//  void setConfigDir(const QString& config_directory);
 
-  QString configDir() const;
-  void setConfigDir(const QString& config_directory);
+//  QString configFile() const;
+//  void setConfigFile(const QString& config_file);
 
-  QString configFile() const;
-  void setConfigFile(const QString& config_file);
+//  QString libraryFile() const;
+//  void setLibraryFile(const QString& library_file);
 
-  QString libraryFile() const;
-  void setLibraryFile(const QString& library_file);
+//  QString authorsFile() const;
+//  void setAuthorsFile(const QString& authors_file);
 
-  QString authorsFile() const;
-  void setAuthorsFile(const QString& authors_file);
+//  QString dicDir() const;
+//  void setDicDir(const QString& dic_dir);
+//  QString bdicDir() const;
+//  void setBdicDir(const QString& dic_dir);
 
-  QString dicDir() const;
-  void setDicDir(const QString& dic_dir);
-  QString bdicDir() const;
-  void setBdicDir(const QString& dic_dir);
-
-  QString seriesFile() const;
-  void setSeriesFile(const QString& series_file);
+//  QString seriesFile() const;
+//  void setSeriesFile(const QString& series_file);
 
 protected:
   ViewState m_view_state = VIEW_LIBRARY_TREE;
@@ -281,15 +269,15 @@ protected:
   bool m_style_italic;
   QFont::Weight m_style_weight;
 
-  QString m_home_directory;
-  QString m_library_directory;
-  QString m_config_directory;
-  QString m_dic_directory;
-  QString m_bdic_directory;
-  QString m_config_file;
-  QString m_lib_file;
-  QString m_authors_file;
-  QString m_series_file;
+//  QString m_home_directory;
+//  QString m_libraryDirectory;
+//  QString m_config_directory;
+//  QString m_dic_directory;
+//  QString m_bdic_directory;
+//  QString m_config_file;
+//  QString m_lib_file;
+//  QString m_authors_file;
+//  QString m_series_file;
 
   // static tag strings.
   static const int DEF_WIDTH = 600;
@@ -326,6 +314,6 @@ protected:
   static QString TOC_POSITION;
   static QString VIEW_STATE;
 };
-typedef QSharedPointer<EBookOptions> Options;
+typedef QSharedPointer<EBookOptions> POptions;
 
 #endif // OPTIONS_H

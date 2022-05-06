@@ -4,65 +4,53 @@
 #include <QList>
 #include <QString>
 
+/*!
+ * \class UniqueString uniquestring.h
+ * \brief The UniqueString class stroes a QString if, and only if it is
+ *        not stored in it's internal list.
+ *
+ * Use the isValid() method to check whether a certain string was created.
+ * iSEmpty() checks for an empty string and will return a bool value whether
+ * the UniqueString is valid or not.
+ */
 class UniqueString
 {
 public:
   UniqueString();
-  UniqueString(const QString& other, bool unique);
+  UniqueString(const QString& other);
+  UniqueString(const UniqueString &other);
   ~UniqueString();
 
-  bool isUnique() const;
-  void setUnique(bool unique);
+   QString toString() const;
+   bool isEmpty() const;
+   static bool exists(const QString& value);
+   static bool exists(const UniqueString& value);
 
-  inline QString toString() const { return m_data; }
-  inline bool isEmpty() const { return m_data.isEmpty(); }
+   /*!
+    * \brief returns true if the UniqueString is valid.
+    */
+   bool isValid() const;
+   bool isPossible(const QString& data);
 
-  inline void operator=(const QString& rhs) { m_data = rhs; }
+  void operator=(const QString& rhs);
 
-  inline bool operator==(const QString& rhs) { return (m_data == rhs); }
-  inline bool operator==(const char* rhs) const { return (m_data == rhs); }
-  inline bool operator==(const UniqueString& rhs)
-  {
-    return (m_data == rhs.m_data);
-  }
+  bool operator==(const QString& rhs);
+  bool operator==(const char* rhs) const;
+  bool operator==(const UniqueString& rhs);
   friend bool operator==(const QString&, const UniqueString&);
   friend bool operator==(const UniqueString&, const QString&);
   friend bool operator==(const UniqueString&, const UniqueString&);
 
-  inline bool operator<(const UniqueString& rhs)
-  {
-    return (m_data < rhs.m_data);
-  }
+  bool operator<(const UniqueString& rhs);
   friend bool operator<(const UniqueString&, const UniqueString&);
-  inline bool operator<(const QString& rhs) { return (m_data < rhs); }
-  inline bool operator<(const char* rhs) { return (m_data < rhs); }
+  bool operator<(const QString& rhs);
+  bool operator<(const char* rhs);
+
 
 private:
+  static QStringList m_uniqueList;
   QString m_data;
-  bool m_unique = true;
-};
-
-class UniqueStringList
-{
-public:
-  UniqueStringList();
-  ~UniqueStringList();
-
-  UniqueString append(const QString& value, int lineNumber);
-
-  QStringList nonUniqueStringList();
-  QStringList uniqueList() const;
-  QStringList allValues() const;
-  QList<int> lineNumbers(QString value);
-
-  bool contains(const QString& value);
-  bool contains(const UniqueString& value);
-
-private:
-  QStringList m_allValues;
-  QList<int> m_lineNumbers;
-  QStringList m_unique;
-  QStringList m_nonUnique;
+  bool m_valid;
 };
 
 typedef QMap<UniqueString, QString> UniqueStringMap;

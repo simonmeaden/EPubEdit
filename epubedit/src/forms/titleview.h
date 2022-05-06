@@ -23,16 +23,14 @@ class TitleEditDialog : public QDialog
 
 public:
   TitleEditDialog(QSharedPointer<EPubTitle> title,
-                  QSharedPointer<UniqueStringList> uniqueIdList,
-                  QWidget* parent);
+                   QWidget* parent);
 
-  inline QSharedPointer<EPubTitle> title() { return m_title; }
+  QSharedPointer<EPubTitle> title();
 
 private:
   QLabel* m_label;
   QDialogButtonBox* m_box;
   QSharedPointer<EPubTitle> m_title;
-  QSharedPointer<UniqueStringList> m_uniqueIdList;
 
   void initGui();
   void idChanged(const QString& text);
@@ -87,13 +85,11 @@ public:
                   const QModelIndex& parent = QModelIndex()) override;
 
 private:
-  QSharedPointer<UniqueStringList> m_uniqueIdList;
   QList<QSharedPointer<EPubTitle>> m_titles;
   QList<QSharedPointer<EPubTitle>> m_originalTitles;
   QList<bool> m_modified;
 
-  void initialiseData(QList<QSharedPointer<EPubTitle>> data,
-                      QSharedPointer<UniqueStringList> uniqueIdList);
+  void initialiseData(QList<QSharedPointer<EPubTitle>> data);
   friend class TitleView;
 };
 
@@ -104,8 +100,7 @@ public:
   TitleView(QWidget* parent = nullptr);
   ~TitleView();
 
-  void initialiseData(QList<QSharedPointer<EPubTitle>> data,
-                      QSharedPointer<UniqueStringList> uniqueIdList);
+  void initialiseData(QList<QSharedPointer<EPubTitle>> data);
   bool removeTitle(int row);
   bool insertTitle(int row, QSharedPointer<EPubTitle> title);
   bool modifyTitle(int row, const QString& title);
@@ -121,16 +116,12 @@ public:
 
   QSize sizeHint() const override;
 
-  QSharedPointer<UniqueStringList> uniqueIdList() const;
-  void setUniqueIdList(const QSharedPointer<UniqueStringList>& uniqueIdList);
-
   void resizeTableVertically();
 
 signals:
   void titleRemoved(int row);
 
 private:
-  QSharedPointer<UniqueStringList> m_uniqueIdList;
   TitleModel* m_model;
   QSize m_hint;
 };

@@ -5,14 +5,15 @@
 #include "forms/epubedit.h"
 //#include "languages.h"
 #include "forms/languagetagbuilderdialog.h"
+#include "forms/mainwidget.h"
 
-//#define VERSION_2
-//#define VERSION_3_0
+//#define EPUB_VERSION_2
+//#define EPUB_EPUB_VERSION_3_0
 #define VERSION_3_1
-//#define VERSION_3_2
-//#define VERSION_3_3
+//#define EPUB_VERSION_3_2
+//#define EPUB_VERSION_3_3
 
-#define TESTDIALOG
+//#define TESTDIALOG
 
 MainWindow::MainWindow(QWidget* parent)
   : QMainWindow(parent)
@@ -21,11 +22,15 @@ MainWindow::MainWindow(QWidget* parent)
 {
   qRegisterMetaType<Direction>("Direction");
 
-  m_config = new Config(this);
+  m_config = PConfig(new Config());
   // cleanup shit
-  connect(this, &MainWindow::destroyed, this , &MainWindow::cleanup);
+  connect(this, &MainWindow::destroyed, this, &MainWindow::cleanup);
   // Qt::QueuedConnection is recommended here otherwise close might not happen.
-  connect(this, &MainWindow::shutdown, this , &MainWindow::close, Qt::QueuedConnection);
+  connect(this,
+          &MainWindow::shutdown,
+          this,
+          &MainWindow::close,
+          Qt::QueuedConnection);
 
 #if defined(TESTDIALOG)
   // TEMPORARY TEST STUFF
@@ -38,12 +43,15 @@ MainWindow::MainWindow(QWidget* parent)
   emit shutdown(0);
 
   // TEMPORARY TEST STUFF
-#elif
+#else
   initGui();
 
+  connect(m_config.data(),
+          &Config::sendStatusMessage,
+          this,
+          &MainWindow::setStatusMessage);
   connect(
-    m_config, &Config::sendStatusMessage, this, &MainWindow::setStatusMessage);
-  connect(m_config, &Config::sendLogMessage, this, &MainWindow::setLogMessage);
+    m_config.data(), &Config::sendLogMessage, this, &MainWindow::setLogMessage);
   connect(m_editor,
           &EPubEdit::sendStatusMessage,
           this,
@@ -59,27 +67,32 @@ MainWindow::MainWindow(QWidget* parent)
   setStatusLineAndCol(0, 0);
 
   // Version 2.0
-#if defined(VERSION_2)
+#if defined(EPUB_VERSION_2)
   m_editor->loadDocument(
     "/home/simonmeaden/workspace/epubedit/book/Who/Algis Budrys - Who.epub");
 
-#elif defined(VERSION_3_0)
+#elif defined(EPUB_EPUB_VERSION_3_0)
 
 #elif defined(VERSION_3_1)
   // Version 3.1
-  m_editor->loadDocument(
-    "/home/simonmeaden/workspace/epubedit/book/mobydick/moby-dick.epub");
-#elif defined(VERSION_3_2)
+  loadDocument(
+    "/home/simonmeaden/.local/share/epubedit/library/David Weber/On Basilisk "
+    "Station/On Basilisk Station - David Weber.epub");
+#elif defined(EPUB_VERSION_3_2)
 
-#elif defined(VERSION_3_3)
+#elif defined(EPUB_VERSION_3_3)
 
 #endif
 
-  m_editor->saveDocument();
+//  m_editor->saveDocument();
 #endif
 }
 
-MainWindow::~MainWindow() {}
+MainWindow::~MainWindow()
+{
+  m_config->save();
+  m_editor->saveConfig();
+}
 
 void
 MainWindow::newEpub()
@@ -110,38 +123,26 @@ MainWindow::cleanup()
   qWarning();
 }
 
+bool
+MainWindow::loadDocument(const QString& filename)
+{
+  return m_editor->loadDocument(filename);
+}
+
 void
 MainWindow::initGui()
 {
-  auto mainFrame = new QFrame(this);
+  setStatusBar(nullptr);
+
+  auto mainFrame = new MainWidget(m_config, this);
+  mainFrame->setContentsMargins(0, 0, 0, 0);
   setCentralWidget(mainFrame);
-  auto layout = new QGridLayout;
-  mainFrame->setLayout(layout);
 
-  auto tabs = new QTabWidget(this);
-
-  m_editor = new EPubEdit(m_config, this);
-  tabs->addTab(m_editor, tr("Editor"));
-
-  m_logPage = new QPlainTextEdit(this);
-  m_logPage->setReadOnly(true);
-  tabs->addTab(m_logPage, tr("Logs"));
-
-  auto undoView = m_editor->undoView();
-  tabs->addTab(undoView, tr("Undo View"));
-
-  layout->addWidget(tabs, 0, 0);
+  m_editor = mainFrame->editor();
+  m_logPage = mainFrame->logPage();
 
   initActions();
   initMenus();
-
-  m_lineLbl = new QLabel(this);
-  m_colLbl = new QLabel(this);
-  m_msgLbl = new QLabel(this);
-
-  statusBar()->addPermanentWidget(m_msgLbl, 1);
-  statusBar()->addPermanentWidget(m_lineLbl);
-  statusBar()->addPermanentWidget(m_colLbl);
 }
 
 void
@@ -303,8 +304,9 @@ MainWindow::center(const QScreen* s)
 void
 MainWindow::setStatusLineAndCol(int line, int col)
 {
-  m_lineLbl->setText(tr("Line: %1").arg(line));
-  m_colLbl->setText(tr("Col: %1").arg(col));
+  // TODO add Col/Line to mainwidget footer.
+  //  m_lineLbl->setText(tr("Line: %1").arg(line));
+  //  m_colLbl->setText(tr("Col: %1").arg(col));
 }
 
 void
@@ -317,7 +319,8 @@ MainWindow::setStatusMessage(const QString& message, int timeout)
   auto timer = new QTimer(this);
   connect(timer, &QTimer::timeout, this, &MainWindow::clearStatusMessage);
   timer->start(t * 1000);
-  m_msgLbl->setText(message);
+  // TODO add message to mainwindow footer.
+  //  m_msgLbl->setText(message);
 }
 
 void
@@ -330,7 +333,8 @@ MainWindow::setLogMessage(const QString& message)
 void
 MainWindow::clearStatusMessage()
 {
-  m_msgLbl->clear();
+  // TODO add message to mainwindow footer.
+  //  m_msgLbl->clear();
 }
 
 void

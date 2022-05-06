@@ -76,8 +76,7 @@ class FilterEdit : public QLineEdit
   };
 
 public:
-  FilterEdit(QStringList items,
-             LanguageTagBuilderDialog* parent);
+  FilterEdit(QStringList items, LanguageTagBuilderDialog* parent);
 
   QComboBox* comboBox();
   QSortFilterProxyModel* model();
@@ -88,8 +87,10 @@ public:
   void setValue(const QString& value);
   void setValues(const QStringList& values);
 
-  bool hasSelection();
-  QString currentText();
+  //! True if the combo box has been selected
+  bool hasCurrentSelection();
+  //! A QString holding the value of the combo box if selected, otherwise an empty QString.
+  QString currentSelection();
   bool isEmpty();
 
   void setFilterText(const QString& text);
@@ -108,7 +109,7 @@ protected:
 private:
   QString m_filterText;
   QString m_tagValue;
-  FilterComboBox* m_selection;
+  FilterComboBox* m_selectionBox;
   LanguageTagBuilderDialog* m_parent;
   int m_currentIndex = -1;
   bool m_currentIndexChanged = false;
@@ -374,14 +375,14 @@ public:
   void regionChanged();
   void variantChanged();
   void updateTag(BCP47Language::TagType type = BCP47Language::NO_VALUE);
-  void usePreferredValue();
 
   QString tag();
 
 private:
+  QGroupBox *m_primaryBox, *m_extensionBox;
   BCP47Languages* m_languages;
   QDir m_configDir;
-  QFile m_configFile;
+  QString m_configFilename;
   QLabel* m_reportLbl;
   Private__::LanguageLabel* m_resultLbl;
   Private__::FilterEdit* m_primaryFilterEdit;
@@ -393,7 +394,7 @@ private:
   Private__::PrivateScriptFrame* m_privateScriptFrame;
   Private__::PrivateRegionFrame* m_privateRegionFrame;
   QPushButton* m_usePreferredBtn;
-  QString m_languageTag, m_scriptTag, m_regionTag, m_extlangTag, m_variantTag;
+//  QString m_languageTag;
   QSharedPointer<BCP47Language> m_language;
 
   void initGui();
@@ -401,17 +402,19 @@ private:
   //  void testTag();
   void clearTag();
   void setReport(const QString& report);
-  void privateLanguageChanged(const QString& value);
-  void privateScriptChanged(const QString& value);
-  void privateRegionChanged(const QString& value);
 
   void help();
   void showPrivateLanguageFrame(BCP47Language::TagType languageType);
   void showPrivateScriptFrame(BCP47Language::TagType languageType);
   void showPrivateRegionFrame(BCP47Language::TagType languageType);
 
-  static QString MISSING_PRIMARY_LANGUAGE;
-  void clearAllTagvalues();
+//  static QString MISSING_PRIMARY_LANGUAGE;
+//  void clearAllTagvalues();
+  QString calcExtlangResult();
+  QString calcScriptResult(BCP47Language::TagType type);
+  QString calcRegionResult(BCP47Language::TagType type);
+  QString calcVariantResult();
+  QString calcLanguageResult(BCP47Language::TagType type);
 };
 
 #endif // LANGUAGETAGBUILDERDIALOG_H

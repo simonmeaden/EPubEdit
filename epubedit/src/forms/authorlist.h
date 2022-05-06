@@ -1,17 +1,23 @@
-#ifndef AUTHORLIST_H
-#define AUTHORLIST_H
+#ifndef METADATALIST_H
+#define METADATALIST_H
 
 #include <QAbstractItemModel>
 #include <QHeaderView>
 #include <QTableView>
+#include <QVariant>
+#include <QModelIndex>
 
-class AuthorModel : public QAbstractTableModel
+#include "document/epubdocument.h"
+#include "document/epubmetadata.h"
+#include "document/bookpointers.h"
+
+class MetadataModel : public QAbstractTableModel
 {
   Q_OBJECT
   // QAbstractItemModel interface
 public:
-  AuthorModel(QWidget* parent = nullptr);
-  ~AuthorModel();
+  MetadataModel(QWidget* parent = nullptr);
+  ~MetadataModel();
   int rowCount(const QModelIndex&) const override;
   int columnCount(const QModelIndex&) const override;
 
@@ -26,7 +32,7 @@ public:
                int role = Qt::EditRole) override;
 
   void modifyRowData(int row, const QString& value);
-  void initialiseData(QStringList authors);
+  void initialiseData(PDocument document);
 
   bool insertRows(int row,
                   int count,
@@ -46,17 +52,20 @@ public:
 
 private:
   QStringList m_authors;
+  QList<QSharedPointer<EPubCreator>> m_data;
   QList<bool> m_modified;
+  PMetadata m_metadata;
+
 };
 
-class AuthorList : public QTableView
+class MetadataList : public QTableView
 {
   Q_OBJECT
 public:
-  AuthorList(QWidget* parent = nullptr);
-  ~AuthorList();
+  MetadataList(QWidget* parent = nullptr);
+  ~MetadataList();
 
-  void initialiseData(QStringList authors);
+  void initialiseData(PDocument document);
 
   bool removeAuthor(int row);
   bool insertAuthor(int row, const QString& author);
@@ -75,9 +84,9 @@ signals:
   void authorRemoved(int row);
 
 private:
-  AuthorModel* m_model;
+  MetadataModel* m_model;
   QStringList m_authorList;
   QSize m_hint;
 };
 
-#endif // AUTHORLIST_H
+#endif // METADATALIST_H

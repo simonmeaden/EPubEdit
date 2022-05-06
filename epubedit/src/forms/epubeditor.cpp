@@ -3,15 +3,15 @@
 #include "config.h"
 #include "document/epubdocument.h"
 
-EPubEditor::EPubEditor(Config* config, QWidget* parent)
-  : QWidget(parent)
+EPubEditor::EPubEditor(PConfig config, QWidget* parent)
+  : QTextEdit(parent)
   , m_config(config)
 {}
 
 EPubEditor::~EPubEditor() {}
 
 void
-EPubEditor::setDocument(QSharedPointer<EPubDocument> document)
+EPubEditor::setDocument(PDocument document)
 {
   m_document = document;
   updateDocument();

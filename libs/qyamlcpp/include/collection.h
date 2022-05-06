@@ -83,7 +83,8 @@ struct convert<QList<T>>
   {
     Node node(NodeType::Sequence);
 
-    std::list<T> slist = rhs.toStdList();
+    //    std::list<T> slist = rhs.toStdList(); // toStdList() is deprecated
+    std::list<T> slist = std::list<T>(rhs.begin(), rhs.end());
     node = slist;
 
     return node;
@@ -96,7 +97,8 @@ struct convert<QList<T>>
     }
 
     std::list<T> slist = node.as<std::list<T>>();
-    rhs = QList<T>::fromStdList(slist);
+    //    rhs = QList<T>::fromStdList(slist); // fromStdList() is deprecated
+    rhs = QList<T>(slist.begin(), slist.end());
 
     return true;
   }

@@ -37,16 +37,23 @@ const QString EPubDocument::HTML_DOCTYPE =
 const QString EPubDocument::XML_HEADER =
   "<?xml version='1.0' encoding='utf-8'?>";
 
-EPubDocument::EPubDocument(Config* config, QObject* parent)
+EPubDocument::EPubDocument(PConfig config,
+                           POptions options,
+                           PLibraryDB libDb,
+                           PSeriesDB series,
+                           PAuthorsDB authors,
+                           QObject* parent)
   : QObject(parent)
   , m_config(config)
-{
-  m_uniqueIdList = QSharedPointer<UniqueStringList>(new UniqueStringList());
-  m_metadata = QSharedPointer<EPubMetadata>(new EPubMetadata(m_uniqueIdList));
-  m_manifest = QSharedPointer<EPubManifest>(new EPubManifest());
-}
+  , m_options(options)
+  , m_libraryDB(libDb)
+  , m_seriesDB(series)
+  , m_authorsDB(authors)
+{}
 
-EPubDocument::~EPubDocument() {}
+EPubDocument::~EPubDocument() {
+  qDebug();
+}
 
 QString
 EPubDocument::buildTocFromData()
@@ -69,14 +76,14 @@ EPubDocument::loaded()
 }
 
 bool
-EPubDocument::parseMimetype()
+EPubDocument::parseMimetype(QuaZip* archive)
 {
   if (m_files.contains(MIMETYPE_FILE)) {
-    m_archive->setCurrentFile(MIMETYPE_FILE);
-    QuaZipFile mimetypeFile(m_archive);
+    archive->setCurrentFile(MIMETYPE_FILE);
+    QuaZipFile mimetypeFile(archive);
 
     if (!mimetypeFile.open(QIODevice::ReadOnly)) {
-      int error = m_archive->getZipError();
+      int error = archive->getZipError();
       qDebug() << tr("Unable to open mimetype file : error %1").arg(error);
       return false;
     }
@@ -93,15 +100,15 @@ EPubDocument::parseMimetype()
 }
 
 bool
-EPubDocument::parseContainer()
+EPubDocument::parseContainer(QuaZip* archive)
 {
   if (m_files.contains(CONTAINER_FILE)) {
-    m_archive->setCurrentFile(CONTAINER_FILE);
-    QuaZipFile containerFile(m_archive);
-    containerFile.setZip(m_archive);
+    archive->setCurrentFile(CONTAINER_FILE);
+    QuaZipFile containerFile(archive);
+    containerFile.setZip(archive);
 
     if (!containerFile.open(QIODevice::ReadOnly)) {
-      int error = m_archive->getZipError();
+      int error = archive->getZipError();
       qDebug() << tr("Unable to open container file error %1").arg(error);
       return false;
     }
@@ -126,7 +133,7 @@ EPubDocument::parseContainer()
           qWarning() << tr("Invalid root file entry");
           continue;
         }
-        if (parsePackageFile(m_containerFullpath)) {
+        if (parsePackageFile(archive, m_containerFullpath)) {
           return true;
         }
       }
@@ -151,11 +158,11 @@ EPubDocument::parseContainer()
 }
 
 bool
-EPubDocument::parsePackageFile(QString& fullPath)
+EPubDocument::parsePackageFile(QuaZip *archive, QString& fullPath)
 {
-  m_archive->setCurrentFile(fullPath);
-  QuaZipFile contentFile(m_archive);
-  contentFile.setZip(m_archive);
+  archive->setCurrentFile(fullPath);
+  QuaZipFile contentFile(archive);
+  contentFile.setZip(archive);
 
   if (!contentFile.open(QIODevice::ReadOnly)) {
     qDebug() << tr("Malformed content file, unable to get content metadata");
@@ -181,19 +188,26 @@ EPubDocument::parsePackageFile(QString& fullPath)
     auto node = nodeMap.item(i);
     auto name = node.nodeName();
     auto value = node.nodeValue().toLower();
-    auto lineNumber = node.lineNumber();
+    //    auto lineNumber = node.lineNumber();
     // parse package attributes.
     if (name == "version") {
       if (value == "2.0") {
-        m_version = 2;
+        m_version = V20;
       } else if (value == "3.0") {
-        m_version = 3;
+        m_version = V30;
+      } else if (value == "3.0") {
+        m_version = V31;
+      } else if (value == "3.0") {
+        m_version = V32;
+      } else if (value == "3.3") {
+        m_version = V33;
+      } else {
+        m_version = UNDEFINED;
       }
     } else if (name == "xmlns") {
       m_packageXmlns = value;
     } else if (name == "unique-identifier") {
-      m_metadata->setUniqueIdentifierName(
-        m_uniqueIdList->append(node.nodeValue(), node.lineNumber()));
+      m_metadata->setUniqueIdentifierName(UniqueString(value));
     } else if (name == "xml:lang") {
       m_packageLanguage = value;
     } else if (name == "prefix") { // Only 3.0
@@ -202,7 +216,7 @@ EPubDocument::parsePackageFile(QString& fullPath)
     } else if (name == "dir") { // Only 3.0
       m_packageDirection = value;
     } else if (name == "id") { // Only 3.0
-      m_packageId = m_uniqueIdList->append(value, lineNumber);
+      m_packageId = UniqueString(value);
     } else if (name == "prefix") {
       m_metadata->setIsFoaf(true);
     }
@@ -221,19 +235,21 @@ EPubDocument::parsePackageFile(QString& fullPath)
 
   // Parse out all the components/items in the epub
   // should only have one manifest.
-  QDomNodeList manifestNodeList = packageDocument.elementsByTagName("manifest");
-  for (int i = 0; i < manifestNodeList.count(); i++) {
-    auto manifestElement = manifestNodeList.at(i).toElement();
+  auto manifestNodeList = packageDocument.elementsByTagName("manifest");
+  for (auto manifestIndex = 0; manifestIndex < manifestNodeList.count();
+       manifestIndex++) {
+    auto manifestElement = manifestNodeList.at(manifestIndex).toElement();
     nodeMap = manifestElement.attributes();
     node = nodeMap.namedItem("id");
     if (!node.isNull()) {
-      auto lineNumber = node.lineNumber();
-      m_manifest->id = m_uniqueIdList->append(node.nodeValue(), lineNumber);
+      //      auto lineNumber = node.lineNumber();
+      m_manifest->id = UniqueString(node.nodeValue());
     }
-    QDomNodeList manifest_item_list = manifestElement.elementsByTagName("item");
+    QDomNodeList manifestItemList = manifestElement.elementsByTagName("item");
 
-    for (int j = 0; j < manifest_item_list.count(); j++) {
-      parseManifestItem(manifest_item_list.at(j), contentFileFolder);
+    for (auto itemIndex = 0; itemIndex < manifestItemList.count();
+         itemIndex++) {
+      parseManifestItem(archive, manifestItemList.at(itemIndex), contentFileFolder);
     }
   }
 
@@ -242,41 +258,38 @@ EPubDocument::parsePackageFile(QString& fullPath)
   auto spineNodeList = packageDocument.elementsByTagName("spine");
   for (int i = 0; i < spineNodeList.count(); i++) {
     auto spineElement = spineNodeList.at(i).toElement();
-    auto spineItem = QSharedPointer<EPubSpineItem>(new EPubSpineItem());
     nodeMap = spineElement.attributes();
     node = nodeMap.namedItem("id");
     if (!node.isNull()) { // optional
-      auto lineNumber = node.lineNumber();
-      m_spine.id = m_uniqueIdList->append(node.nodeValue(), lineNumber);
-      node = nodeMap.namedItem("toc");
-      if (!node.isNull()) { // optional
-        m_spine.tocId = node.nodeValue();
-      }
-      node = nodeMap.namedItem("page-progression-dir");
-      if (!node.isNull()) { // optional
-        m_spine.pageProgressionDir = direction(node.nodeValue());
-      }
+                          //      auto lineNumber = node.lineNumber();
+      m_spine.id = UniqueString(node.nodeValue());
+    }
 
-      QDomNodeList spineItemList = spineElement.elementsByTagName("itemref");
-      for (int j = 0; j < spineItemList.count(); j++) {
-        spineItem = parseSpineItem(spineItemList.at(j), spineItem);
-      }
+    node = nodeMap.namedItem("tocid");
+    if (!node.isNull()) { // optional
+      m_spine.tocId = node.nodeValue();
+    }
 
-      if (!m_spine.tocId.isEmpty()) { // EPUB2.0 toc
-        parseTocFile();
-      }
+    node = nodeMap.namedItem("page-progression-dir");
+    if (!node.isNull()) { // optional
+      m_spine.setDirection(node.nodeValue());
+    }
 
-      //    /*
-      //     * At this point not all books have anchors added for chapter links.
-      //     Calibre
-      //     * adds in anchors at the end of the previous chapter. For
-      //     simplicities sake I
-      //     * am adding them at the start of the new chapter.
-      //     * Also remember that some
-      //     */
-      //    createChapterAnchorPoints(spine_item);
+    // could be being rebuilt. This happens when a book is loaded but appears
+    // to have library copy already.
+    m_spine.orderedItems.clear();
+    m_spine.items.clear();
+
+    QDomNodeList spineItemList = spineElement.elementsByTagName("itemref");
+    for (int j = 0; j < spineItemList.count(); j++) {
+      parseSpineItem(spineItemList.at(j));
     }
   }
+
+  //  if (!m_spine.items.isEmpty() && !m_manifest->itemsById.isEmpty()) {
+  //    for (auto& spineItem : m_spine.items) {
+  //    }
+  //  }
 
   // TODO doctor the image paths to point to local files.
   auto htmlKeys = m_manifest->htmlItems.keys();
@@ -303,18 +316,18 @@ EPubDocument::parsePackageFile(QString& fullPath)
 }
 
 bool
-EPubDocument::parseTocFile()
+EPubDocument::parseTocFile(QuaZip *archive)
 {
   UniqueString tocId = m_spine.tocId;
   QSharedPointer<EPubManifestItem> tocItem = m_manifest->itemsById.value(tocId);
   QString toc_path = tocItem->path;
 
-  m_archive->setCurrentFile(toc_path);
-  QuaZipFile toc_file(m_archive);
-  toc_file.setZip(m_archive);
+  archive->setCurrentFile(toc_path);
+  QuaZipFile toc_file(archive);
+  toc_file.setZip(archive);
 
   if (!toc_file.open(QIODevice::ReadOnly)) {
-    m_archive->getZipError();
+    archive->getZipError();
     qDebug() << tr("Unable to open toc file %1").arg(toc_path);
   }
 
@@ -375,7 +388,7 @@ EPubDocument::parseNavPoint(QDomElement navpoint, QString& formatted_toc_data)
 
   value = navpoint.attribute("id");
   if (!value.isEmpty()) {
-    toc_item->id = m_uniqueIdList->append(value, navpoint.lineNumber());
+    toc_item->id = UniqueString(value);
   } else {
     //            QLOG_DEBUG(tr("Warning invalid manifest
     //            itemref : no idref value"))
@@ -454,21 +467,26 @@ EPubDocument::handleNestedNavpoints(QDomElement elem,
   }
 }
 
-QSharedPointer<EPubSpineItem>
-EPubDocument::parseSpineItem(const QDomNode& spine_node,
-                             QSharedPointer<EPubSpineItem> item)
+bool
+EPubDocument::parseSpineItem(const QDomNode& spineNode)
 {
-  QDomElement metadataElement = spine_node.toElement();
-  QString tag_name = metadataElement.tagName();
-  QDomNamedNodeMap nodeMap = metadataElement.attributes();
+  auto metadataElement = spineNode.toElement();
+  auto tag_name = metadataElement.tagName();
+  auto nodeMap = metadataElement.attributes();
   QDomNode node;
   QString name, value;
 
   if (tag_name == "itemref") {
+    auto item = QSharedPointer<EPubSpineItem>(new EPubSpineItem());
 
     // TODO EPUB2 toc element - convert to EPUB3
 
-    node = nodeMap.namedItem("idref");
+    node = nodeMap.namedItem("id"); // optional
+    if (!node.isNull()) {
+      item->id = UniqueString(node.nodeValue());
+    }
+
+    node = nodeMap.namedItem("idref"); // required
     if (!node.isNull()) {
       value = node.nodeValue();
       item->idref = value;
@@ -476,17 +494,15 @@ EPubDocument::parseSpineItem(const QDomNode& spine_node,
       qDebug() << tr("Warning invalid manifest itemref : no idref value");
     }
 
-    node = nodeMap.namedItem("id");
-    if (!node.isNull()) {
-      item->id = m_uniqueIdList->append(node.nodeValue(), node.lineNumber());
-    }
-
-    node = nodeMap.namedItem("linear");
+    node = nodeMap.namedItem("linear"); // optional
     if (!node.isNull()) {
       value = node.nodeValue();
-      if (value == "yes" || value == "no") {
-        if (value == "yes")
-          item->linear = true; // false by default.
+      if (!value.isEmpty()) {
+        auto lValue = value.toLower();
+        if (lValue == "no")
+          item->linear = false;
+        else
+          item->linear = true; // true by default.
       } else {
         qDebug() << tr("Warning invalid manifest itemref : linear MUST be "
                        "either yes or no not %1")
@@ -494,7 +510,7 @@ EPubDocument::parseSpineItem(const QDomNode& spine_node,
       }
     }
 
-    node = nodeMap.namedItem("properties");
+    node = nodeMap.namedItem("properties"); // optional
     if (!node.isNull()) {
       name = node.nodeName();
       value = node.nodeValue();
@@ -503,32 +519,33 @@ EPubDocument::parseSpineItem(const QDomNode& spine_node,
 
       for (auto& prop : properties) {
         if (prop == "page-spread-left") {
-          item->pageSpreadLeft = true;
+          item->pageSpread = LEFT;
         } else if (prop == "page-spread-right") {
-          item->pageSpreadRight = true;
+          item->pageSpread = RIGHT;
+        } else {
+          item->pageSpread = NONE;
         }
       }
     }
-
     m_spine.items.insert(item->idref, item);
     m_spine.orderedItems.append(item->idref);
   }
-  return item;
+  return true;
 }
 
 bool
-EPubDocument::parseManifestItem(const QDomNode& manifest_node,
+EPubDocument::parseManifestItem(QuaZip *archive,
+                                const QDomNode& manifest_node,
                                 const QString current_folder)
 {
-  QDomElement metadataElement = manifest_node.toElement();
-  QString tag_name = metadataElement.tagName();
-  QDomNamedNodeMap nodeMap = metadataElement.attributes();
+  auto metadataElement = manifest_node.toElement();
+  auto tagName = metadataElement.tagName();
+  auto nodeMap = metadataElement.attributes();
   QDomNode node;
   QString name, value;
 
-  if (tag_name == "item") {
-    QSharedPointer<EPubManifestItem> item =
-      QSharedPointer<EPubManifestItem>(new EPubManifestItem());
+  if (tagName == "item") {
+    auto item = PManifestItem(new EPubManifestItem());
     node = nodeMap.namedItem("href");
     if (!node.isNull()) {
       value = node.nodeValue();
@@ -541,7 +558,7 @@ EPubDocument::parseManifestItem(const QDomNode& manifest_node,
 
     node = nodeMap.namedItem("id");
     if (!node.isNull()) {
-      item->id = m_uniqueIdList->append(node.nodeValue(), node.lineNumber());
+      item->id = UniqueString(node.nodeValue());
     } else {
       qDebug() << tr("Warning invalid manifest item : no id value");
     }
@@ -553,31 +570,31 @@ EPubDocument::parseManifestItem(const QDomNode& manifest_node,
       if (item->mediaType == "image/gif" || item->mediaType == "image/jpeg" ||
           item->mediaType == "image/png") {
 
-        if (!QImageReader::supportedMimeTypes().contains(item->mediaType)) {
+        if (!QImageReader::supportedMimeTypes().contains(
+              item->mediaType.toLatin1())) {
           qDebug() << tr("Requested image type %1 is an unsupported type")
                         .arg(QString(item->mediaType));
         }
 
-        m_archive->setCurrentFile(item->path);
-        QuaZipFile image_file(m_archive);
-        image_file.setZip(m_archive);
+        archive->setCurrentFile(item->path);
+        QuaZipFile image_file(archive);
+        image_file.setZip(archive);
 
         if (!image_file.open(QIODevice::ReadOnly)) {
-          //          m_archive->getZipError();
+          //          archive->getZipError();
           qDebug() << tr("Unable to open image file %1").arg(item->path);
         }
 
         QByteArray data = image_file.readAll();
         QImage image = QImage::fromData(data);
-        QFileInfo info(item->href.toString());
+        QFileInfo info(item->href);
         QString path = info.path();
         if (!path.isEmpty()) {
           QDir dir(m_resourcePath);
           dir.mkpath(path);
         }
 
-        QString res_path =
-          m_resourcePath + QDir::separator() + item->href.toString();
+        QString res_path = m_resourcePath + QDir::separator() + item->href;
         image.save(res_path);
         res_path.prepend(QStringLiteral("file://"));
         m_manifest->images.insert(item->href, res_path);
@@ -589,12 +606,12 @@ EPubDocument::parseManifestItem(const QDomNode& manifest_node,
         m_manifest->fonts.insert(item->href, item);
 
       } else if (item->mediaType == "application/xhtml+xml") {
-        m_archive->setCurrentFile(item->path);
-        QuaZipFile itemFile(m_archive);
-        itemFile.setZip(m_archive);
+        archive->setCurrentFile(item->path);
+        QuaZipFile itemFile(archive);
+        itemFile.setZip(archive);
 
         if (!itemFile.open(QIODevice::ReadOnly)) {
-          int error = m_archive->getZipError();
+          int error = archive->getZipError();
           qDebug() << tr("Unable to open container file error %1").arg(error);
           return false;
         }
@@ -618,12 +635,12 @@ EPubDocument::parseManifestItem(const QDomNode& manifest_node,
         item->documentString = container;
         m_manifest->htmlItems.insert(item->id, item);
       } else if (item->mediaType == "text/css") {
-        m_archive->setCurrentFile(item->path);
-        QuaZipFile itemFile(m_archive);
-        itemFile.setZip(m_archive);
+        archive->setCurrentFile(item->path);
+        QuaZipFile itemFile(archive);
+        itemFile.setZip(archive);
 
         if (!itemFile.open(QIODevice::ReadOnly)) {
-          int error = m_archive->getZipError();
+          int error = archive->getZipError();
           qDebug() << tr("Unable to open css file error %1").arg(error);
           return false;
         }
@@ -633,12 +650,12 @@ EPubDocument::parseManifestItem(const QDomNode& manifest_node,
         m_manifest->css.insert(item->href, css_string);
 
       } else if (item->mediaType == "text/javascript") {
-        m_archive->setCurrentFile(item->path);
-        QuaZipFile itemFile(m_archive);
-        itemFile.setZip(m_archive);
+        archive->setCurrentFile(item->path);
+        QuaZipFile itemFile(archive);
+        itemFile.setZip(archive);
 
         if (!itemFile.open(QIODevice::ReadOnly)) {
-          int error = m_archive->getZipError();
+          int error = archive->getZipError();
           qDebug() << tr("Unable to open javascript file error %1").arg(error);
           return false;
         }
@@ -751,37 +768,94 @@ EPubDocument::extractHeadInformationFromHtmlFile(
 }
 
 void
-EPubDocument::saveDocument(const QString& path)
+EPubDocument::saveDocument(const QString& filename)
 {
-  setFilename(path);
-  saveDocumentToFile();
+  //  saveBookToLibrary(filename);
+  // TODO save document
 }
 
+/*
+ * Copies the new file into the library returning tre if successful, otherwise
+ * returning false. This will overwrite without requesting confirmation.
+ */
 bool
-EPubDocument::confirmPathOrLibraryPath(QString& path)
+EPubDocument::copyBookToLibrary(const QString& oldFilename,
+                                const QString& newFilename)
 {
-  if (!path.startsWith(m_config->libraryPath())) { // is in library.
-    auto box = new QMessageBox();
-    box->setIcon(QMessageBox::Warning);
-    box->setWindowTitle(tr("Non-Library Location"));
-    box->setText(tr("You are saving this file to a non-library location.\n"
-                    "Press \"Continue\" to save to this location, or\n\"Save "
-                    "to Library\" to save to your library."));
-    box->setToolTip(path);
-    box->setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-    auto yesBtn = box->button(QMessageBox::Yes);
-    yesBtn->setText(tr("Continue"));
-    yesBtn->setToolTip(path);
-    auto noBtn = box->button(QMessageBox::No);
-    noBtn->setText(tr("Save to Library"));
-    noBtn->setToolTip(path);
-    box->setDefaultButton(QMessageBox::Yes);
-    if (box->exec() == QMessageBox::No) {
-      path = m_config->libraryPath();
-      return true;
+  QFileInfo info(newFilename);
+  QDir dir = info.absoluteDir();
+  dir.mkpath(dir.absolutePath());
+
+  if (QFile::exists(newFilename)) {
+    if (QFile::exists(newFilename)) {
+      if (QFile::remove(newFilename)) {
+        // TODO clean up other incidental files
+        // e.g. intended undo edit file.
+        return QFile::copy(oldFilename, newFilename);
+      } else {
+        // TODO error removing old file.
+        return false;
+      }
+    } else {
+      return QFile::copy(oldFilename, newFilename);
     }
+  } else {
+    return QFile::copy(oldFilename, newFilename);
   }
   return false;
+}
+
+/*
+ * Checks whether the book is stored in your library location (returns false).
+ * If not asks you whether you wish to overwrite the library copy or
+ * to continue to edit the library version (returns true).
+ */
+EPubDocument::StoreType
+EPubDocument::confirmOverwriteOrUseLibrary(const QString& path,
+                                           QString& libraryFilename) const
+{
+  if (!path.startsWith(m_config->libraryPath())) { // is in library.
+    auto titles = m_metadata->orderedTitles();
+    auto creators = m_metadata->creatorList();
+    auto info = QFileInfo(path);
+    if (!titles.isEmpty() && !creators.isEmpty()) {
+      auto title = titles.first()->title;
+      auto creator = creators.first();
+      // TODO check if book is in library.
+      // may have to check against all authors.
+      libraryFilename = m_config->libraryDirectory();
+      libraryFilename =
+        Paths::join(libraryFilename, creator, title, info.fileName());
+      if (QFile::exists(libraryFilename)) {
+        QMessageBox box;
+        box.setIcon(QMessageBox::Warning);
+        box.setWindowTitle(tr("Existing Library Book"));
+        box.setText(
+          tr("This file already in your library!\n"
+             "Press \"Use library\" to use the library version,\n"
+             "or \"Overwrite library\" to overwrite library version."));
+        box.setToolTip(path);
+        box.setStandardButtons(QMessageBox::Yes | QMessageBox::Save);
+        auto yesBtn = box.button(QMessageBox::Yes);
+        yesBtn->setText(tr("Use library"));
+        yesBtn->setToolTip("Use to version already stored in your library.");
+        auto saveBtn = box.button(QMessageBox::Save);
+        saveBtn->setText(tr("Overwrite library"));
+        saveBtn->setToolTip(
+          "Save this version to the library.\n"
+          "This will overwrite the existing library versionand\n"
+          "lose any changes you might have made to it.");
+
+        box.setDefaultButton(QMessageBox::Yes);
+        if (box.exec() == QMessageBox::Yes) {
+          return USE_STORED;
+        } else {
+          return OVERWRITE_EXISTING;
+        }
+      }
+    }
+  }
+  return COPY_INTO_LIBRARY;
 }
 
 QString
@@ -809,148 +883,154 @@ EPubDocument::getFirstTitleOrTemp(QList<QSharedPointer<EPubTitle>> titles)
 }
 
 bool
-EPubDocument::saveDocumentToFile()
+EPubDocument::writeVersion30()
 {
-  QFileInfo info;
-  QDir dir;
-  QFile file;
+  //  QFileInfo info;
+  //  QDir dir;
+  //  QFile file;
+  //  QString filename;
 
-  if (!m_filename.isEmpty())
-    info = QFileInfo(m_filename);
-
-  auto path = info.path();
-  auto baseName = info.baseName();
-
-  auto isLibraryPath = confirmPathOrLibraryPath(path);
-
-  if (isLibraryPath) {
-    auto author = getFirstAuthorNameOrUnknown(m_metadata->creatorList());
-    auto title = getFirstTitleOrTemp(m_metadata->orderedTitles());
-    path = Paths::join(path, author, title);
-    if (dir.mkpath(path)) {
-      if (dir.cd(path)) {
-        file.setFileName(title + ".epub");
-        baseName = title;
-      }
-    }
-  } else {
-    if (dir.mkpath(path)) {
-      dir.cd(path);
-      file.setFileName(m_filename);
-    }
-  }
-
-  if (file.exists()) {
-    auto box = new QMessageBox();
-    box->setIcon(QMessageBox::Warning);
-    box->setWindowTitle(tr("File already exists!"));
-    box->setText(tr("to Overwrite the file press \"Save\"\n"
-                    "or press \"Cancel\" to cancel operation."));
-    box->setStandardButtons(QMessageBox::Save | QMessageBox::Cancel);
-    box->setDefaultButton(QMessageBox::Cancel);
-    if (box->exec() == QMessageBox::Cancel) {
-      return false;
-    }
-  }
-
-  QTemporaryDir tdir;
-  auto tempDir = tdir.path();
-  auto baseDir = Paths::join(tempDir, baseName);
-  auto metainfDir = Paths::join(baseDir, METAINF_FOLDER);
-  auto oebpsDir = Paths::join(baseDir, OEBPS_FOLDER);
-  auto zipfileName = Paths::join(m_config->libraryPath(), baseName + ".epub");
-
-  dir.mkpath(metainfDir);
-  dir.mkpath(oebpsDir);
-
-  auto errors = Errors(NO_ERROR);
-  auto filename = Paths::join(baseDir, METAINF_FOLDER);
-  errors = writeMimetype(filename);
-  if (errors.testFlag(METATYPE_ERROR)) {
-    QString errorStr;
-    if (errors.testFlag(WRITE_ERROR)) {
-      errorStr = tr("Write error");
-    }
-    if (errors.testFlag(SIZE_ERROR)) {
-      errorStr = tr("Size error");
-    }
-    emit sendLogMessage(tr("Failed to write metatype file. %1").arg(errorStr));
-    return false;
-  } else {
-    if (!JlCompress::compressDir(zipfileName, tempDir, true)) {
-      emit sendLogMessage(
-        tr("Failed to compress epub files!") /*.arg(errorStr)*/);
-    }
-  }
-
-  switch (m_config->saveVersion()) {
-    case Config::EPUB_3_0: {
-      // TODO
-
-      break;
-    }
-    case Config::EPUB_3_1: {
-      // TODO
-      break;
-    }
-    case Config::EPUB_3_2: {
-
-      //      if (!writeMimetype(temp_file)) {
-      //        return false;
-      //      }
-      //      if (!writeContainer(temp_file)) {
-      //        return false;
-      //      }
-      // TODO the rest
-      break;
-    }
-    case Config::EPUB_3_3: {
-      break;
-    }
-    case Config::EPUB_3_4: {
-      break;
-    }
-  }
-
-  //  temp_file->close();
-  //}
-  // TODO backup/rename etc.
-  // TODO remove temp file/dir - maybe on application close/cleanup
-
-  return true;
-}
-
-void
-EPubDocument::loadDocument(const QString& path)
-{
-  setFilename(path);
-  loadDocumentFromFile();
+  return false;
 }
 
 bool
-EPubDocument::loadDocumentFromFile()
+EPubDocument::writeVersion31()
+{
+  return false;
+}
+
+bool
+EPubDocument::writeVersion32()
+{
+  return false;
+}
+
+PBookData
+EPubDocument::insertNewBook(const QString& filename,
+                            const QString& title,
+                            QStringList creators)
+{
+  auto uid = BookData::nextUid();
+  auto bookData = PBookData(new BookData(uid, filename, title, creators));
+  m_libraryDB->insertOrUpdateBook(bookData);
+  return bookData;
+}
+
+PBookData
+EPubDocument::getBookForTitleAndCreator(const QString& title,
+                                        const QString& libraryFilename)
+{
+  PBookData data;
+  auto books = m_libraryDB->bookByTitle(title);
+  auto creators = m_metadata->creatorList();
+  if (books.isEmpty()) {
+    data = insertNewBook(libraryFilename, title, creators);
+  } else {
+    // possibly more than one for same title with a different creator
+    // to eliminate or may be stored under a secondary creator.
+    for (auto& book : books) {
+      for (auto& creator : creators) {
+        if (book->creators().contains(creator)) {
+          data = book;
+          break;
+        }
+      }
+    }
+    if (data.isNull()) {
+      data = insertNewBook(libraryFilename, title, creators);
+    }
+  }
+  return data;
+}
+
+PBookData
+EPubDocument::loadDocument(const QString& existingFilename)
+{
+  PBookData data; // empty book
+  if (!QFile::exists(existingFilename))
+    return data;
+
+  m_metadata = PMetadata(new Metadata());
+  m_manifest = PManifest(new Manifest());
+
+  /* Loads the document metadata. This is needed to
+   determine where in the library to save the file.
+   Generally this will be '{library directory}/{Author name}/{title}'
+   The author name used will be the primary (first) author. */
+  if (loadDocumentFromFile(existingFilename)) {
+    QString libraryFilename, title;
+    auto titles = m_metadata->orderedTitles();
+    title = titles.first()->title;
+    auto creators = m_metadata->creatorList();
+
+    auto loadTask =
+      confirmOverwriteOrUseLibrary(existingFilename, libraryFilename);
+    //    auto info = QFileInfo(existingFilename);
+    if (loadTask == COPY_INTO_LIBRARY) { // No existing book
+      auto calibre = m_metadata->calibre();
+      auto uid = BookData::nextUid();
+      if (calibre.isNull()) { // this shouldn't happen as Calibre is created
+                              // with metadata
+        if (calibre->seriesName().isEmpty()) {
+          data = PBookData(new BookData(uid, libraryFilename, title, creators));
+        } else {
+          auto uid = BookData::nextUid();
+          auto series = calibre->seriesName();
+          auto index = calibre->seriesIndex();
+          data = PBookData(
+            new BookData(uid, libraryFilename, title, creators, series, index));
+        }
+      } else {
+        data = PBookData(new BookData(uid, libraryFilename, title, creators));
+        if (!data->isValid()) {
+          // TODO error no BookData.
+        }
+      }
+      copyBookToLibrary(existingFilename, libraryFilename);
+    } else if (loadTask == USE_STORED) {
+      m_metadata = PMetadata(new Metadata());
+      m_manifest = PManifest(new Manifest());
+      loadDocumentFromFile(libraryFilename);
+      data = getBookForTitleAndCreator(title, libraryFilename);
+      if (!data->isValid()) {
+        // TODO error no BookData.
+      }
+    } else if (loadTask == OVERWRITE_EXISTING) {
+      data = getBookForTitleAndCreator(title, libraryFilename);
+      copyBookToLibrary(existingFilename, libraryFilename);
+      if (!data->isValid()) {
+        // TODO error no BookData.
+      }
+      // TODO update BookData.
+    }
+  }
+  return data;
+}
+
+bool
+EPubDocument::loadDocumentFromFile(const QString& filename)
 {
   // open the epub as a zip file
-  m_archive = new QuaZip(m_filename);
-  if (!m_archive->open(QuaZip::mdUnzip)) {
-    qDebug() << tr("Failed to open %1").arg(m_filename);
+  auto archive = new QuaZip(filename);
+  if (!archive->open(QuaZip::mdUnzip)) {
+    qDebug() << tr("Failed to open %1").arg(filename);
     return false;
   }
 
   // get list of filenames from zip file
-  m_files = m_archive->getFileNameList();
+  m_files = archive->getFileNameList();
   if (m_files.isEmpty()) {
-    qDebug() << tr("Failed to read %1").arg(m_filename);
+    qDebug() << tr("Failed to read %1").arg(filename);
     return false;
   }
 
   // Get and check that the mimetype is correct.
   // According to the standard this must be unencrypted.
-  if (!parseMimetype()) {
+  if (!parseMimetype(archive)) {
     return false;
   }
 
-  if (!parseContainer()) {
+  if (!parseContainer(archive)) {
     return false;
   }
 
@@ -989,7 +1069,8 @@ EPubDocument::writeContainer(QuaZip* save_zip)
   //  QuaZipFile container_file(save_zip);
 
   //  if (!container_file.open(QIODevice::WriteOnly,
-  //                           QuaZipNewInfo(CONTAINER_FILE, CONTAINER_FILE))) {
+  //                           QuaZipNewInfo(CONTAINER_FILE, CONTAINER_FILE)))
+  //                           {
   //    int error = save_zip->getZipError();
   //    return CONTAINER_ERROR | WRITE_ERROR;
   //  }
@@ -1045,8 +1126,8 @@ EPubDocument::writeContainer(QuaZip* save_zip)
   //                          "content=\"text/html; charset=utf-8\"/>\n");
   //    for (auto& href : item->cssLinks) {
   //      out << QString(
-  //               "<link href=\"%1\" rel=\"stylesheet\" type=\"text/css\"/>\n")
-  //               .arg(href);
+  //               "<link href=\"%1\" rel=\"stylesheet\"
+  //               type=\"text/css\"/>\n") .arg(href);
   //    }
   //    out << QStringLiteral("</head>\n");
   //    out << QStringLiteral("<body");
@@ -1075,8 +1156,8 @@ EPubDocument::writePackageFile(QuaZip* save_zip)
   //        QIODevice::WriteOnly,
   //        QuaZipNewInfo(m_containerFullpath, m_containerFullpath))) {
   //    int error = save_zip->getZipError();
-  //    qDebug() << tr("Unable to write container file : error %1").arg(error);
-  //    return false;
+  //    qDebug() << tr("Unable to write container file : error
+  //    %1").arg(error); return false;
   //  }
 
   //  QXmlStreamWriter xml_writer(&package_file);
@@ -1116,91 +1197,92 @@ EPubDocument::writePackageFile(QuaZip* save_zip)
   return NO_ERROR;
 }
 
-EPubContents*
-EPubDocument::cloneData()
-{
-  //  EPubContents* contents = new EPubContents();
-  //  contents->m_loaded = m_loaded;
+// EPubContentsForm*
+// EPubDocument::cloneData()
+//{
+//   //  EPubContents* contents = new EPubContents();
+//   //  contents->m_loaded = m_loaded;
 
-  //  return contents;
-  return nullptr;
-}
+//  //  return contents;
+//  return nullptr;
+//}
 
-void
-EPubDocument::setClonedData(EPubContents* cloneData)
-{
-  //  Q_Q(EPubDocument);
+// void
+// EPubDocument::setClonedData(EPubContentsForm* cloneData)
+//{
+//   //  Q_Q(EPubDocument);
 
-  //  QElapsedTimer timer;
-  //  timer.start();
+//  //  QElapsedTimer timer;
+//  //  timer.start();
 
-  //  m_container = clone->m_container;
-  //  m_svgs = clone->m_svgs;
-  //  m_renderedSvgs = clone->m_renderedSvgs;
-  //  m_currentItem = clone->m_currentItem;
-  //  m_loaded = clone->m_loaded;
+//  //  m_container = clone->m_container;
+//  //  m_svgs = clone->m_svgs;
+//  //  m_renderedSvgs = clone->m_renderedSvgs;
+//  //  m_currentItem = clone->m_currentItem;
+//  //  m_loaded = clone->m_loaded;
 
-  //  QTextCursor cursor(q_ptr);
-  //  cursor.movePosition(QTextCursor::End);
+//  //  QTextCursor cursor(q_ptr);
+//  //  cursor.movePosition(QTextCursor::End);
 
-  //  QStringList items = m_container->items();
+//  //  QStringList items = m_container->items();
 
-  //  QString cover = m_container->standardPage(EPubPageReference::CoverPage);
-  //  if (cover.isEmpty()) {
-  //    items.prepend(cover);
-  //    QLOG_DEBUG(QString("Cover is empty %1").arg(cover))
-  //  }
+//  //  QString cover =
+//  m_container->standardPage(EPubPageReference::CoverPage);
+//  //  if (cover.isEmpty()) {
+//  //    items.prepend(cover);
+//  //    QLOG_DEBUG(QString("Cover is empty %1").arg(cover))
+//  //  }
 
-  //  QTextBlockFormat pageBreak;
-  //  pageBreak.setPageBreakPolicy(QTextFormat::PageBreak_AlwaysBefore);
-  //  for (const QString& chapter : items) {
-  //    m_currentItem = m_container->epubItem(chapter);
-  //    if (m_currentItem.path.isEmpty()) {
-  //      continue;
-  //    }
+//  //  QTextBlockFormat pageBreak;
+//  //  pageBreak.setPageBreakPolicy(QTextFormat::PageBreak_AlwaysBefore);
+//  //  for (const QString& chapter : items) {
+//  //    m_currentItem = m_container->epubItem(chapter);
+//  //    if (m_currentItem.path.isEmpty()) {
+//  //      continue;
+//  //    }
 
-  //    QSharedPointer<QuaZipFile> zipFile =
-  //        m_container->zipFile(m_currentItem.path);
-  //    if (!zipFile) {
-  //      QLOG_WARN(QString("Unable to get zipped file for chapter %1")
-  //                    .arg(m_currentItem.path))
-  //      continue;
-  //    }
+//  //    QSharedPointer<QuaZipFile> zipFile =
+//  //        m_container->zipFile(m_currentItem.path);
+//  //    if (!zipFile) {
+//  //      QLOG_WARN(QString("Unable to get zipped file for chapter %1")
+//  //                    .arg(m_currentItem.path))
+//  //      continue;
+//  //    }
 
-  //    QByteArray itemdata = zipFile->readAll();
-  //    if (itemdata.isEmpty()) {
-  //      QLOG_WARN(QString("Got an empty document"))
-  //      continue;
-  //    }
-  //    q->setBaseUrl(QUrl(m_currentItem.path));
-  //    QDomDocument newDocument;
-  //    newDocument.setContent(itemdata);
-  //    // TOD extract text for processing
-  //    fixImages(newDocument);
+//  //    QByteArray itemdata = zipFile->readAll();
+//  //    if (itemdata.isEmpty()) {
+//  //      QLOG_WARN(QString("Got an empty document"))
+//  //      continue;
+//  //    }
+//  //    q->setBaseUrl(QUrl(m_currentItem.path));
+//  //    QDomDocument newDocument;
+//  //    newDocument.setContent(itemdata);
+//  //    // TOD extract text for processing
+//  //    fixImages(newDocument);
 
-  //    cursor.insertText(newDocument.toString());
-  //    cursor.insertBlock(pageBreak);
-  //  }
+//  //    cursor.insertText(newDocument.toString());
+//  //    cursor.insertBlock(pageBreak);
+//  //  }
 
-  //  q->setBaseUrl(QUrl());
-  //  m_loaded = true;
+//  //  q->setBaseUrl(QUrl());
+//  //  m_loaded = true;
 
-  //  emit q->loadCompleted();
-  //  //  QLOG_DEBUG(QString("Done in %1 mS").arg(timer.elapsed()))}
-}
+//  //  emit q->loadCompleted();
+//  //  //  QLOG_DEBUG(QString("Done in %1 mS").arg(timer.elapsed()))}
+//}
 
-QString
-EPubDocument::filename()
-{
-  return m_filename;
-}
+// QString
+// EPubDocument::filename()
+//{
+//   return m_filename;
+// }
 
-void
-EPubDocument::setFilename(const QString& filename)
-{
-  if (!filename.isEmpty())
-    m_filename = filename;
-}
+// void
+// EPubDocument::setFilename(const QString& filename)
+//{
+//   if (!filename.isEmpty())
+//     m_filename = filename;
+// }
 
 QString
 EPubDocument::tocAsString()
@@ -1211,12 +1293,12 @@ EPubDocument::tocAsString()
 QString
 EPubDocument::title()
 {
-  QSharedPointer<EPubTitle> firstTitle = m_metadata->orderedTitles().first();
-  if (!firstTitle.isNull())
-    return firstTitle->title;
-  else {
-    return QString();
+  if (!m_metadata->orderedTitles().isEmpty()) {
+    QSharedPointer<EPubTitle> firstTitle = m_metadata->orderedTitles().first();
+    if (!firstTitle.isNull())
+      return firstTitle->title;
   }
+  return QString();
 }
 
 void
@@ -1306,7 +1388,7 @@ EPubDocument::setPublisher(const QString& publisher)
   m_publisher = publisher;
 }
 
-QSharedPointer<EPubMetadata>
+PMetadata
 EPubDocument::metadata()
 {
   return m_metadata;
@@ -1319,10 +1401,10 @@ EPubDocument::pages()
   return m_manifest->htmlItems;
 }
 
-QStringList
+EPubSpine
 EPubDocument::spine()
 {
-  return m_spine.orderedItems;
+  return m_spine;
 }
 
 QList<UniqueString>
@@ -1355,10 +1437,10 @@ EPubDocument::itemByHref(UniqueString href)
   return m_manifest->itemsByHref.value(href);
 }
 
-QSharedPointer<UniqueStringList>
-EPubDocument::uniqueIdList() const
+QSharedPointer<Manifest>
+EPubDocument::manifest() const
 {
-  return m_uniqueIdList;
+  return m_manifest;
 }
 
 // IEBookInterface*
@@ -1399,8 +1481,8 @@ EPubDocument::buildTocfromHtml()
   int anchor_start, pos = 0;
 
   auto files = m_manifest->htmlItems.values();
-  for (QSharedPointer<EPubManifestItem>& item : files) {
-    QString document_string = item->documentString;
+  for (QSharedPointer<EPubManifestItem> item : files) {
+    auto document_string = item->documentString;
     if (!document_string.isEmpty()) {
       QRegularExpressionMatchIterator i =
         re_anchor_complete.globalMatch(document_string);
@@ -1431,8 +1513,8 @@ EPubDocument::buildTocfromHtml()
               QString filename = splits.at(0);
               //              QList<QSharedPointer<EPubManifestItem>> files =
               //                m_manifest->htmlItems.values();
-              for (QSharedPointer<EPubManifestItem>& item : files) {
-                UniqueString href = item->href;
+              for (auto item : files) {
+                auto href = item->href;
                 if (href == filename) {
                   // TODO add anchor & make anchor tag.
                 }

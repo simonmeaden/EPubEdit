@@ -1,10 +1,10 @@
 #ifndef SERIES_H
 #define SERIES_H
 
+#include <QCoreApplication>
 #include <QFile>
 #include <QObject>
 #include <QTextStream>
-#include <QCoreApplication>
 
 #include "qyamlcpp.h"
 
@@ -39,20 +39,22 @@ typedef QSharedPointer<EBookSeriesData> SeriesData;
 typedef QMap<quint64, SeriesData> SeriesMap;
 typedef QMap<QString, SeriesData> SeriesByString;
 typedef QStringList SeriesList;
+class EBookOptions;
+typedef QSharedPointer<EBookOptions> POptions;
 
 class EBookSeriesDB : public QObject
 {
   Q_DECLARE_TR_FUNCTIONS(ModifyTitleCommand)
 
 public:
-  explicit EBookSeriesDB(EBookOptions* options);
+  explicit EBookSeriesDB(POptions options, QObject* parent = nullptr);
   EBookSeriesDB(const EBookSeriesDB& other);
   ~EBookSeriesDB();
 
   // yaml file stuff
-  void setFilename(QString filename);
-  bool save();
-  bool load(QString filename);
+  //  void setFilename(QString filename);
+  bool save(const QString& filename);
+  bool load(const QString& filename);
 
   // series data stuff
   quint64 insertOrGetSeries(QString series);
@@ -65,18 +67,16 @@ public:
   SeriesData seriesByName(QString name);
 
 protected:
-  EBookOptions* m_options;
-  QString m_filename;
+  POptions m_options;
   bool m_series_changed;
   SeriesMap m_series_map;
   SeriesByString m_series_by_name;
   SeriesList m_series_list;
 
-  bool loadSeries();
-  bool saveSeries();
+  bool loadSeries(const QString& filename);
+  bool saveSeries(const QString& filename);
 
   static quint64 m_highest_uid;
 };
-typedef QSharedPointer<EBookSeriesDB> SeriesDB;
 
 #endif // SERIES_H

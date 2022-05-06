@@ -22,12 +22,27 @@ target_sources(${PROJECT_NAME}
     src/forms/undocommands.cpp
     src/forms/titleview.h
     src/forms/titleview.cpp
-    src/forms/authorlist.h
-    src/forms/authorlist.cpp
+    src/forms/metadatalist.h
+    src/forms/metadatalist.cpp
     src/forms/epubedit.h
     src/forms/epubedit.cpp
     src/forms/epubeditor.h
     src/forms/epubeditor.cpp
+    src/forms/epubcontents.h
+    src/forms/epubcontents.cpp
+    src/forms/mainwidget.h
+    src/forms/mainwidget.cpp
+    src/forms/basewidget.h
+    src/forms/basewidget.cpp
+    src/forms/toolbarwidget.h
+    src/forms/toolbarwidget.cpp
+    src/forms/footerwidget.h
+    src/forms/footerwidget.cpp
+    src/forms/headerwidget.h
+    src/forms/headerwidget.cpp
+    src/forms/widgetwrapper.h
+
+    src/images.qrc
 
 )
 

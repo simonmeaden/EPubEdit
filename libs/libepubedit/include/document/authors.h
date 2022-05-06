@@ -5,9 +5,10 @@
 #include <QPixmap>
 
 #include "document/epubmetadata.h"
+#include "document/sharedauthordata.h"
 #include "qyamlcpp.h"
 
-class EBookOptions;
+// class EBookOptions;
 
 class EBookAuthorData
 {
@@ -31,7 +32,7 @@ public:
   bool isModified();
   bool operator==(const EBookAuthorData& rhs)
   {
-    if (m_uid == rhs.m_uid) {
+    if (d->m_uid == rhs.d->m_uid) {
       return true;
     }
     return false;
@@ -66,39 +67,26 @@ public:
   void setWordList(const QStringList& wordList);
 
 protected:
-  bool m_modified;
-  quint64 m_uid;
-  QString m_display_name;
-  QString m_forename;
-  QString m_middlenames;
-  QString m_surname;
-  QString m_file_as;
-  bool m_surname_last;
-  QStringList m_word_list;
-
-  QString m_website;
-  QString m_wikipedia;
-  QList<quint64> m_books;
-  QPixmap m_pixmap;
-
-public:
+private:
+  QSharedDataPointer<SharedAuthorData> d;
 };
 
 typedef QSharedPointer<EBookAuthorData> AuthorData;
 // typedef QList<AuthorData> AuthorList;
 typedef QMap<quint64, AuthorData> AuthorMap;
 typedef QMultiMap<QString, AuthorData> AuthorByString;
+
 Q_DECLARE_METATYPE(AuthorData);
 
 class EBookAuthorsDB : public QObject
 {
 public:
-  explicit EBookAuthorsDB(EBookOptions* options);
+  explicit EBookAuthorsDB(QObject* parent = nullptr);
   ~EBookAuthorsDB();
 
-  void setFilename(QString filename);
-  bool save();
-  bool load(QString filename);
+  //  void setFilename(const QString& filename);
+  bool save(const QString& filename);
+  bool load(const QString& filename);
 
   bool removeBook(quint64 index);
 
@@ -109,34 +97,29 @@ public:
   QList<AuthorData> authorsByForename(QString surname);
   AuthorData authorByFileAs(QString file_as);
   quint64 insertAuthor(AuthorData author);
-  AuthorData addAuthor(QString display_name,
-                       QList<QSharedPointer<EPubFileAs>> file_as_list =
-                         QList<QSharedPointer<EPubFileAs>>());
+  AuthorData addAuthor(QString displayName);
   void addAuthor(AuthorData author_data);
   QStringList compareAndDiscard(QStringList names);
 
-  static quint64 nextUid() { return ++m_highest_uid; }
+  static quint64 nextUid() { return ++m_highestUid; }
 
 signals:
 
 public slots:
 
 protected:
-  EBookOptions* m_options;
-  QString m_filename;
-  AuthorMap m_author_data;
-  AuthorByString m_author_by_fileas;
-  AuthorByString m_author_by_displayname;
-  AuthorByString m_author_by_surname;
-  AuthorByString m_author_by_forename;
+  QMap<quint64, AuthorData> m_authorData;
+  AuthorByString m_authorByFileas;
+  AuthorByString m_authorByDisplayname;
+  AuthorByString m_authorBySurname;
+  AuthorByString m_authorByForename;
 
   bool m_author_changed;
 
-  bool loadAuthors();
-  bool saveAuthors();
+  bool loadAuthors(const QString& filename);
+  bool saveAuthors(const QString& filename);
 
-  static quint64 m_highest_uid;
+  static quint64 m_highestUid;
 };
-typedef QSharedPointer<EBookAuthorsDB> AuthorsDB;
 
 #endif // AUTHORS_H

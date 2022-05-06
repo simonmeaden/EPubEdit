@@ -1,45 +1,47 @@
 #include "authorlist.h"
 
 //====================================================================
-//=== AuthorModel
+//=== MetadataModel
 //====================================================================
-AuthorModel::AuthorModel(QWidget* parent)
+MetadataModel::MetadataModel(QWidget* parent)
   : QAbstractTableModel(parent)
 {}
 
-AuthorModel::~AuthorModel() {}
+MetadataModel::~MetadataModel() {}
 
 int
-AuthorModel::rowCount(const QModelIndex&) const
+MetadataModel::rowCount(const QModelIndex&) const
 {
   return m_authors.size();
 }
 
 int
-AuthorModel::columnCount(const QModelIndex&) const
+MetadataModel::columnCount(const QModelIndex&) const
 {
-  return 1;
+  return 3;
 }
 
 QVariant
-AuthorModel::headerData(int section, Qt::Orientation orientation, int) const
+MetadataModel::headerData(int section, Qt::Orientation orientation, int) const
 {
   switch (orientation) {
     case Qt::Horizontal: {
       switch (section) {
         case 0:
-          return tr("Author");
+          return tr("Name");
+        case 1:
+          return tr("File As...");
       }
       break;
     }
-    default:
-      break;
+    case Qt::Vertical:
+      return QVariant();
   }
   return QVariant();
 }
 
 QVariant
-AuthorModel::data(const QModelIndex& index, int role) const
+MetadataModel::data(const QModelIndex& index, int role) const
 {
   if (!index.isValid())
     return QVariant();
@@ -51,6 +53,11 @@ AuthorModel::data(const QModelIndex& index, int role) const
       switch (col) {
         case 0:
           return m_authors[row];
+        case 1:
+          auto data = m_data[row];
+          if (data) {
+            return data->fileAs->name;
+          }
       }
     }
   }
@@ -59,23 +66,30 @@ AuthorModel::data(const QModelIndex& index, int role) const
 }
 
 bool
-AuthorModel::setData(const QModelIndex& index, const QVariant& value, int role)
+MetadataModel::setData(const QModelIndex& index, const QVariant& value, int role)
 {
   if (!index.isValid()) {
     return false;
   }
 
   if (role == Qt::EditRole) {
-    m_authors.replace(index.row(), value.toString());
-    m_modified.replace(index.row(), true);
-    return true;
+    switch (index.column()) {
+      case 0: {
+        m_authors.replace(index.row(), value.toString());
+        m_modified.replace(index.row(), true);
+        return true;
+      }
+      case 1: {
+        // TODO update authorData.
+      }
+    }
   }
 
   return false;
 }
 
 void
-AuthorModel::modifyRowData(int row, const QString& value)
+MetadataModel::modifyRowData(int row, const QString& value)
 {
   beginInsertRows(QModelIndex(), row + 1, row + 1);
   m_authors.append(value);
@@ -84,19 +98,23 @@ AuthorModel::modifyRowData(int row, const QString& value)
 }
 
 void
-AuthorModel::initialiseData(QStringList authors)
+MetadataModel::initialiseData(PDocument document)
 {
+  m_metadata = document->metadata();
+  auto authorList = m_metadata->creatorList();
   beginResetModel();
   m_authors.clear();
-  for (auto& author : authors) {
+  for (auto& author : authorList) {
+    auto authorData = document->metadata()->creatorFromName(author);
     m_authors.append(author);
+    m_data.append(authorData);
     m_modified.append(false);
   }
   endResetModel();
 }
 
 bool
-AuthorModel::insertRows(int row, int count, const QModelIndex& parent)
+MetadataModel::insertRows(int row, int count, const QModelIndex& parent)
 {
   if (row < 0 || row > rowCount(parent))
     return false;
@@ -104,6 +122,7 @@ AuthorModel::insertRows(int row, int count, const QModelIndex& parent)
   beginInsertRows(QModelIndex(), row, row + count - 1);
   for (int i = 0; i < count; i++) {
     m_authors.insert(row, QString());
+    m_data.insert(row, QSharedPointer<EPubCreator>(new EPubCreator()));
     m_modified.insert(row, false);
   }
   endInsertRows();
@@ -112,12 +131,13 @@ AuthorModel::insertRows(int row, int count, const QModelIndex& parent)
 }
 
 bool
-AuthorModel::removeRows(int row, int count, const QModelIndex& parent)
+MetadataModel::removeRows(int row, int count, const QModelIndex& parent)
 {
   if (row >= 0 || row < rowCount(parent)) {
     beginRemoveRows(QModelIndex(), row, row + count - 1);
     for (int i = row; i < row + count; i++) {
       m_authors.removeAt(row);
+      m_data.removeAt(row);
       m_modified.removeAt(row);
     }
     endRemoveRows();
@@ -128,13 +148,13 @@ AuthorModel::removeRows(int row, int count, const QModelIndex& parent)
 }
 
 QStringList
-AuthorModel::authors()
+MetadataModel::authors()
 {
   return m_authors;
 }
 
 bool
-AuthorModel::areModified()
+MetadataModel::areModified()
 {
   for (auto modified : m_modified) {
     if (modified)
@@ -144,7 +164,7 @@ AuthorModel::areModified()
 }
 
 bool
-AuthorModel::isModified(int row)
+MetadataModel::isModified(int row)
 {
   if (row >= 0 && row < m_modified.size())
     return m_modified.at(row);
@@ -152,7 +172,7 @@ AuthorModel::isModified(int row)
 }
 
 QMap<int, QString>
-AuthorModel::modifiedAuthors()
+MetadataModel::modifiedAuthors()
 {
   QMap<int, QString> map;
   for (int i = 0; i < m_authors.size(); i++) {
@@ -164,7 +184,7 @@ AuthorModel::modifiedAuthors()
 }
 
 bool
-AuthorModel::swapWithFirst(int row)
+MetadataModel::swapWithFirst(int row)
 {
   if (row > 0 && row < m_authors.size()) {
     auto first = m_authors.first();
@@ -179,7 +199,7 @@ AuthorModel::swapWithFirst(int row)
 }
 
 bool
-AuthorModel::setAuthor(int row, const QString& author)
+MetadataModel::setAuthor(int row, const QString& author)
 {
   if (row >= 0 && row < m_authors.size()) {
     beginResetModel();
@@ -191,7 +211,7 @@ AuthorModel::setAuthor(int row, const QString& author)
 }
 
 bool
-AuthorModel::modifyAuthor(int row, const QString& author)
+MetadataModel::modifyAuthor(int row, const QString& author)
 {
   auto rows = rowCount(QModelIndex());
   if (row < 0 || row > rows)
@@ -208,25 +228,25 @@ AuthorModel::modifyAuthor(int row, const QString& author)
 //====================================================================
 //=== AuthorList
 //====================================================================
-AuthorList::AuthorList(QWidget* parent)
+MetadataList::MetadataList(QWidget* parent)
   : QTableView(parent)
 {
   horizontalHeader()->setStretchLastSection(true);
-  m_model = new AuthorModel(this);
+  m_model = new MetadataModel(this);
   setModel(m_model);
 }
 
-AuthorList::~AuthorList() {}
+MetadataList::~MetadataList() {}
 
 void
-AuthorList::initialiseData(QStringList authors)
+MetadataList::initialiseData(PDocument document)
 {
-  m_model->initialiseData(authors);
+  m_model->initialiseData(document);
   setCurrentIndex(m_model->index(0, 0));
 }
 
 bool
-AuthorList::removeAuthor(int row)
+MetadataList::removeAuthor(int row)
 {
   auto success = m_model->removeRow(1, QModelIndex());
   if (success) {
@@ -236,7 +256,7 @@ AuthorList::removeAuthor(int row)
 }
 
 bool
-AuthorList::insertAuthor(int row, const QString& author)
+MetadataList::insertAuthor(int row, const QString& author)
 {
   auto success = m_model->insertRow(row, QModelIndex());
   if (success) {
@@ -246,7 +266,7 @@ AuthorList::insertAuthor(int row, const QString& author)
 }
 
 bool
-AuthorList::modifyAuthor(int row, const QString& author)
+MetadataList::modifyAuthor(int row, const QString& author)
 {
   auto success = m_model->modifyAuthor(row, author);
   auto index = m_model->index(row, 0);
@@ -255,25 +275,25 @@ AuthorList::modifyAuthor(int row, const QString& author)
 }
 
 QModelIndex
-AuthorList::primaryAuthorIndex()
+MetadataList::primaryAuthorIndex()
 {
   return m_model->index(0, 0);
 }
 
 bool
-AuthorList::swapToPrimaryPosition(int row)
+MetadataList::swapToPrimaryPosition(int row)
 {
   return m_model->swapWithFirst(row);
 }
 
 QSize
-AuthorList::sizeHint() const
+MetadataList::sizeHint() const
 {
   return m_hint;
 }
 
 void
-AuthorList::resizeTableVertically()
+MetadataList::resizeTableVertically()
 {
   auto vMargins = viewportMargins();
   auto count = m_model->rowCount(QModelIndex());
@@ -291,7 +311,7 @@ AuthorList::resizeTableVertically()
 }
 
 bool
-AuthorList::setAuthor(int row, const QString& author)
+MetadataList::setAuthor(int row, const QString& author)
 {
   auto index = m_model->index(row, 0);
   if (index.isValid()) {
@@ -301,7 +321,7 @@ AuthorList::setAuthor(int row, const QString& author)
 }
 
 QString
-AuthorList::authorAt(int row)
+MetadataList::authorAt(int row)
 {
   auto index = m_model->index(row, 0);
   return m_model->data(index).toString();

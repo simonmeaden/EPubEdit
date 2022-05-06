@@ -22,7 +22,7 @@ protected: // You should make the members protected s.t. they can be
   BCP47Languages languages;
   QDir configDir;
   QDir libraryDir;
-  QFile configFile;
+  QString configFilename;
 
   void SetUp() override;
 

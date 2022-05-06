@@ -1,16 +1,29 @@
 #ifndef UNDOCOMMANDS_H
 #define UNDOCOMMANDS_H
 
+#include <QCoreApplication>
 #include <QSharedPointer>
 #include <QString>
 #include <QUndoCommand>
-#include <QCoreApplication>
 
 class TitleView;
-class AuthorList;
+class MetadataList;
 class EPubTitle;
 
 #include "document/uniquestring.h"
+#include "document/bookpointers.h"
+
+class UndoMetadataCommand : public QUndoCommand
+{
+  Q_DECLARE_TR_FUNCTIONS(UndoMetadataCommand)
+
+public:
+  UndoMetadataCommand(PMetadata metadata,
+                      QUndoCommand* parent = nullptr);
+
+private:
+  PMetadata m_metadata;
+};
 
 class AddTitleCommand : public QUndoCommand
 {
@@ -31,12 +44,13 @@ private:
   int m_row;
 };
 
-class AddAuthorCommand : public QUndoCommand
+class AddAuthorCommand : public UndoMetadataCommand
 {
   Q_DECLARE_TR_FUNCTIONS(ModifyTitleCommand)
 
 public:
-  AddAuthorCommand(AuthorList* view,
+  AddAuthorCommand(MetadataList* view,
+                   PMetadata metadata,
                    const QString& author,
                    int row,
                    QUndoCommand* parent = nullptr);
@@ -45,7 +59,7 @@ public:
   void redo() override;
 
 private:
-  AuthorList* m_view;
+  MetadataList* m_view;
   QString m_author;
   int m_row;
 };
@@ -90,12 +104,13 @@ private:
   int m_row;
 };
 
-class RemoveAuthorCommand : public QUndoCommand
+class RemoveAuthorCommand : public UndoMetadataCommand
 {
-  Q_DECLARE_TR_FUNCTIONS(ModifyTitleCommand)
+  Q_DECLARE_TR_FUNCTIONS(RemoveAuthorCommand)
 
 public:
-  RemoveAuthorCommand(AuthorList* view,
+  RemoveAuthorCommand(MetadataList* view,
+                      PMetadata metadata,
                       const QString& author,
                       int row,
                       QUndoCommand* parent = nullptr);
@@ -104,7 +119,7 @@ public:
   void redo() override;
 
 private:
-  AuthorList* m_view;
+  MetadataList* m_view;
   QString m_author;
   int m_row;
 };
@@ -137,7 +152,7 @@ class SwapAuthorCommand : public QUndoCommand
   Q_DECLARE_TR_FUNCTIONS(ModifyTitleCommand)
 
 public:
-  SwapAuthorCommand(AuthorList* view,
+  SwapAuthorCommand(MetadataList* view,
                     const QString& author1,
                     int row1,
                     const QString& author2,
@@ -148,7 +163,7 @@ public:
   void redo() override;
 
 private:
-  AuthorList* m_view;
+  MetadataList* m_view;
   QString m_author1;
   int m_row1;
   QString m_author2;
@@ -178,12 +193,13 @@ private:
   int m_row2;
 };
 
-class ModifyTitleCommand : public QUndoCommand
+class ModifyTitleCommand : public UndoMetadataCommand
 {
   Q_DECLARE_TR_FUNCTIONS(ModifyTitleCommand)
 
 public:
   ModifyTitleCommand(TitleView* view,
+                     PMetadata metadata,
                      const QString& newTitle,
                      int pos,
                      const QString& oldTitle,
@@ -196,15 +212,17 @@ private:
   TitleView* m_view;
   QString m_newTitle;
   QString m_oldTitle;
+  PMetadata m_metadata;
   int m_row;
 };
 
-class ModifyAuthorCommand : public QUndoCommand
+class ModifyAuthorCommand : public UndoMetadataCommand
 {
   Q_DECLARE_TR_FUNCTIONS(ModifyTitleCommand)
 
 public:
-  ModifyAuthorCommand(AuthorList* view,
+  ModifyAuthorCommand(MetadataList* view,
+                      PMetadata metadata,
                       const QString& newAuthor,
                       int row,
                       const QString& oldAuthor,
@@ -214,7 +232,7 @@ public:
   void redo() override;
 
 private:
-  AuthorList* m_view;
+  MetadataList* m_view;
   QString m_newAuthor;
   QString m_oldAuthor;
   int m_row;

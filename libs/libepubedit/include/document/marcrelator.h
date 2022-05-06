@@ -196,7 +196,7 @@ public:
     PERMIITIN_AGENCY,
     PRODUCTION_MANAGER,
     PRINTER_OF_PLATES,
-    PAPERMAKE,
+    PAPERMAKER,
     PUPPETEER,
     PRAESES,
     PROCESS_CONTACT,
@@ -286,6 +286,11 @@ public:
   MarcRelator();
   ~MarcRelator() {}
 
+  static const QString relatorToDescription(Relator relator);
+  static Relator descriptionToRelator(const QString& str);
+  static QString relatorToCode(Relator relator);
+  static QSharedPointer<MarcRelator> codeToRelator(QString relator_name);
+
   Relator type();
   void setType(Relator type);
 
@@ -293,17 +298,43 @@ public:
   QString asString();
   bool isRelator();
 
-  static QString toString(Relator relator);
-  static QSharedPointer<MarcRelator> fromString(QString relator_name);
-
   static bool isRelator(QString name);
 
 protected:
-  Relator m_type;
+  Relator m_type = NO_TYPE;
   QString m_code;
 
   void setCode(QString code);
+
+  static const QStringList m_relatorDescriptions;
 };
+
+///*
+// * A cut down set of the most common epub realtor values, based
+// * on the full MarcRelator set. These contain the same values and
+// * can be used with the static
+// *
+// * MarcRelator -> Description,
+// * MarcRelator -> code
+// *
+// * methods.
+// *
+// */
+//enum EPubRelator
+//{
+//  AUTHOR_OF_AFTERWORD = MarcRelator::AUTHOR_OF_AFTERWORD,
+//  ARTIST = MarcRelator::ARTIST,
+//  AUTHOR_OF_INTRODUCTION = MarcRelator::AUTHOR_OF_INTRODUCTION,
+//  AUTHOR = MarcRelator::AUTHOR,
+//  BOOKJACKET_DESIGNER = MarcRelator::BOOKJACKET_DESIGNER,
+//  CREATOR = MarcRelator::CREATOR,
+//  CONTRIBUTOR = MarcRelator::CONTRIBUTOR,
+//  EDITOR = MarcRelator::EDITOR,
+//  ILLISTRATOR = MarcRelator::ILLISTRATOR,
+//  PUBLISHER = MarcRelator::PUBLISHER,
+//  PRINTER = MarcRelator::PRINTER,
+//  WRITER_OF_PREFACE = MarcRelator::WRITER_OF_PREFACE,
+//};
 
 #endif // MARCRELATOR_H
 
@@ -580,5 +611,5 @@ protected:
 // wde 	Wood engraver
 // win 	Writer of introduction
 // wit 	Witness
-// wpr 	Writer of prefacebdd 	Binding designer
+// wpr 	Writer of preface
 // wst 	Writer of supplementary textual content

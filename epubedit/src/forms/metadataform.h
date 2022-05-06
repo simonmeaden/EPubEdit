@@ -28,13 +28,12 @@
 #include <QUndoStack>
 #include <QUndoView>
 
-class EPubDocument;
-class EPubMetadata;
+class Metadata;
 class EPubTitle;
-class AuthorList;
+class MetadataList;
 class TitleView;
-class UniqueStringList;
 
+#include "document/bookpointers.h"
 #include "document/epubmetadata.h"
 #include "forms/undocommands.h"
 
@@ -57,7 +56,7 @@ public:
   MetadataForm(QUndoStack* undoStack, QWidget* parent = nullptr);
   ~MetadataForm();
 
-  void setDocument(QSharedPointer<EPubDocument> document);
+  void setDocument(PDocument document);
 
   QWidget* initMaindataFrame();
 
@@ -68,9 +67,8 @@ signals:
 private:
   QUndoStack* m_undoStack;
   TitleView* m_titleView;
-  AuthorList* m_authorView;
-  QSharedPointer<UniqueStringList> m_uniqueIdList;
-  QSharedPointer<EPubDocument> m_document;
+  MetadataList* m_metadataView;
+  PDocument m_document;
   QModelIndex m_currentTitleIndex, m_currentAuthorIndex;
   Modifications m_modifications = NO_CHANGES;
 

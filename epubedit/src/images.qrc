@@ -1,0 +1,65 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>bookmark.png</file>
+        <file>edit-clear.png</file>
+        <file>editor_48.png</file>
+        <file>list-add.png</file>
+        <file>list-remove.png</file>
+        <file>meta_48.png</file>
+        <file>options_48.png</file>
+        <file>text-html.png</file>
+        <file>tree.png</file>
+        <file>icons/accessories-calculator.png</file>
+        <file>icons/AppLogoColor.png</file>
+        <file>icons/bookmark.png</file>
+        <file>icons/dialog-error.png</file>
+        <file>icons/dialog-question.png</file>
+        <file>icons/dialog-warning.png</file>
+        <file alias="New">icons/document-new.png</file>
+        <file alias="Open">icons/document-open.png</file>
+        <file>icons/document-open-recent.png</file>
+        <file>icons/document-print.png</file>
+        <file alias="Save">icons/document-save.png</file>
+        <file>icons/document-save-as.png</file>
+        <file>icons/ebook-reader.png</file>
+        <file>icons/edit-clear.png</file>
+        <file>icons/edit-clear-all.png</file>
+        <file>icons/edit-copy.png</file>
+        <file>icons/edit-cut.png</file>
+        <file>icons/edit-delete.png</file>
+        <file>icons/edit-find.png</file>
+        <file>icons/edit-find-replace.png</file>
+        <file>icons/edit-paste.png</file>
+        <file>icons/edit-redo.png</file>
+        <file>icons/edit-select-all.png</file>
+        <file>icons/edit-undo.png</file>
+        <file>icons/format-indent-less.png</file>
+        <file>icons/format-indent-more.png</file>
+        <file>icons/format-justify-center.png</file>
+        <file>icons/format-justify-fill.png</file>
+        <file>icons/format-justify-left.png</file>
+        <file>icons/format-justify-right.png</file>
+        <file>icons/format-text-bold.png</file>
+        <file>icons/format-text-direction-ltr.png</file>
+        <file>icons/format-text-direction-rtl.png</file>
+        <file>icons/format-text-italic.png</file>
+        <file>icons/format-text-strikethrough.png</file>
+        <file>icons/format-text-underline.png</file>
+        <file>icons/go-bottom.png</file>
+        <file>icons/go-down.png</file>
+        <file>icons/go-first.png</file>
+        <file>icons/go-home.png</file>
+        <file>icons/go-jump.png</file>
+        <file>icons/go-last.png</file>
+        <file>icons/go-next.png</file>
+        <file>icons/go-previous.png</file>
+        <file>icons/go-top.png</file>
+        <file>icons/go-up.png</file>
+        <file>icons/help-about.png</file>
+        <file>icons/help-contents.png</file>
+        <file>icons/help-faq.png</file>
+        <file alias="hideV">icons/hideshowcontentsv.png</file>
+        <file alias="hideFrame">icons/hideframe.png</file>
+        <file alias="hideH">icons/hideshowcontentsh.png</file>
+    </qresource>
+</RCC>

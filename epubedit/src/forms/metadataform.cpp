@@ -48,7 +48,7 @@ MetadataForm::initGui()
           &QStackedLayout::setCurrentIndex);
   layout->addWidget(frame, 1, 0);
 
-  for (auto widget : widgets) {
+  for (auto& widget : widgets) {
     typeLayout->addWidget(widget);
   }
 
@@ -88,20 +88,20 @@ MetadataForm::initMaindataFrame()
     m_titleView, &TitleView::titleRemoved, this, &MetadataForm::titleRemoved);
   layout->addRow(tr("Title(s) :"), m_titleView);
 
-  m_authorView = new AuthorList(this);
-  m_authorView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-  m_authorView->setContextMenuPolicy(Qt::CustomContextMenu);
+  m_metadataView = new MetadataList(this);
+  m_metadataView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+  m_metadataView->setContextMenuPolicy(Qt::CustomContextMenu);
   connect(
-    m_authorView, &AuthorList::clicked, this, &MetadataForm::authorClicked);
-  connect(m_authorView,
-          &AuthorList::customContextMenuRequested,
+    m_metadataView, &MetadataList::clicked, this, &MetadataForm::authorClicked);
+  connect(m_metadataView,
+          &MetadataList::customContextMenuRequested,
           this,
           &MetadataForm::authorContextMenu);
-  connect(m_authorView,
-          &AuthorList::authorRemoved,
+  connect(m_metadataView,
+          &MetadataList::authorRemoved,
           this,
           &MetadataForm::authorRemoved);
-  layout->addRow(tr("Author(s) :"), m_authorView);
+  layout->addRow(tr("Metadata :"), m_metadataView);
 
   return frame;
 }
@@ -115,7 +115,7 @@ MetadataForm::titleClicked()
 void
 MetadataForm::authorClicked()
 {
-  m_currentAuthorIndex = m_authorView->currentIndex();
+  m_currentAuthorIndex = m_metadataView->currentIndex();
 }
 
 void
@@ -231,8 +231,8 @@ MetadataForm::modifyTitle()
     if (!titleStr2.isEmpty() && titleStr1 != titleStr2) {
       // adding the command to the stack calls redo() on the command so we don't
       // actually need to modify the title manually.
-      m_undoStack->push(
-        new ModifyTitleCommand(m_titleView, titleStr2, row, titleStr1));
+      m_undoStack->push(new ModifyTitleCommand(
+        m_titleView, m_document->metadata(), titleStr2, row, titleStr1));
       m_modifications.setFlag(TITLES_CHANGED, true);
       emit sendStatusMessage(
         tr("\"%1\" has been changed to \"%2\".").arg(titleStr1, titleStr2));
@@ -250,7 +250,7 @@ MetadataForm::setId()
     auto idStr2 = QInputDialog::getText(
       this, tr("modify ID"), tr("Enter a new value for the id"));
     if (!idStr2.isEmpty() && idStr1 != idStr2) {
-      if (m_uniqueIdList->contains(idStr2)) {
+      if (UniqueString::exists(idStr2)) {
         QMessageBox::warning(this,
                              tr("Non-Unique ID value!"),
                              tr("Attempting to use an ID more than once.\n"
@@ -389,26 +389,27 @@ MetadataForm::addAuthor()
   auto text =
     QInputDialog::getText(this, tr("Enter new author"), tr("Author : "));
   if (!text.isEmpty()) {
-    auto row = m_authorView->model()->rowCount();
+    auto row = m_metadataView->model()->rowCount();
     // adding the command to the stack calls redo() on the command so we don't
     // actually need to add the title manually.
-    auto addCommand = new AddAuthorCommand(m_authorView, text, row);
+    auto addCommand =
+      new AddAuthorCommand(m_metadataView, m_document->metadata(), text, row);
     m_undoStack->push(addCommand);
     m_modifications.setFlag(AUTHORS_CHANGED, true);
     emit sendStatusMessage(
       tr("Adding new title \"%1\"").arg(m_titleView->titleStrAt(row)));
-    m_authorView->setCurrentIndex(m_authorView->model()->index(row, 0));
-    m_authorView->resizeTableVertically();
+    m_metadataView->setCurrentIndex(m_metadataView->model()->index(row, 0));
+    m_metadataView->resizeTableVertically();
   }
 }
 
 void
 MetadataForm::modifyAuthor()
 {
-  m_currentAuthorIndex = m_authorView->currentIndex();
+  m_currentAuthorIndex = m_metadataView->currentIndex();
   if (m_currentAuthorIndex.isValid()) {
     auto row = m_currentAuthorIndex.row();
-    auto oldAuthor = m_authorView->authorAt(row);
+    auto oldAuthor = m_metadataView->authorAt(row);
     auto newAuthor = QInputDialog::getText(
       this,
       tr("modify Author"),
@@ -420,8 +421,8 @@ MetadataForm::modifyAuthor()
     if (!newAuthor.isEmpty() && newAuthor != oldAuthor) {
       // adding the command to the stack calls redo() on the command so we don't
       // actually need to modify the title manually.
-      m_undoStack->push(
-        new ModifyAuthorCommand(m_authorView, oldAuthor, row, newAuthor));
+      m_undoStack->push(new ModifyAuthorCommand(
+        m_metadataView, m_document->metadata(), oldAuthor, row, newAuthor));
       m_modifications.setFlag(AUTHORS_CHANGED, true);
       emit sendStatusMessage(
         tr("\"%1\" has been changed to \"%2\".").arg(oldAuthor, newAuthor));
@@ -432,7 +433,7 @@ MetadataForm::modifyAuthor()
 void
 MetadataForm::removeAuthor()
 {
-  m_currentAuthorIndex = m_authorView->currentIndex();
+  m_currentAuthorIndex = m_metadataView->currentIndex();
   if (m_currentAuthorIndex.isValid()) {
     if (m_currentAuthorIndex.row() == 0) {
       QMessageBox::warning(
@@ -445,7 +446,7 @@ MetadataForm::removeAuthor()
            "menu item."));
     } else {
       auto row = m_currentAuthorIndex.row();
-      auto author = m_authorView->authorAt(row);
+      auto author = m_metadataView->authorAt(row);
       int btn =
         QMessageBox::question(this,
                               tr("Removing Alternative Author"),
@@ -457,14 +458,16 @@ MetadataForm::removeAuthor()
                               QMessageBox::Yes | QMessageBox::No,
                               QMessageBox::No);
       if (btn == QMessageBox::Yes) {
-        m_undoStack->push(new RemoveAuthorCommand(
-          m_authorView, author, m_currentAuthorIndex.row()));
-        m_currentAuthorIndex = m_authorView->primaryAuthorIndex();
+        m_undoStack->push(new RemoveAuthorCommand(m_metadataView,
+                                                  m_document->metadata(),
+                                                  author,
+                                                  m_currentAuthorIndex.row()));
+        m_currentAuthorIndex = m_metadataView->primaryAuthorIndex();
         m_modifications.setFlag(AUTHORS_CHANGED, true);
         emit sendStatusMessage(
           tr("Removed author \"%1\"")
-            .arg(m_authorView->authorAt(m_currentAuthorIndex.row())));
-        m_authorView->resizeTableVertically();
+            .arg(m_metadataView->authorAt(m_currentAuthorIndex.row())));
+        m_metadataView->resizeTableVertically();
       }
     }
   }
@@ -473,7 +476,7 @@ MetadataForm::removeAuthor()
 void
 MetadataForm::setPrimaryAuthor()
 {
-  m_currentAuthorIndex = m_authorView->currentIndex();
+  m_currentAuthorIndex = m_metadataView->currentIndex();
   if (m_currentAuthorIndex.isValid()) {
     if (m_currentAuthorIndex.row() == 0) {
       QMessageBox::warning(this,
@@ -493,18 +496,18 @@ MetadataForm::setPrimaryAuthor()
                               QMessageBox::Yes | QMessageBox::No,
                               QMessageBox::No);
       if (btn == QMessageBox::Yes) {
-        auto author1 = m_authorView->authorAt(0);
+        auto author1 = m_metadataView->authorAt(0);
         auto row2 = m_currentAuthorIndex.row();
-        auto author2 = m_authorView->authorAt(row2);
+        auto author2 = m_metadataView->authorAt(row2);
         // adding the command to the stack calls redo() on the command so we
         // don't actually need to swap the title manually.
         m_undoStack->push(
-          new SwapAuthorCommand(m_authorView, author1, 0, author2, row2));
-        m_currentAuthorIndex = m_authorView->primaryAuthorIndex();
+          new SwapAuthorCommand(m_metadataView, author1, 0, author2, row2));
+        m_currentAuthorIndex = m_metadataView->primaryAuthorIndex();
         m_modifications.setFlag(TITLES_CHANGED, true);
         emit sendStatusMessage(
           tr("\"%1\" is now the primary author!")
-            .arg(m_authorView->authorAt(m_currentAuthorIndex.row())));
+            .arg(m_metadataView->authorAt(m_currentAuthorIndex.row())));
       }
     }
   }
@@ -513,7 +516,7 @@ MetadataForm::setPrimaryAuthor()
 void
 MetadataForm::authorRemoved(int row)
 {
-  if (row >= 0 && row < m_authorView->model()->rowCount(QModelIndex())) {
+  if (row >= 0 && row < m_metadataView->model()->rowCount(QModelIndex())) {
     m_currentAuthorIndex = QModelIndex();
   }
 }
@@ -525,7 +528,7 @@ MetadataForm::editTitle()
   auto row = m_currentTitleIndex.row();
   if (m_currentTitleIndex.isValid()) {
     auto title = m_titleView->titleAt(row);
-    auto dlg = new TitleEditDialog(title, m_uniqueIdList, this);
+    auto dlg = new TitleEditDialog(title, this);
     if (dlg->exec() == QDialog::Accepted) {
       title = dlg->title();
       m_titleView->insertTitle(row, title);
@@ -534,16 +537,14 @@ MetadataForm::editTitle()
 }
 
 void
-MetadataForm::setDocument(QSharedPointer<EPubDocument> document)
+MetadataForm::setDocument(PDocument document)
 {
   m_document = document;
 
-  m_uniqueIdList = m_document->uniqueIdList();
   auto titleList = m_document->metadata()->orderedTitles();
-  m_titleView->initialiseData(titleList, m_uniqueIdList);
+  m_titleView->initialiseData(titleList);
   m_currentTitleIndex = m_titleView->currentIndex();
 
-  auto authorList = m_document->metadata()->creatorList();
-  m_authorView->initialiseData(authorList);
-  m_currentAuthorIndex = m_authorView->currentIndex();
+  m_metadataView->initialiseData(m_document);
+  m_currentAuthorIndex = m_metadataView->currentIndex();
 }

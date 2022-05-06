@@ -8,14 +8,14 @@ BCP47LanguagesTest::BCP47LanguagesTest()
   , libraryDir(QDir(Paths::join(
       QStandardPaths::writableLocation(QStandardPaths::AppDataLocation),
       "library")))
-  , configFile(
-      QFile(Paths::join(configDir.path(), "epubedit", "languages.yaml")))
+  , configFilename(
+      Paths::join(configDir.path(), "epubedit", "languages.yaml"))
 {}
 
 void
 BCP47LanguagesTest::SetUp()
 {
-  languages.readFromLocalFile(configFile);
+  languages.readFromLocalFile(configFilename);
 }
 
 void

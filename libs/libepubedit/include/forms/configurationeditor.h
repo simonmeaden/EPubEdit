@@ -13,20 +13,20 @@
 #include <QSpinBox>
 #include <QTabWidget>
 
-class Config;
+#include "document/bookpointers.h"
 
 class ConfigurationEditor : public QDialog
 {
   Q_OBJECT
 public:
-  explicit ConfigurationEditor(Config* config, QWidget* parent = nullptr);
+  explicit ConfigurationEditor(PConfig config, QWidget* parent = nullptr);
 
-  Config* config() const;
+  PConfig config() const;
 
 signals:
 
 private:
-  Config* m_config;
+  PConfig m_config;
 
   void initGui();
   QWidget* initPage1();

@@ -1,8 +1,6 @@
 #ifndef EPUBDOCUMENT_H
 #define EPUBDOCUMENT_H
 
-//#include "epubcontainer.h"
-
 #include <QDateTime>
 #include <QDir>
 #include <QDomDocument>
@@ -30,21 +28,24 @@
 ////#include "document/htmlparser.h"
 //#include "document/library.h"
 
-class EPubMetadata;
+class Metadata;
 class QuaZip;
-class Config;
+// class Config;
 
-struct EPubContents
-{
-  QHash<QString, QByteArray> m_svgs;
-  QHash<QString, QImage> m_renderedSvgs;
-  bool m_loaded;
-};
+#include "bookpointers.h"
 
 class EPubDocument : public QObject
 {
   Q_OBJECT
 public:
+  enum Version {
+    UNDEFINED,
+    V20,
+    V30,
+    V31,
+    V32,
+    V33,
+  };
   enum Error
   {
     NO_ERROR = 0,
@@ -58,20 +59,23 @@ public:
   Q_DECLARE_FLAGS(Errors, Error)
 
   EPubDocument() {}
-  explicit EPubDocument(Config* config, QObject* parent);
-  EPubDocument(const EPubDocument&doc) {
-
-  }
+  explicit EPubDocument(PConfig config,
+                        POptions options,
+                        PLibraryDB libDb,
+                        PSeriesDB series,
+                        PAuthorsDB authors,
+                        QObject* parent);
+  EPubDocument(const EPubDocument& doc) {}
   virtual ~EPubDocument();
 
   bool loaded();
-  void loadDocument(const QString& path);
-  void saveDocument(const QString& path = QString());
-  EPubContents* cloneData();
-  void setClonedData(EPubContents* cloneData);
+  PBookData loadDocument(const QString& filename);
+  void saveDocument(const QString& filename = QString());
+  //  EPubContentsForm* cloneData();
+  //  void setClonedData(EPubContentsForm* cloneData);
 
-  QString filename();
-  void setFilename(const QString& filename);
+  //  QString filename();
+  //  void setFilename(const QString& filename);
 
   QString tocAsString();
 
@@ -94,44 +98,39 @@ public:
   QString publisher();
   void setPublisher(const QString& publisher);
 
-  QSharedPointer<EPubMetadata> metadata();
+  PMetadata metadata();
   QMap<UniqueString, QSharedPointer<EPubManifestItem>> pages();
-  QStringList spine();
+  QSharedPointer<Manifest> manifest() const;
+  EPubSpine spine();
+
   QList<UniqueString> cssKeys();
   UniqueStringMap cssMap();
   QString css(UniqueString key);
   QString javascript(UniqueString key);
   QSharedPointer<EPubManifestItem> itemByHref(UniqueString href);
 
-  // signals:
-  //  void orderChanged();
-  //  //  void listRemoved(ItemList list);
-  //  void wordRemoved(int index, QString word);
-  //  void wordChanged(int index, QString old_word, QString new_word);
-  //  void loadCompleted();
-
-  QSharedPointer<UniqueStringList> uniqueIdList() const;
-
 signals:
   void sendLogMessage(const QString& message);
 
 private:
-  Config* m_config;
+  PConfig m_config;
+  POptions m_options;
+  PLibraryDB m_libraryDB;
+  PSeriesDB m_seriesDB;
+  PAuthorsDB m_authorsDB;
   bool m_loaded;
   bool m_current_document_index;
   bool m_current_document_lineno;
   bool m_modified;
-  QSharedPointer<UniqueStringList> m_uniqueIdList;
-  QString m_filename;
+  //  QString m_filename;
   QString m_resourcePath;
   QString m_publisher;
   QDate m_published;
   QString m_subject;
-  QuaZip* m_archive = nullptr;
   QStringList m_files;
   QByteArray m_mimetype;
-  QSharedPointer<EPubMetadata> m_metadata;
-  QSharedPointer<EPubManifest> m_manifest;
+  PMetadata m_metadata;
+  QSharedPointer<Manifest> m_manifest;
   EPubSpine m_spine;
   QString m_containerVersion;
   QString m_containerXmlns;
@@ -139,7 +138,7 @@ private:
   QString m_containerMediatype;
   QMap<QString, QMap<QString, QDomDocument>> m_rootfiles;
   QMap<QString, QDomDocument> m_currentRootFile;
-  int m_version;
+  Version m_version;
   QString m_packageXmlns;
   QString m_packageLanguage;
   QString m_packagePrefix;
@@ -173,17 +172,19 @@ private:
   static const QString HTML_XMLNS;
 
   QString buildTocfromHtml();
-  bool loadDocumentFromFile();
-  bool saveDocumentToFile();
-  bool parseMimetype();
-  bool parseContainer();
-  bool parsePackageFile(QString& fullPath);
-  bool parseManifestItem(const QDomNode& manifest_node,
+  bool loadDocumentFromFile(const QString& filename);
+  bool copyBookToLibrary(const QString& oldFilename,
+                         const QString& newFilename);
+  bool writeVersion30();
+  bool writeVersion31();
+  bool writeVersion32();
+  bool parseMimetype(QuaZip *archive);
+  bool parseContainer(QuaZip *archive);
+  bool parsePackageFile(QuaZip *archive, QString& fullPath);
+  bool parseManifestItem(QuaZip *archive, const QDomNode& manifest_node,
                          const QString current_folder);
-  QSharedPointer<EPubSpineItem> parseSpineItem(
-    const QDomNode& spine_node,
-    QSharedPointer<EPubSpineItem> item);
-  bool parseTocFile();
+  bool parseSpineItem(const QDomNode& spine_node);
+  bool parseTocFile(QuaZip *archive);
   void handleNestedNavpoints(QDomElement elem, QString& formatted_toc_string);
   QSharedPointer<EPubTocItem> parseNavPoint(QDomElement navpoint,
                                             QString& formatted_toc_data);
@@ -193,14 +194,23 @@ private:
   Errors writeContainer(QuaZip* save_zip);
   Errors writePackageFile(QuaZip* save_zip);
   QString extractTagText(int anchor_start, QString document_string);
-  bool confirmPathOrLibraryPath(QString& path);
+  enum StoreType
+  {
+    COPY_INTO_LIBRARY,
+    OVERWRITE_EXISTING,
+    USE_STORED,
+  };
+  StoreType confirmOverwriteOrUseLibrary(const QString& path,
+                                         QString& libraryFilename) const;
   QString getFirstAuthorNameOrUnknown(const QStringList& authors);
   QString getFirstTitleOrTemp(QList<QSharedPointer<EPubTitle>> titles);
+  PBookData insertNewBook(const QString& filename,
+                          const QString& title,
+                          QStringList creators);
+  PBookData getBookForTitleAndCreator(const QString& title,
+                                      const QString& libraryFilename);
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(EPubDocument::Errors)
-
-typedef QSharedPointer<EPubDocument> Document;
-
 Q_DECLARE_METATYPE(EPubDocument);
 
 #endif // EPUBDOCUMENT_H

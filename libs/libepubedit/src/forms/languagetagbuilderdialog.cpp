@@ -7,23 +7,24 @@
 //====================================================================
 //=== LanguageTagBuilderDialog
 //====================================================================
-QString LanguageTagBuilderDialog::MISSING_PRIMARY_LANGUAGE =
-  tr("[PRIMARY-LANGUAGE-REQUIRED]", "Missing primary language warning message.");
+// QString LanguageTagBuilderDialog::MISSING_PRIMARY_LANGUAGE =
+//  tr("[PRIMARY LANGUAGE REQUIRED]",
+//     "Missing primary language warning message.");
 
 LanguageTagBuilderDialog::LanguageTagBuilderDialog(Config* config,
                                                    QWidget* parent)
   : QDialog(parent)
   , m_languages(config->languages())
   , m_configDir(QDir(config->configDir()))
-  , m_configFile(config->configFile())
-  , m_languageTag(MISSING_PRIMARY_LANGUAGE)
+  , m_configFilename(config->configFilename())
+//  , m_languageTag(MISSING_PRIMARY_LANGUAGE)
 {
   Q_INIT_RESOURCE(languagetagbuilderdialogresource);
 
   setWindowTitle(tr("Language Tag Builder"));
 
   if (m_languages->languageDescriptions().isEmpty()) {
-    m_languages->readFromLocalFile(m_configFile);
+    m_languages->readFromLocalFile(m_configFilename);
   }
 
   initGui();
@@ -32,8 +33,8 @@ LanguageTagBuilderDialog::LanguageTagBuilderDialog(Config* config,
 void
 LanguageTagBuilderDialog::setConfigFile(const QString& filename)
 {
-  m_configFile.setFileName(filename);
-  m_languages->readFromLocalFile(m_configFile);
+  m_configFilename=filename;
+  m_languages->readFromLocalFile(m_configFilename);
 }
 
 QSortFilterProxyModel*
@@ -50,7 +51,7 @@ LanguageTagBuilderDialog::createProxyModel()
 void
 LanguageTagBuilderDialog::clearTag()
 {
-  clearAllTagvalues();
+  //  clearAllTagvalues();
   updateTag(BCP47Language::NO_VALUE);
 }
 
@@ -67,11 +68,20 @@ LanguageTagBuilderDialog::initGui()
   setLayout(layout);
 
   // PRIMARY LANGUAGE BOX
-  auto box =
-    new QGroupBox(tr("Primary Language", "Primary Language box title"), this);
-  auto boxLayout = new QGridLayout;
-  box->setLayout(boxLayout);
-  layout->addWidget(box);
+  m_primaryBox = new QGroupBox(
+    tr("Primary Language (Required)", "Primary Language box title"), this);
+  auto primaryLayout = new QGridLayout;
+  m_primaryBox->setLayout(primaryLayout);
+  layout->addWidget(m_primaryBox);
+
+  // EXTENSION BOX
+  m_extensionBox = new QGroupBox(
+    tr("Language Extensions", "Language extension box title"), this);
+  auto extensionLayout = new QGridLayout;
+  m_extensionBox->setLayout(extensionLayout);
+  m_extensionBox->setEnabled(false);
+  layout->addWidget(m_extensionBox);
+
   auto list = m_languages->languageDescriptions();
   m_primaryFilterEdit = new Private__::FilterEdit(list, this);
   // line edit cleared manually
@@ -82,6 +92,9 @@ LanguageTagBuilderDialog::initGui()
             if (text.isEmpty()) {
               this->updateTag(BCP47Language::NO_VALUE);
               this->showPrivateLanguageFrame(BCP47Language::NO_VALUE);
+              m_extensionBox->setEnabled(false);
+            } else {
+              m_extensionBox->setEnabled(true);
             }
           });
   // return pressed
@@ -89,7 +102,7 @@ LanguageTagBuilderDialog::initGui()
           &Private__::FilterEdit::activated,
           this,
           &LanguageTagBuilderDialog::languageChanged);
-  boxLayout->addWidget(m_primaryFilterEdit, 0, 0);
+  primaryLayout->addWidget(m_primaryFilterEdit, 0, 0);
   auto btn = new QPushButton(tr("Clear", "Clear edit text"), this);
   // combo box cleared with clear button
   connect(btn,
@@ -97,14 +110,15 @@ LanguageTagBuilderDialog::initGui()
           m_primaryFilterEdit,
           &Private__::FilterEdit::clear);
   connect(btn, &QPushButton::clicked, this, [=]() {
-    m_languageTag = MISSING_PRIMARY_LANGUAGE;
-    m_extlangFilterEdit->setValues(m_languages->extlangDescriptions());
-    m_variantFilterEdit->setValues(m_languages->variantDescriptions());
-    this->updateTag(BCP47Language::NO_PRIMARY_LANGUAGE);
-    this->showPrivateLanguageFrame(BCP47Language::NO_PRIMARY_LANGUAGE);
+    if (!m_primaryFilterEdit->hasCurrentSelection()) {
+      m_extlangFilterEdit->setValues(m_languages->extlangDescriptions());
+      m_variantFilterEdit->setValues(m_languages->variantDescriptions());
+      this->updateTag(BCP47Language::NO_PRIMARY_LANGUAGE);
+      this->showPrivateLanguageFrame(BCP47Language::NO_PRIMARY_LANGUAGE);
+    }
   });
-  boxLayout->addWidget(btn, 0, 1);
-  boxLayout->addWidget(m_primaryFilterEdit->comboBox(), 0, 2);
+  primaryLayout->addWidget(btn, 0, 1);
+  primaryLayout->addWidget(m_primaryFilterEdit->comboBox(), 0, 2);
 
   // HIDDEN PRIVATE LANGUAGE
   m_privateLangFrame =
@@ -113,15 +127,8 @@ LanguageTagBuilderDialog::initGui()
   connect(m_privateLangFrame,
           &Private__::PrivateFrame::privateValueChanged,
           this,
-          &LanguageTagBuilderDialog::privateLanguageChanged);
-  boxLayout->addWidget(m_privateLangFrame, 1, 0, 1, 3);
-
-  // EXTENSION BOX
-  box = new QGroupBox(tr("Language Extensions", "Language extension box title"),
-                      this);
-  boxLayout = new QGridLayout;
-  box->setLayout(boxLayout);
-  layout->addWidget(box);
+          [=]() { updateTag(BCP47Language::PRIVATE_LANGUAGE); });
+  primaryLayout->addWidget(m_privateLangFrame, 1, 0, 1, 3);
 
   // EXTLANG
   int row = 0;
@@ -135,20 +142,35 @@ LanguageTagBuilderDialog::initGui()
           &Private__::FilterEdit::stateChanged,
           this,
           &LanguageTagBuilderDialog::extlangChanged);
-  boxLayout->addWidget(
+  extensionLayout->addWidget(
     new QLabel(tr("Ext Lang", "EXTLANG label title"), this), row, 0);
-  boxLayout->addWidget(m_extlangFilterEdit, row, 1);
+  extensionLayout->addWidget(m_extlangFilterEdit, row, 1);
   btn = new QPushButton(tr("Clear", "Clear edit text"), this);
   connect(btn,
           &QPushButton::clicked,
           m_extlangFilterEdit,
           &Private__::FilterEdit::clear);
   connect(btn, &QPushButton::clicked, this, [=]() {
-    m_extlangTag.clear();
     updateTag(BCP47Language::NO_EXTENDED_LANGUAGE);
   });
-  boxLayout->addWidget(btn, row, 2);
-  boxLayout->addWidget(m_extlangFilterEdit->comboBox(), row, 3);
+  extensionLayout->addWidget(btn, row, 2);
+  extensionLayout->addWidget(m_extlangFilterEdit->comboBox(), row, 3);
+  m_usePreferredBtn = new QPushButton(
+    tr("Use Preferred", "Use preferred option button text."), this);
+  m_usePreferredBtn->setCheckable(true);
+  m_usePreferredBtn->setEnabled(false);
+  //  connect(m_usePreferredBtn, &QPushButton::clicked, this, [=](bool checked)
+  //  {
+  //    // TODO
+  //    auto editText = m_extlangFilterEdit->currentText();
+  //    auto extLanguage = m_languages->extlangFromDescription(editText);
+  //    if (extLanguage) {
+  //      if (checked) {
+
+  //      }
+  //    }
+  //  });
+  extensionLayout->addWidget(m_usePreferredBtn, row, 4);
 
   row++;
   // clang-format off
@@ -160,7 +182,7 @@ LanguageTagBuilderDialog::initGui()
            "is technically valid but makes little or no real sense.",
            "Script/Region validity note text"), this);
   // clang-format on
-  boxLayout->addWidget(lbl, row, 0, 1, 4);
+  extensionLayout->addWidget(lbl, row, 0, 1, 4);
 
   row++;
   m_scriptFilterEdit =
@@ -173,21 +195,20 @@ LanguageTagBuilderDialog::initGui()
           &Private__::FilterEdit::stateChanged,
           this,
           &LanguageTagBuilderDialog::scriptChanged);
-  boxLayout->addWidget(
+  extensionLayout->addWidget(
     new QLabel(tr("Script", "Script label title"), this), row, 0);
-  boxLayout->addWidget(m_scriptFilterEdit, row, 1);
+  extensionLayout->addWidget(m_scriptFilterEdit, row, 1);
   btn = new QPushButton(tr("Clear", "Clear edit text"), this);
   connect(btn,
           &QPushButton::clicked,
           m_scriptFilterEdit,
           &Private__::FilterEdit::clear);
   connect(btn, &QPushButton::clicked, this, [=]() {
-    m_scriptTag.clear();
     updateTag(BCP47Language::NO_SCRIPT);
     showPrivateScriptFrame(BCP47Language::NO_SCRIPT);
   });
-  boxLayout->addWidget(btn, row, 2);
-  boxLayout->addWidget(m_scriptFilterEdit->comboBox(), row, 3);
+  extensionLayout->addWidget(btn, row, 2);
+  extensionLayout->addWidget(m_scriptFilterEdit->comboBox(), row, 3);
 
   row++;
   // SCRIPT
@@ -197,8 +218,8 @@ LanguageTagBuilderDialog::initGui()
   connect(m_privateScriptFrame,
           &Private__::PrivateFrame::privateValueChanged,
           this,
-          &LanguageTagBuilderDialog::privateScriptChanged);
-  boxLayout->addWidget(m_privateScriptFrame, row, 0, 1, 3);
+          [=]() { updateTag(BCP47Language::PRIVATE_SCRIPT); });
+  extensionLayout->addWidget(m_privateScriptFrame, row, 0, 1, 3);
 
   row++;
   m_regionFilterEdit =
@@ -217,21 +238,20 @@ LanguageTagBuilderDialog::initGui()
               showPrivateRegionFrame(BCP47Language::NO_REGION);
             }
           });
-  boxLayout->addWidget(
+  extensionLayout->addWidget(
     new QLabel(tr("Region", "Region label title"), this), row, 0);
-  boxLayout->addWidget(m_regionFilterEdit, row, 1);
+  extensionLayout->addWidget(m_regionFilterEdit, row, 1);
   btn = new QPushButton(tr("Clear", "Clear edit text"), this);
   connect(btn,
           &QPushButton::clicked,
           m_regionFilterEdit,
           &Private__::FilterEdit::clear);
   connect(btn, &QPushButton::clicked, this, [=]() {
-    m_regionTag.clear();
     updateTag(BCP47Language::NO_REGION);
     showPrivateRegionFrame(BCP47Language::NO_REGION);
   });
-  boxLayout->addWidget(btn, row, 2);
-  boxLayout->addWidget(m_regionFilterEdit->comboBox(), row, 3);
+  extensionLayout->addWidget(btn, row, 2);
+  extensionLayout->addWidget(m_regionFilterEdit->comboBox(), row, 3);
 
   row++;
   // HIDDEN PRIVATE REGION
@@ -241,15 +261,16 @@ LanguageTagBuilderDialog::initGui()
   connect(m_privateRegionFrame,
           &Private__::PrivateFrame::privateValueChanged,
           this,
-          &LanguageTagBuilderDialog::privateRegionChanged);
-  boxLayout->addWidget(m_privateRegionFrame, row, 0, 1, 3);
+          [=]() { updateTag(BCP47Language::PRIVATE_REGION); });
+  extensionLayout->addWidget(m_privateRegionFrame, row, 0, 1, 3);
 
-  box = new QGroupBox(tr("Language Tag", "Tag display box title"), this);
+  auto resultBox =
+    new QGroupBox(tr("Language Tag", "Tag display box title"), this);
   auto resultLayout = new QGridLayout;
   resultLayout->setColumnStretch(0, 2);
   resultLayout->setRowStretch(0, 2);
-  box->setLayout(resultLayout);
-  layout->addWidget(box);
+  resultBox->setLayout(resultLayout);
+  layout->addWidget(resultBox);
 
   // VARIANT
   row++;
@@ -263,20 +284,19 @@ LanguageTagBuilderDialog::initGui()
           &Private__::FilterEdit::stateChanged,
           this,
           &LanguageTagBuilderDialog::variantChanged);
-  boxLayout->addWidget(
+  extensionLayout->addWidget(
     new QLabel(tr("Variant", "VARIANT label title"), this), row, 0);
-  boxLayout->addWidget(m_variantFilterEdit, row, 1);
+  extensionLayout->addWidget(m_variantFilterEdit, row, 1);
   btn = new QPushButton(tr("Clear", "Clear edit text"), this);
   connect(btn,
           &QPushButton::clicked,
           m_variantFilterEdit,
           &Private__::FilterEdit::clear);
   connect(btn, &QPushButton::clicked, this, [=]() {
-    m_variantTag.clear();
     updateTag(BCP47Language::NO_VARIANT_LANGUAGE);
   });
-  boxLayout->addWidget(btn, row, 2);
-  boxLayout->addWidget(m_variantFilterEdit->comboBox(), row, 3);
+  extensionLayout->addWidget(btn, row, 2);
+  extensionLayout->addWidget(m_variantFilterEdit->comboBox(), row, 3);
 
   m_reportLbl = new QLabel(this);
   resultLayout->addWidget(m_reportLbl, 0, 0, 1, 2);
@@ -286,14 +306,6 @@ LanguageTagBuilderDialog::initGui()
           this,
           [=](const QString& text) { m_resultLbl->setCurrentTag(text); });
   resultLayout->addWidget(m_resultLbl, 1, 0);
-  m_usePreferredBtn = new QPushButton(
-    tr("Use Preferred", "Use preferred option button text."), this);
-  m_usePreferredBtn->setEnabled(false);
-  connect(m_usePreferredBtn,
-          &QPushButton::clicked,
-          this,
-          &LanguageTagBuilderDialog::usePreferredValue);
-  resultLayout->addWidget(m_usePreferredBtn, 0, 2);
 
   auto clearBtn = new QPushButton(tr("Clear", "Clear tag button label"), this);
   clearBtn->setToolTip(tr("Clears all values, you will need to start again.",
@@ -316,27 +328,6 @@ LanguageTagBuilderDialog::initGui()
   auto filler = new QWidget(this);
   filler->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   layout->addWidget(filler);
-}
-
-void
-LanguageTagBuilderDialog::privateLanguageChanged(const QString& value)
-{
-  m_languageTag = value;
-  updateTag(BCP47Language::PRIVATE_LANGUAGE);
-}
-
-void
-LanguageTagBuilderDialog::privateScriptChanged(const QString& value)
-{
-  m_scriptTag = value;
-  updateTag(BCP47Language::PRIVATE_SCRIPT);
-}
-
-void
-LanguageTagBuilderDialog::privateRegionChanged(const QString& value)
-{
-  m_regionTag = value;
-  updateTag(BCP47Language::PRIVATE_REGION);
 }
 
 void
@@ -376,8 +367,9 @@ void
 LanguageTagBuilderDialog::languageChanged()
 {
   BCP47Language::TagType languageType = BCP47Language::NO_PRIMARY_LANGUAGE;
-  if (m_primaryFilterEdit->hasSelection()) {
-    auto editText = m_primaryFilterEdit->currentText();
+  if (m_primaryFilterEdit->hasCurrentSelection()) {
+    m_extensionBox->setEnabled(true);
+    auto editText = m_primaryFilterEdit->currentSelection();
     m_language = m_languages->languageFromDescription(editText);
     if (m_language) {
 
@@ -386,29 +378,23 @@ LanguageTagBuilderDialog::languageChanged()
       auto prefixesForLanguage =
         m_languages->extlangsWithPrefix(m_language->subtag());
       m_extlangFilterEdit->setValues(prefixesForLanguage);
-      if (!prefixesForLanguage.contains(m_extlangTag))
-        m_extlangTag.clear();
 
       auto variantsForLanguage =
         m_languages->variantsWithPrefix(m_language->subtag());
       m_variantFilterEdit->setValues(variantsForLanguage);
-      if (!variantsForLanguage.contains(m_variantTag))
-        m_variantTag.clear();
 
       if (m_language->description() == "Private use") {
         languageType = BCP47Language::PRIVATE_LANGUAGE;
-        m_languageTag = "qaa"; // actual tag is 'qaa..qtz'
       } else {
         languageType = BCP47Language::PRIMARY_LANGUAGE;
-        m_languageTag = m_language->subtag();
       }
     } else {
       m_extlangFilterEdit->clear();
       m_variantFilterEdit->clear();
     }
-  } else {
-    m_languageTag = MISSING_PRIMARY_LANGUAGE;
-  }
+  } /*else {
+//    m_languageTag = MISSING_PRIMARY_LANGUAGE;
+  }*/
   showPrivateLanguageFrame(languageType);
   updateTag(languageType);
 }
@@ -417,38 +403,32 @@ void
 LanguageTagBuilderDialog::extlangChanged()
 {
   BCP47Language::TagType languageType = BCP47Language::NO_VARIANT_LANGUAGE;
-  if (m_extlangFilterEdit->hasSelection()) {
+  if (m_extlangFilterEdit->hasCurrentSelection()) {
     if (m_extlangFilterEdit->hasIndexChanged()) {
       m_extlangFilterEdit->clearIndexChanged();
     }
-    auto language =
-      m_languages->extlangFromDescription(m_extlangFilterEdit->currentText());
-    if (language->hasPreferredValue()) {
-      QString reportText;
-      if (language->isMacrolanguage()) {
-        reportText =
-          tr("The language dialect has a preferred LANGUAGE tag "
-             "(%1), this should be used\n"
-             "in preference to the 'LANGUAGE-EXTENDED' format (%2-%3).");
-        setReport(reportText.arg(language->preferredValue(),
-                                 language->prefix().at(0),
-                                 language->subtag()));
-        m_usePreferredBtn->setEnabled(true);
-      } else {
-        reportText =
-          tr("The extended language has a preferred LANGUAGE tag "
-             "(%1), this should be used\n"
-             "in preference to the 'LANGUAGE-EXTENDED' format (%2-%3).");
-        setReport(reportText.arg(language->preferredValue(),
-                                 language->macrolanguageName(),
-                                 language->subtag()));
-        m_usePreferredBtn->setEnabled(true);
-      }
+    auto editText = m_extlangFilterEdit->currentSelection();
+    auto extLanguage = m_languages->extlangFromDescription(editText);
+    if (extLanguage->hasPreferredValue()) {
+      m_usePreferredBtn->setEnabled(true);
+      auto reportText =
+        tr("The language dialect has a preferred LANGUAGE tag "
+           "(%1), this should be used\n"
+           "in preference to the 'LANGUAGE-EXTENDED' format (%2-%3).");
+      setReport(reportText.arg(extLanguage->preferredValue(),
+                               extLanguage->prefix().at(0),
+                               extLanguage->subtag()));
     } else {
       m_usePreferredBtn->setEnabled(false);
+      auto reportText =
+        tr("The extended language has a preferred LANGUAGE tag "
+           "(%1), this should be used\n"
+           "in preference to the 'LANGUAGE-EXTENDED' format (%2-%3).");
+      setReport(reportText.arg(extLanguage->preferredValue(),
+                               extLanguage->macrolanguageName(),
+                               extLanguage->subtag()));
     }
-    if (language) {
-      m_extlangTag = language->subtag();
+    if (extLanguage) {
       languageType = BCP47Language::EXTENDED_LANGUAGE;
     }
   }
@@ -456,21 +436,14 @@ LanguageTagBuilderDialog::extlangChanged()
 }
 
 void
-LanguageTagBuilderDialog::usePreferredValue()
-{
-  // TODO action this
-}
-
-void
 LanguageTagBuilderDialog::scriptChanged()
 {
   BCP47Language::TagType languageType = BCP47Language::NO_SCRIPT;
-  if (m_scriptFilterEdit->hasSelection()) {
+  if (m_scriptFilterEdit->hasCurrentSelection()) {
     if (m_scriptFilterEdit->hasIndexChanged()) {
       m_scriptFilterEdit->clearIndexChanged();
-      ;
     }
-    auto editText = m_scriptFilterEdit->currentText();
+    auto editText = m_scriptFilterEdit->currentSelection();
     auto script = m_languages->scriptFromDescription(editText);
     if (script->hasSuppressScriptLang()) {
       m_scriptFilterEdit->setUnavailableText(
@@ -482,14 +455,10 @@ LanguageTagBuilderDialog::scriptChanged()
         tr(" == No script available == ",
            "Displayed when no possible value exists"));
       if (script) {
-        m_scriptTag = script->subtag();
-        //        m_scriptFilterEdit->setRequired(true);
         if (script->description() == "Private use") {
           languageType = BCP47Language::PRIVATE_SCRIPT;
-          m_scriptTag = "Qaaa"; // actual tag is 'Qaaa..Qabx'
         } else {
           languageType = BCP47Language::SCRIPT_LANGUAGE;
-          m_scriptTag = script->subtag();
         }
       }
       showPrivateScriptFrame(languageType);
@@ -502,14 +471,13 @@ void
 LanguageTagBuilderDialog::regionChanged()
 {
   BCP47Language::TagType languageType = BCP47Language::NO_REGION;
-  if (m_regionFilterEdit->hasSelection()) {
+  if (m_regionFilterEdit->hasCurrentSelection()) {
     if (m_regionFilterEdit->hasIndexChanged()) {
       m_regionFilterEdit->clearIndexChanged();
     }
-    auto editText = m_regionFilterEdit->currentText();
+    auto editText = m_regionFilterEdit->currentSelection();
     auto region = m_languages->regionFromDescription(editText);
     if (region) {
-      m_regionTag = region->subtag();
       if (region->description() == "Private use") {
         languageType = BCP47Language::PRIVATE_REGION;
       } else {
@@ -525,79 +493,133 @@ void
 LanguageTagBuilderDialog::variantChanged()
 {
   BCP47Language::TagType languageType = BCP47Language::NO_VARIANT_LANGUAGE;
-  if (m_variantFilterEdit->hasSelection()) {
+  if (m_variantFilterEdit->hasCurrentSelection()) {
     if (m_variantFilterEdit->hasIndexChanged()) {
       m_variantFilterEdit->clearIndexChanged();
     }
-    auto language =
-      m_languages->variantFromDescription(m_variantFilterEdit->currentText());
+    auto language = m_languages->variantFromDescription(
+      m_variantFilterEdit->currentSelection());
     m_usePreferredBtn->setEnabled(false);
     if (language) {
-      m_variantTag = language->subtag();
       languageType = BCP47Language::VARIANT_LANGUAGE;
     }
   }
   updateTag(languageType);
 }
 
-void
-LanguageTagBuilderDialog::clearAllTagvalues()
+// void
+// LanguageTagBuilderDialog::clearAllTagvalues()
+//{}
+
+QString
+LanguageTagBuilderDialog::calcExtlangResult()
 {
-  m_languageTag.clear();
-  m_extlangTag.clear();
-  m_scriptTag.clear();
-  m_regionTag.clear();
-  m_variantTag.clear();
+  if (m_extlangFilterEdit->hasCurrentSelection()) {
+    auto text = m_extlangFilterEdit->currentSelection();
+    auto extlang = m_languages->extlangFromDescription(text);
+    if (extlang) {
+      if (m_usePreferredBtn->isChecked()) {
+        return QString("-%1").arg(extlang->preferredValue());
+      } else {
+        return QString("-%1").arg(extlang->subtag());
+      }
+    }
+  }
+  return QString();
+}
+
+QString
+LanguageTagBuilderDialog::calcScriptResult(BCP47Language::TagType type)
+{
+  if (m_scriptFilterEdit->hasCurrentSelection()) {
+    auto text = m_scriptFilterEdit->currentSelection();
+    auto script = m_languages->scriptFromDescription(text);
+    if (type == BCP47Language::PRIVATE_SCRIPT) {
+      return QString("-%1").arg(m_privateScriptFrame->value());
+    } else {
+      if (script) {
+        text = script->subtag();
+        if (script->description() == "Private use" &&
+            text == "Qaaa..Qabx") // just in case
+          text = "Qaaa";
+        return QString("-%1").arg(text);
+      }
+    }
+  }
+  return QString();
+}
+
+QString
+LanguageTagBuilderDialog::calcRegionResult(BCP47Language::TagType type)
+{
+  if (m_regionFilterEdit->hasCurrentSelection()) {
+    auto text = m_regionFilterEdit->currentSelection();
+    auto region = m_languages->regionFromDescription(text);
+    if (type == BCP47Language::PRIVATE_REGION) {
+      return QString("-%1").arg(m_privateRegionFrame->value());
+    } else {
+      if (region) {
+        text = region->subtag();
+        if (region->description() == "Private use") { // just in case
+          if (text == "XA..XZ") {
+            text = "XA";
+          } else if (text == "QM..QZ") {
+            text = "QM";
+          } // the others are single case AA and ZZ
+          return QString("-%1").arg(text);
+        }
+      }
+      return QString("-%1").arg(m_regionFilterEdit->currentSelection());
+    }
+  }
+  return QString();
+}
+
+QString LanguageTagBuilderDialog::calcVariantResult(
+  /*BCP47Language::TagType type*/)
+{
+  if (m_variantFilterEdit->hasCurrentSelection()) {
+    return QString("-%1").arg(m_variantFilterEdit->currentSelection());
+  }
+  return QString();
+}
+
+QString
+LanguageTagBuilderDialog::calcLanguageResult(BCP47Language::TagType type)
+{
+  if (m_primaryFilterEdit->hasCurrentSelection()) {
+    auto text = m_primaryFilterEdit->currentSelection();
+    auto language = m_languages->languageFromDescription(text);
+    if (type == BCP47Language::PRIVATE_LANGUAGE) {
+      return m_privateLangFrame->value();
+    } else {
+      if (language) {
+        text = language->subtag();
+        if (language->description() == "Private use") {
+          if (text == "qaa..qtz")
+            text = "qaa";
+        }
+        return text;
+      }
+      return m_primaryFilterEdit->currentSelection();
+    }
+  }
+  return QString();
 }
 
 void
 LanguageTagBuilderDialog::updateTag(BCP47Language::TagType type)
 {
-  QString result;
-  if (type == BCP47Language::NO_VALUE) {
-    clearAllTagvalues();
-  } else {
-    if (!m_languageTag.isEmpty()) {
-      if (type == BCP47Language::PRIVATE_LANGUAGE) {
-        result = m_privateLangFrame->value();
-      } else {
-        result = m_languageTag;
-      }
-    }
+  auto result = calcLanguageResult(type);
 
-    if (!m_extlangTag.isEmpty()) {
-      result += QString("-%1").arg(m_extlangTag);
-    }
-
-    if (!m_scriptTag.isEmpty()) {
-      if (type == BCP47Language::PRIVATE_SCRIPT) {
-        result += QString("-%1").arg(m_privateScriptFrame->value());
-      } else {
-        result += QString("-%1").arg(m_scriptTag);
-      }
-    }
-
-    if (!m_regionTag.isEmpty()) {
-      if (type == BCP47Language::PRIVATE_REGION) {
-        result += QString("-%1").arg(m_privateRegionFrame->value());
-      } else {
-        result += QString("-%1").arg(m_regionTag);
-      }
-    }
-
-    if (!m_variantTag.isEmpty()) {
-      result += QString("-%1").arg(m_variantTag);
-    }
+  if (m_extensionBox->isEnabled()) {
+    result += calcExtlangResult();
+    result += calcScriptResult(type);
+    result += calcRegionResult(type);
+    result += calcVariantResult();
   }
+
   m_resultLbl->setCurrentTag(result);
-  // TODO highlight label value.
-  //  auto tags = m_languages->testTag(result);
-  //  qWarning();
-  //  if (tags == 0) {
-  //    m_resultLbl->setStyleSheet("QLabel {color: green; }");
-  //  } else {
-  //    m_resultLbl->setStyleSheet("QLabel {color: green; }");
-  //  }
 }
 
 QString
@@ -682,17 +704,10 @@ namespace Private__ {
 //====================================================================
 //=== FilterEdit
 //====================================================================
-FilterEdit::FilterEdit(QStringList items,
-//                       bool showRequired,
-                       LanguageTagBuilderDialog* parent)
+FilterEdit::FilterEdit(QStringList items, LanguageTagBuilderDialog* parent)
   : QLineEdit(parent)
   , m_filterText(tr("== Filter ==", "FilterEdit initial empty value text"))
-//  , m_showRequired(showRequired)
-  , m_selection(new FilterComboBox(parent))
-//  , m_required(
-//      showRequired
-//        ? new QCheckBox(tr("Use Tag", "Use tag required checkbox text"), parent)
-//        : nullptr)
+  , m_selectionBox(new FilterComboBox(parent))
   , m_parent(parent)
 {
   auto model = new QStringListModel();
@@ -700,36 +715,36 @@ FilterEdit::FilterEdit(QStringList items,
   auto proxyModel = new QSortFilterProxyModel;
   proxyModel->setSourceModel(model);
   proxyModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
-  m_selection->setModel(proxyModel);
+  m_selectionBox->setModel(proxyModel);
   connect(
     this, &QLineEdit::textChanged, this, &FilterEdit::primaryFilterChanged);
-  connect(m_selection,
+  connect(m_selectionBox,
           qOverload<int>(&QComboBox::activated),
           this,
           &FilterEdit::activated);
-  connect(m_selection,
+  connect(m_selectionBox,
           qOverload<int>(&QComboBox::currentIndexChanged),
           this,
           &FilterEdit::setIndexChanged);
-//  if (m_required) {
-//    connect(
-//      m_required, &QCheckBox::clicked, this, [=](bool checked) {
-//      if (checked)
-//        emit FilterEdit::stateChanged(Qt::Checked);
-//      else
-//        emit FilterEdit::stateChanged(Qt::Unchecked);
-//    });
-//  }
+  //  if (m_required) {
+  //    connect(
+  //      m_required, &QCheckBox::clicked, this, [=](bool checked) {
+  //      if (checked)
+  //        emit FilterEdit::stateChanged(Qt::Checked);
+  //      else
+  //        emit FilterEdit::stateChanged(Qt::Unchecked);
+  //    });
+  //  }
 }
 
 QComboBox*
 FilterEdit::comboBox()
 {
-  return m_selection;
+  return m_selectionBox;
 }
 
-//QCheckBox*
-//FilterEdit::checkBox()
+// QCheckBox*
+// FilterEdit::checkBox()
 //{
 //  return m_required;
 //}
@@ -737,63 +752,50 @@ FilterEdit::comboBox()
 QSortFilterProxyModel*
 FilterEdit::model()
 {
-  return qobject_cast<QSortFilterProxyModel*>(m_selection->model());
+  return qobject_cast<QSortFilterProxyModel*>(m_selectionBox->model());
 }
 
 void
 FilterEdit::setEnabled(bool enable)
 {
   QLineEdit::setEnabled(enable);
-  m_selection->setEnabled(enable);
+  m_selectionBox->setEnabled(enable);
 }
 
 void
 FilterEdit::clearValues()
 {
   clear();
-  m_selection->clear();
+  primaryFilterChanged(QString());
+  m_selectionBox->setCurrentIndex(-1);
 }
 
 void
 FilterEdit::setValue(const QString& value)
 {
-  m_selection->clear();
-  m_selection->addItem(value);
+  m_selectionBox->clear();
+  m_selectionBox->addItem(value);
 }
 
 void
 FilterEdit::setValues(const QStringList& values)
 {
-  m_selection->clear();
-  m_selection->addItems(values);
+  m_selectionBox->clear();
+  m_selectionBox->addItems(values);
 }
 
 bool
-FilterEdit::hasSelection()
+FilterEdit::hasCurrentSelection()
 {
-  return (m_selection->currentIndex() != -1);
+  auto index = m_selectionBox->currentIndex();
+  return (index != -1);
 }
 
 QString
-FilterEdit::currentText()
+FilterEdit::currentSelection()
 {
-  return m_selection->currentText();
+  return m_selectionBox->currentText();
 }
-
-//bool
-//FilterEdit::isRequired()
-//{
-//  if (m_required)
-//    return m_required->isChecked();
-//  return false;
-//}
-
-//void
-//FilterEdit::setRequired(bool value)
-//{
-//  if (m_required)
-//    m_required->setChecked(value);
-//}
 
 bool
 FilterEdit::isEmpty()
@@ -810,7 +812,7 @@ FilterEdit::setFilterText(const QString& text)
 void
 FilterEdit::setUnavailableText(const QString& text)
 {
-  m_selection->setUnavailableText(text);
+  m_selectionBox->setUnavailableText(text);
 }
 
 bool
@@ -843,16 +845,16 @@ FilterEdit::primaryFilterChanged(const QString& text)
 {
   QRegularExpression regex(text, QRegularExpression::CaseInsensitiveOption);
   model()->setFilterRegularExpression(regex);
-  m_selection->setCurrentIndex(0);
-  if (m_selection->count() == 1) {
-    emit m_selection->activated(0);
+//  m_selectionBox->setCurrentIndex(0);
+  if (m_selectionBox->count() == 1) {
+    emit m_selectionBox->activated(0);
   }
 }
 
 void
 FilterEdit::setIndexChanged(int index)
 {
-  if (index != m_currentIndex) {
+  if (index != -1 && index != m_currentIndex) {
     m_currentIndex = index;
     m_currentIndexChanged = true;
   }
@@ -1647,6 +1649,7 @@ LanguageLabel::LanguageLabel(BCP47Languages* languages, QWidget* parent)
 {
   m_textColor.setForeground(QColorConstants::Black);
   m_primaryLanguageColor.setForeground(QColorConstants::X11::limegreen);
+  m_privateLanguageColor.setForeground(QColorConstants::X11::darkgreen);
   m_extlangColor.setForeground(QColorConstants::X11::limegreen);
   m_scriptColor.setForeground(QColorConstants::X11::limegreen);
   m_regionColor.setForeground(QColorConstants::X11::limegreen);
@@ -1895,7 +1898,6 @@ LanguageLabel::highlightTag(
   QList<QSharedPointer<BCP47Language::TagTestResult>> results)
 {
   if (!results.isEmpty()) {
-
     m_document->clear();
     m_hoverData.clear();
     auto subtag = results.takeFirst();
@@ -1920,10 +1922,17 @@ LanguageLabel::highlightTag(
     m_hoverData.append(block);
 
     while (!results.isEmpty()) {
+      auto prevSubtag = subtag;
       subtag = results.takeFirst();
       block = new HoverBlock;
       block->start = cursor.anchor();
-      if (subtag->type.testFlag(BCP47Language::EXTENDED_LANGUAGE)) {
+      if (prevSubtag->type == BCP47Language::PRIVATE_LANGUAGE) {
+        cursor.setCharFormat(m_textColor);
+        cursor.insertText("-");
+        cursor.setCharFormat(m_privateLanguageColor);
+        cursor.insertText(subtag->text);
+        block->hoverText = tr("Private language tag.");
+      } else if (subtag->type.testFlag(BCP47Language::EXTENDED_LANGUAGE)) {
         cursor.setCharFormat(m_textColor);
         cursor.insertText("-");
         cursor.setCharFormat(m_extlangColor);

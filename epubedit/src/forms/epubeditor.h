@@ -1,25 +1,26 @@
 #ifndef EPUBEDITOR_H
 #define EPUBEDITOR_H
 
-#include <QWidget>
+#include <QTextEdit>
 
 class EPubDocument;
-class Config;
 
-class EPubEditor : public QWidget
+#include "document/bookpointers.h"
+
+class EPubEditor : public QTextEdit
 {
   Q_OBJECT
 public:
-  explicit EPubEditor(Config* config, QWidget* parent = nullptr);
+  explicit EPubEditor(PConfig config, QWidget* parent = nullptr);
   ~EPubEditor();
 
-  void setDocument(QSharedPointer<EPubDocument> document);
+  void setDocument(PDocument document);
 
 signals:
 
 private:
-  Config* m_config;
-  QSharedPointer<EPubDocument> m_document;
+  PConfig m_config;
+  PDocument m_document;
 
   void updateDocument();
 };

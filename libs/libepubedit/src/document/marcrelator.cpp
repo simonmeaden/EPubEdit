@@ -1,50 +1,297 @@
 #include "document/marcrelator.h"
 
+const QStringList MarcRelator::m_relatorDescriptions =
+  QStringList()
+  << "INVALID"
+  << "Abridger"
+  << "Art copyist"
+  << "Actor"
+  << "Art director"
+  << "Adapter"
+  << "Author of afterword, colophon, etc."
+  << "Analyst"
+  << "Animator"
+  << "Annotator"
+  << "Bibliographic antecedent"
+  << "Appellee"
+  << "Appellant"
+  << "Applicant"
+  << "Author in quotations or text abstracts"
+  << "Architect"
+  << "Artistic director"
+  << "Arranger"
+  << "Artist"
+  << "Assignee"
+  << "Associated name"
+  << "Autographer"
+  << "Attributed name"
+  << "Auctioneer"
+  << "Author of dialog"
+  << "Author of introduction, etc."
+  << "Screenwriter"
+  << "Author"
+  << "Binding designer"
+  << "Bookjacket designer"
+  << "Book designer"
+  << "Book producer"
+  << "Blurb writer"
+  << "Binder"
+  << "Bookplate designer"
+  << "Broadcaster"
+  << "Braille embosser"
+  << "Bookseller"
+  << "Caster"
+  << "Conceptor"
+  << "Choreographer"
+  << "Collaborator" // Discontinued
+  << "Client"
+  << "Calligrapher"
+  << "Colorist"
+  << "Collotyper"
+  << "Commentator"
+  << "Composer"
+  << "Compositor"
+  << "Conductor"
+  << "Cinematographer"
+  << "Censor"
+  << "Contestant-appellee"
+  << "Collector"
+  << "Compiler"
+  << "Conservator"
+  << "Collection registrar"
+  << "Contestant"
+  << "Contestant-appellant"
+  << "Court governed"
+  << "Cover designer"
+  << "Copyright claimant"
+  << "Complainant-appellee"
+  << "Copyright holder"
+  << "Complainant"
+  << "Complainant-appellant"
+  << "Creator"
+  << "Correspondent"
+  << "Corrector"
+  << "Court reporter"
+  << "Consultant"
+  << "Consultant to a project"
+  << "Costume designer"
+  << "Contributor"
+  << "Contestee-appellee"
+  << "Cartographer"
+  << "Contractor"
+  << "Contestee"
+  << "Contestee-appellant"
+  << "Curator"
+  << "Commentator for written text"
+  << "Distribution place"
+  << "Defendant"
+  << "Defendant-appellee"
+  << "Defendant-appellant"
+  << "Degree granting institution"
+  << "Degree supervisor"
+  << "Dissertant"
+  << "Delineator"
+  << "Dancer"
+  << "Donor"
+  << "Depicted"
+  << "Depositor"
+  << "Draftsman"
+  << "Director"
+  << "Designer"
+  << "Distributor"
+  << "Data contributor"
+  << "Dedicatee"
+  << "Data manager"
+  << "Dedicator"
+  << "Dubious author"
+  << "Editor of compilation"
+  << "Editor of moving image work"
+  << "Editor"
+  << "Engraver"
+  << "Electrician"
+  << "Electrotyper"
+  << "Engineer"
+  << "Enacting jurisdiction"
+  << "Etcher"
+  << "Event place"
+  << "Expert"
+  << "Facsimilist"
+  << "Film distributor"
+  << "Field director"
+  << "Film editor"
+  << "Film director"
+  << "Filmmaker"
+  << "Former owner"
+  << "Film producer"
+  << "Funder"
+  << "First party"
+  << "Forger"
+  << "Geographic information specialist"
+  << "Graphic technician (Discontinued)" // Discontinued
+  << "Host institution"
+  << "Honoree"
+  << "Host"
+  << "Illustrator"
+  << "Illuminator"
+  << "Inscriber"
+  << "Inventor"
+  << "Issuing body"
+  << "Instrumentalist"
+  << "Interviewee"
+  << "Interviewer"
+  << "Judge"
+  << "Jurisdiction governed"
+  << "Laboratory"
+  << "Librettist"
+  << "Laboratory director"
+  << "Lead"
+  << "Libelee-appellee"
+  << "Libelee"
+  << "Lender"
+  << "Libelee-appellant"
+  << "Lighting designer"
+  << "Libelant-appellee"
+  << "Libelant"
+  << "Libelant-appellant"
+  << "Landscape architect"
+  << "Licensee"
+  << "Licensor"
+  << "Lithographer"
+  << "Lyricist"
+  << "Music copyist"
+  << "Metadata contact"
+  << "Medium"
+  << "Manufacture place"
+  << "Manufacturer"
+  << "Moderator"
+  << "Monitor"
+  << "Marbler"
+  << "Markup editor"
+  << "Musical director"
+  << "Metal-engraver"
+  << "Minute taker"
+  << "Musician"
+  << "Narrator"
+  << "Opponent"
+  << "Originator"
+  << "Organizer"
+  << "Onscreen presenter"
+  << "Other"
+  << "Owner"
+  << "Panelist"
+  << "Patron"
+  << "Publishing director"
+  << "Publisher"
+  << "Project director"
+  << "Proofreader"
+  << "Photographer"
+  << "Platemaker"
+  << "Permitting agency"
+  << "Production manager"
+  << "Printer of plates"
+  << "Papermaker"
+  << "Puppeteer"
+  << "Praeses"
+  << "Process contact"
+  << "Production personnel"
+  << "Presenter"
+  << "Performer"
+  << "Programmer"
+  << "Printmaker"
+  << "Production company"
+  << "Producer"
+  << "Production place"
+  << "Production designer"
+  << "Printer"
+  << "Provider"
+  << "Patent applicant"
+  << "Plaintiff-appellee"
+  << "Plaintiff"
+  << "Patent holder"
+  << "Plaintiff-appellant"
+  << "Publication place"
+  << "Rubricator"
+  << "Recordist"
+  << "Recording engineer"
+  << "Addressee"
+  << "Radio director"
+  << "Redaktor"
+  << "Renderer"
+  << "Researcher"
+  << "Reviewer"
+  << "Radio producer"
+  << "Repository"
+  << "Reporter"
+  << "Responsible party"
+  << "Respondent-appellee"
+  << "Restager"
+  << "Respondent"
+  << "Restorationist"
+  << "Respondent-appellant"
+  << "Research team head"
+  << "Research team member"
+  << "Scientific advisor"
+  << "Scenarist"
+  << "Sculptor"
+  << "Scribe"
+  << "Sound designer!"
+  << "Secretary"
+  << "Stage director"
+  << "Signer"
+  << "Supporting host"
+  << "Seller"
+  << "Singer"
+  << "Speaker"
+  << "Sponsor"
+  << "Second party"
+  << "Surveyor"
+  << "Set designer"
+  << "Setting"
+  << "Storyteller"
+  << "Stage manager"
+  << "Standards body"
+  << "Stereotyper"
+  << "Technical director"
+  << "Teacher"
+  << "Thesis advisor"
+  << "Television director"
+  << "Television producer"
+  << "Transcriber"
+  << "Translator"
+  << "Type designer"
+  << "Typographer"
+  << "University place"
+  << "Voice actor"
+  << "Videographer"
+  << "Vocalist" // Discontinued
+  << "Writer of added commentary"
+  << "Writer of added lyrics"
+  << "Writer of accompanying material"
+  << "Writer of added text"
+  << "Woodcutter"
+  << "Wood engraver"
+  << "Writer of introduction"
+  << "Witness"
+  << "Writer of preface"
+  << "Writer of supplementary textual content";
+
 MarcRelator::MarcRelator()
 {
   m_type = NO_TYPE;
 }
 
-MarcRelator::Relator
-MarcRelator::type()
-{
-  return m_type;
-}
+const QString MarcRelator::relatorToDescription(MarcRelator::Relator relator) { return m_relatorDescriptions[relator]; }
 
-void
-MarcRelator::setType(MarcRelator::Relator type)
+MarcRelator::Relator MarcRelator::descriptionToRelator(const QString& str)
 {
-  m_type = type;
-}
-
-QString
-MarcRelator::code()
-{
-  return m_code;
-}
-
-void
-MarcRelator::setCode(QString code)
-{
-  m_code = code;
+  int index = m_relatorDescriptions.indexOf(str);
+  if (index != -1)
+    return Relator(index);
+  return NO_TYPE;
 }
 
 QString
-MarcRelator::asString()
-{
-  return MarcRelator::toString(m_type);
-}
-
-bool
-MarcRelator::isRelator()
-{
-  if (m_type != NO_TYPE)
-    return true;
-  return false;
-}
-
-QString
-MarcRelator::toString(MarcRelator::Relator relator)
+MarcRelator::relatorToCode(MarcRelator::Relator relator)
 {
   switch (relator) {
     case MarcRelator::ABRIDGER:
@@ -419,7 +666,7 @@ MarcRelator::toString(MarcRelator::Relator relator)
       return "pmn";
     case MarcRelator::PRINTER_OF_PLATES:
       return "pop";
-    case MarcRelator::PAPERMAKE:
+    case MarcRelator::PAPERMAKER:
       return "ppm";
     case MarcRelator::PUPPETEER:
       return "ppt";
@@ -595,7 +842,7 @@ MarcRelator::toString(MarcRelator::Relator relator)
 }
 
 QSharedPointer<MarcRelator>
-MarcRelator::fromString(QString relator_name)
+MarcRelator::codeToRelator(QString relator_name)
 {
   QSharedPointer<MarcRelator> relator =
     QSharedPointer<MarcRelator>(new MarcRelator());
@@ -975,7 +1222,7 @@ MarcRelator::fromString(QString relator_name)
   } else if (name == "pop") {
     relator->setType(MarcRelator::PRINTER_OF_PLATES);
   } else if (name == "ppm") {
-    relator->setType(MarcRelator::PAPERMAKE);
+    relator->setType(MarcRelator::PAPERMAKER);
   } else if (name == "ppt") {
     relator->setType(MarcRelator::PUPPETEER);
   } else if (name == "pra") {
@@ -1155,10 +1402,61 @@ MarcRelator::fromString(QString relator_name)
   return relator;
 }
 
+//const QString MarcRelator::relatorToCode(MarcRelator::Relator relator)
+//{
+//  return m_relatorCodes[relator];
+//}
+
+//MarcRelator::Relator MarcRelator::descriptionToCode(const QString &str)
+//{
+//  int index = m_relatorCodes.indexOf(str);
+//  if (index != -1)
+//    return Relator(index);
+//  return NO_TYPE;
+//}
+
+MarcRelator::Relator
+MarcRelator::type()
+{
+  return m_type;
+}
+
+void
+MarcRelator::setType(MarcRelator::Relator type)
+{
+  m_type = type;
+}
+
+QString
+MarcRelator::code()
+{
+  return m_code;
+}
+
+void
+MarcRelator::setCode(QString code)
+{
+  m_code = code;
+}
+
+QString
+MarcRelator::asString()
+{
+  return MarcRelator::relatorToCode(m_type);
+}
+
+bool
+MarcRelator::isRelator()
+{
+  if (m_type != NO_TYPE)
+    return true;
+  return false;
+}
+
 bool
 MarcRelator::isRelator(QString name)
 {
-  auto relator = fromString(name);
+  auto relator = codeToRelator(name);
   if (relator->type() != NO_TYPE)
     return true;
   return false;

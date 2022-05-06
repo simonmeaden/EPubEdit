@@ -1,14 +1,14 @@
 #include "forms/configurationeditor.h"
 #include "config.h"
 
-ConfigurationEditor::ConfigurationEditor(Config* config, QWidget* parent)
+ConfigurationEditor::ConfigurationEditor(PConfig config, QWidget* parent)
   : QDialog(parent)
   , m_config(config)
 {
   initGui();
 }
 
-Config*
+PConfig
 ConfigurationEditor::config() const
 {
   return m_config;
@@ -27,7 +27,7 @@ ConfigurationEditor::initPage1()
   layout->addRow(tr("Preferred Save Version"), preferredSaveVersion);
   connect(preferredSaveVersion,
           &QComboBox::currentTextChanged,
-          m_config,
+          m_config.data(),
           qOverload<QString>(&Config::setSaveVersion));
 
   auto statusTimeoutEdit = new QSpinBox(this);
@@ -35,7 +35,7 @@ ConfigurationEditor::initPage1()
   statusTimeoutEdit->setValue(m_config->statusTimeout());
   connect(statusTimeoutEdit,
           qOverload<int>(&QSpinBox::valueChanged),
-          m_config,
+          m_config.data(),
           &Config::setStatusTimeout);
 
   return page;

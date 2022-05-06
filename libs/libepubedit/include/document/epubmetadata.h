@@ -1,11 +1,11 @@
 #ifndef EBOOKMETADATA_H
 #define EBOOKMETADATA_H
 
+#include <QCoreApplication> // needed for Q_DECLARE_TR_FUNCTIONS macro
 #include <QDateTime>
 #include <QDomNodeList>
 #include <QTextCursor>
 #include <QXmlStreamWriter>
-#include <QCoreApplication> // needed for Q_DECLARE_TR_FUNCTIONS macro
 
 class EPubDocument;
 class QXmlStreamWriter;
@@ -18,14 +18,26 @@ enum Direction
 {
   LTR,
   RTL,
+  DEFAULT,
 };
 Q_DECLARE_METATYPE(Direction)
 
-Direction
-direction(const QString& dir);
+struct DirectionFunc
+{
+  static Direction convertDirection(const QString& direction);
 
-QString
-directionStr(Direction dir);
+  static QString directionStr(Direction direction);
+};
+
+struct DirectionBase : public DirectionFunc
+{
+  Direction dir;
+
+  void setDirection(const QString& direction)
+  {
+    dir = convertDirection(direction);
+  }
+};
 
 struct EPubNavPoint
 {
@@ -62,13 +74,13 @@ enum EPubDocumentType
 
 struct EPubManifestItem
 {
-  UniqueString href;
+  QString href;
   QString path;
   QString documentString;
   QStringList cssLinks;
   QString bodyClass;
   UniqueString id;
-  QByteArray mediaType;
+  QString mediaType;
   QStringList properties;
   QString fallback;
   QString mediaOverlay;
@@ -86,10 +98,10 @@ struct EPubTocItem
   QString chapterTag;
 };
 
-struct EPubManifest
+struct Manifest
 {
-  EPubManifest();
-  ~EPubManifest();
+  Manifest();
+  ~Manifest();
   UniqueString id;
   QSharedPointer<EPubManifestItem> coverImage;                      // 0 or 1
   QSharedPointer<EPubManifestItem> nav;                             // 1
@@ -114,28 +126,31 @@ struct EPubManifest
   QMap<QString, QSharedPointer<EPubTocItem>> tocPaths;
 };
 
+enum PageSpread {
+  LEFT,
+  RIGHT,
+  NONE,
+};
+
 struct EPubSpineItem
 {
   EPubSpineItem()
-    : linear(false)
-    , pageSpreadLeft(false)
-    , pageSpreadRight(false)
+    : linear(true)
+    , pageSpread(NONE)
   {}
 
   UniqueString id;
-  QString idref;
+  UniqueString idref;
   bool linear;
-  bool pageSpreadLeft;
-  bool pageSpreadRight;
-};
+  PageSpread pageSpread;
+ };
 
-struct EPubSpine
+struct EPubSpine : public DirectionBase
 {
   UniqueString id;
   UniqueString tocId;
-  Direction pageProgressionDir;
-  QMap<QString, QSharedPointer<EPubSpineItem>> items;
-  QStringList orderedItems;
+  QList<UniqueString> orderedItems;
+  QMap<UniqueString, QSharedPointer<EPubSpineItem>> items;
 };
 
 struct EPubModified
@@ -156,14 +171,13 @@ struct EPubFileAs
   QString lang;
 };
 
-struct EPubTitle
+struct EPubTitle : public DirectionBase
 {
 
   EPubTitle();
 
   UniqueString id;
   QString title;
-  Direction dir = LTR;
   QString lang;
   QList<QSharedPointer<EPubAltRep>> altRepList;
   QList<QSharedPointer<EPubFileAs>> fileAsList;
@@ -184,7 +198,7 @@ struct EPubAttribution
   QString license;
 };
 
-class EPubSubject
+class EPubSubject : public DirectionBase
 {
 public:
   UniqueString id;
@@ -192,7 +206,6 @@ public:
   QString authority;
   QString term;
   QString lang;
-  Direction dir;
 };
 
 class EBookIdentifierScheme
@@ -269,36 +282,32 @@ struct EPubSource
   EBookIdentifierScheme scheme;
 };
 
-struct EPubPublisher
+struct EPubPublisher : public DirectionBase
 {
   QString name;
   QSharedPointer<EPubFileAs> fileAs;
-  Direction dir;
   UniqueString id;
   QSharedPointer<EPubAltRep> altRep;
   QString lang;
 };
 
-struct EPubRelation
+struct EPubRelation : public DirectionBase
 {
   QString name;
-  Direction dir;
   UniqueString id;
   QString lang;
 };
 
-struct EPubRights
+struct EPubRights : public DirectionBase
 {
   QString name;
-  Direction dir;
   UniqueString id;
   QString lang;
 };
 
-struct EPubCoverage
+struct EPubCoverage : public DirectionBase
 {
   QString name;
-  Direction dir;
   UniqueString id;
   QString lang;
 };
@@ -315,7 +324,7 @@ struct EPubType
   UniqueString id;
 };
 
-class EPubCreator
+class EPubCreatorContributorBase
 {
 public:
   enum SchemeType
@@ -327,13 +336,14 @@ public:
     xsd,
     string_scheme_type,
   };
-  EPubCreator();
-  ~EPubCreator();
+  EPubCreatorContributorBase();
+  ~EPubCreatorContributorBase();
 
   QString name;
-  QList<QSharedPointer<EPubFileAs>> fileAsList;
+  //  QList<QSharedPointer<EPubFileAs>> fileAsList;
+  QSharedPointer<EPubFileAs> fileAs;
   UniqueString id;
-  QList<QSharedPointer<EPubAltRep>> altRepList;
+  QSharedPointer<EPubAltRep> altRep;
   QDateTime date;
 
   QSharedPointer<MarcRelator> relator;
@@ -359,29 +369,34 @@ public:
   }
 };
 
-class EPubContributor : public EPubCreator
+class EPubCreator : public EPubCreatorContributorBase
 {
   // Actually identical - convenience class
 };
 
-struct EPubDescription
+class EPubContributor : public EPubCreatorContributorBase
+{
+  // Actually identical - convenience class
+};
+
+struct EPubDescription : public DirectionBase
 {
   UniqueString id;
   QString text;
-  Direction dir;
   QString language;
 };
 
-class EPubCalibre
+class Calibre
 {
 public:
-  EPubCalibre();
+  Calibre();
 
   QString seriesName() const;
   void setSeriesName(const QString& seriesName);
 
-  QString seriesIndex() const;
-  void setSeriesIndex(const QString& seriesIndex);
+  quint16 seriesIndex() const;
+  QString seriesIndexString() const;
+  void setSeriesIndex(quint16 seriesIndex);
 
   QString titleSort() const;
   void setTitleSort(const QString& titleSort);
@@ -412,7 +427,7 @@ public:
 
 protected:
   QString m_seriesName;
-  QString m_seriesIndex;
+  quint16 m_seriesIndex;
   QString m_titleSort;
   QString m_authorLinkMap;
   QString m_timestamp;
@@ -424,12 +439,12 @@ protected:
   bool m_modified;
 };
 
-class EPubMetadata
+class Metadata : public DirectionFunc
 {
   Q_DECLARE_TR_FUNCTIONS(EPubMetadata)
 
 public:
-  EPubMetadata(QSharedPointer<UniqueStringList> uniqueIdList);
+  Metadata();
 
   void parse(QDomNodeList metadataNodeList);
   bool write(QXmlStreamWriter* xml_writer);
@@ -441,17 +456,20 @@ public:
   void setIsFoaf(bool value);
 
   QStringList creatorList() const;
-  void setCreatorList(const QStringList& creatorList);
+
+  QSharedPointer<EPubCreator> creatorFromName(QString name);
+
+  QStringList contributorList();
+  QSharedPointer<EPubContributor> contributorFromName(QString name);
 
   QList<QSharedPointer<EPubTitle>> orderedTitles() const;
   void setOrderedTitles(const QList<QSharedPointer<EPubTitle>>& ordered_titles);
 
-  QSharedPointer<EPubCalibre> calibre() const;
-  void setCalibre(const QSharedPointer<EPubCalibre>& calibre);
+  QSharedPointer<Calibre> calibre() const;
+  void setCalibre(const QSharedPointer<Calibre>& calibre);
 
 private:
-  EPubDocument* m_document;
-  QSharedPointer<UniqueStringList> m_uniqueIdList;
+//  EPubDocument* m_document;
   UniqueString m_packageUniqueIdentifier;
   UniqueString m_packageUniqueIdentifierName;
   QMap<EBookIdentifierScheme::IdentifierScheme, QSharedPointer<EBookIdentifier>>
@@ -464,24 +482,23 @@ private:
   QMap<QString, QSharedPointer<EPubCreator>> m_creatorsById;
   QMultiMap<QString, QSharedPointer<EPubCreator>> m_creatorsByName;
   //  SharedCreatorMap creators_by_name;
-  QMultiMap<UniqueString, QSharedPointer<EPubContributor>> contributorsById;
-  QMultiMap<QString, QSharedPointer<EPubContributor>> contributorsByName;
-  QSharedPointer<EPubDescription> description;
-  QStringList m_creatorList;
+  QMultiMap<UniqueString, QSharedPointer<EPubContributor>> m_contributorsById;
+  QMultiMap<QString, QSharedPointer<EPubContributor>> m_contributorsByName;
+  QSharedPointer<EPubDescription> m_description;
   QMap<UniqueString, QSharedPointer<EPubLanguage>> m_languages;
   QMap<UniqueString, QSharedPointer<EPubSubject>> m_subjects;
   EPubModified m_modified;
   QDateTime m_date;
   QSharedPointer<EPubSource> m_source;
   QSharedPointer<EPubAttribution> m_attribution;
-  QSharedPointer<EPubPublisher> m_publisher;
+  //  QSharedPointer<EPubPublisher> m_publisher;
   QSharedPointer<EPubFormat> m_format;
   QSharedPointer<EPubRelation> m_relation;
   QSharedPointer<EPubCoverage> m_coverage;
   QSharedPointer<EPubRights> m_rights;
   QSharedPointer<EPubType> m_type;
   QMap<UniqueString, QString> m_extraMetas;
-  QSharedPointer<EPubCalibre> m_calibre;
+  QSharedPointer<Calibre> m_calibre;
   bool m_isFoaf;
 
   bool parseMetadataItem(const QDomNode& metadata_node);
@@ -522,7 +539,7 @@ private:
                            QDomNamedNodeMap& attributeMap);
   void parseOpfMeta(QString tagName,
                     QDomElement& metadataElement,
-                    QDomNamedNodeMap&);
+                    QDomNamedNodeMap& attributeMap);
   void parseCalibreMetas(const UniqueString& id, QDomNode& node);
   void parseRefineMetas(QDomElement& metadataElement,
                         QDomNode& node,
@@ -530,7 +547,7 @@ private:
   void parseTitleDateRefines(QSharedPointer<EPubTitle> shared_title,
                              QDomElement& metadataElement);
   void parseCreatorContributorRefines(
-    QSharedPointer<EPubCreator> shared_creator,
+    QSharedPointer<EPubCreatorContributorBase> creator,
     QDomElement& metadataElement,
     const UniqueString& id,
     QDomNamedNodeMap attributeMap);
@@ -540,14 +557,18 @@ private:
   void parseCreatorRefines(const QString& id,
                            QDomElement metadataElement,
                            QDomNamedNodeMap attributeMap);
+  void parseContributorRefines(const UniqueString& id,
+                               QDomElement metadataElement,
+                               QDomNamedNodeMap attributeMap);
   QSharedPointer<Foaf> parseCreatorContributorFoafAttributes(
     QString property,
     QDomNamedNodeMap attributeMap);
 
   void writeCreator(QXmlStreamWriter* xml_writer,
-                    QSharedPointer<EPubCreator> shared_creator);
-  void writeContributor(QXmlStreamWriter* xml_writer,
-                        QSharedPointer<EPubCreator> shared_creator);
+                    QSharedPointer<EPubCreatorContributorBase> shared_creator);
+  void writeContributor(
+    QXmlStreamWriter* xml_writer,
+    QSharedPointer<EPubCreatorContributorBase> shared_creator);
   QString writeTitleMetadata(QXmlStreamWriter* xml_writer, int key);
   void writeDescriptionMetadata(QXmlStreamWriter* xml_writer);
   QString writeCreatorsMetadata(QXmlStreamWriter* xml_writer, QString key);
@@ -570,9 +591,10 @@ private:
   QString writeCreatorContibutor(QString tag_name,
                                  QXmlStreamWriter* xml_writer,
                                  QString key);
-  QString writeCreatorContributor(QString tag_name,
-                                  QXmlStreamWriter* xml_writer,
-                                  QSharedPointer<EPubCreator> shared_creator);
+  QString writeCreatorContributor(
+    QString tag_name,
+    QXmlStreamWriter* xml_writer,
+    QSharedPointer<EPubCreatorContributorBase> shared_creator);
   void writeIdAttribute(QXmlStreamWriter* xml_writer, const UniqueString& id);
   void writeDirAttribute(QXmlStreamWriter* xml_writer, Direction dir);
   void writeLangAttribute(QXmlStreamWriter* xml_writer, QString dir);
@@ -592,47 +614,5 @@ private:
   //  int getNextTitleIndex();
 };
 
-class EPubMetadata3_0 : public EPubMetadata
-{
-public:
-  EPubMetadata3_0(QSharedPointer<UniqueStringList> uniqueIdList)
-    : EPubMetadata(uniqueIdList)
-  {}
-
-  QList<QSharedPointer<EPubTitle>> orderedTitles() const;
-  void setOrderedTitles(const QList<QSharedPointer<EPubTitle>>& ordered_titles);
-};
-
-class EPubMetadata3_0_1 : public EPubMetadata3_0
-{
-public:
-  EPubMetadata3_0_1(QSharedPointer<UniqueStringList> uniqueIdList)
-    : EPubMetadata3_0(uniqueIdList)
-  {}
-};
-
-class EPubMetadata3_1 : public EPubMetadata3_0_1
-{
-public:
-  EPubMetadata3_1(QSharedPointer<UniqueStringList> uniqueIdList)
-    : EPubMetadata3_0_1(uniqueIdList)
-  {}
-};
-
-class EPubMetadata3_2 : public EPubMetadata3_1
-{
-public:
-  EPubMetadata3_2(QSharedPointer<UniqueStringList> uniqueIdList)
-    : EPubMetadata3_1(uniqueIdList)
-  {}
-};
-
-class EPubMetadata3_3 : public EPubMetadata3_2
-{
-public:
-  EPubMetadata3_3(QSharedPointer<UniqueStringList> uniqueIdList)
-    : EPubMetadata3_2(uniqueIdList)
-  {}
-};
 
 #endif // EBOOKMETADATA_H

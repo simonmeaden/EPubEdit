@@ -1,16 +1,16 @@
 #ifndef LANGUAGES_H
 #define LANGUAGES_H
 
+#include <QByteArray>
 #include <QDate>
 #include <QDialog>
 #include <QDir>
 #include <QFile>
+#include <QObject>
 #include <QString>
 #include <QStringLiteral>
 #include <QThread>
 #include <QUrl>
-#include <QByteArray>
-#include <QObject>
 
 #include <QtDebug>
 
@@ -104,14 +104,14 @@ public:
     UN_STATISTICAL_REGION = 0x80000, //!< A UN statistical area code.
     DUPLICATE_REGION = 0x100000,     //!< A UN statistical area code.
 
-    VARIANT_LANGUAGE=0x200000, //!< A variant language
-    NO_VARIANT_LANGUAGE=0x400000, //!< Not a variant language
+    VARIANT_LANGUAGE = 0x200000,    //!< A variant language
+    NO_VARIANT_LANGUAGE = 0x400000, //!< Not a variant language
 
-    GRANDFATHERED_LANGUAGE=0x100000, //!< A variant language
-    NO_GRANDFATHERED_LANGUAGE=0x1000000, //!< Not a variant language
+    GRANDFATHERED_LANGUAGE = 0x100000,     //!< A variant language
+    NO_GRANDFATHERED_LANGUAGE = 0x1000000, //!< Not a variant language
 
-    REDUNDANT_LANGUAGE=0x200000, //!< A redundant language
-    NO_REDUNDANT_LANGUAGE=0x4000000, //!< Not a redundant language
+    REDUNDANT_LANGUAGE = 0x200000,     //!< A redundant language
+    NO_REDUNDANT_LANGUAGE = 0x4000000, //!< Not a redundant language
 
     BAD_SPACE = 0x80000000,
     BAD_SUBTAG = 0x40000000,
@@ -126,7 +126,6 @@ public:
     int length;
     QString text;
   };
-
 
   BCP47Language();
   virtual ~BCP47Language() = default;
@@ -246,7 +245,6 @@ public:
     EMPTY_NAME = 2,
     EMPTY_VALUE = 4,
     UNKNOWN_TAG_TYPE = 8,
-    //    BAD_TAG_NAME = 16,
   };
   Q_DECLARE_FLAGS(Errors, Error)
 
@@ -345,7 +343,7 @@ public:
   //!
   //! This also reloads the registry in a background thread, checks if the file
   //! has been updated and updates the stored data and YAML file accordingly.
-  virtual void readFromLocalFile(QFile& file);
+  virtual void readFromLocalFile(const QString& filename);
 
   //! \brief Returns the set of description strings.
   //!
@@ -579,7 +577,7 @@ public:
   //! By default the data is saved to a YAML file. This method is virtual to
   //! allow users to create their own languages class that saves the data to a
   //! different file format.
-  virtual void saveToLocalFile(QFile& file);
+  virtual void saveToLocalFile(const QString& filename);
 
   //! Sets the registry name for the iain language registry.
   //!
@@ -599,7 +597,8 @@ public:
   //!
   //! Returns one of two values:
   //! - BCP47Language::EXTENDED_LANGUAGE if it is an extended language tag.
-  //! - BCP47Language::NO_EXTENDED_LANGUAGE if it is NOT an extended language tag.
+  //! - BCP47Language::NO_EXTENDED_LANGUAGE if it is NOT an extended language
+  //! tag.
   BCP47Language::TagType checkExtendedlanguage(const QString& value);
   //! Checks whether the tag is a script tag.
   //!
@@ -624,14 +623,17 @@ public:
   //! Checks whether the tag is a grandfathered language tag.
   //!
   //! Returns one of two values:
-  //! - BCP47Language::GRANDFATHERED_LANGUAGE if it is an grandfathered language tag.
-  //! - BCP47Language::NO_GRANDFATHERED_LANGUAGE if it is NOT an grandfathered language tag.
+  //! - BCP47Language::GRANDFATHERED_LANGUAGE if it is an grandfathered language
+  //! tag.
+  //! - BCP47Language::NO_GRANDFATHERED_LANGUAGE if it is NOT an grandfathered
+  //! language tag.
   BCP47Language::TagType checkGrandfathered(const QString& value);
   //! Checks whether the tag is a redundant language tag.
   //!
   //! Returns one of two values:
   //! - BCP47Language::REDUNDANT_LANGUAGE if it is an redundant language tag.
-  //! - BCP47Language::NO_REDUNDANT_LANGUAGE if it is NOT an redundant language tag.
+  //! - BCP47Language::NO_REDUNDANT_LANGUAGE if it is NOT an redundant language
+  //! tag.
   BCP47Language::TagType checkRedundant(const QString& value);
 
 signals:
@@ -650,6 +652,7 @@ signals:
   void parsingError(const QString& errorStr);
 
 private:
+  QString m_languageFilename;
   QMultiMap<QString, QSharedPointer<BCP47Language>> m_datasetByDescription;
   //  QMultiMap<QString, QSharedPointer<BCP47Language>> m_datasetBySubtag;
   QMap<QString, QSharedPointer<BCP47Language>> m_languageByDescription;
@@ -671,7 +674,6 @@ private:
 
   QDate m_fileDate;
   LanguageParser* worker;
-  QFile m_languageFile;
   QString m_registryName;
   UNStatisticalCodes* m_unStatistical;
 
@@ -681,9 +683,10 @@ private:
   void addLanguage(const QString& description,
                    QSharedPointer<BCP47Language> language);
   void loadYamlFile(QFile& file);
-  void checkLocalFileForNewer(
-    QMultiMap<QString, QSharedPointer<BCP47Language>> map,
-    QDate fileDate);
+//  void checkLocalFileForNewer(
+//    const QString& filename,
+//    QMultiMap<QString, QSharedPointer<BCP47Language>> map,
+//    QDate fileDate);
   void reloadData();
   void parseData(const QByteArray& data);
   void errorReceived(const QString& errorStr);

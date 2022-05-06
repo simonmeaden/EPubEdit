@@ -1,76 +1,125 @@
-#ifndef LIBARAY_H
-#define LIBARAY_H
+#ifndef LIBRARY_H
+#define LIBRARY_H
 
+#include <QDateTime>
 #include <QFile>
 #include <QObject>
+#include <QString>
 #include <QTextStream>
 
+#include "document/sharedbookdata.h"
 #include "qyamlcpp.h"
 
 class EBookOptions;
-class EBookSeriesDB;
+class SharedBookData;
 
-struct EBookData
+class BookData
 {
-  EBookData()
-    : uid(0)
-    , series(0)
-    , modified(false)
-  {}
-  quint64 uid;
-  QString filename;
-  QString title;
-  quint64 series;
-  QString series_index;
-  QString current_spine_id;
-  int current_spine_lineno;
-  bool modified;
+public:
+  BookData();
+  BookData(quint64 uid,
+           const QString& filename,
+           const QString& title,
+           QStringList authors);
+  BookData(quint64 uid,
+           const QString& filename,
+           const QString& title,
+           QStringList authors,
+           const QString& series,
+           quint16 index);
+  BookData(const BookData& other);
 
-  static quint64 m_highest_uid;
-  static quint64 nextUid() { return ++m_highest_uid; }
+  quint64 uid();
+  void setUId(quint64 uid);
+  QString filename();
+  void setFilename(const QString& filename);
+  QString title();
+  void setTitle(const QString& title);
+  QStringList creators();
+  void setCreators(QStringList authors);
+  QString series();
+  void setSeries(const QString& series);
+  quint16 seriesIndex();
+  //  void setSeriesIndex(QString index);
+  void setSeriesIndex(quint16 index);
+  QString currentSpineId() const;
+  void setCurrentSpineId(QString id);
+  quint16 currentSpineLineNo();
+  void setCurrentSpineLineNo(quint8 lineNo);
+  bool modified();
+  void setModified(bool modified);
+  QDateTime dateLastRead();
+  void setDateLastRead(QDateTime dateLastRead);
+  quint64 readPosition();
+  void setReadPosition(quint64 readPosition);
+  bool showContentsList();
+  void setShowContentsList(bool showContentsList);
+
+  // temporary storage of webpage??
+  QString page();
+  void setPage(const QString& page);
+
+  bool isValid();
+
+  static quint64 highestUid;
+  static quint64 nextUid();
+
+private:
+  QSharedDataPointer<SharedBookData> d;
 };
-typedef QSharedPointer<EBookData> BookData;
-typedef QList<BookData> BookList;
-typedef QMap<quint64, BookData> BookMap;
-typedef QMultiMap<QString, BookData> BookByString;
+
+typedef QSharedPointer<BookData> PBookData;
+typedef QList<PBookData> BookList;
+typedef QMap<quint64, PBookData> BookByUInt;
+typedef QMultiMap<QString, PBookData> BookByString;
+class EBookOptions;
+typedef QSharedPointer<EBookOptions> POptions;
 
 class EBookLibraryDB : public QObject
 {
 public:
-  explicit EBookLibraryDB(EBookOptions* options, EBookSeriesDB* series_db);
+  explicit EBookLibraryDB(POptions options, QObject* parent=nullptr);
   ~EBookLibraryDB();
 
   // yaml file stuff
-  void setFilename(QString filename);
-  bool save();
-  bool load(QString filename);
+  bool save(const QString& filename);
+  bool load(const QString& filename);
 
   // book stuff.
-  quint64 insertOrUpdateBook(BookData book_data);
+  quint64 insertOrUpdateBook(PBookData bookData);
   bool removeBook(quint64 index);
 
-  BookData bookByUid(quint64 uid);
+  PBookData bookByUid(quint64 uid);
   BookList bookByTitle(QString title);
-  BookData bookByFile(QString filename);
+  PBookData bookByFile(QString filename);
 
   QString currentBookId(QString filename);
 
   bool isModified();
   void setModified(bool modified);
 
-protected:
-  EBookOptions* m_options;
-  EBookSeriesDB* m_series_db;
+  static const QString FILENAME;
+  static const QString TITLE;
+  static const QString CREATORS;
+  static const QString SERIES_ID;
+  static const QString SERIES_INDEX;
+  static const QString CURRENT_SPINE_ID;
+  static const QString SPINE_LINENO;
+  static const QString LAST_READ;
+  static const QString READ_POSITION;
+  static const QString SHOW_CONTENTS;
+
+private:
+  POptions m_options;
   QString m_filename;
-  BookMap m_book_data;
-  BookByString m_book_by_title;
-  BookByString m_book_by_file;
+  BookByUInt m_bookData;
+  BookByString m_bookByTitle;
+  BookByString m_bookByFile;
 
   bool m_modified;
 
-  bool loadLibrary();
-  bool saveLibrary();
+  bool loadLibrary(const QString& filename);
+  bool saveLibrary(const QString& filename);
 };
-typedef QSharedPointer<EBookLibraryDB> LibraryDB;
 
-#endif // LIBARAY_H
+#endif // LIBRARY_H

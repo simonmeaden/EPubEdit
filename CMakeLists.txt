@@ -30,7 +30,7 @@ find_package(
     LinguistTools
   REQUIRED)
 find_package(
-#  QT5
+#  QT6
 #  NAMES
     Qt6
   COMPONENTS

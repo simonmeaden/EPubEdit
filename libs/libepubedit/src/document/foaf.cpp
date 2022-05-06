@@ -285,7 +285,7 @@ Foaf::id() const
 }
 
 void
-Foaf::setId(const UniqueString& id)
+Foaf::setId(const  UniqueString& id)
 {
   m_id = id;
 }

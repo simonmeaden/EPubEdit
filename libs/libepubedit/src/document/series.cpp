@@ -1,5 +1,5 @@
 #include "document/series.h"
-#include "options.h"
+#include "document/options.h"
 
 quint64 EBookSeriesData::m_highest_uid = 0;
 
@@ -45,17 +45,15 @@ EBookSeriesData::setSeriesWords(const QStringList& series_words)
   m_series_words = series_words;
 }
 
-EBookSeriesDB::EBookSeriesDB(EBookOptions* options)
-  : QObject(options)
+EBookSeriesDB::EBookSeriesDB(POptions options, QObject *parent)
+  : QObject(parent)
   , m_options(options)
   , m_series_changed(false)
 {
-  loadSeries();
 }
 
 EBookSeriesDB::EBookSeriesDB(const EBookSeriesDB& other)
 {
-  m_filename = other.m_filename;
   m_series_map = other.m_series_map;
   m_series_by_name = other.m_series_by_name;
   m_series_list = other.m_series_list;
@@ -63,26 +61,18 @@ EBookSeriesDB::EBookSeriesDB(const EBookSeriesDB& other)
 
 EBookSeriesDB::~EBookSeriesDB()
 {
-  saveSeries();
-}
-
-void
-EBookSeriesDB::setFilename(QString filename)
-{
-  m_filename = filename;
 }
 
 bool
-EBookSeriesDB::save()
+EBookSeriesDB::save(const QString& filename)
 {
-  return saveSeries();
+  return saveSeries(filename);
 }
 
 bool
-EBookSeriesDB::load(QString filename)
+EBookSeriesDB::load(const QString &filename)
 {
-  setFilename(filename);
-  return loadSeries();
+  return loadSeries(filename);
 }
 
 SeriesList
@@ -104,11 +94,9 @@ EBookSeriesDB::seriesByName(QString name)
 }
 
 bool
-EBookSeriesDB::loadSeries()
+EBookSeriesDB::loadSeries(const QString &filename)
 {
-  m_filename = m_options->seriesFile();
-
-  QFile file(m_filename);
+  QFile file(filename);
   if (file.exists()) {
     YAML::Node library_node = YAML::LoadFile(file);
     if (library_node.IsMap()) {
@@ -146,13 +134,10 @@ EBookSeriesDB::loadSeries()
 }
 
 bool
-EBookSeriesDB::saveSeries()
+EBookSeriesDB::saveSeries(const QString &filename)
 {
-  if (m_filename.isEmpty())
-    return false;
-
-  QFile file(m_filename);
-  if (m_series_changed) {
+  QFile file(filename);
+//  if (m_series_changed) {
     if (file.open((QFile::ReadWrite | QFile::Truncate))) {
       YAML::Emitter emitter;
       emitter << YAML::Comment(
@@ -192,8 +177,8 @@ EBookSeriesDB::saveSeries()
     }
 
     return true;
-  }
-  return false;
+//  }
+//  return false;
 }
 
 quint64

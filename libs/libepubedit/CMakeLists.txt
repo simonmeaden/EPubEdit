@@ -54,6 +54,14 @@ target_sources(${PROJECT_NAME}
     src/document/authors.cpp
     include/document/library.h
     src/document/library.cpp
+    include/document/sharedbookdata.h
+    src/document/sharedbookdata.cpp
+    include/document/sharedauthordata.h
+    src/document/sharedauthordata.cpp
+    include/document/options.h
+    src/document/options.cpp
+    include/document/bookpointers.h
+
     include/document/dcterms.h
     src/document/dcterms.cpp
     include/document/foaf.h
@@ -72,8 +80,6 @@ target_sources(${PROJECT_NAME}
     src/config.cpp
     include/forms/configurationeditor.h
     src/forms/configurationeditor.cpp
-    include/options.h
-    src/options.cpp
     src/forms/languagetagbuilderdialogresource.qrc
     include/forms/languagetagbuilderdialog.h
     src/forms/languagetagbuilderdialog.cpp

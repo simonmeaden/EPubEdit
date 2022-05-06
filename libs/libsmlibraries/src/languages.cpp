@@ -287,8 +287,9 @@ BCP47Languages::BCP47Languages(QObject* parent)
 {}
 
 void
-BCP47Languages::saveToLocalFile(QFile& file)
+BCP47Languages::saveToLocalFile(const QString&filename)
 {
+  QFile file(filename);
   if (file.open((QFile::ReadWrite | QFile::Truncate))) {
     // remove non-unique languages. (Those with multiple descriptions)
     QList<QSharedPointer<BCP47Language>> uniqueLanguages = getUniqueLanguages();
@@ -521,18 +522,19 @@ BCP47Languages::updateMaps()
   }
 }
 
-void
-BCP47Languages::checkLocalFileForNewer(
-  QMultiMap<QString, QSharedPointer<BCP47Language>> map,
-  QDate fileDate)
-{
-  if (m_fileDate < fileDate) {
-    m_datasetByDescription = map;
-    updateMaps();
-    emit languagesReset();
-    saveToLocalFile(m_languageFile);
-  }
-}
+//void
+//BCP47Languages::checkLocalFileForNewer(
+//    const QString &filename,
+//  QMultiMap<QString, QSharedPointer<BCP47Language>> map,
+//  QDate fileDate)
+//{
+//  if (m_fileDate < fileDate) {
+//    m_datasetByDescription = map;
+//    updateMaps();
+//    emit languagesReset();
+//    saveToLocalFile(filename);
+//  }
+//}
 
 void
 BCP47Languages::reloadData()
@@ -550,9 +552,9 @@ BCP47Languages::reloadData()
 }
 
 void
-BCP47Languages::readFromLocalFile(QFile& file)
+BCP47Languages::readFromLocalFile(const QString& filename)
 {
-  m_languageFile.setFileName(file.fileName());
+  QFile file(filename);
   if (file.exists()) {
     loadYamlFile(file);
     emit completed();
@@ -689,7 +691,7 @@ BCP47Languages::iainFileParsed(
     if (noErrors) {
       m_fileDate = fileDate;
       m_datasetByDescription = languages;
-      saveToLocalFile(m_languageFile);
+      saveToLocalFile(m_languageFilename);
       emit sendMessage(
         tr("Language file updated %1").arg(m_fileDate.toString(Qt::ISODate)));
     } else {
@@ -808,9 +810,6 @@ BCP47Languages::testTag(QString& tag)
         result->type = type;
         result->text = subvalue;
         result->length = subvalue.length();
-//        if (results.isEmpty()) {
-//          result->position = BCP47Language::FIRST;
-//        }
         results.append(result);
         result.clear();
         continue;
@@ -821,11 +820,6 @@ BCP47Languages::testTag(QString& tag)
         result->type = type;
         result->text = subvalue;
         result->length = subvalue.length();
-//        if (results.size() == 1) {
-//          result->position = BCP47Language::SECOND;
-//        } else {
-//          result->position = BCP47Language::BAD_POSITION;
-//        }
         results.append(result);
         result.clear();
         continue;
@@ -836,13 +830,6 @@ BCP47Languages::testTag(QString& tag)
         result->type = type;
         result->text = subvalue;
         result->length = subvalue.length();
-//        if (results.size() == 1) {
-//          result->position = BCP47Language::SECOND;
-//        } else if (results.size() == 2) {
-//          result->position = BCP47Language::THIRD;
-//        } else {
-//          result->position = BCP47Language::BAD_POSITION;
-//        }
         results.append(result);
         result.clear();
         continue;
@@ -853,15 +840,6 @@ BCP47Languages::testTag(QString& tag)
         result->type = type;
         result->text = subvalue;
         result->length = subvalue.length();
-//        if (results.size() == 1) {
-//          result->position = BCP47Language::SECOND;
-//        } else if (results.size() == 2) {
-//          result->position = BCP47Language::THIRD;
-//        } else if (results.size() == 3) {
-//          result->position = BCP47Language::FOURTH;
-//        } else {
-//          result->position = BCP47Language::BAD_POSITION;
-//        }
         results.append(result);
         result.clear();
         continue;
@@ -869,7 +847,6 @@ BCP47Languages::testTag(QString& tag)
 
       result->length = subvalue.length();
       result->type = BCP47Language::BAD_SUBTAG;
-//      result->position = BCP47Language::BAD_POSITION;
       results.append(result);
       result.clear();
       continue;
@@ -886,7 +863,7 @@ BCP47Languages::testTag(QString& tag)
 BCP47Language::TagType
 BCP47Languages::checkPrimaryLanguage(const QString& value)
 {
-  if (value == "i" || value == "x")
+  if (value == "i" || value == "x" || (value >= "qaa" && value <= "qtz"))
     return BCP47Language::PRIVATE_LANGUAGE;
   else if (isPrimaryLanguage(value))
     return BCP47Language::PRIMARY_LANGUAGE;

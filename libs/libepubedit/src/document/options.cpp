@@ -1,4 +1,4 @@
-#include "options.h"
+#include "document/options.h"
 #include "document/authors.h"
 #include "document/library.h"
 #include "document/series.h"
@@ -34,9 +34,6 @@ QString EBookOptions::VIEW_STATE = "view state";
 
 EBookOptions::EBookOptions(QObject* parent)
   : QObject(parent)
-  , series_db(new EBookSeriesDB(this))
-  , library_db(new EBookLibraryDB(this, series_db))
-  , authors_db(new EBookAuthorsDB(this))
   , m_code_font(QFont("Courier", 10))
   , m_normal_color(Qt::black)
   , m_normal_back(Qt::white)
@@ -109,15 +106,11 @@ EBookOptions::EBookOptions(QObject* parent)
 EBookOptions::~EBookOptions() {}
 
 void
-EBookOptions::save(const QString filename)
+EBookOptions::save(const QString& filename)
 {
-  QFile file;
-  if (filename.isEmpty())
-    file.setFileName(configFile());
-  else
-    file.setFileName(filename);
+  QFile file(filename);
 
-  if (m_pref_changed) {
+//  if (m_pref_changed) {
     if (file.open((QFile::ReadWrite | QFile::Truncate))) {
       YAML::Emitter emitter;
       {
@@ -253,14 +246,14 @@ EBookOptions::save(const QString filename)
       out << emitter.c_str();
       file.close();
     }
-  }
+//  }
 }
 
 void
-EBookOptions::load(const QString filename)
+EBookOptions::load(const QString &filename)
 {
   QFile file(filename);
-  if (file.exists()) {
+  if (file.exists() && file.open(QFile::ReadOnly)) {
     YAML::Node preferences = YAML::LoadFile(file);
     // Last window position.
     if (preferences[POSITION]) {
@@ -815,113 +808,113 @@ EBookOptions::setStyleWeight(const QFont::Weight& style_weight)
   m_pref_changed = true;
 }
 
-QString
-EBookOptions::homeDir() const
-{
-  return m_home_directory;
-}
+//QString
+//EBookOptions::homeDir() const
+//{
+//  return m_home_directory;
+//}
 
-void
-EBookOptions::setHomeDir(const QString& home_directiory)
-{
-  m_home_directory = home_directiory;
-}
+//void
+//EBookOptions::setHomeDir(const QString& home_directiory)
+//{
+//  m_home_directory = home_directiory;
+//}
 
-QString
-EBookOptions::libraryDir() const
-{
-  return m_library_directory;
-}
+//QString
+//EBookOptions::libraryDir() const
+//{
+//  return m_libraryDirectory;
+//}
 
-void
-EBookOptions::setLibraryDir(const QString& library_directory)
-{
-  m_library_directory = library_directory;
-}
+//void
+//EBookOptions::setLibraryDir(const QString& libraryDirectory)
+//{
+//  m_libraryDirectory = libraryDirectory;
+//}
 
-QString
-EBookOptions::configDir() const
-{
-  return m_config_directory;
-}
+//QString
+//EBookOptions::configDir() const
+//{
+//  return m_config_directory;
+//}
 
-void
-EBookOptions::setConfigDir(const QString& config_directory)
-{
-  m_config_directory = config_directory;
-}
+//void
+//EBookOptions::setConfigDir(const QString& config_directory)
+//{
+//  m_config_directory = config_directory;
+//}
 
-QString
-EBookOptions::configFile() const
-{
-  return m_config_file;
-}
+//QString
+//EBookOptions::configFile() const
+//{
+//  return m_config_file;
+//}
 
-void
-EBookOptions::setConfigFile(const QString& config_file)
-{
-  m_config_file = config_file;
-}
+//void
+//EBookOptions::setConfigFile(const QString& config_file)
+//{
+//  m_config_file = config_file;
+//}
 
-QString
-EBookOptions::libraryFile() const
-{
-  return m_lib_file;
-}
+//QString
+//EBookOptions::libraryFile() const
+//{
+//  return m_lib_file;
+//}
 
-void
-EBookOptions::setLibraryFile(const QString& lib_file)
-{
-  m_lib_file = lib_file;
-}
+//void
+//EBookOptions::setLibraryFile(const QString& lib_file)
+//{
+//  m_lib_file = lib_file;
+//}
 
-QString
-EBookOptions::authorsFile() const
-{
-  return m_authors_file;
-}
+//QString
+//EBookOptions::authorsFile() const
+//{
+//  return m_authors_file;
+//}
 
-void
-EBookOptions::setAuthorsFile(const QString& authors_file)
-{
-  m_authors_file = authors_file;
-}
+//void
+//EBookOptions::setAuthorsFile(const QString& authors_file)
+//{
+//  m_authors_file = authors_file;
+//}
 
-QString
-EBookOptions::dicDir() const
-{
-  return m_dic_directory;
-}
+//QString
+//EBookOptions::dicDir() const
+//{
+//  return m_dic_directory;
+//}
 
-void
-EBookOptions::setDicDir(const QString& dic_dir)
-{
-  m_dic_directory = dic_dir;
-}
+//void
+//EBookOptions::setDicDir(const QString& dic_dir)
+//{
+//  m_dic_directory = dic_dir;
+//}
 
-QString
-EBookOptions::bdicDir() const
-{
-  return m_bdic_directory;
-}
+//QString
+//EBookOptions::bdicDir() const
+//{
+//  return m_bdic_directory;
+//}
 
-void
-EBookOptions::setBdicDir(const QString& dic_dir)
-{
-  m_bdic_directory = dic_dir;
-}
+//void
+//EBookOptions::setBdicDir(const QString& dic_dir)
+//{
+//  m_bdic_directory = dic_dir;
+//}
 
-QString
-EBookOptions::seriesFile() const
-{
-  return m_series_file;
-}
+//QString
+//EBookOptions::seriesFile() const
+//{
+//  return m_series_file;
+//}
 
-void
-EBookOptions::setSeriesFile(const QString& seriesFile)
-{
-  m_series_file = seriesFile;
-}
+//void
+//EBookOptions::setSeriesFile(const QString& seriesFile)
+//{
+//  m_series_file = seriesFile;
+//}
 
 QRect
 EBookOptions::rect() const

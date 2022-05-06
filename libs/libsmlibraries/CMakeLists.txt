@@ -78,6 +78,8 @@ target_sources(${PROJECT_NAME}
     src/helpdialogs.cpp
     include/stringutil.h
     src/stringutil.cpp
+    include/borderlayout.h
+    src/borderlayout.cpp
 )
 
 add_subdirectory(tests)

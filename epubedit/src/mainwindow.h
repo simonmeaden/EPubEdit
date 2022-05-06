@@ -20,7 +20,8 @@
 #include <QToolBar>
 
 class EPubEdit;
-class Config;
+
+#include "document/bookpointers.h"
 
 class MainWindow : public QMainWindow
 {
@@ -34,8 +35,13 @@ signals:
   void shutdown(int returnCode = 0);
 
 protected:
+//  void resizeEvent(QResizeEvent* event) {
+//    auto r = rect();
+//    auto os = event->oldSize();
+//    auto s = event->size();
+//  }
 private:
-  Config* m_config;
+  PConfig m_config;
   int m_width, m_height;
   QAction *m_fileNewAct, *m_fileOpenAct, *m_fileSaveAct, *m_fileExitAct;
   QAction *m_editUndoAct, *m_editRedoAct, *m_editDeleteAct, *m_editCutAct,
@@ -44,7 +50,7 @@ private:
   QAction *m_helpContentsAct, *m_helpIndexAct, *helpContextAct, *m_helpAboutAct,
     *m_helpAboutPluginsAct;
   QMenu *m_fileMenu, *m_editMenu, *m_toolsMenu, *m_helpMenu;
-  QLabel *m_lineLbl, *m_colLbl, *m_msgLbl;
+//  QLabel *m_lineLbl, *m_colLbl, *m_msgLbl;
   EPubEdit* m_editor;
   QPlainTextEdit* m_logPage;
 
@@ -53,7 +59,7 @@ private:
   void saveFile();
   void cleanup();
 
-  bool loadEpubDocument(const QString& filename);
+  bool loadDocument(const QString& filename);
 
   void initGui();
 
