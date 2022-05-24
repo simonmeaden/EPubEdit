@@ -18,6 +18,7 @@
 #include <QTabWidget>
 #include <QTimer>
 #include <QToolBar>
+#include <QUndoStack>
 
 class EPubEdit;
 
@@ -35,11 +36,7 @@ signals:
   void shutdown(int returnCode = 0);
 
 protected:
-//  void resizeEvent(QResizeEvent* event) {
-//    auto r = rect();
-//    auto os = event->oldSize();
-//    auto s = event->size();
-//  }
+
 private:
   PConfig m_config;
   int m_width, m_height;
@@ -50,13 +47,14 @@ private:
   QAction *m_helpContentsAct, *m_helpIndexAct, *helpContextAct, *m_helpAboutAct,
     *m_helpAboutPluginsAct;
   QMenu *m_fileMenu, *m_editMenu, *m_toolsMenu, *m_helpMenu;
-//  QLabel *m_lineLbl, *m_colLbl, *m_msgLbl;
   EPubEdit* m_editor;
   QPlainTextEdit* m_logPage;
+  QUndoStack* m_undoStack;
 
   void newEpub();
   void openFile();
   void saveFile();
+  void saveAsFile();
   void cleanup();
 
   bool loadDocument(const QString& filename);

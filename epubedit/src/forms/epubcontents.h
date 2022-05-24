@@ -6,12 +6,10 @@
 #include <QPainter>
 #include <QHoverEvent>
 
-#include "borderlayout.h"
 #include "document/bookpointers.h"
 #include "document/epubmetadata.h"
 #include "x11colors.h"
 
-class HeaderWidget;
 
 class ContentsFrame : public QWidget
 {
@@ -25,11 +23,10 @@ public:
   void closeBtnClicked();
 
 private:
-  HeaderWidget* m_header;
 
   void initGui();
 
-  friend class HeaderWidget;
+  friend class DockHeader;
 };
 
 #endif // EPUBCONTENTS_H

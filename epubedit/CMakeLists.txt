@@ -32,15 +32,10 @@ target_sources(${PROJECT_NAME}
     src/forms/epubcontents.cpp
     src/forms/mainwidget.h
     src/forms/mainwidget.cpp
-    src/forms/basewidget.h
-    src/forms/basewidget.cpp
-    src/forms/toolbarwidget.h
-    src/forms/toolbarwidget.cpp
-    src/forms/footerwidget.h
-    src/forms/footerwidget.cpp
-    src/forms/headerwidget.h
-    src/forms/headerwidget.cpp
-    src/forms/widgetwrapper.h
+    src/forms/centralwidget.h
+    src/forms/centralwidget.cpp
+    src/forms/infowidget.h
+    src/forms/infowidget.cpp
 
     src/images.qrc
 

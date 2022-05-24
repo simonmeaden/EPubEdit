@@ -11,9 +11,8 @@
 //====================================================================
 const QString MetadataForm::TITLESTR = "%1%2";
 
-MetadataForm::MetadataForm(QUndoStack* undoStack, QWidget* parent)
+MetadataForm::MetadataForm(QWidget* parent)
   : QFrame(parent)
-  , m_undoStack(undoStack)
   , m_currentTitleIndex(QModelIndex())
   , m_currentAuthorIndex(QModelIndex())
 {
@@ -146,7 +145,7 @@ MetadataForm::addTitle()
     // adding the command to the stack calls redo() on the command so we don't
     // actually need to add the title manually.
     auto addCommand = new AddTitleCommand(m_titleView, text, row);
-    m_undoStack->push(addCommand);
+    emit pushUndoAction(addCommand);
     m_modifications.setFlag(TITLES_CHANGED, true);
     emit sendStatusMessage(
       tr("Adding new title \"%1\"").arg(m_titleView->titleStrAt(row)));
@@ -231,7 +230,7 @@ MetadataForm::modifyTitle()
     if (!titleStr2.isEmpty() && titleStr1 != titleStr2) {
       // adding the command to the stack calls redo() on the command so we don't
       // actually need to modify the title manually.
-      m_undoStack->push(new ModifyTitleCommand(
+      emit pushUndoAction(new ModifyTitleCommand(
         m_titleView, m_document->metadata(), titleStr2, row, titleStr1));
       m_modifications.setFlag(TITLES_CHANGED, true);
       emit sendStatusMessage(
@@ -258,7 +257,7 @@ MetadataForm::setId()
                              QMessageBox::Ok,
                              QMessageBox::Ok);
       } else {
-        m_undoStack->push(new SetIdCommand(m_titleView, idStr1, idStr2, row));
+        emit pushUndoAction(new SetIdCommand(m_titleView, idStr1, idStr2, row));
         m_modifications.setFlag(TITLES_CHANGED, true);
         emit sendStatusMessage(
           tr("ID \"%1\" has been changed to \"%2\".").arg(idStr1, idStr2));
@@ -294,7 +293,7 @@ MetadataForm::removeTitle()
                               QMessageBox::No);
       if (btn == QMessageBox::Yes) {
         //        m_titleView->removeTitle(row);
-        m_undoStack->push(new RemoveTitleCommand(
+        emit pushUndoAction(new RemoveTitleCommand(
           m_titleView, title, m_currentTitleIndex.row()));
         m_currentTitleIndex = m_titleView->primaryTitleIndex();
         m_modifications.setFlag(TITLES_CHANGED, true);
@@ -342,7 +341,7 @@ MetadataForm::setPrimaryTitle()
         auto title2 = m_titleView->titleAt(row2);
         // adding the command to the stack calls redo() on the command so we
         // don't actually need to swap the title manually.
-        m_undoStack->push(
+        emit pushUndoAction(
           new SwapTitleCommand(m_titleView, title1, 0, title2, row2));
         m_currentTitleIndex = m_titleView->primaryTitleIndex();
         m_modifications.setFlag(TITLES_CHANGED, true);
@@ -373,7 +372,7 @@ MetadataForm::moveTitleIdToPrimary()
       auto id2 = m_titleView->idAt(row2);
       // adding the command to the stack calls redo() on the command so we
       // don't actually need to swap the title manually.
-      m_undoStack->push(new SwapIdCommand(m_titleView, id1, 0, id2, row2));
+      emit pushUndoAction(new SwapIdCommand(m_titleView, id1, 0, id2, row2));
       m_currentTitleIndex = m_titleView->primaryTitleIndex();
       m_modifications.setFlag(ID_CHANGED, true);
       emit sendStatusMessage(
@@ -394,7 +393,7 @@ MetadataForm::addAuthor()
     // actually need to add the title manually.
     auto addCommand =
       new AddAuthorCommand(m_metadataView, m_document->metadata(), text, row);
-    m_undoStack->push(addCommand);
+    emit pushUndoAction(addCommand);
     m_modifications.setFlag(AUTHORS_CHANGED, true);
     emit sendStatusMessage(
       tr("Adding new title \"%1\"").arg(m_titleView->titleStrAt(row)));
@@ -421,7 +420,7 @@ MetadataForm::modifyAuthor()
     if (!newAuthor.isEmpty() && newAuthor != oldAuthor) {
       // adding the command to the stack calls redo() on the command so we don't
       // actually need to modify the title manually.
-      m_undoStack->push(new ModifyAuthorCommand(
+      emit pushUndoAction(new ModifyAuthorCommand(
         m_metadataView, m_document->metadata(), oldAuthor, row, newAuthor));
       m_modifications.setFlag(AUTHORS_CHANGED, true);
       emit sendStatusMessage(
@@ -458,7 +457,7 @@ MetadataForm::removeAuthor()
                               QMessageBox::Yes | QMessageBox::No,
                               QMessageBox::No);
       if (btn == QMessageBox::Yes) {
-        m_undoStack->push(new RemoveAuthorCommand(m_metadataView,
+        emit pushUndoAction(new RemoveAuthorCommand(m_metadataView,
                                                   m_document->metadata(),
                                                   author,
                                                   m_currentAuthorIndex.row()));
@@ -501,7 +500,7 @@ MetadataForm::setPrimaryAuthor()
         auto author2 = m_metadataView->authorAt(row2);
         // adding the command to the stack calls redo() on the command so we
         // don't actually need to swap the title manually.
-        m_undoStack->push(
+        emit pushUndoAction(
           new SwapAuthorCommand(m_metadataView, author1, 0, author2, row2));
         m_currentAuthorIndex = m_metadataView->primaryAuthorIndex();
         m_modifications.setFlag(TITLES_CHANGED, true);

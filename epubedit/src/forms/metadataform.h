@@ -26,7 +26,6 @@
 
 #include <QUndoCommand>
 #include <QUndoStack>
-#include <QUndoView>
 
 class Metadata;
 class EPubTitle;
@@ -53,7 +52,7 @@ public:
   Q_DECLARE_FLAGS(Modifications, Modified)
   Q_FLAG(MetadataForm::Modifications)
 
-  MetadataForm(QUndoStack* undoStack, QWidget* parent = nullptr);
+  MetadataForm(QWidget* parent = nullptr);
   ~MetadataForm();
 
   void setDocument(PDocument document);
@@ -63,9 +62,9 @@ public:
 signals:
   void dataHasChanged(MetadataForm::Modifications mods);
   void sendStatusMessage(const QString& message, int timeout = 20);
+  void pushUndoAction(QUndoCommand*undoCommand);
 
 private:
-  QUndoStack* m_undoStack;
   TitleView* m_titleView;
   MetadataList* m_metadataView;
   PDocument m_document;

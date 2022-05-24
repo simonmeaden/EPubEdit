@@ -41,8 +41,6 @@ target_sources(${PROJECT_NAME}
     src/languages.cpp
     include/unstatistical.h
     src/unstatistical.cpp
-#    include/iso639codes.h
-#    src/iso639codes.cpp
     include/filedownloader.h
     src/filedownloader.cpp
     include/abstractlabelledspinbox.h
@@ -78,6 +76,8 @@ target_sources(${PROJECT_NAME}
     src/helpdialogs.cpp
     include/stringutil.h
     src/stringutil.cpp
+    include/dockwidget.h
+    src/dockwidget.cpp
     include/borderlayout.h
     src/borderlayout.cpp
 )

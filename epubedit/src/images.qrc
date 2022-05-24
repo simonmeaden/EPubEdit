@@ -20,16 +20,16 @@
         <file>icons/document-open-recent.png</file>
         <file>icons/document-print.png</file>
         <file alias="Save">icons/document-save.png</file>
-        <file>icons/document-save-as.png</file>
+        <file alias="SaveAs">icons/document-save-as.png</file>
         <file>icons/ebook-reader.png</file>
         <file>icons/edit-clear.png</file>
         <file>icons/edit-clear-all.png</file>
-        <file>icons/edit-copy.png</file>
-        <file>icons/edit-cut.png</file>
-        <file>icons/edit-delete.png</file>
+        <file alias="Copy">icons/edit-copy.png</file>
+        <file alias="Cut">icons/edit-cut.png</file>
+        <file alias="Delete">icons/edit-delete.png</file>
         <file>icons/edit-find.png</file>
         <file>icons/edit-find-replace.png</file>
-        <file>icons/edit-paste.png</file>
+        <file alias="Paste">icons/edit-paste.png</file>
         <file>icons/edit-redo.png</file>
         <file>icons/edit-select-all.png</file>
         <file>icons/edit-undo.png</file>
@@ -61,5 +61,25 @@
         <file alias="hideV">icons/hideshowcontentsv.png</file>
         <file alias="hideFrame">icons/hideframe.png</file>
         <file alias="hideH">icons/hideshowcontentsh.png</file>
+        <file alias="GNew">icons/document-new_g.png</file>
+        <file alias="GOpen">icons/document-open_g.png</file>
+        <file alias="GOpenRecent">icons/document-open-recent_g.png</file>
+        <file alias="GPrint">icons/document-print_g.png</file>
+        <file alias="GSaveAs">icons/document-save-as_g.png</file>
+        <file alias="GSave">icons/document-save_g.png</file>
+        <file alias="GClearAll">icons/edit-clear-all_g.png</file>
+        <file alias="GCut">icons/edit-cut_g.png</file>
+        <file alias="GDelete">icons/edit-delete_g.png</file>
+        <file alias="GFind">icons/edit-find_g.png</file>
+        <file alias="GFindReplace">icons/edit-find-replace_g.png</file>
+        <file alias="GPaste">icons/edit-paste_g.png</file>
+        <file alias="GRedo">icons/edit-redo_g.png</file>
+        <file alias="GSelectAll">icons/edit-select-all_g.png</file>
+        <file alias="GUndo">icons/edit-undo_g.png</file>
+        <file alias="GIndentless">icons/format-indent-less_g.png</file>
+        <file alias="GIndentLessRTL">icons/format-indent-less-rtl_g.png</file>
+        <file alias="GIndentMore">icons/format-indent-more_g.png</file>
+        <file alias="GTextDirLTR">icons/format-text-direction-ltr_g.png</file>
+        <file alias="GTextDirRTL">icons/format-text-direction-rtl_g.png</file>
     </qresource>
 </RCC>

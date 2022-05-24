@@ -17,12 +17,13 @@
 
 MainWindow::MainWindow(QWidget* parent)
   : QMainWindow(parent)
+  , m_config(PConfig(new Config()))
   , m_width(1200)
   , m_height(800)
+  , m_undoStack(new QUndoStack(this))
 {
   qRegisterMetaType<Direction>("Direction");
 
-  m_config = PConfig(new Config());
   // cleanup shit
   connect(this, &MainWindow::destroyed, this, &MainWindow::cleanup);
   // Qt::QueuedConnection is recommended here otherwise close might not happen.
@@ -114,6 +115,12 @@ void
 MainWindow::saveFile()
 {
   // TODO
+  qWarning();
+}
+
+void MainWindow::saveAsFile()
+{
+  // TODO
 }
 
 void
@@ -134,12 +141,16 @@ MainWindow::initGui()
 {
   setStatusBar(nullptr);
 
-  auto mainFrame = new MainWidget(m_config, this);
-  mainFrame->setContentsMargins(0, 0, 0, 0);
-  setCentralWidget(mainFrame);
+  auto mainWidget = new MainWidget(m_config, m_undoStack, this);
+  mainWidget->setContentsMargins(0, 0, 0, 0);
+  setCentralWidget(mainWidget);
+  connect(mainWidget, &MainWidget::newClicked, this, &MainWindow::newEpub);
+  connect(mainWidget, &MainWidget::openClicked, this, &MainWindow::openFile);
+  connect(mainWidget, &MainWidget::saveClicked, this, &MainWindow::saveFile);
 
-  m_editor = mainFrame->editor();
-  m_logPage = mainFrame->logPage();
+
+  m_editor = mainWidget->editor();
+  m_logPage = mainWidget->logPage();
 
   initActions();
   initMenus();
@@ -171,12 +182,12 @@ MainWindow::initFileActions()
 
 void
 MainWindow::initEditActions()
-{ //, *, *, *,*, *
-  m_editUndoAct = m_editor->undoAction();
+{
+  m_editUndoAct = m_undoStack->createUndoAction(this, tr("&Undo"));
   m_editUndoAct->setShortcuts(QKeySequence::Undo);
   connect(m_editUndoAct, &QAction::triggered, this, &MainWindow::editUndo);
 
-  m_editRedoAct = m_editor->redoAction();
+  m_editRedoAct = m_undoStack->createRedoAction(this, tr("&Redo"));;
   m_editRedoAct->setShortcuts(QKeySequence::Redo);
   connect(m_editRedoAct, &QAction::triggered, this, &MainWindow::editRedo);
 

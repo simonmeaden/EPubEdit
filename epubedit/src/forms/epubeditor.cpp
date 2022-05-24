@@ -6,7 +6,9 @@
 EPubEditor::EPubEditor(PConfig config, QWidget* parent)
   : QTextEdit(parent)
   , m_config(config)
-{}
+{
+  setFrameStyle(QFrame::NoFrame);
+}
 
 EPubEditor::~EPubEditor() {}
 

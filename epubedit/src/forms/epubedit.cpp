@@ -11,21 +11,19 @@
 #include "document/sharedbookdata.h"
 #include "forms/epubcontents.h"
 #include "forms/epubeditor.h"
+//#include "forms/basewidget.h"
 #include "forms/metadataform.h"
-#include "forms/footerwidget.h"
 
 EPubEdit::EPubEdit(PConfig config, QWidget* parent)
-  : QWidget(parent)
+  : DockWidget(parent)
   , m_config(config)
   , m_options(POptions(new EBookOptions()))
   , m_libraryDB(PLibraryDB(new EBookLibraryDB(m_options)))
   , m_seriesDB(PSeriesDB(new EBookSeriesDB(m_options)))
   , m_authorsDB(PAuthorsDB(new EBookAuthorsDB()))
-  , m_undoStack(new QUndoStack(this))
   , m_loaded(false)
 {
-  m_undoView = new QUndoView(m_undoStack);
-  m_undoView->setWindowTitle(tr("Metadata Undo List"));
+  setContentsMargins(0, 0, 0, 0);
 
   loadConfig();
   initGui();
@@ -163,25 +161,23 @@ EPubEdit::isLoaded() const
   return m_loaded;
 }
 
-QUndoView*
-EPubEdit::undoView()
-{
-  m_undoView = new QUndoView(m_undoStack);
-  m_undoView->setWindowTitle(tr("Metadata Undo List"));
-  return m_undoView;
-}
+//QUndoView*
+//EPubEdit::undoView()
+//{
+//  return m_undoView;
+//}
 
-QAction*
-EPubEdit::undoAction()
-{
-  return m_undoStack->createUndoAction(this, tr("&Undo"));
-}
+//QAction*
+//EPubEdit::undoAction()
+//{
+//  return m_undoStack->createUndoAction(this, tr("&Undo"));
+//}
 
-QAction*
-EPubEdit::redoAction()
-{
-  return m_undoStack->createRedoAction(this, tr("&Redo"));
-}
+//QAction*
+//EPubEdit::redoAction()
+//{
+//  return m_undoStack->createRedoAction(this, tr("&Redo"));
+//}
 
 void
 EPubEdit::updateMetadataForm()
@@ -220,17 +216,38 @@ EPubEdit::toggleOpenClicked()
 void
 EPubEdit::initGui()
 {
-  setContentsMargins(0, 0, 0, 0);
-
-  auto layout = new BorderLayout;
+  auto layout = new DockLayout();
   layout->setContentsMargins(0, 0, 0, 0);
   setLayout(layout);
 
+//  QPalette p;
+//  p.setColor(QPalette::Window, QColor("red"));
+//  setPalette(p);
+
+//  m_header = new HeaderWidget(this);
+//  layout->addWidget(m_header, BorderLayout::North);
+
+//  QImage img(":/icons/hideH");
+//  m_header->addIconButton(
+//    WidgetPosition::Left, img, tr("Toggle visibility of first"));
+
+//  img = QImage(":/icons/hideV");
+//  m_header->addIconButton(
+//    WidgetPosition::Left, img, tr("Toggle visibility of second"));
+
+//  img = QImage(":/icons/hideV");
+//  m_header->addIconButton(
+//    WidgetPosition::Right, img, tr("Toggle visibility of second"));
+//  img = QImage(":/icons/hideH");
+//  m_header->addIconButton(
+//    WidgetPosition::Right, img, tr("Toggle visibility of first"));
+
+
   m_splitter = new QSplitter(this);
-  m_splitter->setContentsMargins(0,0,0,0);
+  m_splitter->setContentsMargins(0, 0, 0, 0);
   connect(
     m_splitter, &QSplitter::splitterMoved, this, &EPubEdit::splitterHasMoved);
-  layout->addWidget(m_splitter, BorderLayout::Center);
+  layout->addWidget(m_splitter, DockLayout::Center);
 
   m_contentsFrame = new ContentsFrame(this);
   m_contentsFrame->setToolTip("BLOODY CONTENTS FORM!!!");
@@ -242,16 +259,13 @@ EPubEdit::initGui()
   m_editor->setContentsMargins(0, 0, 0, 0);
   m_splitter->addWidget(m_editor);
 
-  m_metadataForm = new MetadataForm(m_undoStack, this);
+  m_metadataForm = new MetadataForm(this);
   m_metadataForm->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   connect(m_metadataForm,
           &MetadataForm::dataHasChanged,
           this,
           &EPubEdit::metadataHasChanged);
   m_splitter->addWidget(m_metadataForm);
-
-  m_footer = new FooterWidget(this);
-  layout->addWidget(m_footer, BorderLayout::South);
 }
 
 void
@@ -273,109 +287,3 @@ EPubEdit::saveConfig()
   m_libraryDB->save(m_config->libraryFilename());
 }
 
-////====================================================================
-////=== FooterWidget
-////====================================================================
-
-//EPubEdit::FooterWidget::FooterWidget(QWidget* parent)
-//  : QWidget(parent)
-//  , m_parent(static_cast<EPubEdit*>(parent))
-//  , m_back(QColorConstants::X11::DimGrey)
-//  , m_hoverBack(QColorConstants::X11::DarkGrey)
-//  , m_hoverOverButton(false)
-//{
-//  setFixedHeight(HEIGHT);
-//  setMouseTracking(true);
-//  setAttribute(Qt::WA_Hover);
-//  setContentsMargins(0, 0, 0, 0);
-//}
-
-//void
-//EPubEdit::FooterWidget::paintEvent(QPaintEvent* event)
-//{
-//  QWidget::paintEvent(event);
-//  QPainter painter(this);
-
-//  painter.fillRect(m_frameRect, m_back);
-//  if (!m_hoverOverButton) {
-//    painter.fillRect(m_buttonRect, m_back);
-//  } else {
-//    painter.fillRect(m_buttonRect, m_hoverBack);
-//  }
-
-//  QImage img(":/icons/hideshowcontents.png");
-//  painter.drawImage(m_buttonRect.x() + 3, 3, img);
-//}
-
-//void
-//EPubEdit::FooterWidget::resizeEvent(QResizeEvent* event)
-//{
-//  auto r = rect();
-//  m_buttonRect = QRect(0, 0, BUTTON_WIDTH, HEIGHT);
-//  m_frameRect = QRect(BUTTON_WIDTH, 0, r.width() - BUTTON_WIDTH, HEIGHT);
-
-//  QWidget::resizeEvent(event);
-//}
-
-//void
-//EPubEdit::FooterWidget::hoverEnter(QHoverEvent* event)
-//{
-//  if (m_buttonRect.contains(event->pos())) {
-//    m_hoverOverButton = true;
-//  } else {
-//    m_hoverOverButton = false;
-//  }
-//  repaint(m_buttonRect);
-//}
-
-//void
-//EPubEdit::FooterWidget::hoverLeave(QHoverEvent* event)
-//{
-//  m_hoverOverButton = false;
-//  repaint(m_buttonRect);
-//}
-
-//void
-//EPubEdit::FooterWidget::hoverMove(QHoverEvent* event)
-//{
-//  if (m_buttonRect.contains(event->pos())) {
-//    m_hoverOverButton = true;
-//  } else {
-//    m_hoverOverButton = false;
-//  }
-//  repaint(m_buttonRect);
-//}
-
-//void
-//EPubEdit::FooterWidget::mousePressEvent(QMouseEvent* event)
-//{
-//  if (m_buttonRect.contains(event->pos())) {
-//    emit m_parent->toggleOpenClicked();
-//  }
-//}
-
-//void
-//EPubEdit::FooterWidget::mouseReleaseEvent(QMouseEvent* event)
-//{}
-
-//bool
-//EPubEdit::FooterWidget::event(QEvent* event)
-//{
-//  switch (event->type()) {
-//    case QEvent::HoverEnter:
-//      hoverEnter(static_cast<QHoverEvent*>(event));
-//      return true;
-//      break;
-//    case QEvent::HoverLeave:
-//      hoverLeave(static_cast<QHoverEvent*>(event));
-//      return true;
-//      break;
-//    case QEvent::HoverMove:
-//      hoverMove(static_cast<QHoverEvent*>(event));
-//      return true;
-//      break;
-//    default:
-//      break;
-//  }
-//  return QWidget::event(event);
-//}

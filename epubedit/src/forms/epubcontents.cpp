@@ -1,5 +1,6 @@
 #include "epubcontents.h"
-#include "headerwidget.h"
+//#include "basewidget.h"
+#include "dockwidget.h"
 
 //====================================================================
 //=== ContentsForm
@@ -27,15 +28,13 @@ ContentsFrame::initGui()
   setAutoFillBackground(true);
   setContentsMargins(0, 0, 0, 0);
 
-  auto layout = new BorderLayout;
+  auto layout = new DockLayout();
+  layout->setSpacing(0);
   layout->setContentsMargins(0, 0, 0, 0);
   setLayout(layout);
 
-  m_header = new HeaderWidget(this);
-  layout->addWidget(m_header, BorderLayout::North);
-
   auto f = new QFrame(this);
-  layout->addWidget(f, BorderLayout::Center);
+  layout->addWidget(f, DockLayout::Center);
 }
 
 

@@ -18,10 +18,11 @@
 #include <QUndoView>
 #include <QWidget>
 
-#include "borderlayout.h"
+//#include "borderlayout.h"
 #include "config.h"
 #include "document/bookpointers.h"
 #include "forms/metadataform.h"
+#include "dockwidget.h"
 
 class EPubEditor;
 class ContentsFrame;
@@ -34,36 +35,9 @@ struct Page
   QString path;
 };
 
-class FooterWidget;
-
-class EPubEdit : public QWidget
+class EPubEdit : public DockWidget
 {
   Q_OBJECT
-
-//  class FooterWidget : public QWidget
-//  {
-//  public:
-//    explicit FooterWidget(QWidget* parent = nullptr);
-
-//  protected:
-//    void paintEvent(QPaintEvent* event);
-//    void resizeEvent(QResizeEvent* event);
-//    void hoverEnter(QHoverEvent* event);
-//    void hoverLeave(QHoverEvent* event);
-//    void hoverMove(QHoverEvent* event);
-//    void mousePressEvent(QMouseEvent* event);
-//    void mouseReleaseEvent(QMouseEvent* event);
-//    bool event(QEvent* event);
-
-//  private:
-//    EPubEdit* m_parent;
-//    QRect m_buttonRect, m_frameRect;
-//    QBrush m_back, m_hoverBack;
-//    bool m_hoverOverButton = false;
-
-//    static const int HEIGHT = 20;
-//    static const int BUTTON_WIDTH = 19;
-//  };
 
 public:
   explicit EPubEdit(PConfig config, QWidget* parent = nullptr);
@@ -78,9 +52,9 @@ public:
 
   bool isLoaded() const;
 
-  QUndoView* undoView();
-  QAction* undoAction();
-  QAction* redoAction();
+  //  QUndoView* undoView();
+  //  QAction* undoAction();
+  //  QAction* redoAction();
 
   void openCloseClicked();
 
@@ -91,7 +65,6 @@ signals:
 
 private:
   QSplitter* m_splitter;
-  FooterWidget* m_footer;
   MetadataForm* m_metadataForm;
   ContentsFrame* m_contentsFrame;
   EPubEditor* m_editor;
@@ -105,9 +78,8 @@ private:
 
   QString m_currentBookFilename;
 
-  QUndoStack* m_undoStack;
-  QUndoView* m_undoView;
-//  QTabWidget* m_tabs;
+  //  QUndoView* m_undoView;
+  //  QTabWidget* m_tabs;
   bool m_loaded;
   QList<UniqueString> m_pageOrder;
   QMap<UniqueString, Page> m_pages;
