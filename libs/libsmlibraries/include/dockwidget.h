@@ -9,6 +9,9 @@
 #include <QResizeEvent>
 #include <QToolTip>
 #include <QWidget>
+#include <QWidgetItem>
+
+#include <algorithm>
 
 //#include "borderlayout.h"
 #include "x11colors.h"
@@ -17,6 +20,7 @@ class Config;
 class DockToolbar;
 class DockFooter;
 class DockHeader;
+class DockWidget;
 typedef QSharedPointer<Config> PConfig;
 
 enum WidgetType
@@ -39,17 +43,18 @@ enum WidgetType
  * always at the bottom and there can only be one of each.
  */
 
-// enum DockPosition
-//{
-//   North, //!< The top of the DockWidget.
-//   South, //!< The Bottom of the DockWidget.
-//   East,  //!< The Right of the DockWidget.
-//   West,  //!< The Left of the DockWidget.
-//   NorthEast, //!< Only corner widgets.
-//   NorthWest, //!< Only corner widgets.
-//   SouthEast, //!< Only corner widgets.
-//   SouthWest, //!< Only corner widgets.
-// };
+enum DockPosition
+{
+  West,
+  North,
+  South,
+  East,
+  NorthEast, //!< Only corner widgets.
+  NorthWest, //!< Only corner widgets.
+  SouthEast, //!< Only corner widgets.
+  SouthWest, //!< Only corner widgets.
+  Center
+};
 
 /*!
  * \enum The WidgetPosition defines where the widget appears within the
@@ -87,94 +92,23 @@ enum Arrangement
  */
 enum CornerType
 {
-  Box,    //!< A blank box is formed at the corner.
-  Height, //!< DockToolbar's have priority at corners.
-  Width,  //!< DockHeader's and DockFooter's have priority at corners.
-  None,   //!< DockToolbars, DockHeader's and DockFooter's have priority
-          //!< depending on order of creation.
+  Box,   //!< A blank box is formed at the corner.
+  VEdge, //!< East/West DockToolbar's have priority at corners.
+  HEdge, //!< North/South DockToolbar's, DockHeader's and DockFooter's have
+         //!< priority at corners.
+  None, /*!< DockToolbars, DockHeader's and DockFooter's have priority depending
+          on order of creation.*/
 };
 
-class DockLayout : public QLayout
-{
-public:
-  enum Position
-  {
-    West,
-    North,
-    South,
-    East,
-    NorthEast, //!< Only corner widgets.
-    NorthWest, //!< Only corner widgets.
-    SouthEast, //!< Only corner widgets.
-    SouthWest, //!< Only corner widgets.
-    Center
-  };
+class DockCorner;
+class DockItem;
 
-  explicit DockLayout(QWidget* parent,
-                      const QMargins& margins = QMargins(),
-                      int spacing = -1);
-  DockLayout(int spacing = -1);
-  ~DockLayout();
 
-  void addItem(QLayoutItem* item) override;
-  void addWidget(QWidget* widget, Position position);
-  Qt::Orientations expandingDirections() const override;
-  bool hasHeightForWidth() const override;
-  int count() const override;
-  QLayoutItem* itemAt(int index) const override;
-  QSize minimumSize() const override;
-  void setGeometry(const QRect& rect) override;
-  QSize sizeHint() const override;
-  QLayoutItem* takeAt(int index) override;
-
-  void add(QLayoutItem* item, Position position);
-
-  CornerType topLeft() const;
-  void setTopLeft(CornerType type);
-  CornerType topRight() const;
-  void setTopRight(CornerType type);
-  CornerType bottomLeft() const;
-  void setBottomLeft(CornerType type);
-  CornerType bottomRight() const;
-  void setBottomRight(CornerType type);
-  void setCornerType(CornerType type);
-  void setCornerType(CornerType topLeft,
-                     CornerType topRight,
-                     CornerType bottomLeft,
-                     CornerType bottomRight);
-
-private:
-  struct ItemWrapper
-  {
-    ItemWrapper(QLayoutItem* i, Position p)
-    {
-      item = i;
-      position = p;
-    }
-
-    QLayoutItem* item;
-    Position position;
-  };
-
-  QList<ItemWrapper*> m_items;
-  CornerType m_northWest = None;
-  CornerType m_northEast = None;
-  CornerType m_southWest = None;
-  CornerType m_southEast = None;
-
-  enum SizeType
-  {
-    MinimumSize,
-    SizeHint
-  };
-  QSize calculateSize(SizeType sizeType) const;
-};
-
-class WidgetWrapper : public QObject
+class WidgetItem : public QObject
 {
   Q_OBJECT
 public:
-  WidgetWrapper(QObject* parent = nullptr);
+  WidgetItem(DockWidget* parent);
 
 signals:
   void widgetClicked();
@@ -186,8 +120,8 @@ signals:
   void widgetChanged();
 
 public:
-  static const int TOPMARGIN = 3;
-  static const int BOTTOMMARGIN = 3;
+  static const int TOPMARGIN = 1;
+  static const int BOTTOMMARGIN = 1;
   static const int LEFTMARGIN = 3;
   static const int RIGHTMARGIN = 3;
   static const int TEXT_SPACER = 2;
@@ -210,7 +144,8 @@ public:
   void setSelected(bool newSelected);
 
   const QRect& rect() const;
-  void setRect(const QRect& newRect);
+
+  virtual void setGeometry(const QRect& rect, const QRect& = QRect());
 
   WidgetType type() const;
   void setType(WidgetType newType);
@@ -227,27 +162,19 @@ public:
   bool isHoverOver() const;
   void setHoverOver(bool newHoverOver);
 
-  virtual const QSize calcSize() = 0;
-  virtual void paintWidget(QPainter& painter) = 0;
-  virtual void resizeEvent(QRect& r, int& min, int& max) = 0;
+  virtual const QSize calcMinimumSize() = 0;
+
+  QSize sizeHint() const;
+
+  virtual void paint(QPainter& painter) = 0;
 
   void paintBackground(QPainter& painter);
 
-  const QBrush& backColor() const;
-  void setBackColor(const QBrush& newBackColor);
-
-  const QBrush& hoverBackColor() const;
-  void setHoverBackColor(const QBrush& newHoverBackColor);
-
-  const QBrush& selectedColor() const;
-  void setSelectedColor(const QBrush& newSelectedColor);
-
-  const QSize& content() const;
+  const QSize& minContentSize() const;
 
 protected:
-  QBrush m_backColor;
-  QBrush m_hoverBackColor;
-  QBrush m_selectedColor;
+  DockWidget* m_parent;
+  QFontMetrics m_fontMetrics;
   QRect m_rect;
   WidgetType m_type = Button;
   WidgetPosition m_widgetPosition = Start;
@@ -257,16 +184,16 @@ protected:
   bool m_selected = false;
   bool m_enabled = true;
   QMargins m_margins;
-  QSize m_content;
+  QSize m_minContentSize;
 
   int halfDifference(int large, int small);
 };
 
-class SpacerWidget : public WidgetWrapper
+class SpacerWidget : public WidgetItem
 {
   Q_OBJECT
 public:
-  SpacerWidget(QObject* parent = nullptr);
+  SpacerWidget(DockWidget* parent);
 
   const QColor& color() const;
   void setColor(const QColor& newColor);
@@ -275,23 +202,28 @@ public:
   void setThickness(int newThickness);
 
   // WidgetWrapper interface
-  const QSize calcSize();
-  void paintWidget(QPainter& painter);
-  void resizeEvent(QRect& r, int& min, int& max);
+  const QSize calcMinimumSize();
+  void paint(QPainter& painter);
 
 private:
   QColor m_color;
   int m_thickness = 1;
 };
 
-class CustomWidget : public WidgetWrapper
-{};
+class CustomWidget : public WidgetItem
+{
+public:
+  virtual QSize sizeHint() const = 0;
 
-class ButtonWidget : public WidgetWrapper
+  static WidgetItem* create(const QString& type);
+  static WidgetItem* create(QWidget* sister);
+};
+
+class ButtonWidget : public WidgetItem
 {
   Q_OBJECT
 public:
-  ButtonWidget(QObject* parent = nullptr);
+  ButtonWidget(DockWidget* parent);
 
   const QRect& iconRect() const;
   void setIconRect(const QRect& newIconRect);
@@ -315,9 +247,10 @@ public:
   void setTextColor(const QColor& newTextColor);
 
   // WidgetWrapper interface
-  const QSize calcSize();
-  void paintWidget(QPainter& painter);
-  void resizeEvent(QRect& r, int& min, int& max);
+  const QSize calcMinimumSize();
+  void paint(QPainter& painter);
+  //  void resizeEvent(QRect& r, int& min, int& max);
+  void setGeometry(const QRect& widgetRect, const QRect& contentsRect);
 
 private:
   QRect m_iconRect;
@@ -341,11 +274,10 @@ class DockWidget : public QWidget
   Q_OBJECT
 
 public:
-  explicit DockWidget(QWidget* parent = nullptr);
-  //  DockWidget(DockWidget&&) = default;
+  explicit DockWidget(QWidget* parent);
 
   QWidget* centreWidget() const;
-  void setCentreWidget(QWidget* newCentreWidget);
+  void setCentalWidget(QWidget* newCentreWidget);
 
   /*!
    * \brief Adds a new ToolbarWidget at the new position, if that position is
@@ -354,12 +286,87 @@ public:
    * If a ToolbarWidget already exists at that position then this is ignored. If
    * it a toolbar is to be replaced call removeToolbar(WidgetPosition) first.
    */
-  void addToolbar(DockLayout::Position position);
+  DockToolbar* addToolbar(DockPosition position);
+
   /*!
    * \brief Removes and deletes an existing ToolbarWidget at position, if it
    * exists, otherwise nothing is done.
    */
-  void removeToolbar(DockLayout::Position osition);
+  void removeToolbar(DockPosition position);
+  void removeToolbar(DockToolbar* toolbar);
+  void hideToolbar(DockPosition position);
+  void hideToolbar(DockToolbar* toolbar);
+  void showToolbar(DockPosition position);
+  void showToolbar(DockToolbar* toolbar);
+
+//  void setToolbarPosition(DockPosition oldPosition, DockPosition newPosition);
+
+  DockFooter* addFooter();
+  void removeFooter();
+  void hideFooter();
+  void showFooter();
+
+  DockHeader* addHeader();
+  void removeHeader();
+  void hideHeader();
+  void showHeader();
+
+  const QBrush& backColor() const;
+  void setBackColor(const QBrush& newBackColor);
+
+  const QBrush& hoverBackColor() const;
+  void setHoverBackColor(const QBrush& newHoverBackColor);
+
+  const QBrush& selectedColor() const;
+  void setSelectedColor(const QBrush& newSelectedColor);
+
+  const QColor& textColor() const;
+  void setTextColor(const QColor& newTextColor);
+
+  const QColor& spacerColor() const;
+  void setSpacerColor(const QColor& newSpacerColor);
+
+  WidgetItem* addToolbarIconButton(DockPosition toolbarPos,
+                                   WidgetPosition pos,
+                                   QImage icon,
+                                   const QString& tooltip = QString());
+  WidgetItem* addFooterIconButton(WidgetPosition pos,
+                                  QImage icon,
+                                  const QString& tooltip = QString());
+  WidgetItem* addHeaderIconButton(WidgetPosition pos,
+                                  QImage icon,
+                                  const QString& tooltip = QString());
+  WidgetItem* addToolbarIconTextButton(DockPosition toolbarPos,
+                                       WidgetPosition position,
+                                       QImage icon,
+                                       const QString& text,
+                                       Arrangement textPos,
+                                       const QString& tooltip = QString());
+  WidgetItem* addHeaderIconTextButton(WidgetPosition position,
+                                      QImage icon,
+                                      const QString& text,
+                                      Arrangement textPos,
+                                      const QString& tooltip = QString());
+  WidgetItem* addFooterIconTextButton(WidgetPosition position,
+                                      QImage icon,
+                                      const QString& text,
+                                      Arrangement textPos,
+                                      const QString& tooltip = QString());
+  WidgetItem* addToolbarTextButton(DockPosition toolbarPos,
+                                   WidgetPosition position,
+                                   const QString& text,
+                                   const QString& tooltip = QString());
+  WidgetItem* addHeaderTextButton(WidgetPosition position,
+                                  const QString& text,
+                                  const QString& tooltip = QString());
+  WidgetItem* addFooterTextButton(WidgetPosition position,
+                                  const QString& text,
+                                  const QString& tooltip = QString());
+  WidgetItem* addToolbarSpacer(DockPosition toolbarPos,
+                               WidgetPosition position);
+  WidgetItem* addHeaderSpacer(WidgetPosition position);
+  WidgetItem* addFooterSpacer(WidgetPosition position);
+
   /*!
    * \brief Moves the ToolbarWidget at oldPosition to newPosition, if it exists
    * and if there is no ToolbarWidget already at newPosition.
@@ -371,90 +378,83 @@ public:
    * If there is already an existing ToolbarWidget at newPosition you will need
    * to call removeToolbar(Widgetposition) first.
    */
-  void setToolbarPosition(DockLayout::Position oldPosition,
-                          DockLayout::Position newPosition);
+  bool moveToolbar(DockPosition newPosition, DockPosition oldPosition);
 
-  void addFooter();
-  void addHeader();
+  void setCorner(DockPosition position, CornerType type);
+  void setCorners(CornerType northWest,
+                  CornerType northEast,
+                  CornerType southWest,
+                  CornerType southEast);
 
-  WidgetWrapper* addToolbarIconButton(DockLayout::Position toolbarPos,
-                                      WidgetPosition pos,
-                                      QImage icon,
-                                      const QString& tooltip = QString());
-  WidgetWrapper* addFooterIconButton(WidgetPosition pos,
-                                     QImage icon,
-                                     const QString& tooltip = QString());
-  WidgetWrapper* addHeaderIconButton(WidgetPosition pos,
-                                     QImage icon,
-                                     const QString& tooltip = QString());
-  WidgetWrapper* addToolbarIconTextButton(DockLayout::Position toolbarPos,
-                                          WidgetPosition position,
-                                          QImage icon,
-                                          const QString& text,
-                                          Arrangement textPos,
-                                          const QString& tooltip = QString());
-  WidgetWrapper* addHeaderIconTextButton(WidgetPosition position,
-                                         QImage icon,
-                                         const QString& text,
-                                         Arrangement textPos,
-                                         const QString& tooltip = QString());
-  WidgetWrapper* addFooterIconTextButton(WidgetPosition position,
-                                         QImage icon,
-                                         const QString& text,
-                                         Arrangement textPos,
-                                         const QString& tooltip = QString());
-  WidgetWrapper* addToolbarTextButton(DockLayout::Position toolbarPos,
-                                      WidgetPosition position,
-                                      const QString& text,
-                                      const QString& tooltip = QString());
-  WidgetWrapper* addHeaderTextButton(WidgetPosition position,
-                                     const QString& text,
-                                     const QString& tooltip = QString());
-  WidgetWrapper* addFooterTextButton(WidgetPosition position,
-                                     const QString& text,
-                                     const QString& tooltip = QString());
-  WidgetWrapper* addToolbarSpacer(DockLayout::Position toolbarPos,
-                                  WidgetPosition position);
-  WidgetWrapper* addHeaderSpacer(WidgetPosition position);
-  WidgetWrapper* addFooterSpacer(WidgetPosition position);
+  void setCornerSize(DockPosition position, int width, int height);
+  void setCornerSize(DockPosition position, QSize size);
+  void setCornerWidth(DockPosition position, int width);
+  void setCornerHeight(DockPosition position, int height);
+
+  void paintEvent(QPaintEvent* event) override;
+  void hoverEnterEvent(QHoverEvent* event);
+  void hoverLeaveEvent(QHoverEvent*);
+  void hoverMoveEvent(QHoverEvent* event);
+  void mousePressEvent(QMouseEvent* event) override;
+  void mouseReleaseEvent(QMouseEvent*) override;
+  bool event(QEvent* event) override;
+
+  void hoverWidgetEvent();
+
+  void setCorner(DockCorner* corner);
+  DockCorner* corner(DockPosition position);
+
+
+signals:
+  void geometryChanged(int north, int south, int east, int west);
 
 protected:
-  DockLayout* m_layout;
+  //  DockLayout* m_layout;
 
-  void setCornerType(CornerType topLeft,
-                     CornerType topRight,
-                     CornerType bottomLeft,
-                     CornerType bottomRight);
+  void resizeEvent(QResizeEvent* event) override;
 
 private:
-  QMap<DockLayout::Position, DockToolbar*> m_toolbars;
+  //  QMap<DockPosition, DockToolbar*> m_toolbars;
   DockFooter* m_footer = nullptr;
   DockHeader* m_header = nullptr;
+  DockCorner* m_northWest = nullptr;
+  DockCorner* m_northEast = nullptr;
+  DockCorner* m_southWest = nullptr;
+  DockCorner* m_southEast = nullptr;
+  DockToolbar* m_northToolbar = nullptr;
+  DockToolbar* m_southToolbar = nullptr;
+  DockToolbar* m_eastToolbar = nullptr;
+  DockToolbar* m_westToolbar = nullptr;
+  QWidget* m_centralWidget = nullptr;
 
-  QWidget* m_centreWidget;
+  QBrush m_backColor;
+  QBrush m_hoverBackColor;
+  QBrush m_selectedColor;
+  QColor m_textColor;
+  QColor m_spacerColor;
+
+  WidgetItem* m_hoverItem = nullptr;
 
   void initGui();
-  DockToolbar* addNewToolbar(DockLayout::Position position);
+  void calculateGeometry(const QRect& rect);
+  void mouseClickCheck(DockItem* item, QPoint pos);
+  bool dockItemHoverCheck(DockItem* item, QPoint pos);
+  DockToolbar* toolbarAt(DockPosition position);
+  DockToolbar* toolbarTakeAt(DockPosition position);
+  bool setToolbarAt(DockPosition position, DockToolbar* toolbar = nullptr);
 };
 
 /*!
- * \class BaseWidget basewidget.h basewidget.cpp
+ * \class DockItem dockidget.h dockwidget.cpp
  * \brief This class is the base class of all the ToolbarWidget/HeaderWidget and
  * FooterWidget classes and does most of the background work of those classes.
  */
-
-/*!
- * \class ToolbarWidget basewidget.h basewidget.cpp
- * \brief This class is the base class of all the ToolbarWidget/HeaderWidget and
- * FooterWidget classes and does most of the background work of those classes.
- */
-class DockWidgetItem : public QWidget
+class DockItem : public QObject
 {
   Q_OBJECT
 public:
-  explicit DockWidgetItem(DockLayout::Position position,
-                          QWidget* parent = nullptr);
-  ~DockWidgetItem();
+  explicit DockItem(DockPosition position, DockWidget* parent);
+  ~DockItem();
 
   /*!
    * \brief Adds an icon only button to the Header/Footer/Toolbar widget
@@ -462,16 +462,16 @@ public:
    *
    * \return the index of the stored wrapper.
    */
-  WidgetWrapper* addIconButton(WidgetPosition pos,
-                               QImage icon,
-                               const QString& tooltip = QString());
+  WidgetItem* addIconButton(WidgetPosition pos,
+                            QImage icon,
+                            const QString& tooltip = QString());
   /*!
    * \brief Adds an icon with text button to the Header/Footer/Toolbar widget
    * and an optional tooltip.
    *
    * \return the index of the stored wrapper.
    */
-  WidgetWrapper* addIconTextButton(
+  WidgetItem* addIconTextButton(
     WidgetPosition pos,
     QImage icon,
     const QString& text,
@@ -483,18 +483,18 @@ public:
    *
    * \return the index of the stored wrapper.
    */
-  WidgetWrapper* addTextButton(WidgetPosition pos,
-                               const QString& text,
-                               const QString& tooltip = QString());
+  WidgetItem* addTextButton(WidgetPosition pos,
+                            const QString& text,
+                            const QString& tooltip = QString());
 
-  WidgetWrapper* addSpacer(WidgetPosition);
+  WidgetItem* addSpacer(WidgetPosition);
 
   /*!
    * \brief Adds a custom widget to the Header/Footer/Toolbar widget.
    *
    *
    */
-  WidgetWrapper* addCustomWidget(CustomWidget* w);
+  WidgetItem* addCustomWidget(CustomWidget* w);
 
   /*!
    * \brief Sets the text in the Header/Footer/Toolbar widget.
@@ -519,7 +519,7 @@ public:
    * \note The index indicates the position in which the widget was added,
    * not necessarily the position within the list.
    */
-  WidgetWrapper* takeAt(int index);
+  WidgetItem* takeAt(int index);
 
   /*!
    * \brief Returns the widget at the index.
@@ -531,7 +531,7 @@ public:
    * \note The index indicates the position in which the widget was added,
    * not necessarily the position within the list.
    */
-  WidgetWrapper* at(int index);
+  WidgetItem* at(int index);
 
   /*!
    * \brief Replaces the existing widget with another.
@@ -541,16 +541,15 @@ public:
    *
    * \return
    */
-  bool replace(int index, WidgetWrapper* w);
-
-  //  int spacer() const;
-  //  void setSpacer(int newSpacer);
+  bool replace(int index, WidgetItem* w);
 
   bool widgetEnabled(int index);
   bool enableWidget(int index, bool value);
 
   bool selected(int index);
   bool setSelected(int index, bool value);
+
+  void calculateGeometry(const QRect& rect);
 
   QMargins widgetMargins(int index);
   void setWidgetMargins(int index, int left, int top, int right, int bottom);
@@ -559,40 +558,46 @@ public:
   void setPreferredSize(QSize size);
   void setPreferredWidth(int width);
   void setPreferredHeight(int height);
-  QSize sizeHint() const;
+  virtual QSize sizeHint() const = 0;
 
-  DockLayout::Position dockPosition() const;
+  DockPosition dockPosition() const;
 
-  int maxWidth() const;
-  int maxHeight() const;
+  int maxWidgetWidth() const;
+  int maxWidgetHeight() const;
+
+  int height() const;
+  int width() const;
+
+  bool isVisible() const;
+  void setVisible(bool newShow);
+  void show();
+  void hide();
+
+  virtual void paint(QPainter& painter);
+
+  const QList<WidgetItem*>& widgets() const;
 
 signals:
   void buttonClicked(int index);
 
 protected:
-  DockLayout::Position m_dockPosition;
-  QList<WidgetWrapper*> m_widgets;
-  QBrush m_backColor;
-  QBrush m_hoverBackColor;
-  QBrush m_selectedColor;
-  QColor m_textColor;
-  QColor m_spacerColor;
+  DockWidget* m_parent;
+  DockPosition m_dockPosition;
+  QFontMetrics m_fontMetrics;
+  QList<WidgetItem*> m_widgets;
+  bool m_visible = true;
+  QRect m_rect;
 
-  QRect m_frameRect;
   int m_width;
   int m_height;
-  //  int m_spacer;
   int m_maxWidgetWidth = 0;
   int m_maxWidgetHeight = 0;
 
-  void paintEvent(QPaintEvent* event);
-  void hoverEnterEvent(QHoverEvent* event);
-  void hoverLeaveEvent(QHoverEvent*);
-  void hoverMoveEvent(QHoverEvent* event);
-  void mousePressEvent(QMouseEvent* event);
-  void mouseReleaseEvent(QMouseEvent*);
-  bool event(QEvent* event);
-  void resizeEvent(QResizeEvent* event);
+  bool m_itemsSameSize = false;
+
+  QMargins calcMaxMargins();
+  QSize calcMaxContentsSize();
+  void calcWidgetSizes();
 
 private:
   static const int HEIGHT = 25;
@@ -602,37 +607,36 @@ private:
   // just places a blank space at the end of the toolbar.
   static const int TOOLBAR_ENDER = 5;
 
-  WidgetWrapper* createWidgetWrapper(WidgetType type,
-                                     WidgetPosition pos,
-                                     QImage image,
-                                     const QString& text,
-                                     Arrangement textPos,
-                                     const QString& tooltip);
+  WidgetItem* createWidgetItem(WidgetType type,
+                               WidgetPosition pos,
+                               QImage image,
+                               const QString& text,
+                               Arrangement textPos,
+                               const QString& tooltip);
   int halfDifference(int large, int small) { return int((large - small) / 2); }
-  QMargins calcMaxMargins();
-  QSize calcMaxContentsSize();
-  void calcWidgetSizes();
 };
 
 /*!
- * \class FooterWidget basewidget.h basewidget.cpp
- * \brief The FooterWidget class is a special case of BaseWidget that is
+ * \class DockFooter basewidget.h basewidget.cpp
+ * \brief The DockFooter class is a special case of BaseWidget that is
  *        fixed at the bottom
  *
- * Please note that FooterWidget buttons only allow icons, any text is ignored.
+ * Please note that DockFooter buttons only allow icons, any text is ignored.
  */
-class DockFooter : public DockWidgetItem
+class DockFooter : public DockItem
 {
 public:
-  explicit DockFooter(QWidget* parent = nullptr);
+  explicit DockFooter(DockWidget* parent);
 
-protected:
-  void paintEvent(QPaintEvent* event);
+  QSize sizeHint() const;
+
+  void paint(QPainter& painter);
 
 private:
-  static const int HEIGHT = 25;
-  static const int WIDTH = 25;
+  static const int HEIGHT = 26;
+  static const int WIDTH = 26;
 };
+
 /*!
  * \class HeaderWidget basewidget.h basewidget.cpp
  * \brief The FooterWidget class is a special case of BaseWidget that is
@@ -641,83 +645,65 @@ private:
  * Please note that HeaderWidget buttons only allow icons, any text is ignored.
  */
 
-class DockHeader : public DockWidgetItem
+class DockHeader : public DockItem
 {
 public:
-  explicit DockHeader(QWidget* parent = nullptr);
+  explicit DockHeader(DockWidget* parent);
 
-protected:
-  void paintEvent(QPaintEvent* event);
+  QSize sizeHint() const;
+
+  void paint(QPainter& painter);
 
 private:
-  static const int HEIGHT = 25;
-  static const int WIDTH = 25;
+  static const int HEIGHT = 26;
+  static const int WIDTH = 26;
 };
 
-class DockToolbar : public DockWidgetItem
+class DockToolbar : public DockItem
 {
 public:
-  explicit DockToolbar(DockLayout::Position position,
-                       QWidget* parent = nullptr);
+  explicit DockToolbar(DockPosition position, DockWidget* parent);
 
   static const int WIDTH = 60;
   static const int HEIGHT = 60;
 
-  DockLayout::Position dockPosition();
-  void setDockPosition(DockLayout::Position position);
+  DockPosition dockPosition();
+  void setDockPosition(DockPosition position);
+
+  QSize sizeHint() const;
+
+  void paint(QPainter& painter);
 
 protected:
-  void paintEvent(QPaintEvent* event);
-
 private:
 };
 
-class DockWidthCorner : public DockWidgetItem
+class DockCorner : public DockItem
 {
 public:
-  DockWidthCorner(DockLayout::Position position, QWidget* parent = nullptr);
+  DockCorner(CornerType type, DockPosition position, DockWidget* parent);
 
-  // WidgetWrapper interface
-  void paintEvent(QPaintEvent* event);
-  void resizeEvent(QResizeEvent* event);
+  //  void resizeEvent(QResizeEvent* event);
 
-protected:
-  DockLayout::Position dockPosition();
-  void setDockPosition(DockLayout::Position position);
+  DockPosition dockPosition();
+  void setDockPosition(DockPosition position);
 
-private:
-};
+  CornerType type() const;
 
-class DockHeightCorner : public DockWidgetItem
-{
-public:
-  DockHeightCorner(DockLayout::Position position, QWidget* parent = nullptr);
+  QSize sizeHint() const;
 
-  // WidgetWrapper interface
-  void paintEvent(QPaintEvent* event);
-  void resizeEvent(QResizeEvent* event);
+  int width() const;
+  void setWidth(int newWidth);
 
-protected:
-  DockLayout::Position dockPosition();
-  void setDockPosition(DockLayout::Position position);
+  int height() const;
+  void setHeight(int newHeight);
+
+  void paint(QPainter& painter);
 
 private:
-};
-
-class DockBoxCorner : public DockWidgetItem
-{
-public:
-  DockBoxCorner(DockLayout::Position position, QWidget* parent = nullptr);
-
-  // WidgetWrapper interface
-  void paintEvent(QPaintEvent* event);
-  void resizeEvent(QResizeEvent* event);
-
-protected:
-  DockLayout::Position dockPosition();
-  void setDockPosition(DockLayout::Position position);
-
-private:
+  CornerType m_type;
+  int m_width = -1;
+  int m_height = -1;
 };
 
 #endif // DOCKWIDGET_H

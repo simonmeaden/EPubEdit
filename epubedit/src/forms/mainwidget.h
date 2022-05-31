@@ -4,11 +4,12 @@
 #include <QUndoStack>
 #include <QUndoView>
 #include <QPlainTextEdit>
+#include <QDebug>
 
 #include "dockwidget.h"
 
 class CentralWidget;
-class EPubEdit;
+class EPubEditor;
 
 class MainWidget : public DockWidget
 {
@@ -16,7 +17,7 @@ class MainWidget : public DockWidget
 public:
   MainWidget(PConfig config, QUndoStack* undoStack, QWidget* parent);
 
-  EPubEdit* editor();
+  EPubEditor* editor();
   QPlainTextEdit* logPage() const;
   QUndoView* undoView();
 
@@ -28,6 +29,15 @@ signals:
 
 private:
   CentralWidget* m_centralWidget = nullptr;
+
+  void internalGeometryUpdate(int north, int south, int east, int west);
+  void splitScreen();
+  void hideLeftSidebar();
+  void showLeftSidebar();
+  void hideRightSidebar();
+  void showRightSidebar();
+  void toggleLeftSidebar();
+  void toggleRightSidebar();
 };
 
 #endif // MAINWIDGET_H

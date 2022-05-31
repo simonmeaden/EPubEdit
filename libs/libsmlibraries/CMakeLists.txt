@@ -78,6 +78,8 @@ target_sources(${PROJECT_NAME}
     src/stringutil.cpp
     include/dockwidget.h
     src/dockwidget.cpp
+    include/multisplitter.h
+    src/multisplitter.cpp
     include/borderlayout.h
     src/borderlayout.cpp
 )

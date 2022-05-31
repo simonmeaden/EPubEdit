@@ -24,8 +24,8 @@ target_sources(${PROJECT_NAME}
     src/forms/titleview.cpp
     src/forms/metadatalist.h
     src/forms/metadatalist.cpp
-    src/forms/epubedit.h
-    src/forms/epubedit.cpp
+#    src/forms/epubedit.h
+#    src/forms/epubedit.cpp
     src/forms/epubeditor.h
     src/forms/epubeditor.cpp
     src/forms/epubcontents.h

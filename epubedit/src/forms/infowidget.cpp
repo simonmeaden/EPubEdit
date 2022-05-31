@@ -11,7 +11,11 @@ InfoWidget::InfoWidget(PConfig config, QUndoStack* undoStack, QWidget* parent)
 {
   setContentsMargins(0, 0, 0, 0);
 
-//  addHeader();
+  auto p = palette();
+  p.setColor(QPalette::Window, QColor("lightgreen"));
+  setPalette(p);
+
+  //  addHeader();
 
   //  m_header = new HeaderWidget(this);
   //  layout->addWidget(m_header, BorderLayout::North);
@@ -31,22 +35,23 @@ InfoWidget::InfoWidget(PConfig config, QUndoStack* undoStack, QWidget* parent)
   //  m_header->addIconButton(
   //    WidgetPosition::Right, img, tr("Toggle visibility of first"));
 
-  m_splitter = new QSplitter(this);
-  m_splitter->setContentsMargins(0, 0, 0, 0);
-  connect(
-    m_splitter, &QSplitter::splitterMoved, this, &InfoWidget::splitterHasMoved);
-  m_splitter->setSizes(m_config->iSplitterSizes());
-  setCentreWidget(m_splitter);
+  //  m_splitter = new QSplitter(this);
+  //  m_splitter->setContentsMargins(0, 0, 0, 0);
+  //  connect(
+  //    m_splitter, &QSplitter::splitterMoved, this,
+  //    &InfoWidget::splitterHasMoved);
+  //  m_splitter->setSizes(m_config->iSplitterSizes());
+  //  setCentreWidget(m_splitter);
 
-  m_logPage = new QPlainTextEdit(this);
-  m_logPage->setContentsMargins(0, 0, 0, 0);
-  m_logPage->setReadOnly(true);
-  m_splitter->addWidget(m_logPage);
+  //  m_logPage = new QPlainTextEdit(this);
+  //  m_logPage->setContentsMargins(0, 0, 0, 0);
+  //  m_logPage->setReadOnly(true);
+  //  m_splitter->addWidget(m_logPage);
 
-  m_undoView = new QUndoView(m_undoStack);
-  m_undoView->setContentsMargins(0, 0, 0, 0);
-  m_undoView->setWindowTitle(tr("Metadata Undo List"));
-  m_splitter->addWidget(m_undoView);
+  //  m_undoView = new QUndoView(m_undoStack);
+  //  m_undoView->setContentsMargins(0, 0, 0, 0);
+  //  m_undoView->setWindowTitle(tr("Metadata Undo List"));
+  //  m_splitter->addWidget(m_undoView);
 }
 
 QUndoView*

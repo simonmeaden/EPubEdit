@@ -28,13 +28,13 @@ ContentsFrame::initGui()
   setAutoFillBackground(true);
   setContentsMargins(0, 0, 0, 0);
 
-  auto layout = new DockLayout();
-  layout->setSpacing(0);
-  layout->setContentsMargins(0, 0, 0, 0);
-  setLayout(layout);
+//  auto layout = new DockLayout();
+//  layout->setSpacing(0);
+//  layout->setContentsMargins(0, 0, 0, 0);
+//  setLayout(layout);
 
-  auto f = new QFrame(this);
-  layout->addWidget(f, DockLayout::Center);
+//  auto f = new QFrame(this);
+//  layout->setCentralWidget(f);
 }
 
 

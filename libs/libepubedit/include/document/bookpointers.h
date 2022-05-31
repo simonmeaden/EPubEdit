@@ -1,14 +1,14 @@
 #ifndef POINTERS_H
 #define POINTERS_H
 
-#include <QSharedPointer>
 #include <QScopedPointer>
+#include <QSharedPointer>
 
-#include "library.h"
-#include "series.h"
 #include "authors.h"
-#include "options.h"
 #include "config.h"
+#include "library.h"
+#include "options.h"
+#include "series.h"
 //#include "epubmetadata.h"
 
 // QSharedpointer typedefs for epubedit.

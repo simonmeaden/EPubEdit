@@ -123,7 +123,7 @@ EPubEdit::loadDocument(const QString& filename)
               &MetadataForm::sendStatusMessage,
               this,
               &EPubEdit::sendStatusMessage);
-      m_editor->setDocument(m_document);
+      m_editor->setEpubDocument(m_document);
       m_loaded = true;
     }
   }
@@ -216,7 +216,7 @@ EPubEdit::toggleOpenClicked()
 void
 EPubEdit::initGui()
 {
-  auto layout = new DockLayout();
+  auto layout = new QGridLayout();
   layout->setContentsMargins(0, 0, 0, 0);
   setLayout(layout);
 
@@ -243,29 +243,34 @@ EPubEdit::initGui()
 //    WidgetPosition::Right, img, tr("Toggle visibility of first"));
 
 
-  m_splitter = new QSplitter(this);
-  m_splitter->setContentsMargins(0, 0, 0, 0);
-  connect(
-    m_splitter, &QSplitter::splitterMoved, this, &EPubEdit::splitterHasMoved);
-  layout->addWidget(m_splitter, DockLayout::Center);
+//  m_splitter = new QSplitter(this);
+//  m_splitter->setContentsMargins(0, 0, 0, 0);
+//  connect(
+//    m_splitter, &QSplitter::splitterMoved, this, &EPubEdit::splitterHasMoved);
+//  layout->addWidget(m_splitter);
 
-  m_contentsFrame = new ContentsFrame(this);
-  m_contentsFrame->setToolTip("BLOODY CONTENTS FORM!!!");
-  m_splitter->addWidget(m_contentsFrame);
+//  m_editor = new EPubEditor(m_config);
+//  m_editor->setContentsMargins(0, 0, 0, 0);
+//  m_splitter->addWidget(m_editor);
 
-  m_splitter->setSizes(m_config->hSplitterSizes());
+//  m_contentsFrame = new ContentsFrame(this);
+//  m_contentsFrame->setToolTip("BLOODY CONTENTS FORM!!!");
+//  m_splitter->addWidget(m_contentsFrame);
+
+//  m_splitter->setSizes(m_config->hSplitterSizes());
 
   m_editor = new EPubEditor(m_config);
   m_editor->setContentsMargins(0, 0, 0, 0);
-  m_splitter->addWidget(m_editor);
+  m_editor->hide();
+//  m_splitter->addWidget(m_editor);
 
-  m_metadataForm = new MetadataForm(this);
-  m_metadataForm->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-  connect(m_metadataForm,
-          &MetadataForm::dataHasChanged,
-          this,
-          &EPubEdit::metadataHasChanged);
-  m_splitter->addWidget(m_metadataForm);
+//  m_metadataForm = new MetadataForm(this);
+//  m_metadataForm->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+//  connect(m_metadataForm,
+//          &MetadataForm::dataHasChanged,
+//          this,
+//          &EPubEdit::metadataHasChanged);
+//  m_splitter->addWidget(m_metadataForm);
 }
 
 void

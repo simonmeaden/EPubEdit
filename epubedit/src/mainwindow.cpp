@@ -2,7 +2,7 @@
 #include "config.h"
 #include "document/epubmetadata.h"
 #include "forms/configurationeditor.h"
-#include "forms/epubedit.h"
+#include "forms/epubeditor.h"
 //#include "languages.h"
 #include "forms/languagetagbuilderdialog.h"
 #include "forms/mainwidget.h"
@@ -53,12 +53,12 @@ MainWindow::MainWindow(QWidget* parent)
           &MainWindow::setStatusMessage);
   connect(
     m_config.data(), &Config::sendLogMessage, this, &MainWindow::setLogMessage);
-  connect(m_editor,
-          &EPubEdit::sendStatusMessage,
-          this,
-          &MainWindow::setStatusMessage);
-  connect(
-    m_editor, &EPubEdit::sendLogMessage, this, &MainWindow::setLogMessage);
+//  connect(m_editor,
+//          &EPubEditor::sendStatusMessage,
+//          this,
+//          &MainWindow::setStatusMessage);
+//  connect(
+//    m_editor, &EPubEditor::sendLogMessage, this, &MainWindow::setLogMessage);
 
   const auto sr = qApp->screens().at(0)->availableGeometry();
   const QRect wr({}, this->frameSize().boundedTo(sr.size()));
@@ -92,7 +92,8 @@ MainWindow::MainWindow(QWidget* parent)
 MainWindow::~MainWindow()
 {
   m_config->save();
-  m_editor->saveConfig();
+  if (m_editor)
+    m_editor->saveConfig();
 }
 
 void
@@ -118,9 +119,11 @@ MainWindow::saveFile()
   qWarning();
 }
 
-void MainWindow::saveAsFile()
+void
+MainWindow::saveAsFile()
 {
   // TODO
+  qWarning();
 }
 
 void
@@ -133,9 +136,12 @@ MainWindow::cleanup()
 bool
 MainWindow::loadDocument(const QString& filename)
 {
-  return m_editor->loadDocument(filename);
+//  if (m_editor)
+//    return m_editor->loadDocument(filename);
+  return false;
 }
 
+#include "forms/centralwidget.h"
 void
 MainWindow::initGui()
 {
@@ -147,10 +153,10 @@ MainWindow::initGui()
   connect(mainWidget, &MainWidget::newClicked, this, &MainWindow::newEpub);
   connect(mainWidget, &MainWidget::openClicked, this, &MainWindow::openFile);
   connect(mainWidget, &MainWidget::saveClicked, this, &MainWindow::saveFile);
+  connect(mainWidget, &MainWidget::saveAsClicked, this, &MainWindow::saveAsFile);
 
-
-  m_editor = mainWidget->editor();
-  m_logPage = mainWidget->logPage();
+//  m_editor = mainWidget->editor();
+//  m_logPage = mainWidget->logPage();
 
   initActions();
   initMenus();
@@ -187,7 +193,8 @@ MainWindow::initEditActions()
   m_editUndoAct->setShortcuts(QKeySequence::Undo);
   connect(m_editUndoAct, &QAction::triggered, this, &MainWindow::editUndo);
 
-  m_editRedoAct = m_undoStack->createRedoAction(this, tr("&Redo"));;
+  m_editRedoAct = m_undoStack->createRedoAction(this, tr("&Redo"));
+  ;
   m_editRedoAct->setShortcuts(QKeySequence::Redo);
   connect(m_editRedoAct, &QAction::triggered, this, &MainWindow::editRedo);
 

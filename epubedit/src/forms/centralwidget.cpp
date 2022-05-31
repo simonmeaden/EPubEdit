@@ -1,5 +1,5 @@
 #include "forms/centralwidget.h"
-#include "forms/epubedit.h"
+#include "forms/epubeditor.h"
 #include "forms/infowidget.h"
 
 //====================================================================
@@ -8,91 +8,89 @@
 CentralWidget::CentralWidget(PConfig config,
                              QUndoStack* undoStack,
                              QWidget* parent)
-  : DockWidget{ parent }
+  : QWidget(parent)
   , m_config(config)
   , m_undoStack(undoStack)
 {
   setContentsMargins(0, 0, 0, 0);
 
-  initGui(config, undoStack);
+  initGui();
 }
 
 void
-CentralWidget::initGui(PConfig config, QUndoStack* undoStack)
+CentralWidget::initGui()
 {
-//  addHeader();
+  auto p = palette();
+  p.setColor(QPalette::Window, QColor("blue"));
+  setPalette(p);
 
-  m_splitter = new QSplitter(Qt::Vertical, this);
-  m_splitter->setContentsMargins(0, 0, 0, 0);
-  connect(m_splitter,
-          &QSplitter::splitterMoved,
-          this,
-          &CentralWidget::splitterHasMoved);
-  setCentreWidget(m_splitter);
+//  auto layout = new QHBoxLayout;
+//  layout->setContentsMargins(0, 0, 0, 0);
+//  setLayout(layout);
 
-  m_splitter->setSizes(config->vSplitterSizes());
+//  m_splitter = new QSplitter(this);
+//  layout->addWidget(m_splitter);
 
-  m_editor = new EPubEdit(config, this);
-  m_splitter->addWidget(m_editor);
+//  m_leftSidebar = new QWidget(this);
+//  m_leftSidebar->setPalette(p);
+//  m_splitter->addWidget(m_leftSidebar);
 
-  //== Information frame ==//
-  m_infoWidget = new InfoWidget(config, undoStack, this);
-  m_splitter->addWidget(m_infoWidget);
+//  auto docker = new DockWidget(this);
+//  p.setColor(QPalette::Window, QColor("red"));
+//  m_editSplitter = new MultiSplitter(docker, this);
+//  m_editSplitter->setPalette(p);
+//  m_splitter->addWidget(m_editSplitter);
 
+//  p.setColor(QPalette::Window, QColor("lightgreen"));
+//  m_rightSidebar = new QWidget(this);
+//  m_rightSidebar->setPalette(p);
+//  m_splitter->addWidget(m_rightSidebar);
 
-  //== Main Footer ==//
+  //  auto editor = new EPubEditor(config, this);
 
-//  addIconButton(Footer,
-//                WidgetPosition::Left,
-//                QImage(":/icons/hideH"),
-//                tr("Toggle visibility of first"));
+  //  auto splitter = new MultiSplitter(editor, this);
+  //  layout->addWidget(splitter);
 
-//  addIconButton(Footer,
-//                WidgetPosition::Left,
-//                QImage(":/icons/hideV"),
-//                tr("Toggle visibility of second"));
+  //  m_splitter = new QSplitter(Qt::Vertical, this);
+  //  m_splitter->setContentsMargins(0, 0, 0, 0);
+  //  connect(m_splitter,
+  //          &QSplitter::splitterMoved,
+  //          this,
+  //          &CentralWidget::splitterHasMoved);
+  //  layout->addWidget(m_splitter);
 
-//  addIconButton(Footer,
-//                WidgetPosition::Right,
-//                QImage(":/icons/Copy"),
-//                tr("Toggle visibility of second"));
+  //  m_splitter->setSizes(config->vSplitterSizes());
 
-//  addIconTextButton(Footer,
-//                    WidgetPosition::Left,
-//                    QImage((":/icons/SaveAs")),
-//                    tr("Save As..."),
-//                    Arrangement::TextToLeft,
-//                    tr("Save the epub file."));
+  //  m_editor = new EPubEdit(config, this);
+  //  m_splitter->addWidget(m_editor);
 
-//  addIconButton(Footer,
-//                WidgetPosition::Right,
-//                QImage(":/icons/Paste"),
-//                tr("Toggle visibility of first"));
-
-//  addIconTextButton(Footer,
-//                    WidgetPosition::Right,
-//                    QImage((":/icons/Save")),
-//                    tr("Save"),
-//                    Arrangement::TextToRight,
-//                    tr("Save the epub file."));
+  //  //== Information frame ==//
+  //  m_infoWidget = new InfoWidget(config, undoStack, this);
+  //  m_splitter->addWidget(m_infoWidget);
 }
 
-EPubEdit*
+EPubEditor*
 CentralWidget::editor()
 {
-  return m_editor;
+  if (m_editor)
+    return m_editor;
+  return nullptr;
 }
 
 QPlainTextEdit*
 CentralWidget::logPage() const
 {
-  return m_infoWidget->logPage();
+  if (m_infoWidget)
+    return m_infoWidget->logPage();
+  return nullptr;
 }
 
 QUndoView*
 CentralWidget::undoView()
 {
-  return m_infoWidget->undoView();
+  if (m_infoWidget)
+    return m_infoWidget->undoView();
+  return nullptr;
 }
 
 void

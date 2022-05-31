@@ -2,9 +2,6 @@
 
 #include <stdlib.h>
 
-//#include "quazip.h"
-//#include "quazipdir.h"
-//#include "quazipfile.h"
 #include "JlCompress.h"
 
 #include "config.h"

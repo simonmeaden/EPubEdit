@@ -1,13 +1,23 @@
 #include "dockwidget.h"
 
+#include <QDebug>
+
+using namespace std;
+
 //====================================================================
 //=== DockWidget
 //====================================================================
 DockWidget::DockWidget(QWidget* parent)
   : QWidget{ parent }
+  , m_backColor(QColor(64, 65, 66))
+  , m_hoverBackColor(QColorConstants::X11::grey43)
+  , m_selectedColor(QColorConstants::X11::grey18)
+  , m_spacerColor(QColorConstants::X11::DimGrey)
 {
   setContentsMargins(0, 0, 0, 0);
   setAutoFillBackground(true);
+  setMouseTracking(true);
+  setAttribute(Qt::WA_Hover);
 
   initGui();
 }
@@ -15,144 +25,567 @@ DockWidget::DockWidget(QWidget* parent)
 QWidget*
 DockWidget::centreWidget() const
 {
-  return m_centreWidget;
+  return m_centralWidget;
 }
 
 void
-DockWidget::setCentreWidget(QWidget* newCentreWidget)
+DockWidget::setCentalWidget(QWidget* centralWidget)
 {
-  m_centreWidget = newCentreWidget;
-  m_layout->addWidget(m_centreWidget, DockLayout::Center);
+  m_centralWidget = centralWidget;
+  //  m_layout->setCentralWidget(m_centralWidget);
+}
+
+void
+DockWidget::calculateGeometry(const QRect& rect)
+{
+  auto centreHeight = rect.height();
+  auto centreWidth = rect.width();
+  auto eastWidth = 0;
+  auto oldEastWidth = eastWidth;
+  auto eastHeight = centreHeight;
+  auto eastX = 0;
+  auto eastY = 0;
+  auto westWidth = 0;
+  auto oldWestWidth = westWidth;
+  auto westHeight = centreHeight;
+  auto westX = 0;
+  auto westY = 0;
+  auto northHeight = 0;
+  auto oldNorthHeight = northHeight;
+  auto northWidth = centreWidth;
+  auto northX = 0;
+  auto northY = 0;
+  auto southHeight = 0;
+  auto oldSouthHeight = southHeight;
+  auto southWidth = centreWidth;
+  auto southX = 0;
+  auto southY = 0;
+
+  //  QLayout::setGeometry(rect);
+
+  QSize sizehint;
+
+  if (m_header) {
+    sizehint = m_header->sizeHint();
+    northHeight += sizehint.height();
+    centreHeight -= sizehint.height();
+  }
+
+  if (m_northToolbar) {
+    sizehint = m_northToolbar->sizeHint();
+    northHeight += sizehint.height();
+    centreHeight -= sizehint.height();
+  }
+
+  if (m_footer) {
+    sizehint = m_footer->sizeHint();
+    southHeight += sizehint.height();
+    centreHeight -= sizehint.height();
+  }
+
+  if (m_southToolbar) {
+    sizehint = m_southToolbar->sizeHint();
+    southHeight += sizehint.height();
+    centreHeight -= sizehint.height();
+  }
+
+  if (m_eastToolbar) {
+    sizehint = m_eastToolbar->sizeHint();
+    eastWidth += sizehint.width();
+    centreWidth -= sizehint.width();
+  }
+
+  if (m_westToolbar) {
+    sizehint = m_westToolbar->sizeHint();
+    westWidth += sizehint.width();
+    centreWidth -= sizehint.width();
+  }
+
+  if (m_northEast) {
+    switch (m_northEast->type()) {
+      case Box: {
+        m_northEast->calculateGeometry(
+          QRect(rect.x() + rect.width() - eastWidth,
+                rect.y(),
+                eastWidth,
+                northHeight));
+        northWidth -= eastWidth;
+        eastHeight -= northHeight;
+        eastX = rect.width() - eastWidth;
+        eastY = northHeight;
+        break;
+      }
+      case VEdge: {
+        m_northEast->calculateGeometry(
+          QRect(rect.width(), rect.y(), 0, northHeight));
+        eastHeight -= northHeight;
+        eastX = rect.width() - eastWidth;
+        eastY = northHeight;
+        break;
+      }
+      case HEdge: {
+        m_northEast->calculateGeometry(
+          QRect(rect.width() - eastWidth, rect.y(), eastWidth, 0));
+        northWidth -= eastWidth;
+        eastX = rect.width() - eastWidth;
+        break;
+      }
+      case None:
+        break;
+    }
+  }
+
+  if (m_northWest) {
+    switch (m_northWest->type()) {
+      case Box: {
+        m_northWest->calculateGeometry(
+          QRect(rect.x(), rect.y(), westWidth, northHeight));
+        northWidth -= westWidth;
+        northX = westWidth;
+        westHeight -= northHeight;
+        westY = northHeight;
+        break;
+      }
+      case VEdge: {
+        m_northWest->calculateGeometry(
+          QRect(rect.x(), rect.y(), 0, northHeight));
+        northX = westWidth;
+        break;
+      }
+      case HEdge: {
+        m_northWest->calculateGeometry(QRect(rect.x(), rect.y(), westWidth, 0));
+        northWidth -= westWidth;
+        northX = westWidth;
+        break;
+      }
+      case None:
+        break;
+    }
+  }
+
+  if (m_southEast) {
+    switch (m_southEast->type()) {
+      case Box: {
+        m_southEast->calculateGeometry(
+          QRect(rect.x(), rect.height() - southHeight, eastWidth, southHeight));
+        southWidth -= eastWidth;
+        eastHeight -= southHeight;
+        break;
+      }
+      case VEdge: {
+        m_southEast->calculateGeometry(
+          QRect(rect.width(), rect.height() - southHeight, 0, southHeight));
+        eastHeight -= southHeight;
+        break;
+      }
+      case HEdge: {
+        m_southEast->calculateGeometry(QRect(
+          rect.width() - eastWidth, rect.height() - southHeight, eastWidth, 0));
+        southWidth -= eastWidth;
+        break;
+      }
+      case None:
+        break;
+    }
+  }
+
+  if (m_southWest) {
+    switch (m_southWest->type()) {
+      case Box: {
+        m_southWest->calculateGeometry(
+          QRect(rect.x(), rect.height() - southHeight, westWidth, southHeight));
+        southWidth -= westWidth;
+        southX = westWidth;
+        southY = rect.height() - southHeight;
+        westHeight -= southHeight;
+        break;
+      }
+      case VEdge: {
+        m_southWest->calculateGeometry(
+          QRect(rect.x(), rect.height() - southHeight, 0, southHeight));
+        southY = rect.height() - southHeight;
+        westHeight -= southHeight;
+        break;
+      }
+      case HEdge: {
+        m_southWest->calculateGeometry(
+          QRect(rect.x(), rect.height() - southHeight, westWidth, 0));
+        southX = westWidth;
+        southY = rect.height() - southHeight;
+        southWidth -= westWidth;
+        break;
+      }
+      case None:
+        break;
+    }
+  }
+
+  if (m_westToolbar) {
+    m_westToolbar->calculateGeometry(
+      QRect(westX, westY, westWidth, westHeight));
+  }
+
+  if (m_eastToolbar) {
+    m_eastToolbar->calculateGeometry(
+      QRect(eastX, eastY, eastWidth, eastHeight));
+  }
+
+  int h = 0;
+  if (m_northToolbar) {
+    h = m_northToolbar->height();
+    m_northToolbar->calculateGeometry(QRect(northX, northY, northWidth, h));
+  }
+
+  if (m_header) {
+    m_header->calculateGeometry(QRect(northX, h, northWidth, northHeight - h));
+  }
+
+  if (m_southToolbar) {
+    h = m_southToolbar->height();
+    m_southToolbar->calculateGeometry(QRect(southX, southY, southWidth, h));
+  }
+
+  if (m_footer) {
+    m_footer->calculateGeometry(
+      QRect(southX, southY + h, southWidth, southHeight - h));
+  }
+
+  if (m_centralWidget) {
+    m_centralWidget->setGeometry(westWidth, westY, centreWidth, centreHeight);
+  }
+
+  if (m_northEast) {
+    switch (m_northEast->type()) {
+      case Box: {
+        m_northEast->calculateGeometry(
+          QRect(eastX, northY, eastWidth, northHeight));
+        break;
+      }
+      case VEdge: {
+        m_northEast->calculateGeometry(QRect(rect.y(), northY, 0, northHeight));
+        break;
+      }
+      case HEdge: {
+        m_northEast->calculateGeometry(QRect(eastX, northY, eastWidth, 0));
+        break;
+      }
+      case None:
+        break;
+    }
+  }
+
+  if (m_northWest) {
+    switch (m_northWest->type()) {
+      case Box: {
+        m_northWest->calculateGeometry(
+          QRect(westX, northY, westWidth, northHeight));
+        break;
+      }
+      case VEdge: {
+        m_northWest->calculateGeometry(QRect(westX, northY, 0, northHeight));
+        break;
+      }
+      case HEdge: {
+        m_northWest->calculateGeometry(QRect(westX, northY, westWidth, 0));
+        break;
+      }
+      case None:
+        break;
+    }
+  }
+
+  if (m_southEast) {
+    switch (m_southEast->type()) {
+      case Box: {
+        m_southEast->calculateGeometry(
+          QRect(eastX, southY, eastWidth, southHeight));
+        break;
+      }
+      case VEdge: {
+        m_southEast->calculateGeometry(QRect(rect.y(), southY, 0, southHeight));
+        break;
+      }
+      case HEdge: {
+        m_southEast->calculateGeometry(QRect(eastX, southY, eastWidth, 0));
+        break;
+      }
+      case None:
+        break;
+    }
+  }
+
+  if (m_southWest) {
+    switch (m_southWest->type()) {
+      case Box: {
+        m_southWest->calculateGeometry(
+          QRect(westX, southY, westWidth, southHeight));
+        break;
+      }
+      case VEdge: {
+        m_southWest->calculateGeometry(QRect(westX, southY, 0, southHeight));
+        break;
+      }
+      case HEdge: {
+        m_southWest->calculateGeometry(QRect(westX, southY, westWidth, 0));
+        break;
+      }
+      case None:
+        break;
+    }
+  }
+
+  if ((oldNorthHeight != northHeight) && (oldSouthHeight != southHeight) &&
+      (oldEastWidth != eastWidth) && (oldWestWidth != westWidth))
+    emit geometryChanged(northWidth, southWidth, eastWidth, westWidth);
 }
 
 void
 DockWidget::initGui()
 {
-  m_layout = new DockLayout;
-  m_layout->setSpacing(0);
-  m_layout->setContentsMargins(0, 0, 0, 0);
-  setLayout(m_layout);
+  auto f = font();
+  f.setPointSize(8);
+  setFont(f);
+
+  //  m_layout = new DockLayout(this);
+  //  m_layout->setSpacing(0);
+  //  setLayout(m_layout);
+
+  //  connect(this, &DockLayout::geometryChanged, this,
+  //  &DockWidget::geometryChanged);
 }
 
 DockToolbar*
-DockWidget::addNewToolbar(DockLayout::Position position)
+DockWidget::addToolbar(DockPosition position)
 {
-  auto toolbar = m_toolbars.value(position, nullptr);
+  auto toolbar = toolbarAt(position);
   if (toolbar)
     return toolbar;
 
   toolbar = new DockToolbar(position, this);
-  m_toolbars.insert(position, toolbar);
+  setToolbarAt(position, toolbar);
 
-  switch (position) {
-    case DockLayout::West: {
-      m_layout->addWidget(toolbar, DockLayout::West);
-      break;
-    }
-    case DockLayout::East: {
-      m_layout->addWidget(toolbar, DockLayout::East);
-      break;
-    }
-    case DockLayout::North: {
-      m_layout->addWidget(toolbar, DockLayout::North);
-      break;
-    }
-    case DockLayout::South: {
-      m_layout->addWidget(toolbar, DockLayout::South);
-      break;
-    }
-  }
   repaint();
   return toolbar;
 }
 
 void
-DockWidget::addToolbar(DockLayout::Position position)
+DockWidget::removeToolbar(DockPosition position)
 {
-  addNewToolbar(position);
+  toolbarTakeAt(position);
 }
 
 void
-DockWidget::removeToolbar(DockLayout::Position position)
+DockWidget::removeToolbar(DockToolbar* toolbar)
 {
-  auto toolbar = m_toolbars.value(position, nullptr);
-  if (!toolbar)
-    return;
-
-  m_layout->removeWidget(toolbar);
-  m_toolbars.remove(position);
-  toolbar->deleteLater();
-  repaint();
-}
-
-void
-DockWidget::setToolbarPosition(DockLayout::Position oldPosition,
-                               DockLayout::Position newPosition)
-{
-  auto oldbar = m_toolbars.value(oldPosition, nullptr);
-  if (!oldbar)
-    return;
-
-  auto newbar = m_toolbars.value(newPosition, nullptr);
-  if (newbar)
-    return;
-
-  oldbar->setDockPosition(newPosition);
-  m_toolbars.remove(oldPosition);
-  m_toolbars.insert(newPosition, oldbar);
-  m_layout->removeWidget(oldbar);
-  switch (newPosition) {
-    case DockLayout::East: {
-      m_layout->addWidget(oldbar, DockLayout::West);
-      break;
-    }
-    case DockLayout::West: {
-      m_layout->addWidget(oldbar, DockLayout::East);
-      break;
-    }
-    case DockLayout::North: {
-      m_layout->addWidget(oldbar, DockLayout::North);
-      break;
-    }
-    case DockLayout::South: {
-      m_layout->addWidget(oldbar, DockLayout::South);
-      break;
-    }
+  if (toolbar) {
+    toolbarTakeAt(toolbar->dockPosition());
+    toolbar = nullptr;
+    repaint();
   }
-  repaint();
 }
 
 void
+DockWidget::hideToolbar(DockPosition position)
+{
+  auto toolbar = toolbarAt(position);
+  if (toolbar) {
+    toolbar->setVisible(false);
+  }
+}
+
+void
+DockWidget::hideToolbar(DockToolbar* toolbar)
+{
+  if (toolbar) {
+    toolbar->setVisible(false);
+  }
+}
+
+void
+DockWidget::showToolbar(DockPosition position)
+{
+  auto toolbar = toolbarAt(position);
+  showToolbar(toolbar);
+}
+
+void
+DockWidget::showToolbar(DockToolbar* toolbar)
+{
+  if (toolbar) {
+    toolbar->setVisible(true);
+  }
+}
+
+bool
+DockWidget::moveToolbar(DockPosition newPosition, DockPosition oldPosition)
+{
+  auto oldbar = toolbarAt(oldPosition);
+  if (!oldbar)
+    return false;
+
+  auto newbar = toolbarAt(newPosition);
+  if (newbar)
+    return false;
+
+  setToolbarAt(oldPosition);
+  auto b = setToolbarAt(newPosition, oldbar);
+  newbar->deleteLater();
+  return b;
+}
+
+void
+DockWidget::resizeEvent(QResizeEvent* /*event*/)
+{
+  calculateGeometry(rect());
+}
+
+DockToolbar*
+DockWidget::toolbarAt(DockPosition position)
+{
+  switch (position) {
+    case North:
+      return m_northToolbar;
+    case South:
+      return m_southToolbar;
+    case East:
+      return m_eastToolbar;
+    case West:
+      return m_westToolbar;
+    default:
+      return nullptr;
+  }
+}
+
+DockToolbar*
+DockWidget::toolbarTakeAt(DockPosition position)
+{
+  DockToolbar* toolbar = nullptr;
+  switch (position) {
+    case North:
+      toolbar = m_northToolbar;
+      m_northToolbar->deleteLater();
+      m_northToolbar = nullptr;
+      break;
+    case South:
+      toolbar = m_southToolbar;
+      m_southToolbar->deleteLater();
+      m_southToolbar = nullptr;
+      break;
+    case East:
+      toolbar = m_eastToolbar;
+      m_eastToolbar->deleteLater();
+      m_eastToolbar = nullptr;
+      break;
+    case West:
+      toolbar = m_westToolbar;
+      m_westToolbar->deleteLater();
+      m_westToolbar = nullptr;
+      break;
+    default:
+      return toolbar;
+  }
+  return nullptr;
+}
+
+bool
+DockWidget::setToolbarAt(DockPosition position, DockToolbar* toolbar)
+{
+  switch (position) {
+    case North:
+      m_northToolbar = toolbar;
+      break;
+    case South:
+      m_southToolbar = toolbar;
+      break;
+    case East:
+      m_eastToolbar = toolbar;
+      break;
+    case West:
+      m_westToolbar = toolbar;
+      break;
+    default:
+      return false;
+  }
+  return true;
+}
+
+DockFooter*
 DockWidget::addFooter()
 {
   if (!m_footer) {
     m_footer = new DockFooter(this);
-    m_layout->addWidget(m_footer, DockLayout::South);
+    repaint();
+    return m_footer;
+  }
+  return nullptr;
+}
+
+void
+DockWidget::removeFooter()
+{
+  if (m_footer) {
+    m_footer->deleteLater();
+    m_footer = nullptr;
     repaint();
   }
 }
 
 void
+DockWidget::hideFooter()
+{
+  if (m_footer)
+    m_footer->setVisible(false);
+}
+
+void
+DockWidget::showFooter()
+{
+  if (m_footer)
+    m_footer->setVisible(true);
+}
+
+DockHeader*
 DockWidget::addHeader()
 {
   if (!m_header) {
     m_header = new DockHeader(this);
-    m_layout->addWidget(m_header, DockLayout::North);
+    repaint();
+    return m_header;
+  }
+  return nullptr;
+}
+
+void
+DockWidget::removeHeader()
+{
+  if (m_header) {
+    m_header->deleteLater();
+    m_header = nullptr;
     repaint();
   }
 }
 
-WidgetWrapper*
-DockWidget::addToolbarIconButton(DockLayout::Position toolbarPos,
+void
+DockWidget::hideHeader()
+{
+  if (m_header)
+    m_header->setVisible(false);
+}
+
+void
+DockWidget::showHeader()
+{
+  if (m_header)
+    m_header->setVisible(true);
+}
+
+WidgetItem*
+DockWidget::addToolbarIconButton(DockPosition toolbarPos,
                                  WidgetPosition pos,
                                  QImage icon,
                                  const QString& tooltip)
 {
-  auto toolbar = m_toolbars.value(toolbarPos, nullptr);
-  if (!toolbar) {
-    toolbar = addNewToolbar(toolbarPos);
-  }
-
+  auto toolbar = toolbarAt(toolbarPos);
   if (toolbar) {
     auto widget = toolbar->addIconButton(pos, icon, tooltip);
     return widget;
@@ -160,44 +593,37 @@ DockWidget::addToolbarIconButton(DockLayout::Position toolbarPos,
   return nullptr;
 }
 
-WidgetWrapper*
+WidgetItem*
 DockWidget::addFooterIconButton(WidgetPosition pos,
                                 QImage icon,
                                 const QString& tooltip)
 {
-  WidgetWrapper* widget = nullptr;
-  if (!m_footer) {
-    m_footer = new DockFooter(this);
-  }
-  widget = m_footer->addIconButton(pos, icon, tooltip);
+  WidgetItem* widget = nullptr;
+  if (m_footer)
+    widget = m_footer->addIconButton(pos, icon, tooltip);
   return widget;
 }
 
-WidgetWrapper*
+WidgetItem*
 DockWidget::addHeaderIconButton(WidgetPosition pos,
                                 QImage icon,
                                 const QString& tooltip)
 {
-  WidgetWrapper* widget = nullptr;
-  if (!m_header) {
-    m_header = new DockHeader(this);
-  }
-  widget = m_header->addIconButton(pos, icon, tooltip);
+  WidgetItem* widget = nullptr;
+  if (m_header)
+    widget = m_header->addIconButton(pos, icon, tooltip);
   return widget;
 }
 
-WidgetWrapper*
-DockWidget::addToolbarIconTextButton(DockLayout::Position toolbarPos,
+WidgetItem*
+DockWidget::addToolbarIconTextButton(DockPosition toolbarPos,
                                      WidgetPosition position,
                                      QImage icon,
                                      const QString& text,
                                      Arrangement textPos,
                                      const QString& tooltip)
 {
-  auto toolbar = m_toolbars.value(toolbarPos, nullptr);
-  if (!toolbar) {
-    toolbar = addNewToolbar(toolbarPos);
-  }
+  auto toolbar = toolbarAt(toolbarPos);
 
   if (toolbar) {
     auto widget =
@@ -207,42 +633,44 @@ DockWidget::addToolbarIconTextButton(DockLayout::Position toolbarPos,
   return nullptr;
 }
 
-WidgetWrapper*
+WidgetItem*
 DockWidget::addHeaderIconTextButton(WidgetPosition position,
                                     QImage icon,
                                     const QString& text,
                                     Arrangement textPos,
                                     const QString& tooltip)
 {
-  WidgetWrapper* widget = nullptr;
-  //  if (!m_header) {
-  //    m_header = new HeaderWidget(this);
-  //  }
-  widget = m_header->addIconTextButton(position, icon, text, textPos, tooltip);
+  WidgetItem* widget = nullptr;
+  if (m_header)
+    widget =
+      m_header->addIconTextButton(position, icon, text, textPos, tooltip);
+
   return widget;
 }
 
-WidgetWrapper*
+WidgetItem*
 DockWidget::addFooterIconTextButton(WidgetPosition position,
                                     QImage icon,
                                     const QString& text,
                                     Arrangement textPos,
                                     const QString& tooltip)
 {
-  WidgetWrapper* widget = nullptr;
-  widget = m_footer->addIconTextButton(position, icon, text, textPos, tooltip);
+  WidgetItem* widget = nullptr;
+  if (m_footer)
+    widget =
+      m_footer->addIconTextButton(position, icon, text, textPos, tooltip);
   return widget;
 }
 
-WidgetWrapper*
-DockWidget::addToolbarTextButton(DockLayout::Position toolbarPos,
+WidgetItem*
+DockWidget::addToolbarTextButton(DockPosition toolbarPos,
                                  WidgetPosition position,
                                  const QString& text,
                                  const QString& tooltip)
 {
-  auto toolbar = m_toolbars.value(toolbarPos, nullptr);
+  auto toolbar = toolbarAt(toolbarPos);
   if (!toolbar) {
-    toolbar = addNewToolbar(toolbarPos);
+    toolbar = addToolbar(toolbarPos);
   }
 
   if (toolbar) {
@@ -252,12 +680,12 @@ DockWidget::addToolbarTextButton(DockLayout::Position toolbarPos,
   return nullptr;
 }
 
-WidgetWrapper*
+WidgetItem*
 DockWidget::addHeaderTextButton(WidgetPosition position,
                                 const QString& text,
                                 const QString& tooltip)
 {
-  WidgetWrapper* widget = nullptr;
+  WidgetItem* widget = nullptr;
   if (!m_header) {
     m_header = new DockHeader(this);
   }
@@ -265,12 +693,12 @@ DockWidget::addHeaderTextButton(WidgetPosition position,
   return widget;
 }
 
-WidgetWrapper*
+WidgetItem*
 DockWidget::addFooterTextButton(WidgetPosition position,
                                 const QString& text,
                                 const QString& tooltip)
 {
-  WidgetWrapper* widget = nullptr;
+  WidgetItem* widget = nullptr;
   if (!m_footer) {
     m_footer = new DockFooter(this);
   }
@@ -278,13 +706,12 @@ DockWidget::addFooterTextButton(WidgetPosition position,
   return widget;
 }
 
-WidgetWrapper*
-DockWidget::addToolbarSpacer(DockLayout::Position toolbarPos,
-                             WidgetPosition position)
+WidgetItem*
+DockWidget::addToolbarSpacer(DockPosition toolbarPos, WidgetPosition position)
 {
-  auto toolbar = m_toolbars.value(toolbarPos, nullptr);
+  auto toolbar = toolbarAt(toolbarPos);
   if (!toolbar) {
-    toolbar = addNewToolbar(toolbarPos);
+    toolbar = addToolbar(toolbarPos);
   }
 
   if (toolbar) {
@@ -294,10 +721,10 @@ DockWidget::addToolbarSpacer(DockLayout::Position toolbarPos,
   return nullptr;
 }
 
-WidgetWrapper*
+WidgetItem*
 DockWidget::addHeaderSpacer(WidgetPosition position)
 {
-  WidgetWrapper* widget = nullptr;
+  WidgetItem* widget = nullptr;
   if (!m_header) {
     m_header = new DockHeader(this);
   }
@@ -305,10 +732,10 @@ DockWidget::addHeaderSpacer(WidgetPosition position)
   return widget;
 }
 
-WidgetWrapper*
+WidgetItem*
 DockWidget::addFooterSpacer(WidgetPosition position)
 {
-  WidgetWrapper* widget = nullptr;
+  WidgetItem* widget = nullptr;
   if (!m_footer) {
     m_footer = new DockFooter(this);
   }
@@ -317,262 +744,583 @@ DockWidget::addFooterSpacer(WidgetPosition position)
 }
 
 void
-DockWidget::setCornerType(CornerType topLeft,
-                          CornerType topRight,
-                          CornerType bottomLeft,
-                          CornerType bottomRight)
+DockWidget::setCorners(CornerType northWest,
+                       CornerType northEast,
+                       CornerType southWest,
+                       CornerType southEast)
 {
-  m_layout->setCornerType(topLeft, topRight, bottomLeft, bottomRight);
-  DockWidgetItem* widget;
-  if (topLeft != None) {
-    widget = new DockBoxCorner(DockLayout::NorthEast, this);
-    m_layout->addWidget(widget, DockLayout::NorthEast);
+  if (northWest != None) {
+    m_northWest = new DockCorner(northWest, NorthEast, this);
   }
-  if (topRight != None) {
-    widget = new DockBoxCorner(DockLayout::NorthWest, this);
-    m_layout->addWidget(widget, DockLayout::NorthWest);
+  if (northEast != None) {
+    m_northEast = new DockCorner(northEast, NorthWest, this);
   }
-  if (bottomLeft != None) {
-    widget = new DockBoxCorner(DockLayout::SouthEast, this);
-    m_layout->addWidget(widget, DockLayout::SouthEast);
+  if (southWest != None) {
+    m_southWest = new DockCorner(southWest, SouthEast, this);
   }
-  if (bottomRight != None) {
-    widget = new DockBoxCorner(DockLayout::SouthWest, this);
-    m_layout->addWidget(widget, DockLayout::SouthWest);
+  if (southEast != None) {
+    m_southEast = new DockCorner(southEast, SouthWest, this);
+  }
+}
+
+void
+DockWidget::setCornerSize(DockPosition position, int width, int height)
+{
+  auto c = corner(position);
+  if (c) {
+    c->setWidth(width);
+    c->setHeight(height);
+  }
+}
+
+void
+DockWidget::setCornerSize(DockPosition position, QSize size)
+{
+  setCornerSize(position, size.width(), size.height());
+}
+
+void
+DockWidget::setCornerWidth(DockPosition position, int width)
+{
+  auto c = corner(position);
+  if (c) {
+    c->setWidth(width);
+  }
+}
+
+void
+DockWidget::setCornerHeight(DockPosition position, int height)
+{
+  auto c = corner(position);
+  if (c) {
+    c->setHeight(height);
+  }
+}
+
+void
+DockWidget::paintEvent(QPaintEvent* /*event*/)
+{
+  QPainter painter(this);
+
+  if (m_northToolbar)
+    m_northToolbar->paint(painter);
+
+  if (m_southToolbar)
+    m_southToolbar->paint(painter);
+
+  if (m_eastToolbar)
+    m_eastToolbar->paint(painter);
+
+  if (m_westToolbar)
+    m_westToolbar->paint(painter);
+
+  if (m_footer)
+    m_footer->paint(painter);
+
+  if (m_header)
+    m_header->paint(painter);
+
+  if (m_northEast)
+    m_northEast->paint(painter);
+
+  if (m_northWest)
+    m_northWest->paint(painter);
+
+  if (m_southEast)
+    m_southEast->paint(painter);
+
+  if (m_southWest)
+    m_southWest->paint(painter);
+}
+
+bool
+DockWidget::dockItemHoverCheck(DockItem* item, QPoint pos)
+{
+  auto widgets = item->widgets();
+  for (auto& w : widgets) {
+    if (w->rect().contains(pos)) {
+      if (m_hoverItem && w != m_hoverItem) {
+        m_hoverItem->setHoverOver(false);
+        QToolTip::hideText();
+        m_hoverItem = nullptr;
+      }
+      w->setHoverOver(true);
+      QToolTip::showText(mapToGlobal(pos), w->tooltip(), this, w->rect());
+      m_hoverItem = w;
+      repaint();
+      return true;
+    }
+  }
+  return false;
+}
+
+void
+DockWidget::hoverEnterEvent(QHoverEvent* event)
+{
+  auto p = /*mapToGlobal(*/ event->pos() /*)*/;
+
+  if (m_footer) {
+    if (dockItemHoverCheck(m_footer, p)) {
+      return;
+    }
+  }
+  if (m_header) {
+    if (dockItemHoverCheck(m_header, p)) {
+      return;
+    }
+  }
+  if (dockItemHoverCheck(m_eastToolbar, p)) {
+    return;
+  }
+
+  if (dockItemHoverCheck(m_westToolbar, p)) {
+    return;
+  }
+
+  if (dockItemHoverCheck(m_southToolbar, p)) {
+    return;
+  }
+
+  if (dockItemHoverCheck(m_northToolbar, p)) {
+    return;
+  }
+}
+
+void
+DockWidget::hoverLeaveEvent(QHoverEvent* /*event*/)
+{
+  if (m_hoverItem) {
+    m_hoverItem->setHoverOver(false);
+    QToolTip::hideText();
+    m_hoverItem = nullptr;
+  }
+}
+
+void
+DockWidget::hoverMoveEvent(QHoverEvent* event)
+{
+  auto p = /*mapToGlobal(*/ event->pos() /*)*/;
+
+  if (m_footer) {
+    if (dockItemHoverCheck(m_footer, p)) {
+      return;
+    }
+  }
+  if (m_header) {
+    if (dockItemHoverCheck(m_header, p)) {
+      return;
+    }
+  }
+  if (dockItemHoverCheck(m_eastToolbar, p)) {
+    return;
+  }
+
+  if (dockItemHoverCheck(m_westToolbar, p)) {
+    return;
+  }
+
+  if (dockItemHoverCheck(m_southToolbar, p)) {
+    return;
+  }
+
+  if (dockItemHoverCheck(m_northToolbar, p)) {
+    return;
+  }
+}
+
+void
+DockWidget::mouseClickCheck(DockItem* item, QPoint pos)
+{
+  auto widgets = item->widgets();
+
+  for (auto& w : widgets) {
+    if (w->rect().contains(pos)) {
+      if (w->isEnabled()) {
+        switch (w->type()) {
+          case Button: {
+            emit w->widgetClicked();
+            break;
+          }
+          default:
+            break;
+        }
+      }
+    }
+  }
+}
+
+void
+DockWidget::mousePressEvent(QMouseEvent* event)
+{
+  //  auto pos = mapToGlobal(event->pos());
+  auto pos = event->pos();
+
+  if (m_footer) {
+    mouseClickCheck(m_footer, pos);
+  }
+  if (m_header) {
+    mouseClickCheck(m_header, pos);
+  }
+  // TODO the rest of the widgets.
+}
+
+void
+DockWidget::mouseReleaseEvent(QMouseEvent* /*event*/)
+{
+  // TODO possibly remove if not used.
+}
+
+bool
+DockWidget::event(QEvent* event)
+{
+  switch (event->type()) {
+    case QEvent::HoverEnter:
+      hoverEnterEvent(static_cast<QHoverEvent*>(event));
+      return true;
+      break;
+    case QEvent::HoverLeave:
+      hoverLeaveEvent(static_cast<QHoverEvent*>(event));
+      return true;
+      break;
+    case QEvent::HoverMove:
+      hoverMoveEvent(static_cast<QHoverEvent*>(event));
+      return true;
+      break;
+    default:
+      break;
+  }
+  return QWidget::event(event);
+}
+
+const QColor&
+DockWidget::textColor() const
+{
+  return m_textColor;
+}
+
+void
+DockWidget::setTextColor(const QColor& newTextColor)
+{
+  m_textColor = newTextColor;
+}
+
+const QColor&
+DockWidget::spacerColor() const
+{
+  return m_spacerColor;
+}
+
+void
+DockWidget::setSpacerColor(const QColor& newSpacerColor)
+{
+  m_spacerColor = newSpacerColor;
+}
+
+const QBrush&
+DockWidget::backColor() const
+{
+  return m_backColor;
+}
+
+void
+DockWidget::setBackColor(const QBrush& newBackColor)
+{
+  m_backColor = newBackColor;
+}
+
+const QBrush&
+DockWidget::hoverBackColor() const
+{
+  return m_hoverBackColor;
+}
+
+void
+DockWidget::setHoverBackColor(const QBrush& newHoverBackColor)
+{
+  m_hoverBackColor = newHoverBackColor;
+}
+
+const QBrush&
+DockWidget::selectedColor() const
+{
+  return m_selectedColor;
+}
+
+void
+DockWidget::setSelectedColor(const QBrush& newSelectedColor)
+{
+  m_selectedColor = newSelectedColor;
+}
+
+void
+DockWidget::setCorner(DockPosition position, CornerType type)
+{
+  switch (position) {
+    case NorthEast: {
+      m_northEast = new DockCorner(type, position, this);
+      break;
+    }
+    case NorthWest: {
+      m_northWest = new DockCorner(type, position, this);
+      break;
+    }
+    case SouthEast: {
+      m_southEast = new DockCorner(type, position, this);
+      break;
+    }
+    case SouthWest: {
+      m_southWest = new DockCorner(type, position, this);
+      break;
+    }
+    default:
+      break;
+  }
+}
+
+DockCorner*
+DockWidget::corner(DockPosition position)
+{
+  switch (position) {
+    case NorthEast:
+      return m_northEast;
+    case NorthWest:
+      return m_northWest;
+    case SouthEast:
+      return m_southEast;
+    case SouthWest:
+      return m_southWest;
+    default:
+      return nullptr;
+  }
+}
+
+void
+DockWidget::setCorner(DockCorner* corner)
+{
+  switch (corner->dockPosition()) {
+    case NorthEast:
+      m_northEast = corner;
+      break;
+    case NorthWest:
+      m_northWest = corner;
+      break;
+    case SouthEast:
+      m_southEast = corner;
+      break;
+    case SouthWest:
+      m_southWest = corner;
+      break;
+    default:
+      break;
   }
 }
 
 //====================================================================
 //=== WidgetWrapper
 //====================================================================
-WidgetWrapper::WidgetWrapper(QObject* parent)
+WidgetItem::WidgetItem(DockWidget* parent)
   : QObject(parent)
-  , m_backColor(QColor(64, 65, 66))
-  , m_hoverBackColor(QColorConstants::X11::grey43)
-  , m_selectedColor(QColorConstants::X11::grey18)
+  , m_parent(parent)
+  , m_fontMetrics(parent->fontMetrics())
   , m_margins(QMargins(LEFTMARGIN, TOPMARGIN, RIGHTMARGIN, BOTTOMMARGIN))
 {}
 
 bool
-WidgetWrapper::isEnabled() const
+WidgetItem::isEnabled() const
 {
   return m_enabled;
 }
 
 void
-WidgetWrapper::setEnabled(bool newEnabled)
+WidgetItem::setEnabled(bool newEnabled)
 {
   m_enabled = newEnabled;
 }
 
 const QRect&
-WidgetWrapper::rect() const
+WidgetItem::rect() const
 {
   return m_rect;
 }
 
-void
-WidgetWrapper::setRect(const QRect& newRect)
-{
-  m_rect = newRect;
-}
+// void
+// WidgetItem::setRect(const QRect& newRect)
+//{
+//   m_rect = newRect;
+// }
 
 WidgetType
-WidgetWrapper::type() const
+WidgetItem::type() const
 {
   return m_type;
 }
 
 void
-WidgetWrapper::setType(WidgetType newType)
+WidgetItem::setType(WidgetType newType)
 {
   m_type = newType;
 }
 
 WidgetPosition
-WidgetWrapper::widgetPosition() const
+WidgetItem::widgetPosition() const
 {
   return m_widgetPosition;
 }
 
 void
-WidgetWrapper::setWidgetPosition(WidgetPosition newPosition)
+WidgetItem::setWidgetPosition(WidgetPosition newPosition)
 {
   m_widgetPosition = newPosition;
   emit widgetChanged();
 }
 
 Arrangement
-WidgetWrapper::arrangement() const
+WidgetItem::arrangement() const
 {
   return m_arrangement;
 }
 
 void
-WidgetWrapper::setArrangement(Arrangement newArrangement)
+WidgetItem::setArrangement(Arrangement newArrangement)
 {
   m_arrangement = newArrangement;
   emit widgetChanged();
 }
 
 const QString&
-WidgetWrapper::tooltip() const
+WidgetItem::tooltip() const
 {
   return m_tooltip;
 }
 
 void
-WidgetWrapper::setTooltip(const QString& newTooltip)
+WidgetItem::setTooltip(const QString& newTooltip)
 {
   m_tooltip = newTooltip;
 }
 
 bool
-WidgetWrapper::isHoverOver() const
+WidgetItem::isHoverOver() const
 {
   return m_hoverOver;
 }
 
 void
-WidgetWrapper::setHoverOver(bool newHoverOver)
+WidgetItem::setHoverOver(bool newHoverOver)
 {
   m_hoverOver = newHoverOver;
 }
 
 void
-WidgetWrapper::paintBackground(QPainter& painter)
+WidgetItem::setGeometry(const QRect& rect, const QRect& /*widgetRect*/)
+{
+  m_rect = rect;
+}
+
+QSize
+WidgetItem::sizeHint() const
+{
+  return m_minContentSize.grownBy(m_margins);
+}
+
+void
+WidgetItem::paintBackground(QPainter& painter)
 {
   painter.save();
   if (isHoverOver()) {
-    painter.fillRect(m_rect, m_hoverBackColor);
+    painter.fillRect(m_rect, m_parent->hoverBackColor());
   } else if (isSelected()) {
-    painter.fillRect(m_rect, m_selectedColor);
+    painter.fillRect(m_rect, m_parent->selectedColor());
   } else {
-    painter.fillRect(m_rect, m_backColor);
+    painter.fillRect(m_rect, m_parent->backColor());
   }
   painter.restore();
 }
 
-const QBrush&
-WidgetWrapper::backColor() const
-{
-  return m_backColor;
-}
-
-void
-WidgetWrapper::setBackColor(const QBrush& newBackColor)
-{
-  m_backColor = newBackColor;
-}
-
-const QBrush&
-WidgetWrapper::hoverBackColor() const
-{
-  return m_hoverBackColor;
-}
-
-void
-WidgetWrapper::setHoverBackColor(const QBrush& newHoverBackColor)
-{
-  m_hoverBackColor = newHoverBackColor;
-}
-
-const QBrush&
-WidgetWrapper::selectedColor() const
-{
-  return m_selectedColor;
-}
-
-void
-WidgetWrapper::setSelectedColor(const QBrush& newSelectedColor)
-{
-  m_selectedColor = newSelectedColor;
-}
-
 const QSize&
-WidgetWrapper::content() const
+WidgetItem::minContentSize() const
 {
-  return m_content;
+  return m_minContentSize;
 }
 
 int
-WidgetWrapper::halfDifference(int large, int small)
+WidgetItem::halfDifference(int large, int small)
 {
   return int((large - small) / 2);
 }
 
 bool
-WidgetWrapper::isSelected() const
+WidgetItem::isSelected() const
 {
   return m_selected;
 }
 
 void
-WidgetWrapper::setSelected(bool newSelected)
+WidgetItem::setSelected(bool newSelected)
 {
   m_selected = newSelected;
 }
 
 const QMargins&
-WidgetWrapper::margins() const
+WidgetItem::margins() const
 {
   return m_margins;
 }
 
 void
-WidgetWrapper::setMargins(const QMargins& newMargins)
+WidgetItem::setMargins(const QMargins& newMargins)
 {
   m_margins = newMargins;
   emit widgetChanged();
 }
 
 int
-WidgetWrapper::leftMargin()
+WidgetItem::leftMargin()
 {
   return m_margins.left();
 }
 
 int
-WidgetWrapper::rightMargin()
+WidgetItem::rightMargin()
 {
   return m_margins.right();
 }
 
 int
-WidgetWrapper::topMargin()
+WidgetItem::topMargin()
 {
   return m_margins.top();
 }
 
 int
-WidgetWrapper::bottomMargin()
+WidgetItem::bottomMargin()
 {
   return m_margins.bottom();
 }
 
 void
-WidgetWrapper::setLeftMargin(int margin)
+WidgetItem::setLeftMargin(int margin)
 {
   m_margins.setLeft(margin);
   emit widgetChanged();
 }
 
 void
-WidgetWrapper::setRightMargin(int margin)
+WidgetItem::setRightMargin(int margin)
 {
   m_margins.setRight(margin);
   emit widgetChanged();
 }
 
 void
-WidgetWrapper::setTopMargin(int margin)
+WidgetItem::setTopMargin(int margin)
 {
   m_margins.setTop(margin);
   emit widgetChanged();
 }
 
 void
-WidgetWrapper::setBottomMargin(int margin)
+WidgetItem::setBottomMargin(int margin)
 {
   m_margins.setBottom(margin);
   emit widgetChanged();
@@ -581,8 +1329,8 @@ WidgetWrapper::setBottomMargin(int margin)
 //====================================================================
 //=== ButtonWrapper
 //====================================================================
-ButtonWidget::ButtonWidget(QObject* parent)
-  : WidgetWrapper(parent)
+ButtonWidget::ButtonWidget(DockWidget* parent)
+  : WidgetItem(parent)
   , m_textColor(QColorConstants::X11::LightGrey)
 {}
 
@@ -636,11 +1384,10 @@ ButtonWidget::setSpacer(int newSpacer)
 }
 
 const QSize
-ButtonWidget::calcSize()
+ButtonWidget::calcMinimumSize()
 {
   int width = 0, height = 0, value = 0;
   int iconWidth = 0, iconHeight = 0, textWidth = 0, textHeight = 0;
-  auto fm = qobject_cast<DockWidgetItem*>(parent())->fontMetrics();
 
   if (!icon().isNull()) {
     iconWidth = iconSize().width();
@@ -648,43 +1395,49 @@ ButtonWidget::calcSize()
   }
 
   if (!text().isEmpty()) {
-    textWidth = fm.horizontalAdvance(text());
-    textHeight = fm.height();
+    textWidth = m_fontMetrics.horizontalAdvance(text());
+    textHeight = m_fontMetrics.height();
   }
 
   switch (arrangement()) {
     case TextAboveIcon:
     case TextBelowIcon: {
       value = (iconWidth > textWidth ? iconWidth : textWidth);
-      width = (value > width ? value : width);
-      m_content.setWidth(value);
+      width = max(value, width);
+      m_minContentSize.setWidth(value);
       value = iconHeight + spacer() + textHeight;
-      m_content.setHeight(value);
-      height = (value > height ? value : height);
+      m_minContentSize.setHeight(value);
+      height = max(iconHeight, height);
+      m_iconRect = QRect(0, 0, iconWidth, iconHeight);
+      m_textRect = QRect(0, 0, textWidth, textHeight);
       break;
     }
     case TextToLeft:
     case TextToRight: {
       value = iconWidth + spacer() + textWidth;
-      m_content.setWidth(value);
-      width = (value > width ? value : width);
+      m_minContentSize.setWidth(value);
+      width = max(value, width);
       value = (iconHeight > textHeight ? iconHeight : textHeight);
-      height = (value > height ? value : height);
-      m_content.setHeight(height);
+      height = max(iconHeight, height);
+      m_minContentSize.setHeight(height);
+      m_iconRect = QRect(0, 0, iconWidth, iconHeight);
+      m_textRect = QRect(0, 0, textWidth, textHeight);
       break;
     }
     case IconOnly: {
-      width = (iconWidth > width ? iconWidth : width);
-      m_content.setWidth(width);
-      height = (iconHeight > height ? iconHeight : height);
-      m_content.setHeight(height);
+      width = max(iconWidth, width);
+      m_minContentSize.setWidth(width);
+      height = max(iconHeight, height);
+      m_minContentSize.setHeight(height);
+      m_iconRect = QRect(0, 0, iconWidth, iconHeight);
       break;
     }
     case TextOnly:
-      width = (textWidth > width ? textWidth : width);
-      m_content.setWidth(width);
-      height = (textHeight > height ? textHeight : height);
-      m_content.setHeight(height);
+      width = max(textWidth, width);
+      m_minContentSize.setWidth(width);
+      height = max(textHeight, height);
+      m_minContentSize.setHeight(height);
+      m_textRect = QRect(0, 0, textWidth, textHeight);
       break;
     case NoArrangement:
       break;
@@ -693,7 +1446,7 @@ ButtonWidget::calcSize()
 }
 
 void
-ButtonWidget::paintWidget(QPainter& painter)
+ButtonWidget::paint(QPainter& painter)
 {
   painter.save();
   paintBackground(painter);
@@ -716,271 +1469,100 @@ ButtonWidget::paintWidget(QPainter& painter)
 }
 
 void
-ButtonWidget::resizeEvent(QRect& r, int& min, int& max)
+ButtonWidget::setGeometry(const QRect& widgetRect, const QRect& contentsRect)
 {
-  auto p = qobject_cast<DockWidgetItem*>(parent());
-  auto dockPosition = p->dockPosition();
-  auto iconHeight = 0;
-  auto iconWidth = 0;
-  auto iconLeft = 0;
-  auto iconTop = 0;
-  auto textHeight = 0;
-  auto textWidth = 0;
-  auto textLeft = 0;
-  auto textTop = 0;
-  auto fm = p->fontMetrics();
+  WidgetItem::setGeometry(widgetRect);
 
-  iconHeight = m_iconSize.height();
-  iconWidth = m_iconSize.width();
-  textHeight = fm.height();
-  textWidth = fm.horizontalAdvance(m_text);
+  int x = 0, y = 0, max = 0;
 
   switch (arrangement()) {
-    case TextBelowIcon: {
-      switch (dockPosition) {
-        case DockLayout::East:
-        case DockLayout::West: {
-          if (widgetPosition() == Start) {
-            r.setTop(min);
-            iconTop = min + halfDifference(p->maxHeight(), m_content.height());
-            min += p->maxHeight();
-          } else if (widgetPosition() == End) {
-            max -= p->maxHeight();
-            r.setTop(max);
-            iconTop = max + halfDifference(p->maxHeight(), m_content.height());
-          }
-          iconLeft = halfDifference(p->maxWidth(), iconWidth);
-          textTop = iconTop + iconHeight + spacer();
-          textLeft = halfDifference(p->maxWidth(), textWidth);
-          setIconRect(QRect(iconLeft, iconTop, iconWidth, iconHeight));
-          setTextRect(QRect(textLeft, textTop, textWidth, textHeight));
-          break;
-        }
-        case DockLayout::North:
-        case DockLayout::South: {
-          if (widgetPosition() == Start) {
-            r.setLeft(min);
-            iconLeft = min + halfDifference(p->maxWidth(), m_content.width());
-            textLeft = min + halfDifference(p->maxWidth(), textWidth);
-            min += p->maxWidth();
-          } else if (widgetPosition() == End) {
-            max -= p->maxWidth();
-            r.setLeft(max);
-            iconLeft = max + halfDifference(p->maxWidth(), m_content.width());
-            textLeft = max + halfDifference(p->maxWidth(), textWidth);
-          }
-          iconTop = halfDifference(p->maxHeight(), m_content.height());
-          textTop = iconTop + iconHeight + spacer();
-          min += p->maxWidth();
-          setIconRect(QRect(iconLeft, iconTop, iconWidth, iconHeight));
-          setTextRect(QRect(textLeft, textTop, textWidth, textHeight));
-          break;
-        }
+    case TextAboveIcon: {
+      if (!m_text.isEmpty()) {
+        x = halfDifference(contentsRect.width(), m_textRect.width());
+        m_textRect.moveLeft(contentsRect.x() + x);
+        y = halfDifference(contentsRect.height(), m_minContentSize.height());
+        m_textRect.moveTop(contentsRect.y() + y);
+        max = m_textRect.bottom() + spacer();
       }
+
+      if (!m_icon.isNull()) {
+        x = halfDifference(contentsRect.width(), m_iconSize.width());
+        m_iconRect.moveLeft(contentsRect.x() + x);
+        m_iconRect.moveTop(max);
+      }
+
       break;
     }
-    case TextAboveIcon: {
-      switch (dockPosition) {
-        case DockLayout::East:
-        case DockLayout::West: {
-          if (widgetPosition() == Start) {
-            r.setTop(min);
-            textTop = min + topMargin();
-            min += p->maxHeight();
-          } else if (widgetPosition() == End) {
-            max -= p->maxHeight();
-            r.setTop(max);
-            textTop = max + topMargin();
-          }
-          textLeft = halfDifference(p->maxWidth(), textWidth);
-          iconTop = textTop + textHeight + spacer();
-          iconLeft = halfDifference(p->maxWidth(), iconWidth);
-          setIconRect(QRect(iconLeft, iconTop, iconWidth, iconHeight));
-          setTextRect(QRect(textLeft, textTop, textWidth, textHeight));
-          break;
-        }
-        case DockLayout::North:
-        case DockLayout::South: {
-          if (widgetPosition() == Start) {
-            r.setLeft(min);
-            textLeft = min + leftMargin();
-            min += p->maxWidth();
-          } else if (widgetPosition() == End) {
-            max -= p->maxWidth();
-            r.setLeft(max);
-            textLeft = max + leftMargin();
-          }
-          textTop = halfDifference(p->maxHeight(), textHeight);
-          iconTop = textTop + textHeight + spacer();
-          iconLeft = halfDifference(p->maxWidth(), iconWidth);
-          setIconRect(QRect(iconLeft, iconTop, iconWidth, iconHeight));
-          setTextRect(QRect(textLeft, textTop, textWidth, textHeight));
-          break;
-        }
+    case TextBelowIcon: {
+      if (!m_icon.isNull()) {
+        x = halfDifference(contentsRect.width(), m_iconSize.width());
+        m_iconRect.moveLeft(contentsRect.x() + x);
+        y = halfDifference(contentsRect.height(), m_minContentSize.height());
+        m_iconRect.moveTop(contentsRect.y() + y);
+        max = m_iconRect.bottom() /*+ spacer()*/;
+      }
+
+      if (!m_text.isEmpty()) {
+        x = halfDifference(contentsRect.width(), m_textRect.width());
+        m_textRect.moveLeft(contentsRect.x() + x);
+        m_textRect.moveTop(max);
       }
       break;
     }
     case TextToRight: {
-      switch (dockPosition) {
-        case DockLayout::East:
-        case DockLayout::West: {
-          if (widgetPosition() == Start) {
-            r.setTop(min);
-            textTop = min + halfDifference(p->maxHeight(), textHeight);
-            iconTop = min + halfDifference(p->maxHeight(), iconHeight);
-            min += p->maxHeight();
-          } else if (widgetPosition() == End) {
-            max -= p->maxHeight();
-            r.setTop(max);
-            textTop = max + halfDifference(p->maxHeight(), textHeight);
-            iconTop = max + halfDifference(p->maxHeight(), iconHeight);
-          }
-          iconLeft =
-            halfDifference(p->maxWidth(), textWidth + spacer() + iconWidth);
-          textLeft = iconLeft + iconWidth + spacer();
-          setIconRect(QRect(iconLeft, iconTop, iconWidth, iconHeight));
-          setTextRect(QRect(textLeft, textTop, textWidth, textHeight));
-          break;
-        }
-        case DockLayout::North:
-        case DockLayout::South: {
-          if (widgetPosition() == Start) {
-            r.setLeft(min);
-            iconLeft = min + leftMargin();
-            min += p->maxWidth();
-          } else if (widgetPosition() == End) {
-            max -= p->maxWidth();
-            r.setLeft(max);
-            iconLeft = max + leftMargin();
-          }
-          iconTop = halfDifference(p->maxHeight(), iconHeight);
-          textLeft = iconLeft + iconWidth + spacer();
-          textTop = halfDifference(p->maxHeight(), textHeight);
-          setIconRect(QRect(iconLeft, iconTop, iconWidth, iconHeight));
-          setTextRect(QRect(textLeft, textTop, textWidth, textHeight));
-          break;
-        }
+      if (!m_icon.isNull()) {
+        x = halfDifference(contentsRect.width(), m_minContentSize.width());
+        m_iconRect.moveLeft(contentsRect.x() + x);
+        y = halfDifference(contentsRect.height(), m_iconSize.height());
+        m_iconRect.moveTop(contentsRect.y() + y);
+        max = m_iconRect.right() + spacer();
+      }
+
+      if (!m_text.isEmpty()) {
+        m_textRect.moveLeft(max);
+        y = halfDifference(contentsRect.height(), m_fontMetrics.height());
+        m_textRect.moveTop(contentsRect.y() + y);
       }
       break;
     }
     case TextToLeft: {
-      switch (dockPosition) {
-        case DockLayout::East:
-        case DockLayout::West: {
-          if (widgetPosition() == Start) {
-            r.setTop(min);
-            textTop = min + halfDifference(p->maxHeight(), textHeight);
-            iconTop = min + halfDifference(p->maxHeight(), iconHeight);
-            min += p->maxHeight();
-          } else if (widgetPosition() == End) {
-            max -= p->maxHeight();
-            r.setTop(max);
-            textTop = max + halfDifference(p->maxHeight(), textHeight);
-            iconTop = max + halfDifference(p->maxHeight(), iconHeight);
-          }
-          textLeft =
-            halfDifference(p->maxWidth(), textWidth + spacer() + iconWidth);
-          iconLeft = textLeft + textWidth + spacer();
-          setIconRect(QRect(iconLeft, iconTop, iconWidth, iconHeight));
-          setTextRect(QRect(textLeft, textTop, textWidth, textHeight));
-          break;
-        }
-        case DockLayout::North:
-        case DockLayout::South: {
-          if (widgetPosition() == Start) {
-            r.setLeft(min);
-            textLeft = min + leftMargin();
-            min += p->maxWidth();
-          } else if (widgetPosition() == End) {
-            max -= p->maxWidth();
-            r.setLeft(max);
-            textLeft = max + leftMargin();
-          }
-          textTop = halfDifference(p->maxHeight(), textHeight);
-          iconTop = textTop + textHeight + spacer();
-          iconLeft = halfDifference(p->maxWidth(), iconWidth);
-          setIconRect(QRect(iconLeft, iconTop, iconWidth, iconHeight));
-          setTextRect(QRect(textLeft, textTop, textWidth, textHeight));
-          break;
-        }
+      if (!m_text.isEmpty()) {
+        x = halfDifference(contentsRect.width(), m_minContentSize.width());
+        m_textRect.moveLeft(contentsRect.x() + x);
+        y = halfDifference(contentsRect.height(), m_fontMetrics.height());
+        m_textRect.moveTop(contentsRect.y() + y);
+        max = m_textRect.right() + spacer();
+      }
+
+      if (!m_icon.isNull()) {
+        m_iconRect.moveLeft(max);
+        y = halfDifference(contentsRect.height(), m_iconSize.height());
+        m_iconRect.moveTop(contentsRect.y() + y);
       }
       break;
     }
     case IconOnly: {
-      switch (dockPosition) {
-        case DockLayout::East:
-        case DockLayout::West: {
-          if (widgetPosition() == Start) {
-            r.setTop(min);
-            iconTop = min + halfDifference(p->maxHeight(), iconHeight);
-            min += p->maxHeight();
-          } else if (widgetPosition() == End) {
-            max -= p->maxHeight();
-            r.setTop(max);
-            iconTop = max + halfDifference(p->maxHeight(), iconHeight);
-          }
-          iconLeft = halfDifference(p->maxWidth(), iconWidth);
-          setIconRect(QRect(iconLeft, iconTop, iconWidth, iconHeight));
-          break;
-        }
-        case DockLayout::North:
-        case DockLayout::South: {
-          if (widgetPosition() == Start) {
-            r.setLeft(min);
-            iconLeft = min + halfDifference(p->maxWidth(), iconWidth);
-            min += p->maxWidth();
-          } else if (widgetPosition() == End) {
-            max -= p->maxWidth();
-            r.setLeft(max);
-            iconLeft = max + halfDifference(p->maxWidth(), iconWidth);
-          }
-          iconTop = halfDifference(p->maxHeight(), iconHeight);
-          setIconRect(QRect(iconLeft, iconTop, iconWidth, iconHeight));
-          break;
-        }
+      if (!m_icon.isNull()) {
+        x = halfDifference(contentsRect.width(), m_iconSize.width());
+        m_iconRect.moveLeft(contentsRect.x() + x);
+        y = halfDifference(contentsRect.height(), m_iconSize.height());
+        m_iconRect.moveTop(contentsRect.y() + y);
       }
       break;
     }
     case TextOnly: {
-      switch (dockPosition) {
-        case DockLayout::East:
-        case DockLayout::West: {
-          textLeft = halfDifference(p->maxWidth(), textWidth);
-          if (widgetPosition() == Start) {
-            textTop = min + halfDifference(p->maxHeight(), textHeight);
-            r.setTop(min);
-            min += p->maxHeight();
-          } else if (widgetPosition() == End) {
-            max -= p->maxHeight();
-            textTop = max + halfDifference(p->maxHeight(), textHeight);
-            r.setTop(max);
-          }
-          setTextRect(QRect(textLeft, textTop, textWidth, textHeight));
-          break;
-        }
-        case DockLayout::North:
-        case DockLayout::South: {
-          textTop = halfDifference(p->maxHeight(), textHeight);
-          textLeft = min + halfDifference(p->maxWidth(), textWidth);
-          if (widgetPosition() == Start) {
-            r.setLeft(min);
-            min += p->maxWidth();
-          } else if (widgetPosition() == End) {
-            max -= p->maxWidth();
-            r.setLeft(max);
-          }
-          setTextRect(QRect(textLeft, textTop, textWidth, textHeight));
-          break;
-        }
+      if (!m_text.isEmpty()) {
+        x = halfDifference(contentsRect.width(), m_textRect.width());
+        m_textRect.moveLeft(contentsRect.x() + x);
+        y = halfDifference(contentsRect.height(), m_textRect.height());
+        m_textRect.moveTop(contentsRect.y() + y);
       }
       break;
     }
-    default: {
+    case NoArrangement:
+      qWarning();
       break;
-    }
   }
-  r.setWidth(p->maxWidth());
-  r.setHeight(p->maxHeight());
 }
 
 const QColor&
@@ -1023,16 +1605,37 @@ ButtonWidget::setTextRect(const QRect& newTextRect)
 //====================================================================
 //=== SpacerWrapper
 //====================================================================
-SpacerWidget::SpacerWidget(QObject* parent)
-  : WidgetWrapper(parent)
+SpacerWidget::SpacerWidget(DockWidget* parent)
+  : WidgetItem(parent)
   , m_color(QColorConstants::X11::DimGray)
 {}
 
 const QSize
-SpacerWidget::calcSize()
+SpacerWidget::calcMinimumSize()
 {
-  auto p = qobject_cast<DockWidget*>(parent());
-  return QSize(p->width(), p->height());
+  auto p = qobject_cast<DockItem*>(parent());
+  auto dockPosition = p->dockPosition();
+  auto ps = p->sizeHint();
+
+  switch (dockPosition) {
+    case East:
+    case West: {
+      auto pw = ps.width();
+      m_minContentSize.setWidth(pw);
+      m_minContentSize.setHeight(topMargin() + thickness() + bottomMargin());
+      break;
+    }
+    case North:
+    case South: {
+      auto ph = ps.height();
+      m_minContentSize.setWidth(leftMargin() + thickness() + rightMargin());
+      m_minContentSize.setHeight(ph);
+      break;
+    }
+    default:
+      break;
+  }
+  return m_minContentSize;
 }
 
 const QColor&
@@ -1060,7 +1663,7 @@ SpacerWidget::setThickness(int newThickness)
 }
 
 void
-SpacerWidget::paintWidget(QPainter& painter)
+SpacerWidget::paint(QPainter& painter)
 {
   painter.save();
   paintBackground(painter);
@@ -1073,131 +1676,118 @@ SpacerWidget::paintWidget(QPainter& painter)
   painter.restore();
 }
 
-void
-SpacerWidget::resizeEvent(QRect& r, int& min, int& max)
+//====================================================================
+//=== CustomWidget
+//====================================================================
+WidgetItem*
+CustomWidget::create(const QString& type)
 {
-  auto p = qobject_cast<DockWidgetItem*>(parent());
-  auto dockPosition = p->dockPosition();
-
-  switch (dockPosition) {
-    case DockLayout::East:
-    case DockLayout::West: {
-      r.setX(0);
-      auto h = topMargin() + thickness() + bottomMargin();
-      if (widgetPosition() == Start) {
-        r.setTop(min);
-        min += h;
-      } else if (widgetPosition() == End) {
-        max -= h;
-        r.setTop(max);
-      }
-      r.setWidth(p->maxWidth());
-      r.setHeight(h);
-      break;
-    }
-    case DockLayout::North:
-    case DockLayout::South: {
-      // TODO
-      break;
-    }
+  void* myClassPtr = nullptr;
+  int id = QMetaType::type(type.toStdString().c_str());
+  if (id) {
+    myClassPtr = QMetaType::create(id);
   }
+  return static_cast<WidgetItem*>(myClassPtr);
+}
+
+WidgetItem*
+CustomWidget::create(QWidget* sister)
+{
+  void* myClassPtr = nullptr;
+  int id = QMetaType::type(sister->metaObject()->className());
+  if (id) {
+    myClassPtr = QMetaType::create(id, sister);
+  }
+  return static_cast<WidgetItem*>(myClassPtr);
 }
 
 //====================================================================
 //=== BaseDockWidget
 //====================================================================
-DockWidgetItem::DockWidgetItem(DockLayout::Position position, QWidget* parent)
-  : QWidget{ parent }
+DockItem::DockItem(DockPosition position, DockWidget* parent)
+  : QObject{ parent }
+  , m_parent(parent)
   , m_dockPosition(position)
-  , m_backColor(QColor(64, 65, 66))
-  , m_hoverBackColor(QColorConstants::X11::grey43)
-  , m_selectedColor(QColorConstants::X11::grey18)
-  , m_spacerColor(QColorConstants::X11::DimGrey)
+  , m_fontMetrics(parent->fontMetrics())
 {
   switch (m_dockPosition) {
-    case DockLayout::West:
-    case DockLayout::East: {
+    case West:
+    case East: {
       m_width = WIDTH;
       m_maxWidgetWidth = m_width;
       break;
     }
-    case DockLayout::North:
-    case DockLayout::South: {
+    case North:
+    case South: {
       m_height = HEIGHT;
       m_maxWidgetHeight = m_height;
       break;
     }
+    default:
+      break;
   }
-  auto f = font();
-  f.setPointSize(8);
-  setFont(f);
 }
 
-DockWidgetItem::~DockWidgetItem()
+DockItem::~DockItem()
 {
-  WidgetWrapper* l;
+  WidgetItem* l;
   while ((l = takeAt(0)))
     delete l;
 }
 
-WidgetWrapper*
-DockWidgetItem::addIconButton(WidgetPosition pos,
-                              QImage icon,
-                              const QString& tooltip)
+WidgetItem*
+DockItem::addIconButton(WidgetPosition pos, QImage icon, const QString& tooltip)
 {
-  WidgetWrapper* w =
-    createWidgetWrapper(Button, pos, icon, QString(), IconOnly, tooltip);
+  WidgetItem* w =
+    createWidgetItem(Button, pos, icon, QString(), IconOnly, tooltip);
   calcWidgetSizes();
-  connect(
-    w, &WidgetWrapper::widgetChanged, this, &DockWidgetItem::calcWidgetSizes);
+  connect(w, &WidgetItem::widgetChanged, this, &DockItem::calcWidgetSizes);
   return w;
 }
 
-WidgetWrapper*
-DockWidgetItem::addIconTextButton(WidgetPosition pos,
-                                  QImage icon,
-                                  const QString& text,
-                                  Arrangement textPos,
-                                  const QString& tooltip)
+WidgetItem*
+DockItem::addIconTextButton(WidgetPosition pos,
+                            QImage icon,
+                            const QString& text,
+                            Arrangement textPos,
+                            const QString& tooltip)
 {
-  WidgetWrapper* w =
-    createWidgetWrapper(Button, pos, icon, text, textPos, tooltip);
+  WidgetItem* w = createWidgetItem(Button, pos, icon, text, textPos, tooltip);
   calcWidgetSizes();
-  connect(
-    w, &WidgetWrapper::widgetChanged, this, &DockWidgetItem::calcWidgetSizes);
+  connect(w, &WidgetItem::widgetChanged, this, &DockItem::calcWidgetSizes);
   return w;
 }
 
-WidgetWrapper*
-DockWidgetItem::addTextButton(WidgetPosition pos,
-                              const QString& text,
-                              const QString& tooltip)
+WidgetItem*
+DockItem::addTextButton(WidgetPosition pos,
+                        const QString& text,
+                        const QString& tooltip)
 {
-  WidgetWrapper* w =
-    createWidgetWrapper(Button, pos, QImage(), text, TextOnly, tooltip);
+  WidgetItem* w =
+    createWidgetItem(Button, pos, QImage(), text, TextOnly, tooltip);
   calcWidgetSizes();
-  connect(
-    w, &WidgetWrapper::widgetChanged, this, &DockWidgetItem::calcWidgetSizes);
+  connect(w, &WidgetItem::widgetChanged, this, &DockItem::calcWidgetSizes);
   return w;
 }
 
-WidgetWrapper*
-DockWidgetItem::addSpacer(WidgetPosition pos)
+WidgetItem*
+DockItem::addSpacer(WidgetPosition pos)
 {
-  WidgetWrapper* w =
-    createWidgetWrapper(Spacer, pos, QImage(), QString(), IconOnly, QString());
+  WidgetItem* w =
+    createWidgetItem(Spacer, pos, QImage(), QString(), IconOnly, QString());
   return w;
 }
 
-WidgetWrapper*
-DockWidgetItem::addCustomWidget(CustomWidget* w)
+WidgetItem*
+DockItem::addCustomWidget(CustomWidget* w)
 {
   m_widgets.append(w);
+  calcWidgetSizes();
   return w;
 }
 
 void
-DockWidgetItem::setText(int index, const QString& text)
+DockItem::setText(int index, const QString& text)
 {
   auto w = at(index);
   if (w) {
@@ -1214,41 +1804,77 @@ DockWidgetItem::setText(int index, const QString& text)
 }
 
 void
-DockWidgetItem::setToolTip(int index, const QString& tooltip)
+DockItem::setToolTip(int index, const QString& tooltip)
 {
   auto w = at(index);
   if (w)
     w->setTooltip(tooltip);
 }
 
-WidgetWrapper*
-DockWidgetItem::createWidgetWrapper(WidgetType type,
-                                    WidgetPosition pos,
-                                    QImage image,
-                                    const QString& text,
-                                    Arrangement textPos,
-                                    const QString& tooltip)
+WidgetItem*
+DockItem::createWidgetItem(WidgetType type,
+                           WidgetPosition pos,
+                           QImage image,
+                           const QString& text,
+                           Arrangement textPos,
+                           const QString& tooltip)
 {
-  WidgetWrapper* wrapper;
+  WidgetItem* wrapper = nullptr;
 
   switch (type) {
     case Button: {
-      auto bw = new ButtonWidget(this);
+      auto bw = new ButtonWidget(m_parent);
       bw->setIcon(QIcon(QPixmap::fromImage(image)));
       bw->setIconSize(image.size());
       bw->setText(text);
       bw->setArrangement(textPos);
       bw->setTooltip(tooltip);
       wrapper = bw;
+      int height = 0;
+      int width = 0;
 
-      auto fm = fontMetrics();
-      auto width = fm.horizontalAdvance(text);
-      width = (width > bw->iconSize().width() ? width : bw->iconSize().width());
-      m_maxWidgetWidth = (width > m_maxWidgetWidth ? width : m_maxWidgetWidth);
-      auto height = bw->topMargin() + fm.height() + bw->spacer() +
-                    bw->iconSize().height() + bw->bottomMargin();
-      m_maxWidgetHeight =
-        (height > m_maxWidgetHeight ? height : m_maxWidgetHeight);
+      switch (textPos) {
+        case TextAboveIcon:
+        case TextBelowIcon: {
+          width = m_fontMetrics.horizontalAdvance(text);
+          width =
+            (width > bw->iconSize().width() ? width : bw->iconSize().width());
+          m_maxWidgetWidth = max(width, m_maxWidgetWidth);
+          height = bw->topMargin() + m_fontMetrics.height() + bw->spacer() +
+                   bw->iconSize().height() + bw->bottomMargin();
+          m_maxWidgetHeight = max(height, m_maxWidgetHeight);
+          break;
+        }
+        case TextToRight:
+        case TextToLeft: {
+          width = bw->leftMargin() + m_fontMetrics.horizontalAdvance(text) +
+                  bw->spacer() + bw->iconSize().width() + bw->rightMargin();
+          m_maxWidgetWidth = max(width, m_maxWidgetWidth);
+          height = bw->topMargin() + height + bw->bottomMargin();
+          m_maxWidgetHeight = max(height, m_maxWidgetHeight);
+          break;
+        }
+        case IconOnly: {
+          width = bw->iconSize().width();
+          m_maxWidgetWidth = max(width, m_maxWidgetWidth);
+          height =
+            bw->topMargin() + bw->iconSize().height() + bw->bottomMargin();
+          m_maxWidgetHeight = max(height, m_maxWidgetHeight);
+          ;
+          break;
+        }
+        case TextOnly: {
+          width = m_fontMetrics.horizontalAdvance(text);
+          m_maxWidgetWidth = max(width, m_maxWidgetWidth);
+          height =
+            bw->topMargin() + m_fontMetrics.height() + bw->bottomMargin();
+          m_maxWidgetHeight = max(height, m_maxWidgetHeight);
+          ;
+          break;
+        }
+        case NoArrangement:
+          break;
+      }
 
       break;
     }
@@ -1258,13 +1884,13 @@ DockWidgetItem::createWidgetWrapper(WidgetType type,
       break;
     }
     case Spacer: {
-      auto sp = new SpacerWidget(this);
+      auto sp = new SpacerWidget(m_parent);
       wrapper = sp;
 
       break;
     }
-    default:
-      wrapper = nullptr;
+    case Custom:
+      //      wrapper = WidgetItem::create();
       break;
   }
 
@@ -1279,28 +1905,28 @@ DockWidgetItem::createWidgetWrapper(WidgetType type,
   return wrapper;
 }
 
-WidgetWrapper*
-DockWidgetItem::takeAt(int index)
+WidgetItem*
+DockItem::takeAt(int index)
 {
   if (index >= 0 && index < m_widgets.size()) {
-    WidgetWrapper* layoutStruct = m_widgets.takeAt(index);
+    WidgetItem* layoutStruct = m_widgets.takeAt(index);
     return layoutStruct;
   }
   return nullptr;
 }
 
-WidgetWrapper*
-DockWidgetItem::at(int index)
+WidgetItem*
+DockItem::at(int index)
 {
   if (index >= 0 && index < m_widgets.size()) {
-    WidgetWrapper* layoutStruct = m_widgets.at(index);
+    WidgetItem* layoutStruct = m_widgets.at(index);
     return layoutStruct;
   }
   return nullptr;
 }
 
 bool
-DockWidgetItem::replace(int index, WidgetWrapper* w)
+DockItem::replace(int index, WidgetItem* w)
 {
   if (index >= 0 && index < m_widgets.size()) {
     m_widgets.replace(index, w);
@@ -1310,7 +1936,7 @@ DockWidgetItem::replace(int index, WidgetWrapper* w)
 }
 
 bool
-DockWidgetItem::widgetEnabled(int index)
+DockItem::widgetEnabled(int index)
 {
   if (index >= 0 && index < m_widgets.size()) {
     return m_widgets.at(index)->isEnabled();
@@ -1319,18 +1945,18 @@ DockWidgetItem::widgetEnabled(int index)
 }
 
 bool
-DockWidgetItem::enableWidget(int index, bool value)
+DockItem::enableWidget(int index, bool value)
 {
   if (index >= 0 && index < m_widgets.size()) {
     m_widgets.at(index)->setEnabled(value);
-    repaint();
+    //    repaint();
     return true;
   }
   return false;
 }
 
 bool
-DockWidgetItem::selected(int index)
+DockItem::selected(int index)
 {
   if (index >= 0 && index < m_widgets.size()) {
     return m_widgets.at(index)->isSelected();
@@ -1339,18 +1965,101 @@ DockWidgetItem::selected(int index)
 }
 
 bool
-DockWidgetItem::setSelected(int index, bool value)
+DockItem::setSelected(int index, bool value)
 {
   if (index >= 0 && index < m_widgets.size()) {
     m_widgets.at(index)->setSelected(value);
-    repaint();
+    //    repaint();
     return true;
   }
   return false;
 }
 
+void
+DockItem::calculateGeometry(const QRect& rect)
+{
+  m_rect = rect;
+
+  auto min = 0;
+  auto max = 0;
+
+  switch (m_dockPosition) {
+    case NorthEast:
+    case NorthWest:
+    case SouthEast:
+    case SouthWest:
+    case Center:
+      break;
+    case East:
+    case West: {
+      min = rect.y() + 1;
+      max = rect.bottom() - TOOLBAR_ENDER;
+      for (auto& w : m_widgets) {
+        auto size = w->sizeHint();
+        auto x = rect.left() + halfDifference(rect.width(), size.width());
+        auto widgetHeight =
+          (m_itemsSameSize ? m_maxWidgetHeight : size.height());
+        switch (w->widgetPosition()) {
+          case Start: {
+            auto y = min + halfDifference(widgetHeight, size.height());
+            auto contentsRect = QRect(x, y, size.width(), size.height());
+            auto widgetRect = contentsRect;
+            widgetRect.setWidth(rect.width());
+            widgetRect.moveLeft(rect.left());
+            w->setGeometry(widgetRect, contentsRect);
+            min += widgetHeight;
+            break;
+          }
+          case End: {
+            max -= widgetHeight;
+            auto y = max + halfDifference(widgetHeight, size.height());
+            auto contentsRect = QRect(x, y, size.width(), size.height());
+            auto widgetRect = contentsRect;
+            widgetRect.setWidth(rect.width());
+            widgetRect.moveLeft(rect.left());
+            w->setGeometry(widgetRect, contentsRect);
+          }
+        }
+      }
+      break;
+    }
+    case North:
+    case South: {
+      min = rect.x() + 1;
+      max = rect.right() - TOOLBAR_ENDER;
+      for (auto& w : m_widgets) {
+        auto size = w->sizeHint();
+        auto y = rect.top() + halfDifference(rect.height(), size.height());
+        auto widgetWidth = (m_itemsSameSize ? m_maxWidgetWidth : size.width());
+        switch (w->widgetPosition()) {
+          case Start: {
+            auto x = min + halfDifference(widgetWidth, size.width());
+            auto contentsRect = QRect(x, y, size.width(), size.height());
+            auto widgetRect = contentsRect;
+            widgetRect.setHeight(rect.height());
+            widgetRect.moveTop(rect.top());
+            w->setGeometry(widgetRect, contentsRect);
+            min += widgetWidth;
+            break;
+          }
+          case End: {
+            max -= widgetWidth;
+            auto x = max + halfDifference(widgetWidth, size.width());
+            auto contentsRect = QRect(x, y, size.width(), size.height());
+            auto widgetRect = contentsRect;
+            widgetRect.moveTop(rect.top());
+            widgetRect.setHeight(rect.height());
+            w->setGeometry(widgetRect, contentsRect);
+          }
+        }
+      }
+      break;
+    }
+  }
+}
+
 QMargins
-DockWidgetItem::widgetMargins(int index)
+DockItem::widgetMargins(int index)
 {
   auto w = at(index);
   if (w) {
@@ -1360,11 +2069,7 @@ DockWidgetItem::widgetMargins(int index)
 }
 
 void
-DockWidgetItem::setWidgetMargins(int index,
-                                 int left,
-                                 int top,
-                                 int right,
-                                 int bottom)
+DockItem::setWidgetMargins(int index, int left, int top, int right, int bottom)
 {
   auto w = at(index);
   if (w) {
@@ -1373,7 +2078,6 @@ DockWidgetItem::setWidgetMargins(int index,
     w->setRightMargin(right);
     w->setBottomMargin(bottom);
   }
-  repaint();
 }
 
 /*
@@ -1382,37 +2086,36 @@ DockWidgetItem::setWidgetMargins(int index,
  * sub-widgets may or may not affect this value.
  */
 void
-DockWidgetItem::calcWidgetSizes()
+DockItem::calcWidgetSizes()
 {
   auto maxMargins = calcMaxMargins();
   auto maxContentsSize = calcMaxContentsSize();
   auto w = maxMargins.left() + maxContentsSize.width() + maxMargins.right();
   auto h = maxMargins.top() + maxContentsSize.height() + maxMargins.bottom();
 
-  m_maxWidgetWidth = (w > m_maxWidgetWidth ? w : m_maxWidgetWidth);
-  m_maxWidgetHeight = (h > m_maxWidgetHeight ? h : m_maxWidgetHeight);
-  resize(m_maxWidgetWidth, m_maxWidgetHeight);
+  m_maxWidgetWidth = max(w, m_maxWidgetWidth);
+  m_maxWidgetHeight = max(h, m_maxWidgetHeight);
 }
 
 /*
  * Returns the size of the contents of the sub widget, including spacers.
  */
 QSize
-DockWidgetItem::calcMaxContentsSize()
+DockItem::calcMaxContentsSize()
 {
   auto width = 0;
   auto height = 0;
 
   for (auto& w : m_widgets) {
-    auto size = w->calcSize();
-    width = (size.width() > width ? size.width() : width);
-    height = (size.height() > height ? size.height() : height);
+    auto size = w->calcMinimumSize();
+    width = max(size.width(), width);
+    height = max(size.height(), height);
   }
   return QSize(width, height);
 }
 
 QMargins
-DockWidgetItem::calcMaxMargins()
+DockItem::calcMaxMargins()
 {
   QMargins maxMargins;
   for (auto& w : m_widgets) {
@@ -1431,780 +2134,324 @@ DockWidgetItem::calcMaxMargins()
 }
 
 void
-DockWidgetItem::setPreferredSize(int width, int height)
+DockItem::setPreferredSize(int width, int height)
 {
   m_width = width;
   m_height = height;
-  if (m_dockPosition == DockLayout::East ||
-      m_dockPosition == DockLayout::West) {
-    setFixedWidth(m_width);
+  if (m_dockPosition == East || m_dockPosition == West) {
     m_maxWidgetWidth = m_width;
-  } else {
-    setFixedHeight(m_height);
+  } else if (m_dockPosition == North || m_dockPosition == South) {
     m_maxWidgetHeight = m_height;
   }
 }
 
 void
-DockWidgetItem::setPreferredSize(QSize size)
+DockItem::setPreferredSize(QSize size)
 {
   setPreferredSize(size.width(), size.height());
 }
 
 void
-DockWidgetItem::setPreferredWidth(int width)
+DockItem::setPreferredWidth(int width)
 {
   m_width = width;
 }
 
 void
-DockWidgetItem::setPreferredHeight(int height)
+DockItem::setPreferredHeight(int height)
 {
   m_height = height;
 }
 
-QSize
-DockWidgetItem::sizeHint() const
-{
-  return m_frameRect.size();
-}
-
-DockLayout::Position
-DockWidgetItem::dockPosition() const
+DockPosition
+DockItem::dockPosition() const
 {
   return m_dockPosition;
 }
 
 int
-DockWidgetItem::maxWidth() const
+DockItem::maxWidgetWidth() const
 {
   return m_maxWidgetWidth;
 }
 
 int
-DockWidgetItem::maxHeight() const
+DockItem::maxWidgetHeight() const
 {
   return m_maxWidgetHeight;
 }
 
-void
-DockWidgetItem::resizeEvent(QResizeEvent* event)
+int
+DockItem::height() const
 {
-  auto s = event->size();
-  auto min = 1;
-  auto max =
-    (m_dockPosition == DockLayout::North || m_dockPosition == DockLayout::South
-       ? s.width() - TOOLBAR_ENDER
-       : s.height() - TOOLBAR_ENDER);
-  m_frameRect = QRect(0, 0, s.width(), s.height());
-  for (auto& w : m_widgets) {
-    auto r = w->rect();
-    w->resizeEvent(r, min, max);
-    w->setRect(r);
-  }
+  return m_height;
 }
 
-void
-DockWidgetItem::paintEvent(QPaintEvent* event)
+int
+DockItem::width() const
 {
-  QWidget::paintEvent(event);
-  QPainter painter(this);
-
-  painter.fillRect(m_frameRect, m_backColor);
-
-  for (auto& w : m_widgets) {
-    w->paintWidget(painter);
-  }
-}
-
-void
-DockWidgetItem::hoverEnterEvent(QHoverEvent* event)
-{
-  // TODO tooltips not working on hover.
-  for (auto& w : m_widgets) {
-    auto p = event->pos();
-    if (w->rect().contains(p)) {
-      w->setHoverOver(true);
-      QToolTip::showText(p, w->tooltip(), this, w->rect());
-      repaint();
-    } else {
-      w->setHoverOver(false);
-      repaint();
-    }
-  }
-}
-
-void
-DockWidgetItem::hoverLeaveEvent(QHoverEvent* /*event*/)
-{
-  for (auto& w : m_widgets) {
-    w->setHoverOver(false);
-    QToolTip::hideText();
-  }
-  repaint();
-}
-
-void
-DockWidgetItem::hoverMoveEvent(QHoverEvent* event)
-{
-  for (auto& w : m_widgets) {
-    if (w->rect().contains(event->pos())) {
-      w->setHoverOver(true);
-      repaint();
-    } else {
-      w->setHoverOver(false);
-      repaint();
-    }
-  }
-}
-
-void
-DockWidgetItem::mousePressEvent(QMouseEvent* event)
-{
-  for (int i = 0; i < m_widgets.size(); i++) {
-    auto w = m_widgets.at(i);
-    if (w->rect().contains(event->pos())) {
-      if (w->isEnabled()) {
-        switch (w->type()) {
-          case Button: {
-            emit w->widgetClicked();
-            break;
-          }
-          default:
-            break;
-        }
-      }
-    }
-  }
-}
-
-void
-DockWidgetItem::mouseReleaseEvent(QMouseEvent* /*event*/)
-{
-  // TODO possibly remove if not used.
+  return m_width;
 }
 
 bool
-DockWidgetItem::event(QEvent* event)
+DockItem::isVisible() const
 {
-  switch (event->type()) {
-    case QEvent::HoverEnter:
-      hoverEnterEvent(static_cast<QHoverEvent*>(event));
-      return true;
-      break;
-    case QEvent::HoverLeave:
-      hoverLeaveEvent(static_cast<QHoverEvent*>(event));
-      return true;
-      break;
-    case QEvent::HoverMove:
-      hoverMoveEvent(static_cast<QHoverEvent*>(event));
-      return true;
-      break;
-    default:
-      break;
+  return m_visible;
+}
+
+void
+DockItem::setVisible(bool value)
+{
+  m_visible = value;
+}
+
+void
+DockItem::show()
+{
+  setVisible(true);
+}
+
+void
+DockItem::hide()
+{
+  setVisible(false);
+}
+
+void
+DockItem::paint(QPainter& painter)
+{
+  if (m_visible) {
+    painter.fillRect(m_rect, m_parent->backColor());
+
+    for (auto& w : m_widgets) {
+      w->paint(painter);
+    }
   }
-  return QWidget::event(event);
+}
+
+const QList<WidgetItem*>&
+DockItem::widgets() const
+{
+  return m_widgets;
 }
 
 //====================================================================
 //=== DockFooter
 //====================================================================
-DockFooter::DockFooter(QWidget* parent)
-  : DockWidgetItem(DockLayout::South, parent)
+DockFooter::DockFooter(DockWidget* parent)
+  : DockItem(South, parent)
 {
   setPreferredSize(WIDTH, HEIGHT);
-  setMouseTracking(true);
-  setAttribute(Qt::WA_Hover);
-  setAutoFillBackground(true);
-  setContentsMargins(0, 0, 0, 0);
+}
+
+QSize
+DockFooter::sizeHint() const
+{
+  auto w = m_width;
+  auto h = m_height;
+  for (auto widget : m_widgets) {
+    auto s = widget->sizeHint();
+    w += s.width();
+    h = (h > s.height() ? h : s.height());
+  }
+  return QSize(w, h);
 }
 
 void
-DockFooter::paintEvent(QPaintEvent* event)
+DockFooter::paint(QPainter& painter)
 {
-  QPainter painter(this);
-  auto pen = painter.pen();
-  pen.setColor(QColor("black"));
-  pen.setWidth(1);
-  painter.setPen(pen);
-  painter.drawLine(0, 0, 0, m_maxWidgetHeight);
+  if (m_visible) {
+    DockItem::paint(painter);
 
-  DockWidgetItem::paintEvent(event);
+    auto pen = painter.pen();
+    pen.setColor(QColor(55, 56, 56));
+    pen.setWidth(1);
+    painter.setPen(pen);
+    painter.drawLine(m_rect.x(), m_rect.y(), m_rect.x(), m_rect.height());
+    painter.drawLine(m_rect.x(), m_rect.y(), m_rect.width(), m_rect.y());
+  }
 }
 
 //====================================================================
 //=== DockHeader
 //====================================================================
-DockHeader::DockHeader(QWidget* parent)
-  : DockWidgetItem(DockLayout::North, parent)
+DockHeader::DockHeader(DockWidget* parent)
+  : DockItem(North, parent)
 {
   setPreferredSize(WIDTH, HEIGHT);
-  setMouseTracking(true);
-  setAttribute(Qt::WA_Hover);
-  setAutoFillBackground(true);
-  setContentsMargins(0, 0, 0, 0);
+}
+
+QSize
+DockHeader::sizeHint() const
+{
+  auto w = m_width;
+  auto h = m_height;
+  for (auto widget : m_widgets) {
+    auto s = widget->sizeHint();
+    w += s.width();
+    h = (h > s.height() ? h : s.height());
+  }
+  return QSize(w, h);
 }
 
 void
-DockHeader::paintEvent(QPaintEvent* event)
+DockHeader::paint(QPainter& painter)
 {
-  QPainter painter(this);
-  auto pen = painter.pen();
-  pen.setColor(QColor("black"));
-  pen.setWidth(1);
-  painter.setPen(pen);
-  painter.drawLine(0, 0, 0, m_maxWidgetHeight);
+  if (m_visible) {
+    DockItem::paint(painter);
 
-  DockWidgetItem::paintEvent(event);
+    auto pen = painter.pen();
+    pen.setColor(QColor(55, 56, 56));
+    pen.setWidth(1);
+    painter.setPen(pen);
+    painter.drawLine(m_rect.x(), m_rect.y(), m_rect.x(), m_rect.height());
+    painter.drawLine(m_rect.x(), m_rect.y(), m_rect.width(), m_rect.y());
+  }
 }
 
 //====================================================================
 //=== DockToolbar
 //====================================================================
-DockToolbar::DockToolbar(DockLayout::Position position, QWidget* parent)
-  : DockWidgetItem(position, parent)
+DockToolbar::DockToolbar(DockPosition position, DockWidget* parent)
+  : DockItem(position, parent)
 {
   setPreferredSize(WIDTH, HEIGHT);
-  setMouseTracking(true);
-  setAttribute(Qt::WA_Hover);
-  setAutoFillBackground(true);
-  setContentsMargins(0, 0, 0, 0);
 }
 
-DockLayout::Position
+DockPosition
 DockToolbar::dockPosition()
 {
   return m_dockPosition;
 }
 
 void
-DockToolbar::setDockPosition(DockLayout::Position position)
+DockToolbar::setDockPosition(DockPosition position)
 {
   m_dockPosition = position;
-  repaint();
+  //  repaint();
+}
+
+QSize
+DockToolbar::sizeHint() const
+{
+  auto w = m_width;
+  auto h = m_height;
+  switch (m_dockPosition) {
+    case North:
+    case South: {
+      for (auto widget : m_widgets) {
+        auto s = widget->sizeHint();
+        w += s.width();
+        h = (h > s.height() ? h : s.height());
+      }
+      return QSize(w, h);
+    }
+    case East:
+    case West: {
+      for (auto widget : m_widgets) {
+        auto s = widget->sizeHint();
+        w = (w > s.width() ? w : s.width());
+        h += s.height();
+      }
+      return QSize(w, h);
+    }
+    default:
+      break;
+  }
+  return QSize();
 }
 
 void
-DockToolbar::paintEvent(QPaintEvent* event)
+DockToolbar::paint(QPainter& painter)
 {
-  QPainter painter(this);
-  auto pen = painter.pen();
-  pen.setColor(QColor("black"));
-  pen.setWidth(1);
-  painter.setPen(pen);
-  painter.drawLine(0, 0, m_maxWidgetWidth, 0);
+  if (m_visible) {
+    DockItem::paint(painter);
 
-  DockWidgetItem::paintEvent(event);
+    auto pen = painter.pen();
+    pen.setColor(QColor(55, 56, 56));
+    pen.setWidth(1);
+    painter.setPen(pen);
+    switch (m_dockPosition) {
+      case West:
+      case East:
+        painter.drawLine(m_rect.x(), m_rect.y(), m_rect.width(), m_rect.y());
+        painter.drawLine(m_rect.x(), m_rect.y(), m_rect.x(), m_rect.height());
+        break;
+      case North:
+      case South:
+        painter.drawLine(m_rect.x(), m_rect.y(), m_rect.x(), m_rect.height());
+        painter.drawLine(m_rect.x(), m_rect.y(), m_rect.width(), m_rect.y());
+        break;
+      default:
+        break;
+    }
+  }
 }
 
 //====================================================================
-//=== BoxWidget
+//=== DockCorner
 //====================================================================
-DockBoxCorner::DockBoxCorner(DockLayout::Position position, QWidget* parent)
-  : DockWidgetItem(position, parent)
+DockCorner::DockCorner(CornerType type,
+                       DockPosition position,
+                       DockWidget* parent)
+  : DockItem(position, parent)
+  , m_type(type)
 {}
 
 void
-DockBoxCorner::paintEvent(QPaintEvent* event)
+DockCorner::paint(QPainter& painter)
 {
-  QWidget::paintEvent(event);
-  QPainter painter(this);
-  painter.fillRect(m_frameRect, m_backColor);
+  DockItem::paint(painter);
+  painter.fillRect(m_rect, m_parent->backColor());
+  painter.drawLine(m_rect.x(), m_rect.y(), m_rect.x(), m_rect.height());
+  painter.drawLine(m_rect.x(), m_rect.y(), m_rect.width(), m_rect.y());
 }
 
-void
-DockBoxCorner::resizeEvent(QResizeEvent* event)
-{
-  auto s = event->size();
-  m_frameRect = QRect(0, 0, s.width(), s.height());
-}
-
-DockLayout::Position
-DockBoxCorner::dockPosition()
+DockPosition
+DockCorner::dockPosition()
 {
   return m_dockPosition;
 }
 
 void
-DockBoxCorner::setDockPosition(DockLayout::Position position)
+DockCorner::setDockPosition(DockPosition position)
 {
   m_dockPosition = position;
-  repaint();
 }
 
-//====================================================================
-//=== DockWidthCorner
-//====================================================================
-DockWidthCorner::DockWidthCorner(DockLayout::Position position, QWidget* parent)
-  : DockWidgetItem(position, parent)
-{}
-
-void
-DockWidthCorner::paintEvent(QPaintEvent* event)
+CornerType
+DockCorner::type() const
 {
-  QWidget::paintEvent(event);
-  QPainter painter(this);
-  painter.fillRect(m_frameRect, m_backColor);
+  return m_type;
+}
+
+QSize
+DockCorner::sizeHint() const
+{
+  // The actual sizes are calculated within
+  return QSize(0, 0);
 }
 
 void
-DockWidthCorner::resizeEvent(QResizeEvent* event)
+DockCorner::setWidth(int newWidth)
 {
-  auto s = event->size();
-  m_frameRect = QRect(0, 0, s.width(), s.height());
-}
-
-DockLayout::Position
-DockWidthCorner::dockPosition()
-{
-  return m_dockPosition;
-}
-
-void
-DockWidthCorner::setDockPosition(DockLayout::Position position)
-{
-  m_dockPosition = position;
-  repaint();
-}
-
-//====================================================================
-//=== DockHeightCorner
-//====================================================================
-DockHeightCorner::DockHeightCorner(DockLayout::Position position,
-                                   QWidget* parent)
-  : DockWidgetItem(position, parent)
-{}
-
-void
-DockHeightCorner::paintEvent(QPaintEvent* event)
-{
-  QWidget::paintEvent(event);
-  QPainter painter(this);
-  painter.fillRect(m_frameRect, m_backColor);
-}
-
-void
-DockHeightCorner::resizeEvent(QResizeEvent* event)
-{
-  auto s = event->size();
-  m_frameRect = QRect(0, 0, s.width(), s.height());
-}
-
-DockLayout::Position
-DockHeightCorner::dockPosition()
-{
-  return m_dockPosition;
-}
-
-void
-DockHeightCorner::setDockPosition(DockLayout::Position position)
-{
-  m_dockPosition = position;
-  repaint();
-}
-
-//====================================================================
-//=== DockLayout
-//====================================================================
-DockLayout::DockLayout(QWidget* parent, const QMargins& margins, int spacing)
-  : QLayout(parent)
-{
-  setContentsMargins(margins);
-  setSpacing(spacing);
-}
-
-DockLayout::DockLayout(int spacing)
-{
-  setSpacing(spacing);
-}
-
-DockLayout::~DockLayout()
-{
-  QLayoutItem* l;
-  while ((l = takeAt(0)))
-    delete l;
-}
-
-void
-DockLayout::addItem(QLayoutItem* item)
-{
-  add(item, West);
-}
-
-void
-DockLayout::addWidget(QWidget* widget, Position position)
-{
-  add(new QWidgetItem(widget), position);
-}
-
-Qt::Orientations
-DockLayout::expandingDirections() const
-{
-  return Qt::Horizontal | Qt::Vertical;
-}
-
-bool
-DockLayout::hasHeightForWidth() const
-{
-  return false;
+  m_width = newWidth;
 }
 
 int
-DockLayout::count() const
+DockCorner::height() const
 {
-  return m_items.size();
-}
-
-QLayoutItem*
-DockLayout::itemAt(int index) const
-{
-  ItemWrapper* wrapper = m_items.value(index);
-  return wrapper ? wrapper->item : nullptr;
-}
-
-QSize
-DockLayout::minimumSize() const
-{
-  return calculateSize(MinimumSize);
+  return m_height;
 }
 
 void
-DockLayout::setGeometry(const QRect& rect)
+DockCorner::setHeight(int newHeight)
 {
-  ItemWrapper* center = nullptr;
-
-  auto eastWidth = 0;
-  auto westWidth = 0;
-  auto northHeight = 0;
-  auto southHeight = 0;
-  auto centreHeight = rect.height();
-  auto centreWidth = rect.width();
-
-  QLayout::setGeometry(rect);
-
-  for (auto& wrapper : m_items) {
-    QLayoutItem* item = wrapper->item;
-    Position position = wrapper->position;
-    auto h = item->sizeHint().height();
-    auto w = item->sizeHint().width();
-
-    switch (position) {
-      case DockLayout::North:
-        northHeight += w;
-        centreHeight -= w;
-        break;
-      case DockLayout::South:
-        southHeight += h;
-        centreHeight -= h;
-        break;
-      case DockLayout::East:
-        eastWidth += w;
-        centreWidth -= w;
-        break;
-      case DockLayout::West:
-        westWidth += w;
-        centreWidth -= w;
-        break;
-      default:
-        break;
-    }
-  }
-
-  for (auto& wrapper : m_items) {
-    QLayoutItem* item = wrapper->item;
-    Position position = wrapper->position;
-    switch (position) {
-      case DockLayout::NorthEast:
-        switch (m_northEast) {
-          case Box: {
-            item->setGeometry(
-              QRect(rect.x() + centreWidth, rect.y(), eastWidth, northHeight));
-            break;
-          }
-          case Height: {
-            item->setGeometry(
-              QRect(rect.x() + centreWidth, rect.y(), 0, northHeight));
-            break;
-          }
-          case Width: {
-            item->setGeometry(
-              QRect(rect.x() + centreWidth, rect.y(), eastWidth, 0));
-            break;
-          }
-          default:
-            break;
-        }
-      case DockLayout::NorthWest:
-        switch (m_northWest) {
-          case Box: {
-            item->setGeometry(
-              QRect(rect.x(), rect.y(), westWidth, northHeight));
-            break;
-          }
-          case Height: {
-            item->setGeometry(QRect(rect.x(), rect.y(), 0, northHeight));
-            break;
-          }
-          case Width: {
-            item->setGeometry(QRect(rect.x(), rect.y(), westWidth, 0));
-            break;
-          }
-          case None:
-            break;
-        }
-        break;
-      case DockLayout::SouthEast:
-        switch (m_southEast) {
-          case Box: {
-            item->setGeometry(QRect(rect.x() + centreWidth,
-                                    rect.y() + centreHeight,
-                                    eastWidth,
-                                    southHeight));
-            break;
-          }
-          case Height: {
-            item->setGeometry(QRect(
-              rect.x() + centreWidth, rect.y() + centreHeight, 0, southHeight));
-            break;
-          }
-          case Width: {
-            item->setGeometry(QRect(
-              rect.x() + centreWidth, rect.y() + centreHeight, eastWidth, 0));
-            break;
-          }
-          case None:
-            break;
-        }
-        break;
-      case DockLayout::SouthWest:
-        switch (m_southEast) {
-          case Box: {
-            item->setGeometry(
-              QRect(rect.x(), rect.y() + centreHeight, westWidth, southHeight));
-            break;
-          }
-          case Height: {
-            item->setGeometry(
-              QRect(rect.x(), rect.y() + centreHeight, 0, southHeight));
-            break;
-          }
-          case Width: {
-            item->setGeometry(
-              QRect(rect.x(), rect.y() + centreHeight, westWidth, 0));
-            break;
-          }
-          case None:
-            break;
-        }
-        break;
-      default:
-        break;
-    }
-  }
-
-  for (auto wrapper : m_items) {
-    QLayoutItem* item = wrapper->item;
-    Position position = wrapper->position;
-    switch (position) {
-      case DockLayout::West:
-        item->setGeometry(
-          QRect(rect.x(), rect.y() + centreHeight, westWidth, 0));
-        break;
-      case DockLayout::North:
-        break;
-      case DockLayout::South:
-        break;
-      case DockLayout::East:
-        break;
-      case DockLayout::Center:
-        item->setGeometry(QRect(rect.x() + westWidth,
-                                rect.y() + northHeight,
-                                centreWidth,
-                                centreHeight));
-        break;
-      default:
-        break;
-    }
-  }
-
-  //  for (auto wrapper : m_items) {
-  //    QLayoutItem* item = wrapper->item;
-  //    Position position = wrapper->position;
-
-  //    if (position == North) {
-  //      item->setGeometry(
-  //        QRect(rect.x(), northHeight, rect.width(),
-  //        item->sizeHint().height()));
-
-  //      northHeight += item->geometry().height() + spacing();
-  //    } else if (position == South) {
-  //      item->setGeometry(QRect(item->geometry().x(),
-  //                              item->geometry().y(),
-  //                              rect.width(),
-  //                              item->sizeHint().height()));
-
-  //      southHeight += item->geometry().height() + spacing();
-
-  //      item->setGeometry(
-  //        QRect(rect.x(),
-  //              rect.y() + rect.height() - southHeight + spacing(),
-  //              item->geometry().width(),
-  //              item->geometry().height()));
-  //    } else if (position == Center) {
-  //      center = wrapper;
-  //    }
-  //  }
-
-  //  centreHeight = rect.height() - northHeight - southHeight;
-
-  //  for (i = 0; i < m_items.size(); ++i) {
-  //    ItemWrapper* wrapper = m_items.at(i);
-  //    QLayoutItem* item = wrapper->item;
-  //    Position position = wrapper->position;
-
-  //    if (position == West) {
-  //      //      auto s = item->sizeHint();
-  //      //      auto sp = spacing();
-  //      item->setGeometry(QRect(rect.x() + westWidth,
-  //                              northHeight,
-  //                              item->sizeHint().width(),
-  //                              centreHeight));
-
-  //      westWidth += item->geometry().width() + spacing();
-  //    } else if (position == East) {
-  //      item->setGeometry(QRect(item->geometry().x(),
-  //                              item->geometry().y(),
-  //                              item->sizeHint().width(),
-  //                              centreHeight));
-
-  //      eastWidth += item->geometry().width() + spacing();
-
-  //      item->setGeometry(QRect(rect.x() + rect.width() - eastWidth +
-  //      spacing(),
-  //                              northHeight,
-  //                              item->geometry().width(),
-  //                              item->geometry().height()));
-  //    }
-  //  }
-
-  //  if (center)
-  //    center->item->setGeometry(QRect(westWidth,
-  //                                    northHeight,
-  //                                    rect.width() - eastWidth - westWidth,
-  //                                    centreHeight));
+  m_height = newHeight;
 }
 
-QSize
-DockLayout::sizeHint() const
+int
+DockCorner::width() const
 {
-  return calculateSize(SizeHint);
-}
-
-QLayoutItem*
-DockLayout::takeAt(int index)
-{
-  if (index >= 0 && index < m_items.size()) {
-    ItemWrapper* layoutStruct = m_items.takeAt(index);
-    return layoutStruct->item;
-  }
-  return nullptr;
-}
-
-void
-DockLayout::add(QLayoutItem* item, Position position)
-{
-  m_items.append(new ItemWrapper(item, position));
-}
-
-CornerType
-DockLayout::topLeft() const
-{
-  return m_northWest;
-}
-
-void
-DockLayout::setTopLeft(CornerType type)
-{
-  m_northWest = type;
-}
-
-CornerType
-DockLayout::topRight() const
-{
-  return m_northEast;
-}
-
-void
-DockLayout::setTopRight(CornerType type)
-{
-  m_northEast = type;
-}
-
-CornerType
-DockLayout::bottomLeft() const
-{
-  return m_southWest;
-}
-
-void
-DockLayout::setBottomLeft(CornerType type)
-{
-  m_southWest = type;
-}
-
-CornerType
-DockLayout::bottomRight() const
-{
-  return m_southEast;
-}
-
-void
-DockLayout::setBottomRight(CornerType type)
-{
-  m_southEast = type;
-}
-
-void
-DockLayout::setCornerType(CornerType type)
-{
-  m_northWest = type;
-  m_northEast = type;
-  m_southWest = type;
-  m_southEast = type;
-}
-
-void
-DockLayout::setCornerType(CornerType topLeft,
-                          CornerType topRight,
-                          CornerType bottomLeft,
-                          CornerType bottomRight)
-{
-  m_northWest = topLeft;
-  m_northEast = topRight;
-  m_southWest = bottomLeft;
-  m_southEast = bottomRight;
-}
-
-QSize
-DockLayout::calculateSize(SizeType sizeType) const
-{
-  QSize totalSize;
-
-  for (int i = 0; i < m_items.size(); ++i) {
-    ItemWrapper* wrapper = m_items.at(i);
-    Position position = wrapper->position;
-    QSize itemSize;
-
-    if (sizeType == MinimumSize)
-      itemSize = wrapper->item->minimumSize();
-    else // (sizeType == SizeHint)
-      itemSize = wrapper->item->sizeHint();
-
-    if (position == North || position == South || position == Center)
-      totalSize.rheight() += itemSize.height();
-
-    if (position == West || position == East || position == Center)
-      totalSize.rwidth() += itemSize.width();
-  }
-  return totalSize;
+  return m_width;
 }

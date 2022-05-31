@@ -20,7 +20,7 @@
 #include <QToolBar>
 #include <QUndoStack>
 
-class EPubEdit;
+class EPubEditor;
 
 #include "document/bookpointers.h"
 
@@ -36,7 +36,6 @@ signals:
   void shutdown(int returnCode = 0);
 
 protected:
-
 private:
   PConfig m_config;
   int m_width, m_height;
@@ -47,9 +46,9 @@ private:
   QAction *m_helpContentsAct, *m_helpIndexAct, *helpContextAct, *m_helpAboutAct,
     *m_helpAboutPluginsAct;
   QMenu *m_fileMenu, *m_editMenu, *m_toolsMenu, *m_helpMenu;
-  EPubEdit* m_editor;
-  QPlainTextEdit* m_logPage;
-  QUndoStack* m_undoStack;
+  EPubEditor* m_editor = nullptr;
+  QPlainTextEdit* m_logPage = nullptr;
+  QUndoStack* m_undoStack = nullptr;
 
   void newEpub();
   void openFile();

@@ -15,12 +15,8 @@
         <file>icons/dialog-error.png</file>
         <file>icons/dialog-question.png</file>
         <file>icons/dialog-warning.png</file>
-        <file alias="New">icons/document-new.png</file>
-        <file alias="Open">icons/document-open.png</file>
         <file>icons/document-open-recent.png</file>
         <file>icons/document-print.png</file>
-        <file alias="Save">icons/document-save.png</file>
-        <file alias="SaveAs">icons/document-save-as.png</file>
         <file>icons/ebook-reader.png</file>
         <file>icons/edit-clear.png</file>
         <file>icons/edit-clear-all.png</file>
@@ -58,9 +54,6 @@
         <file>icons/help-about.png</file>
         <file>icons/help-contents.png</file>
         <file>icons/help-faq.png</file>
-        <file alias="hideV">icons/hideshowcontentsv.png</file>
-        <file alias="hideFrame">icons/hideframe.png</file>
-        <file alias="hideH">icons/hideshowcontentsh.png</file>
         <file alias="GNew">icons/document-new_g.png</file>
         <file alias="GOpen">icons/document-open_g.png</file>
         <file alias="GOpenRecent">icons/document-open-recent_g.png</file>
@@ -81,5 +74,18 @@
         <file alias="GIndentMore">icons/format-indent-more_g.png</file>
         <file alias="GTextDirLTR">icons/format-text-direction-ltr_g.png</file>
         <file alias="GTextDirRTL">icons/format-text-direction-rtl_g.png</file>
+        <file>icons/document-new.png</file>
+        <file>icons/document-open.png</file>
+        <file>icons/document-save.png</file>
+        <file>icons/document-save-as.png</file>
+        <file alias="Splitscreen">icons/splitscreen.png</file>
+        <file alias="RemoveSplitDown">icons/removeSplitDown.png</file>
+        <file alias="RemoveSplitLeft">icons/removeSplitLeft.png</file>
+        <file alias="RemoveSplitRight">icons/removeSplitRight.png</file>
+        <file alias="RemoveSplitUp">icons/removeSplitUp.png</file>
+        <file alias="ShowBottom">icons/showBottom.png</file>
+        <file alias="ShowLeft">icons/showLeft.png</file>
+        <file alias="ShowRight">icons/showRight.png</file>
+        <file alias="ShowTop">icons/showTop.png</file>
     </qresource>
 </RCC>

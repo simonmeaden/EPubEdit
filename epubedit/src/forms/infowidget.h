@@ -22,7 +22,7 @@ protected:
 private:
 
   QSplitter* m_splitter;
-  QPlainTextEdit* m_logPage;
+  QPlainTextEdit* m_logPage=nullptr;
   QUndoView* m_undoView;
   QUndoStack* m_undoStack;
   PConfig m_config;

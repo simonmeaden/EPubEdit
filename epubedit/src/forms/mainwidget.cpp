@@ -1,104 +1,267 @@
 #include "mainwidget.h"
 #include "centralwidget.h"
+#include "epubeditor.h"
 
 MainWidget::MainWidget(PConfig config, QUndoStack* undoStack, QWidget* parent)
   : DockWidget(parent)
 {
-  setContentsMargins(0, 0, 0, 0);
+  //  auto p = palette();
+  //  p.setColor(QPalette::Window, QColor("lightgreen"));
+  //  setPalette(p);
 
-  m_centralWidget = new CentralWidget(config, undoStack, this);
-  setCentreWidget(m_centralWidget);
+  //  auto editor = new EPubEditor(this);
+//  m_centralWidget = new CentralWidget(config, undoStack, this);
+//  setCentreWidget(m_centralWidget);
+  auto f = new QFrame(this);
+  auto p = palette();
+  p.setColor(QPalette::Window, QColor("blue"));
+  f->setPalette(p);
+  setCentalWidget(f);
 
-  setCornerType(Box, Width, Height, Height);
+  // TODO make connections.
+  //  connect(m_centralWidget,
+  //          &CentralWidget::geometryChanged,
+  //          this,
+  //          &MainWidget::internalGeometryUpdate);
 
-  addFooter();
-  //====================================================================
-  //=== Upper widgets
-  //====================================================================
-  addToolbar(DockLayout::West);
+  setCorner(NorthWest, Box);
+  setCorner(SouthWest, Box);
+  setCorner(SouthEast, Box);
+  setCorner(NorthEast, Box);
 
-  //  auto widget = addToolbarIconTextButton(West,
-  //                                         Start,
-  //                                         QImage(":/icons/GNew"),
-  //                                         tr("New"),
-  //                                         Arrangement::TextToRight,
-  //                                         tr("Create a new epub file."));
-  //  connect(widget, &WidgetWrapper::widgetClicked, this,
-  //  &MainWidget::newClicked); widget = addToolbarIconTextButton(West,
-  //                                    Start,
-  //                                    QImage(":/icons/GOpen"),
-  //                                    tr("Open"),
-  //                                    Arrangement::TextToRight,
-  //                                    tr("Open an epub file."));
-  //  connect(
-  //    widget, &WidgetWrapper::widgetClicked, this, &MainWidget::openClicked);
-  //  widget = addToolbarIconTextButton(West,
-  //                                    WidgetPosition::Start,
-  //                                    QImage((":/icons/GSave")),
-  //                                    tr("Save"),
-  //                                    Arrangement::TextToRight,
-  //                                    tr("Save the epub file."));
-  //  connect(
-  //    widget, &WidgetWrapper::widgetClicked, this, &MainWidget::saveClicked);
+  //  setCornerHeight(NorthWest, 30);
 
-  //  widget = addToolbarIconButton(
-  //    West, Start, QImage((":/icons/Save")), tr("Save the epub file."));
+  WidgetItem* widget;
 
-  //  widget = addToolbarTextButton(West, Start, tr("TEST TOP"));
+  //  //====================================================================
+  //  //=== Header widgets
+  //  //====================================================================
+  auto header = addHeader();
+
+  widget = header->addIconButton(
+    End, QImage(":/icons/Splitscreen"), tr("Create a new epub file."));
+  connect(widget, &WidgetItem::widgetClicked, this, &MainWidget::splitScreen);
 
   //====================================================================
-  //=== Lower widgets
+  //=== Footer widgets
   //====================================================================
-  //  widget = addToolbarIconTextButton(West,
-  //                                    End,
-  //                                    QImage(":/icons/New"),
-  //                                    tr("New"),
-  //                                    Arrangement::TextToRight,
-  //                                    tr("Create a new epub file."));
-  //  widget = addToolbarIconTextButton(West,
-  //                                    End,
-  //                                    QImage(":/icons/Open"),
-  //                                    tr("Open"),
-  //                                    Arrangement::TextToRight,
-  //                                    tr("Open an epub file."));
-  //  widget = addToolbarIconTextButton(West,
-  //                                    End,
-  //                                    QImage((":/icons/Save")),
-  //                                    tr("Save"),
-  //                                    Arrangement::TextToRight,
-  //                                    tr("Save the epub file."));
-  //  widget = addToolbarIconButton(
-  //    West, End, QImage((":/icons/Save")), tr("Save the epub file."));
+  auto footer = addFooter();
 
-  //  widget = addToolbarTextButton(
-  //    West, End, tr("BOTTOM TEST"), tr("Save the epub file."));
+  widget = footer->addIconButton(
+    Start, QImage(":/icons/ShowLeft"), tr("Show Left Sidebar"));
+  connect(
+    widget, &WidgetItem::widgetClicked, this, &MainWidget::toggleLeftSidebar);
 
-  //  widget = addToolbarIconButton(
-  //    West, End, QImage((":/icons/GCut")), tr("Cut to clipboard."));
+  widget = footer->addIconButton(
+    End, QImage(":/icons/ShowRight"), tr("Show Right Sidebar"));
+  connect(
+    widget, &WidgetItem::widgetClicked, this, &MainWidget::toggleRightSidebar);
 
-  //  addToolbarSpacer(West, End);
+  //====================================================================
+  //=== North toolbar widgets
+  //====================================================================
+  auto toolbar = addToolbar(North);
 
-  auto widget = addFooterIconTextButton(Start,
-                                        QImage(":/icons/GNew"),
-                                        tr("New"),
-                                        Arrangement::TextToRight,
-                                        tr("Create a new epub file."));
+  widget = toolbar->addIconTextButton(Start,
+                                      QImage(":/icons/GNew"),
+                                      tr("New"),
+                                      Arrangement::TextBelowIcon,
+                                      tr("Create a new epub file."));
+  connect(widget, &WidgetItem::widgetClicked, this, &MainWidget::newClicked);
+
+  widget = toolbar->addIconTextButton(Start,
+                                      QImage(":/icons/GNew"),
+                                      tr("New"),
+                                      Arrangement::TextBelowIcon,
+                                      tr("Create a new epub file."));
+
+  widget = toolbar->addIconTextButton(End,
+                                      QImage(":/icons/GNew"),
+                                      tr("New"),
+                                      Arrangement::TextBelowIcon,
+                                      tr("Create a new epub file."));
+  connect(widget, &WidgetItem::widgetClicked, this, &MainWidget::newClicked);
+
+  widget = toolbar->addIconTextButton(End,
+                                      QImage(":/icons/GOpen"),
+                                      tr("Open"),
+                                      Arrangement::TextBelowIcon,
+                                      tr("Open epub file."));
+
+  widget = toolbar->addTextButton(End, tr("Test"), tr("Open epub file."));
+
+  widget = toolbar->addTextButton(Start, tr("Test Top"), tr("Open epub file."));
+
+  //====================================================================
+  //=== South toolbar widgets
+  //====================================================================
+  toolbar = addToolbar(South);
+  widget = toolbar->addIconTextButton(Start,
+                                      QImage(":/icons/GOpen"),
+                                      tr("Open"),
+                                      Arrangement::TextBelowIcon,
+                                      tr("Open an epub file."));
+  connect(widget, &WidgetItem::widgetClicked, this, &MainWidget::openClicked);
+
+  widget = toolbar->addIconTextButton(Start,
+                                      QImage(":/icons/GNew"),
+                                      tr("New"),
+                                      Arrangement::TextBelowIcon,
+                                      tr("Create a new epub file."));
+
+  widget = toolbar->addIconTextButton(End,
+                                      QImage(":/icons/GNew"),
+                                      tr("New"),
+                                      Arrangement::TextBelowIcon,
+                                      tr("Create a new epub file."));
+  connect(widget, &WidgetItem::widgetClicked, this, &MainWidget::newClicked);
+
+  widget = toolbar->addIconTextButton(End,
+                                      QImage(":/icons/GOpen"),
+                                      tr("Open"),
+                                      Arrangement::TextBelowIcon,
+                                      tr("Open epub file."));
+  widget = toolbar->addTextButton(End, tr("Test"), tr("Open epub file."));
+
+  widget = toolbar->addTextButton(Start, tr("Test Top"), tr("Open epub file."));
+  //====================================================================
+  //=== East toolbar widgets
+  //====================================================================
+  toolbar = addToolbar(East);
+  widget = toolbar->addIconTextButton(Start,
+                                      QImage(":/icons/GOpen"),
+                                      tr("Open"),
+                                      Arrangement::TextBelowIcon,
+                                      tr("Open an epub file."));
+  connect(widget, &WidgetItem::widgetClicked, this, &MainWidget::openClicked);
+
+  widget = toolbar->addIconTextButton(Start,
+                                      QImage(":/icons/GNew"),
+                                      tr("New"),
+                                      Arrangement::TextBelowIcon,
+                                      tr("Create a new epub file."));
+
+  widget = toolbar->addIconTextButton(End,
+                                      QImage(":/icons/GNew"),
+                                      tr("New"),
+                                      Arrangement::TextBelowIcon,
+                                      tr("Create a new epub file."));
+  connect(widget, &WidgetItem::widgetClicked, this, &MainWidget::newClicked);
+
+  widget = toolbar->addIconTextButton(End,
+                                      QImage(":/icons/GOpen"),
+                                      tr("Open"),
+                                      Arrangement::TextBelowIcon,
+                                      tr("Open epub file."));
+
+  widget = toolbar->addTextButton(End, tr("Test"), tr("Open epub file."));
+
+  widget = toolbar->addTextButton(Start, tr("Test Top"), tr("Open epub file."));
+  //====================================================================
+  //=== West toolbar widgets
+  //====================================================================
+  toolbar = addToolbar(West);
+  widget = toolbar->addIconTextButton(Start,
+                                      QImage(":/icons/GOpen"),
+                                      tr("Open"),
+                                      Arrangement::TextBelowIcon,
+                                      tr("Open an epub file."));
+  connect(widget, &WidgetItem::widgetClicked, this, &MainWidget::openClicked);
+  widget = toolbar->addIconTextButton(Start,
+                                      QImage(":/icons/GNew"),
+                                      tr("New"),
+                                      Arrangement::TextBelowIcon,
+                                      tr("Create a new epub file."));
+
+  widget = toolbar->addIconTextButton(End,
+                                      QImage(":/icons/GNew"),
+                                      tr("New"),
+                                      Arrangement::TextBelowIcon,
+                                      tr("Create a new epub file."));
+  connect(widget, &WidgetItem::widgetClicked, this, &MainWidget::newClicked);
+
+  widget = toolbar->addIconTextButton(End,
+                                      QImage(":/icons/GOpen"),
+                                      tr("Open"),
+                                      Arrangement::TextBelowIcon,
+                                      tr("Open epub file."));
+
+  widget = toolbar->addTextButton(End, tr("Test"), tr("Open epub file."));
+
+  widget = toolbar->addTextButton(Start, tr("Test Top"), tr("Open epub file."));
 }
 
-EPubEdit*
+EPubEditor*
 MainWidget::editor()
 {
-  return m_centralWidget->editor();
+  if (m_centralWidget)
+    return m_centralWidget->editor();
+  return nullptr;
 }
 
 QPlainTextEdit*
 MainWidget::logPage() const
 {
-  return m_centralWidget->logPage();
+  //  if (m_centralWidget)
+  //    return m_centralWidget->logPage();
+  return nullptr;
 }
 
 QUndoView*
 MainWidget::undoView()
 {
-  return m_centralWidget->undoView();
+  if (m_centralWidget)
+    return m_centralWidget->undoView();
+  return nullptr;
+}
+
+void
+MainWidget::internalGeometryUpdate(int north, int south, int east, int west)
+{
+  setCornerSize(NorthWest, QSize(west, north));
+  setCornerSize(NorthEast, QSize(east, north));
+  setCornerSize(SouthWest, QSize(west, south));
+  setCornerSize(SouthEast, QSize(east, south));
+}
+
+void
+MainWidget::splitScreen()
+{
+  qWarning();
+}
+
+void
+MainWidget::toggleLeftSidebar()
+{
+  qWarning();
+}
+
+void
+MainWidget::toggleRightSidebar()
+{
+  qWarning();
+}
+
+void
+MainWidget::hideLeftSidebar()
+{
+  qWarning();
+}
+
+void
+MainWidget::showLeftSidebar()
+{
+  qWarning();
+}
+
+void
+MainWidget::hideRightSidebar()
+{
+  qWarning();
+}
+
+void
+MainWidget::showRightSidebar()
+{
+  qWarning();
 }

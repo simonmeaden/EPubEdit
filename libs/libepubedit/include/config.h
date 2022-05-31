@@ -6,7 +6,6 @@
 #include <QStandardPaths>
 #include <QString>
 #include <QSize>
-//#include <QThread>
 
 class BCP47Languages;
 

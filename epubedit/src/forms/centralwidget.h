@@ -1,16 +1,17 @@
 #ifndef CENTRALWIDGET_H
 #define CENTRALWIDGET_H
 
-#include <QWidget>
 #include <QPlainTextEdit>
 #include <QSplitter>
 #include <QUndoView>
+#include <QWidget>
 
 #include "dockwidget.h"
+#include "multisplitter.h"
 
-class EPubEdit;
+class EPubEditor;
 class InfoWidget;
-class CentralWidget : public DockWidget
+class CentralWidget : public QWidget
 {
   Q_OBJECT
 
@@ -19,19 +20,26 @@ public:
                 QUndoStack* undoStack,
                 QWidget* parent = nullptr);
 
-  EPubEdit* editor();
+  EPubEditor* editor();
   QPlainTextEdit* logPage() const;
   QUndoView* undoView();
+
+signals:
+  void geometryChanged(int north, int south, int east, int west);
 
 private:
   PConfig m_config;
   QUndoStack* m_undoStack;
-  EPubEdit* m_editor;
+  EPubEditor* m_editor = nullptr;
   QSplitter* m_splitter;
-  InfoWidget* m_infoWidget;
+  MultiSplitter* m_editSplitter;
+  InfoWidget* m_infoWidget = nullptr;
+  QWidget* m_rightSidebar;
+  QWidget* m_leftSidebar;
+
+  void initGui();
 
   void splitterHasMoved();
-  void initGui(PConfig config, QUndoStack* undoStack);
 };
 
 #endif // CENTRALWIDGET_H
