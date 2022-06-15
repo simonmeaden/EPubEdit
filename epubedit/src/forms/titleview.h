@@ -13,24 +13,26 @@
 #include <QPushButton>
 #include <QSharedPointer>
 #include <QTableView>
+#include <QScrollBar>
 #include <QVariant>
 
-#include "document/epubmetadata.h"
+#include "document/bookpointers.h"
+#include "document/uniquestring.h"
 
 class TitleEditDialog : public QDialog
 {
   Q_OBJECT
 
 public:
-  TitleEditDialog(QSharedPointer<EPubTitle> title,
+  TitleEditDialog(PTitle title,
                    QWidget* parent);
 
-  QSharedPointer<EPubTitle> title();
+  PTitle title();
 
 private:
   QLabel* m_label;
   QDialogButtonBox* m_box;
-  QSharedPointer<EPubTitle> m_title;
+  PTitle m_title;
 
   void initGui();
   void idChanged(const QString& text);
@@ -65,17 +67,17 @@ public:
   bool modifyTitle(int row, const QString& titleStr);
   bool modifyId(int row, const QString& idStr);
   bool swapWithFirst(int row);
-  bool setTitle(int row, QSharedPointer<EPubTitle> title);
+  bool setTitle(int row, PTitle title);
   bool hasId(int row);
 
-  QSharedPointer<EPubTitle> titleAt(int row);
+  PTitle titleAt(int row);
   QString titleStrAt(int row);
   UniqueString idStrAt(int row);
 
-  QList<QSharedPointer<EPubTitle>> titles();
+  QList<PTitle> titles();
   bool areModified();
   bool isModified(int row);
-  QList<QSharedPointer<EPubTitle>> modifiedTitles();
+  QList<PTitle> modifiedTitles();
 
   bool insertRows(int row,
                   int count,
@@ -85,11 +87,11 @@ public:
                   const QModelIndex& parent = QModelIndex()) override;
 
 private:
-  QList<QSharedPointer<EPubTitle>> m_titles;
-  QList<QSharedPointer<EPubTitle>> m_originalTitles;
+  QList<PTitle> m_titles;
+  QList<PTitle> m_originalTitles;
   QList<bool> m_modified;
 
-  void initialiseData(QList<QSharedPointer<EPubTitle>> data);
+  void initialiseData(QList<PTitle> data);
   friend class TitleView;
 };
 
@@ -100,15 +102,15 @@ public:
   TitleView(QWidget* parent = nullptr);
   ~TitleView();
 
-  void initialiseData(QList<QSharedPointer<EPubTitle>> data);
+  void initialiseData(PMetadata metadata);
   bool removeTitle(int row);
-  bool insertTitle(int row, QSharedPointer<EPubTitle> title);
+  bool insertTitle(int row, PTitle title);
   bool modifyTitle(int row, const QString& title);
   bool setTitle(int row, const QString& title);
   bool setId(int row, const UniqueString& id);
   UniqueString id(int row);
   bool swapToPrimaryPosition(int row);
-  QSharedPointer<EPubTitle> titleAt(int row);
+  PTitle titleAt(int row);
   UniqueString idAt(int row);
   QString titleStrAt(int row);
   QModelIndex primaryTitleIndex();
@@ -123,6 +125,7 @@ signals:
 
 private:
   TitleModel* m_model;
+  PMetadata m_metadata;
   QSize m_hint;
 };
 

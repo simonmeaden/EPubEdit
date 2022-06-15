@@ -377,8 +377,8 @@ BCP47Languages::saveToLocalFile(const QString&filename)
     emitter << YAML::EndSeq;
     emitter << YAML::EndMap;
 
-    QTextStream outStream(&file);
-    outStream << emitter.c_str();
+    QTextStream out(&file);
+    out << emitter.c_str();
     file.close();
   }
 }

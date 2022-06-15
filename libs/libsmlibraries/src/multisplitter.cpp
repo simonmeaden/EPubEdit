@@ -1,5 +1,10 @@
 #include "multisplitter.h"
 
+#include <QDebug>
+
+//====================================================================
+//=== static functions
+//====================================================================
 QWidget*
 MultiSplitter::create(const QString& type)
 {
@@ -22,44 +27,93 @@ MultiSplitter::create(QWidget* sister)
   return static_cast<QWidget*>(myClassPtr);
 }
 
-MultiSplitter::MultiSplitter(DockWidget* widget, QWidget* parent)
-  : QWidget{ parent }
+//====================================================================
+//=== MultiSplitter
+//====================================================================
+MultiSplitter::MultiSplitter(QWidget* parent)
+  : QSplitter{ parent }
 {
-  auto p = palette();
-  p.setColor(QPalette::Window, QColor("red"));
-  setPalette(p);
+  setContentsMargins(0, 0, 0, 0);
 
-  m_splitter = new QSplitter(this);
-  m_currentDocker = widget;
-  m_splitter->addWidget(widget);
-  m_windows.append(m_currentDocker);
+  m_layout = new QHBoxLayout;
+  setLayout(m_layout);
+}
+
+QWidget*
+MultiSplitter::currentWidget()
+{
+  return m_currentWidget;
 }
 
 void
-MultiSplitter::split(QWidget* widget)
+MultiSplitter::setCurrentWidget(QWidget* widget)
 {
-  auto w = widget;
-  DockWidget* docker = nullptr;
-  if (!widget) {
-    docker = createDocker(m_currentDocker->centreWidget());
-  } else {
-    docker = createDocker(widget);
+  m_currentWidget = widget;
+  m_currentSplitter->addWidget(widget);
+}
+
+void
+MultiSplitter::saveState()
+{}
+
+QWidget*
+MultiSplitter::currentWidget() const
+{
+  return m_currentWidget;
+}
+
+void
+MultiSplitter::createSplit(Qt::Orientation orientation)
+{
+  switch (orientation) {
+    case Qt::Horizontal: {
+      if (m_currentSplitter->orientation() == Qt::Horizontal) {
+        auto widget = MultiSplitter::create(m_currentWidget);
+        m_widgets.append(widget);
+        m_currentSplitter->addWidget(widget);
+      } else if (m_currentSplitter->count() == 1) {
+        m_currentSplitter->setOrientation(Qt::Horizontal);
+        auto widget = MultiSplitter::create(m_currentWidget);
+        m_widgets.append(widget);
+        m_currentSplitter->addWidget(widget);
+      }
+      break;
+    }
+    case Qt::Vertical: {
+
+      break;
+    }
   }
-  m_splitter->addWidget(docker);
 }
 
 void
-MultiSplitter::splitSideBySide(QWidget* widget)
-{}
-
-DockWidget*
-MultiSplitter::createDocker(QWidget* widget)
+MultiSplitter::splitToWindow()
 {
-  auto docker = new DockWidget(this);
-  docker->setCentalWidget(create(widget));
-  return docker;
+  qWarning();
+}
+
+QList<SplitterData*>
+MultiSplitter::splitterSizes()
+{
+  QList<SplitterData*> dataList;
+  for (auto i = 0; i < m_splitters.count(); i++) {
+    auto splitter = m_splitters.at(i);
+    auto data = new SplitterData;
+    data->parent = i - 1;
+    data->sizes = m_splitter->sizes();
+    dataList.append(data);
+  }
+  return dataList;
 }
 
 void
-MultiSplitter::createSplit()
-{}
+MultiSplitter::setSplitterSizes(QList<SplitterData*> dataList)
+{
+  QSplitter* splitter;
+  QSplitter* parent;
+  for (auto data : dataList) {
+    parent = m_splitters.at(data->parent);
+    splitter = new QSplitter(this);
+    m_splitters.append(splitter);
+  }
+}

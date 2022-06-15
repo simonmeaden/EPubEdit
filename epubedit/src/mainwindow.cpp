@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "config.h"
-#include "document/epubmetadata.h"
+#include "document/metadata.h"
 #include "forms/configurationeditor.h"
 #include "forms/epubeditor.h"
 //#include "languages.h"
@@ -92,14 +92,14 @@ MainWindow::MainWindow(QWidget* parent)
 MainWindow::~MainWindow()
 {
   m_config->save();
-  if (m_editor)
-    m_editor->saveConfig();
+//  if (m_editor)
+//    m_editor->saveConfig();
 }
 
 void
 MainWindow::newEpub()
 {
-  m_editor->newDocument();
+//  m_editor->newDocument();
 }
 
 void
@@ -108,7 +108,7 @@ MainWindow::openFile()
   auto filename = QFileDialog::getOpenFileName(
     this, tr("Select file to open"), ".", tr("EPub Files (*.epub)"));
   if (!filename.isEmpty()) {
-    m_editor->loadDocument(filename);
+//    m_editor->loadDocument(filename);
   }
 }
 
@@ -133,12 +133,10 @@ MainWindow::cleanup()
   qWarning();
 }
 
-bool
+void
 MainWindow::loadDocument(const QString& filename)
 {
-//  if (m_editor)
-//    return m_editor->loadDocument(filename);
-  return false;
+  emit load(filename);
 }
 
 #include "forms/centralwidget.h"
@@ -148,15 +146,13 @@ MainWindow::initGui()
   setStatusBar(nullptr);
 
   auto mainWidget = new MainWidget(m_config, m_undoStack, this);
-  mainWidget->setContentsMargins(0, 0, 0, 0);
   setCentralWidget(mainWidget);
+
   connect(mainWidget, &MainWidget::newClicked, this, &MainWindow::newEpub);
+  connect(this, &MainWindow::load, mainWidget, &MainWidget::load);
   connect(mainWidget, &MainWidget::openClicked, this, &MainWindow::openFile);
   connect(mainWidget, &MainWidget::saveClicked, this, &MainWindow::saveFile);
   connect(mainWidget, &MainWidget::saveAsClicked, this, &MainWindow::saveAsFile);
-
-//  m_editor = mainWidget->editor();
-//  m_logPage = mainWidget->logPage();
 
   initActions();
   initMenus();
@@ -184,6 +180,7 @@ MainWindow::initFileActions()
   m_fileExitAct->setShortcuts(QKeySequence::Close);
   m_fileExitAct->setStatusTip(tr("Exit Application"));
   connect(m_fileExitAct, &QAction::triggered, this, &MainWindow::cleanup);
+  connect(m_fileExitAct, &QAction::triggered, this, &MainWindow::close);
 }
 
 void
@@ -344,8 +341,8 @@ MainWindow::setStatusMessage(const QString& message, int timeout)
 void
 MainWindow::setLogMessage(const QString& message)
 {
-  m_logPage->moveCursor(QTextCursor::End);
-  m_logPage->appendPlainText(message);
+//  m_logPage->moveCursor(QTextCursor::End);
+//  m_logPage->appendPlainText(message);
 }
 
 void

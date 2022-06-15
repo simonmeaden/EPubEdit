@@ -23,17 +23,17 @@
 #include <QStackedLayout>
 #include <QString>
 #include <QTableView>
+#include <QScrollArea>
 
 #include <QUndoCommand>
 #include <QUndoStack>
 
-class Metadata;
-class EPubTitle;
-class MetadataList;
-class TitleView;
+class MetadataView;
+class ThreeColView;
+class TwoColView;
+class LabelledLineEdit;
 
 #include "document/bookpointers.h"
-#include "document/epubmetadata.h"
 #include "forms/undocommands.h"
 
 class MetadataForm : public QFrame
@@ -52,24 +52,31 @@ public:
   Q_DECLARE_FLAGS(Modifications, Modified)
   Q_FLAG(MetadataForm::Modifications)
 
-  MetadataForm(QWidget* parent = nullptr);
+  MetadataForm(PConfig config, QWidget* parent = nullptr);
   ~MetadataForm();
 
-  void setDocument(PDocument document);
+  void setMetadata(PMetadata metadata);
 
-  QWidget* initMaindataFrame();
+  QWidget* initMainDataFrame();
+  QWidget* initSecondaryDataFrame();
 
 signals:
   void dataHasChanged(MetadataForm::Modifications mods);
   void sendStatusMessage(const QString& message, int timeout = 20);
-  void pushUndoAction(QUndoCommand*undoCommand);
+  void pushUndoAction(QUndoCommand* undoCommand);
 
 private:
-  TitleView* m_titleView;
-  MetadataList* m_metadataView;
-  PDocument m_document;
+  PConfig m_config;
+  PMetadata m_metadata;
+  ThreeColView* m_titleView = nullptr;
+  TwoColView* m_metadataView = nullptr;
+  QLineEdit* m_rights = nullptr;
+  LabelledLineEdit* m_date = nullptr;
+  TwoColView*m_languageView;
+  QPushButton* m_lockBtn = nullptr;
   QModelIndex m_currentTitleIndex, m_currentAuthorIndex;
   Modifications m_modifications = NO_CHANGES;
+  bool locked = true;
 
   static const QString TITLESTR;
 
@@ -82,9 +89,11 @@ private:
   void removeAuthor();
   void setPrimaryAuthor();
 
+  void lock();
   //  void titleClicked(const QModelIndex& index);
   void titleContextMenu(QPoint pos);
   void authorContextMenu(QPoint pos);
+  void langContextMenu(QPoint pos);
   void modifyTitle();
   void setId();
   void removeTitle();
@@ -95,7 +104,35 @@ private:
   void authorRemoved(int row);
   void titleClicked();
   void authorClicked();
+  void initialiseLanguageView();
+  void initialiseMetadataView();
+  void initialiseTitleView();
 };
 // Q_DECLARE_OPERATORS_FOR_FLAGS(MetadataForm::Types)
+
+class TitleEditDialog : public QDialog
+{
+  Q_OBJECT
+
+public:
+  TitleEditDialog(PTitle ptitle,
+                  const QString& title,
+                  const QString& id,
+                  QWidget* parent);
+
+  PTitle title();
+
+private:
+  QLabel* m_label;
+  QDialogButtonBox* m_box;
+  PTitle m_ptitle;
+
+  void initGui();
+  void idChanged(const QString& text);
+  void titleChanged(const QString& text);
+  void directionChanged(int index);
+  void langChanged(const QString& text);
+  void dateChanged(const QDate& date);
+};
 
 #endif // METADATAFORM_H

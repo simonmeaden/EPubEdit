@@ -16,16 +16,45 @@ target_sources(${PROJECT_NAME}
     src/mainwindow.h
     src/mainwindow.cpp
 
+    # NEED to include the header files her otherwise MOC won't handle them.
+    include/document/bookpointers.h
+    include/document/bookstructs.h
+    include/document/bookenums.h
+    include/document/epubdocument.h
+    src/document/epubdocument.cpp
+    include/document/metadata.h
+    src/document/metadata.cpp
+    include/document/authors.h
+    src/document/authors.cpp
+    include/document/library.h
+    src/document/library.cpp
+    include/document/sharedbookdata.h
+    src/document/sharedbookdata.cpp
+    include/document/sharedauthordata.h
+    src/document/sharedauthordata.cpp
+    include/document/options.h
+    src/document/options.cpp
+    include/document/dcterms.h
+    src/document/dcterms.cpp
+    include/document/foaf.h
+    src/document/foaf.cpp
+    include/document/marcrelator.h
+    src/document/marcrelator.cpp
+    include/document/series.h
+    src/document/series.cpp
+#    src/document/htmlparser.cpp
+#    src/document/htmltidy.cpp
+    include/document/uniquestring.h
+    src/document/uniquestring.cpp
+
     src/forms/metadataform.h
     src/forms/metadataform.cpp
     src/forms/undocommands.h
     src/forms/undocommands.cpp
-    src/forms/titleview.h
-    src/forms/titleview.cpp
     src/forms/metadatalist.h
     src/forms/metadatalist.cpp
-#    src/forms/epubedit.h
-#    src/forms/epubedit.cpp
+    src/forms/emultisplitter.h
+    src/forms/emultisplitter.cpp
     src/forms/epubeditor.h
     src/forms/epubeditor.cpp
     src/forms/epubcontents.h
@@ -34,8 +63,34 @@ target_sources(${PROJECT_NAME}
     src/forms/mainwidget.cpp
     src/forms/centralwidget.h
     src/forms/centralwidget.cpp
+    src/forms/leftsidebar.h
+    src/forms/leftsidebar.cpp
+    src/forms/rightsidebar.h
+    src/forms/rightsidebar.cpp
     src/forms/infowidget.h
     src/forms/infowidget.cpp
+    src/forms/twocolview.h
+    src/forms/twocolview.cpp
+    src/forms/threecolview.h
+    src/forms/threecolview.cpp
+    src/forms/common.cpp
+    src/forms/navitem.h
+    src/forms/navitem.cpp
+    src/forms/tocform.h
+    src/forms/tocform.cpp
+    src/forms/common.h
+
+    include/config.h
+    src/config.cpp
+    include/forms/configurationeditor.h
+    src/forms/configurationeditor.cpp
+    src/forms/languagetagbuilderdialogresource.qrc
+    include/forms/languagetagbuilderdialog.h
+    src/forms/languagetagbuilderdialog.cpp
+
+    # Utility classes
+    src/util/csvsplitter.h
+    src/util/csvsplitter.cpp
 
     src/images.qrc
 
@@ -51,12 +106,10 @@ target_include_directories(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
-    EPubEdit::libepubedit
     SMLibraries::libsmlibraries
     QuaZip::QuaZip
     QYamlCpp::qyamlcpp
     yaml-cpp
-#    tidy
     Qt::Gui
     Qt::Widgets
     Qt::Xml

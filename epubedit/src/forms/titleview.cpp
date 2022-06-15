@@ -1,4 +1,5 @@
 #include "titleview.h"
+#include "document/metadata.h"
 
 //====================================================================
 //=== TitleView
@@ -8,6 +9,7 @@ TitleView::TitleView(QWidget* parent)
 {
   m_model = new TitleModel(this);
   setModel(m_model);
+  verticalHeader()->hide();
   horizontalHeader()->setStretchLastSection(true);
   horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
   resizeTableVertically();
@@ -18,9 +20,11 @@ TitleView::TitleView(QWidget* parent)
 TitleView::~TitleView() {}
 
 void
-TitleView::initialiseData(QList<QSharedPointer<EPubTitle>> data)
+TitleView::initialiseData(PMetadata metadata)
 {
-  m_model->initialiseData(data);
+  m_metadata = metadata;
+  auto titles = metadata->orderedTitles();
+  m_model->initialiseData(titles);
   setCurrentIndex(m_model->index(0, 0));
   resizeTableVertically();
 }
@@ -36,11 +40,12 @@ TitleView::removeTitle(int row)
 }
 
 bool
-TitleView::insertTitle(int row, QSharedPointer<EPubTitle> title)
+TitleView::insertTitle(int row, PTitle title)
 {
   auto success = m_model->insertRow(row, QModelIndex());
   if (success) {
     m_model->setTitle(row, title);
+    resizeTableVertically();
   }
   return success;
 }
@@ -89,7 +94,7 @@ TitleView::swapToPrimaryPosition(int row)
   return m_model->swapWithFirst(row);
 }
 
-QSharedPointer<EPubTitle>
+PTitle
 TitleView::titleAt(int row)
 {
   return m_model->titleAt(row);
@@ -128,12 +133,23 @@ TitleView::sizeHint() const
 void
 TitleView::resizeTableVertically()
 {
-  auto vMargins = viewportMargins();
-  auto count = m_model->rowCount(QModelIndex());
-  auto height = vMargins.top();
-  for (int row = 0; row < count; row++) {
-    height += verticalHeader()->sectionSize(row);
+  auto height = viewportMargins().top();
+  height += contentsMargins().top();
+
+  if (horizontalScrollBar()->isVisible()) {
+    height += horizontalScrollBar()->height();
   }
+  if (horizontalHeader()->isVisible()) {
+    height += horizontalHeader()->height();
+  }
+  for (int i = 0; i < verticalHeader()->count(); ++i) {
+    if (!verticalHeader()->isSectionHidden(i)) {
+      height += verticalHeader()->sectionSize(i);
+    }
+  }
+  height += viewportMargins().bottom();
+  height += contentsMargins().bottom();
+
   setMinimumHeight(height);
   setMaximumHeight(height);
   auto g = geometry();
@@ -190,9 +206,9 @@ TitleModel::data(const QModelIndex& index, int role) const
             }
             break;
           case 1:
-            return m_titles.at(row)->id.toString();
-          case 2:
             return m_titles.at(row)->title;
+          case 2:
+            return m_titles.at(row)->id.toString();
         }
       }
     }
@@ -208,9 +224,9 @@ TitleModel::headerData(int section, Qt::Orientation orientation, int) const
     case Qt::Horizontal: {
       switch (section) {
         case 1:
-          return tr("id");
-        case 2:
           return tr("Title");
+        case 2:
+          return tr("id");
       }
       break;
     }
@@ -231,12 +247,12 @@ TitleModel::setData(const QModelIndex& index, const QVariant& value, int role)
     auto title = m_titles[index.row()];
     switch (index.column()) {
       case 1:
-        title->id = UniqueString(value.toString());
+        title->title = value.toString();
         m_titles.replace(index.row(), title);
         m_modified.replace(index.row(), true);
         return true;
       case 2:
-        title->title = value.toString();
+        title->id = UniqueString(value.toString());
         m_titles.replace(index.row(), title);
         m_modified.replace(index.row(), true);
         return true;
@@ -247,10 +263,12 @@ TitleModel::setData(const QModelIndex& index, const QVariant& value, int role)
 }
 
 void
-TitleModel::initialiseData(QList<QSharedPointer<EPubTitle>> titles)
+TitleModel::initialiseData(QList<PTitle> titles)
 {
   beginResetModel();
   m_titles.clear();
+  m_originalTitles.clear();
+  m_modified.clear();
   for (auto& title : titles) {
     m_titles.append(title);
     m_originalTitles.append(title);
@@ -307,7 +325,7 @@ TitleModel::swapWithFirst(int row)
 }
 
 bool
-TitleModel::setTitle(int row, QSharedPointer<EPubTitle> title)
+TitleModel::setTitle(int row, PTitle title)
 {
   if (row >= 0 && row < m_titles.size()) {
     beginResetModel();
@@ -326,12 +344,12 @@ TitleModel::hasId(int row)
   return false;
 }
 
-QSharedPointer<EPubTitle>
+PTitle
 TitleModel::titleAt(int row)
 {
   if (row >= 0 && row < m_titles.size())
     return m_titles.at(row);
-  return QSharedPointer<EPubTitle>(new EPubTitle());
+  return PTitle(new EPubTitle());
 }
 
 QString
@@ -350,7 +368,7 @@ TitleModel::idStrAt(int row)
   return UniqueString();
 }
 
-QList<QSharedPointer<EPubTitle>>
+QList<PTitle>
 TitleModel::titles()
 {
   return m_titles;
@@ -359,7 +377,7 @@ TitleModel::titles()
 bool
 TitleModel::areModified()
 {
-  for (auto modified : m_modified) {
+  for (auto& modified : m_modified) {
     if (modified)
       return true;
   }
@@ -374,7 +392,7 @@ TitleModel::isModified(int row)
   return false;
 }
 
-QList<QSharedPointer<EPubTitle>>
+QList<PTitle>
 TitleModel::modifiedTitles()
 {
   return m_titles;
@@ -388,7 +406,7 @@ TitleModel::insertRows(int row, int count, const QModelIndex& parent)
 
   beginInsertRows(QModelIndex(), row, row + count - 1);
   for (int i = 0; i < count; i++) {
-    m_titles.insert(row, QSharedPointer<EPubTitle>(new EPubTitle()));
+    m_titles.insert(row, PTitle(new EPubTitle()));
     m_modified.insert(row, false);
   }
   endInsertRows();
@@ -415,8 +433,7 @@ TitleModel::removeRows(int row, int count, const QModelIndex& parent)
 //====================================================================
 //=== TitleEditDialog
 //====================================================================
-TitleEditDialog::TitleEditDialog(QSharedPointer<EPubTitle> title,
-                                 QWidget* parent)
+TitleEditDialog::TitleEditDialog(PTitle title, QWidget* parent)
   : QDialog(parent)
   , m_title(title)
 {
@@ -424,7 +441,7 @@ TitleEditDialog::TitleEditDialog(QSharedPointer<EPubTitle> title,
   initGui();
 }
 
-QSharedPointer<EPubTitle>
+PTitle
 TitleEditDialog::title()
 {
   return m_title;

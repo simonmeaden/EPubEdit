@@ -1,43 +1,59 @@
 <RCC>
     <qresource prefix="/icons">
-        <file>bookmark.png</file>
-        <file>edit-clear.png</file>
-        <file>editor_48.png</file>
-        <file>list-add.png</file>
-        <file>list-remove.png</file>
-        <file>meta_48.png</file>
-        <file>options_48.png</file>
-        <file>text-html.png</file>
-        <file>tree.png</file>
-        <file>icons/accessories-calculator.png</file>
         <file>icons/AppLogoColor.png</file>
+        <file>icons/accessories-calculator.png</file>
         <file>icons/bookmark.png</file>
         <file>icons/dialog-error.png</file>
         <file>icons/dialog-question.png</file>
         <file>icons/dialog-warning.png</file>
+        <file>icons/document-new.png</file>
+        <file alias="GNew">icons/document-new_g.png</file>
         <file>icons/document-open-recent.png</file>
+        <file alias="GOpenRecent">icons/document-open-recent_g.png</file>
+        <file>icons/document-open.png</file>
+        <file alias="GOpen">icons/document-open_g.png</file>
         <file>icons/document-print.png</file>
+        <file alias="GPrint">icons/document-print_g.png</file>
+        <file>icons/document-save-as.png</file>
+        <file alias="GSaveAs">icons/document-save-as_g.png</file>
+        <file>icons/document-save.png</file>
+        <file alias="GSave">icons/document-save_g.png</file>
         <file>icons/ebook-reader.png</file>
-        <file>icons/edit-clear.png</file>
         <file>icons/edit-clear-all.png</file>
+        <file alias="GClearAll">icons/edit-clear-all_g.png</file>
+        <file>icons/edit-clear.png</file>
         <file alias="Copy">icons/edit-copy.png</file>
         <file alias="Cut">icons/edit-cut.png</file>
+        <file alias="GCut">icons/edit-cut_g.png</file>
         <file alias="Delete">icons/edit-delete.png</file>
-        <file>icons/edit-find.png</file>
+        <file alias="GDelete">icons/edit-delete_g.png</file>
         <file>icons/edit-find-replace.png</file>
+        <file alias="GFindReplace">icons/edit-find-replace_g.png</file>
+        <file>icons/edit-find.png</file>
+        <file alias="GFind">icons/edit-find_g.png</file>
         <file alias="Paste">icons/edit-paste.png</file>
+        <file alias="GPaste">icons/edit-paste_g.png</file>
         <file>icons/edit-redo.png</file>
+        <file alias="GRedo">icons/edit-redo_g.png</file>
         <file>icons/edit-select-all.png</file>
+        <file alias="GSelectAll">icons/edit-select-all_g.png</file>
         <file>icons/edit-undo.png</file>
+        <file alias="GUndo">icons/edit-undo_g.png</file>
+        <file>icons/editor_48.png</file>
+        <file alias="GIndentLessRTL">icons/format-indent-less-rtl_g.png</file>
         <file>icons/format-indent-less.png</file>
+        <file alias="GIndentless">icons/format-indent-less_g.png</file>
         <file>icons/format-indent-more.png</file>
+        <file alias="GIndentMore">icons/format-indent-more_g.png</file>
         <file>icons/format-justify-center.png</file>
         <file>icons/format-justify-fill.png</file>
         <file>icons/format-justify-left.png</file>
         <file>icons/format-justify-right.png</file>
         <file>icons/format-text-bold.png</file>
         <file>icons/format-text-direction-ltr.png</file>
+        <file alias="GTextDirLTR">icons/format-text-direction-ltr_g.png</file>
         <file>icons/format-text-direction-rtl.png</file>
+        <file alias="GTextDirRTL">icons/format-text-direction-rtl_g.png</file>
         <file>icons/format-text-italic.png</file>
         <file>icons/format-text-strikethrough.png</file>
         <file>icons/format-text-underline.png</file>
@@ -54,31 +70,11 @@
         <file>icons/help-about.png</file>
         <file>icons/help-contents.png</file>
         <file>icons/help-faq.png</file>
-        <file alias="GNew">icons/document-new_g.png</file>
-        <file alias="GOpen">icons/document-open_g.png</file>
-        <file alias="GOpenRecent">icons/document-open-recent_g.png</file>
-        <file alias="GPrint">icons/document-print_g.png</file>
-        <file alias="GSaveAs">icons/document-save-as_g.png</file>
-        <file alias="GSave">icons/document-save_g.png</file>
-        <file alias="GClearAll">icons/edit-clear-all_g.png</file>
-        <file alias="GCut">icons/edit-cut_g.png</file>
-        <file alias="GDelete">icons/edit-delete_g.png</file>
-        <file alias="GFind">icons/edit-find_g.png</file>
-        <file alias="GFindReplace">icons/edit-find-replace_g.png</file>
-        <file alias="GPaste">icons/edit-paste_g.png</file>
-        <file alias="GRedo">icons/edit-redo_g.png</file>
-        <file alias="GSelectAll">icons/edit-select-all_g.png</file>
-        <file alias="GUndo">icons/edit-undo_g.png</file>
-        <file alias="GIndentless">icons/format-indent-less_g.png</file>
-        <file alias="GIndentLessRTL">icons/format-indent-less-rtl_g.png</file>
-        <file alias="GIndentMore">icons/format-indent-more_g.png</file>
-        <file alias="GTextDirLTR">icons/format-text-direction-ltr_g.png</file>
-        <file alias="GTextDirRTL">icons/format-text-direction-rtl_g.png</file>
-        <file>icons/document-new.png</file>
-        <file>icons/document-open.png</file>
-        <file>icons/document-save.png</file>
-        <file>icons/document-save-as.png</file>
-        <file alias="Splitscreen">icons/splitscreen.png</file>
+        <file>icons/list-add.png</file>
+        <file>icons/list-remove.png</file>
+        <file alias="ListButton">icons/listbutton.png</file>
+        <file>icons/meta_48.png</file>
+        <file>icons/options_48.png</file>
         <file alias="RemoveSplitDown">icons/removeSplitDown.png</file>
         <file alias="RemoveSplitLeft">icons/removeSplitLeft.png</file>
         <file alias="RemoveSplitRight">icons/removeSplitRight.png</file>
@@ -87,5 +83,14 @@
         <file alias="ShowLeft">icons/showLeft.png</file>
         <file alias="ShowRight">icons/showRight.png</file>
         <file alias="ShowTop">icons/showTop.png</file>
+        <file alias="Splitscreen">icons/splitscreen.png</file>
+        <file>icons/text-html.png</file>
+        <file>icons/tree.png</file>
+        <file alias="GreyArrowDown">icons/greyarrowdown.png</file>
+        <file alias="GreyArrowUp">icons/greyarrowup.png</file>
+        <file alias="YellowArrowDown">icons/yellowarrowdown.png</file>
+        <file alias="YellowArrowUp">icons/yellowarrowup.png</file>
+        <file alias="SplitSideBySide">icons/splitH.png</file>
+        <file alias="SplitAboveAndBelow">icons/splitV.png</file>
     </qresource>
 </RCC>

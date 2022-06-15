@@ -7,21 +7,25 @@
 #include "quazipfile.h"
 
 #include "config.h"
+#include "dockitem.h"
 #include "document/authors.h"
 #include "document/epubdocument.h"
 #include "document/library.h"
+#include "document/options.h"
 #include "document/series.h"
 #include "document/sharedbookdata.h"
 #include "forms/epubcontents.h"
 #include "forms/epubeditor.h"
+#include "headerwidget.h"
 #include "qyamlcpp.h"
+#include "widgetitem.h"
 
 EPubEditor::EPubEditor(QWidget* parent)
-  : QTextEdit(parent)
+  : HeaderWidget(parent)
 {}
 
 EPubEditor::EPubEditor(PConfig config, QWidget* parent)
-  : QTextEdit(parent)
+  : HeaderWidget(parent)
   , m_config(config)
   , m_options(POptions(new EBookOptions()))
   , m_libraryDB(PLibraryDB(new EBookLibraryDB(m_options)))
@@ -29,14 +33,27 @@ EPubEditor::EPubEditor(PConfig config, QWidget* parent)
   , m_authorsDB(PAuthorsDB(new EBookAuthorsDB()))
 
 {
-  setFrameStyle(QFrame::NoFrame);
   setContentsMargins(0, 0, 0, 0);
+
+  auto img = QImage(":/icons/RemoveSplitLeft");
+  auto widget =
+    m_header->addIconButton(End, QIcon(QPixmap::fromImage(img)), img.size());
+  connect(widget, &WidgetItem::widgetClicked, this, &EPubEditor::removeSplit);
+
+  img = QImage(":/icons/Splitscreen");
+  widget =
+    m_header->addIconButton(End, QIcon(QPixmap::fromImage(img)), img.size());
+  connect(
+    widget, &WidgetItem::widgetClicked, this, &EPubEditor::splitMenuClicked);
+
+  m_editor = new QTextEdit(this);
+  setCentralWidget(m_editor);
 
   loadConfig();
 }
 
 EPubEditor::EPubEditor(const EPubEditor& other)
-  : QTextEdit(qobject_cast<QWidget*>(other.parent()))
+  : HeaderWidget(qobject_cast<QWidget*>(other.parent()))
 {
   setEpubDocument(other.m_document);
 }
@@ -61,15 +78,74 @@ EPubEditor::updateDocument()
 {}
 
 void
+EPubEditor::removeSplit()
+{}
+
+QPoint
+EPubEditor::adjustWidgetPositionInsideWidget(QPoint originalPos,
+                                             QSize requiredSize)
+{
+  auto parentRect = rect();
+  QRect childRect(originalPos, requiredSize);
+  int adjust = 0;
+  if (childRect.right() > parentRect.right()) {
+    adjust = parentRect.right() - childRect.right();
+  } else if (childRect.left() < parentRect.left()) {
+    adjust = childRect.left() - parentRect.left();
+  }
+  QPoint childPos(originalPos.x() + adjust, originalPos.y());
+  return childPos;
+}
+
+void
+EPubEditor::splitMenuClicked(QPoint pos)
+{
+  QMenu* menu = new QMenu(this);
+  auto img = QImage(":/icons/SplitAboveAndBelow");
+  auto action = new QAction(QIcon(QPixmap::fromImage(img)), tr("Split"));
+  action->setData(1);
+  menu->addAction(action);
+  img = QImage(":/icons/SplitSideBySide");
+  action =
+    new QAction(QIcon(QPixmap::fromImage(img)), tr("Split Side" /* by Side"*/));
+  action->setData(2);
+  menu->addAction(action);
+  action = new QAction(tr("Open in New Window"));
+  action->setData(3);
+  menu->addAction(action);
+  connect(menu, &QMenu::triggered, this, &EPubEditor::menuClicked);
+
+  auto menuPos = adjustWidgetPositionInsideWidget(pos, menu->sizeHint());
+  menu->popup(mapToGlobal(menuPos));
+}
+
+void
+EPubEditor::menuClicked(QAction* action)
+{
+  auto index = action->data().toInt();
+  switch (index) {
+    case 1:
+      emit splitWidget(Qt::Horizontal);
+      break;
+    case 2:
+      emit splitWidget(Qt::Vertical);
+      break;
+    case 3:
+      emit splitToWindow();
+      break;
+  }
+}
+
+void
 EPubEditor::loadFileIntoTextDocument(const QString& zipfile,
                                      const QString& imageName)
 {
   auto fileName = JlCompress::extractFile(zipfile, imageName);
   QFile file(fileName);
-  QTextStream in(&file);
+  QTextStream out(&file);
   if (file.open(QIODevice::ReadOnly)) {
     auto text = file.readAll();
-    setHtml(text);
+    m_editor->setHtml(text);
   }
 }
 
@@ -123,7 +199,7 @@ EPubEditor::loadDocument(const QString& filename)
         auto image = reader.read();
         images.insert(imageName, image);
       }
-      auto textDocument = document();
+      auto textDocument = m_editor->document();
       auto imageKeys = images.keys();
       for (auto& imageName : imageKeys) {
         textDocument->addResource(QTextDocument::ImageResource,
@@ -183,6 +259,12 @@ EPubEditor::isLoaded() const
   return m_loaded;
 }
 
+void
+EPubEditor::setHtml(const QString& html)
+{
+  m_editor->setHtml(html);
+}
+
 // QUndoView*
 // EPubEditor::undoView()
 //{
@@ -200,101 +282,6 @@ EPubEditor::isLoaded() const
 //{
 //   return m_undoStack->createRedoAction(this, tr("&Redo"));
 // }
-
-void
-EPubEditor::updateMetadataForm()
-{
-  //  m_metadataForm->setTitles(m_metadata->orderedTitles());
-  //  m_metadataForm->setAuthors(m_metadata->creatorList());
-}
-
-void
-EPubEditor::metadataHasChanged(MetadataForm::Modifications modifications)
-{
-  if (modifications.testFlag(MetadataForm::TITLES_CHANGED)) {
-    // TODO save titles.
-  }
-  if (modifications.testFlag(MetadataForm::AUTHORS_CHANGED)) {
-    // TODO save authors.
-  }
-}
-
-void
-EPubEditor::splitterHasMoved(int /*pos*/, int /*index*/)
-{
-  // TODO handle splitter
-  //  m_config->setHSplitterSizes(m_splitter->sizes());
-  //  m_config->save();
-}
-
-// void
-// EPubEditor::toggleOpenClicked()
-//{
-//   if (m_contentsFrame->isVisible())
-//     m_contentsFrame->setVisible(false);
-//   else
-//     m_contentsFrame->setVisible(true);
-// }
-
-// void
-// EPubEditor::initGui()
-//{
-//   auto layout = new QGridLayout();
-//   layout->setContentsMargins(0, 0, 0, 0);
-//   setLayout(layout);
-
-//  QPalette p;
-//  p.setColor(QPalette::Window, QColor("red"));
-//  setPalette(p);
-
-//  m_header = new HeaderWidget(this);
-//  layout->addWidget(m_header, BorderLayout::North);
-
-//  QImage img(":/icons/hideH");
-//  m_header->addIconButton(
-//    WidgetPosition::Left, img, tr("Toggle visibility of first"));
-
-//  img = QImage(":/icons/hideV");
-//  m_header->addIconButton(
-//    WidgetPosition::Left, img, tr("Toggle visibility of second"));
-
-//  img = QImage(":/icons/hideV");
-//  m_header->addIconButton(
-//    WidgetPosition::Right, img, tr("Toggle visibility of second"));
-//  img = QImage(":/icons/hideH");
-//  m_header->addIconButton(
-//    WidgetPosition::Right, img, tr("Toggle visibility of first"));
-
-//  m_splitter = new QSplitter(this);
-//  m_splitter->setContentsMargins(0, 0, 0, 0);
-//  connect(
-//    m_splitter, &QSplitter::splitterMoved, this,
-//    &EPubEditor::splitterHasMoved);
-//  layout->addWidget(m_splitter);
-
-//  m_editor = new EPubEditor(m_config);
-//  m_editor->setContentsMargins(0, 0, 0, 0);
-//  m_splitter->addWidget(m_editor);
-
-//  m_contentsFrame = new ContentsFrame(this);
-//  m_contentsFrame->setToolTip("BLOODY CONTENTS FORM!!!");
-//  m_splitter->addWidget(m_contentsFrame);
-
-//  m_splitter->setSizes(m_config->hSplitterSizes());
-
-//  m_editor = new EPubEditor(m_config);
-//  m_editor->setContentsMargins(0, 0, 0, 0);
-//  m_editor->hide();
-//  m_splitter->addWidget(m_editor);
-
-//  m_metadataForm = new MetadataForm(this);
-//  m_metadataForm->setSizePolicy(QSizePolicy::Expanding,
-//  QSizePolicy::Expanding); connect(m_metadataForm,
-//          &MetadataForm::dataHasChanged,
-//          this,
-//          &EPubEditor::metadataHasChanged);
-//  m_splitter->addWidget(m_metadataForm);
-//}
 
 void
 EPubEditor::loadConfig()

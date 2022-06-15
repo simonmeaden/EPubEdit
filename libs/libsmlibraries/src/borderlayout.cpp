@@ -66,8 +66,7 @@ BorderLayout::BorderLayout(int spacing)
 
 BorderLayout::~BorderLayout()
 {
-  QLayoutItem* l;
-  while ((l = takeAt(0)))
+  while (auto l = takeAt(0))
     delete l;
 }
 
@@ -163,8 +162,8 @@ BorderLayout::setGeometry(const QRect& rect)
     Position position = wrapper->position;
 
     if (position == West) {
-//      auto s = item->sizeHint();
-//      auto sp = spacing();
+      //      auto s = item->sizeHint();
+      //      auto sp = spacing();
       item->setGeometry(QRect(rect.x() + westWidth,
                               northHeight,
                               item->sizeHint().width(),

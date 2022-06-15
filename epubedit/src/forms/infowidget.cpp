@@ -1,57 +1,43 @@
 #include "infowidget.h"
 #include "config.h"
+#include "dockitem.h"
+#include "widgetitem.h"
+
+#include "common.h"
 
 //====================================================================
 //=== InfoWidget
 //====================================================================
 InfoWidget::InfoWidget(PConfig config, QUndoStack* undoStack, QWidget* parent)
-  : DockWidget(parent)
+  : HeaderWidget(parent)
   , m_undoStack(undoStack)
   , m_config(config)
 {
   setContentsMargins(0, 0, 0, 0);
 
-  auto p = palette();
-  p.setColor(QPalette::Window, QColor("lightgreen"));
-  setPalette(p);
+  //  auto p = palette();
+  //  p.setColor(QPalette::Window, QColor("lightgreen"));
+  //  setPalette(p);
 
-  //  addHeader();
+  auto img = QImage(":/icons/RemoveSplitDown");
+  auto size = img.size();
+  auto pix = QPixmap::fromImage(img);
+  m_removeSplitDown = QIcon(pix);
 
-  //  m_header = new HeaderWidget(this);
-  //  layout->addWidget(m_header, BorderLayout::North);
+  img = QImage(":/icons/RemoveSplitUp");
+  pix = QPixmap::fromImage(img);
+  m_removeSplitUp = QIcon(pix);
 
-  //  QImage img(":/icons/hideH");
-  //  m_header->addIconButton(
-  //    WidgetPosition::Left, img, tr("Toggle visibility of first"));
+  m_removeSplitWidget = qobject_cast<ButtonWidget*>(
+    m_header->addIconButton(End, m_removeSplitDown, size));
+  setShowHeaderOnHide(false);
+  connect(m_removeSplitWidget,
+          &WidgetItem::widgetClicked,
+          this,
+          &InfoWidget::toggleVisible);
 
-  //  img = QImage(":/icons/hideV");
-  //  m_header->addIconButton(
-  //    WidgetPosition::Left, img, tr("Toggle visibility of second"));
-
-  //  img = QImage(":/icons/hideV");
-  //  m_header->addIconButton(
-  //    WidgetPosition::Right, img, tr("Toggle visibility of second"));
-  //  img = QImage(":/icons/hideH");
-  //  m_header->addIconButton(
-  //    WidgetPosition::Right, img, tr("Toggle visibility of first"));
-
-  //  m_splitter = new QSplitter(this);
-  //  m_splitter->setContentsMargins(0, 0, 0, 0);
-  //  connect(
-  //    m_splitter, &QSplitter::splitterMoved, this,
-  //    &InfoWidget::splitterHasMoved);
-  //  m_splitter->setSizes(m_config->iSplitterSizes());
-  //  setCentreWidget(m_splitter);
-
-  //  m_logPage = new QPlainTextEdit(this);
-  //  m_logPage->setContentsMargins(0, 0, 0, 0);
-  //  m_logPage->setReadOnly(true);
-  //  m_splitter->addWidget(m_logPage);
-
-  //  m_undoView = new QUndoView(m_undoStack);
-  //  m_undoView->setContentsMargins(0, 0, 0, 0);
-  //  m_undoView->setWindowTitle(tr("Metadata Undo List"));
-  //  m_splitter->addWidget(m_undoView);
+  auto editor = createEditor(this);
+  setCentralWidget(editor);
 }
 
 QUndoView*
@@ -66,8 +52,24 @@ InfoWidget::logPage() const
   return m_logPage;
 }
 
-void
-InfoWidget::splitterHasMoved()
+void InfoWidget::setVisible(bool visible)
 {
-  m_config->setISplitterSizes(m_splitter->sizes());
+  QWidget::setVisible(visible);
+  if (m_config->infoIsVisible()) {
+    toggleVisible();
+  }
+}
+
+void
+InfoWidget::toggleVisible()
+{
+  if (isWidgetVisible()) {
+    hideWidget();
+    m_removeSplitWidget->setIcon(m_removeSplitUp);
+    m_config->setInfoIsVisible(false);
+  } else {
+    showWidget();
+    m_removeSplitWidget->setIcon(m_removeSplitDown);
+    m_config->setInfoIsVisible(true);
+  }
 }

@@ -18,6 +18,7 @@ target_link_libraries(${PROJECT_NAME}
     yaml-cpp
     QYamlCpp::qyamlcpp
     gtest
+    ${TIDY}
 )
 
 target_include_directories(${PROJECT_NAME}
@@ -37,12 +38,19 @@ target_sources(${PROJECT_NAME}
     # NEED to include the header files here otherwise MOC won't handle them.
     # they are also automatically included in the target_include_directories 
     # section above
+
+    # internationallanguage classes
     include/languages.h
     src/languages.cpp
     include/unstatistical.h
     src/unstatistical.cpp
+    #
     include/filedownloader.h
     src/filedownloader.cpp
+    # html tidy wrapper.
+    include/qtidydoc.h
+    src/qtidydoc.cpp
+    # labelled classes
     include/abstractlabelledspinbox.h
     src/abstractlabelledspinbox.cpp
     include/abstractlabelledwidget.h
@@ -76,12 +84,37 @@ target_sources(${PROJECT_NAME}
     src/helpdialogs.cpp
     include/stringutil.h
     src/stringutil.cpp
+    # dockwidget classes
+    include/docktypes.h
+    include/abstractdockwidget.h
+    src/abstractdockwidget.cpp
     include/dockwidget.h
     src/dockwidget.cpp
+    include/dockitem.h
+    src/dockitem.cpp
+    include/widgetitem.h
+    src/widgetitem.cpp
+    include/headerwidget.h
+    src/headerwidget.cpp
+    include/footerwidget.h
+    src/footerwidget.cpp
+    include/headerfooterwidget.h
+    src/headerfooterwidget.cpp
+    # multisplitter
+    include/docksplitter.h
+    src/docksplitter.cpp
     include/multisplitter.h
     src/multisplitter.cpp
+    # borderlayout Qt example
     include/borderlayout.h
     src/borderlayout.cpp
+
+    # tinyxml library
+    include/tinyxml2.h
+    src/tinyxml2.cpp
+    include/tinyxmldocument.h
+    src/tinyxmldocument.cpp
+
 )
 
 add_subdirectory(tests)

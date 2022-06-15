@@ -45,47 +45,5 @@ target_sources(${PROJECT_NAME}
 #  PUBLIC
 
   PRIVATE
-    # NEED to include the header files her otherwise MOC won't handle them.
-    include/document/epubdocument.h
-    src/document/epubdocument.cpp
-    include/document/epubmetadata.h
-    src/document/epubmetadata.cpp
-    include/document/authors.h
-    src/document/authors.cpp
-    include/document/library.h
-    src/document/library.cpp
-    include/document/sharedbookdata.h
-    src/document/sharedbookdata.cpp
-    include/document/sharedauthordata.h
-    src/document/sharedauthordata.cpp
-    include/document/options.h
-    src/document/options.cpp
-    include/document/bookpointers.h
-
-    include/document/dcterms.h
-    src/document/dcterms.cpp
-    include/document/foaf.h
-    src/document/foaf.cpp
-    include/document/marcrelator.h
-    src/document/marcrelator.cpp
-    include/document/series.h
-    src/document/series.cpp
-#    src/document/htmlparser.cpp
-#    src/document/htmltidy.cpp
-
-    include/document/uniquestring.h
-    src/document/uniquestring.cpp
-
-    include/config.h
-    src/config.cpp
-    include/forms/configurationeditor.h
-    src/forms/configurationeditor.cpp
-    src/forms/languagetagbuilderdialogresource.qrc
-    include/forms/languagetagbuilderdialog.h
-    src/forms/languagetagbuilderdialog.cpp
-
-    # Utility classes
-    src/util/csvsplitter.h
-    src/util/csvsplitter.cpp
 
 )

@@ -43,44 +43,16 @@ find_package(
     Concurrent
     LinguistTools
   REQUIRED)
-#find_package(
-#  Qt${QT_VERSION_MAJOR}
-#  COMPONENTS
-#    Core5Compat
-#    Gui
-#    Widgets
-#    Xml
-#    Svg
-#    Network
-#    Concurrent
-#    LinguistTools
-#  REQUIRED)
-#find_package(
-#  Qt${QT_VERSION_MAJOR}
-#  COMPONENTS
-#    Core5Compat
-#    Gui
-#    Widgets
-#    Xml
-#    Svg
-#    Network
-#    Concurrent
-#    LinguistTools
-#  REQUIRED)
-
-#message("src" ${CMAKE_SOURCE_DIR})
 
 set(TS_FILES ${CMAKE_SOURCE_DIR}/i18n/${PROJECT_NAME}_en_gb.ts ${CMAKE_SOURCE_DIR}/i18n/${PROJECT_NAME}_en_us.ts ${CMAKE_SOURCE_DIR}/i18n/${PROJECT_NAME}_de.ts)
-#set_source_files_properties(${TS_FILES} PROPERTIES OUTPUT_LOCATION "i18n")
-#qt_create_translation(EPubEdit ${CMAKE_SOURCE_DIR} ${TS_FILES} )
 
 find_package(gtest REQUIRED gtest>=1.7.0 PATHS /usr/lib64/cmake/GTest NAMES GTest)
 set(gtest_disable_pthreads on)
 
-#find_package(gmock REQUIRED gmock>=1.7.0)
-
 set(MIN_YAMLCPP_VERSION 0.6.0)
 find_package(yaml-cpp REQUIRED)
+
+find_library(TIDY tidy)
 
 if (NOT yaml-cpp_FOUND)
   message("yaml-cpp NOT found")

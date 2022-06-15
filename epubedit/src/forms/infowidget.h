@@ -6,28 +6,33 @@
 #include <QUndoStack>
 #include <QUndoView>
 
+#include "headerwidget.h"
+#include "document/bookpointers.h"
 
-#include "dockwidget.h"
+class ButtonWidget;
 
-class InfoWidget : public DockWidget
+class InfoWidget : public HeaderWidget
 {
   Q_OBJECT
 public:
-  InfoWidget(PConfig config, QUndoStack *undoStack, QWidget* parent);
+  InfoWidget(PConfig config, QUndoStack* undoStack, QWidget* parent);
 
   QUndoView* undoView();
   QPlainTextEdit* logPage() const;
 
 protected:
-private:
+  void setVisible(bool visible) override;
 
+private:
   QSplitter* m_splitter;
-  QPlainTextEdit* m_logPage=nullptr;
+  QPlainTextEdit* m_logPage = nullptr;
   QUndoView* m_undoView;
   QUndoStack* m_undoStack;
   PConfig m_config;
+  QIcon m_removeSplitUp, m_removeSplitDown;
+  ButtonWidget*m_removeSplitWidget;
 
-  void splitterHasMoved();
+  void toggleVisible();
 };
 
 #endif // INFOWIDGET_H

@@ -34,6 +34,7 @@ public:
 
 signals:
   void shutdown(int returnCode = 0);
+  void load(const QString& filename);
 
 protected:
 private:
@@ -46,8 +47,6 @@ private:
   QAction *m_helpContentsAct, *m_helpIndexAct, *helpContextAct, *m_helpAboutAct,
     *m_helpAboutPluginsAct;
   QMenu *m_fileMenu, *m_editMenu, *m_toolsMenu, *m_helpMenu;
-  EPubEditor* m_editor = nullptr;
-  QPlainTextEdit* m_logPage = nullptr;
   QUndoStack* m_undoStack = nullptr;
 
   void newEpub();
@@ -56,7 +55,7 @@ private:
   void saveAsFile();
   void cleanup();
 
-  bool loadDocument(const QString& filename);
+  void loadDocument(const QString& filename);
 
   void initGui();
 

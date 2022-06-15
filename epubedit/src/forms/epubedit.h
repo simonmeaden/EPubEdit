@@ -22,20 +22,12 @@
 #include "config.h"
 #include "document/bookpointers.h"
 #include "forms/metadataform.h"
-#include "dockwidget.h"
+#include "headerwidget.h"
 
 class EPubEditor;
 class ContentsFrame;
 
-struct Page
-{
-  UniqueString idref;
-  QString mediaType;
-  QString page; // possibly entire page??
-  QString path;
-};
-
-class EPubEdit : public DockWidget
+class EPubEdit : public HeaderWidget
 {
   Q_OBJECT
 
@@ -62,10 +54,10 @@ signals:
   void sendStatusMessage(const QString& message,
                          int timeout = Config::StatusTimeout);
   void sendLogMessage(const QString& message);
+  void metadataChanged(PMetadata metadata);
 
 private:
   QSplitter* m_splitter;
-  MetadataForm* m_metadataForm;
   ContentsFrame* m_contentsFrame;
   EPubEditor* m_editor;
 

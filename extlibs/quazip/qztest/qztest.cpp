@@ -71,7 +71,7 @@ bool createTestFiles(const QStringList &fileNames, int size, const QString &dir)
                 return false;
             }
             if (size == -1) {
-                QTextStream testStream(&testFile);
+                QTextStream out(&testFile);
                 testStream << "This is a test file named " << fileName << quazip_endl;
             } else {
                 for (int i = 0; i < size; ++i) {

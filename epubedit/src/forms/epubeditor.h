@@ -5,27 +5,19 @@
 #include <QUndoStack>
 #include <QUndoView>
 #include <QWidget>
+#include <QMenu>
 
-//#include "borderlayout.h"
 #include "config.h"
-#include "dockwidget.h"
-#include "document/bookpointers.h"
-#include "forms/metadataform.h"
+#include "headerwidget.h"
 
 class ContentsFrame;
 class EPubDocument;
 
 #include "document/bookpointers.h"
+#include "document/bookstructs.h"
 
-struct Page
-{
-  UniqueString idref;
-  QString mediaType;
-  QString page; // possibly entire page??
-  QString path;
-};
 
-class EPubEditor : public QTextEdit
+class EPubEditor : public HeaderWidget
 {
   Q_OBJECT
 public:
@@ -46,6 +38,8 @@ public:
 
   bool isLoaded() const;
 
+  void setHtml(const QString& html);
+
   //  QUndoView* undoView();
   //  QAction* undoAction();
   //  QAction* redoAction();
@@ -56,6 +50,8 @@ signals:
   void sendStatusMessage(const QString& message,
                          int timeout = Config::StatusTimeout);
   void sendLogMessage(const QString& message);
+  void splitWidget(Qt::Orientation orientation);
+  void splitToWindow();
 
 private:
   PConfig m_config;
@@ -64,22 +60,24 @@ private:
   PLibraryDB m_libraryDB;
   PSeriesDB m_seriesDB;
   PAuthorsDB m_authorsDB;
+  QTextEdit *m_editor;
 
   QString m_currentBookFilename;
 
   //  QUndoView* m_undoView;
-  //  QTabWidget* m_tabs;
   bool m_loaded;
   QList<UniqueString> m_pageOrder;
   QMap<UniqueString, Page> m_pages;
   Page m_page;
-  void updateMetadataForm();
-  void metadataHasChanged(MetadataForm::Modifications modifications);
+
   void loadFileIntoTextDocument(const QString& zipfile,
                                 const QString& imageName);
-  void splitterHasMoved(int, int);
-  //  void toggleOpenClicked();
   void updateDocument();
+  void removeSplit();
+  void splitMenuClicked(QPoint pos);
+  void menuClicked(QAction*action);
+  QPoint adjustWidgetPositionInsideWidget(QPoint originalPos,
+                                          QSize requiredSize);
 };
 Q_DECLARE_METATYPE(EPubEditor)
 

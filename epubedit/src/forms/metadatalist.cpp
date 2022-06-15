@@ -12,33 +12,33 @@ MetadataModel::~MetadataModel() {}
 int
 MetadataModel::rowCount(const QModelIndex&) const
 {
-  return m_names.size();
+  return m_firstCol.size();
 }
 
 int
 MetadataModel::columnCount(const QModelIndex&) const
 {
-  return 3;
+  return 2;
 }
 
 QVariant
-MetadataModel::headerData(int /*section*/,
-                          Qt::Orientation /*orientation*/,
-                          int) const
+MetadataModel::headerData(int section, Qt::Orientation orientation, int) const
 {
-  //  switch (orientation) {
-  //    case Qt::Horizontal: {
-  //      switch (section) {
-  //        case 0:
-  //          return tr("Name");
-  //        case 1:
-  //          return tr("File As...");
-  //      }
-  //      break;
-  //    }
-  //    case Qt::Vertical:
-  //      return QVariant();
-  //  }
+  switch (orientation) {
+    case Qt::Horizontal: {
+      switch (section) {
+        case 0:
+          return tr("First");
+        case 1:
+          return tr("Second");
+        case 2:
+          return tr("Third");
+      }
+      break;
+    }
+    case Qt::Vertical:
+      return QVariant();
+  }
   return QVariant();
 }
 
@@ -48,28 +48,15 @@ MetadataModel::data(const QModelIndex& index, int role) const
   if (!index.isValid())
     return QVariant();
 
-  //  auto type
   switch (role) {
     case Qt::DisplayRole: {
       int row = index.row();
       int col = index.column();
-      auto name = m_names.at(row);
-      auto data = m_data.at(row);
-      auto type = data->relator->type();
       switch (col) {
-        case 0: {
-          return name;
-        }
-        case 1: {
-          if (data) {
-            if (type == MarcRelator::AUTHOR || type == MarcRelator::CREATOR) {
-              return data->fileAs->name;
-            }
-          }
-        }
-        case 2: { // This depends on type
-          return MarcRelator::relatorToDescription(type);
-        }
+        case 0:
+          return m_firstCol[row];
+        case 1:
+          return m_secondCol[row];
       }
     }
   }
@@ -89,7 +76,7 @@ MetadataModel::setData(const QModelIndex& index,
   if (role == Qt::EditRole) {
     switch (index.column()) {
       case 0: {
-        m_names.replace(index.row(), value.toString());
+        m_firstCol.replace(index.row(), value.toString());
         m_modified.replace(index.row(), true);
         return true;
       }
@@ -103,34 +90,44 @@ MetadataModel::setData(const QModelIndex& index,
 }
 
 void
-MetadataModel::modifyRowData(int row, const QString& value)
+MetadataModel::insertRowData(int row,
+                             const QString& text1,
+                             const QString& text2)
 {
   beginInsertRows(QModelIndex(), row + 1, row + 1);
-  m_names.append(value);
-  m_modified.append(true);
+  m_firstCol.insert(row, text1);
+  m_secondCol.insert(row, text2);
+  m_modified.insert(row, true);
   endInsertRows();
 }
 
 void
-MetadataModel::initialiseData(PDocument document)
+MetadataModel::initialiseData(PMetadata metadata)
 {
-  m_metadata = document->metadata();
-  auto authorList = m_metadata->creatorList();
+  m_metadata = metadata;
+  auto creatorList = m_metadata->creatorList();
   auto contributorList = m_metadata->contributorList();
   beginResetModel();
-  m_names.clear();
-  for (auto& author : authorList) {
-    auto authorData = document->metadata()->creatorFromName(author);
-    m_names.append(author);
-    m_data.append(authorData);
+  m_firstCol.clear();
+  m_secondCol.clear();
+  m_modified.clear();
+  for (auto& creator : creatorList) {
+    auto data = m_metadata->creatorFromName(creator);
+    m_firstCol.append(creator);
+    auto relator = data->relator;
+    auto description = relator->relatorToDescription(relator->type());
+    m_secondCol.append(description);
+    m_modified.append(false);
   }
   for (auto& contributor : contributorList) {
-    auto contibutorData = m_metadata->contributorFromName(contributor);
-    m_names.append(contributor);
-    m_data.append(contibutorData);
+    auto data = m_metadata->contributorFromName(contributor);
+    m_firstCol.append(contributor);
+    auto relator = data->relator;
+    auto description = relator->relatorToDescription(relator->type());
+    m_secondCol.append(description);
+    m_modified.append(false);
   }
   endResetModel();
-  m_modified.append(false);
 }
 
 bool
@@ -141,8 +138,8 @@ MetadataModel::insertRows(int row, int count, const QModelIndex& parent)
 
   beginInsertRows(QModelIndex(), row, row + count - 1);
   for (int i = 0; i < count; i++) {
-    m_names.insert(row, QString());
-    //    m_data.insert(row, QSharedPointer<EPubCreator>(new EPubCreator()));
+    m_firstCol.insert(row, QString());
+    m_secondCol.insert(row, QString());
     m_modified.insert(row, false);
   }
   endInsertRows();
@@ -156,8 +153,8 @@ MetadataModel::removeRows(int row, int count, const QModelIndex& parent)
   if (row >= 0 || row < rowCount(parent)) {
     beginRemoveRows(QModelIndex(), row, row + count - 1);
     for (int i = row; i < row + count; i++) {
-      m_names.removeAt(row);
-      m_data.removeAt(row);
+      m_firstCol.removeAt(row);
+      m_secondCol.removeAt(row);
       m_modified.removeAt(row);
     }
     endRemoveRows();
@@ -168,15 +165,27 @@ MetadataModel::removeRows(int row, int count, const QModelIndex& parent)
 }
 
 QStringList
-MetadataModel::names()
+MetadataModel::firstCol()
 {
-  return m_names;
+  return m_firstCol;
+}
+
+QStringList
+MetadataModel::secondCol()
+{
+  return m_secondCol;
+}
+
+QList<bool>
+MetadataModel::thirdCol()
+{
+  return m_modified;
 }
 
 bool
 MetadataModel::areModified()
 {
-  for (auto modified : m_modified) {
+  for (auto& modified : m_modified) {
     if (modified)
       return true;
   }
@@ -192,12 +201,12 @@ MetadataModel::isModified(int row)
 }
 
 QMap<int, QString>
-MetadataModel::modifiedAuthors()
+MetadataModel::modifiedRows()
 {
   QMap<int, QString> map;
-  for (int i = 0; i < m_names.size(); i++) {
+  for (int i = 0; i < m_firstCol.size(); i++) {
     if (m_modified[i]) {
-      map.insert(i, m_names.at(i));
+      map.insert(i, m_firstCol.at(i));
     }
   }
   return map;
@@ -206,12 +215,20 @@ MetadataModel::modifiedAuthors()
 bool
 MetadataModel::swapWithFirst(int row)
 {
-  if (row > 0 && row < m_names.size()) {
-    auto first = m_names.first();
-    auto swapper = m_names.at(row);
+  if (row > 0 && row < m_firstCol.size()) {
+    auto first = m_firstCol.first();
+    auto second = m_secondCol.first();
+    auto third = m_modified.first();
+    auto swapper1 = m_firstCol.at(row);
+    auto swapper2 = m_secondCol.at(row);
+    auto swapper3 = m_modified.at(row);
     beginResetModel();
-    m_names.replace(0, swapper);
-    m_names.replace(row, first);
+    m_firstCol.replace(0, swapper1);
+    m_secondCol.replace(0, swapper2);
+    m_modified.replace(0, swapper3);
+    m_firstCol.replace(row, first);
+    m_secondCol.replace(row, second);
+    m_modified.replace(row, third);
     endResetModel();
     return true;
   }
@@ -219,11 +236,11 @@ MetadataModel::swapWithFirst(int row)
 }
 
 bool
-MetadataModel::setNameData(int row, const QString& name)
+MetadataModel::setFirstAt(int row, const QString& text)
 {
-  if (row >= 0 && row < m_names.size()) {
-    m_names.replace(row, name);
-
+  if (row >= 0 && row < m_firstCol.size()) {
+    beginResetModel();
+    m_firstCol.replace(row, text);
     endResetModel();
     return true;
   }
@@ -231,98 +248,187 @@ MetadataModel::setNameData(int row, const QString& name)
 }
 
 bool
-MetadataModel::modifyNameData(int row, const QString& author)
+MetadataModel::setSecondAt(int row, const QString& text)
 {
-  auto rows = rowCount(QModelIndex());
-  if (row < 0 || row > rows)
-    return false;
-
-  if (row >= m_names.size()) {
-    return false;
+  if (row >= 0 && row < m_secondCol.size()) {
+    beginResetModel();
+    m_secondCol.replace(row, text);
+    endResetModel();
+    return true;
   }
-  m_names.replace(row, author);
-  m_modified.replace(row, true);
-  return true;
+  return false;
 }
 
+bool
+MetadataModel::setModifiedAt(int row, const bool& modified)
+{
+  if (row >= 0 && row < m_modified.size()) {
+    beginResetModel();
+    m_modified.replace(row, modified);
+    endResetModel();
+    return true;
+  }
+  return false;
+}
+
+// bool
+// MetadataModel::modifyFirstCol(int row, const QString& text)
+//{
+////  auto rows = rowCount(QModelIndex());
+//  if (row >= 0 && row < m_firstCol.size()) {
+//    m_firstCol.replace(row, text);
+//    m_modified.replace(row, true);
+//    return true;
+//  }
+//  return false;
+//}
+// bool
+// MetadataModel::setSecondCol(int row, const QString& text)
+//{
+//  if (row >= 0 && row < m_secondCol.size()) {
+//    beginResetModel();
+//    m_secondCol.replace(row, text);
+//    endResetModel();
+//    return true;
+//  }
+//  return false;
+//}
+
+// bool
+// MetadataModel::modifySecondCol(int row, const QString& text)
+//{
+////  auto rows = rowCount(QModelIndex());
+//  if (row >= 0 && row < m_secondCol.size()) {
+//    m_secondCol.replace(row, text);
+//    m_modified.replace(row, true);
+//    return true;
+//  }
+//  return false;
+//}
+
 //====================================================================
-//=== AuthorList
+//=== MetadataView
 //====================================================================
-MetadataList::MetadataList(QWidget* parent)
+MetadataView::MetadataView(QWidget* parent)
   : QTableView(parent)
 {
-  horizontalHeader()->setStretchLastSection(true);
-  horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-  setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
   m_model = new MetadataModel(this);
   setModel(m_model);
+  verticalHeader()->hide();
+  horizontalHeader()->setStretchLastSection(true);
+  horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+  resizeTableVertically();
+  setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+  setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
 
-MetadataList::~MetadataList() {}
+MetadataView::~MetadataView() {}
 
 void
-MetadataList::initialiseData(PDocument document)
+MetadataView::initialiseData(PMetadata metadata)
 {
-  m_model->initialiseData(document);
+  m_model->initialiseData(metadata);
   setCurrentIndex(m_model->index(0, 0));
+  resizeTableVertically();
 }
 
 bool
-MetadataList::removeAuthor(int row)
+MetadataView::insertRow(int row)
 {
-  auto success = m_model->removeRow(1, QModelIndex());
+  auto success = m_model->insertRows(row, 1);
+  if (success)
+    resizeTableVertically();
+  return success;
+}
+
+bool
+MetadataView::removeRow(int row)
+{
+  auto success = m_model->removeRow(row, QModelIndex());
   if (success) {
-    emit authorRemoved(row);
+    emit rowRemoved(row);
+    resizeTableVertically();
   }
   return success;
 }
 
 bool
-MetadataList::insertAuthor(int row, const QString& author)
+MetadataView::setFirstAt(int row, const QString& text)
 {
-  auto success = m_model->insertRow(row, QModelIndex());
-  if (success) {
-    m_model->setNameData(row, author);
-  }
-  return success;
+  return m_model->setFirstAt(row, text);
 }
 
 bool
-MetadataList::modifyAuthor(int row, const QString& author)
+MetadataView::setSecondAt(int row, const QString& text)
 {
-  auto success = m_model->modifyNameData(row, author);
-  auto index = m_model->index(row, 0);
-  dataChanged(index, index);
-  return success;
+  return m_model->setSecondAt(row, text);
+}
+
+bool
+MetadataView::setModifiedAt(int row, const bool& modified)
+{
+  return m_model->setModifiedAt(row, modified);
 }
 
 QModelIndex
-MetadataList::primaryAuthorIndex()
+MetadataView::primaryAuthorIndex()
 {
   return m_model->index(0, 0);
 }
 
 bool
-MetadataList::swapToPrimaryPosition(int row)
+MetadataView::swapToPrimaryPosition(int row)
 {
   return m_model->swapWithFirst(row);
 }
 
 QSize
-MetadataList::sizeHint() const
+MetadataView::sizeHint() const
 {
   return m_hint;
 }
 
-void
-MetadataList::resizeTableVertically()
+QString
+MetadataView::firstAt(int row)
 {
-  auto vMargins = viewportMargins();
-  auto count = m_model->rowCount(QModelIndex());
-  auto height = vMargins.top();
-  for (int row = 0; row < count; row++) {
-    height += verticalHeader()->sectionSize(row);
+  auto index = m_model->index(row, 0);
+  return m_model->data(index).toString();
+}
+
+QString
+MetadataView::secondAt(int row)
+{
+  auto index = m_model->index(row, 1);
+  return m_model->data(index).toString();
+}
+
+bool
+MetadataView::modifiedAt(int row)
+{
+  auto index = m_model->index(row, 2);
+  return m_model->data(index).toBool();
+}
+
+void
+MetadataView::resizeTableVertically()
+{
+  auto height = viewportMargins().top();
+  height += contentsMargins().top();
+
+  if (horizontalScrollBar()->isVisible()){
+    height += horizontalScrollBar()->height();
   }
+  if (horizontalHeader()->isVisible()){
+    height += horizontalHeader()->height();
+  }
+  for (int i = 0; i < verticalHeader()->count(); ++i) {
+    if (!verticalHeader()->isSectionHidden(i)) {
+      height += verticalHeader()->sectionSize(i);
+    }
+  }
+  height += viewportMargins().bottom();
+  height += contentsMargins().bottom();
+
   setMinimumHeight(height);
   setMaximumHeight(height);
   auto g = geometry();
@@ -330,21 +436,4 @@ MetadataList::resizeTableVertically()
   m_hint = g.size();
   setGeometry(g);
   updateGeometry();
-}
-
-bool
-MetadataList::setAuthor(int row, const QString& author)
-{
-  auto index = m_model->index(row, 0);
-  if (index.isValid()) {
-    return m_model->setData(index, QVariant::fromValue(author));
-  }
-  return false;
-}
-
-QString
-MetadataList::authorAt(int row)
-{
-  auto index = m_model->index(row, 0);
-  return m_model->data(index).toString();
 }

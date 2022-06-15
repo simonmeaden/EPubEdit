@@ -7,7 +7,7 @@
 #include <QHoverEvent>
 
 #include "document/bookpointers.h"
-#include "document/epubmetadata.h"
+#include "document/metadata.h"
 #include "x11colors.h"
 
 

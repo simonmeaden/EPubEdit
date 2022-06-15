@@ -3,14 +3,15 @@
 
 #include <QAbstractItemModel>
 #include <QHeaderView>
-#include <QTableView>
-#include <QVariant>
 #include <QList>
+#include <QTableView>
+#include <QScrollBar>
+#include <QVariant>
 
-#include "document/epubdocument.h"
-#include "document/epubmetadata.h"
-#include "document/marcrelator.h"
 #include "document/bookpointers.h"
+#include "document/epubdocument.h"
+#include "document/metadata.h"
+#include "document/marcrelator.h"
 
 class MetadataModel : public QAbstractTableModel
 {
@@ -22,7 +23,8 @@ public:
   int rowCount(const QModelIndex&) const override;
   int columnCount(const QModelIndex&) const override;
 
-  QVariant headerData(int, Qt::Orientation,
+  QVariant headerData(int section,
+                      Qt::Orientation orientation,
                       int) const override;
   QVariant data(const QModelIndex& index,
                 int role = Qt::DisplayRole) const override;
@@ -31,8 +33,7 @@ public:
                const QVariant& value,
                int role = Qt::EditRole) override;
 
-  void modifyRowData(int row, const QString& value);
-  void initialiseData(PDocument document);
+  void insertRowData(int row, const QString& text1, const QString& text2);
 
   bool insertRows(int row,
                   int count,
@@ -41,37 +42,42 @@ public:
                   int count,
                   const QModelIndex& parent = QModelIndex()) override;
 
-  QStringList names();
+  void initialiseData(PMetadata metadata);
+
   bool areModified();
   bool isModified(int row);
-  QMap<int, QString> modifiedAuthors();
-  bool setNameData(int row, const QString& author);
-  bool modifyNameData(int row, const QString& author);
+  QMap<int, QString> modifiedRows();
 
   bool swapWithFirst(int row);
 
+  QStringList firstCol();
+  QStringList secondCol();
+  QList<bool> thirdCol();
+
+  bool setFirstAt(int row, const QString& author);
+  bool setSecondAt(int row, const QString& text);
+  bool setModifiedAt(int row, const bool& modified);
+
 private:
-  QStringList m_names;
-  QList<QSharedPointer<EPubCreatorContributorBase>> m_data;
+  QStringList m_firstCol;
+  QStringList m_secondCol;
   QList<bool> m_modified;
   PMetadata m_metadata;
-
 };
 
-class MetadataList : public QTableView
+class MetadataView : public QTableView
 {
   Q_OBJECT
 public:
-  MetadataList(QWidget* parent = nullptr);
-  ~MetadataList();
+  MetadataView(QWidget* parent = nullptr);
+  ~MetadataView();
 
-  void initialiseData(PDocument document);
+  void initialiseData(PMetadata metadata);
 
-  bool removeAuthor(int row);
-  bool insertAuthor(int row, const QString& author);
-  bool modifyAuthor(int row, const QString& author);
-  bool setAuthor(int row, const QString& author);
-  QString authorAt(int row);
+  bool insertRow(int row);
+  bool removeRow(int row);
+
+  QString firstAt(int row);
 
   QModelIndex primaryAuthorIndex();
   bool swapToPrimaryPosition(int row);
@@ -80,12 +86,17 @@ public:
 
   void resizeTableVertically();
 
+  bool setFirstAt(int row, const QString& author);
+  bool setSecondAt(int row, const QString& text);
+  bool setModifiedAt(int row, const bool& modified);
+
+  QString secondAt(int row);
+  bool modifiedAt(int row);
 signals:
-  void authorRemoved(int row);
+  void rowRemoved(int row);
 
 private:
   MetadataModel* m_model;
-  QStringList m_authorList;
   QSize m_hint;
 };
 

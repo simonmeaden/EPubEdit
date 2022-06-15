@@ -1,15 +1,17 @@
 #ifndef MAINWIDGET_H
 #define MAINWIDGET_H
 
+#include <QDebug>
+#include <QPlainTextEdit>
 #include <QUndoStack>
 #include <QUndoView>
-#include <QPlainTextEdit>
-#include <QDebug>
 
 #include "dockwidget.h"
+#include "document/bookpointers.h"
 
 class CentralWidget;
 class EPubEditor;
+class ListWidget;
 
 class MainWidget : public DockWidget
 {
@@ -21,6 +23,8 @@ public:
   QPlainTextEdit* logPage() const;
   QUndoView* undoView();
 
+  void load(const QString& filename);
+
 signals:
   void newClicked();
   void openClicked();
@@ -30,6 +34,11 @@ signals:
 private:
   CentralWidget* m_centralWidget = nullptr;
 
+  WidgetItem* m_leftSidebarWidget = nullptr;
+  WidgetItem* m_rightSidebarWidget = nullptr;
+  WidgetItem* m_lineNoWidget = nullptr;
+  ListWidget* m_listNoWidget = nullptr;
+
   void internalGeometryUpdate(int north, int south, int east, int west);
   void splitScreen();
   void hideLeftSidebar();
@@ -38,6 +47,9 @@ private:
   void showRightSidebar();
   void toggleLeftSidebar();
   void toggleRightSidebar();
+  void listClicked(int index, const QString& text);
+
+  void setLineNoText(int lineNo, int column);
 };
 
 #endif // MAINWIDGET_H

@@ -15,7 +15,7 @@
 #include "forms/metadataform.h"
 
 EPubEdit::EPubEdit(PConfig config, QWidget* parent)
-  : DockWidget(parent)
+  : HeaderWidget(parent)
   , m_config(config)
   , m_options(POptions(new EBookOptions()))
   , m_libraryDB(PLibraryDB(new EBookLibraryDB(m_options)))
@@ -118,11 +118,12 @@ EPubEdit::loadDocument(const QString& filename)
         // TODO work out contents / TOC
       }
 
-      m_metadataForm->setDocument(m_document);
-      connect(m_metadataForm,
-              &MetadataForm::sendStatusMessage,
-              this,
-              &EPubEdit::sendStatusMessage);
+      emit metadataChanged(m_document->metadata());
+//      m_metadataForm->setDocument(m_document);
+//      connect(m_metadataForm,
+//              &MetadataForm::sendStatusMessage,
+//              this,
+//              &EPubEdit::sendStatusMessage);
       m_editor->setEpubDocument(m_document);
       m_loaded = true;
     }

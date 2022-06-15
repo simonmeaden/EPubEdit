@@ -1,6 +1,7 @@
 #include "undocommands.h"
-#include "authorlist.h"
-#include "titleview.h"
+#include "twocolview.h"
+#include "threecolview.h"
+#include "document/metadata.h"
 
 //====================================================================
 //=== UndoMetadataCommand
@@ -14,7 +15,7 @@ UndoMetadataCommand::UndoMetadataCommand(PMetadata metadata,
 //====================================================================
 //=== AddTitleCommand
 //====================================================================
-AddTitleCommand::AddTitleCommand(TitleView* view,
+AddTitleCommand::AddTitleCommand(ThreeColView* view,
                                  const QString& title,
                                  int row,
                                  QUndoCommand* parent)
@@ -30,22 +31,22 @@ AddTitleCommand::AddTitleCommand(TitleView* view,
 void
 AddTitleCommand::undo()
 {
-  m_view->removeTitle(m_row);
+//  m_view->removeRow(m_row);
 }
 
 void
 AddTitleCommand::redo()
 {
-  auto success = m_view->model()->insertRow(m_row, QModelIndex());
-  if (success) {
-    m_view->setTitle(m_row, m_title);
-  }
+//  auto success = m_view->model()->insertRow(m_row, QModelIndex());
+//  if (success) {
+//    m_view->setTitle(m_row, m_title);
+//  }
 }
 
 //====================================================================
 //=== AddAuthorCommand
 //====================================================================
-AddAuthorCommand::AddAuthorCommand(MetadataList* view,
+AddAuthorCommand::AddAuthorCommand(TwoColView *view,
                                    PMetadata metadata,
                                    const QString& author,
                                    int row,
@@ -62,23 +63,23 @@ AddAuthorCommand::AddAuthorCommand(MetadataList* view,
 void
 AddAuthorCommand::undo()
 {
-  m_view->removeAuthor(m_row);
+//  m_view->removeRow(m_row);
 }
 
 void
 AddAuthorCommand::redo()
 {
-  auto success = m_view->model()->insertRow(m_row, QModelIndex());
-  if (success) {
-    m_view->setAuthor(m_row, m_author);
-  }
+//  auto success = m_view->model()->insertRow(m_row, QModelIndex());
+//  if (success) {
+//    m_view->setFirstAt(m_row, m_author);
+//  }
 }
 
 //====================================================================
 //=== RemoveTitleCommand
 //====================================================================
-RemoveTitleCommand::RemoveTitleCommand(TitleView* view,
-                                       QSharedPointer<EPubTitle> title,
+RemoveTitleCommand::RemoveTitleCommand(ThreeColView* view,
+                                       QString title,
                                        int row,
                                        QUndoCommand* parent)
   : QUndoCommand(parent)
@@ -86,26 +87,26 @@ RemoveTitleCommand::RemoveTitleCommand(TitleView* view,
   , m_title(title)
   , m_row(row)
 {
-  auto text = tr("remove %1:%2").arg(m_row).arg(m_title->title);
+  auto text = tr("remove %1:%2").arg(m_row).arg(title);
   setText(text);
 }
 
 void
 RemoveTitleCommand::undo()
 {
-  m_view->insertTitle(m_row, m_title);
+//  m_view->insertTitle(m_row, m_title);
 }
 
 void
 RemoveTitleCommand::redo()
 {
-  m_view->removeTitle(m_row);
+//  m_view->removeTitle(m_row);
 }
 
 //====================================================================
 //=== RemoveAuthorCommand
 //====================================================================
-RemoveAuthorCommand::RemoveAuthorCommand(MetadataList* view,
+RemoveAuthorCommand::RemoveAuthorCommand(TwoColView *view,
                                          PMetadata metadata,
                                          const QString& author,
                                          int row,
@@ -119,22 +120,22 @@ RemoveAuthorCommand::RemoveAuthorCommand(MetadataList* view,
 void
 RemoveAuthorCommand::undo()
 {
-  m_view->insertAuthor(m_row, m_author);
+//  m_view->insertAtFirst(m_row, m_author);
 }
 
 void
 RemoveAuthorCommand::redo()
 {
-  m_view->removeAuthor(m_row);
+//  m_view->removeSecond(m_row);
 }
 
 //====================================================================
 //=== SwapTitleCommand
 //====================================================================
-SwapTitleCommand::SwapTitleCommand(TitleView* view,
-                                   QSharedPointer<EPubTitle> title1,
+SwapTitleCommand::SwapTitleCommand(ThreeColView* view,
+                                   QString title1,
                                    int row1,
-                                   QSharedPointer<EPubTitle> title2,
+                                   QString title2,
                                    int row2,
                                    QUndoCommand* parent)
   : QUndoCommand(parent)
@@ -146,9 +147,9 @@ SwapTitleCommand::SwapTitleCommand(TitleView* view,
 {
   setText(tr("Swap %1:\"%2\" with %3:\"%4\"")
             .arg(row1)
-            .arg(title1->title)
+            .arg(title1)
             .arg(row2)
-            .arg(title2->title));
+            .arg(title2));
 }
 
 void
@@ -166,7 +167,7 @@ SwapTitleCommand::redo()
 //====================================================================
 //=== SwapAuthorCommand
 //====================================================================
-SwapAuthorCommand::SwapAuthorCommand(MetadataList* view,
+SwapAuthorCommand::SwapAuthorCommand(TwoColView *view,
                                      const QString& author1,
                                      int row1,
                                      const QString& author2,
@@ -201,7 +202,7 @@ SwapAuthorCommand::redo()
 //====================================================================
 //=== SwapIdCommand
 //====================================================================
-SwapIdCommand::SwapIdCommand(TitleView* view,
+SwapIdCommand::SwapIdCommand(ThreeColView* view,
                              UniqueString id1,
                              int row1,
                              UniqueString id2,
@@ -218,21 +219,21 @@ SwapIdCommand::SwapIdCommand(TitleView* view,
 void
 SwapIdCommand::undo()
 {
-  m_view->setId(0, m_id1);
-  m_view->setId(m_row2, m_id2);
+//  m_view->setThird(0, m_id1.toString());
+//  m_view->setThird(m_row2, m_id2.toString());
 }
 
 void
 SwapIdCommand::redo()
 {
-  m_view->setId(0, m_id2);
-  m_view->setId(m_row2, UniqueString());
+//  m_view->setThird(0, m_id2.toString());
+//  m_view->setThird(m_row2, QString());
 }
 
 //====================================================================
 //=== ModifyTitleCommand
 //====================================================================
-ModifyTitleCommand::ModifyTitleCommand(TitleView* view,
+ModifyTitleCommand::ModifyTitleCommand(ThreeColView* view,
                                        PMetadata metadata,
                                        const QString& newTitle,
                                        int row,
@@ -250,19 +251,19 @@ ModifyTitleCommand::ModifyTitleCommand(TitleView* view,
 void
 ModifyTitleCommand::undo()
 {
-  m_view->modifyTitle(m_row, m_oldTitle);
+//  m_view->modifyTitle(m_row, m_oldTitle);
 }
 
 void
 ModifyTitleCommand::redo()
 {
-  m_view->modifyTitle(m_row, m_newTitle);
+//  m_view->modifyTitle(m_row, m_newTitle);
 }
 
 //====================================================================
 //=== ModifyTitleCommand
 //====================================================================
-ModifyAuthorCommand::ModifyAuthorCommand(MetadataList* view,
+ModifyAuthorCommand::ModifyAuthorCommand(TwoColView *view,
                                          PMetadata metadata,
                                          const QString& newAuthor,
                                          int row,
@@ -280,19 +281,19 @@ ModifyAuthorCommand::ModifyAuthorCommand(MetadataList* view,
 void
 ModifyAuthorCommand::undo()
 {
-  m_view->modifyAuthor(m_row, m_oldAuthor);
+//  m_view->modifySecondcol(m_row, m_oldAuthor);
 }
 
 void
 ModifyAuthorCommand::redo()
 {
-  m_view->modifyAuthor(m_row, m_newAuthor);
+//  m_view->modifySecondcol(m_row, m_newAuthor);
 }
 
 //====================================================================
 //=== SetIdCommand
 //====================================================================
-SetIdCommand::SetIdCommand(TitleView* view,
+SetIdCommand::SetIdCommand(ThreeColView* view,
                            const QString& newId,
                            const QString& oldId,
                            int row,
@@ -309,13 +310,13 @@ SetIdCommand::SetIdCommand(TitleView* view,
 void
 SetIdCommand::undo()
 {
-  auto title = m_view->titleAt(m_row);
+//  auto title = m_view->titleAt(m_row);
 //  title->id = m_view->uniqueIdList()->append(m_newId, -1);
 }
 
 void
 SetIdCommand::redo()
 {
-  auto title = m_view->titleAt(m_row);
+//  auto title = m_view->titleAt(m_row);
 //  title->id = m_view->uniqueIdList()->append(m_oldId, -1);
 }
