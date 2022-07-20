@@ -16,7 +16,7 @@ class EPubCreator;
 struct EPubTitle;
 struct EPubFileAs;
 class Calibre;
-struct EPubManifestItem;
+struct ManifestItem;
 struct Manifest;
 struct TocItem;
 struct EPubRights;
@@ -37,8 +37,9 @@ class MarcRelator;
 class Foaf;
 struct EBookAuthorData;
 struct EBookSeriesData;
-struct EPubSpineItem;
+struct SpineItem;
 struct GuideItem;
+struct Spine;
 
 // QSharedpointer typedefs for epubedit.
 typedef QSharedPointer<Config> PConfig;
@@ -54,7 +55,7 @@ typedef QSharedPointer<EPubContributor> PContributor;
 typedef QSharedPointer<EPubTitle> PTitle;
 typedef QSharedPointer<EPubFileAs> PFileAs;
 typedef QSharedPointer<Calibre> PCalibre;
-typedef QSharedPointer<EPubManifestItem> PManifestItem;
+typedef QSharedPointer<ManifestItem> PManifestItem;
 typedef QSharedPointer<Manifest> PManifest;
 typedef QSharedPointer<TocItem> PTocItem;
 typedef QSharedPointer<EPubRights> PRights;
@@ -88,6 +89,8 @@ typedef QMap<quint64, PSeriesData> SeriesMap;
 typedef QMap<QString, PSeriesData> SeriesByString;
 
 typedef QStringList SeriesList;
-typedef QSharedPointer<EPubSpineItem> PSpineItem;
+
+typedef QSharedPointer<Spine> PSpine;
+typedef QSharedPointer<SpineItem> PSpineItem;
 
 #endif // POINTERS_H

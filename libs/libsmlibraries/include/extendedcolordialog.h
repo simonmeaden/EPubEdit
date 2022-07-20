@@ -41,7 +41,7 @@ enum ColorType
              //!< display
 };
 
-/// \cond DO_NOT_DOCUMENT
+//namespace {
 
 class ColorDropDisplay : public QFrame
 {
@@ -152,7 +152,6 @@ struct ColorDragData
   int b;
   QString name;
 };
-Q_DECLARE_METATYPE(ColorDragData)
 
 QDataStream&
 operator<<(QDataStream& out, const ColorDragData& a);
@@ -185,7 +184,8 @@ private:
   QPixmap m_pixmap;
 };
 
-/// \endcond DO_NOT_DOCUMENT
+Q_DECLARE_METATYPE(ColorDragData)
+
 // clang-format off
 
 /*!
@@ -205,7 +205,7 @@ private:
 
 
    \since 5.7.0
-   \license The MIT License
+   \license{The MIT License}
    \copyright © 2020 - 2021 Simon Meaden. All rights reserved.
 
 

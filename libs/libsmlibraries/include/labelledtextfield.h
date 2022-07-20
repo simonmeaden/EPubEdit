@@ -46,10 +46,10 @@ class SM_WIDGETS_SHARED_EXPORT LabelledTextField
      \property LabelledTextField::text
      \brief This property holds the field's text
 
-     @reimplements QLabel::text
+     \reimplements{QLabel::text}
 
-     @accessor %text(), %setText(const QString&)
-     @notifier textChanged()
+     \accessor{%text(), %setText(const QString&)}
+     \notifier{textChanged()}
   */
   Q_PROPERTY(QString text READ text WRITE setText)
 
@@ -57,9 +57,9 @@ class SM_WIDGETS_SHARED_EXPORT LabelledTextField
      \property LabelledTextField::textFormat
      \brief This property holds the field's text format
 
-     @reimplements QLabel::textFormat
+     \reimplements{QLabel::textFormat}
 
-     @accessor %textFormat(), %setTextFormat(Qt::TextFormat)
+     \accessor{%textFormat(), %setTextFormat(Qt::TextFormat)}
   */
   Q_PROPERTY(Qt::TextFormat textFormat READ textFormat WRITE setTextFormat)
 
@@ -67,8 +67,8 @@ class SM_WIDGETS_SHARED_EXPORT LabelledTextField
      \property LabelledTextField::pixmap
      \brief This property holds the field's pixmap.
 
-     @reimplements QLabel::pixmap
-     @accessor %pixmap(), %setPixmap(const QPixmap&)
+     \reimplements{QLabel::pixmap}
+     \accessor{%pixmap(), %setPixmap(const QPixmap&)}
   */
   Q_PROPERTY(QPixmap pixmap READ pixmap WRITE setPixmap)
 
@@ -77,8 +77,8 @@ class SM_WIDGETS_SHARED_EXPORT LabelledTextField
      \brief This property holds whether the field will scale its contents to
      fill all a vailable space.
 
-     @reimplements QLabel::scaledContents
-     @accessor %hasScaledContents(), %setScaledContents(bool)
+     \reimplements{QLabel::scaledContents}
+     \accessor{%hasScaledContents(), %setScaledContents(bool)}
   */
   Q_PROPERTY(bool scaledContents READ hasScaledContents WRITE setScaledContents)
 
@@ -86,8 +86,8 @@ class SM_WIDGETS_SHARED_EXPORT LabelledTextField
      \property LabelledTextField::widgetAlignment
      \brief This property holds the alignment of the field's contents
 
-     @reimplements QLabel::alignment
-     @accessor %alignment(), %setAlignment(Qt::Alignment)
+     \reimplements{QLabel::alignment}
+     \accessor{%alignment(), %setAlignment(Qt::Alignment)}
   */
   Q_PROPERTY(
     Qt::Alignment widgetAlignment READ widgetAlignment WRITE setWidgetAlignment)
@@ -96,8 +96,8 @@ class SM_WIDGETS_SHARED_EXPORT LabelledTextField
      \property LabelledTextField::wordWrap
      \brief This property holds the field's word-wrapping policy
 
-     @reimplements QLabel::wordWrap
-     @accessor %wordWrap(), %setWordWrap(bool)
+     \reimplements{QLabel::wordWrap}
+     \accessor{%wordWrap(), %setWordWrap(bool)}
   */
   Q_PROPERTY(bool wordWrap READ wordWrap WRITE setWordWrap)
 
@@ -105,8 +105,8 @@ class SM_WIDGETS_SHARED_EXPORT LabelledTextField
      \property LabelledTextField::margin
      \brief This property holds the width of the field's margin
 
-     @reimplements QLabel::margin
-     @accessor %margin(), %setMargin(int)
+     \reimplements{QLabel::margin}
+     \accessor{%margin(), %setMargin(int)}
   */
   Q_PROPERTY(int margin READ margin WRITE setMargin)
 
@@ -114,8 +114,8 @@ class SM_WIDGETS_SHARED_EXPORT LabelledTextField
      \property LabelledTextField::indent
      \brief This property holds the field's text indent in pixels
 
-     @reimplements QLabel::indent
-     @accessor %indent(), %setIndent(int)
+     \reimplements{QLabel::indent}
+     \accessor{%indent(), %setIndent(int)}
   */
   Q_PROPERTY(int indent READ indent WRITE setIndent)
 
@@ -125,8 +125,8 @@ class SM_WIDGETS_SHARED_EXPORT LabelledTextField
      QDesktopServices::openUrl() instead of emitting the linkActivated()
      signal.
 
-     @reimplements QLabel::openExternalLinks
-     @accessor %openExternalLinks(), %setOpenExternalLinks(bool)
+     \reimplements{QLabel::openExternalLinks}
+     \accessor{%openExternalLinks(), %setOpenExternalLinks(bool)}
   */
   Q_PROPERTY(
     bool openExternalLinks READ openExternalLinks WRITE setOpenExternalLinks)
@@ -136,8 +136,8 @@ class SM_WIDGETS_SHARED_EXPORT LabelledTextField
      \brief Specifies how the field should interact with user input if it
      displays text.
 
-     @reimplements QLabel::textInteractionFlags
-     @accessor %textInteractionFlags(),
+     \reimplements{QLabel::textInteractionFlags}
+     \accessor{%textInteractionFlags(),}
      %setTextInteractionFlags(Qt::TextInteractionFlags)
   */
   Q_PROPERTY(Qt::TextInteractionFlags textInteractionFlags READ
@@ -147,8 +147,8 @@ class SM_WIDGETS_SHARED_EXPORT LabelledTextField
      \property LabelledTextField::hasSelectedText
      \brief This property holds whether the field has any text selected
 
-     @reimplements QLabel::hasSelectedText
-     @accessor %hasSelectedText()
+     \reimplements{QLabel::hasSelectedText}
+     \accessor{%hasSelectedText()}
   */
   Q_PROPERTY(bool hasSelectedText READ hasSelectedText)
 
@@ -156,8 +156,8 @@ class SM_WIDGETS_SHARED_EXPORT LabelledTextField
      \property LabelledTextField::selectedText
      \brief This property holds the field's selected text
 
-     @reimplements QLabel::selectedText
-      @accessor %selectedText()
+     \reimplements{QLabel::selectedText}
+      \accessor{%selectedText()}
   */
   Q_PROPERTY(QString selectedText READ selectedText)
 
@@ -200,110 +200,110 @@ public:
   //! Returns the QLabel widget.
   QLabel* textfield();
 
-  //! @reimplements QLabel::text() const.
+  //! \reimplements{QLabel::text() const.}
   QString text() const;
 
-  //! @reimplements QLabel::setText().
+  //! \reimplements{QLabel::setText().}
   void setText(const QString& text);
 
-  //! @reimplements QLabel::textFormat() const.
+  //! \reimplements{QLabel::textFormat() const.}
   Qt::TextFormat textFormat() const override;
 
-  //! @reimplements QLabel::setTextFormat().
+  //! \reimplements{QLabel::setTextFormat().}
   void setTextFormat(Qt::TextFormat format) override;
 
-  //! @reimplements QLabel::pixmap() const.
+  //! \reimplements{QLabel::pixmap() const.}
   QPixmap pixmap() const;
 
-  //! @reimplements QLabel::setPixmap().
+  //! \reimplements{QLabel::setPixmap().}
   void setPixmap(const QPixmap& pixmap);
 
 #ifndef QT_NO_PICTURE
-  //! @reimplements QLabel::picture() const.
+  //! \reimplements{QLabel::picture() const.}
   QPicture picture() const;
 #endif
 
 #if QT_CONFIG(movie)
-  //! @reimplements QLabel::movie() const.
+  //! \reimplements{QLabel::movie() const.}
   QMovie* movie() const;
 
-  //! @reimplements QLabel::setMovie().
+  //! \reimplements{QLabel::setMovie().}
   void setMovie(QMovie* movie);
 #endif
 
-  //! @reimplements QLabel::setPicture().
+  //! \reimplements{QLabel::setPicture().}
   void setPicture(const QPicture& picture);
 
-  //! @reimplements QLabel::hasScaledContents() const.
+  //! \reimplements{QLabel::hasScaledContents() const.}
   bool hasScaledContents() const;
 
-  //! @reimplements QLabel::setScaledContents().
+  //! \reimplements{QLabel::setScaledContents().}
   void setScaledContents(bool scaled);
 
-  //! @reimplements QLabel::alignment() const.
+  //! \reimplements{QLabel::alignment() const.}
   Qt::Alignment widgetAlignment() const override;
 
-  //! @reimplements QLabel::setAlignment().
+  //! \reimplements{QLabel::setAlignment().}
   void setWidgetAlignment(const Qt::Alignment& widgetAlignment) override;
 
-  //! @reimplements QLabel::wordWrap() const.
+  //! \reimplements{QLabel::wordWrap() const.}
   bool wordWrap() const;
 
-  //! @reimplements QLabel::setWordWrap().
+  //! \reimplements{QLabel::setWordWrap().}
   void setWordWrap(bool on);
 
-  //! @reimplements QLabel::indent() const.
+  //! \reimplements{QLabel::indent() const.}
   int indent() const;
 
-  //! @reimplements QLabel::setIndent().
+  //! \reimplements{QLabel::setIndent().}
   void setIndent(int);
 
-  //! @reimplements QLabel::margin() const.
+  //! \reimplements{QLabel::margin() const.}
   int margin() const;
 
-  //! @reimplements QLabel::setMargin().
+  //! \reimplements{QLabel::setMargin().}
   void setMargin(int);
 
-  //! @reimplements QLabel::openExternalLinks() const.
+  //! \reimplements{QLabel::openExternalLinks() const.}
   bool openExternalLinks() const;
 
-  //! @reimplements QLabel::setOpenExternalLinks().
+  //! \reimplements{QLabel::setOpenExternalLinks().}
   void setOpenExternalLinks(bool open);
 
-  //! @reimplements QLabel::setTextInteractionFlags().
+  //! \reimplements{QLabel::setTextInteractionFlags().}
   void setTextInteractionFlags(Qt::TextInteractionFlags flags);
 
-  //! @reimplements QLabel::textInteractionFlags() const.
+  //! \reimplements{QLabel::textInteractionFlags() const.}
   Qt::TextInteractionFlags textInteractionFlags() const;
 
-  //! @reimplements QLabel::setSelection().
+  //! \reimplements{QLabel::setSelection().}
   void setSelection(int start, int length);
 
-  //! @reimplements QLabel::text() hasSelectedText.
+  //! \reimplements{QLabel::text() hasSelectedText.}
   bool hasSelectedText() const;
 
-  //! @reimplements QLabel::selectedText() const.
+  //! \reimplements{QLabel::selectedText() const.}
   QString selectedText() const;
 
-  //! @reimplements QLabel::selectionStart() const.
+  //! \reimplements{QLabel::selectionStart() const.}
   int selectionStart() const;
 
-  //! @reimplements QLabel::heightForWidth() const.
+  //! \reimplements{QLabel::heightForWidth() const.}
   int heightForWidth(int height) const override;
 
-  //! @reimplements QLabel::setNum(int).
+  //! \reimplements{QLabel::setNum(int).}
   void setNum(int);
 
-  //! @reimplements QLabel::setNum(double).
+  //! \reimplements{QLabel::setNum(double).}
   void setNum(double);
 
-  //! @reimplements QLabel::clear().
+  //! \reimplements{QLabel::clear().}
   void clearField();
 
-  //   //! @reimplements QFrame::sizeHint().
+  //   //! \reimplements{QFrame::sizeHint().}
   //   QSize sizeHint() const;
 
-  //   //! @reimplements QFrame::minimumSizeHint().
+  //   //! \reimplements{QFrame::minimumSizeHint().}
   //   QSize minimumSizeHint() const;
 signals:
   /*!

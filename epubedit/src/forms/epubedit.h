@@ -1,90 +1,42 @@
 #ifndef EPUBEDIT_H
 #define EPUBEDIT_H
 
-#include <QDir>
-#include <QDomDocument>
-#include <QDomElement>
-#include <QFile>
-#include <QFormLayout>
-#include <QImageReader>
-#include <QLineEdit>
-#include <QPlainTextEdit>
-#include <QSharedPointer>
-#include <QSplitter>
-#include <QStandardPaths>
-#include <QTabWidget>
+#include <QFocusEvent>
 #include <QTextEdit>
-#include <QUndoStack>
-#include <QUndoView>
 #include <QWidget>
 
-//#include "borderlayout.h"
-#include "config.h"
+#include "iepubeditor.h"
 #include "document/bookpointers.h"
-#include "forms/metadataform.h"
-#include "headerwidget.h"
 
-class EPubEditor;
-class ContentsFrame;
-
-class EPubEdit : public HeaderWidget
+class EPubEdit : public QTextEdit, public IEPubEditor
 {
   Q_OBJECT
-
 public:
-  explicit EPubEdit(PConfig config, QWidget* parent = nullptr);
-  ~EPubEdit();
+  EPubEdit(PConfig config, QWidget* parent);
 
-  void saveConfig();
-  void loadConfig();
-
-  bool loadDocument(const QString& filename);
-  bool saveDocument(const QString& filename = QString());
-  bool newDocument();
-
-  bool isLoaded() const;
-
-  //  QUndoView* undoView();
-  //  QAction* undoAction();
-  //  QAction* redoAction();
-
-  void openCloseClicked();
+  // IEPubEditor interface
+  QTextDocument *document() override;
+  QTextCursor currentCursor() override;
+  const QString &href() const override;
+  void loadHref(const QString &href) override;
+  void setText(const QString &text) override;
 
 signals:
-  void sendStatusMessage(const QString& message,
-                         int timeout = Config::StatusTimeout);
-  void sendLogMessage(const QString& message);
-  void metadataChanged(PMetadata metadata);
+  void lostFocus(QWidget*);
+  void gotFocus(QWidget*);
+  void mouseClicked(QPoint pos);
 
-private:
-  QSplitter* m_splitter;
-  ContentsFrame* m_contentsFrame;
-  EPubEditor* m_editor;
-
+protected:
   PConfig m_config;
-  POptions m_options;
-  PLibraryDB m_libraryDB;
-  PSeriesDB m_seriesDB;
-  PAuthorsDB m_authorsDB;
-  PDocument m_document;
+  QString m_href;
 
-  QString m_currentBookFilename;
+  void focusInEvent(QFocusEvent* event) override;
+  void focusOutEvent(QFocusEvent* event) override;
+  void mousePressEvent(QMouseEvent* event) override;
+  void mouseReleaseEvent(QMouseEvent* event) override;
 
-  //  QUndoView* m_undoView;
-  //  QTabWidget* m_tabs;
-  bool m_loaded;
-  QList<UniqueString> m_pageOrder;
-  QMap<UniqueString, Page> m_pages;
-  Page m_page;
-  void initGui();
-  void updateMetadataForm();
-  void metadataHasChanged(MetadataForm::Modifications modifications);
-  //  PBookData insertNewBook(const QString &filename, const QString& title,
-  //  QStringList creators);
-  void loadFileIntoTextDocument(const QString& zipfile,
-                                const QString& imageName);
-  void splitterHasMoved(int, int);
-  void toggleOpenClicked();
+  // IEPubEditor interface
+public:
 };
 
 #endif // EPUBEDIT_H

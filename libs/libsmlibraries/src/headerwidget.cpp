@@ -1,152 +1,124 @@
 #include "headerwidget.h"
-#include "abstractdockwidget.h"
-#include "dockitem.h"
+#include "abstractdockitem.h"
+#include "dockheader.h"
 #include "dockwidget.h"
+#include "private/headerwidgetprivate.h"
 #include "widgetitem.h"
 
+#include <Logger.h>
+
 HeaderWidget::HeaderWidget(QWidget* parent)
-  : AbstractDockWidget{ parent }
+  : AbstractDockWidget(*new HeaderWidgetPrivate(this), parent)
 {
-  setContentsMargins(0, 0, 0, 0);
-
-  auto f = font();
-  f.setPointSize(8);
-  setFont(f);
-
-  m_layout = new QHBoxLayout;
-  m_layout->setContentsMargins(0, 0, 0, 0);
-  setLayout(m_layout);
-
-  m_header = new DockHeader(this);
+  setAutoFillBackground(true);
+  setMouseTracking(true);
+  setAttribute(Qt::WA_Hover);
 }
 
-DockItem*
-HeaderWidget::header() const
+HeaderWidget::HeaderWidget(HeaderWidgetPrivate& d)
+  : AbstractDockWidget(d)
 {
-  return m_header;
+}
+
+HeaderWidget::HeaderWidget(HeaderWidgetPrivate& d, QWidget* parent)
+  : AbstractDockWidget(d, parent)
+{
+}
+
+DockHeader*
+HeaderWidget::header()
+{
+  Q_D(HeaderWidget);
+  return d->header();
 }
 
 QWidget*
-HeaderWidget::setCentralWidget(QWidget* centralWidget)
+HeaderWidget::setWidget(QWidget* widget)
 {
-  if (centralWidget == m_centralWidget)
-    return centralWidget;
-
-  auto oldWidget = m_centralWidget;
-  if (oldWidget) {
-    m_layout->removeWidget(oldWidget);
-  }
-  m_centralWidget = centralWidget;
-  m_layout->addWidget(m_centralWidget);
-  return oldWidget;
+  Q_D(HeaderWidget);
+  return d->setWidget(widget);
 }
 
 void
 HeaderWidget::hideWidget()
 {
-  m_centralWidget->hide();
-  m_layout->removeWidget(m_centralWidget);
-  if (m_showHeaderOnHide) {
-    m_hiddenSize = QSize(m_width, m_headerHeight);
-    m_visibleSize = QSize(m_width, m_height);
-  } else {
-    m_hiddenSize = QSize(m_width, 0);
-    m_visibleSize = QSize(m_width, m_height);
-  }
+  Q_D(HeaderWidget);
+  d->hideWidget();
   adjustSize();
-  emit sizeChanged(this, m_hiddenSize);
+  emit sizeChanged(this, d->m_hiddenSize);
 }
 
 void
 HeaderWidget::showWidget()
 {
-  m_centralWidget->show();
-  m_layout->addWidget(m_centralWidget);
+  Q_D(HeaderWidget);
+  d->showWidget();
   adjustSize();
-  emit sizeChanged(this, m_visibleSize);
+  emit sizeChanged(this, d->m_hiddenSize);
 }
 
 bool
 HeaderWidget::isWidgetVisible()
 {
-  return m_centralWidget->isVisible();
+  Q_D(HeaderWidget);
+  return d->isWidgetVisible();
 }
 
 void
 HeaderWidget::paintEvent(QPaintEvent* /*event*/)
 {
+  Q_D(HeaderWidget);
   QPainter painter(this);
-
-  if (m_header)
-    m_header->paint(painter);
+  d->paint(painter);
 }
 
-void
-HeaderWidget::hoverEnterEvent(QHoverEvent* event)
-{
-  auto p = event->pos();
+//void
+//HeaderWidget::hoverEnterEvent(QHoverEvent* event)
+//{
+//  Q_D(HeaderWidget);
+//  auto p = event->pos();
+//  d->hoverEnter(p);
+//}
 
-  if (m_header) {
-    if (dockItemHoverCheck(m_header, p)) {
-      return;
-    }
-  }
-}
+//void
+//HeaderWidget::hoverLeaveEvent(QHoverEvent*)
+//{
+//  Q_D(HeaderWidget);
+//  d->hoverLeave();
+//}
 
-void
-HeaderWidget::hoverLeaveEvent(QHoverEvent*)
-{
-  if (m_hoverItem) {
-    m_hoverItem->setHoverOver(false);
-    QToolTip::hideText();
-    m_hoverItem = nullptr;
-  }
-}
-
-void
-HeaderWidget::hoverMoveEvent(QHoverEvent* event)
-{
-  auto p = /*mapToGlobal(*/ event->pos() /*)*/;
-
-  if (m_header) {
-    if (dockItemHoverCheck(m_header, p)) {
-      return;
-    }
-  }
-}
+//void
+//HeaderWidget::hoverMoveEvent(QHoverEvent* event)
+//{
+//  Q_D(HeaderWidget);
+//  auto p = event->pos();
+//  d->hoverMove(p);
+//}
 
 void
 HeaderWidget::mousePressEvent(QMouseEvent* event)
 {
-  //  auto pos = mapToGlobal(event->pos());
+  Q_D(HeaderWidget);
   auto pos = event->pos();
-
-  if (m_header) {
-    mouseClickCheck(m_header, pos);
-  }
-  // TODO the rest of the widgets.
-}
-
-void
-HeaderWidget::mouseReleaseEvent(QMouseEvent*)
-{
-  // TODO possibly remove if not used.
+  setFocus();
+  d->mousePress(pos);
 }
 
 bool
 HeaderWidget::event(QEvent* event)
 {
+  Q_D(HeaderWidget);
   switch (event->type()) {
     case QEvent::HoverEnter:
-      hoverEnterEvent(static_cast<QHoverEvent*>(event));
+      d->hoverEnter(static_cast<QHoverEvent*>(event)->pos());
       return true;
       break;
     case QEvent::HoverLeave:
-      hoverLeaveEvent(static_cast<QHoverEvent*>(event));
+      d->hoverLeave();
       return true;
       break;
     case QEvent::HoverMove:
-      hoverMoveEvent(static_cast<QHoverEvent*>(event));
+      d->hoverMove(static_cast<QHoverEvent*>(event)->pos());
       return true;
       break;
     default:
@@ -161,37 +133,45 @@ HeaderWidget::resizeEvent(QResizeEvent* /*event*/)
   calculateGeometry(rect());
 }
 
-bool
-HeaderWidget::showHeaderOnHide() const
+void
+HeaderWidget::focusInEvent(QFocusEvent* event)
 {
-  return m_showHeaderOnHide;
+  if (event->gotFocus()) {
+    emit gotFocus(this);
+    LOG_DEBUG() << "Got focus";
+  }
+
+  QWidget::focusInEvent(event);
 }
 
 void
-HeaderWidget::setShowHeaderOnHide(bool show)
+HeaderWidget::focusOutEvent(QFocusEvent* event)
 {
-  m_showHeaderOnHide = show;
+  if (event->lostFocus()) {
+    emit lostFocus(this);
+    LOG_DEBUG() << "Lost focus";
+  }
+
+  QWidget::focusOutEvent(event);
+}
+
+void
+HeaderWidget::widgetWasClicked(QPoint pos)
+{
+  Q_D(HeaderWidget);
+  d->widgetWasClicked(pos);
+}
+
+AbstractDockWidget*
+HeaderWidget::clone(AbstractDockWidget* widget)
+{
+  Q_D(HeaderWidget);
+  return d->clone(widget);
 }
 
 void
 HeaderWidget::calculateGeometry(const QRect& rect)
 {
-  auto northHeight = 0;
-  auto northWidth = rect.size().width();
-  m_width = northWidth;
-
-  m_headerHeight = m_header->sizeHint().height();
-  m_height = rect.height();
-  northHeight += m_headerHeight;
-  m_header->calculateGeometry(QRect(0, 0, northWidth, m_headerHeight));
-
-  if (m_centralWidget) {
-    if (m_centralWidget->isVisible()) {
-      m_layout->setContentsMargins(0, northHeight + 1, 0, 0);
-    } else {
-      m_layout->setContentsMargins(0, northHeight + 1, 0, 0);
-    }
-  } else {
-    m_layout->setContentsMargins(0, northHeight + 1, 0, 0);
-  }
+  Q_D(HeaderWidget);
+  d->calculateGeometry(rect);
 }

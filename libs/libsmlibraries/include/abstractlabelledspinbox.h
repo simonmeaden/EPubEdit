@@ -48,8 +48,8 @@ class AbstractLabelledSpinBox
 
      \brief This property holds the suffix of the spin box
 
-     @reimplements QSpinBox::suffix
-      @accessor %suffix(), %setSuffix()
+     \reimplements{QSpinBox::suffix}
+      \accessor{%suffix(), %setSuffix()}
   */
   Q_PROPERTY(QString suffix READ suffix WRITE setSuffix NOTIFY suffixChanged)
 
@@ -62,25 +62,25 @@ public:
     QWidget* parent = nullptr,
     WidgetFactory const& factory = WidgetFactory());
 
-  //! @reimplements QSpinBox::suffix() const.
+  //! \reimplements{QSpinBox::suffix() const.}
   QString suffix();
 
-  //! @reimplements QSpinBox::setSuffix().
+  //! \reimplements{QSpinBox::setSuffix().}
   void setSuffix(const QString& labelText);
 
-  //! @reimplements QSpinBox::stepType() const.
+  //! \reimplements{QSpinBox::stepType() const.}
   QAbstractSpinBox::StepType stepType() const;
 
-  //! @reimplements QSpinBox::setStepType().
+  //! \reimplements{QSpinBox::setStepType().}
   void setStepType(QAbstractSpinBox::StepType type);
 
-  //! @reimplements QSpinBox::cleanText().
+  //! \reimplements{QSpinBox::cleanText().}
   QString cleanText() const;
 
-  //! @reimplements QSpinBox::setAlignment() const.
+  //! \reimplements{QSpinBox::setAlignment() const.}
   void setWidgetAlignment(const Qt::Alignment& widgetAlignment);
 
-  //! @reimplements QSpinBox::alignment() const.
+  //! \reimplements{QSpinBox::alignment() const.}
   Qt::Alignment widgetAlignment() const;
 
 signals:

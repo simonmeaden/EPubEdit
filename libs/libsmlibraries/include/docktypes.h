@@ -3,18 +3,26 @@
 
 #include <QSharedPointer>
 
+/*!
+ * \enum WidgetType
+ * Defines the various types of WidgetItem's.
+ */
 enum WidgetType
 {
-  Button,
-  List,
-  Label,
-  Seperator,
-  Custom,
+  Button,     //!< A ButtonWidget with text, an optional QIcon and tool tip.
+  MenuButton, //!< A ListButtonWidget with text, an optional QIcon and tool tip
+              //!< plus a dropdown menu.
+  List,       //!< A Dropdown list of strings.
+  Label,      //!< A simple label
+  Seperator,  //!< A seperator bar
+  Custom,     //!< Allows  custom widgets to be created
 };
 
 /*!
- * \enum The WidgetPosition defines where the widget appears within the
- * toolbar/header/footer.
+ * \enum WidgetPosition
+ *
+ * The WidgetPosition defines where the widget appears within the
+ * toolbar/header/footer. The two options are Start and End.
  */
 enum WidgetPosition
 {
@@ -23,7 +31,9 @@ enum WidgetPosition
 };
 
 /*!
- * \enum The Arrangement enum defines where, if any, text will appear with
+ * \enum Arrangement
+ *
+ * The Arrangement enum defines where, if any, text will appear with
  * respect to the icon, if any.
  *
  * \note These will generally only be used internally as the direct construction
@@ -31,18 +41,19 @@ enum WidgetPosition
  */
 enum Arrangement
 {
-  TextAboveIcon, //!< Text will appear above the icon
-  TextBelowIcon, //!< Text will appear below the icon
-  TextAboveAndBelow,//!< Text will appear above and below the icon
-  TextToRight,   //!< Text will appear to the right of the icon
-  TextToLeft,    //!< Text will appear to the left of the icon
-  IconOnly,      //!< No text, only an icon.
-  TextOnly,      //!< No icon, only text.
-  NoArrangement, //!< Should never actually happen
+  TextAboveIcon,     //!< Text will appear above the icon
+  TextBelowIcon,     //!< Text will appear below the icon
+  TextAboveAndBelow, //!< Text will appear above and below the icon
+  TextToRight,       //!< Text will appear to the right of the icon
+  TextToLeft,        //!< Text will appear to the left of the icon
+  IconOnly,          //!< No text, only an icon.
+  TextOnly,          //!< No icon, only text.
+  NoArrangement,     //!< Should never actually happen
 };
 
 /*!
- * \enum The CornerType enum defines the type of Corner on a DockWidget..
+ * \enum CornerType
+ * The CornerType enum defines the type of Corner on a DockWidget..
  *
  * \note These will generally only be used internally as the direct construction
  * methods such as addToolbarIconTextWidget(...) should generally be used.
@@ -60,8 +71,10 @@ enum CornerType
 /*!
  * \brief Defines where the DockToolbar appears within the DockWidget.
  *
- * Values are North (the top), South (the bottom), East (the right) and
- * West (the left). There can be one toolbar at each position but the
+ * Valid values are North (the top), South (the bottom), East (the right) and
+ * West (the left). The other values are only used internally for the corners
+ * and the central widget and will be ignored if manually entered.
+ * There can be one toolbar at each position but the
  * single optional footer and the the single optional header will always
  * appear below the toolbars at these positions.
  *
@@ -70,15 +83,15 @@ enum CornerType
  */
 enum DockPosition
 {
-  West,
-  North,
-  South,
-  East,
+  West,      //!< The West or Left side position
+  North,     //!< The North or Top position
+  South,     //!< The South or Bottom position.
+  East,      //!< The East or Right position.
   NorthEast, //!< Only corner widgets.
   NorthWest, //!< Only corner widgets.
   SouthEast, //!< Only corner widgets.
   SouthWest, //!< Only corner widgets.
-  Center
+  Center     //!< The centre widget position.
 };
 
 #endif // DOCKTYPES_H

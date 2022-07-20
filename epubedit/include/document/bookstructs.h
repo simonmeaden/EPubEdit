@@ -10,15 +10,6 @@
 #include "document/bookpointers.h"
 #include "document/uniquestring.h"
 
-struct Page
-{
-  UniqueString idref;
-  QString mediaType;
-  QString page; // possibly entire page??
-  QString path;
-};
-Q_DECLARE_METATYPE(Page)
-
 struct DirectionFunc
 {
   static Direction convertDirection(const QString& direction);
@@ -36,7 +27,7 @@ struct DirectionBase : public DirectionFunc
   }
 };
 
-struct EPubSpine : public DirectionBase
+struct Spine : public DirectionBase
 {
   UniqueString id;
   UniqueString tocId;
@@ -44,9 +35,9 @@ struct EPubSpine : public DirectionBase
   QMap<UniqueString, PSpineItem> items;
 };
 
-struct EPubSpineItem
+struct SpineItem
 {
-  EPubSpineItem()
+  SpineItem()
     : linear(true)
     , pageSpread(NONE)
   {}
@@ -88,10 +79,10 @@ struct EPubNavPoint
   QString src;
 };
 
-struct EPubManifestItem
+struct ManifestItem
 {
   QString href;
-  QString path;
+//  QString path;
   QString documentString;
   QStringList cssLinks;
   QString bodyClass;
@@ -126,12 +117,12 @@ struct Manifest
   QMap<UniqueString, PManifestItem> htmlItems;
   QMap<UniqueString, PManifestItem> mathml; // subset of items for math markup
   QMap<UniqueString, PManifestItem> svgImages; // subset of items for images
-  UniqueStringMap images;
+  QMap<UniqueString, QString> images;
   QMap<UniqueString, PManifestItem> remotes;
   QMap<UniqueString, PManifestItem> scripted;
   QMap<UniqueString, PManifestItem> switches;
-  UniqueStringMap css;                            // all items
-  UniqueStringMap javascript;                     // all items
+  QMap<UniqueString, QString> css;                            // all items
+  QMap<UniqueString, QString> javascript;                     // all items
   QMap<UniqueString, PManifestItem> fonts;        // all items
   QMap<UniqueString, PManifestItem> mediaOverlay; // all items
   QString formattedTocString;

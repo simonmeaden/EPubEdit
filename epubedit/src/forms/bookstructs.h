@@ -1,6 +1,7 @@
 #ifndef BOOKSTRUCTS_H
 #define BOOKSTRUCTS_H
 
+#include "document/uniquestring.h"
 struct Page
 {
   UniqueString idref;

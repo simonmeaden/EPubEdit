@@ -3,6 +3,8 @@
 
 #include <QtDebug>
 
+/// \cond DO_NOT_DOCUMENT
+
 const QString ColorDropDisplay::DISPLAYLABELRIGHT =
   "QLabel {"
   "color: %1;"
@@ -36,6 +38,8 @@ const QString ExtendedColorDialog::HSLCOLOR = "hsl(%1, %2, %3)";
 const QString ExtendedColorDialog::HSLACOLOR = "hsla(%1, %2, %3, %4%)";
 const QString ExtendedColorDialog::HSVCOLOR = "hsv(%1, %2, %3)";
 const QString ExtendedColorDialog::HSVACOLOR = "hsva(%1, %2, %3,%4%)";
+
+/// \endcond
 
 ExtendedColorDialog::ExtendedColorDialog(QWidget* parent)
   : QDialog(parent)

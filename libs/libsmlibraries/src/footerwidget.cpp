@@ -1,138 +1,101 @@
 #include "footerwidget.h"
+#include "abstractdockitem.h"
 #include "abstractdockwidget.h"
-#include "dockitem.h"
+#include "dockfooter.h"
 #include "dockwidget.h"
+#include "private/footerwidgetprivate.h"
 #include "widgetitem.h"
 
+#include <Logger.h>
 
-FooterWidget::FooterWidget(QWidget *parent)
-  : AbstractDockWidget{parent}
+FooterWidget::FooterWidget(QWidget* parent)
+  : AbstractDockWidget(*new FooterWidgetPrivate(this), parent)
 {
-  setContentsMargins(0, 0, 0, 0);
-
-  auto f = font();
-  f.setPointSize(8);
-  setFont(f);
-
-  m_layout = new QHBoxLayout;
-  m_layout->setContentsMargins(0, 0, 0, 0);
-  setLayout(m_layout);
-
-  m_footer = new DockFooter(this);
+  setAutoFillBackground(true);
+  setMouseTracking(true);
+  setAttribute(Qt::WA_Hover);
 }
 
-DockItem *FooterWidget::footer() const
+FooterWidget::FooterWidget(FooterWidgetPrivate& d)
+  : AbstractDockWidget(d)
 {
-  return m_footer;
 }
 
-QWidget *FooterWidget::setCentralWidget(QWidget *centralWidget)
+DockFooter*
+FooterWidget::footer()
 {
-  if (centralWidget == m_centralWidget)
-    return centralWidget;
-
-  auto oldWidget = m_centralWidget;
-  if (oldWidget) {
-    m_layout->removeWidget(oldWidget);
-  }
-  m_centralWidget = centralWidget;
-  m_layout->addWidget(m_centralWidget);
-  return oldWidget;
+  return d_ptr->footer();
 }
 
-void FooterWidget::hideWidget()
+QWidget*
+FooterWidget::setWidget(QWidget* widget)
 {
-  m_layout->removeWidget(m_centralWidget);
-  if (m_showFooterOnHide) {
-    m_hiddenSize = QSize(m_width, m_footerHeight);
-    m_visibleSize = QSize(m_width, m_height);
-  } else {
-    m_hiddenSize = QSize(m_width, 0);
-    m_visibleSize = QSize(m_width, m_height);
-  }
+  return d_ptr->setWidget(widget);
+}
+
+void
+FooterWidget::hideWidget()
+{
+  Q_D(FooterWidget);
+  d->hideWidget();
   adjustSize();
   emit sizeChanged(this, m_hiddenSize);
 }
 
-void FooterWidget::showWidget()
+void
+FooterWidget::showWidget()
 {
-  m_centralWidget->show();
-  m_layout->addWidget(m_centralWidget);
+  Q_D(FooterWidget);
+  d->showWidget();
   adjustSize();
   emit sizeChanged(this, m_visibleSize);
 }
 
-bool FooterWidget::isWidgetVisible()
+bool
+FooterWidget::isWidgetVisible()
 {
-  return m_centralWidget->isVisible();
+  return d_ptr->isWidgetVisible();
 }
 
-bool FooterWidget::showFooterOnHide() const
-{
-  return m_showFooterOnHide;
-}
-
-void FooterWidget::setShowFooterOnHide(bool show)
-{
-  m_showFooterOnHide = show;
-}
-
-void FooterWidget::paintEvent(QPaintEvent *)
+void
+FooterWidget::paintEvent(QPaintEvent*)
 {
   QPainter painter(this);
-
-  if (m_footer)
-    m_footer->paint(painter);
+  d_ptr->paint(painter);
 }
 
 void
 FooterWidget::hoverEnterEvent(QHoverEvent* event)
 {
-  auto p =  event->pos();
-
-  if (m_footer) {
-    if (dockItemHoverCheck(m_footer, p)) {
-      return;
-    }
-  }
+  auto p = event->pos();
+  d_ptr->hoverEnter(p);
 }
 
 void
 FooterWidget::hoverLeaveEvent(QHoverEvent*)
 {
-  if (m_hoverItem) {
-    m_hoverItem->setHoverOver(false);
-    QToolTip::hideText();
-    m_hoverItem = nullptr;
-  }
+  d_ptr->hoverLeave();
 }
 
 void
 FooterWidget::hoverMoveEvent(QHoverEvent* event)
 {
   auto p = event->pos();
-
-  if (m_footer) {
-    if (dockItemHoverCheck(m_footer, p)) {
-      return;
-    }
-  }
+  d_ptr->hoverMove(p);
 }
 
 void
 FooterWidget::mousePressEvent(QMouseEvent* event)
 {
   auto pos = event->pos();
-
-  if (m_footer) {
-    mouseClickCheck(m_footer, pos);
-  }
+  setFocus();
+  d_ptr->mousePress(pos);
 }
 
 void
-FooterWidget::mouseReleaseEvent(QMouseEvent*)
+FooterWidget::widgetWasClicked(QPoint pos)
 {
-  // TODO possibly remove if not used.
+  d_ptr->widgetWasClicked(pos);
 }
 
 bool
@@ -164,24 +127,35 @@ FooterWidget::resizeEvent(QResizeEvent* /*event*/)
 }
 
 void
+FooterWidget::focusInEvent(QFocusEvent* event)
+{
+  if (event->gotFocus()) {
+    emit gotFocus(this);
+    LOG_DEBUG() << "Got focus";
+  }
+
+  QWidget::focusInEvent(event);
+}
+
+void
+FooterWidget::focusOutEvent(QFocusEvent* event)
+{
+  if (event->lostFocus()) {
+    emit lostFocus(this);
+    LOG_DEBUG() << "Lost focus";
+  }
+
+  QWidget::focusOutEvent(event);
+}
+
+AbstractDockWidget*
+FooterWidget::clone(AbstractDockWidget* widget)
+{
+  return d_ptr->clone(widget);
+}
+
+void
 FooterWidget::calculateGeometry(const QRect& rect)
 {
-  auto northHeight = 0;
-  auto northWidth = rect.size().width();
-  m_width = northWidth;
-
-  m_footerHeight = m_footer->sizeHint().height();
-  m_height = rect.height();
-  northHeight += m_footerHeight;
-  m_footer->calculateGeometry(QRect(0, rect.height() - m_footerHeight, northWidth, m_footerHeight));
-
-  if (m_centralWidget) {
-    if (m_centralWidget->isVisible()) {
-      m_layout->setContentsMargins(0, northHeight + 1, 0, 0);
-    } else {
-      m_layout->setContentsMargins(0, northHeight + 1, 0, 0);
-    }
-  } else {
-    m_layout->setContentsMargins(0, northHeight + 1, 0, 0);
-  }
+  d_ptr->calculateGeometry(rect);
 }

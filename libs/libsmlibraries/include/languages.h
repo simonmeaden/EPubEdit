@@ -68,7 +68,9 @@ public:
     GRANDFATHERED, //!< Grandfathered tags or Values flag
     REDUNDANT,     //!< Reduntant tag or Values flag
   };
-  //! \enum Enumeration used to detect tag states.
+  //! \enum TagType
+  //!
+  //! Enumeration used to detect tag states.
   //!
   //! Tags can be made up of several parts, the primary language, a language
   //! extension (which can be used as a primary language), a script or a
@@ -119,14 +121,22 @@ public:
   };
   Q_DECLARE_FLAGS(TagTypes, TagType)
 
+  /*!
+   * \struct TagTestResult
+   *
+   * Stores data about the tag test.
+   */
   struct TagTestResult
   {
-    TagTypes type;
-    int start;
-    int length;
-    QString text;
+    TagTypes type; //!< Type of tag
+    int start;     //!< start position of tag
+    int length;    //!< length of tag
+    QString text;  //!< tag string
   };
 
+  /*!
+   * Construct a BCP47Language object.
+   */
   BCP47Language();
   virtual ~BCP47Language() = default;
 
@@ -135,7 +145,7 @@ public:
   //! Sets the tag type
   void setType(const Type& type);
   //! Sets the tag type from a tag string value.
-  void setTypeFromString(const QString& typeStr) {}
+  void setTypeFromString(const QString& /*typeStr*/);
   //! Return a tag string from the tag type.
   QString typeString();
   //! Set the subtag value
@@ -198,7 +208,7 @@ public:
   bool hasPreferredValue();
   //! Returns the list of possible prefix values.
   QStringList prefix() const;
-  // Adds a prefix to the list.
+  //! Adds a prefix to the list.
   void addPrefix(const QString& prefix);
   //! Returns the value of the grandfathered tag.
   //!
@@ -227,10 +237,10 @@ private:
   bool m_deprecated;
 };
 
+/// \cond DO_NOT_DOCUMENT
 /*!
-  \class LanguageParser languages.h
-  \brief A internal utility class to parse IAIN language tag names file.
-
+ * \class LanguageParser languages.h "include/languages.h"
+ * \brief A internal utility class to parse IAIN language tag names file.
  */
 class LanguageParser : public QObject
 {
@@ -238,6 +248,12 @@ class LanguageParser : public QObject
   Q_FLAGS(Errors)
 
 public:
+  /*!
+   * \enum Error
+   * \brief The Error flag for parsing the language tag.
+   *
+   * These are QFlags and can be OR'd together.
+   */
   enum Error
   {
     NO_ERROR = 0,
@@ -248,8 +264,14 @@ public:
   };
   Q_DECLARE_FLAGS(Errors, Error)
 
+  /*!
+   * Construct a LanguageParser that is a child of parent.
+   */
   LanguageParser(QObject* parent = nullptr);
 
+  /*!
+   * \brief parses the language file
+   */
   void parse();
   void setData(const QByteArray& data);
 
@@ -265,6 +287,7 @@ private:
   QString m_data;
 };
 Q_DECLARE_OPERATORS_FOR_FLAGS(LanguageParser::Errors)
+/// \endcond DO_NOT_DOCUMENT
 
 /*!
   \class BCP47Languages languages.h
@@ -683,10 +706,10 @@ private:
   void addLanguage(const QString& description,
                    QSharedPointer<BCP47Language> language);
   void loadYamlFile(QFile& file);
-//  void checkLocalFileForNewer(
-//    const QString& filename,
-//    QMultiMap<QString, QSharedPointer<BCP47Language>> map,
-//    QDate fileDate);
+  //  void checkLocalFileForNewer(
+  //    const QString& filename,
+  //    QMultiMap<QString, QSharedPointer<BCP47Language>> map,
+  //    QDate fileDate);
   void reloadData();
   void parseData(const QByteArray& data);
   void errorReceived(const QString& errorStr);

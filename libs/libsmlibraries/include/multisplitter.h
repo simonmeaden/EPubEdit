@@ -2,19 +2,18 @@
 #define MULTISPLITTER_H
 
 #include <QHBoxLayout>
+#include <QList>
+#include <QMap>
 #include <QMetaType>
 #include <QSplitter>
 #include <QWidget>
+#include <QFocusEvent>
 
-struct SplitterData {
-  int parent = -1;
-  QList<int> sizes;
-};
+class AbstractEPubEditor;
 
 class MultiSplitter : public QSplitter
 {
   Q_OBJECT
-
 
 public:
   explicit MultiSplitter(QWidget* parent = nullptr);
@@ -22,29 +21,39 @@ public:
   void saveState();
 
   QWidget* currentWidget();
-  void setCurrentWidget(QWidget* widget);
 
+  /*!
+   * \brief Sets the new QWidget at the current position.
+   *
+   * If there is a current widget then the current widget is replaced.
+   * The previous current QWidget will be returned, or nullptr if there
+   * was no set widget.
+   */
+  QWidget* setCurrentWidget(QWidget *widget);
+  /*!
+   * \brief Returns the current QWidget.
+   */
   QWidget* currentWidget() const;
 
-  void createSplit(Qt::Orientation orientation);
-  void splitToWindow();
+  QWidget *createSplit(Qt::Orientation orientation, QWidget* newWidget = nullptr);
+  void createSplitToWindow();
+
+  QList<QWidget*> widgets();
+
+  QSplitter* splitter(QWidget* widget) const;
 
 signals:
 
-private:
-  QHBoxLayout *m_layout;
-  QList<QWidget*> m_widgets;
-  QList<QSplitter*> m_splitters;
-  QSplitter* m_splitter = nullptr;
-  QSplitter* m_currentSplitter = nullptr;
+protected:
+  QHBoxLayout* m_layout;
+  QMap<QWidget*, QSplitter*> m_widgetMap;
   QWidget* m_currentWidget = nullptr;
+  QSplitter* m_baseSplitter;
 
-  QList<SplitterData*> splitterSizes();
-  void setSplitterSizes(QList<SplitterData *> dataList);
+  QSplitter* currentSplitter();
 
+private:
 
-  static QWidget* create(const QString& type);
-  static QWidget* create(QWidget* sister);
 };
 
 #endif // MULTISPLITTER_H

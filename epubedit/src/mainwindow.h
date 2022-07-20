@@ -21,6 +21,7 @@
 #include <QUndoStack>
 
 class EPubEditor;
+class MainWidget;
 
 #include "document/bookpointers.h"
 
@@ -48,11 +49,12 @@ private:
     *m_helpAboutPluginsAct;
   QMenu *m_fileMenu, *m_editMenu, *m_toolsMenu, *m_helpMenu;
   QUndoStack* m_undoStack = nullptr;
+  MainWidget* m_mainWidget;
 
-  void newEpub();
-  void openFile();
-  void saveFile();
-  void saveAsFile();
+  //  void newEpub();
+  //  void openFile();
+  //  void saveFile();
+  //  void saveAsFile();
   void cleanup();
 
   void loadDocument(const QString& filename);

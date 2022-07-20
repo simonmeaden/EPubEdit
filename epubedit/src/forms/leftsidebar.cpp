@@ -17,7 +17,7 @@ LeftSidebar::initGui()
   setLayout(layout);
 
   QStringList titles;
-  titles << tr("Table of Contents") << tr("Secondary");
+  titles << tr("Table of Contents")/* << tr("Secondary")*/;
 
   auto typeBox = new QComboBox(this);
   typeBox->addItems(titles);

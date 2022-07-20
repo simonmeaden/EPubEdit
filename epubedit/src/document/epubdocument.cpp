@@ -66,12 +66,12 @@ EPubDocument::EPubDocument(PConfig config,
 
 EPubDocument::~EPubDocument() {}
 
-QString
-EPubDocument::buildTocFromData()
-{
-  // NOTE may not be used
-  return buildTocfromHtml();
-}
+// QString
+// EPubDocument::buildTocFromData()
+//{
+//   // NOTE may not be used
+//   return buildTocfromHtml();
+// }
 
 bool
 EPubDocument::isModified()
@@ -340,12 +340,12 @@ EPubDocument::handleDeprecatedGuide(QuaZip* archive,
 
     // use html tidy to clean up file.
     auto input = contentFile.readAll();
-    //    auto doc = QTidyDoc(this);
-    //    QList<TidyDocOption*> options;
-    //    // tinyxml doesn't seem to like the DOCTYPE tag.
-    //    options.prepend(new TidyDocOption(TidyDoctype, new
-    //    TidyDocStrData("omit"))); auto cleaned = doc.toCleanXHtml(input,
-    //    options);
+//    auto doc = QTidyDoc(this);
+//    QList<TidyDocOption*> options;
+    // tinyxml doesn't seem to like the DOCTYPE tag.
+
+//    options.prepend(new TidyDocOption(TidyDoctype, new TidyDocStrData("omit")));
+//    auto cleaned = doc.toCleanXHtml(input, options);
 
     auto filename = Paths::join(m_config->libraryDirectory(),
                                 m_metadata->creatorList().first(),
@@ -358,7 +358,6 @@ EPubDocument::handleDeprecatedGuide(QuaZip* archive,
       xmldoc.parse(/*cleaned*/ input);
 
       auto root = xmldoc.rootElement();
-      //      auto name = root->Name();
       if (root) {
         auto body = root->FirstChildElement("body");
         if (body) {
@@ -369,6 +368,17 @@ EPubDocument::handleDeprecatedGuide(QuaZip* archive,
 
     } else if (guideItem.type == "cover") {
       // TODO
+      auto xmldoc = TinyXmlDocument();
+      xmldoc.parse(/*cleaned*/ input);
+
+      auto root = xmldoc.rootElement();
+      if (root) {
+        auto body = root->FirstChildElement("body");
+        if (body) {
+//          auto listItem = parseTocList(body);
+//          m_metadata->setNavList(listItem);
+        }
+      }
     } else if (guideItem.type == "title-page") {
       // TODO
     } else if (guideItem.type == "copyright-page") {
@@ -490,34 +500,29 @@ EPubDocument::parsePackageFile(QuaZip* archive, QString& fullPath)
     node = nodeMap.namedItem("id");
     if (!node.isNull()) { // optional
                           //      auto lineNumber = node.lineNumber();
-      m_spine.id = UniqueString(node.nodeValue());
+      m_spine->id = UniqueString(node.nodeValue());
     }
 
     node = nodeMap.namedItem("tocid");
     if (!node.isNull()) { // optional
-      m_spine.tocId = node.nodeValue();
+      m_spine->tocId = node.nodeValue();
     }
 
     node = nodeMap.namedItem("page-progression-dir");
     if (!node.isNull()) { // optional
-      m_spine.setDirection(node.nodeValue());
+      m_spine->setDirection(node.nodeValue());
     }
 
     // could be being rebuilt. This happens when a book is loaded but appears
     // to have library copy already.
-    m_spine.orderedItems.clear();
-    m_spine.items.clear();
+    m_spine->orderedItems.clear();
+    m_spine->items.clear();
 
     QDomNodeList spineItemList = spineElement.elementsByTagName("itemref");
     for (int j = 0; j < spineItemList.count(); j++) {
       parseSpineItem(spineItemList.at(j));
     }
   }
-
-  //  if (!m_spine.items.isEmpty() && !m_manifest->itemsById.isEmpty()) {
-  //    for (auto& spineItem : m_spine.items) {
-  //    }
-  //  }
 
   // TODO doctor the image paths to point to local files.
   auto htmlKeys = m_manifest->htmlItems.keys();
@@ -702,7 +707,7 @@ EPubDocument::parseSpineItem(const QDomNode& spineNode)
   QString name, value;
 
   if (tag_name == "itemref") {
-    auto item = PSpineItem(new EPubSpineItem());
+    auto item = PSpineItem(new SpineItem());
 
     // TODO EPUB2 toc element - convert to EPUB3
 
@@ -752,8 +757,8 @@ EPubDocument::parseSpineItem(const QDomNode& spineNode)
         }
       }
     }
-    m_spine.items.insert(item->idref, item);
-    m_spine.orderedItems.append(item->idref);
+    m_spine->items.insert(item->idref, item);
+    m_spine->orderedItems.append(item->idref);
   }
   return true;
 }
@@ -770,13 +775,13 @@ EPubDocument::parseManifestItem(QuaZip* archive,
   QString name, value;
 
   if (tagName == "item") {
-    auto item = PManifestItem(new EPubManifestItem());
+    auto item = PManifestItem(new ManifestItem());
     node = nodeMap.namedItem("href");
     if (!node.isNull()) {
       value = node.nodeValue();
-      auto path = QDir::cleanPath(current_folder + value);
+      //      auto path = QDir::cleanPath(current_folder + value);
       item->href = value;
-      item->path = path;
+      //      item->path = path;
     } else {
       qDebug() << tr("Warning invalid manifest item : no href value");
     }
@@ -791,9 +796,12 @@ EPubDocument::parseManifestItem(QuaZip* archive,
     node = nodeMap.namedItem("media-type");
     if (!node.isNull()) {
       value = node.nodeValue();
-      item->mediaType = value.toLatin1();
+      item->mediaType = value.toLower().toLatin1();
       if (item->mediaType == "image/gif" || item->mediaType == "image/jpeg" ||
-          item->mediaType == "image/png") {
+          item->mediaType == "image/png" ||
+          item->mediaType == "image/svg+xhtml" ||
+          item->mediaType == "image/webp") {
+        // NOTE image/webp is supported by EPU3.3 but not by QImageReader
 
         if (!QImageReader::supportedMimeTypes().contains(
               item->mediaType.toLatin1())) {
@@ -801,28 +809,29 @@ EPubDocument::parseManifestItem(QuaZip* archive,
                         .arg(QString(item->mediaType));
         }
 
-        archive->setCurrentFile(item->path);
-        QuaZipFile image_file(archive);
-        image_file.setZip(archive);
+        //        archive->setCurrentFile(item->path);
+        //        QuaZipFile image_file(archive);
+        //        image_file.setZip(archive);
 
-        if (!image_file.open(QIODevice::ReadOnly)) {
-          //          archive->getZipError();
-          qDebug() << tr("Unable to open image file %1").arg(item->path);
-        }
+        //        if (!image_file.open(QIODevice::ReadOnly)) {
+        //          //          archive->getZipError();
+        //          qDebug() << tr("Unable to open image file
+        //          %1").arg(item->path);
+        //        }
 
-        auto data = image_file.readAll();
-        auto image = QImage::fromData(data);
-        QFileInfo info(item->href);
-        auto path = info.path();
-        if (!path.isEmpty()) {
-          QDir dir(m_resourcePath);
-          dir.mkpath(path);
-        }
+        //        auto data = image_file.readAll();
+        //        auto image = QImage::fromData(data);
+        //        QFileInfo info(item->href);
+        //        auto path = info.path();
+        //        if (!path.isEmpty()) {
+        //          QDir dir(m_resourcePath);
+        //          dir.mkpath(path);
+        //        }
 
-        auto res_path = m_resourcePath + QDir::separator() + item->href;
-        image.save(res_path);
-        res_path.prepend(QStringLiteral("file://"));
-        m_manifest->images.insert(item->href, res_path);
+        //        auto res_path = m_resourcePath + QDir::separator() +
+        //        item->href; image.save(res_path);
+        //        res_path.prepend(QStringLiteral("file://"));
+        m_manifest->images.insert(item->id, item->href);
 
       } else if (item->mediaType == "image/svg+xml") {
         qDebug();
@@ -831,7 +840,7 @@ EPubDocument::parseManifestItem(QuaZip* archive,
         m_manifest->fonts.insert(item->href, item);
 
       } else if (item->mediaType == "application/xhtml+xml") {
-        archive->setCurrentFile(item->path);
+        archive->setCurrentFile(item->href);
         QuaZipFile itemFile(archive);
         itemFile.setZip(archive);
 
@@ -860,7 +869,7 @@ EPubDocument::parseManifestItem(QuaZip* archive,
         item->documentString = container;
         m_manifest->htmlItems.insert(item->id, item);
       } else if (item->mediaType == "text/css") {
-        archive->setCurrentFile(item->path);
+        archive->setCurrentFile(item->href);
         QuaZipFile itemFile(archive);
         itemFile.setZip(archive);
 
@@ -875,7 +884,7 @@ EPubDocument::parseManifestItem(QuaZip* archive,
         m_manifest->css.insert(item->href, cssString);
 
       } else if (item->mediaType == "text/javascript") {
-        archive->setCurrentFile(item->path);
+        archive->setCurrentFile(item->href);
         QuaZipFile itemFile(archive);
         itemFile.setZip(archive);
 
@@ -1176,6 +1185,7 @@ EPubDocument::loadDocument(const QString& existingFilename)
 
   m_metadata = PMetadata(new Metadata());
   m_manifest = PManifest(new Manifest());
+  m_spine = PSpine(new Spine());
 
   /* Loads the document metadata. This is needed to
    determine where in the library to save the file.
@@ -1628,7 +1638,7 @@ EPubDocument::pages()
   return m_manifest->htmlItems;
 }
 
-EPubSpine
+PSpine
 EPubDocument::spine()
 {
   return m_spine;
@@ -1640,7 +1650,7 @@ EPubDocument::cssKeys()
   return m_manifest->css.keys();
 }
 
-UniqueStringMap
+QMap<UniqueString, QString>
 EPubDocument::cssMap()
 {
   return m_manifest->css;
@@ -1696,75 +1706,75 @@ EPubDocument::setPublished(const QDate& published)
   m_published = published;
 }
 
-QString
-EPubDocument::buildTocfromHtml()
-{
-  // NOTE may not be used
-  auto formattedTocString = LIST_START;
-  auto anchorStart = 0, pos = 0;
-  auto files = m_manifest->htmlItems.values();
-  for (auto& item : files) {
-    auto documentString = item->documentString;
-    if (!documentString.isEmpty()) {
-      auto i = reAnchorComplete.globalMatch(documentString);
-      QRegularExpressionMatch anchorCompleteMatch, anchorTagMatch, hrefMatch;
-      QString anchorComplete, anchorTag, hrefAttr;
+// QString
+// EPubDocument::buildTocfromHtml()
+//{
+//   // NOTE may not be used
+//   auto formattedTocString = LIST_START;
+//   auto anchorStart = 0, pos = 0;
+//   auto files = m_manifest->htmlItems.values();
+//   for (auto& item : files) {
+//     auto documentString = item->documentString;
+//     if (!documentString.isEmpty()) {
+//       auto i = reAnchorComplete.globalMatch(documentString);
+//       QRegularExpressionMatch anchorCompleteMatch, anchorTagMatch, hrefMatch;
+//       QString anchorComplete, anchorTag, hrefAttr;
 
-      while (i.hasNext()) {
-        anchorCompleteMatch = i.next();
-        anchorComplete = anchorCompleteMatch.captured(0);
-        anchorStart =
-          anchorCompleteMatch.capturedStart(0); // start of open anchor tag.
+//      while (i.hasNext()) {
+//        anchorCompleteMatch = i.next();
+//        anchorComplete = anchorCompleteMatch.captured(0);
+//        anchorStart =
+//          anchorCompleteMatch.capturedStart(0); // start of open anchor tag.
 
-        anchorTagMatch = reAnchorTag.match(anchorComplete);
-        if (anchorTagMatch.hasMatch()) {
-          anchorTag = anchorTagMatch.captured(0);
-          anchorStart +=
-            anchorTagMatch.capturedLength(0); // end of open anchor tag
+//        anchorTagMatch = reAnchorTag.match(anchorComplete);
+//        if (anchorTagMatch.hasMatch()) {
+//          anchorTag = anchorTagMatch.captured(0);
+//          anchorStart +=
+//            anchorTagMatch.capturedLength(0); // end of open anchor tag
 
-          auto text = extractTagText(anchorStart, documentString);
+//          auto text = extractTagText(anchorStart, documentString);
 
-          hrefMatch = reHref.match(anchorTag);
-          if (hrefMatch.hasMatch()) {
-            hrefAttr = hrefMatch.captured(0);
-            hrefAttr = hrefAttr.mid(6, hrefAttr.length() - 7);
-            auto splits = hrefAttr.split("#", Qt::KeepEmptyParts);
-            if (splits.length() == 1) {
-              auto filename = splits.at(0);
-              //              QList<PAuthorData> files =
-              //                m_manifest->htmlItems.values();
-              for (auto& item : files) {
-                auto href = item->href;
-                if (href == filename) {
-                  // TODO add anchor & make anchor tag.
-                }
-              }
-            } else if (!splits.at(0).isEmpty() && !splits.at(1).isEmpty()) {
-              // existing file + anchor points exist.
-              formattedTocString +=
-                LIST_BUILD_ITEM.arg(splits.at(0), splits.at(1), text);
-            } else if (!splits.at(0).isEmpty() && splits.at(1).isEmpty()) {
-              // existing file but no anchor point.
-              auto pos_tag = LIST_FILEPOS.arg(pos++);
-              formattedTocString +=
-                LIST_BUILD_ITEM.arg(splits.at(0), pos_tag, text);
-              // TODO introduce anchor tag
-            } else if (splits.at(0).isEmpty() && !splits.at(1).isEmpty()) {
-              // existing anchor tag but no file.
-              // TODO find file and add to anchor.
-            } else {
-              // TODO no existing anchor point ??? not certain we ever get
-              // here. may need to move this outside last regex match.
-            }
-          }
-        }
-      }
-    }
-  }
+//          hrefMatch = reHref.match(anchorTag);
+//          if (hrefMatch.hasMatch()) {
+//            hrefAttr = hrefMatch.captured(0);
+//            hrefAttr = hrefAttr.mid(6, hrefAttr.length() - 7);
+//            auto splits = hrefAttr.split("#", Qt::KeepEmptyParts);
+//            if (splits.length() == 1) {
+//              auto filename = splits.at(0);
+//              //              QList<PAuthorData> files =
+//              //                m_manifest->htmlItems.values();
+//              for (auto& item : files) {
+//                auto href = item->href;
+//                if (href == filename) {
+//                  // TODO add anchor & make anchor tag.
+//                }
+//              }
+//            } else if (!splits.at(0).isEmpty() && !splits.at(1).isEmpty()) {
+//              // existing file + anchor points exist.
+//              formattedTocString +=
+//                LIST_BUILD_ITEM.arg(splits.at(0), splits.at(1), text);
+//            } else if (!splits.at(0).isEmpty() && splits.at(1).isEmpty()) {
+//              // existing file but no anchor point.
+//              auto pos_tag = LIST_FILEPOS.arg(pos++);
+//              formattedTocString +=
+//                LIST_BUILD_ITEM.arg(splits.at(0), pos_tag, text);
+//              // TODO introduce anchor tag
+//            } else if (splits.at(0).isEmpty() && !splits.at(1).isEmpty()) {
+//              // existing anchor tag but no file.
+//              // TODO find file and add to anchor.
+//            } else {
+//              // TODO no existing anchor point ??? not certain we ever get
+//              // here. may need to move this outside last regex match.
+//            }
+//          }
+//        }
+//      }
+//    }
+//  }
 
-  formattedTocString += LIST_END;
-  return formattedTocString;
-}
+//  formattedTocString += LIST_END;
+//  return formattedTocString;
+//}
 
 QString
 EPubDocument::extractTagText(int anchor_start, QString document_string)

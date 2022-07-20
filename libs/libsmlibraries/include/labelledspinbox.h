@@ -43,9 +43,9 @@ class SM_WIDGETS_SHARED_EXPORT LabelledSpinBox : public AbstractLabelledSpinBox
 
      \brief This property holds the value of the spin box.
 
-     @reimplements QSpinBox::value
-     @accessor %value(), %setValue()
-        @notifier valueChanged(int)
+     \reimplements{QSpinBox::value}
+     \accessor{%value(), %setValue()}
+     \notifier{valueChanged(int)}
   */
   Q_PROPERTY(int value READ value WRITE setValue NOTIFY valueChanged USER true)
 
@@ -54,8 +54,8 @@ class SM_WIDGETS_SHARED_EXPORT LabelledSpinBox : public AbstractLabelledSpinBox
 
      \brief This property holds the maximum value of the spin box.
 
-     @reimplements QSpinBox::maximum
-     @accessor %maximum(void), %setMaximum()
+     \reimplements{QSpinBox::maximum}
+     \accessor{%maximum(void), %setMaximum()}
   */
   Q_PROPERTY(int maximum READ maximum WRITE setMaximum)
 
@@ -64,8 +64,8 @@ class SM_WIDGETS_SHARED_EXPORT LabelledSpinBox : public AbstractLabelledSpinBox
 
      \brief This property holds the minimum value of the spin box.
 
-     @reimplements QSpinBox::minimum
-     @accessor %minimum(), %setMinimum()
+     \reimplements{QSpinBox::minimum}
+     \accessor{%minimum(), %setMinimum()}
   */
   Q_PROPERTY(int minimum READ minimum WRITE setMinimum)
 
@@ -75,8 +75,8 @@ class SM_WIDGETS_SHARED_EXPORT LabelledSpinBox : public AbstractLabelledSpinBox
      \brief This property holds the base used to display the value of the spin
       box
 
-     @reimplements QSpinBox::displayIntegerBase
-     @accessor %displayIntegerBase(), %setDisplayIntegerBase()
+     \reimplements{QSpinBox::displayIntegerBase}
+     \accessor{%displayIntegerBase(), %setDisplayIntegerBase()}
   */
   Q_PROPERTY(
     int displayIntegerBase READ displayIntegerBase WRITE setDisplayIntegerBase)
@@ -86,8 +86,8 @@ class SM_WIDGETS_SHARED_EXPORT LabelledSpinBox : public AbstractLabelledSpinBox
 
      \brief This property holds the step value
 
-     @reimplements QSpinBox::singleStep
-     @accessor %singleStep(), %setSingleStep()
+     \reimplements{QSpinBox::singleStep}
+     \accessor{%singleStep(), %setSingleStep()}
   */
   Q_PROPERTY(int singleStep READ singleStep WRITE setSingleStep)
 
@@ -96,8 +96,8 @@ class SM_WIDGETS_SHARED_EXPORT LabelledSpinBox : public AbstractLabelledSpinBox
 
      \brief This property holds the spin box's prefix
 
-     @reimplements QSpinBox::prefix
-     @accessor %prefix(), %setPrefix()
+     \reimplements{QSpinBox::prefix}
+     \accessor{%prefix(), %setPrefix()}
   */
   Q_PROPERTY(QString prefix READ prefix WRITE setPrefix)
 
@@ -125,43 +125,43 @@ public:
   explicit LabelledSpinBox(const QString& labelText = QString(),
                            QWidget* parent = nullptr);
 
-  //! @reimplements QSpinBox::value() const.
+  //! \reimplements{QSpinBox::value() const.}
   int value() const;
 
-  //! @reimplements QSpinBox::setValue().
+  //! \reimplements{QSpinBox::setValue().}
   void setValue(int v);
 
-  //! @reimplements QSpinBox::maximum() const.
+  //! \reimplements{QSpinBox::maximum() const.}
   int maximum() const;
 
-  //! @reimplements QSpinBox::setMaximum().
+  //! \reimplements{QSpinBox::setMaximum().}
   void setMaximum(int max);
 
-  //! @reimplements QSpinBox::minimum() const.
+  //! \reimplements{QSpinBox::minimum() const.}
   int minimum() const;
 
-  //! @reimplements QSpinBox::setMinimum().
+  //! \reimplements{QSpinBox::setMinimum().}
   void setMinimum(int min);
 
-  //! @reimplements QSpinBox::setRange().
+  //! \reimplements{QSpinBox::setRange().}
   void setRange(int min, int max);
 
-  //! @reimplements QSpinBox::singleStep() const.
+  //! \reimplements{QSpinBox::singleStep() const.}
   int singleStep() const;
 
-  //! @reimplements QSpinBox::setSingleStep().
+  //! \reimplements{QSpinBox::setSingleStep().}
   void setSingleStep(int step);
 
-  //! @reimplements QSpinBox::displayIntegerBase() const.
+  //! \reimplements{QSpinBox::displayIntegerBase() const.}
   int displayIntegerBase() const;
 
-  //! @reimplements QSpinBox::setDisplayIntegerBase().
+  //! \reimplements{QSpinBox::setDisplayIntegerBase().}
   void setDisplayIntegerBase(int base);
 
-  //! @reimplements QSpinBox::prefix().
+  //! \reimplements{QSpinBox::prefix().}
   QString prefix() const;
 
-  //! @reimplements QSpinBox::setPrefix().
+  //! \reimplements{QSpinBox::setPrefix().}
   void setPrefix(const QString& labelText);
 
 signals:

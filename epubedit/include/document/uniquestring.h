@@ -53,6 +53,6 @@ private:
   bool m_valid;
 };
 
-typedef QMap<UniqueString, QString> UniqueStringMap;
+//typedef QMap<UniqueString, QString> UniqueStringMap;
 
 #endif // UNIQUESTRING_H

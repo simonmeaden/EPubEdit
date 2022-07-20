@@ -43,8 +43,8 @@ class SM_WIDGETS_SHARED_EXPORT LabelledComboBox : public AbstractLabelledWidget
      \property LabelledComboBox::editable()
      \brief This property holds whether the combo box can be edited by the user
 
-     @reimplements QComboBox::editable
-     @accessor %isEditable(), %setEditable()
+     \reimplements{QComboBox::editable}
+     \accessor{%isEditable(), %setEditable()}
   */
   Q_PROPERTY(bool editable READ isEditable WRITE setEditable)
 
@@ -52,8 +52,8 @@ class SM_WIDGETS_SHARED_EXPORT LabelledComboBox : public AbstractLabelledWidget
      \property LabelledComboBox::count()
      \brief This property holds the number of items in the combobox
 
-     @reimplements QComboBox::count
-     @accessor %count()
+     \reimplements{QComboBox::count}
+     \accessor{%count()}
   */
   Q_PROPERTY(int count READ count)
 
@@ -61,9 +61,9 @@ class SM_WIDGETS_SHARED_EXPORT LabelledComboBox : public AbstractLabelledWidget
      \property LabelledComboBox::currentText()
      \brief This property holds the current text
 
-     @reimplements QComboBox::currentText
-     @accessor %currentText(), %setCurrentText()
-     @notifier currentTextChanged()
+     \reimplements{QComboBox::currentText}
+     @accessor{%currentText(), %setCurrentText()}
+     \notifier{currentTextChanged()}
   */
   Q_PROPERTY(QString currentText READ currentText WRITE setCurrentText NOTIFY
                currentTextChanged USER true)
@@ -72,9 +72,9 @@ class SM_WIDGETS_SHARED_EXPORT LabelledComboBox : public AbstractLabelledWidget
      \property LabelledComboBox::currentIndex()
      \brief This property holds the index of the current item in the combobox.
 
-     @reimplements QComboBox::currentIndex
-     @accessor %currentIndex(), %setCurrentIndex()
-     @notifier currentTextChanged()
+     \reimplements{QComboBox::currentIndex}
+     \reimplements{ {%currentIndex(), %setCurrentIndex()}
+     \notifier{currentTextChanged()}
   */
   Q_PROPERTY(int currentIndex READ currentIndex WRITE setCurrentIndex NOTIFY
                currentIndexChanged)
@@ -83,8 +83,8 @@ class SM_WIDGETS_SHARED_EXPORT LabelledComboBox : public AbstractLabelledWidget
      \property LabelledComboBox::currentData()
      \brief This property holds the data for the current item
 
-     @reimplements QComboBox::currentData
-     @accessor %currentData()
+     \reimplements{QComboBox::currentData}
+     \accessor{%currentData()}
   */
   Q_PROPERTY(QVariant currentData READ currentData)
 
@@ -93,8 +93,8 @@ class SM_WIDGETS_SHARED_EXPORT LabelledComboBox : public AbstractLabelledWidget
      \brief This property holds the maximum allowed size on screen of the
      combo box, measured in items
 
-     @reimplements QComboBox::maxVisibleItems
-     @accessor %maxVisibleItems(void), %setMaxVisibleItems()
+     \reimplements{QComboBox::maxVisibleItems}
+     \accessor{%maxVisibleItems(void), %setMaxVisibleItems()}
   */
   Q_PROPERTY(int maxVisibleItems READ maxVisibleItems WRITE setMaxVisibleItems)
 
@@ -103,8 +103,8 @@ class SM_WIDGETS_SHARED_EXPORT LabelledComboBox : public AbstractLabelledWidget
      \brief This property holds the maximum number of items allowed in the
      combobox
 
-     @reimplements QComboBox::maxCount
-     @accessor %maxCount(void), %setMaxCount()
+     \reimplements{QComboBox::maxCount}
+     \accessor{%maxCount(void), %setMaxCount()}
   */
   Q_PROPERTY(int maxCount READ maxCount WRITE setMaxCount)
 
@@ -113,8 +113,8 @@ class SM_WIDGETS_SHARED_EXPORT LabelledComboBox : public AbstractLabelledWidget
      \brief This property holds the policy used to determine where user-inserted
      items should appear in the combobox
 
-     @reimplements QComboBox::insertPolicy
-     @accessor %insertPolicy(), %setInsertPolicy()
+     \reimplements{QComboBox::insertPolicy}
+     \accessor{%insertPolicy(), %setInsertPolicy()}
   */
   Q_PROPERTY(QComboBox::InsertPolicy insertPolicy READ insertPolicy WRITE
                setInsertPolicy)
@@ -124,8 +124,8 @@ class SM_WIDGETS_SHARED_EXPORT LabelledComboBox : public AbstractLabelledWidget
      \brief This property holds the minimum number of characters that should fit
      into the combobox.
 
-     @reimplements QComboBox::sizeAdjustPolicy
-     @accessor %sizeAdjustPolicy(), %setSizeAdjustPolicy()
+     \reimplements{QComboBox::sizeAdjustPolicy}
+     \accessor{%sizeAdjustPolicy(), %setSizeAdjustPolicy()}
   */
   Q_PROPERTY(QComboBox::SizeAdjustPolicy sizeAdjustPolicy READ sizeAdjustPolicy
                WRITE setSizeAdjustPolicy)
@@ -135,8 +135,8 @@ class SM_WIDGETS_SHARED_EXPORT LabelledComboBox : public AbstractLabelledWidget
      \brief This property holds the minimum number of characters that should fit
      into the combobox.
 
-     @reimplements QComboBox::minimumContentsLength
-     @accessor %minimumContentsLength(), %setMinimumContentsLength()
+     \reimplements{QComboBox::minimumContentsLength}
+     \accessor{%minimumContentsLength(), %setMinimumContentsLength()}
   */
   Q_PROPERTY(int minimumContentsLength READ minimumContentsLength WRITE
                setMinimumContentsLength)
@@ -145,8 +145,8 @@ class SM_WIDGETS_SHARED_EXPORT LabelledComboBox : public AbstractLabelledWidget
      \property LabelledComboBox::iconSize()
      \brief TThis property holds the size of the icons shown in the combobox.
 
-     @reimplements QComboBox::iconSize
-     @accessor %iconSize(), %setIconSize()
+     \reimplements{QComboBox::iconSize}
+     \accessor{%iconSize(), %setIconSize()}
   */
   Q_PROPERTY(QSize iconSize READ iconSize WRITE setIconSize)
 
@@ -155,8 +155,8 @@ class SM_WIDGETS_SHARED_EXPORT LabelledComboBox : public AbstractLabelledWidget
      \property LabelledComboBox::placeholderText()
      \brief Sets a placeholderText text shown when no valid index is set
 
-     @reimplements QComboBox::placeholderText
-     @accessor %placeholderText(), %setPlaceholderText()
+     \reimplements{QComboBox::placeholderText}
+     \accessor{%placeholderText(), %setPlaceholderText()}
   */
   Q_PROPERTY(
     QString placeholderText READ placeholderText WRITE setPlaceholderText)
@@ -191,195 +191,195 @@ public:
   //! Changes the default factory combo box with a custom supplied one.
   void setCustomComboBox(QComboBox* replacement);
 
-  //! @reimplements QComboBox::addItem(const QString& const QVariant&).
+  //! \reimplements{QComboBox::addItem(const QString& const QVariant&).}
   void addItem(const QString& labelText, const QVariant& userdata = QVariant());
 
-  //! @reimplements QComboBox::addItem(const QIcon&,const QString& const
+  //! \reimplements{QComboBox::addItem(const QIcon&,const QString& const}
   //! QVariant&).
   void addItem(const QIcon& icon,
                const QString& labelText,
                const QVariant& userdata = QVariant());
 
-  //! @reimplements QComboBox::addItems(const QStringList&).
+  //! \reimplements{QComboBox::addItems(const QStringList&).}
   void addItems(const QStringList& items);
 
-  //! @reimplements QComboBox::completer() const.
+  //! \reimplements{QComboBox::completer() const.}
   QCompleter* completer() const;
 
-  //! @reimplements QComboBox::setCompleter().
+  //! \reimplements{QComboBox::setCompleter().}
   void setCompleter(QCompleter* completer);
 
-  //! @reimplements QComboBox::count() const.
+  //! \reimplements{QComboBox::count() const.}
   int count() const;
 
-  //! @reimplements QComboBox::maxCount() const.
+  //! \reimplements{QComboBox::maxCount() const.}
   int maxCount() const;
 
-  //! @reimplements QComboBox::setMaxCount().
+  //! \reimplements{QComboBox::setMaxCount().}
   void setMaxCount(int max);
 
-  //! @reimplements QComboBox::currentData() const.
+  //! \reimplements{QComboBox::currentData() const.}
   QVariant currentData(int role = Qt::UserRole) const;
 
-  //! @reimplements QComboBox::currentIndex() const.
+  //! \reimplements{QComboBox::currentIndex() const.}
   int currentIndex() const;
 
-  //! @reimplements QComboBox::currentText() const.
+  //! \reimplements{QComboBox::currentText() const.}
   QString currentText() const;
 
-  //! @reimplements QComboBox::duplicatesEnabled().
+  //! \reimplements{QComboBox::duplicatesEnabled().}
   bool duplicatesEnabled() const;
 
-  //! @reimplements QComboBox::setDuplicatesEnabled().
+  //! \reimplements{QComboBox::setDuplicatesEnabled().}
   void setDuplicatesEnabled(bool enable);
 
-  //! @reimplements QComboBox::findData() const.
+  //! \reimplements{QComboBox::findData() const.}
   int findData(const QVariant& data,
                int role = Qt::UserRole,
                Qt::MatchFlags flags = static_cast<Qt::MatchFlags>(
                  Qt::MatchExactly | Qt::MatchCaseSensitive)) const;
 
-  //! @reimplements QComboBox::findText() const.
+  //! \reimplements{QComboBox::findText() const.}
   int findText(const QString& labelText,
                Qt::MatchFlags flags = Qt::MatchExactly |
                                       Qt::MatchCaseSensitive) const;
 
-  //! @reimplements QComboBox::iconSize() const.
+  //! \reimplements{QComboBox::iconSize() const.}
   QSize iconSize() const;
 
-  //! @reimplements QComboBox::hidePopup() const.
+  //! \reimplements{QComboBox->hidePopup()}
   void hidePopup() const;
 
-  //! @reimplements QComboBox::insertItem(int index, const QString&, const
+  //! \reimplements{QComboBox::insertItem(int index, const QString&, const}
   //! QVariant&).
   void insertItem(int index,
                   const QString& labelText,
                   const QVariant& userData = QVariant());
 
-  //! @reimplements QComboBox::insertItem(int index, const QIcon&, const
+  //! \reimplements{QComboBox::insertItem(int index, const QIcon&, const}
   //! QString&, const QVariant&).
   void insertItem(int index,
                   const QIcon& icon,
                   const QString& labelText,
                   const QVariant& userData = QVariant());
 
-  //! @reimplements QComboBox::insertItems().
+  //! \reimplements{QComboBox::insertItems().}
   void insertItems(int index, const QStringList& list);
 
-  //! @reimplements QComboBox::insertPolicy() const.
+  //! \reimplements{QComboBox::insertPolicy() const.}
   QComboBox::InsertPolicy insertPolicy() const;
 
-  //! @reimplements QComboBox::insertSeparator().
+  //! \reimplements{QComboBox::insertSeparator().}
   void insertSeparator(int index);
 
-  //! @reimplements QComboBox::isEditable() const.
+  //! \reimplements{QComboBox::isEditable() const.}
   bool isEditable() const;
 
-  //! @reimplements QComboBox::itemData() const.
+  //! \reimplements{QComboBox::itemData() const.}
   QVariant itemData(int index, int role = Qt::UserRole) const;
 
-  //! @reimplements QComboBox::itemDelegate() const.
+  //! \reimplements{QComboBox::itemDelegate() const.}
   QAbstractItemDelegate* itemDelegate() const;
 
-  //! @reimplements QComboBox::itemIcon() const.
+  //! \reimplements{QComboBox::itemIcon() const.}
   QIcon itemIcon(int index) const;
 
-  //! @reimplements QComboBox::itemText() const.
+  //! \reimplements{QComboBox::itemText() const.}
   QString itemText(int index) const;
 
-  //! @reimplements QComboBox::lineEdit() const.
+  //! \reimplements{QComboBox::lineEdit() const.}
   QLineEdit* lineEdit() const;
 
-  //! @reimplements QComboBox::maxVisibleItems() const.
+  //! \reimplements{QComboBox::maxVisibleItems() const.}
   int maxVisibleItems() const;
 
-  //! @reimplements QComboBox::minimumContentsLength() const.
+  //! \reimplements{QComboBox::minimumContentsLength() const.}
   int minimumContentsLength() const;
 
-  //! @reimplements QComboBox::model() const.
+  //! \reimplements{QComboBox::model() const.}
   QAbstractItemModel* model() const;
 
-  //! @reimplements QComboBox::modelColumn() const.
+  //! \reimplements{QComboBox::modelColumn() const.}
   int modelColumn() const;
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 15, 0))
-  //! @reimplements QComboBox::placeholderText() const.
+  //! \reimplements{QComboBox::placeholderText() const.}
   QString placeholderText() const;
 
-  //! @reimplements QComboBox::setPlaceholderText().
+  //! \reimplements{QComboBox::setPlaceholderText().}
   void setPlaceholderText(const QString& placeholderText);
 #endif
 
-  //! @reimplements QComboBox::removeItem().
+  //! \reimplements{QComboBox::removeItem().}
   void removeItem(int index);
 
-  //! @reimplements QComboBox::rootModelIndex() const.
+  //! \reimplements{QComboBox::rootModelIndex() const.}
   QModelIndex rootModelIndex() const;
 
-  //! @reimplements QComboBox::setEditable().
+  //! \reimplements{QComboBox::setEditable().}
   void setEditable(bool editable);
 
-  //! @reimplements QComboBox::setIconSize().
+  //! \reimplements{QComboBox::setIconSize().}
   void setIconSize(const QSize& size);
 
-  //! @reimplements QComboBox::setInsertPolicy().
+  //! \reimplements{QComboBox::setInsertPolicy().}
   void setInsertPolicy(QComboBox::InsertPolicy policy);
 
-  //! @reimplements QComboBox::setItemData().
+  //! \reimplements{QComboBox::setItemData().}
   void setItemData(int index, const QVariant& value, int role = Qt::UserRole);
 
-  //! @reimplements QComboBox::setItemDelegate().
+  //! \reimplements{QComboBox::setItemDelegate().}
   void setItemDelegate(QAbstractItemDelegate* delegate);
 
-  //! @reimplements QComboBox::setItemIcon().
+  //! \reimplements{QComboBox::setItemIcon().}
   void setItemIcon(int index, const QIcon& icon);
 
-  //! @reimplements QComboBox::setItemText().
+  //! \reimplements{QComboBox::setItemText().}
   void setItemText(int index, const QString& labelText);
 
-  //! @reimplements QComboBox::setLineEdit().
+  //! \reimplements{QComboBox::setLineEdit().}
   void setLineEdit(QLineEdit* edit);
 
-  //! @reimplements QComboBox::setMaxVisibleItems().
+  //! \reimplements{QComboBox::setMaxVisibleItems().}
   void setMaxVisibleItems(int maxItems);
 
-  //! @reimplements QComboBox::setMinimumContentsLength().
+  //! \reimplements{QComboBox::setMinimumContentsLength().}
   void setMinimumContentsLength(int characters);
 
-  //! @reimplements QComboBox::setModel().
+  //! \reimplements{QComboBox::setModel().}
   void setModel(QAbstractItemModel* model);
 
-  //! @reimplements QComboBox::setModelColumn().
+  //! \reimplements{QComboBox::setModelColumn().}
   void setModelColumn(int visibleColumn);
 
-  //! @reimplements QComboBox::setRootModelIndex().
+  //! \reimplements{QComboBox::setRootModelIndex().}
   void setRootModelIndex(const QModelIndex& index);
 
-  //! @reimplements QComboBox::setSizeAdjustPolicy().
+  //! \reimplements{QComboBox::setSizeAdjustPolicy().}
   void setSizeAdjustPolicy(QComboBox::SizeAdjustPolicy policy);
 
-  //! @reimplements QComboBox::setValidator().
+  //! \reimplements{QComboBox::setValidator().}
   void setValidator(const QValidator* validator);
 
-  //! @reimplements QComboBox::setView().
+  //! \reimplements{QComboBox::setView().}
   void setView(QAbstractItemView* itemView);
 
-  //! @reimplements QComboBox::showPopup().
+  //! \reimplements{QComboBox::showPopup().}
   void showPopup();
 
-  //! @reimplements QComboBox::sizeAdjustPolicy() const.
+  //! \reimplements{QComboBox::sizeAdjustPolicy() const.}
   QComboBox::SizeAdjustPolicy sizeAdjustPolicy() const;
 
-  //! @reimplements QComboBox::validator() const.
+  //! \reimplements{QComboBox::validator() const.}
   const QValidator* validator() const;
 
-  //! @reimplements QComboBox::view() const.
+  //! \reimplements{QComboBox::view() const.}
   QAbstractItemView* view() const;
 
-  //! @reimplements QComboBox::setCurrentText().
+  //! \reimplements{QComboBox::setCurrentText().}
   void setCurrentText(const QString& labelText);
 
-  //! @reimplements QComboBox::setCurrentIndex().
+  //! \reimplements{QComboBox::setCurrentIndex().}
   void setCurrentIndex(int index);
 
 signals:

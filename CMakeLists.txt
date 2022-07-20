@@ -42,6 +42,7 @@ find_package(
     Network
     Concurrent
     LinguistTools
+    Test
   REQUIRED)
 
 set(TS_FILES ${CMAKE_SOURCE_DIR}/i18n/${PROJECT_NAME}_en_gb.ts ${CMAKE_SOURCE_DIR}/i18n/${PROJECT_NAME}_en_us.ts ${CMAKE_SOURCE_DIR}/i18n/${PROJECT_NAME}_de.ts)

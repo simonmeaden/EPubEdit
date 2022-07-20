@@ -6,6 +6,11 @@
 //#include "languages.h"
 #include "forms/languagetagbuilderdialog.h"
 #include "forms/mainwidget.h"
+#include "paths.h"
+
+#include "signalappender.h"
+#include <FileAppender.h>
+#include <Logger.h>
 
 //#define EPUB_VERSION_2
 //#define EPUB_EPUB_VERSION_3_0
@@ -23,6 +28,14 @@ MainWindow::MainWindow(QWidget* parent)
   , m_undoStack(new QUndoStack(this))
 {
   qRegisterMetaType<Direction>("Direction");
+  qRegisterMetaType<QMultiMap<QString, QSharedPointer<BCP47Language>>>(
+    "QMultiMap<QString, QSharedPointer<BCP47Language>>");
+
+  auto fileAppender = new FileAppender(Paths::join(m_config->configDir(), "epubedit.log"));
+  fileAppender->setFormat("[%{file}] [%{type:-7}] <%{Function}> %{line} %{message}\n");
+  fileAppender->setDetailsLevel(Logger::Debug);
+
+  cuteLogger->registerAppender(fileAppender);
 
   // cleanup shit
   connect(this, &MainWindow::destroyed, this, &MainWindow::cleanup);
@@ -43,7 +56,7 @@ MainWindow::MainWindow(QWidget* parent)
 
   emit shutdown(0);
 
-  // TEMPORARY TEST STUFF
+// TEMPORARY TEST STUFF
 #else
   initGui();
 
@@ -53,12 +66,13 @@ MainWindow::MainWindow(QWidget* parent)
           &MainWindow::setStatusMessage);
   connect(
     m_config.data(), &Config::sendLogMessage, this, &MainWindow::setLogMessage);
-//  connect(m_editor,
-//          &EPubEditor::sendStatusMessage,
-//          this,
-//          &MainWindow::setStatusMessage);
-//  connect(
-//    m_editor, &EPubEditor::sendLogMessage, this, &MainWindow::setLogMessage);
+  //  connect(m_editor,
+  //          &EPubEditor::sendStatusMessage,
+  //          this,
+  //          &MainWindow::setStatusMessage);
+  //  connect(
+  //    m_editor, &EPubEditor::sendLogMessage, this,
+  //    &MainWindow::setLogMessage);
 
   const auto sr = qApp->screens().at(0)->availableGeometry();
   const QRect wr({}, this->frameSize().boundedTo(sr.size()));
@@ -67,7 +81,7 @@ MainWindow::MainWindow(QWidget* parent)
   setGeometry(offset.x(), offset.y(), m_width, m_height);
   setStatusLineAndCol(0, 0);
 
-  // Version 2.0
+// Version 2.0
 #if defined(EPUB_VERSION_2)
   m_editor->loadDocument(
     "/home/simonmeaden/workspace/epubedit/book/Who/Algis Budrys - Who.epub");
@@ -92,44 +106,45 @@ MainWindow::MainWindow(QWidget* parent)
 MainWindow::~MainWindow()
 {
   m_config->save();
-//  if (m_editor)
-//    m_editor->saveConfig();
+  //  if (m_editor)
+  //    m_editor->saveConfig();
 }
 
-void
-MainWindow::newEpub()
-{
-//  m_editor->newDocument();
-}
+//void
+//MainWindow::newEpub()
+//{
+//  //  m_editor->newDocument();
+//}
 
-void
-MainWindow::openFile()
-{
-  auto filename = QFileDialog::getOpenFileName(
-    this, tr("Select file to open"), ".", tr("EPub Files (*.epub)"));
-  if (!filename.isEmpty()) {
-//    m_editor->loadDocument(filename);
-  }
-}
+//void
+//MainWindow::openFile()
+//{
+//  auto filename = QFileDialog::getOpenFileName(
+//    this, tr("Select file to open"), ".", tr("EPub Files (*.epub)"));
+//  if (!filename.isEmpty()) {
+//    //    m_editor->loadDocument(filename);
+//  }
+//}
 
-void
-MainWindow::saveFile()
-{
-  // TODO
-  qWarning();
-}
+//void
+//MainWindow::saveFile()
+//{
+//  // TODO
+//  qWarning();
+//}
 
-void
-MainWindow::saveAsFile()
-{
-  // TODO
-  qWarning();
-}
+//void
+//MainWindow::saveAsFile()
+//{
+//  // TODO
+//  qWarning();
+//}
 
 void
 MainWindow::cleanup()
 {
   // TODO cleanup code
+  m_config->save();
   qWarning();
 }
 
@@ -139,20 +154,21 @@ MainWindow::loadDocument(const QString& filename)
   emit load(filename);
 }
 
-#include "forms/centralwidget.h"
+#include "forms/editorwidget.h"
 void
 MainWindow::initGui()
 {
   setStatusBar(nullptr);
 
-  auto mainWidget = new MainWidget(m_config, m_undoStack, this);
-  setCentralWidget(mainWidget);
+  m_mainWidget = new MainWidget(m_config, m_undoStack, this);
+  setCentralWidget(m_mainWidget);
 
-  connect(mainWidget, &MainWidget::newClicked, this, &MainWindow::newEpub);
-  connect(this, &MainWindow::load, mainWidget, &MainWidget::load);
-  connect(mainWidget, &MainWidget::openClicked, this, &MainWindow::openFile);
-  connect(mainWidget, &MainWidget::saveClicked, this, &MainWindow::saveFile);
-  connect(mainWidget, &MainWidget::saveAsClicked, this, &MainWindow::saveAsFile);
+//  connect(mainWidget, &MainWidget::newClicked, this, &MainWindow::newEpub);
+  connect(this, &MainWindow::load, m_mainWidget, &MainWidget::load);
+//  connect(mainWidget, &MainWidget::openClicked, this, &MainWindow::openFile);
+//  connect(mainWidget, &MainWidget::saveClicked, this, &MainWindow::saveFile);
+//  connect(
+//    mainWidget, &MainWidget::saveAsClicked, this, &MainWindow::saveAsFile);
 
   initActions();
   initMenus();
@@ -164,17 +180,17 @@ MainWindow::initFileActions()
   m_fileNewAct = new QAction(tr("&New"), this);
   m_fileNewAct->setShortcuts(QKeySequence::New);
   m_fileNewAct->setStatusTip(tr("Create a new file"));
-  connect(m_fileNewAct, &QAction::triggered, this, &MainWindow::newEpub);
+  connect(m_fileNewAct, &QAction::triggered, m_mainWidget, &MainWidget::newEpub);
 
   m_fileOpenAct = new QAction(tr("&Open"), this);
   m_fileOpenAct->setShortcuts(QKeySequence::Open);
   m_fileOpenAct->setStatusTip(tr("Open an Epub file"));
-  connect(m_fileOpenAct, &QAction::triggered, this, &MainWindow::openFile);
+  connect(m_fileOpenAct, &QAction::triggered, m_mainWidget, &MainWidget::openFile);
 
   m_fileSaveAct = new QAction(tr("&Save"), this);
   m_fileSaveAct->setShortcuts(QKeySequence::Save);
   m_fileSaveAct->setStatusTip(tr("Save Epub file"));
-  connect(m_fileSaveAct, &QAction::triggered, this, &MainWindow::saveFile);
+  connect(m_fileSaveAct, &QAction::triggered, m_mainWidget, &MainWidget::saveFile);
 
   m_fileExitAct = new QAction(tr("&Quit"), this);
   m_fileExitAct->setShortcuts(QKeySequence::Close);
@@ -341,8 +357,8 @@ MainWindow::setStatusMessage(const QString& message, int timeout)
 void
 MainWindow::setLogMessage(const QString& message)
 {
-//  m_logPage->moveCursor(QTextCursor::End);
-//  m_logPage->appendPlainText(message);
+  //  m_logPage->moveCursor(QTextCursor::End);
+  //  m_logPage->appendPlainText(message);
 }
 
 void

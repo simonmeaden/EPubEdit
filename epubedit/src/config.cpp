@@ -9,6 +9,42 @@
 
 #include "document/bookpointers.h"
 
+//====================================================================
+//=== StringList
+//====================================================================
+void
+LimitedStringList::append(const QString& str)
+{
+  appendIfNotIn(str);
+}
+
+void
+LimitedStringList::appendIfNotIn(const QString& str)
+{
+  if (!contains(str)) {
+    if (count() >= m_sizeLimit) {
+      removeLast();
+    }
+    append(str);
+  }
+}
+
+int
+LimitedStringList::sizeLimit() const
+{
+  return m_sizeLimit;
+}
+
+void
+LimitedStringList::setSizeLimit(int sizeLimit)
+{
+  m_sizeLimit = sizeLimit;
+}
+
+//====================================================================
+//=== Config
+//====================================================================
+
 // default directory name for library.
 const QString Config::DEFAULT_LIBRARY_DIRECTORY_NAME = "library";
 
@@ -23,6 +59,9 @@ const QString Config::EDITOR_SPLITTER_SIZES = "editor_splitter_sizes";
 const QString Config::LEFT_SIDEBAR_VISIBLE = "show_left_sidebar";
 const QString Config::RIGHT_SIDEBAR_VISIBLE = "show_right_sidebar";
 const QString Config::INFO_VISIBLE = "show_info_view";
+const QString Config::POSSIBLE_FILE_TYPES = "file_types";
+const QString Config::RECENT_FILES = "recent_files";
+const QString Config::CURRENT_STATUS = "current_status";
 
 Config::Config(QObject* parent)
   : QObject(parent)
@@ -42,6 +81,7 @@ Config::Config(QObject* parent)
   , m_statusTimeout(StatusTimeout)
   , m_modified(false)
 {
+  m_fileTypes << "*.epub";
   load();
   m_languages = new BCP47Languages();
   connect(m_languages,
@@ -212,17 +252,21 @@ Config::save()
       << YAML::Comment(
            tr("Unless specified 3.2. Possible values 3.0, 3.1, 3.2 and 3.3"));
 
-    emitter << YAML::Key << MAINSPLITTER_SIZES << YAML::Value << m_mainSplitterSizes;
+    emitter << YAML::Key << MAINSPLITTER_SIZES << YAML::Value
+            << m_mainSplitterSizes;
     emitter << YAML::Key << CENTRALSPLITTER_SIZES << YAML::Value
             << m_centralSplitterSizes;
-    emitter << YAML::Key << EDITOR_SPLITTER_SIZES << YAML::Value << m_editorSplitterSizes;
+    emitter << YAML::Key << EDITOR_SPLITTER_SIZES << YAML::Value
+            << m_editorSplitterSizes;
 
     emitter << YAML::Key << LEFT_SIDEBAR_VISIBLE << YAML::Value
             << m_leftSidebarVisible;
     emitter << YAML::Key << RIGHT_SIDEBAR_VISIBLE << YAML::Value
             << m_rightSidebarVisible;
-    emitter << YAML::Key << INFO_VISIBLE << YAML::Value
-            << m_infoIsVisible;
+    emitter << YAML::Key << INFO_VISIBLE << YAML::Value << m_infoIsVisible;
+    emitter << YAML::Key << POSSIBLE_FILE_TYPES << YAML::Value << m_fileTypes;
+    emitter << YAML::Key << RECENT_FILES << YAML::Value << m_recentFiles;
+//    emitter << YAML::Key << CURRENT_STATUS << YAML::Value << m_fileData;
 
     emitter << YAML::EndMap;
 
@@ -295,8 +339,24 @@ Config::load()
       auto node = config[INFO_VISIBLE];
       m_infoIsVisible = node.as<bool>();
     }
+
+    if (config[POSSIBLE_FILE_TYPES]) {
+      auto node = config[POSSIBLE_FILE_TYPES];
+      m_fileTypes = node.as<QList<QString>>();
+    }
+
+    if (config[RECENT_FILES]) {
+      auto node = config[RECENT_FILES];
+      m_recentFiles = node.as<QList<QString>>();
+    }
+
+//    if (config[CURRENT_STATUS]) {
+//      auto node = config[CURRENT_STATUS];
+////      m_recentFiles = node.as<QMap<QString, FileData*>>();
+//    }
   }
 }
+
 
 BCP47Languages*
 Config::languages() const
@@ -413,7 +473,7 @@ Config::editorSplitterSizes() const
 }
 
 void
-Config::setEditorSplitterSizes(const  QList<QList<int>> &sizes)
+Config::setEditorSplitterSizes(const QList<QList<int>>& sizes)
 {
   m_editorSplitterSizes = sizes;
 }
@@ -454,32 +514,50 @@ Config::setRightSidebarVisible(bool newLeftSidebarVisible)
   m_rightSidebarVisible = newLeftSidebarVisible;
 }
 
-bool Config::infoIsVisible() const
+bool
+Config::infoIsVisible() const
 {
   return m_infoIsVisible;
 }
 
-void Config::setInfoIsVisible(bool newInfoIsVisible)
+void
+Config::setInfoIsVisible(bool newInfoIsVisible)
 {
   m_infoIsVisible = newInfoIsVisible;
 }
 
-const QStringList &Config::zipFileList() const
+const QStringList&
+Config::zipFileList() const
 {
   return m_zipFileList;
 }
 
-void Config::setZipFileList(const QStringList &newZipFileList)
+void
+Config::setZipFileList(const QStringList& newZipFileList)
 {
   m_zipFileList = newZipFileList;
 }
 
-const QString &Config::currentFilename() const
+const QString&
+Config::currentFilename() const
 {
   return m_currentFilename;
 }
 
-void Config::setCurrentFilename(const QString &newCurrentFilename)
+void
+Config::setCurrentFilename(const QString& newCurrentFilename)
 {
   m_currentFilename = newCurrentFilename;
+}
+
+const QStringList&
+Config::fileTypes() const
+{
+  return m_fileTypes;
+}
+
+void
+Config::addFileType(const QString& type)
+{
+  m_fileTypes.append(type);
 }

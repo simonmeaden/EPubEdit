@@ -93,8 +93,8 @@ class SM_WIDGETS_SHARED_EXPORT ExSpinBox : public QSpinBox
      Valid types are ExSpinBox::Decimal, ExSpinBox::Hexadecimal (the default),
      ExSpinBox::Binary or ExSpinBox::Octal.
 
-     @accessor %displayType(), setDisplayType()
-     @notifier displayTypeChanged(DisplayType);
+     \accessor{%displayType(), setDisplayType()}
+     \notifier{displayTypeChanged(DisplayType)}
   */
   Q_PROPERTY(DisplayType displayType READ displayType WRITE setDisplayType
                NOTIFY displayTypeChanged(DisplayType))
@@ -103,8 +103,8 @@ class SM_WIDGETS_SHARED_EXPORT ExSpinBox : public QSpinBox
      \property ExSpinBox::displayDigits()
      \brief This property holds the number of display digits of the spin box.
 
-     @accessor %displayDigits()
-     @notifier displayDigitsChanged(int)
+     \accessor{%displayDigits()}
+     \notifier{displayDigitsChanged(int)}
   */
   Q_PROPERTY(int displayDigits READ displayDigits NOTIFY displayDigitsChanged)
 
@@ -115,7 +115,7 @@ class SM_WIDGETS_SHARED_EXPORT ExSpinBox : public QSpinBox
      Default is false. If true then leading zeroes will be displayed, up to
      displayDigits() characters will be displayed.
 
-     @accessor %showLeadingZeroes(), setShowLeadingZeroes()
+     \accessor{%showLeadingZeroes(), setShowLeadingZeroes()}
   */
   Q_PROPERTY(bool showLeadingZeroes READ showLeadingZeroes WRITE
                setShowLeadingZeroes NOTIFY showLeadingZerosChanged)
@@ -128,7 +128,7 @@ class SM_WIDGETS_SHARED_EXPORT ExSpinBox : public QSpinBox
      DisplayCase::Uppercase and DisplayCase::Lowercase. This is only relevant
      when the displayType property is DisplayType::Hexadecimal.
 
-     @accessor %charCase(), setCharCase()
+     \accessor{%charCase(), setCharCase()}
   */
   Q_PROPERTY(
     DisplayCase charCase READ charCase WRITE setCharCase NOTIFY charCaseChanged)
@@ -138,8 +138,8 @@ class SM_WIDGETS_SHARED_EXPORT ExSpinBox : public QSpinBox
 
      \brief This property holds the spin box's prefix
 
-     @reimplements QSpinBox::prefix
-     @accessor %prefix(), %setPrefix()
+     \reimplements{QSpinBox::prefix}
+     \accessor{%prefix(), %setPrefix()}
   */
   Q_PROPERTY(QString prefix READ prefix WRITE setPrefix NOTIFY prefixChanged)
 
@@ -157,7 +157,7 @@ class SM_WIDGETS_SHARED_EXPORT ExSpinBox : public QSpinBox
      in this case. Of course this is a very wierd example and I cannot see any
      reason to display hexadecimal currency but hey ho!.
 
-     @accessor %negBeforePrefix(), %setNegBeforePrefix()
+     \accessor{%negBeforePrefix(), %setNegBeforePrefix()}
   */
   Q_PROPERTY(bool negBeforePrefix READ negBeforePrefix WRITE setNegBeforePrefix
                NOTIFY setNegBeforePrefixChanged)
@@ -213,13 +213,13 @@ public:
   //! Sets whether leading zeroes are displayed.
   void setShowLeadingZeroes(bool showLeadingZeroes);
 
-  //! @reimplements QSpinBox::setRange().
+  //! \reimplements{QSpinBox::setRange().}
   void setRange(int min, int max);
 
-  //! @reimplements QSpinBox::setMinimum().
+  //! \reimplements{QSpinBox::setMinimum().}
   void setMinimum(int min);
 
-  //! @reimplements QSpinBox::setMaximum().
+  //! \reimplements{QSpinBox::setMaximum().}
   void setMaximum(int max);
 
   //! Returns whether the spin box is in uppercase or lowercase.
@@ -234,10 +234,10 @@ public:
   //! ExSpinBox::Hexadecimal.
   void setCharCase(DisplayCase charcase);
 
-  //! @reimplements QSpinBox::prefix().
+  //! \reimplements{QSpinBox::prefix().}
   QString prefix();
 
-  //! @reimplements QSpinBox::setPrefix().
+  //! \reimplements{QSpinBox::setPrefix().}
   void setPrefix(const QString& prefix);
 
   //! Returns the value of the negative before prefix property.

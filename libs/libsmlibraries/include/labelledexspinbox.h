@@ -52,7 +52,7 @@ class SM_WIDGETS_SHARED_EXPORT LabelledExSpinBox
      showLeadingZeroes is true.
 
 
-     @accessor %displayDigits()
+     \accessor{%displayDigits()}
   */
   Q_PROPERTY(int displayDigits READ displayDigits)
 
@@ -62,8 +62,8 @@ class SM_WIDGETS_SHARED_EXPORT LabelledExSpinBox
      \brief This property holds the type for the spin box to display.
      By default ExSpinBox::Hexadecimal.
 
-     @accessor %displayType(void), %setDisplayType()
-     @notifier displayTypeChanged()
+     \accessor{%displayType(void), %setDisplayType()}
+     \notifier{displayTypeChanged()}
   */
   Q_PROPERTY(ExSpinBox::DisplayType displayType READ displayType WRITE
                setDisplayType NOTIFY displayTypeChanged(ExSpinBox::DisplayType))
@@ -76,7 +76,7 @@ class SM_WIDGETS_SHARED_EXPORT LabelledExSpinBox
      If true leading zeroes are added until numberOfDigits characters are
      reached.
 
-     @accessor %showLeadingZeroes(void), %setShowLeadingZeroes()
+     \accessor{%showLeadingZeroes(void), %setShowLeadingZeroes()}
   */
   Q_PROPERTY(
     bool showLeadingZeroes READ showLeadingZeroes WRITE setShowLeadingZeroes)
@@ -86,8 +86,8 @@ class SM_WIDGETS_SHARED_EXPORT LabelledExSpinBox
 
      \brief This property holds the step type.
 
-     @reimplements QSpinBox::stepType
-     @accessor %stepType(), %setStepType(QSpinBox::StepType)
+     \reimplements{QSpinBox::stepType}
+     \accessor{%stepType(), %setStepType(QSpinBox::StepType)}
   */
   Q_PROPERTY(QSpinBox::StepType stepType READ stepType WRITE setStepType)
 
@@ -96,8 +96,8 @@ class SM_WIDGETS_SHARED_EXPORT LabelledExSpinBox
 
      \brief This property holds the spin box's prefix
 
-     @reimplements QSpinBox::prefix
-     @accessor %prefix(), %setPrefix()
+     \reimplements{QSpinBox::prefix}
+     \accessor{%prefix(), %setPrefix()}
   */
   Q_PROPERTY(QString prefix READ prefix WRITE setPrefix)
 
@@ -114,7 +114,7 @@ class SM_WIDGETS_SHARED_EXPORT LabelledExSpinBox
      255. If set to true then "-£0xFF" would result. Of course this is a very
      odd example and I cannot see any reason to display hexadecimal currency.
 
-     @accessor %negBeforePrefix(), %setNegBeforePrefix()
+     \accessor{%negBeforePrefix(), %setNegBeforePrefix()}
   */
   Q_PROPERTY(bool negBeforePrefix READ negBeforePrefix WRITE setNegBeforePrefix)
 
@@ -160,10 +160,10 @@ public:
   */
   ExSpinBox::DisplayType displayType() const;
 
-  //! @reimplements QSpinBox::singleStep() const.
+  //! \reimplements{QSpinBox::singleStep() const.}
   int singleStep() const;
 
-  //! @reimplements QSpinBox::setSingleStep().
+  //! \reimplements{QSpinBox::setSingleStep().}
   void setSingleStep(int step);
 
   /*!
@@ -181,36 +181,36 @@ public:
   */
   void setShowLeadingZeroes(bool showLeadingZeroes);
 
-  //! @reimplements QSpinBox::value() const.
+  //! \reimplements{QSpinBox::value() const.}
   int value() const;
 
-  //! @reimplements QSpinBox::setValue().
+  //! \reimplements{QSpinBox::setValue().}
   void setValue(int v);
 
-  //! @reimplements QSpinBox::maximum() const.
+  //! \reimplements{QSpinBox::maximum() const.}
   int maximum() const;
 
-  //! @reimplements QSpinBox::setMaximum().
+  //! \reimplements{QSpinBox::setMaximum().}
   void setMaximum(int max);
 
-  //! @reimplements QSpinBox::minimum() const.
+  //! \reimplements{QSpinBox::minimum() const.}
   int minimum() const;
 
-  //! @reimplements QSpinBox::setMinimum().
+  //! \reimplements{QSpinBox::setMinimum().}
   void setMinimum(int min);
 
-  //! @reimplements QSpinBox::setRange().
+  //! \reimplements{QSpinBox::setRange().}
   void setRange(int min, int max);
 
-  //! @reimplements QSpinBox::prefix().
+  //! \reimplements{QSpinBox::prefix().}
   QString prefix() const;
 
-  //! @reimplements QSpinBox::setPrefix().
+  //! \reimplements{QSpinBox::setPrefix().}
   void setPrefix(const QString& labelText);
 
-  //! @reimplements QSpinBox::suffix().
+  //! \reimplements{QSpinBox::suffix().}
   QString suffix();
-  //! @reimplements QSpinBox::setSuffix().
+  //! \reimplements{QSpinBox::setSuffix().}
   void setSuffix(const QString& text);
 
   //! Returns the value of the negative before prefix flag.
@@ -220,15 +220,15 @@ public:
   //!
   void setNegBeforePrefix(bool negBeforePrefix);
 
-  //! @reimplements QSpinBox::stepType().
+  //! \reimplements{QSpinBox::stepType().}
   QAbstractSpinBox::StepType stepType() const;
-  //! @reimplements QSpinBox::setStepType().
+  //! \reimplements{QSpinBox::setStepType().}
   void setStepType(QAbstractSpinBox::StepType type);
-  //! @reimplements QSpinBox::cleanText().
+  //! \reimplements{QSpinBox::cleanText().}
   QString cleanText() const;
-  //! @reimplements QSpinBox::setWidgetAlignment().
+  //! \reimplements{QSpinBox::setWidgetAlignment().}
   void setWidgetAlignment(const Qt::Alignment& widgetAlignment);
-  //! @reimplements QSpinBox::widgetAlignment().
+  //! \reimplements{QSpinBox::widgetAlignment().}
   Qt::Alignment widgetAlignment() const;
 
 signals:

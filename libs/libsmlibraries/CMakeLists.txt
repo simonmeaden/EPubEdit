@@ -1,5 +1,29 @@
 project(libsmlibraries LANGUAGES CXX)
 
+option(BUILD_DOC "Build documentation" ON)
+
+find_package(Doxygen)
+if (DOXYGEN_FOUND)
+  if (CMAKE_BUILD_TYPE MATCHES "^[Rr]elease")
+    # set input and output files
+    set(DOXYGEN_IN ${CMAKE_CURRENT_SOURCE_DIR}/doxygen/Doxyfile.in)
+    set(DOXYGEN_OUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
+
+    # request to configure the file
+    configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT} @ONLY)
+    message("Doxygen build started")
+
+    # note the option ALL which allows to build the docs together with the application
+    add_custom_target( doc_doxygen ALL
+        COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        COMMENT "Generating API documentation with Doxygen"
+        VERBATIM )
+  endif()
+else (DOXYGEN_FOUND)
+  message("Doxygen need to be installed to generate the doxygen documentation")
+endif (DOXYGEN_FOUND)
+
 add_library(${PROJECT_NAME} STATIC "")
 add_library(SMLibraries::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
@@ -19,6 +43,7 @@ target_link_libraries(${PROJECT_NAME}
     QYamlCpp::qyamlcpp
     gtest
     ${TIDY}
+    CuteLogger
 )
 
 target_include_directories(${PROJECT_NAME}
@@ -35,6 +60,9 @@ target_sources(${PROJECT_NAME}
 #  PUBLIC
 
   PRIVATE
+    # DOxygen configuration file
+    doxygen/Doxyfile.in
+
     # NEED to include the header files here otherwise MOC won't handle them.
     # they are also automatically included in the target_include_directories 
     # section above
@@ -50,6 +78,7 @@ target_sources(${PROJECT_NAME}
     # html tidy wrapper.
     include/qtidydoc.h
     src/qtidydoc.cpp
+
     # labelled classes
     include/abstractlabelledspinbox.h
     src/abstractlabelledspinbox.cpp
@@ -84,25 +113,88 @@ target_sources(${PROJECT_NAME}
     src/helpdialogs.cpp
     include/stringutil.h
     src/stringutil.cpp
+
     # dockwidget classes
     include/docktypes.h
+
     include/abstractdockwidget.h
     src/abstractdockwidget.cpp
+    include/private/abstractdockwidgetprivate.h
+    src/private/abstractdockwidgetprivate.cpp
+
     include/dockwidget.h
     src/dockwidget.cpp
-    include/dockitem.h
-    src/dockitem.cpp
-    include/widgetitem.h
-    src/widgetitem.cpp
+    include/private/dockwidgetprivate.h
+    src/private/dockwidgetprivate.cpp
+
+    include/abstractdockitem.h
+    src/abstractdockitem.cpp
+    src/private/abstractdockitemprivate.h
+    src/private/abstractdockitemprivate.cpp
+
+    include/dockheader.h
+    src/dockheader.cpp
+
+    include/dockfooter.h
+    src/dockfooter.cpp
+
+    include/docktoolbar.h
+    src/docktoolbar.cpp
+
+    include/dockcorner.h
+    src/dockcorner.cpp
+
     include/headerwidget.h
     src/headerwidget.cpp
+    include/private/headerwidgetprivate.h
+    src/private/headerwidgetprivate.cpp
+
     include/footerwidget.h
     src/footerwidget.cpp
+    include/private/footerwidgetprivate.h
+    src/private/footerwidgetprivate.cpp
+
     include/headerfooterwidget.h
     src/headerfooterwidget.cpp
-    # multisplitter
+    include/private/headerfooterwidgetprivate.h
+    src/private/headerfooterwidgetprivate.cpp
+
+    include/widgetitem.h
+    src/widgetitem.cpp
+    src/private/widgetitemprivate.cpp
+    src/private/widgetitemprivate.h
+
+    include/seperatorwidget.h
+    src/seperatorwidget.cpp
+    src/private/seperatorwidgetprivate.cpp
+    src/private/seperatorwidgetprivate.h
+
+    include/labelwidget.h
+    src/labelwidget.cpp
+    src/private/labelwidgetprivate.cpp
+    src/private/labelwidgetprivate.h
+
+    include/buttonwidget.h
+    src/buttonwidget.cpp
+    src/private/buttonwidgetprivate.cpp
+    src/private/buttonwidgetprivate.h
+
+    include/docklistitem.h
+    src/docklistitem.cpp
+
+    include/listbuttonwidget.h
+    src/listbuttonwidget.cpp
+    src/private/listbuttonwidgetprivate.cpp
+    src/private/listbuttonwidgetprivate.h
+
+    include/listwidget.h
+    src/listwidget.cpp
+    src/private/listwidgetprivate.cpp
+    src/private/listwidgetprivate.h
+
     include/docksplitter.h
     src/docksplitter.cpp
+    # multisplitter
     include/multisplitter.h
     src/multisplitter.cpp
     # borderlayout Qt example

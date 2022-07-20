@@ -2,14 +2,16 @@
 #define MAINWIDGET_H
 
 #include <QDebug>
+#include <QFileDialog>
 #include <QPlainTextEdit>
 #include <QUndoStack>
 #include <QUndoView>
 
+#include "config.h"
 #include "dockwidget.h"
 #include "document/bookpointers.h"
 
-class CentralWidget;
+class EditorWidget;
 class EPubEditor;
 class ListWidget;
 
@@ -24,20 +26,27 @@ public:
   QUndoView* undoView();
 
   void load(const QString& filename);
+  void newEpub();
+  void openFile();
+  void saveFile();
+  void saveAsFile();
 
 signals:
-  void newClicked();
-  void openClicked();
-  void saveClicked();
-  void saveAsClicked();
+  //  void newClicked();
+  //  void openClicked();
+  //  void saveClicked();
+  //  void saveAsClicked();
 
+protected:
 private:
-  CentralWidget* m_centralWidget = nullptr;
+  QTabWidget* m_editorTabs;
+  EditorWidget* m_currentWidget = nullptr;
+  QList<EditorWidget*> m_editorList;
+  PConfig m_config;
 
-  WidgetItem* m_leftSidebarWidget = nullptr;
-  WidgetItem* m_rightSidebarWidget = nullptr;
-  WidgetItem* m_lineNoWidget = nullptr;
-  ListWidget* m_listNoWidget = nullptr;
+  WidgetItem* m_leftSidebarBtn = nullptr;
+  WidgetItem* m_rightSidebarBtn = nullptr;
+  WidgetItem* m_lineNoLbl = nullptr;
 
   void internalGeometryUpdate(int north, int south, int east, int west);
   void splitScreen();

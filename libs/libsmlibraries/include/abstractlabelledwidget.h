@@ -46,7 +46,7 @@ class AbstractLabelledWidget : public QWidget
 
      \brief This property holds the text of the label.
 
-     @accessor %labelText(), %setLabelText()
+     \accessor{%labelText(), %setLabelText()}
   */
   Q_PROPERTY(QString labelText READ labelText WRITE setLabelText NOTIFY labelTextChanged)
 
@@ -58,7 +58,7 @@ class AbstractLabelledWidget : public QWidget
 
      The default format is Qt::AutoText.
 
-     @accessor %labelTextFormat(), %setTextFormat(Qt::TextFormat)
+     \accessor{%labelTextFormat(), %setTextFormat(Qt::TextFormat)}
   */
   Q_PROPERTY(Qt::TextFormat labelTextFormat READ labelTextFormat WRITE
                setLabelTextFormat NOTIFY labelTextFormatChanged)
@@ -68,7 +68,7 @@ class AbstractLabelledWidget : public QWidget
 
      \brief This property holds the alignment of the label.
 
-     @accessor %labelAlignment(), %setLabelAlignment()
+     \accessor{%labelAlignment(), %setLabelAlignment()}
   */
   Q_PROPERTY(
     Qt::Alignment labelAlignment READ labelAlignment WRITE setLabelAlignment NOTIFY labelAlignmentChanged)
@@ -80,7 +80,7 @@ class AbstractLabelledWidget : public QWidget
      are AbstractLabelledWidget::Left, the default and
      AbstractLabelledWidget::Right.
 
-     @accessor %position(), %setPosition()
+     \accessor{%position(), %setPosition()}
   */
   Q_PROPERTY(AbstractLabelledWidget::LabelPosition labelPosition READ
                labelPosition WRITE setLabelPosition NOTIFY labelPositionChanged)
@@ -147,9 +147,9 @@ public:
   //! Sets the label text format.
   void setLabelTextFormat(Qt::TextFormat format);
 
-  //!  @reimplements QWidget::sizeHint() const.
+  //!  \reimplements{QWidget::sizeHint() const.}
   QSize sizeHint() const override;
-  //!  @reimplements QWidget::minimumSizeHint.
+  //!  \reimplements{QWidget::minimumSizeHint.}
   QSize minimumSizeHint() const override;
 
   //! Sets the size policy for the label.
@@ -187,7 +187,7 @@ public:
   void setWidgetStyleSheet(const QString& styleSheet);
 
   //! Clears the label's text.
-  //! @reimplements QLabel::clear().
+  //! \reimplements{QLabel::clear().}
   void clearLabel();
 
   //! Returns a pointer to the internal QLabel.
@@ -271,10 +271,10 @@ class TextFormatInterface
 {
 
 public:
-  //! @reimplements QLabel::textFormat() const.
+  //! \reimplements{QLabel::textFormat() const.}
   virtual Qt::TextFormat textFormat() const = 0;
 
-  //! @reimplements QLabel::setTextFormat().
+  //! \reimplements{QLabel::setTextFormat().}
   virtual void setTextFormat(Qt::TextFormat format) = 0;
 };
 

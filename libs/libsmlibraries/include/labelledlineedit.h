@@ -49,10 +49,10 @@ class SM_WIDGETS_SHARED_EXPORT LabelledLineEdit
      \property LabelledLineEdit::text
      \brief This property holds the line edit's text.
 
-     @reimplements QLineEdit::text
+     \reimplements{QLineEdit::text}
 
-     @accessor %text(void), %setText()
-     @notifier textChanged(const QString&)
+     \accessor{%text(void), %setText()}
+     \notifier{textChanged(const QString&)}
   */
   Q_PROPERTY(QString text READ text WRITE setText NOTIFY textChanged)
 
@@ -61,9 +61,9 @@ class SM_WIDGETS_SHARED_EXPORT LabelledLineEdit
      \brief This property holds whether the input satisfies the inputMask and
      the validator.
 
-     @reimplements QLineEdit::acceptableInput
+     \reimplements{QLineEdit::acceptableInput}
 
-     @accessor %hasAcceptableInput()
+     \accessor{%hasAcceptableInput()}
   */
   Q_PROPERTY(bool acceptableInput READ hasAcceptableInput)
 
@@ -71,9 +71,9 @@ class SM_WIDGETS_SHARED_EXPORT LabelledLineEdit
      \property LabelledLineEdit::widgetAlignment
      \brief This property holds the alignment of the line edit.
 
-     @reimplements QLineEdit::widgetAlignment
+     \reimplements{QLineEdit::widgetAlignment}
 
-     @accessor %widgetAlignment(), %setWidgetAlignment()
+     \accessor{%widgetAlignment(), %setWidgetAlignment()}
   */
   Q_PROPERTY(
     Qt::Alignment widgetAlignment READ widgetAlignment WRITE setWidgetAlignment)
@@ -83,9 +83,9 @@ class SM_WIDGETS_SHARED_EXPORT LabelledLineEdit
      \brief This property holds whether the line edit displays a clear button
      when it is not empty.
 
-     @reimplements QLineEdit::clearButtonEnabled
+     \reimplements{QLineEdit::clearButtonEnabled}
 
-     @accessor %isClearButtonEnabled(), %setClearButtonEnabled()
+     \accessor{%isClearButtonEnabled(), %setClearButtonEnabled()}
   */
   Q_PROPERTY(bool clearButtonEnabled READ isClearButtonEnabled WRITE
                setClearButtonEnabled)
@@ -94,9 +94,9 @@ class SM_WIDGETS_SHARED_EXPORT LabelledLineEdit
      \property LabelledLineEdit::cursorMoveStyle
      \brief This property holds the movement style of cursor in this line edit.
 
-     @reimplements QLineEdit::cursorMoveStyle
+     \reimplements{QLineEdit::cursorMoveStyle}
 
-     @accessor %cursorMoveStyle(), %setCursorMoveStyle()
+     \accessor{%cursorMoveStyle(), %setCursorMoveStyle()}
   */
   Q_PROPERTY(Qt::CursorMoveStyle cursorMoveStyle READ cursorMoveStyle WRITE
                setCursorMoveStyle)
@@ -105,9 +105,9 @@ class SM_WIDGETS_SHARED_EXPORT LabelledLineEdit
      \property LabelledLineEdit::cursorPosition
      \brief This property holds the current cursor position for this line edit.
 
-     @reimplements QLineEdit::cursorPosition
+     \reimplements{QLineEdit::cursorPosition}
 
-     @accessor %cursorPosition(), %setCursorPosition()
+     \accessor{%cursorPosition(), %setCursorPosition()}
   */
   Q_PROPERTY(int cursorPosition READ cursorPosition WRITE setCursorPosition)
 
@@ -115,9 +115,9 @@ class SM_WIDGETS_SHARED_EXPORT LabelledLineEdit
      \property LabelledLineEdit::displayText
      \brief This property holds the displayed text.
 
-     @reimplements QLineEdit::displayText
+     \reimplements{QLineEdit::displayText}
 
-     @accessor %displayText()
+     \accessor{%displayText()}
   */
   Q_PROPERTY(QString displayText READ displayText)
 
@@ -126,9 +126,9 @@ class SM_WIDGETS_SHARED_EXPORT LabelledLineEdit
      \brief This property holds whether the lineedit starts a drag if the user
      presses and moves the mouse on some selected text.
 
-     @reimplements QLineEdit::dragEnabled
+     \reimplements{QLineEdit::dragEnabled}
 
-     @accessor %dragEnabled(), %setDragEnabled()
+     \accessor{%dragEnabled(), %setDragEnabled()}
   */
   Q_PROPERTY(int dragEnabled READ dragEnabled WRITE setDragEnabled)
 
@@ -136,9 +136,9 @@ class SM_WIDGETS_SHARED_EXPORT LabelledLineEdit
      \property LabelledLineEdit::echoMode
      \brief This property holds the line edit's echo mode.
 
-     @reimplements QLineEdit::echoMode
+     \reimplements{QLineEdit::echoMode}
 
-     @accessor %echoMode(), %setEchoMode()
+     \accessor{%echoMode(), %setEchoMode()}
   */
   Q_PROPERTY(QLineEdit::EchoMode echoMode READ echoMode WRITE setEchoMode)
 
@@ -146,9 +146,9 @@ class SM_WIDGETS_SHARED_EXPORT LabelledLineEdit
      \property LabelledLineEdit::selectedText
      \brief This property holds whether there is any text selected.
 
-     @reimplements QLineEdit::selectedText
+     \reimplements{QLineEdit::selectedText}
 
-      @accessor %hasSelectedText()
+      \accessor{%hasSelectedText()}
   */
   Q_PROPERTY(bool selectedText READ hasSelectedText)
 
@@ -156,9 +156,9 @@ class SM_WIDGETS_SHARED_EXPORT LabelledLineEdit
      \property LabelledLineEdit::inputMask
      \brief This property holds the validation input mask.
 
-     @reimplements QLineEdit::inputMask
+     \reimplements{QLineEdit::inputMask}
 
-     @accessor %inputMask(), %setInputMask(const QString &inputMask)
+     \accessor{%inputMask(), %setInputMask(const QString &inputMask)}
   */
   Q_PROPERTY(QString inputMask READ inputMask WRITE setInputMask)
 
@@ -166,9 +166,9 @@ class SM_WIDGETS_SHARED_EXPORT LabelledLineEdit
      \property LabelledLineEdit::maxLength
      \brief This property holds the maximum permitted length of the text.
 
-     @reimplements QLineEdit::maxLength
+     \reimplements{QLineEdit::maxLength}
 
-     @accessor %maxLength(), %setMaxLength()
+     \accessor{%maxLength(), %setMaxLength()}
   */
   Q_PROPERTY(int maxLength READ maxLength WRITE setMaxLength)
 
@@ -177,9 +177,9 @@ class SM_WIDGETS_SHARED_EXPORT LabelledLineEdit
      \brief This property holds whether the line edit's contents has been
      modified by the user.
 
-     @reimplements QLineEdit::modified
+     \reimplements{QLineEdit::modified}
 
-     @accessor %isModified(), %setModified()
+     \accessor{%isModified(), %setModified()}
   */
   Q_PROPERTY(int modified READ isModified WRITE setModified)
 
@@ -187,9 +187,9 @@ class SM_WIDGETS_SHARED_EXPORT LabelledLineEdit
      \property LabelledLineEdit::placeholderText()
      \brief Sets a placeholderText text shown when no valid index is set
 
-     @reimplements QLineEdit::placeholderText
+     \reimplements{QLineEdit::placeholderText}
 
-     @accessor %placeholderText(void), %setPlaceholderText()
+     \accessor{%placeholderText(void), %setPlaceholderText()}
   */
   Q_PROPERTY(
     QString placeholderText READ placeholderText WRITE setPlaceholderText)
@@ -198,9 +198,9 @@ class SM_WIDGETS_SHARED_EXPORT LabelledLineEdit
      \property LabelledLineEdit::readOnly()
      \brief This property holds whether the line edit is read only.
 
-     @reimplements QLineEdit::readOnly
+     \reimplements{QLineEdit::readOnly}
 
-     @accessor %isReadOnly(), %setReadOnly()
+     \accessor{%isReadOnly(), %setReadOnly()}
   */
   Q_PROPERTY(bool readOnly READ isReadOnly WRITE setReadOnly)
 
@@ -208,9 +208,9 @@ class SM_WIDGETS_SHARED_EXPORT LabelledLineEdit
      \property LabelledLineEdit::redoAvailable()
      \brief This property holds whether redo is available.
 
-     @reimplements QLineEdit::redoAvailable
+     \reimplements{QLineEdit::redoAvailable}
 
-     @accessor %isRedoAvailable()
+     \accessor{%isRedoAvailable()}
   */
   Q_PROPERTY(bool redoAvailable READ isRedoAvailable)
 
@@ -218,9 +218,9 @@ class SM_WIDGETS_SHARED_EXPORT LabelledLineEdit
      \property LabelledLineEdit::undoAvailable()
      \brief This property holds whether undo is available.
 
-     @reimplements QLineEdit::undoAvailable
+     \reimplements{QLineEdit::undoAvailable}
 
-     @accessor %isUndoAvailable()
+     \accessor{%isUndoAvailable()}
   */
   Q_PROPERTY(bool undoAvailable READ isUndoAvailable)
 
@@ -261,168 +261,168 @@ public:
                             const QString& contents,
                             QWidget* parent = nullptr);
 
-  //! @reimplements QLineEdit::addAction(QAction, QLineEdit::ActionPosition).
+  //! \reimplements{QLineEdit::addAction(QAction, QLineEdit::ActionPosition).}
   void addAction(QAction* action, QLineEdit::ActionPosition labelPosition);
 
-  //! @reimplements QLineEdit::addAction(const QIcon&,
+  //! \reimplements{QLineEdit::addAction(const QIcon&,}
   //! QLineEdit::ActionPosition).
   QAction* addAction(const QIcon& icon,
                      QLineEdit::ActionPosition labelPosition);
 
-  //! @reimplements QLineEdit::backspace().
+  //! \reimplements{QLineEdit::backspace().}
   void backspace();
 
-  //! @reimplements QLineEdit::completer().
+  //! \reimplements{QLineEdit::completer().}
   QCompleter* completer() const;
 
-  //! @reimplements QLineEdit::backspace().
+  //! \reimplements{QLineEdit::backspace().}
   QMenu* createStandardContextMenu();
 
-  //! @reimplements QLineEdit::cursorBackward().
+  //! \reimplements{QLineEdit::cursorBackward().}
   void cursorBackward(bool mark, int steps = 1);
 
-  //! @reimplements QLineEdit::cursorForward().
+  //! \reimplements{QLineEdit::cursorForward().}
   void cursorForward(bool mark, int steps = 1);
 
-  //! @reimplements QLineEdit::cursorPositionAt().
+  //! \reimplements{QLineEdit::cursorPositionAt().}
   int cursorPositionAt(const QPoint& pos);
 
-  //! @reimplements QLineEdit::cursorWordBackward().
+  //! \reimplements{QLineEdit::cursorWordBackward().}
   void cursorWordBackward(bool mark);
 
-  //! @reimplements QLineEdit::cursorWordForward().
+  //! \reimplements{QLineEdit::cursorWordForward().}
   void cursorWordForward(bool mark);
 
-  //! @reimplements QLineEdit::del().
+  //! \reimplements{QLineEdit::del().}
   void del();
 
-  //! @reimplements QLineEdit::deselect().
+  //! \reimplements{QLineEdit::deselect().}
   void deselect();
 
-  //! @reimplements QLineEdit::end().
+  //! \reimplements{QLineEdit::end().}
   void end(bool mark);
 
-  //! @reimplements QLineEdit::home().
+  //! \reimplements{QLineEdit::home().}
   void home(bool mark);
 
-  //! @reimplements QLineEdit::insert().
+  //! \reimplements{QLineEdit::insert().}
   void insert(const QString& newText);
 
-  //! @reimplements QLineEdit::selectionEnd().
+  //! \reimplements{QLineEdit::selectionEnd().}
   int selectionEnd() const;
 
-  //! @reimplements QLineEdit::selectionLength().
+  //! \reimplements{QLineEdit::selectionLength().}
   int selectionLength() const;
 
-  //! @reimplements QLineEdit::selectionStart().
+  //! \reimplements{QLineEdit::selectionStart().}
   int selectionStart() const;
 
-  //! @reimplements QLineEdit::setCompleter().
+  //! \reimplements{QLineEdit::setCompleter().}
   void setCompleter(QCompleter* c);
 
-  //! @reimplements QLineEdit::setSelection().
+  //! \reimplements{QLineEdit::setSelection().}
   void setSelection(int start, int length);
 
-  //! @reimplements QLineEdit::setTextMargins().
+  //! \reimplements{QLineEdit::setTextMargins().}
   void setTextMargins(int left, int top, int right, int bottom);
 
-  //! @reimplements QLineEdit::setValidator().
+  //! \reimplements{QLineEdit::setValidator().}
   void setValidator(const QValidator* v);
 
-  //! @reimplements QLineEdit::textMargins().
+  //! \reimplements{QLineEdit::textMargins().}
   QMargins textMargins() const;
 
-  //! @reimplements QLineEdit::validator().
+  //! \reimplements{QLineEdit::validator().}
   const QValidator* validator() const;
 
-  //! @reimplements QLineEdit::text().
+  //! \reimplements{QLineEdit::text().}
   QString text() const;
 
-  //! @reimplements QLineEdit::setText().
+  //! \reimplements{{QLineEdit::setText().}}
   void setText(const QString& text);
 
-  //! @reimplements QLineEdit::hasAcceptableInput().
+  //! \reimplements{QLineEdit::hasAcceptableInput().}
   bool hasAcceptableInput() const;
 
-  //! @reimplements QLineEdit::setAlignment().
+  //! \reimplements{QLineEdit::setAlignment().}
   void setWidgetAlignment(const Qt::Alignment& widgetAlignment) override;
 
-  //! @reimplements QLineEdit::alignment().
+  //! \reimplements{QLineEdit::alignment().}
   Qt::Alignment widgetAlignment() const override;
 
-  //! @reimplements QLineEdit::isClearButtonEnabled().
+  //! \reimplements{QLineEdit::isClearButtonEnabled().}
   bool isClearButtonEnabled() const;
 
-  //! @reimplements QLineEdit::setClearButtonEnabled().
+  //! \reimplements{QLineEdit::setClearButtonEnabled().}
   void setClearButtonEnabled(bool enable);
 
-  //! @reimplements QLineEdit::cursorMoveStyle().
+  //! \reimplements{QLineEdit::cursorMoveStyle().}
   Qt::CursorMoveStyle cursorMoveStyle() const;
 
-  //! @reimplements QLineEdit::setCursorMoveStyle().
+  //! \reimplements{QLineEdit::setCursorMoveStyle().}
   void setCursorMoveStyle(Qt::CursorMoveStyle style);
 
-  //! @reimplements QLineEdit::cursorPosition().
+  //! \reimplements{QLineEdit::cursorPosition().}
   int cursorPosition() const;
 
-  //! @reimplements QLineEdit::setCursorPosition().
+  //! \reimplements{QLineEdit::setCursorPosition().}
   void setCursorPosition(int position);
 
-  //! @reimplements QLineEdit::displayText().
+  //! \reimplements{QLineEdit::displayText().}
   QString displayText() const;
 
-  //! @reimplements QLineEdit::dragEnabled().
+  //! \reimplements{QLineEdit::dragEnabled().}
   bool dragEnabled() const;
 
-  //! @reimplements QLineEdit::setDragEnabled().
+  //! \reimplements{QLineEdit::setDragEnabled().}
   void setDragEnabled(bool enabled);
 
-  //! @reimplements QLineEdit::echoMode().
+  //! \reimplements{QLineEdit::echoMode().}
   QLineEdit::EchoMode echoMode() const;
 
-  //! @reimplements QLineEdit::setEchoMode().
+  //! \reimplements{QLineEdit::setEchoMode().}
   void setEchoMode(QLineEdit::EchoMode echomode);
 
-  //! @reimplements QLineEdit::hasSelectedText().
+  //! \reimplements{QLineEdit::hasSelectedText().}
   bool hasSelectedText() const;
 
-  //! @reimplements QLineEdit::inputMask().
+  //! \reimplements{QLineEdit::inputMask().}
   QString inputMask() const;
 
-  //! @reimplements QLineEdit::setInputMask().
+  //! \reimplements{QLineEdit::setInputMask().}
   void setInputMask(const QString& inputMask);
 
-  //! @reimplements QLineEdit::maxLength().
+  //! \reimplements{QLineEdit::maxLength().}
   int maxLength() const;
 
-  //! @reimplements QLineEdit::setMaxLength().
+  //! \reimplements{QLineEdit::setMaxLength().}
   void setMaxLength(int length);
 
-  //! @reimplements QLineEdit::isModified().
+  //! \reimplements{QLineEdit::isModified().}
   bool isModified() const;
 
-  //! @reimplements QLineEdit::setModified().
+  //! \reimplements{QLineEdit::setModified().}
   void setModified(bool modified);
 
-  //! @reimplements QLineEdit::placeholderText().
+  //! \reimplements{QLineEdit::placeholderText().}
   QString placeholderText() const;
 
-  //! @reimplements QLineEdit::setPlaceholderText().
+  //! \reimplements{QLineEdit::setPlaceholderText().}
   void setPlaceholderText(const QString& placeholderText);
 
-  //! @reimplements QLineEdit::isReadOnly().
+  //! \reimplements{QLineEdit::isReadOnly().}
   bool isReadOnly() const;
 
-  //! @reimplements QLineEdit::setReadOnly().
+  //! \reimplements{QLineEdit::setReadOnly().}
   void setReadOnly(bool readonly);
 
-  //! @reimplements QLineEdit::isRedoAvailable().
+  //! \reimplements{QLineEdit::isRedoAvailable().}
   bool isRedoAvailable() const;
 
-  //! @reimplements QLineEdit::selectedText().
+  //! \reimplements{QLineEdit::selectedText().}
   QString selectedText() const;
 
-  //! @reimplements QLineEdit::isUndoAvailable().
+  //! \reimplements{QLineEdit::isUndoAvailable().}
   bool isUndoAvailable() const;
 
   //! Checks whether the line edit is empty.

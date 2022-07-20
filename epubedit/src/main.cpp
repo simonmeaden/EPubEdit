@@ -2,6 +2,10 @@
 
 #include <QApplication>
 
+#include <Logger.h>
+#include <FileAppender.h>
+#include "signalappender.h"
+
 int
 main(int argc, char* argv[])
 {
@@ -11,3 +15,4 @@ main(int argc, char* argv[])
   w.show();
   return a.exec();
 }
+

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.16)
 cmake_policy(SET CMP0076 NEW)
 cmake_policy(SET CMP0079 NEW)
 
@@ -55,20 +55,47 @@ target_sources(${PROJECT_NAME}
     src/forms/metadatalist.cpp
     src/forms/emultisplitter.h
     src/forms/emultisplitter.cpp
-    src/forms/epubeditor.h
-    src/forms/epubeditor.cpp
+
     src/forms/epubcontents.h
     src/forms/epubcontents.cpp
     src/forms/mainwidget.h
     src/forms/mainwidget.cpp
-    src/forms/centralwidget.h
-    src/forms/centralwidget.cpp
+    src/forms/editorwidget.h
+    src/forms/editorwidget.cpp
     src/forms/leftsidebar.h
     src/forms/leftsidebar.cpp
     src/forms/rightsidebar.h
     src/forms/rightsidebar.cpp
     src/forms/infowidget.h
     src/forms/infowidget.cpp
+
+    src/forms/iepubeditor.h
+    src/forms/epubedit.h
+    src/forms/epubedit.cpp
+
+    src/forms/codeedit.h
+    src/forms/codeedit.cpp
+#    src/forms/private/codeeditorprivate.h
+#    src/forms/private/codeeditorprivate.cpp
+
+    src/forms/imageedit.h
+    src/forms/imageedit.cpp
+#    src/forms/private/imageeditprivate.h
+#    src/forms/private/imageeditprivate.cpp
+
+src/forms/epubeditor.h
+    src/forms/epubeditor.cpp
+    src/forms/private/epubeditorprivate.h
+    src/forms/private/epubeditorprivate.cpp
+
+    src/forms/filedialog.h
+    src/forms/filedialog.cpp
+
+    src/forms/abstractepubeditor.h
+    src/forms/abstractepubeditor.cpp
+    src/forms/private/abstractepubeditorprivate.h
+    src/forms/private/abstractepubeditorprivate.cpp
+
     src/forms/twocolview.h
     src/forms/twocolview.cpp
     src/forms/threecolview.h
@@ -114,4 +141,6 @@ target_link_libraries(${PROJECT_NAME}
     Qt::Widgets
     Qt::Xml
     Qt::Network
+    CuteLogger
+#    Log4Qt
 )

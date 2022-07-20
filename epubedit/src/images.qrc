@@ -18,6 +18,7 @@
         <file alias="GSaveAs">icons/document-save-as_g.png</file>
         <file>icons/document-save.png</file>
         <file alias="GSave">icons/document-save_g.png</file>
+        <file alias="Drag">icons/document.png</file>
         <file>icons/ebook-reader.png</file>
         <file>icons/edit-clear-all.png</file>
         <file alias="GClearAll">icons/edit-clear-all_g.png</file>
@@ -67,6 +68,8 @@
         <file>icons/go-previous.png</file>
         <file>icons/go-top.png</file>
         <file>icons/go-up.png</file>
+        <file alias="GreyArrowDown">icons/greyarrowdown.png</file>
+        <file alias="GreyArrowUp">icons/greyarrowup.png</file>
         <file>icons/help-about.png</file>
         <file>icons/help-contents.png</file>
         <file>icons/help-faq.png</file>
@@ -83,14 +86,14 @@
         <file alias="ShowLeft">icons/showLeft.png</file>
         <file alias="ShowRight">icons/showRight.png</file>
         <file alias="ShowTop">icons/showTop.png</file>
+        <file alias="SplitSideBySide">icons/splitH.png</file>
+        <file alias="SplitAboveAndBelow">icons/splitV.png</file>
         <file alias="Splitscreen">icons/splitscreen.png</file>
         <file>icons/text-html.png</file>
         <file>icons/tree.png</file>
-        <file alias="GreyArrowDown">icons/greyarrowdown.png</file>
-        <file alias="GreyArrowUp">icons/greyarrowup.png</file>
         <file alias="YellowArrowDown">icons/yellowarrowdown.png</file>
         <file alias="YellowArrowUp">icons/yellowarrowup.png</file>
-        <file alias="SplitSideBySide">icons/splitH.png</file>
-        <file alias="SplitAboveAndBelow">icons/splitV.png</file>
+        <file alias="YellowArrowLeft">icons/yellowarrowleft.png</file>
+        <file alias="YellowArrowRight">icons/yellowarrowright.png</file>
     </qresource>
 </RCC>

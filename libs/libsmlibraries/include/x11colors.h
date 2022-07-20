@@ -34,7 +34,7 @@
           to the standard Svg namespace and adds an extra X11 namespace that matches
           the Svg color set with an set that matches the X11 rgb.txt colors.
    \since 5.7.0
-   \license The MIT License
+   \license{The MIT License}
    \copyright © 2020 - 2021 Simon Meaden. All rights reserved.
 
    The Svg color set evolved from the X11 rgb.txt  color set, with many of the names

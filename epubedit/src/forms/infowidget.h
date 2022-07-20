@@ -20,6 +20,8 @@ public:
   QUndoView* undoView();
   QPlainTextEdit* logPage() const;
 
+  void appendLog(const QString& text);
+
 protected:
   void setVisible(bool visible) override;
 

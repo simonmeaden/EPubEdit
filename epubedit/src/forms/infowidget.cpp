@@ -1,6 +1,8 @@
 #include "infowidget.h"
+#include "abstractdockitem.h"
+#include "buttonwidget.h"
 #include "config.h"
-#include "dockitem.h"
+#include "dockheader.h"
 #include "widgetitem.h"
 
 #include "common.h"
@@ -15,9 +17,9 @@ InfoWidget::InfoWidget(PConfig config, QUndoStack* undoStack, QWidget* parent)
 {
   setContentsMargins(0, 0, 0, 0);
 
-  //  auto p = palette();
-  //  p.setColor(QPalette::Window, QColor("lightgreen"));
-  //  setPalette(p);
+  //    auto p = palette();
+  //    p.setColor(QPalette::Window, QColor("lightgreen"));
+  //    setPalette(p);
 
   auto img = QImage(":/icons/RemoveSplitDown");
   auto size = img.size();
@@ -29,15 +31,14 @@ InfoWidget::InfoWidget(PConfig config, QUndoStack* undoStack, QWidget* parent)
   m_removeSplitUp = QIcon(pix);
 
   m_removeSplitWidget = qobject_cast<ButtonWidget*>(
-    m_header->addIconButton(End, m_removeSplitDown, size));
-  setShowHeaderOnHide(false);
+    header()->addIconButton(End, m_removeSplitDown, size));
   connect(m_removeSplitWidget,
           &WidgetItem::widgetClicked,
           this,
           &InfoWidget::toggleVisible);
 
-  auto editor = createEditor(this);
-  setCentralWidget(editor);
+  m_logPage = new QPlainTextEdit(this);
+  setWidget(m_logPage);
 }
 
 QUndoView*
@@ -52,7 +53,14 @@ InfoWidget::logPage() const
   return m_logPage;
 }
 
-void InfoWidget::setVisible(bool visible)
+void
+InfoWidget::appendLog(const QString& text)
+{
+  m_logPage->appendPlainText(text);
+}
+
+void
+InfoWidget::setVisible(bool visible)
 {
   QWidget::setVisible(visible);
   if (m_config->infoIsVisible()) {

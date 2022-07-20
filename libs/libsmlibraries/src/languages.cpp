@@ -237,11 +237,15 @@ BCP47Language::setType(const Type& type)
   m_type = type;
 }
 
+void BCP47Language::setTypeFromString(const QString &) {
+  // TODO
+}
+
 QString
 BCP47Language::typeString()
 {
   switch (m_type) {
-    case LANGUAGE:
+  case LANGUAGE:
       return "language";
     case EXTLANG:
       return "extlang";
@@ -603,7 +607,8 @@ BCP47Languages::parsingErrorsReceived(
   // TODO parse errors and send message
   QString message;
   if (!errors.isEmpty()) {
-    for (auto& line : errors.keys()) {
+    auto keys = errors.keys();
+    for (auto& line : keys) {
       auto error = errors.value(line);
       if (error.testFlag(LanguageParser::NO_ERROR)) {
         // This should never happen, but just in case

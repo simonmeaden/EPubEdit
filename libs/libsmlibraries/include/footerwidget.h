@@ -6,15 +6,31 @@
 
 #include "abstractdockwidget.h"
 
-class DockItem;
+class DockFooter;
 
+/*!
+ * \class FooterWidget footerwidget.h "includes/footerwidget.h"
+ * \brief The FooterWidget class defines a FooterWidget object.
+ *
+ * A FooterWidget is a QWidget with a header bar in which various widgets
+ * can be placed. The actual widgets are stored in a DockFooter which can
+ * be accessed via the footer() method.
+ *
+ * \sa DockFooter
+ */
+class FooterWidgetPrivate;
 class FooterWidget : public AbstractDockWidget
 {
   Q_OBJECT
+  Q_DECLARE_PRIVATE(FooterWidget)
 public:
-  explicit FooterWidget(QWidget *parent = nullptr);
+  /*!
+   * \brief Constructs a FooterWidget which is a child of parent.
+   */
+  explicit FooterWidget(QWidget* parent = nullptr);
 
-  DockItem* footer() const;
+  //! Returns the DockFooter attached to this FooterWidget
+  DockFooter* footer();
 
   /*!
    * \brief Sets the central widget of the DockWidget.
@@ -26,39 +42,67 @@ public:
    * \note If the QWidget is replaced with itself, the pointer is returned but
    * nothing else is done. You will need to delete it yourself.
    */
-  QWidget* setCentralWidget(QWidget* centralWidget);
+  QWidget* setWidget(QWidget* widget);
 
+  //! \brief Hides the widget.
   void hideWidget();
+  //! Shows the widget.
   void showWidget();
+  //! True if the widget is visible, otherwise false.
   bool isWidgetVisible();
 
-  bool showFooterOnHide() const;
-  void setShowFooterOnHide(bool show);
+  /*!
+   * \brief Creates a clone of the DockWidget, passing it's variable
+   * and settings into the supplied 'master'. If the widget parameter is
+   * nullptr then it will create a clone of itself.
+   */
+  AbstractDockWidget *clone(AbstractDockWidget *widget);
 
 signals:
+  //! Triggered when the widgets size changes.
   void sizeChanged(QWidget* widget, const QSize& size);
+  //! Triggered when focus is lost.
+  void lostFocus(QWidget*);
+  //! Triggered whenfocus is gained.
+  void gotFocus(QWidget*);
 
 protected:
-  DockItem* m_footer;
+  FooterWidget(FooterWidgetPrivate& d);
+  FooterWidgetPrivate* d_ptr;
 
-  void paintEvent(QPaintEvent*) override;
+  /// \cond DO_NOT_DOCUMENT
+  DockFooter* m_footer;
+  /// \endcond DO_NOT_DOCUMENT
+
+  //! \reimplements{QWidget::paintEvent}
+  void paintEvent(QPaintEvent* event) override;
+  //! Implements a Hover Enter event
   void hoverEnterEvent(QHoverEvent* event);
+  //! Implements a Hover Leave event
   void hoverLeaveEvent(QHoverEvent*);
+  //! Implements a Hover Move event
   void hoverMoveEvent(QHoverEvent* event);
+  //! \reimplements{QWidget::mousePressEvent}
   void mousePressEvent(QMouseEvent* event) override;
-  void mouseReleaseEvent(QMouseEvent*) override;
+  //! \reimplements{QWidget::mouseReleaseEvent}
+//  void mouseReleaseEvent(QMouseEvent*) override;
+//  //! \reimplements{QWidget::event}
   bool event(QEvent* event) override;
+  //! \reimplements{QWidget::resizeEvent}
   void resizeEvent(QResizeEvent* event) override;
+  //! Implements QWidget::focusInEvent
+  void focusInEvent(QFocusEvent* event) override;
+  //! Implements QWidget::focusOutEvent
+  void focusOutEvent(QFocusEvent* event) override;
+
+  void widgetWasClicked(QPoint pos);
 
 private:
-  QWidget* m_centralWidget = nullptr;
-  QHBoxLayout* m_layout = nullptr;
   int m_width = 0;
   int m_height = 0;
   int m_footerHeight = 0;
   QSize m_hiddenSize;
   QSize m_visibleSize;
-  bool m_showFooterOnHide = true;
 
   void calculateGeometry(const QRect& rect);
 };

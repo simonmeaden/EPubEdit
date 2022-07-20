@@ -107,7 +107,7 @@ public:
 
   QDate published();
   void setPublished(const QDate& published);
-  QString buildTocFromData();
+//  QString buildTocFromData();
 
   EPubDocumentType type() const { return EPUB; }
   bool isModified();
@@ -127,10 +127,10 @@ public:
   PMetadata metadata();
   QMap<UniqueString, PManifestItem> pages();
   PManifest manifest() const;
-  EPubSpine spine();
+  PSpine spine();
 
   QList<UniqueString> cssKeys();
-  UniqueStringMap cssMap();
+  QMap<UniqueString, QString> cssMap();
   QString css(UniqueString key);
   QString javascript(UniqueString key);
   PManifestItem itemByHref(UniqueString href);
@@ -156,7 +156,7 @@ private:
   QByteArray m_mimetype;
   PMetadata m_metadata;
   PManifest m_manifest;
-  EPubSpine m_spine;
+  PSpine m_spine;
   QString m_containerVersion;
   QString m_containerXmlns;
   QString m_containerFullpath;
@@ -205,7 +205,7 @@ private:
   static const QRegularExpression reHtmlList;
   static const QRegularExpression reHtmlListItem;
 
-  QString buildTocfromHtml();
+//  QString buildTocfromHtml();
   bool loadDocumentFromFile(const QString& filename);
   bool copyBookToLibrary(const QString& oldFilename,
                          const QString& newFilename);

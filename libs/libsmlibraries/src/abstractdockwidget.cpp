@@ -1,127 +1,127 @@
 #include "abstractdockwidget.h"
-#include "dockitem.h"
+#include "abstractdockitem.h"
+#include "listbuttonwidget.h"
+#include "listwidget.h"
+#include "private/abstractdockwidgetprivate.h"
 #include "widgetitem.h"
 #include "x11colors.h"
 
 AbstractDockWidget::AbstractDockWidget(QWidget* parent)
-  : QWidget{ parent }
-  , m_backColor(QColor(64, 65, 66))
-  , m_hoverBackColor(QColorConstants::X11::grey43)
-  , m_selectedColor(QColorConstants::X11::grey18)
-  , m_spacerColor(QColorConstants::X11::DimGrey)
-{}
+  : QWidget(parent)
+  , d_ptr(new AbstractDockWidgetPrivate(this))
+{
+  initGui();
+}
+
+AbstractDockWidget::AbstractDockWidget(AbstractDockWidgetPrivate& d)
+  : d_ptr(&d)
+{
+  initGui();
+}
+
+AbstractDockWidget::AbstractDockWidget(AbstractDockWidgetPrivate& d,
+                                       QWidget* parent)
+  : QWidget(parent)
+  , d_ptr(&d)
+{
+  initGui();
+}
 
 const QColor&
 AbstractDockWidget::textColor() const
 {
-  return m_textColor;
+  return d_ptr->textColor();
+}
+
+void AbstractDockWidget::initGui()
+{
+  setAutoFillBackground(true);
+  setMouseTracking(true);
+  setAttribute(Qt::WA_Hover);
+  setLayout(d_ptr->m_layout);
 }
 
 void
-AbstractDockWidget::setTextColor(const QColor& newTextColor)
+AbstractDockWidget::setTextColor(const QColor& textColor)
 {
-  m_textColor = newTextColor;
+  d_ptr->setTextColor(textColor);
 }
 
 const QColor&
 AbstractDockWidget::spacerColor() const
 {
-  return m_spacerColor;
+  return d_ptr->spacerColor();
 }
 
 void
-AbstractDockWidget::setSpacerColor(const QColor& newSpacerColor)
+AbstractDockWidget::setSpacerColor(const QColor& spacerColor)
 {
-  m_spacerColor = newSpacerColor;
+  d_ptr->setSpacerColor(spacerColor);
+}
+
+const QRect&
+AbstractDockWidget::availableRect() const
+{
+  return d_ptr->availableRect();
+}
+
+void
+AbstractDockWidget::clone(AbstractDockWidget* widget)
+{
+  d_ptr->clone(widget);
+}
+
+void
+AbstractDockWidget::checkForOpenListWidgets(AbstractDockItem* item)
+{
+  d_ptr->checkForOpenListWidgets(item);
 }
 
 const QBrush&
 AbstractDockWidget::backColor() const
 {
-  return m_backColor;
+  return d_ptr->backColor();
 }
 
 void
-AbstractDockWidget::setBackColor(const QBrush& newBackColor)
+AbstractDockWidget::setBackColor(const QBrush& backColor)
 {
-  m_backColor = newBackColor;
+  d_ptr->setBackColor(backColor);
 }
 
 const QBrush&
 AbstractDockWidget::hoverBackColor() const
 {
-  return m_hoverBackColor;
+  return d_ptr->hoverBackColor();
 }
 
 void
-AbstractDockWidget::setHoverBackColor(const QBrush& newHoverBackColor)
+AbstractDockWidget::setHoverBackColor(const QBrush& hoverBackColor)
 {
-  m_hoverBackColor = newHoverBackColor;
+  d_ptr->setHoverBackColor(hoverBackColor);
 }
 
 const QBrush&
 AbstractDockWidget::selectedColor() const
 {
-  return m_selectedColor;
+  return d_ptr->selectedColor();
 }
 
 void
-AbstractDockWidget::setSelectedColor(const QBrush& newSelectedColor)
+AbstractDockWidget::setSelectedColor(const QBrush& selectedColor)
 {
-  m_selectedColor = newSelectedColor;
+  d_ptr->setSelectedColor(selectedColor);
 }
 
 bool
-AbstractDockWidget::dockItemHoverCheck(DockItem* item, QPoint pos)
+AbstractDockWidget::dockItemHoverCheck(AbstractDockItem* item, QPoint pos)
 {
-  if (item) {
-    auto widgets = item->widgets();
-    for (auto& w : widgets) {
-      if (w->rect().contains(pos)) {
-        if (m_hoverItem && w != m_hoverItem) {
-          m_hoverItem->setHoverOver(false);
-          QToolTip::hideText();
-          m_hoverItem = nullptr;
-        }
-        w->setHoverOver(true);
-        QToolTip::showText(mapToGlobal(pos), w->tooltip(), this, w->rect());
-        m_hoverItem = w;
-        repaint();
-        return true;
-      }
-    }
-  }
-  return false;
+  return d_ptr->dockItemHoverCheck(item, pos);
 }
 
 void
-AbstractDockWidget::mouseClickCheck(DockItem* item, QPoint pos)
+AbstractDockWidget::mouseClickCheck(AbstractDockItem* item, QPoint pos)
 {
-  auto widgets = item->widgets();
-
-  for (auto& w : widgets) {
-    if (w->rect().contains(pos)) {
-      if (w->isEnabled()) {
-        switch (w->type()) {
-          case Button: {
-            auto bl = w->rect().bottomLeft();
-            emit w->widgetClicked(bl);
-            w->setSelected(true);
-            break;
-          }
-          case List: {
-            //            emit w->widgetClicked();
-            auto listWidget = qobject_cast<ListWidget*>(w);
-            w->setSelected(true);
-            if (listWidget) {
-              listWidget->show(pos, rect());
-            }
-            break;
-          }
-          default:
-            break;
-        }
-      }
-    }
-  }
+  d_ptr->mouseClickCheck(item, pos);
 }
+

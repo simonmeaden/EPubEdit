@@ -43,7 +43,7 @@ public:
   //! Constructor for HexFormatDelegate
   explicit HexFormatDelegate(QObject* parent = nullptr);
 
-  //! @reimplements QStyledItemDelegate::displaytext
+  //! \reimplements{QStyledItemDelegate::displaytext}
   //! Overrides the default method to return hexadecimal values.
   QString displayText(const QVariant& value, const QLocale& locale) const;
 
