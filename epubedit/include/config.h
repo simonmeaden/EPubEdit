@@ -3,16 +3,18 @@
 
 #include <QDir>
 #include <QFile>
-#include <QList>
 #include <QMap>
-#include <QSize>
+#include <QRect>
 #include <QStandardPaths>
 #include <QString>
-#include <QStringList>
+#include <QVector>
 
 class BCP47Languages;
 
-class LimitedStringList : public QList<QString>
+#include "utilities/keymap.h"
+#include "widgets/iepubeditor.h"
+
+class LimitedStringList : public QVector<QString>
 {
 public:
   void append(const QString& str);
@@ -25,15 +27,11 @@ private:
   int m_sizeLimit = 10;
 };
 
-enum FileDataType
-{
-  Code,
-  Html,
-};
-
 struct FileData
 {
-  QString filename;
+  QString href;
+  IEPubEditor::Type editorType;
+  int currentPosition;
 };
 
 class Config : public QObject
@@ -44,6 +42,7 @@ class Config : public QObject
                setRightSidebarVisible)
   Q_PROPERTY(bool leftSidebarVisible READ isLeftSidebarVisible WRITE
                setLeftSidebarVisible)
+  Q_PROPERTY(QString libraryPath READ libraryPath WRITE setLibraryPath)
 
 public:
   enum SaveVersion
@@ -55,19 +54,25 @@ public:
     EPUB_3_4 = 34,
   };
   Config(QObject* parent = nullptr);
+  Config(BCP47Languages* languages, QObject* parent = nullptr);
   ~Config();
 
-  QString configDir() const;
-  void setConfigDir(const QString& value);
-  //  QString configFile() const;
+  const QString& homeDirectory() const;
+  void setHomeDirectory(const QString& homeDirectory);
+
+  BCP47Languages* languages() const;
+  void setLanguages(BCP47Languages *Languages);
 
   int statusTimeout() const;
   void setStatusTimeout(int value);
 
+  QString configDir() const;
+  void setConfigDir(const QString& value);
+
   SaveVersion saveVersion();
   void setSaveVersion(SaveVersion type);
   void setSaveVersion(const QString versionStr);
-  static QStringList versions();
+  static QVector<QString> versions();
   static SaveVersion version(const QString& versionStr);
   QString versionToString();
 
@@ -79,80 +84,81 @@ public:
   //!
   void setLibraryPath(const QString& filepath);
 
-  bool save();
-  void load();
-
-  BCP47Languages* languages() const;
+  bool save(const QString& filename = QString());
+  bool load(const QString& filename = QString());
 
   QString optionsFile() const;
-  void setOptionsFile(const QString& newOptionsFile);
+  void setOptionsFile(const QString& optionsFile);
 
   QString authorsFilename() const;
-  void setAuthorsFilename(const QString& newAuthorsFile);
-
-  const QString& homeDirectory() const;
-  void setHomeDirectory(const QString& newHome_directory);
+  void setAuthorsFilename(const QString& authorsFile);
 
   const QString& libraryDirectory() const;
-  void setLibraryDirectory(const QString& newLibraryDirectory);
+  void setLibraryDirectory(const QString& libraryDirectory);
 
   const QString& libraryFilename() const;
-  void setLibraryFilename(const QString& newLibraryFilename);
+  void setLibraryFilename(const QString& libraryFilename);
 
   const QString& configFilename() const;
 
   const QString& seriesFilename() const;
-  void setSeriesFilename(const QString& newSeriesFilename);
+  void setSeriesFilename(const QString& seriesFilename);
 
-  const QList<int>& mainSplitterSizes() const;
-  void setMainSplitterSizes(const QList<int>& newSplitterSizes);
+  const QVector<int>& mainSplitterSizes() const;
+  void setMainSplitterSizes(const QVector<int>& splitterSizes);
 
-  const QList<int>& centralSplitterSizes() const;
-  void setCentralSplitterSizes(const QList<int>& sizes);
+  const QVector<int>& centralSplitterSizes() const;
+  void setCentralSplitterSizes(const QVector<int>& sizes);
 
-  const QList<QList<int>>& editorSplitterSizes() const;
-  void setEditorSplitterSizes(const QList<QList<int>>& sizes);
-
-  const QSize& size() const;
-  void setSize(const QSize& newSize);
+  const QVector<QVector<int>>& editorSplitterSizes() const;
+  void setEditorSplitterSizes(const QVector<QVector<int>>& sizes);
 
   bool isLeftSidebarVisible() const;
-  void setLeftSidebarVisible(bool newLeftSidebarVisible);
+  void setLeftSidebarVisible(bool leftSidebarVisible);
 
   bool isRightSidebarVisible() const;
-  void setRightSidebarVisible(bool newLeftSidebarVisible);
+  void setRightSidebarVisible(bool rightSidebarVisible);
 
   bool infoIsVisible() const;
-  void setInfoIsVisible(bool newInfoIsVisible);
+  void setInfoIsVisible(bool infoIsVisible);
 
-  const QStringList& zipFileList() const;
-  void setZipFileList(const QStringList& newZipFileList);
+  const QVector<QString>& zipFileList() const;
+  void setZipFileList(const QVector<QString>& zipFileList);
 
   const QString& currentFilename() const;
-  void setCurrentFilename(const QString& newCurrentFilename);
+  void setCurrentFilename(const QString& currentFilename);
 
   //! Returns those ebook formats that can be loaded.
   //!
   //! By default only epub files are permitted.
-  const QStringList& fileTypes() const;
+  const QVector<QString>& fileTypes() const;
   //! Allows the user to add extra file types to load.
   //!
   //! By default only epub files are permitted.
   void addFileType(const QString& type);
 
   constexpr inline QMap<QString, FileData*>& fileData() { return m_fileData; }
-  constexpr inline QStringList& recentFiles() { return m_recentFiles; }
+  constexpr inline QVector<QString>& recentFiles() { return m_recentFiles; }
+
+  const QByteArray& windowGeometry() const;
+  void setWindowGeometry(const QByteArray& geometry);
+
+  void setKeyMapping(KeyEventMapper mapping, KeyMapper value);
+  KeyMapper keyMapping(KeyEventMapper mapping);
+  bool hasKeyMapping(KeyEventMapper mapping);
+  QMap<KeyEventMapper, KeyMapper> keyMap();
 
   static const int StatusTimeout = 20;
+
 
 signals:
   void sendStatusMessage(const QString& message, int timeout);
   void sendLogMessage(const QString& message);
 
 private:
-  BCP47Languages* m_languages;
   QString m_configDirectory;
   QString m_homeDirectory;
+  BCP47Languages* m_languages;
   QString m_libraryDirectory;
   QString m_libraryFilename;
   QString m_configFilename;
@@ -161,30 +167,36 @@ private:
   QString m_seriesFilename;
   QString m_dic_directory;
   QString m_bdic_directory;
-  QStringList m_fileTypes;
+  QVector<QString> m_fileTypes;
 
   SaveVersion m_saveVersion;
-  int m_statusTimeout; // timeout in seconds
-  bool m_modified;
 
-  QSize m_size;
-  QList<int> m_mainSplitterSizes, m_centralSplitterSizes;
-  QList<QList<int>> m_editorSplitterSizes;
+  QByteArray m_windowGeometry;
+  QVector<int> m_mainSplitterSizes, m_centralSplitterSizes;
+  QVector<QVector<int>> m_editorSplitterSizes;
   bool m_leftSidebarVisible = true;
   bool m_rightSidebarVisible = true;
   bool m_infoIsVisible = true;
+  int m_statusTimeout; // timeout in seconds
+  bool m_modified = false;
 
-  QStringList m_zipFileList;
+  QVector<QString> m_zipFileList;
   QString m_currentFilename;
 
-  QStringList m_recentFiles;
+  QVector<QString> m_recentFiles;
   QMap<QString, FileData*> m_fileData;
 
+  QMap<KeyEventMapper, KeyMapper> m_keyMap;
+
+  void saveLanguageFile();
+  void receiveStatusMessage(const QString& message);
+
+
   static const QString DEFAULT_LIBRARY_DIRECTORY_NAME;
-  static QStringList VERSION_STRINGS;
-  static const QString STATUS_TIMEOUT;
+  static QVector<QString> VERSION_STRINGS;
   static const QString SAVE_VERSION;
   static const QString LIBRARY_PATH;
+  static const QString WINDOW_GEOMETRY;
   static const QString MAINSPLITTER_SIZES;
   static const QString CENTRALSPLITTER_SIZES;
   static const QString RIGHT_SIDEBAR_VISIBLE;
@@ -194,9 +206,11 @@ private:
   static const QString POSSIBLE_FILE_TYPES;
   static const QString RECENT_FILES;
   static const QString CURRENT_STATUS;
+  static const QString KEYMAP;
 
-  void saveLanguageFile();
-  void receiveStatusMessage(const QString& message);
+  static const QString STATUS_TIMEOUT;
+
+  void setDefaultkeyValuesIfNotSet();
 };
 
 #endif // CONFIG_H

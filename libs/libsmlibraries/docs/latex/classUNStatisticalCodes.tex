@@ -1,0 +1,131 @@
+\hypertarget{classUNStatisticalCodes}{}\doxysection{UNStatistical\+Codes Class Reference}
+\label{classUNStatisticalCodes}\index{UNStatisticalCodes@{UNStatisticalCodes}}
+
+
+The \mbox{\hyperlink{classUNStatisticalCodes}{UNStatistical\+Codes}} class contains the Enlish language UN Statistical Code list.  
+
+
+
+
+{\ttfamily \#include $<$unstatistical.\+h$>$}
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{classUNStatisticalCodes_a114a288039f48a694d8b6b58970680d1}{Language}} \{ \newline
+\mbox{\hyperlink{classUNStatisticalCodes_a114a288039f48a694d8b6b58970680d1a432c5eefff515abe2afc7d307886a27d}{English}}
+, \mbox{\hyperlink{classUNStatisticalCodes_a114a288039f48a694d8b6b58970680d1a47e2c201bedb2751f516d48118138e21}{Russian}}
+, \mbox{\hyperlink{classUNStatisticalCodes_a114a288039f48a694d8b6b58970680d1a0bd8e15d6ee305b782b1d36928b5e91d}{Chinese}}
+, \mbox{\hyperlink{classUNStatisticalCodes_a114a288039f48a694d8b6b58970680d1ad2ea87357957b861f26df41eb9a40aa6}{French}}
+, \newline
+\mbox{\hyperlink{classUNStatisticalCodes_a114a288039f48a694d8b6b58970680d1afa2aa0426c0cd07c3671e9def73d8984}{Spanish}}
+, \mbox{\hyperlink{classUNStatisticalCodes_a114a288039f48a694d8b6b58970680d1aa1d2261a64d26cb18d68751339e2ff2b}{Arabic}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classUNStatisticalCodes_ac711228665589a68d11c7a1f39a30c02}\label{classUNStatisticalCodes_ac711228665589a68d11c7a1f39a30c02}} 
+QVector$<$ QString $>$ \mbox{\hyperlink{classUNStatisticalCodes_ac711228665589a68d11c7a1f39a30c02}{names}} (\mbox{\hyperlink{classUNStatisticalCodes_a114a288039f48a694d8b6b58970680d1}{Language}} lang)
+\begin{DoxyCompactList}\small\item\em Returns a QVector$<$\+QString$>$ containing all of the UN statistical named areas. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classUNStatisticalCodes_aa53d874aac4712a6910e2a65126d4e82}{m49\+As\+Int}} (\mbox{\hyperlink{classUNStatisticalCodes_a114a288039f48a694d8b6b58970680d1}{Language}} lang, const QString \&name)
+\begin{DoxyCompactList}\small\item\em returns the numerical code for the UN area as an integer value. \end{DoxyCompactList}\item 
+QString \mbox{\hyperlink{classUNStatisticalCodes_ad779cb2f36f46387a32ff1479e5267e2}{m49}} (\mbox{\hyperlink{classUNStatisticalCodes_a114a288039f48a694d8b6b58970680d1}{Language}} lang, const QString \&name)
+\begin{DoxyCompactList}\small\item\em Returns the numerical code for the UN area an a three character numerical code (\char`\"{}049\char`\"{} rather than an int). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classUNStatisticalCodes_af6b22c670589974009b19f8ed0bbc571}\label{classUNStatisticalCodes_af6b22c670589974009b19f8ed0bbc571}} 
+QString \mbox{\hyperlink{classUNStatisticalCodes_af6b22c670589974009b19f8ed0bbc571}{alpha\+Code}} (\mbox{\hyperlink{classUNStatisticalCodes_a114a288039f48a694d8b6b58970680d1}{Language}} lang, const QString \&name)
+\begin{DoxyCompactList}\small\item\em Returns the three character alpha code for the UN area as a QString. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classUNStatisticalCodes_a208778c8370aa1a7d8eed79d78e879df}{is\+M49\+Valid}} (int value)
+\item 
+bool \mbox{\hyperlink{classUNStatisticalCodes_a6f8c20d0d47cf20a3801213676fdccd6}{is\+M49\+Valid}} (const QString \&value)
+\item 
+bool \mbox{\hyperlink{classUNStatisticalCodes_aff0f7392f661e31e9c03ad2abe1af942}{is\+Alpha3\+Valid}} (const QString \&value)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classUNStatisticalCodes}{UNStatistical\+Codes}} class contains the Enlish language UN Statistical Code list. 
+
+The list of countries or areas contains the names of countries or areas in alphabetical order, their three-\/digit numerical codes used for statistical processing purposes by the Statistics Division of the United Nations Secretariat, and their three-\/digit alphabetical codes assigned by the International Organization for Standardization (ISO).1 In general, this list of countries or areas includes those countries or areas for which statistical data are compiled by the Statistics Division of the United Nations Secretariat.
+
+The names of countries or areas refer to their short form used in day-\/to-\/day operations of the United Nations and not necessarily to their official name as used in formal documents. These names are based on the United Nations Terminology Database (UNTERM).2 The designations employed and the presentation of material at this site do not imply the expression of any opinion whatsoever on the part of the Secretariat of the United Nations concerning the legal status of any country, territory, city or area or of its authorities, or concerning the delimitation of its frontiers or boundaries. 
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{classUNStatisticalCodes_a114a288039f48a694d8b6b58970680d1}\label{classUNStatisticalCodes_a114a288039f48a694d8b6b58970680d1}} 
+\index{UNStatisticalCodes@{UNStatisticalCodes}!Language@{Language}}
+\index{Language@{Language}!UNStatisticalCodes@{UNStatisticalCodes}}
+\doxysubsubsection{\texorpdfstring{Language}{Language}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classUNStatisticalCodes_a114a288039f48a694d8b6b58970680d1}{UNStatistical\+Codes\+::\+Language}}}
+
+Supported languages. These are the only languages shown on the UN website. \begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{English@{English}!UNStatisticalCodes@{UNStatisticalCodes}}\index{UNStatisticalCodes@{UNStatisticalCodes}!English@{English}}}\mbox{\Hypertarget{classUNStatisticalCodes_a114a288039f48a694d8b6b58970680d1a432c5eefff515abe2afc7d307886a27d}\label{classUNStatisticalCodes_a114a288039f48a694d8b6b58970680d1a432c5eefff515abe2afc7d307886a27d}} 
+English&English language names. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Russian@{Russian}!UNStatisticalCodes@{UNStatisticalCodes}}\index{UNStatisticalCodes@{UNStatisticalCodes}!Russian@{Russian}}}\mbox{\Hypertarget{classUNStatisticalCodes_a114a288039f48a694d8b6b58970680d1a47e2c201bedb2751f516d48118138e21}\label{classUNStatisticalCodes_a114a288039f48a694d8b6b58970680d1a47e2c201bedb2751f516d48118138e21}} 
+Russian&Russian language names. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Chinese@{Chinese}!UNStatisticalCodes@{UNStatisticalCodes}}\index{UNStatisticalCodes@{UNStatisticalCodes}!Chinese@{Chinese}}}\mbox{\Hypertarget{classUNStatisticalCodes_a114a288039f48a694d8b6b58970680d1a0bd8e15d6ee305b782b1d36928b5e91d}\label{classUNStatisticalCodes_a114a288039f48a694d8b6b58970680d1a0bd8e15d6ee305b782b1d36928b5e91d}} 
+Chinese&Chinese language names. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{French@{French}!UNStatisticalCodes@{UNStatisticalCodes}}\index{UNStatisticalCodes@{UNStatisticalCodes}!French@{French}}}\mbox{\Hypertarget{classUNStatisticalCodes_a114a288039f48a694d8b6b58970680d1ad2ea87357957b861f26df41eb9a40aa6}\label{classUNStatisticalCodes_a114a288039f48a694d8b6b58970680d1ad2ea87357957b861f26df41eb9a40aa6}} 
+French&French language names. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Spanish@{Spanish}!UNStatisticalCodes@{UNStatisticalCodes}}\index{UNStatisticalCodes@{UNStatisticalCodes}!Spanish@{Spanish}}}\mbox{\Hypertarget{classUNStatisticalCodes_a114a288039f48a694d8b6b58970680d1afa2aa0426c0cd07c3671e9def73d8984}\label{classUNStatisticalCodes_a114a288039f48a694d8b6b58970680d1afa2aa0426c0cd07c3671e9def73d8984}} 
+Spanish&Spanish language names. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Arabic@{Arabic}!UNStatisticalCodes@{UNStatisticalCodes}}\index{UNStatisticalCodes@{UNStatisticalCodes}!Arabic@{Arabic}}}\mbox{\Hypertarget{classUNStatisticalCodes_a114a288039f48a694d8b6b58970680d1aa1d2261a64d26cb18d68751339e2ff2b}\label{classUNStatisticalCodes_a114a288039f48a694d8b6b58970680d1aa1d2261a64d26cb18d68751339e2ff2b}} 
+Arabic&Arabic language names. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classUNStatisticalCodes_aff0f7392f661e31e9c03ad2abe1af942}\label{classUNStatisticalCodes_aff0f7392f661e31e9c03ad2abe1af942}} 
+\index{UNStatisticalCodes@{UNStatisticalCodes}!isAlpha3Valid@{isAlpha3Valid}}
+\index{isAlpha3Valid@{isAlpha3Valid}!UNStatisticalCodes@{UNStatisticalCodes}}
+\doxysubsubsection{\texorpdfstring{isAlpha3Valid()}{isAlpha3Valid()}}
+{\footnotesize\ttfamily bool UNStatistical\+Codes\+::is\+Alpha3\+Valid (\begin{DoxyParamCaption}\item[{const QString \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Checks whether the alpha 3 value is a valid code. Returns true if it is, otherwise returns false. \mbox{\Hypertarget{classUNStatisticalCodes_a6f8c20d0d47cf20a3801213676fdccd6}\label{classUNStatisticalCodes_a6f8c20d0d47cf20a3801213676fdccd6}} 
+\index{UNStatisticalCodes@{UNStatisticalCodes}!isM49Valid@{isM49Valid}}
+\index{isM49Valid@{isM49Valid}!UNStatisticalCodes@{UNStatisticalCodes}}
+\doxysubsubsection{\texorpdfstring{isM49Valid()}{isM49Valid()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool UNStatistical\+Codes\+::is\+M49\+Valid (\begin{DoxyParamCaption}\item[{const QString \&}]{value }\end{DoxyParamCaption})}
+
+Checks whether the M49 (as a 3 digit QString) is a valid code. Returns true if it is, otherwise returns false. \mbox{\Hypertarget{classUNStatisticalCodes_a208778c8370aa1a7d8eed79d78e879df}\label{classUNStatisticalCodes_a208778c8370aa1a7d8eed79d78e879df}} 
+\index{UNStatisticalCodes@{UNStatisticalCodes}!isM49Valid@{isM49Valid}}
+\index{isM49Valid@{isM49Valid}!UNStatisticalCodes@{UNStatisticalCodes}}
+\doxysubsubsection{\texorpdfstring{isM49Valid()}{isM49Valid()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool UNStatistical\+Codes\+::is\+M49\+Valid (\begin{DoxyParamCaption}\item[{int}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Checks whether the M49 (as an int) is a valid code. Returns true if it is, otherwise returns false. \mbox{\Hypertarget{classUNStatisticalCodes_ad779cb2f36f46387a32ff1479e5267e2}\label{classUNStatisticalCodes_ad779cb2f36f46387a32ff1479e5267e2}} 
+\index{UNStatisticalCodes@{UNStatisticalCodes}!m49@{m49}}
+\index{m49@{m49}!UNStatisticalCodes@{UNStatisticalCodes}}
+\doxysubsubsection{\texorpdfstring{m49()}{m49()}}
+{\footnotesize\ttfamily QString UNStatistical\+Codes\+::m49 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classUNStatisticalCodes_a114a288039f48a694d8b6b58970680d1}{Language}}}]{lang,  }\item[{const QString \&}]{name }\end{DoxyParamCaption})}
+
+
+
+Returns the numerical code for the UN area an a three character numerical code (\char`\"{}049\char`\"{} rather than an int). 
+
+If you need the code as a numerical int value use m49\+As\+Int(const QString\&). \mbox{\Hypertarget{classUNStatisticalCodes_aa53d874aac4712a6910e2a65126d4e82}\label{classUNStatisticalCodes_aa53d874aac4712a6910e2a65126d4e82}} 
+\index{UNStatisticalCodes@{UNStatisticalCodes}!m49AsInt@{m49AsInt}}
+\index{m49AsInt@{m49AsInt}!UNStatisticalCodes@{UNStatisticalCodes}}
+\doxysubsubsection{\texorpdfstring{m49AsInt()}{m49AsInt()}}
+{\footnotesize\ttfamily int UNStatistical\+Codes\+::m49\+As\+Int (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classUNStatisticalCodes_a114a288039f48a694d8b6b58970680d1}{Language}}}]{lang,  }\item[{const QString \&}]{name }\end{DoxyParamCaption})}
+
+
+
+returns the numerical code for the UN area as an integer value. 
+
+Normally these codes are required as a three character code. For this use the static m49(const QString\&) method. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+unstatistical.\+h\end{DoxyCompactItemize}

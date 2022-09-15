@@ -1,5 +1,5 @@
 #include "forms/editorwidget.h"
-#include "docksplitter.h"
+#include "docker/docksplitter.h"
 #include "forms/emultisplitter.h"
 #include "forms/epubeditor.h"
 #include "forms/infowidget.h"

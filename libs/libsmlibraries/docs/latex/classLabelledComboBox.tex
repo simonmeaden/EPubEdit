@@ -1,0 +1,497 @@
+\hypertarget{classLabelledComboBox}{}\doxysection{Labelled\+Combo\+Box Class Reference}
+\label{classLabelledComboBox}\index{LabelledComboBox@{LabelledComboBox}}
+
+
+The \mbox{\hyperlink{classLabelledComboBox}{Labelled\+Combo\+Box}} is a wrapper for QLabel and QCombo\+Box that provides a labelled combo box.  
+
+
+
+
+{\ttfamily \#include $<$labelledcombobox.\+h$>$}
+
+Inheritance diagram for Labelled\+Combo\+Box\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classLabelledComboBox}
+\end{center}
+\end{figure}
+\doxysubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classLabelledComboBox_a3c07f1914520272104e9fe8fdf834ea9}{activated}} (int index)
+\begin{DoxyCompactList}\small\item\em This signal is sent when the user chooses an item in the combobox. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classLabelledComboBox_ae6c248e9d6ec4b34b96d81b1fe911a4c}{current\+Index\+Changed}} (int index)
+\item 
+void \mbox{\hyperlink{classLabelledComboBox_a07ed9591d28f6dd3eb6c36d5b9d911f9}{current\+Text\+Changed}} (const QString \&\mbox{\hyperlink{classAbstractLabelledWidget_a38a4d448633db671496c5ef5b9591a9d}{label\+Text}})
+\item 
+void \mbox{\hyperlink{classLabelledComboBox_a5d950760e4d6cd16737d80d91190530e}{edit\+Text\+Changed}} (const QString \&\mbox{\hyperlink{classAbstractLabelledWidget_a38a4d448633db671496c5ef5b9591a9d}{label\+Text}})
+\item 
+void \mbox{\hyperlink{classLabelledComboBox_a70017858bb4d0022cb75a1c39bfd049f}{highlighted}} (int index)
+\item 
+void \mbox{\hyperlink{classLabelledComboBox_a1e5abae4b7075229610eaed37572400f}{text\+Activated}} (const QString \&\mbox{\hyperlink{classAbstractLabelledWidget_a38a4d448633db671496c5ef5b9591a9d}{label\+Text}})
+\item 
+void \mbox{\hyperlink{classLabelledComboBox_a075c331b9ece9780f75f2458182f6edb}{text\+Highlighted}} (const QString \&\mbox{\hyperlink{classAbstractLabelledWidget_a38a4d448633db671496c5ef5b9591a9d}{label\+Text}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classLabelledComboBox_acd7df2ebf6903bb9f1682c86f0f79296}{Labelled\+Combo\+Box}} (const QString \&\mbox{\hyperlink{classAbstractLabelledWidget_a38a4d448633db671496c5ef5b9591a9d}{label\+Text}}, QWidget $\ast$parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{classLabelledComboBox}{Labelled\+Combo\+Box}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_aac5553cb0b29ac46aaa1afe2d10914cf}\label{classLabelledComboBox_aac5553cb0b29ac46aaa1afe2d10914cf}} 
+void \mbox{\hyperlink{classLabelledComboBox_aac5553cb0b29ac46aaa1afe2d10914cf}{set\+Custom\+Combo\+Box}} (QCombo\+Box $\ast$replacement)
+\begin{DoxyCompactList}\small\item\em Changes the default factory combo box with a custom supplied one. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a3104e38bff8dfa35f6bc2763e5cdc51a}\label{classLabelledComboBox_a3104e38bff8dfa35f6bc2763e5cdc51a}} 
+void \mbox{\hyperlink{classLabelledComboBox_a3104e38bff8dfa35f6bc2763e5cdc51a}{add\+Item}} (const QString \&\mbox{\hyperlink{classAbstractLabelledWidget_a38a4d448633db671496c5ef5b9591a9d}{label\+Text}}, const QVariant \&userdata=QVariant())
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::add\+Item(const QString\& const QVariant\&). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classLabelledComboBox_aed9f41e82731418334052efec61dcb77}{add\+Item}} (const QIcon \&icon, const QString \&\mbox{\hyperlink{classAbstractLabelledWidget_a38a4d448633db671496c5ef5b9591a9d}{label\+Text}}, const QVariant \&userdata=QVariant())
+\item 
+\mbox{\Hypertarget{classLabelledComboBox_a9d7d3384a52b7d573a42dde08713e4c4}\label{classLabelledComboBox_a9d7d3384a52b7d573a42dde08713e4c4}} 
+void \mbox{\hyperlink{classLabelledComboBox_a9d7d3384a52b7d573a42dde08713e4c4}{add\+Items}} (const QString\+List \&items)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::add\+Items(const QString\+List\&). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a3050115d82a9d61b54aed658c5e5d461}\label{classLabelledComboBox_a3050115d82a9d61b54aed658c5e5d461}} 
+QCompleter $\ast$ \mbox{\hyperlink{classLabelledComboBox_a3050115d82a9d61b54aed658c5e5d461}{completer}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::completer() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a0ddf87d91ad3c778008d7dbc301f565f}\label{classLabelledComboBox_a0ddf87d91ad3c778008d7dbc301f565f}} 
+void \mbox{\hyperlink{classLabelledComboBox_a0ddf87d91ad3c778008d7dbc301f565f}{set\+Completer}} (QCompleter $\ast$\mbox{\hyperlink{classLabelledComboBox_a3050115d82a9d61b54aed658c5e5d461}{completer}})
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::set\+Completer(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_abfe581a1e576defd8dbcacff5651aed1}\label{classLabelledComboBox_abfe581a1e576defd8dbcacff5651aed1}} 
+int \mbox{\hyperlink{classLabelledComboBox_abfe581a1e576defd8dbcacff5651aed1}{count}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::count() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_ac3cf47fdd0bc2f22536bb99073b3887a}\label{classLabelledComboBox_ac3cf47fdd0bc2f22536bb99073b3887a}} 
+int \mbox{\hyperlink{classLabelledComboBox_ac3cf47fdd0bc2f22536bb99073b3887a}{max\+Count}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::max\+Count() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_ad7e1e5e722866d4af80e47a960d9b973}\label{classLabelledComboBox_ad7e1e5e722866d4af80e47a960d9b973}} 
+void \mbox{\hyperlink{classLabelledComboBox_ad7e1e5e722866d4af80e47a960d9b973}{set\+Max\+Count}} (int max)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::set\+Max\+Count(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a02606ebc3647c17da4f60d2a7f6ef1d7}\label{classLabelledComboBox_a02606ebc3647c17da4f60d2a7f6ef1d7}} 
+QVariant \mbox{\hyperlink{classLabelledComboBox_a02606ebc3647c17da4f60d2a7f6ef1d7}{current\+Data}} (int role=Qt\+::\+User\+Role) const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::current\+Data() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_af877b8380ed96539864fbd57d045b504}\label{classLabelledComboBox_af877b8380ed96539864fbd57d045b504}} 
+int \mbox{\hyperlink{classLabelledComboBox_af877b8380ed96539864fbd57d045b504}{current\+Index}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::current\+Index() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a99362d5a17002c28b854f7fc25cbfc59}\label{classLabelledComboBox_a99362d5a17002c28b854f7fc25cbfc59}} 
+QString \mbox{\hyperlink{classLabelledComboBox_a99362d5a17002c28b854f7fc25cbfc59}{current\+Text}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::current\+Text() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_aced76315a7f84a1ddc73b3d0d69ace56}\label{classLabelledComboBox_aced76315a7f84a1ddc73b3d0d69ace56}} 
+bool \mbox{\hyperlink{classLabelledComboBox_aced76315a7f84a1ddc73b3d0d69ace56}{duplicates\+Enabled}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::duplicates\+Enabled(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_aedad3aa2933803fb3aeb70f34c567165}\label{classLabelledComboBox_aedad3aa2933803fb3aeb70f34c567165}} 
+void \mbox{\hyperlink{classLabelledComboBox_aedad3aa2933803fb3aeb70f34c567165}{set\+Duplicates\+Enabled}} (bool enable)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::set\+Duplicates\+Enabled(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_aa70e56119d761d7d6a1912c15fe6bcae}\label{classLabelledComboBox_aa70e56119d761d7d6a1912c15fe6bcae}} 
+int \mbox{\hyperlink{classLabelledComboBox_aa70e56119d761d7d6a1912c15fe6bcae}{find\+Data}} (const QVariant \&data, int role=Qt\+::\+User\+Role, Qt\+::\+Match\+Flags flags=static\+\_\+cast$<$ Qt\+::\+Match\+Flags $>$(Qt\+::\+Match\+Exactly$\vert$Qt\+::\+Match\+Case\+Sensitive)) const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::find\+Data() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_abf6c1602af6e7fbf2b9c73d550fdd83f}\label{classLabelledComboBox_abf6c1602af6e7fbf2b9c73d550fdd83f}} 
+int \mbox{\hyperlink{classLabelledComboBox_abf6c1602af6e7fbf2b9c73d550fdd83f}{find\+Text}} (const QString \&\mbox{\hyperlink{classAbstractLabelledWidget_a38a4d448633db671496c5ef5b9591a9d}{label\+Text}}, Qt\+::\+Match\+Flags flags=Qt\+::\+Match\+Exactly$\vert$Qt\+::\+Match\+Case\+Sensitive) const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::find\+Text() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_ae15701182578d2115ad9a7e990d1abe8}\label{classLabelledComboBox_ae15701182578d2115ad9a7e990d1abe8}} 
+QSize \mbox{\hyperlink{classLabelledComboBox_ae15701182578d2115ad9a7e990d1abe8}{icon\+Size}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::icon\+Size() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a87222f34b266394a4780088bd059b393}\label{classLabelledComboBox_a87222f34b266394a4780088bd059b393}} 
+void \mbox{\hyperlink{classLabelledComboBox_a87222f34b266394a4780088bd059b393}{hide\+Popup}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box-\/$>$\mbox{\hyperlink{classLabelledComboBox_a87222f34b266394a4780088bd059b393}{hide\+Popup()}} \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classLabelledComboBox_abb8669346dcd28b41bcf61c8027a4568}{insert\+Item}} (int index, const QString \&\mbox{\hyperlink{classAbstractLabelledWidget_a38a4d448633db671496c5ef5b9591a9d}{label\+Text}}, const QVariant \&user\+Data=QVariant())
+\item 
+void \mbox{\hyperlink{classLabelledComboBox_a86aebdddcb5f6241aa3679789ef3348b}{insert\+Item}} (int index, const QIcon \&icon, const QString \&\mbox{\hyperlink{classAbstractLabelledWidget_a38a4d448633db671496c5ef5b9591a9d}{label\+Text}}, const QVariant \&user\+Data=QVariant())
+\item 
+\mbox{\Hypertarget{classLabelledComboBox_ae197c89f47db05950bb1e5b9a16fd2a2}\label{classLabelledComboBox_ae197c89f47db05950bb1e5b9a16fd2a2}} 
+void \mbox{\hyperlink{classLabelledComboBox_ae197c89f47db05950bb1e5b9a16fd2a2}{insert\+Items}} (int index, const QString\+List \&list)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::insert\+Items(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a2d76f569df2231443069ddf28b282c98}\label{classLabelledComboBox_a2d76f569df2231443069ddf28b282c98}} 
+QCombo\+Box\+::\+Insert\+Policy \mbox{\hyperlink{classLabelledComboBox_a2d76f569df2231443069ddf28b282c98}{insert\+Policy}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::insert\+Policy() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a732fc58ef4e78e874b9a2a91346b4afb}\label{classLabelledComboBox_a732fc58ef4e78e874b9a2a91346b4afb}} 
+void \mbox{\hyperlink{classLabelledComboBox_a732fc58ef4e78e874b9a2a91346b4afb}{insert\+Separator}} (int index)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::insert\+Separator(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a779885b79f7b211134472d0e76af0920}\label{classLabelledComboBox_a779885b79f7b211134472d0e76af0920}} 
+bool \mbox{\hyperlink{classLabelledComboBox_a779885b79f7b211134472d0e76af0920}{is\+Editable}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::is\+Editable() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a35d216c2323f79cdd70f7e18029ac09d}\label{classLabelledComboBox_a35d216c2323f79cdd70f7e18029ac09d}} 
+QVariant \mbox{\hyperlink{classLabelledComboBox_a35d216c2323f79cdd70f7e18029ac09d}{item\+Data}} (int index, int role=Qt\+::\+User\+Role) const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::item\+Data() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_ad530bc95dfe78dda979ac1f5e2826235}\label{classLabelledComboBox_ad530bc95dfe78dda979ac1f5e2826235}} 
+QAbstract\+Item\+Delegate $\ast$ \mbox{\hyperlink{classLabelledComboBox_ad530bc95dfe78dda979ac1f5e2826235}{item\+Delegate}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::item\+Delegate() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a569718d122d7ec9e8213875fb9f0b1c0}\label{classLabelledComboBox_a569718d122d7ec9e8213875fb9f0b1c0}} 
+QIcon \mbox{\hyperlink{classLabelledComboBox_a569718d122d7ec9e8213875fb9f0b1c0}{item\+Icon}} (int index) const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::item\+Icon() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_aef58715e55dbbe2ced1e9ba84f6b829a}\label{classLabelledComboBox_aef58715e55dbbe2ced1e9ba84f6b829a}} 
+QString \mbox{\hyperlink{classLabelledComboBox_aef58715e55dbbe2ced1e9ba84f6b829a}{item\+Text}} (int index) const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::item\+Text() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_aea0f3acc2abd81b0ea69768156b24095}\label{classLabelledComboBox_aea0f3acc2abd81b0ea69768156b24095}} 
+QLine\+Edit $\ast$ \mbox{\hyperlink{classLabelledComboBox_aea0f3acc2abd81b0ea69768156b24095}{line\+Edit}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::line\+Edit() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a95ef3228911c5288a288b5fb9a726bd4}\label{classLabelledComboBox_a95ef3228911c5288a288b5fb9a726bd4}} 
+int \mbox{\hyperlink{classLabelledComboBox_a95ef3228911c5288a288b5fb9a726bd4}{max\+Visible\+Items}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::max\+Visible\+Items() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a2861c73f664dc8e9e41a4d31f8ebdcbc}\label{classLabelledComboBox_a2861c73f664dc8e9e41a4d31f8ebdcbc}} 
+int \mbox{\hyperlink{classLabelledComboBox_a2861c73f664dc8e9e41a4d31f8ebdcbc}{minimum\+Contents\+Length}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::minimum\+Contents\+Length() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a74dad4ea1806d361b2f93dca2354e89e}\label{classLabelledComboBox_a74dad4ea1806d361b2f93dca2354e89e}} 
+QAbstract\+Item\+Model $\ast$ \mbox{\hyperlink{classLabelledComboBox_a74dad4ea1806d361b2f93dca2354e89e}{model}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::model() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a29c8121d807d555d4d7e516d10d26267}\label{classLabelledComboBox_a29c8121d807d555d4d7e516d10d26267}} 
+int \mbox{\hyperlink{classLabelledComboBox_a29c8121d807d555d4d7e516d10d26267}{model\+Column}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::model\+Column() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_ac29f6def646447e8157887c37d9e244f}\label{classLabelledComboBox_ac29f6def646447e8157887c37d9e244f}} 
+QString \mbox{\hyperlink{classLabelledComboBox_ac29f6def646447e8157887c37d9e244f}{placeholder\+Text}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::placeholder\+Text() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a0dbf12d33ae4f7d878af0a608bbbb361}\label{classLabelledComboBox_a0dbf12d33ae4f7d878af0a608bbbb361}} 
+void \mbox{\hyperlink{classLabelledComboBox_a0dbf12d33ae4f7d878af0a608bbbb361}{set\+Placeholder\+Text}} (const QString \&\mbox{\hyperlink{classLabelledComboBox_a61f8fcc1e3c4f6ab9934401cfec5aacd}{placeholder\+Text}})
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::set\+Placeholder\+Text(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a54c8a3317945d32882a363ce325614dc}\label{classLabelledComboBox_a54c8a3317945d32882a363ce325614dc}} 
+void \mbox{\hyperlink{classLabelledComboBox_a54c8a3317945d32882a363ce325614dc}{remove\+Item}} (int index)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::remove\+Item(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a9a05291ea4f942cd8347ced29aaa01ce}\label{classLabelledComboBox_a9a05291ea4f942cd8347ced29aaa01ce}} 
+QModel\+Index \mbox{\hyperlink{classLabelledComboBox_a9a05291ea4f942cd8347ced29aaa01ce}{root\+Model\+Index}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::root\+Model\+Index() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a1d6b3152fc9b76b7b611a9f547c756e1}\label{classLabelledComboBox_a1d6b3152fc9b76b7b611a9f547c756e1}} 
+void \mbox{\hyperlink{classLabelledComboBox_a1d6b3152fc9b76b7b611a9f547c756e1}{set\+Editable}} (bool \mbox{\hyperlink{classLabelledComboBox_a133337de220895015bdbd3f108c691c6}{editable}})
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::set\+Editable(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_aaa9de42ebe225c5c043ee86db0e3c491}\label{classLabelledComboBox_aaa9de42ebe225c5c043ee86db0e3c491}} 
+void \mbox{\hyperlink{classLabelledComboBox_aaa9de42ebe225c5c043ee86db0e3c491}{set\+Icon\+Size}} (const QSize \&size)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::set\+Icon\+Size(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a59f958b58fed8548223bfed8fbb04683}\label{classLabelledComboBox_a59f958b58fed8548223bfed8fbb04683}} 
+void \mbox{\hyperlink{classLabelledComboBox_a59f958b58fed8548223bfed8fbb04683}{set\+Insert\+Policy}} (QCombo\+Box\+::\+Insert\+Policy policy)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::set\+Insert\+Policy(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a1f8728084e1d13d8d629a5267a053d30}\label{classLabelledComboBox_a1f8728084e1d13d8d629a5267a053d30}} 
+void \mbox{\hyperlink{classLabelledComboBox_a1f8728084e1d13d8d629a5267a053d30}{set\+Item\+Data}} (int index, const QVariant \&value, int role=Qt\+::\+User\+Role)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::set\+Item\+Data(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a0759b21c590acdd578f16d13a9240cd3}\label{classLabelledComboBox_a0759b21c590acdd578f16d13a9240cd3}} 
+void \mbox{\hyperlink{classLabelledComboBox_a0759b21c590acdd578f16d13a9240cd3}{set\+Item\+Delegate}} (QAbstract\+Item\+Delegate $\ast$delegate)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::set\+Item\+Delegate(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a119e8bf0f78f5bb00c21b1b377538455}\label{classLabelledComboBox_a119e8bf0f78f5bb00c21b1b377538455}} 
+void \mbox{\hyperlink{classLabelledComboBox_a119e8bf0f78f5bb00c21b1b377538455}{set\+Item\+Icon}} (int index, const QIcon \&icon)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::set\+Item\+Icon(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a0d56624a1c8d93a6b980d27d743efad4}\label{classLabelledComboBox_a0d56624a1c8d93a6b980d27d743efad4}} 
+void \mbox{\hyperlink{classLabelledComboBox_a0d56624a1c8d93a6b980d27d743efad4}{set\+Item\+Text}} (int index, const QString \&\mbox{\hyperlink{classAbstractLabelledWidget_a38a4d448633db671496c5ef5b9591a9d}{label\+Text}})
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::set\+Item\+Text(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_af2bf53f9fc2c53b514b9c3cce29fd497}\label{classLabelledComboBox_af2bf53f9fc2c53b514b9c3cce29fd497}} 
+void \mbox{\hyperlink{classLabelledComboBox_af2bf53f9fc2c53b514b9c3cce29fd497}{set\+Line\+Edit}} (QLine\+Edit $\ast$edit)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::set\+Line\+Edit(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a53435f4f002651dc9246e429453c06c2}\label{classLabelledComboBox_a53435f4f002651dc9246e429453c06c2}} 
+void \mbox{\hyperlink{classLabelledComboBox_a53435f4f002651dc9246e429453c06c2}{set\+Max\+Visible\+Items}} (int max\+Items)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::set\+Max\+Visible\+Items(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a4c55daf936ea90464771e3e958b2d7ac}\label{classLabelledComboBox_a4c55daf936ea90464771e3e958b2d7ac}} 
+void \mbox{\hyperlink{classLabelledComboBox_a4c55daf936ea90464771e3e958b2d7ac}{set\+Minimum\+Contents\+Length}} (int characters)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::set\+Minimum\+Contents\+Length(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a66ad01a48be86130e535ad3fc9ba5780}\label{classLabelledComboBox_a66ad01a48be86130e535ad3fc9ba5780}} 
+void \mbox{\hyperlink{classLabelledComboBox_a66ad01a48be86130e535ad3fc9ba5780}{set\+Model}} (QAbstract\+Item\+Model $\ast$\mbox{\hyperlink{classLabelledComboBox_a74dad4ea1806d361b2f93dca2354e89e}{model}})
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::set\+Model(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_aa0eed2240da1880107ea9bab372c95b3}\label{classLabelledComboBox_aa0eed2240da1880107ea9bab372c95b3}} 
+void \mbox{\hyperlink{classLabelledComboBox_aa0eed2240da1880107ea9bab372c95b3}{set\+Model\+Column}} (int visible\+Column)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::set\+Model\+Column(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a798e8f87c73b13618afcefba2ccb1d58}\label{classLabelledComboBox_a798e8f87c73b13618afcefba2ccb1d58}} 
+void \mbox{\hyperlink{classLabelledComboBox_a798e8f87c73b13618afcefba2ccb1d58}{set\+Root\+Model\+Index}} (const QModel\+Index \&index)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::set\+Root\+Model\+Index(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a7408b9c0bc74b43d4f9c2063b10ce8b3}\label{classLabelledComboBox_a7408b9c0bc74b43d4f9c2063b10ce8b3}} 
+void \mbox{\hyperlink{classLabelledComboBox_a7408b9c0bc74b43d4f9c2063b10ce8b3}{set\+Size\+Adjust\+Policy}} (QCombo\+Box\+::\+Size\+Adjust\+Policy policy)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::set\+Size\+Adjust\+Policy(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_afa68fd5b7d99f0573d8fb98723773049}\label{classLabelledComboBox_afa68fd5b7d99f0573d8fb98723773049}} 
+void \mbox{\hyperlink{classLabelledComboBox_afa68fd5b7d99f0573d8fb98723773049}{set\+Validator}} (const QValidator $\ast$\mbox{\hyperlink{classLabelledComboBox_a14d96006e10de5fe797fb12dd13e37e8}{validator}})
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::set\+Validator(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a84b671d150af8163cde443d0001085ba}\label{classLabelledComboBox_a84b671d150af8163cde443d0001085ba}} 
+void \mbox{\hyperlink{classLabelledComboBox_a84b671d150af8163cde443d0001085ba}{set\+View}} (QAbstract\+Item\+View $\ast$item\+View)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::set\+View(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a1e332a86686851dc0572c5eb73cbd7c3}\label{classLabelledComboBox_a1e332a86686851dc0572c5eb73cbd7c3}} 
+void \mbox{\hyperlink{classLabelledComboBox_a1e332a86686851dc0572c5eb73cbd7c3}{show\+Popup}} ()
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::show\+Popup(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a2d735b7e843175e3f33684dff62000e7}\label{classLabelledComboBox_a2d735b7e843175e3f33684dff62000e7}} 
+QCombo\+Box\+::\+Size\+Adjust\+Policy \mbox{\hyperlink{classLabelledComboBox_a2d735b7e843175e3f33684dff62000e7}{size\+Adjust\+Policy}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::size\+Adjust\+Policy() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a14d96006e10de5fe797fb12dd13e37e8}\label{classLabelledComboBox_a14d96006e10de5fe797fb12dd13e37e8}} 
+const QValidator $\ast$ \mbox{\hyperlink{classLabelledComboBox_a14d96006e10de5fe797fb12dd13e37e8}{validator}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::validator() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a5de5c786c814b07da1111b2ed178c5d7}\label{classLabelledComboBox_a5de5c786c814b07da1111b2ed178c5d7}} 
+QAbstract\+Item\+View $\ast$ \mbox{\hyperlink{classLabelledComboBox_a5de5c786c814b07da1111b2ed178c5d7}{view}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::view() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_acb4861ed9e522293f8938bab6ee1c23c}\label{classLabelledComboBox_acb4861ed9e522293f8938bab6ee1c23c}} 
+void \mbox{\hyperlink{classLabelledComboBox_acb4861ed9e522293f8938bab6ee1c23c}{set\+Current\+Text}} (const QString \&\mbox{\hyperlink{classAbstractLabelledWidget_a38a4d448633db671496c5ef5b9591a9d}{label\+Text}})
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::set\+Current\+Text(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledComboBox_a5050f8050efb4f9e19c2b85e3adc99aa}\label{classLabelledComboBox_a5050f8050efb4f9e19c2b85e3adc99aa}} 
+void \mbox{\hyperlink{classLabelledComboBox_a5050f8050efb4f9e19c2b85e3adc99aa}{set\+Current\+Index}} (int index)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QCombo\+Box\+::set\+Current\+Index(). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classLabelledComboBox_a133337de220895015bdbd3f108c691c6}{editable}}
+\begin{DoxyCompactList}\small\item\em This property holds whether the combo box can be edited by the user. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classLabelledComboBox_aa69fb334b507b548b0246a09e0abf4e5}{count}}
+\begin{DoxyCompactList}\small\item\em This property holds the number of items in the combobox. \end{DoxyCompactList}\item 
+QString \mbox{\hyperlink{classLabelledComboBox_a6eaa45cfa766d6542d0ef323ab91b324}{current\+Text}}
+\begin{DoxyCompactList}\small\item\em This property holds the current text. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classLabelledComboBox_a6f7524e395791d661fedede0ebda465b}{current\+Index}}
+\begin{DoxyCompactList}\small\item\em This property holds the index of the current item in the combobox. \end{DoxyCompactList}\item 
+QVariant \mbox{\hyperlink{classLabelledComboBox_af376a733f042a1ac6cf768155cbe745c}{current\+Data}}
+\begin{DoxyCompactList}\small\item\em This property holds the data for the current item. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classLabelledComboBox_a79fd87dc31e1b4248e2fbe4e33a0e656}{max\+Visible\+Items}}
+\begin{DoxyCompactList}\small\item\em This property holds the maximum allowed size on screen of the combo box, measured in items. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classLabelledComboBox_a2f0a6330a5647440352cbe1b148ce1f3}{max\+Count}}
+\begin{DoxyCompactList}\small\item\em This property holds the maximum number of items allowed in the combobox. \end{DoxyCompactList}\item 
+QCombo\+Box\+::\+Insert\+Policy \mbox{\hyperlink{classLabelledComboBox_ae6e0c40017f4b790e993974f18d3b8fa}{insert\+Policy}}
+\begin{DoxyCompactList}\small\item\em This property holds the policy used to determine where user-\/inserted items should appear in the combobox. \end{DoxyCompactList}\item 
+QCombo\+Box\+::\+Size\+Adjust\+Policy \mbox{\hyperlink{classLabelledComboBox_ae34813348f7a2e48b18561ceaca1facf}{size\+Adjust\+Policy}}
+\begin{DoxyCompactList}\small\item\em This property holds the minimum number of characters that should fit into the combobox. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classLabelledComboBox_a968b3e4d3310a1c9a2801bd316c10892}{minimum\+Contents\+Length}}
+\begin{DoxyCompactList}\small\item\em This property holds the minimum number of characters that should fit into the combobox. \end{DoxyCompactList}\item 
+QSize \mbox{\hyperlink{classLabelledComboBox_ad399ca89f5deeadf516d198d9acbd415}{icon\+Size}}
+\begin{DoxyCompactList}\small\item\em TThis property holds the size of the icons shown in the combobox. \end{DoxyCompactList}\item 
+QString \mbox{\hyperlink{classLabelledComboBox_a61f8fcc1e3c4f6ab9934401cfec5aacd}{placeholder\+Text}}
+\begin{DoxyCompactList}\small\item\em Sets a placeholder\+Text text shown when no valid index is set. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classLabelledComboBox}{Labelled\+Combo\+Box}} is a wrapper for QLabel and QCombo\+Box that provides a labelled combo box. 
+
+\begin{DoxySince}{Since}
+5.\+7.\+0 
+\end{DoxySince}
+\begin{DoxyParagraph}{License\+: The MIT License}
+
+\end{DoxyParagraph}
+\begin{DoxyCopyright}{Copyright}
+© 2019 -\/ 2020 Simon Meaden. All rights reserved.
+\end{DoxyCopyright}
+All properties of the QCombo\+Box are copied across to this widget. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classLabelledComboBox_acd7df2ebf6903bb9f1682c86f0f79296}\label{classLabelledComboBox_acd7df2ebf6903bb9f1682c86f0f79296}} 
+\index{LabelledComboBox@{LabelledComboBox}!LabelledComboBox@{LabelledComboBox}}
+\index{LabelledComboBox@{LabelledComboBox}!LabelledComboBox@{LabelledComboBox}}
+\doxysubsubsection{\texorpdfstring{LabelledComboBox()}{LabelledComboBox()}}
+{\footnotesize\ttfamily Labelled\+Combo\+Box\+::\+Labelled\+Combo\+Box (\begin{DoxyParamCaption}\item[{const QString \&}]{label\+Text,  }\item[{QWidget $\ast$}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructor for \mbox{\hyperlink{classLabelledComboBox}{Labelled\+Combo\+Box}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em label\+Text} & the label text string. \\
+\hline
+{\em parent} & the parent widget. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classLabelledComboBox_a3c07f1914520272104e9fe8fdf834ea9}\label{classLabelledComboBox_a3c07f1914520272104e9fe8fdf834ea9}} 
+\index{LabelledComboBox@{LabelledComboBox}!activated@{activated}}
+\index{activated@{activated}!LabelledComboBox@{LabelledComboBox}}
+\doxysubsubsection{\texorpdfstring{activated}{activated}}
+{\footnotesize\ttfamily Labelled\+Combo\+Box\+::activated (\begin{DoxyParamCaption}\item[{int}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+This signal is sent when the user chooses an item in the combobox. 
+
+\begin{DoxyParagraph}{From\+: QCombo\+Box\+::activated.}
+
+\end{DoxyParagraph}
+\mbox{\Hypertarget{classLabelledComboBox_aed9f41e82731418334052efec61dcb77}\label{classLabelledComboBox_aed9f41e82731418334052efec61dcb77}} 
+\index{LabelledComboBox@{LabelledComboBox}!addItem@{addItem}}
+\index{addItem@{addItem}!LabelledComboBox@{LabelledComboBox}}
+\doxysubsubsection{\texorpdfstring{addItem()}{addItem()}}
+{\footnotesize\ttfamily void Labelled\+Combo\+Box\+::add\+Item (\begin{DoxyParamCaption}\item[{const QIcon \&}]{icon,  }\item[{const QString \&}]{label\+Text,  }\item[{const QVariant \&}]{userdata = {\ttfamily QVariant()} }\end{DoxyParamCaption})}
+
+{\bfseries{Reimplements\+:}} QCombo\+Box\+::add\+Item(const QIcon\&, const QString\& const QVariant\&). \mbox{\Hypertarget{classLabelledComboBox_ae6c248e9d6ec4b34b96d81b1fe911a4c}\label{classLabelledComboBox_ae6c248e9d6ec4b34b96d81b1fe911a4c}} 
+\index{LabelledComboBox@{LabelledComboBox}!currentIndexChanged@{currentIndexChanged}}
+\index{currentIndexChanged@{currentIndexChanged}!LabelledComboBox@{LabelledComboBox}}
+\doxysubsubsection{\texorpdfstring{currentIndexChanged}{currentIndexChanged}}
+{\footnotesize\ttfamily Labelled\+Combo\+Box\+::current\+Index\+Changed (\begin{DoxyParamCaption}\item[{int}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+\begin{DoxyParagraph}{From\+: QCombo\+Box\+::current\+Index\+Changed}
+
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Not Property\+: current\+Index}
+
+\end{DoxyParagraph}
+\mbox{\Hypertarget{classLabelledComboBox_a07ed9591d28f6dd3eb6c36d5b9d911f9}\label{classLabelledComboBox_a07ed9591d28f6dd3eb6c36d5b9d911f9}} 
+\index{LabelledComboBox@{LabelledComboBox}!currentTextChanged@{currentTextChanged}}
+\index{currentTextChanged@{currentTextChanged}!LabelledComboBox@{LabelledComboBox}}
+\doxysubsubsection{\texorpdfstring{currentTextChanged}{currentTextChanged}}
+{\footnotesize\ttfamily Labelled\+Combo\+Box\+::current\+Text\+Changed (\begin{DoxyParamCaption}\item[{const QString \&}]{label\+Text }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+\begin{DoxyParagraph}{From\+: QCombo\+Box\+::current\+Text\+Changed}
+
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Not Property\+: current\+Text}
+
+\end{DoxyParagraph}
+\mbox{\Hypertarget{classLabelledComboBox_a5d950760e4d6cd16737d80d91190530e}\label{classLabelledComboBox_a5d950760e4d6cd16737d80d91190530e}} 
+\index{LabelledComboBox@{LabelledComboBox}!editTextChanged@{editTextChanged}}
+\index{editTextChanged@{editTextChanged}!LabelledComboBox@{LabelledComboBox}}
+\doxysubsubsection{\texorpdfstring{editTextChanged}{editTextChanged}}
+{\footnotesize\ttfamily Labelled\+Combo\+Box\+::edit\+Text\+Changed (\begin{DoxyParamCaption}\item[{const QString \&}]{text }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+\begin{DoxyParagraph}{From\+: QCombo\+Box\+::edit\+Text\+Changed}
+
+\end{DoxyParagraph}
+\mbox{\Hypertarget{classLabelledComboBox_a70017858bb4d0022cb75a1c39bfd049f}\label{classLabelledComboBox_a70017858bb4d0022cb75a1c39bfd049f}} 
+\index{LabelledComboBox@{LabelledComboBox}!highlighted@{highlighted}}
+\index{highlighted@{highlighted}!LabelledComboBox@{LabelledComboBox}}
+\doxysubsubsection{\texorpdfstring{highlighted}{highlighted}}
+{\footnotesize\ttfamily Labelled\+Combo\+Box\+::highlighted (\begin{DoxyParamCaption}\item[{int}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+\begin{DoxyParagraph}{From\+: QCombo\+Box\+::highlighted}
+
+\end{DoxyParagraph}
+\mbox{\Hypertarget{classLabelledComboBox_a86aebdddcb5f6241aa3679789ef3348b}\label{classLabelledComboBox_a86aebdddcb5f6241aa3679789ef3348b}} 
+\index{LabelledComboBox@{LabelledComboBox}!insertItem@{insertItem}}
+\index{insertItem@{insertItem}!LabelledComboBox@{LabelledComboBox}}
+\doxysubsubsection{\texorpdfstring{insertItem()}{insertItem()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Labelled\+Combo\+Box\+::insert\+Item (\begin{DoxyParamCaption}\item[{int}]{index,  }\item[{const QIcon \&}]{icon,  }\item[{const QString \&}]{label\+Text,  }\item[{const QVariant \&}]{user\+Data = {\ttfamily QVariant()} }\end{DoxyParamCaption})}
+
+{\bfseries{Reimplements\+:}} QCombo\+Box\+::insert\+Item(int index, const QIcon\&, const QString\&, const QVariant\&). \mbox{\Hypertarget{classLabelledComboBox_abb8669346dcd28b41bcf61c8027a4568}\label{classLabelledComboBox_abb8669346dcd28b41bcf61c8027a4568}} 
+\index{LabelledComboBox@{LabelledComboBox}!insertItem@{insertItem}}
+\index{insertItem@{insertItem}!LabelledComboBox@{LabelledComboBox}}
+\doxysubsubsection{\texorpdfstring{insertItem()}{insertItem()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Labelled\+Combo\+Box\+::insert\+Item (\begin{DoxyParamCaption}\item[{int}]{index,  }\item[{const QString \&}]{label\+Text,  }\item[{const QVariant \&}]{user\+Data = {\ttfamily QVariant()} }\end{DoxyParamCaption})}
+
+{\bfseries{Reimplements\+:}} QCombo\+Box\+::insert\+Item(int index, const QString\&, const QVariant\&). \mbox{\Hypertarget{classLabelledComboBox_a1e5abae4b7075229610eaed37572400f}\label{classLabelledComboBox_a1e5abae4b7075229610eaed37572400f}} 
+\index{LabelledComboBox@{LabelledComboBox}!textActivated@{textActivated}}
+\index{textActivated@{textActivated}!LabelledComboBox@{LabelledComboBox}}
+\doxysubsubsection{\texorpdfstring{textActivated}{textActivated}}
+{\footnotesize\ttfamily Labelled\+Combo\+Box\+::text\+Activated (\begin{DoxyParamCaption}\item[{const QString \&}]{text }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+\begin{DoxyParagraph}{From\+: QCombo\+Box\+::text\+Activated}
+
+\end{DoxyParagraph}
+\mbox{\Hypertarget{classLabelledComboBox_a075c331b9ece9780f75f2458182f6edb}\label{classLabelledComboBox_a075c331b9ece9780f75f2458182f6edb}} 
+\index{LabelledComboBox@{LabelledComboBox}!textHighlighted@{textHighlighted}}
+\index{textHighlighted@{textHighlighted}!LabelledComboBox@{LabelledComboBox}}
+\doxysubsubsection{\texorpdfstring{textHighlighted}{textHighlighted}}
+{\footnotesize\ttfamily Labelled\+Combo\+Box\+::text\+Highlighted (\begin{DoxyParamCaption}\item[{const QString \&}]{text }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+\begin{DoxyParagraph}{From\+: QCombo\+Box\+::text\+Highlighted}
+
+\end{DoxyParagraph}
+
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{classLabelledComboBox_aa69fb334b507b548b0246a09e0abf4e5}\label{classLabelledComboBox_aa69fb334b507b548b0246a09e0abf4e5}} 
+\index{LabelledComboBox@{LabelledComboBox}!count@{count}}
+\index{count@{count}!LabelledComboBox@{LabelledComboBox}}
+\doxysubsubsection{\texorpdfstring{count}{count}}
+{\footnotesize\ttfamily Labelled\+Combo\+Box\+::count\hspace{0.3cm}{\ttfamily [read]}}
+
+
+
+This property holds the number of items in the combobox. 
+
+{\bfseries{Reimplements\+:}} QCombo\+Box\+::count {\bfseries{Accessor\+:}} count() \mbox{\Hypertarget{classLabelledComboBox_af376a733f042a1ac6cf768155cbe745c}\label{classLabelledComboBox_af376a733f042a1ac6cf768155cbe745c}} 
+\index{LabelledComboBox@{LabelledComboBox}!currentData@{currentData}}
+\index{currentData@{currentData}!LabelledComboBox@{LabelledComboBox}}
+\doxysubsubsection{\texorpdfstring{currentData}{currentData}}
+{\footnotesize\ttfamily Labelled\+Combo\+Box\+::current\+Data\hspace{0.3cm}{\ttfamily [read]}}
+
+
+
+This property holds the data for the current item. 
+
+{\bfseries{Reimplements\+:}} QCombo\+Box\+::current\+Data {\bfseries{Accessor\+:}} current\+Data() \mbox{\Hypertarget{classLabelledComboBox_a6f7524e395791d661fedede0ebda465b}\label{classLabelledComboBox_a6f7524e395791d661fedede0ebda465b}} 
+\index{LabelledComboBox@{LabelledComboBox}!currentIndex@{currentIndex}}
+\index{currentIndex@{currentIndex}!LabelledComboBox@{LabelledComboBox}}
+\doxysubsubsection{\texorpdfstring{currentIndex}{currentIndex}}
+{\footnotesize\ttfamily Labelled\+Combo\+Box\+::current\+Index\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+This property holds the index of the current item in the combobox. 
+
+{\bfseries{Reimplements\+:}} QCombo\+Box\+::current\+Index( {\bfseries{Notifier\+:}} \mbox{\hyperlink{classLabelledComboBox_a07ed9591d28f6dd3eb6c36d5b9d911f9}{current\+Text\+Changed()}} \mbox{\Hypertarget{classLabelledComboBox_a6eaa45cfa766d6542d0ef323ab91b324}\label{classLabelledComboBox_a6eaa45cfa766d6542d0ef323ab91b324}} 
+\index{LabelledComboBox@{LabelledComboBox}!currentText@{currentText}}
+\index{currentText@{currentText}!LabelledComboBox@{LabelledComboBox}}
+\doxysubsubsection{\texorpdfstring{currentText}{currentText}}
+{\footnotesize\ttfamily Labelled\+Combo\+Box\+::current\+Text\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+This property holds the current text. 
+
+{\bfseries{Reimplements\+:}} QCombo\+Box\+::current\+Text {\bfseries{Accessor\+:}} current\+Text() , \%2 {\bfseries{Notifier\+:}} \mbox{\hyperlink{classLabelledComboBox_a07ed9591d28f6dd3eb6c36d5b9d911f9}{current\+Text\+Changed()}} \mbox{\Hypertarget{classLabelledComboBox_a133337de220895015bdbd3f108c691c6}\label{classLabelledComboBox_a133337de220895015bdbd3f108c691c6}} 
+\index{LabelledComboBox@{LabelledComboBox}!editable@{editable}}
+\index{editable@{editable}!LabelledComboBox@{LabelledComboBox}}
+\doxysubsubsection{\texorpdfstring{editable}{editable}}
+{\footnotesize\ttfamily Labelled\+Combo\+Box\+::editable\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+This property holds whether the combo box can be edited by the user. 
+
+{\bfseries{Reimplements\+:}} QCombo\+Box\+::editable {\bfseries{Accessor\+:}} is\+Editable() , \%2 \mbox{\Hypertarget{classLabelledComboBox_ad399ca89f5deeadf516d198d9acbd415}\label{classLabelledComboBox_ad399ca89f5deeadf516d198d9acbd415}} 
+\index{LabelledComboBox@{LabelledComboBox}!iconSize@{iconSize}}
+\index{iconSize@{iconSize}!LabelledComboBox@{LabelledComboBox}}
+\doxysubsubsection{\texorpdfstring{iconSize}{iconSize}}
+{\footnotesize\ttfamily Labelled\+Combo\+Box\+::icon\+Size\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+TThis property holds the size of the icons shown in the combobox. 
+
+{\bfseries{Reimplements\+:}} QCombo\+Box\+::icon\+Size {\bfseries{Accessor\+:}} icon\+Size() , \%2 \mbox{\Hypertarget{classLabelledComboBox_ae6e0c40017f4b790e993974f18d3b8fa}\label{classLabelledComboBox_ae6e0c40017f4b790e993974f18d3b8fa}} 
+\index{LabelledComboBox@{LabelledComboBox}!insertPolicy@{insertPolicy}}
+\index{insertPolicy@{insertPolicy}!LabelledComboBox@{LabelledComboBox}}
+\doxysubsubsection{\texorpdfstring{insertPolicy}{insertPolicy}}
+{\footnotesize\ttfamily Labelled\+Combo\+Box\+::insert\+Policy\hspace{0.3cm}{\ttfamily [read]}}
+
+
+
+This property holds the policy used to determine where user-\/inserted items should appear in the combobox. 
+
+{\bfseries{Reimplements\+:}} QCombo\+Box\+::insert\+Policy {\bfseries{Accessor\+:}} insert\+Policy() , \%2 \mbox{\Hypertarget{classLabelledComboBox_a2f0a6330a5647440352cbe1b148ce1f3}\label{classLabelledComboBox_a2f0a6330a5647440352cbe1b148ce1f3}} 
+\index{LabelledComboBox@{LabelledComboBox}!maxCount@{maxCount}}
+\index{maxCount@{maxCount}!LabelledComboBox@{LabelledComboBox}}
+\doxysubsubsection{\texorpdfstring{maxCount}{maxCount}}
+{\footnotesize\ttfamily Labelled\+Combo\+Box\+::max\+Count\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+This property holds the maximum number of items allowed in the combobox. 
+
+{\bfseries{Reimplements\+:}} QCombo\+Box\+::max\+Count {\bfseries{Accessor\+:}} max\+Count(void) , \%2 \mbox{\Hypertarget{classLabelledComboBox_a79fd87dc31e1b4248e2fbe4e33a0e656}\label{classLabelledComboBox_a79fd87dc31e1b4248e2fbe4e33a0e656}} 
+\index{LabelledComboBox@{LabelledComboBox}!maxVisibleItems@{maxVisibleItems}}
+\index{maxVisibleItems@{maxVisibleItems}!LabelledComboBox@{LabelledComboBox}}
+\doxysubsubsection{\texorpdfstring{maxVisibleItems}{maxVisibleItems}}
+{\footnotesize\ttfamily Labelled\+Combo\+Box\+::max\+Visible\+Items\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+This property holds the maximum allowed size on screen of the combo box, measured in items. 
+
+{\bfseries{Reimplements\+:}} QCombo\+Box\+::max\+Visible\+Items {\bfseries{Accessor\+:}} max\+Visible\+Items(void) , \%2 \mbox{\Hypertarget{classLabelledComboBox_a968b3e4d3310a1c9a2801bd316c10892}\label{classLabelledComboBox_a968b3e4d3310a1c9a2801bd316c10892}} 
+\index{LabelledComboBox@{LabelledComboBox}!minimumContentsLength@{minimumContentsLength}}
+\index{minimumContentsLength@{minimumContentsLength}!LabelledComboBox@{LabelledComboBox}}
+\doxysubsubsection{\texorpdfstring{minimumContentsLength}{minimumContentsLength}}
+{\footnotesize\ttfamily Labelled\+Combo\+Box\+::minimum\+Contents\+Length\hspace{0.3cm}{\ttfamily [read]}}
+
+
+
+This property holds the minimum number of characters that should fit into the combobox. 
+
+{\bfseries{Reimplements\+:}} QCombo\+Box\+::minimum\+Contents\+Length {\bfseries{Accessor\+:}} minimum\+Contents\+Length() , \%2 \mbox{\Hypertarget{classLabelledComboBox_a61f8fcc1e3c4f6ab9934401cfec5aacd}\label{classLabelledComboBox_a61f8fcc1e3c4f6ab9934401cfec5aacd}} 
+\index{LabelledComboBox@{LabelledComboBox}!placeholderText@{placeholderText}}
+\index{placeholderText@{placeholderText}!LabelledComboBox@{LabelledComboBox}}
+\doxysubsubsection{\texorpdfstring{placeholderText}{placeholderText}}
+{\footnotesize\ttfamily Labelled\+Combo\+Box\+::placeholder\+Text\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+Sets a placeholder\+Text text shown when no valid index is set. 
+
+{\bfseries{Reimplements\+:}} QCombo\+Box\+::placeholder\+Text {\bfseries{Accessor\+:}} placeholder\+Text() , \%2 \mbox{\Hypertarget{classLabelledComboBox_ae34813348f7a2e48b18561ceaca1facf}\label{classLabelledComboBox_ae34813348f7a2e48b18561ceaca1facf}} 
+\index{LabelledComboBox@{LabelledComboBox}!sizeAdjustPolicy@{sizeAdjustPolicy}}
+\index{sizeAdjustPolicy@{sizeAdjustPolicy}!LabelledComboBox@{LabelledComboBox}}
+\doxysubsubsection{\texorpdfstring{sizeAdjustPolicy}{sizeAdjustPolicy}}
+{\footnotesize\ttfamily Labelled\+Combo\+Box\+::size\+Adjust\+Policy\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+This property holds the minimum number of characters that should fit into the combobox. 
+
+{\bfseries{Reimplements\+:}} QCombo\+Box\+::size\+Adjust\+Policy {\bfseries{Accessor\+:}} size\+Adjust\+Policy() , \%2 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{labelledcombobox_8h}{labelledcombobox.\+h}}\end{DoxyCompactItemize}

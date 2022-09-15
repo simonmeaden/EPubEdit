@@ -1,0 +1,86 @@
+\hypertarget{classMultiSplitter}{}\doxysection{Multi\+Splitter Class Reference}
+\label{classMultiSplitter}\index{MultiSplitter@{MultiSplitter}}
+
+
+A multidirectional splitter that works in a similar way to the editor panes in Qt\+Creator.  
+
+
+
+
+{\ttfamily \#include \char`\"{}include/multisplitter/multisplitter.\+h\char`\"{}}
+
+Inheritance diagram for Multi\+Splitter\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classMultiSplitter}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMultiSplitter_a105515c5f7f320006cceb4399a054399}\label{classMultiSplitter_a105515c5f7f320006cceb4399a054399}} 
+\mbox{\hyperlink{classMultiSplitter_a105515c5f7f320006cceb4399a054399}{Multi\+Splitter}} (QWidget $\ast$parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{classMultiSplitter}{Multi\+Splitter}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultiSplitter_ad8b552ad880bc7724d289bd7b954f127}\label{classMultiSplitter_ad8b552ad880bc7724d289bd7b954f127}} 
+virtual void \mbox{\hyperlink{classMultiSplitter_ad8b552ad880bc7724d289bd7b954f127}{save\+State}} ()
+\begin{DoxyCompactList}\small\item\em Saves the splitter state to file. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultiSplitter_a32ef132f9b46b87f4049f580c8df8b61}\label{classMultiSplitter_a32ef132f9b46b87f4049f580c8df8b61}} 
+QWidget $\ast$ \mbox{\hyperlink{classMultiSplitter_a32ef132f9b46b87f4049f580c8df8b61}{current\+Widget}} ()
+\begin{DoxyCompactList}\small\item\em returns the currently selected QWidget. \end{DoxyCompactList}\item 
+QWidget $\ast$ \mbox{\hyperlink{classMultiSplitter_a34167aa935ca4043e2c0ab4b5ee2f24e}{set\+Current\+Widget}} (QWidget $\ast$widget)
+\begin{DoxyCompactList}\small\item\em Sets the new QWidget at the current position. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultiSplitter_a67295ed25331ee3f6efea41ebb1221d1}\label{classMultiSplitter_a67295ed25331ee3f6efea41ebb1221d1}} 
+QWidget $\ast$ \mbox{\hyperlink{classMultiSplitter_a67295ed25331ee3f6efea41ebb1221d1}{current\+Widget}} () const
+\begin{DoxyCompactList}\small\item\em Returns the current QWidget. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultiSplitter_a7410f82077d5906a34627270e48ef2f0}\label{classMultiSplitter_a7410f82077d5906a34627270e48ef2f0}} 
+QWidget $\ast$ \mbox{\hyperlink{classMultiSplitter_a7410f82077d5906a34627270e48ef2f0}{create\+Split}} (Qt\+::\+Orientation orientation, QWidget $\ast$new\+Widget=nullptr)
+\begin{DoxyCompactList}\small\item\em Splits the current widget into two, depending on the orientation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultiSplitter_aec41d729f70652b45a805b45e8908828}\label{classMultiSplitter_aec41d729f70652b45a805b45e8908828}} 
+void \mbox{\hyperlink{classMultiSplitter_aec41d729f70652b45a805b45e8908828}{open\+To\+New\+Window}} ()
+\begin{DoxyCompactList}\small\item\em Removes the current widget from the splitter and places into a new window. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultiSplitter_a4aab4481bedb8c17cb7258a19244ddcc}\label{classMultiSplitter_a4aab4481bedb8c17cb7258a19244ddcc}} 
+QList$<$ QWidget $\ast$ $>$ \mbox{\hyperlink{classMultiSplitter_a4aab4481bedb8c17cb7258a19244ddcc}{widgets}} ()
+\begin{DoxyCompactList}\small\item\em Returns the collection of QWidget objects in this spiltter. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultiSplitter_a5479142829fce795c7a97cf03928911a}\label{classMultiSplitter_a5479142829fce795c7a97cf03928911a}} 
+QSplitter $\ast$ \mbox{\hyperlink{classMultiSplitter_a5479142829fce795c7a97cf03928911a}{splitter}} (QWidget $\ast$widget) const
+\begin{DoxyCompactList}\small\item\em returns the actual splitter that contains this QWidget. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMultiSplitter_a374a307b99a2e938c40b694a3dca071f}\label{classMultiSplitter_a374a307b99a2e938c40b694a3dca071f}} 
+QHBox\+Layout $\ast$ {\bfseries m\+\_\+layout}
+\item 
+\mbox{\Hypertarget{classMultiSplitter_a8a08e2aa19c82807143258dc40617967}\label{classMultiSplitter_a8a08e2aa19c82807143258dc40617967}} 
+QMap$<$ QWidget $\ast$, QSplitter $\ast$ $>$ {\bfseries m\+\_\+widget\+Map}
+\item 
+\mbox{\Hypertarget{classMultiSplitter_adb94988e46d04c8f185832bbeaeae0a0}\label{classMultiSplitter_adb94988e46d04c8f185832bbeaeae0a0}} 
+QWidget $\ast$ {\bfseries m\+\_\+current\+Widget} = nullptr
+\item 
+\mbox{\Hypertarget{classMultiSplitter_ae556b422fae669499cba81641f865d7a}\label{classMultiSplitter_ae556b422fae669499cba81641f865d7a}} 
+QSplitter $\ast$ {\bfseries m\+\_\+base\+Splitter}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A multidirectional splitter that works in a similar way to the editor panes in Qt\+Creator. 
+
+The \mbox{\hyperlink{classMultiSplitter}{Multi\+Splitter}} is actaully an array of QWidget\textquotesingle{}s and QSplitters. Initially it holds a single QWidget. When the widget is split it replaces the widget with a QSplitter, and places the QWidget and a second QWidget.
+
+Classes that intend to be used in \mbox{\hyperlink{classMultiSplitter}{Multi\+Splitter}} should implement the \mbox{\hyperlink{classCloneableWidgetInterface}{Cloneable\+Widget\+Interface}}. This creates a cloneable widget so that when a widget is \textquotesingle{}split\textquotesingle{} either vertically or horizontally a clone of the forst widget is created and placed into the second split. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classMultiSplitter_a34167aa935ca4043e2c0ab4b5ee2f24e}\label{classMultiSplitter_a34167aa935ca4043e2c0ab4b5ee2f24e}} 
+\index{MultiSplitter@{MultiSplitter}!setCurrentWidget@{setCurrentWidget}}
+\index{setCurrentWidget@{setCurrentWidget}!MultiSplitter@{MultiSplitter}}
+\doxysubsubsection{\texorpdfstring{setCurrentWidget()}{setCurrentWidget()}}
+{\footnotesize\ttfamily QWidget$\ast$ Multi\+Splitter\+::set\+Current\+Widget (\begin{DoxyParamCaption}\item[{QWidget $\ast$}]{widget }\end{DoxyParamCaption})}
+
+
+
+Sets the new QWidget at the current position. 
+
+If there is a current widget then the current widget is replaced. The previous current QWidget will be returned, or nullptr if there was no set widget. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+multisplitter.\+h\end{DoxyCompactItemize}

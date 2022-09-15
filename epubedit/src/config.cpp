@@ -4,8 +4,8 @@
 #include "document/library.h"
 #include "document/options.h"
 #include "document/series.h"
-#include "languages.h"
-#include "paths.h"
+#include "language/languages.h"
+#include "utilities/paths.h"
 
 #include "document/bookpointers.h"
 
@@ -48,11 +48,15 @@ LimitedStringList::setSizeLimit(int sizeLimit)
 // default directory name for library.
 const QString Config::DEFAULT_LIBRARY_DIRECTORY_NAME = "library";
 
-QStringList Config::VERSION_STRINGS = { "3.0.1", "3.1", "3.2", "3.3", "3.4" };
+QVector<QString> Config::VERSION_STRINGS = { "3.0.1",
+                                             "3.1",
+                                             "3.2",
+                                             "3.3",
+                                             "3.4" };
 
-const QString Config::STATUS_TIMEOUT = "status_timeout";
 const QString Config::SAVE_VERSION = "save_version";
 const QString Config::LIBRARY_PATH = "library_path";
+const QString Config::WINDOW_GEOMETRY = "window_geometry";
 const QString Config::MAINSPLITTER_SIZES = "main_splitter_sizes";
 const QString Config::CENTRALSPLITTER_SIZES = "central_splitter_sizes";
 const QString Config::EDITOR_SPLITTER_SIZES = "editor_splitter_sizes";
@@ -62,13 +66,11 @@ const QString Config::INFO_VISIBLE = "show_info_view";
 const QString Config::POSSIBLE_FILE_TYPES = "file_types";
 const QString Config::RECENT_FILES = "recent_files";
 const QString Config::CURRENT_STATUS = "current_status";
+const QString Config::KEYMAP = "key_map";
+const QString Config::STATUS_TIMEOUT = "status_timeout";
 
 Config::Config(QObject* parent)
   : QObject(parent)
-  , m_configDirectory(
-      QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation))
-  , m_homeDirectory(
-      QStandardPaths::writableLocation(QStandardPaths::HomeLocation))
   , m_libraryDirectory(Paths::join(
       QStandardPaths::writableLocation(QStandardPaths::AppDataLocation),
       DEFAULT_LIBRARY_DIRECTORY_NAME))
@@ -78,51 +80,52 @@ Config::Config(QObject* parent)
   , m_authorsFilename(Paths::join(m_configDirectory, "authors.yaml"))
   , m_seriesFilename(Paths::join(m_configDirectory, "series.yaml"))
   , m_saveVersion(EPUB_3_2)
-  , m_statusTimeout(StatusTimeout)
-  , m_modified(false)
 {
-  m_fileTypes << "*.epub";
-  load();
-  m_languages = new BCP47Languages();
-  connect(m_languages,
-          &BCP47Languages::sendMessage,
-          this,
-          &Config::receiveStatusMessage);
-  connect(
-    m_languages, &BCP47Languages::parsingError, this, &Config::sendLogMessage);
-  QDir dir;
-  dir.mkpath(m_configDirectory);
-  m_languages->readFromLocalFile(
-    Paths::join(m_configDirectory, "languages.yaml"));
+  setDefaultkeyValuesIfNotSet();
+
+  if (!m_fileTypes.contains("*.epub"))
+    m_fileTypes << "*.epub";
+}
+
+Config::Config(BCP47Languages* languages, QObject* parent)
+  : QObject(parent)
+  , m_languages(languages)
+  , m_libraryDirectory(Paths::join(
+      QStandardPaths::writableLocation(QStandardPaths::AppDataLocation),
+      DEFAULT_LIBRARY_DIRECTORY_NAME))
+  , m_libraryFilename(Paths::join(m_configDirectory, "library.yaml"))
+  , m_configFilename(Paths::join(m_configDirectory, "epubedit.yaml"))
+  , m_optionsFilename(Paths::join(m_configDirectory, "options.yaml"))
+  , m_authorsFilename(Paths::join(m_configDirectory, "authors.yaml"))
+  , m_seriesFilename(Paths::join(m_configDirectory, "series.yaml"))
+  , m_saveVersion(EPUB_3_2)
+{
 }
 
 Config::~Config() {}
 
-void
-Config::saveLanguageFile()
+const QString&
+Config::homeDirectory() const
 {
-  QDir dir;
-  dir.mkpath(configDir());
-  m_languages->saveToLocalFile(dir.filePath("languages.yaml"));
-  emit tr("Language files load completed.");
+  return m_homeDirectory;
 }
 
 void
-Config::receiveStatusMessage(const QString& message)
+Config::setHomeDirectory(const QString& homeDirectory)
 {
-  emit sendStatusMessage(message, m_statusTimeout);
+  m_homeDirectory = homeDirectory;
 }
 
-QString
-Config::configDir() const
+BCP47Languages*
+Config::languages() const
 {
-  return m_configDirectory;
+  return m_languages;
 }
 
 void
-Config::setConfigDir(const QString& value)
+Config::setLanguages(BCP47Languages* Languages)
 {
-  m_configDirectory = value;
+  m_languages = Languages;
 }
 
 int
@@ -140,10 +143,37 @@ Config::setStatusTimeout(int value)
   }
 }
 
+QString
+Config::configDir() const
+{
+  return m_configDirectory;
+}
+
+void
+Config::setConfigDir(const QString& value)
+{
+  m_configDirectory = value;
+}
+
 Config::SaveVersion
 Config::saveVersion()
 {
   return SaveVersion(m_saveVersion);
+}
+
+void
+Config::saveLanguageFile()
+{
+  QDir dir;
+  dir.mkpath(m_configDirectory);
+  m_languages->saveToLocalFile(dir.filePath("languages.yaml"));
+  emit tr("Language files load completed.");
+}
+
+void
+Config::receiveStatusMessage(const QString& message)
+{
+  emit sendStatusMessage(message, m_statusTimeout);
 }
 
 void
@@ -160,15 +190,15 @@ Config::setSaveVersion(const QString versionStr)
 {
   auto version = Config::version(versionStr);
   if (version != m_saveVersion) {
-    m_statusTimeout = version;
+    m_saveVersion = version;
     m_modified = true;
   }
 }
 
-QStringList
+QVector<QString>
 Config::versions()
 {
-  QStringList list;
+  QVector<QString> list;
   list << "3.0.1"
        << "3.1"
        << "3.2"
@@ -224,9 +254,8 @@ Config::setLibraryPath(const QString& filepath)
 }
 
 bool
-Config::save()
+Config::save(const QString& /*filename*/)
 {
-  //  if (m_modified) {
   QFile file(m_configFilename);
 
   if (file.open((QFile::ReadWrite | QFile::Truncate))) {
@@ -252,6 +281,8 @@ Config::save()
       << YAML::Comment(
            tr("Unless specified 3.2. Possible values 3.0, 3.1, 3.2 and 3.3"));
 
+    emitter << YAML::Key << WINDOW_GEOMETRY << YAML::Value << m_windowGeometry;
+
     emitter << YAML::Key << MAINSPLITTER_SIZES << YAML::Value
             << m_mainSplitterSizes;
     emitter << YAML::Key << CENTRALSPLITTER_SIZES << YAML::Value
@@ -266,7 +297,9 @@ Config::save()
     emitter << YAML::Key << INFO_VISIBLE << YAML::Value << m_infoIsVisible;
     emitter << YAML::Key << POSSIBLE_FILE_TYPES << YAML::Value << m_fileTypes;
     emitter << YAML::Key << RECENT_FILES << YAML::Value << m_recentFiles;
-//    emitter << YAML::Key << CURRENT_STATUS << YAML::Value << m_fileData;
+    //    emitter << YAML::Key << CURRENT_STATUS << YAML::Value << m_fileData;
+
+    emitter << YAML::Key << KEYMAP << YAML::Value << m_keyMap;
 
     emitter << YAML::EndMap;
 
@@ -289,7 +322,32 @@ Config::save()
 }
 
 void
-Config::load()
+Config::setDefaultkeyValuesIfNotSet()
+{
+  if (!m_keyMap.value(PreviousBookmark).isValid()) {
+    m_keyMap.insert(PreviousBookmark,
+                    KeyMapper(Qt::Key_Comma, Qt::ControlModifier));
+  }
+  if (!m_keyMap.value(NextBookmark).isValid()) {
+    m_keyMap.insert(NextBookmark, KeyMapper(Qt::Key_Stop, Qt::ControlModifier));
+  }
+  if (!m_keyMap.value(AddBookmark).isValid()) {
+    m_keyMap.insert(AddBookmark, KeyMapper(Qt::Key_M, Qt::ControlModifier));
+  }
+  if (!m_keyMap.value(ToggleBookmark).isValid()) {
+    m_keyMap.insert(
+      ToggleBookmark,
+      KeyMapper(Qt::Key_M, Qt::ControlModifier | Qt::AltModifier));
+  }
+  if (!m_keyMap.value(NextBookmark).isValid()) {
+    m_keyMap.insert(
+      NextBookmark,
+      KeyMapper(Qt::Key_M, Qt::ControlModifier | Qt::ShiftModifier));
+  }
+}
+
+bool
+Config::load(const QString& /*filename*/)
 {
   QFile file(m_configFilename);
   if (file.exists()) {
@@ -310,19 +368,24 @@ Config::load()
       m_statusTimeout = node.as<int>();
     }
 
+    if (config[WINDOW_GEOMETRY]) {
+      auto node = config[WINDOW_GEOMETRY];
+      m_windowGeometry = node.as<QByteArray>();
+    }
+
     if (config[MAINSPLITTER_SIZES]) {
       auto node = config[MAINSPLITTER_SIZES];
-      m_mainSplitterSizes = node.as<QList<int>>();
+      m_mainSplitterSizes = node.as<QVector<int>>();
     }
 
     if (config[CENTRALSPLITTER_SIZES]) {
       auto node = config[CENTRALSPLITTER_SIZES];
-      m_centralSplitterSizes = node.as<QList<int>>();
+      m_centralSplitterSizes = node.as<QVector<int>>();
     }
 
     if (config[EDITOR_SPLITTER_SIZES]) {
       auto node = config[EDITOR_SPLITTER_SIZES];
-      m_editorSplitterSizes = node.as<QList<QList<int>>>();
+      m_editorSplitterSizes = node.as<QVector<QVector<int>>>();
     }
 
     if (config[LEFT_SIDEBAR_VISIBLE]) {
@@ -342,26 +405,28 @@ Config::load()
 
     if (config[POSSIBLE_FILE_TYPES]) {
       auto node = config[POSSIBLE_FILE_TYPES];
-      m_fileTypes = node.as<QList<QString>>();
+      m_fileTypes = node.as<QVector<QString>>();
     }
 
     if (config[RECENT_FILES]) {
       auto node = config[RECENT_FILES];
-      m_recentFiles = node.as<QList<QString>>();
+      m_recentFiles = node.as<QVector<QString>>();
     }
 
-//    if (config[CURRENT_STATUS]) {
-//      auto node = config[CURRENT_STATUS];
-////      m_recentFiles = node.as<QMap<QString, FileData*>>();
-//    }
+    if (config[KEYMAP]) {
+      auto node = config[KEYMAP];
+      if (node.IsMap()) {
+        m_keyMap = node.as<QMap<KeyEventMapper, KeyMapper>>();
+      }
+    }
+
+    //    if (config[CURRENT_STATUS]) {
+    //      auto node = config[CURRENT_STATUS];
+    ////      m_recentFiles = node.as<QMap<QString, FileData*>>();
+    //    }
+    return true;
   }
-}
-
-
-BCP47Languages*
-Config::languages() const
-{
-  return m_languages;
+  return false;
 }
 
 QString
@@ -371,9 +436,9 @@ Config::optionsFile() const
 }
 
 void
-Config::setOptionsFile(const QString& newOptionsFile)
+Config::setOptionsFile(const QString& optionsFile)
 {
-  m_optionsFilename = newOptionsFile;
+  m_optionsFilename = optionsFile;
 }
 
 QString
@@ -383,21 +448,9 @@ Config::authorsFilename() const
 }
 
 void
-Config::setAuthorsFilename(const QString& newAuthorsFile)
+Config::setAuthorsFilename(const QString& authorsFile)
 {
-  m_authorsFilename = newAuthorsFile;
-}
-
-const QString&
-Config::homeDirectory() const
-{
-  return m_homeDirectory;
-}
-
-void
-Config::setHomeDirectory(const QString& newHome_directory)
-{
-  m_homeDirectory = newHome_directory;
+  m_authorsFilename = authorsFile;
 }
 
 const QString&
@@ -407,9 +460,9 @@ Config::libraryDirectory() const
 }
 
 void
-Config::setLibraryDirectory(const QString& newLibraryDirectory)
+Config::setLibraryDirectory(const QString& libraryDirectory)
 {
-  m_libraryDirectory = newLibraryDirectory;
+  m_libraryDirectory = libraryDirectory;
 }
 
 const QString&
@@ -437,57 +490,95 @@ Config::seriesFilename() const
 }
 
 void
-Config::setSeriesFilename(const QString& newSeriesFilename)
+Config::setSeriesFilename(const QString& seriesFilename)
 {
-  m_seriesFilename = newSeriesFilename;
+  m_seriesFilename = seriesFilename;
 }
 
-const QList<int>&
+const QVector<int>&
 Config::mainSplitterSizes() const
 {
   return m_mainSplitterSizes;
 }
 
 void
-Config::setMainSplitterSizes(const QList<int>& size)
+Config::setMainSplitterSizes(const QVector<int>& splitterSizes)
 {
-  m_mainSplitterSizes = size;
+  m_mainSplitterSizes = splitterSizes;
 }
 
-const QList<int>&
+const QVector<int>&
 Config::centralSplitterSizes() const
 {
   return m_centralSplitterSizes;
 }
 
 void
-Config::setCentralSplitterSizes(const QList<int>& sizes)
+Config::setCentralSplitterSizes(const QVector<int>& sizes)
 {
   m_centralSplitterSizes = sizes;
 }
 
-const QList<QList<int>>&
+const QVector<QVector<int>>&
 Config::editorSplitterSizes() const
 {
   return m_editorSplitterSizes;
 }
 
 void
-Config::setEditorSplitterSizes(const QList<QList<int>>& sizes)
+Config::setEditorSplitterSizes(const QVector<QVector<int>>& sizes)
 {
   m_editorSplitterSizes = sizes;
 }
 
-const QSize&
-Config::size() const
+// const QSize&
+// Config::size() const
+//{
+//   return m_windowRect.size();
+// }
+
+// void
+// Config::setSize(const QSize& size)
+//{
+//   m_windowRect.setSize(size);
+// }
+
+const QByteArray&
+Config::windowGeometry() const
 {
-  return m_size;
+  return m_windowGeometry;
 }
 
 void
-Config::setSize(const QSize& newSize)
+Config::setWindowGeometry(const QByteArray& geometry)
 {
-  m_size = newSize;
+  m_windowGeometry = geometry;
+}
+
+void
+Config::setKeyMapping(KeyEventMapper mapping, KeyMapper value)
+{
+  m_keyMap.insert(mapping, value);
+}
+
+KeyMapper
+Config::keyMapping(KeyEventMapper mapping)
+{
+  return m_keyMap.value(mapping);
+}
+
+bool
+Config::hasKeyMapping(KeyEventMapper mapping)
+{
+  if (m_keyMap.contains(mapping))
+    return true;
+  return false;
+}
+
+QMap<KeyEventMapper, KeyMapper>
+Config::keyMap()
+{
+  return m_keyMap;
 }
 
 bool
@@ -497,9 +588,9 @@ Config::isLeftSidebarVisible() const
 }
 
 void
-Config::setLeftSidebarVisible(bool newLeftSidebarVisible)
+Config::setLeftSidebarVisible(bool leftSidebarVisible)
 {
-  m_leftSidebarVisible = newLeftSidebarVisible;
+  m_leftSidebarVisible = leftSidebarVisible;
 }
 
 bool
@@ -509,9 +600,9 @@ Config::isRightSidebarVisible() const
 }
 
 void
-Config::setRightSidebarVisible(bool newLeftSidebarVisible)
+Config::setRightSidebarVisible(bool leftSidebarVisible)
 {
-  m_rightSidebarVisible = newLeftSidebarVisible;
+  m_rightSidebarVisible = leftSidebarVisible;
 }
 
 bool
@@ -521,21 +612,21 @@ Config::infoIsVisible() const
 }
 
 void
-Config::setInfoIsVisible(bool newInfoIsVisible)
+Config::setInfoIsVisible(bool infoIsVisible)
 {
-  m_infoIsVisible = newInfoIsVisible;
+  m_infoIsVisible = infoIsVisible;
 }
 
-const QStringList&
+const QVector<QString>&
 Config::zipFileList() const
 {
   return m_zipFileList;
 }
 
 void
-Config::setZipFileList(const QStringList& newZipFileList)
+Config::setZipFileList(const QVector<QString>& zipFileList)
 {
-  m_zipFileList = newZipFileList;
+  m_zipFileList = zipFileList;
 }
 
 const QString&
@@ -545,12 +636,12 @@ Config::currentFilename() const
 }
 
 void
-Config::setCurrentFilename(const QString& newCurrentFilename)
+Config::setCurrentFilename(const QString& currentFilename)
 {
-  m_currentFilename = newCurrentFilename;
+  m_currentFilename = currentFilename;
 }
 
-const QStringList&
+const QVector<QString>&
 Config::fileTypes() const
 {
   return m_fileTypes;

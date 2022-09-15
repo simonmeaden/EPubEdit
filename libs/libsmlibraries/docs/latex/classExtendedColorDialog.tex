@@ -1,0 +1,389 @@
+\hypertarget{classExtendedColorDialog}{}\doxysection{Extended\+Color\+Dialog Class Reference}
+\label{classExtendedColorDialog}\index{ExtendedColorDialog@{ExtendedColorDialog}}
+
+
+The \mbox{\hyperlink{classExtendedColorDialog}{Extended\+Color\+Dialog}} class provides an extension of the standard QColor\+Dialog class that includes selection pages for both the SVG color name set and the X11 color name set.  
+
+
+
+
+{\ttfamily \#include \char`\"{}include/widgets/extendedcolordialog.\+h\char`\"{}}
+
+Inheritance diagram for Extended\+Color\+Dialog\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classExtendedColorDialog}
+\end{center}
+\end{figure}
+\doxysubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classExtendedColorDialog_ab682c439bb076edf33bb1ad6302b11cf}{primary\+Color\+Changed}} (const QColor \&\mbox{\hyperlink{classExtendedColorDialog_ade3ea5ef25c0cf54f405969c77ae8ae4}{color}}, const QString \&\mbox{\hyperlink{classExtendedColorDialog_ae87e6b192b79bf813906df0cdbc7496c}{name}})
+\item 
+void \mbox{\hyperlink{classExtendedColorDialog_a8e0d467873ff7c69ef6dd2a1308277e1}{primary\+Text\+Color\+Changed}} (const QColor \&\mbox{\hyperlink{classExtendedColorDialog_ade3ea5ef25c0cf54f405969c77ae8ae4}{color}}, const QString \&\mbox{\hyperlink{classExtendedColorDialog_ae87e6b192b79bf813906df0cdbc7496c}{name}})
+\item 
+void \mbox{\hyperlink{classExtendedColorDialog_adb2f40eb91d9f9e1110ffa74bf022f10}{secondary\+Color\+Changed}} (const QColor \&\mbox{\hyperlink{classExtendedColorDialog_ade3ea5ef25c0cf54f405969c77ae8ae4}{color}}, const QString \&\mbox{\hyperlink{classExtendedColorDialog_ae87e6b192b79bf813906df0cdbc7496c}{name}})
+\item 
+void \mbox{\hyperlink{classExtendedColorDialog_a84c793d5a7ceca6aa25f5511f43d3dd7}{secondary\+Text\+Color\+Changed}} (const QColor \&\mbox{\hyperlink{classExtendedColorDialog_ade3ea5ef25c0cf54f405969c77ae8ae4}{color}}, const QString \&\mbox{\hyperlink{classExtendedColorDialog_ae87e6b192b79bf813906df0cdbc7496c}{name}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classExtendedColorDialog_a3551f0abb1a5014ee514cc6a9c7aa444}{Extended\+Color\+Dialog}} (QWidget $\ast$parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{classExtendedColorDialog}{Extended\+Color\+Dialog}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classExtendedColorDialog_aae62df0ce0599c545535af6153df7bb3}{Extended\+Color\+Dialog}} (const QColor \&primary\+Color, QWidget $\ast$parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{classExtendedColorDialog}{Extended\+Color\+Dialog}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classExtendedColorDialog_a11a7ac24374171cb4a652a9feb842c2e}{Extended\+Color\+Dialog}} (const QString \&primary\+Color, QWidget $\ast$parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{classExtendedColorDialog}{Extended\+Color\+Dialog}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classExtendedColorDialog_a0cd3bd6a6253437c1a01073d8e272f33}{Extended\+Color\+Dialog}} (const QColor \&primary\+Color, const QColor \&secondary\+Color, QWidget $\ast$parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{classExtendedColorDialog}{Extended\+Color\+Dialog}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classExtendedColorDialog_ae4effb24cc9b5fa490022e93d4cc61e8}{Extended\+Color\+Dialog}} (const QString \&primary\+Color, const QString \&secondary\+Color, QWidget $\ast$parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{classExtendedColorDialog}{Extended\+Color\+Dialog}}. \end{DoxyCompactList}\item 
+QColor \mbox{\hyperlink{classExtendedColorDialog_ade3ea5ef25c0cf54f405969c77ae8ae4}{color}} (\mbox{\hyperlink{extendedcolordialog_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83}{Color\+Type}} type) const
+\begin{DoxyCompactList}\small\item\em Returns the color as a QColor object. \end{DoxyCompactList}\item 
+QColor \mbox{\hyperlink{classExtendedColorDialog_aabc32e00733c429af0f2ec6d0d21f922}{text\+Color}} (\mbox{\hyperlink{extendedcolordialog_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83}{Color\+Type}} type) const
+\begin{DoxyCompactList}\small\item\em Returns the the text color as a QColor object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classExtendedColorDialog_a671d108665b9db86c70c78279181dc99}{set\+Color}} (\mbox{\hyperlink{extendedcolordialog_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83}{Color\+Type}} type, const QColor \&\mbox{\hyperlink{classExtendedColorDialog_ade3ea5ef25c0cf54f405969c77ae8ae4}{color}})
+\begin{DoxyCompactList}\small\item\em Sets the initial background color as a QColor object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classExtendedColorDialog_a874a7106f56bea7ac880736d1b4ca4b3}{set\+Color}} (\mbox{\hyperlink{extendedcolordialog_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83}{Color\+Type}} type, const QString \&\mbox{\hyperlink{classExtendedColorDialog_ae87e6b192b79bf813906df0cdbc7496c}{name}})
+\begin{DoxyCompactList}\small\item\em Sets the initial background color. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classExtendedColorDialog_a246501d129e8e4d667b7bbd9daf211a6}{set\+Text\+Color}} (\mbox{\hyperlink{extendedcolordialog_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83}{Color\+Type}} type, const QColor \&\mbox{\hyperlink{classExtendedColorDialog_ade3ea5ef25c0cf54f405969c77ae8ae4}{color}})
+\begin{DoxyCompactList}\small\item\em Sets the initial text color as a QColor object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classExtendedColorDialog_a5853383b992d7dae31d5b67436a04c04}{set\+Text\+Color}} (\mbox{\hyperlink{extendedcolordialog_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83}{Color\+Type}} type, const QString \&\mbox{\hyperlink{classExtendedColorDialog_ae87e6b192b79bf813906df0cdbc7496c}{name}})
+\item 
+QString \mbox{\hyperlink{classExtendedColorDialog_aa04fce4d683910bc9566b3f7ed29b85d}{rgb}} (\mbox{\hyperlink{extendedcolordialog_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83}{Color\+Type}} type, int alpha=-\/1) const
+\item 
+QString \mbox{\hyperlink{classExtendedColorDialog_aa55f25deef750c214f1143b59c82d8f5}{hsv}} (\mbox{\hyperlink{extendedcolordialog_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83}{Color\+Type}} type, int alpha=100) const
+\item 
+QString \mbox{\hyperlink{classExtendedColorDialog_a5e560fc53f3170143daba67f98f33617}{hsl}} (\mbox{\hyperlink{extendedcolordialog_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83}{Color\+Type}} type, int alpha=100) const
+\item 
+QString \mbox{\hyperlink{classExtendedColorDialog_ae87e6b192b79bf813906df0cdbc7496c}{name}} (\mbox{\hyperlink{extendedcolordialog_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83}{Color\+Type}} type) const
+\item 
+QString \mbox{\hyperlink{classExtendedColorDialog_a956d84d39e83e2f7fad4d389c1a3b39e}{hash}} (\mbox{\hyperlink{extendedcolordialog_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83}{Color\+Type}} type, int alpha=false) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classExtendedColorDialog_a5cc2743b8b30b9beaf0f2077df05e2c7}\label{classExtendedColorDialog_a5cc2743b8b30b9beaf0f2077df05e2c7}} 
+QSize \mbox{\hyperlink{classExtendedColorDialog_a5cc2743b8b30b9beaf0f2077df05e2c7}{size\+Hint}} () const override
+\begin{DoxyCompactList}\small\item\em overides QWidget\+::size\+Hint() \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classExtendedColorDialog}{Extended\+Color\+Dialog}} class provides an extension of the standard QColor\+Dialog class that includes selection pages for both the SVG color name set and the X11 color name set. 
+
+The dialog allows the user to display two different color fields with a text color so that thet can be compared. Colors can be recovered using the \mbox{\hyperlink{classExtendedColorDialog_ade3ea5ef25c0cf54f405969c77ae8ae4}{color()}} and \mbox{\hyperlink{classExtendedColorDialog_aabc32e00733c429af0f2ec6d0d21f922}{text\+Color()}} methods and initially set using the \mbox{\hyperlink{classExtendedColorDialog_a671d108665b9db86c70c78279181dc99}{set\+Color()}} and \mbox{\hyperlink{classExtendedColorDialog_a246501d129e8e4d667b7bbd9daf211a6}{set\+Text\+Color()}} methods. The dialog allows the user to switch between a standard color selection page and various SVG and X11 color sslection pages. Clicking on a color will set the primary (left) display. Alternatively the user can drag colors to either left or right display, or use the context menu to set the color, or text color of either.
+
+\begin{DoxySince}{Since}
+5.\+7.\+0 
+\end{DoxySince}
+\begin{DoxyParagraph}{License\+: The MIT License}
+
+\end{DoxyParagraph}
+\begin{DoxyCopyright}{Copyright}
+© 2020 -\/ 2021 Simon Meaden. All rights reserved. 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classExtendedColorDialog_a3551f0abb1a5014ee514cc6a9c7aa444}\label{classExtendedColorDialog_a3551f0abb1a5014ee514cc6a9c7aa444}} 
+\index{ExtendedColorDialog@{ExtendedColorDialog}!ExtendedColorDialog@{ExtendedColorDialog}}
+\index{ExtendedColorDialog@{ExtendedColorDialog}!ExtendedColorDialog@{ExtendedColorDialog}}
+\doxysubsubsection{\texorpdfstring{ExtendedColorDialog()}{ExtendedColorDialog()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily Extended\+Color\+Dialog\+::\+Extended\+Color\+Dialog (\begin{DoxyParamCaption}\item[{QWidget $\ast$}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+Constructor for \mbox{\hyperlink{classExtendedColorDialog}{Extended\+Color\+Dialog}}. 
+
+Display background and text default to white on white. 
+\begin{DoxyParams}{Parameters}
+{\em parent} & -\/ the parent widget. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classExtendedColorDialog_aae62df0ce0599c545535af6153df7bb3}\label{classExtendedColorDialog_aae62df0ce0599c545535af6153df7bb3}} 
+\index{ExtendedColorDialog@{ExtendedColorDialog}!ExtendedColorDialog@{ExtendedColorDialog}}
+\index{ExtendedColorDialog@{ExtendedColorDialog}!ExtendedColorDialog@{ExtendedColorDialog}}
+\doxysubsubsection{\texorpdfstring{ExtendedColorDialog()}{ExtendedColorDialog()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily Extended\+Color\+Dialog\+::\+Extended\+Color\+Dialog (\begin{DoxyParamCaption}\item[{const QColor \&}]{primary\+Color,  }\item[{QWidget $\ast$}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+Constructor for \mbox{\hyperlink{classExtendedColorDialog}{Extended\+Color\+Dialog}}. 
+
+Display primary (left) is set to primary\+Color, with the text color set to a complementary color. Text displays the color hash name \#ffffff and a matching SVG or X11 color name if one exists. 
+\begin{DoxyParams}{Parameters}
+{\em primary\+Color} & -\/ the initial color as a QColor object. \\
+\hline
+{\em parent} & -\/ the parent widget. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classExtendedColorDialog_a11a7ac24374171cb4a652a9feb842c2e}\label{classExtendedColorDialog_a11a7ac24374171cb4a652a9feb842c2e}} 
+\index{ExtendedColorDialog@{ExtendedColorDialog}!ExtendedColorDialog@{ExtendedColorDialog}}
+\index{ExtendedColorDialog@{ExtendedColorDialog}!ExtendedColorDialog@{ExtendedColorDialog}}
+\doxysubsubsection{\texorpdfstring{ExtendedColorDialog()}{ExtendedColorDialog()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily Extended\+Color\+Dialog\+::\+Extended\+Color\+Dialog (\begin{DoxyParamCaption}\item[{const QString \&}]{primary\+Color,  }\item[{QWidget $\ast$}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+Constructor for \mbox{\hyperlink{classExtendedColorDialog}{Extended\+Color\+Dialog}}. 
+
+Display primary (left) is set to primary\+Color, with the text color set to a complementary color. Text displays the color hash name \#ffffff and a matching SVG or X11 color name if one exists. If the string is invalid (either invalid name or hash name) it will default to white on white. 
+\begin{DoxyParams}{Parameters}
+{\em primary\+Color} & -\/ the initial primary color as a name string. This can be either an SVG or X11 name string or a color hash \#ffffff string. \\
+\hline
+{\em parent} & -\/ the parent widget. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classExtendedColorDialog_a0cd3bd6a6253437c1a01073d8e272f33}\label{classExtendedColorDialog_a0cd3bd6a6253437c1a01073d8e272f33}} 
+\index{ExtendedColorDialog@{ExtendedColorDialog}!ExtendedColorDialog@{ExtendedColorDialog}}
+\index{ExtendedColorDialog@{ExtendedColorDialog}!ExtendedColorDialog@{ExtendedColorDialog}}
+\doxysubsubsection{\texorpdfstring{ExtendedColorDialog()}{ExtendedColorDialog()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily Extended\+Color\+Dialog\+::\+Extended\+Color\+Dialog (\begin{DoxyParamCaption}\item[{const QColor \&}]{primary\+Color,  }\item[{const QColor \&}]{secondary\+Color,  }\item[{QWidget $\ast$}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+Constructor for \mbox{\hyperlink{classExtendedColorDialog}{Extended\+Color\+Dialog}}. 
+
+Display primary (left) is set to primary\+Color, with the text color set to a complementary color. Text displays the color hash name \#ffffff and a matching SVG or X11 color name if one exists. 
+\begin{DoxyParams}{Parameters}
+{\em primary\+Color} & -\/ the initial primary color as a QColor object. \\
+\hline
+{\em secondary\+Color} & -\/ the initial secondary color as a QColor object. \\
+\hline
+{\em parent} & -\/ the parent widget. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classExtendedColorDialog_ae4effb24cc9b5fa490022e93d4cc61e8}\label{classExtendedColorDialog_ae4effb24cc9b5fa490022e93d4cc61e8}} 
+\index{ExtendedColorDialog@{ExtendedColorDialog}!ExtendedColorDialog@{ExtendedColorDialog}}
+\index{ExtendedColorDialog@{ExtendedColorDialog}!ExtendedColorDialog@{ExtendedColorDialog}}
+\doxysubsubsection{\texorpdfstring{ExtendedColorDialog()}{ExtendedColorDialog()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily Extended\+Color\+Dialog\+::\+Extended\+Color\+Dialog (\begin{DoxyParamCaption}\item[{const QString \&}]{primary\+Color,  }\item[{const QString \&}]{secondary\+Color,  }\item[{QWidget $\ast$}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+Constructor for \mbox{\hyperlink{classExtendedColorDialog}{Extended\+Color\+Dialog}}. 
+
+Display primary (left) is set to primary\+Color, with the text color set to a complementary color. Text displays the color hash name \#ffffff and a matching SVG or X11 color name if one exists. If the string is invalid (either invalid name or hash name) it will default to white on white. 
+\begin{DoxyParams}{Parameters}
+{\em primary\+Color} & -\/ the initial primary color as a name string. This can \\
+\hline
+{\em secondary\+Color} & -\/ the initial secondary color as a name string. This can be either an SVG or X11 name string or a color hash \#ffffff string. \\
+\hline
+{\em parent} & -\/ the parent widget. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classExtendedColorDialog_ade3ea5ef25c0cf54f405969c77ae8ae4}\label{classExtendedColorDialog_ade3ea5ef25c0cf54f405969c77ae8ae4}} 
+\index{ExtendedColorDialog@{ExtendedColorDialog}!color@{color}}
+\index{color@{color}!ExtendedColorDialog@{ExtendedColorDialog}}
+\doxysubsubsection{\texorpdfstring{color()}{color()}}
+{\footnotesize\ttfamily QColor Extended\+Color\+Dialog\+::color (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{extendedcolordialog_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83}{Color\+Type}}}]{type }\end{DoxyParamCaption}) const}
+
+
+
+Returns the color as a QColor object. 
+
+This would be the \textquotesingle{}background\textquotesingle{} property in a stylesheet.
+
+type must be either Color\+Type\+::\+Primary for the left half of the display, or Color\+Type\+::\+Secondary for the right half.
+
+If no color has been selected or \textquotesingle{}Cancel\textquotesingle{} has been pressed then the color will be Invalid.
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & -\/ either Color\+Type\+::\+Primary or Color\+Type\+::\+Secondary. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classExtendedColorDialog_aa04fce4d683910bc9566b3f7ed29b85d}{rgb()}} 
+
+\mbox{\hyperlink{classExtendedColorDialog_aa55f25deef750c214f1143b59c82d8f5}{hsv()}} 
+
+\mbox{\hyperlink{classExtendedColorDialog_a5e560fc53f3170143daba67f98f33617}{hsl()}} 
+
+\mbox{\hyperlink{classExtendedColorDialog_ae87e6b192b79bf813906df0cdbc7496c}{name()}} 
+
+\mbox{\hyperlink{classExtendedColorDialog_a956d84d39e83e2f7fad4d389c1a3b39e}{hash()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classExtendedColorDialog_a956d84d39e83e2f7fad4d389c1a3b39e}\label{classExtendedColorDialog_a956d84d39e83e2f7fad4d389c1a3b39e}} 
+\index{ExtendedColorDialog@{ExtendedColorDialog}!hash@{hash}}
+\index{hash@{hash}!ExtendedColorDialog@{ExtendedColorDialog}}
+\doxysubsubsection{\texorpdfstring{hash()}{hash()}}
+{\footnotesize\ttfamily QString Extended\+Color\+Dialog\+::hash (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{extendedcolordialog_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83}{Color\+Type}}}]{type,  }\item[{int}]{alpha = {\ttfamily false} }\end{DoxyParamCaption}) const}
+
+Returns the selected color as a \#ffffff style string.
+
+If alpha is specified a \#ffffffff form will be returned. The value of alpha must it must be between 0 (transparent) and 100 (opaque), the default, otherwise it will be ignored. If no name has been selected or \textquotesingle{}Cancel\textquotesingle{} has been pressed then an empty string is returned. \mbox{\Hypertarget{classExtendedColorDialog_a5e560fc53f3170143daba67f98f33617}\label{classExtendedColorDialog_a5e560fc53f3170143daba67f98f33617}} 
+\index{ExtendedColorDialog@{ExtendedColorDialog}!hsl@{hsl}}
+\index{hsl@{hsl}!ExtendedColorDialog@{ExtendedColorDialog}}
+\doxysubsubsection{\texorpdfstring{hsl()}{hsl()}}
+{\footnotesize\ttfamily QString Extended\+Color\+Dialog\+::hsl (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{extendedcolordialog_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83}{Color\+Type}}}]{type,  }\item[{int}]{alpha = {\ttfamily 100} }\end{DoxyParamCaption}) const}
+
+Returns the selected color as a stylesheet hsl(int, int, int) or hsla(int, int, int, int) form string.
+
+If alpha is specified an hsla() form will be returned. The value of alpha must it must be between 0 (transparent) and 100 (opaque), the default, otherwise it will be ignored. If no color has been selected or \textquotesingle{}Cancel\textquotesingle{} has been pressed then an empty string is returned. \mbox{\Hypertarget{classExtendedColorDialog_aa55f25deef750c214f1143b59c82d8f5}\label{classExtendedColorDialog_aa55f25deef750c214f1143b59c82d8f5}} 
+\index{ExtendedColorDialog@{ExtendedColorDialog}!hsv@{hsv}}
+\index{hsv@{hsv}!ExtendedColorDialog@{ExtendedColorDialog}}
+\doxysubsubsection{\texorpdfstring{hsv()}{hsv()}}
+{\footnotesize\ttfamily QString Extended\+Color\+Dialog\+::hsv (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{extendedcolordialog_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83}{Color\+Type}}}]{type,  }\item[{int}]{alpha = {\ttfamily 100} }\end{DoxyParamCaption}) const}
+
+Returns the selected color as a stylesheet hsv(int, int, int) or an hsva(int, int, int, int) string.
+
+If alpha is specified an hsva() form will be returned. The value of alpha must it must be between 0 (transparent) and 100 (opaque), the default, otherwise it will be ignored. If no color has been selected or \textquotesingle{}Cancel\textquotesingle{} has been pressed then an empty string is returned. \mbox{\Hypertarget{classExtendedColorDialog_ae87e6b192b79bf813906df0cdbc7496c}\label{classExtendedColorDialog_ae87e6b192b79bf813906df0cdbc7496c}} 
+\index{ExtendedColorDialog@{ExtendedColorDialog}!name@{name}}
+\index{name@{name}!ExtendedColorDialog@{ExtendedColorDialog}}
+\doxysubsubsection{\texorpdfstring{name()}{name()}}
+{\footnotesize\ttfamily QString Extended\+Color\+Dialog\+::name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{extendedcolordialog_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83}{Color\+Type}}}]{type }\end{DoxyParamCaption}) const}
+
+Returns the selected color as a stylesheet name string.
+
+If no name has been selected then the color will be tested against all possible X11 name strings and if one matches this name will be returned, otherwise an empty string will be returned. If \textquotesingle{}Cancel\textquotesingle{} has been pressed then an empty string is returned. \mbox{\Hypertarget{classExtendedColorDialog_ab682c439bb076edf33bb1ad6302b11cf}\label{classExtendedColorDialog_ab682c439bb076edf33bb1ad6302b11cf}} 
+\index{ExtendedColorDialog@{ExtendedColorDialog}!primaryColorChanged@{primaryColorChanged}}
+\index{primaryColorChanged@{primaryColorChanged}!ExtendedColorDialog@{ExtendedColorDialog}}
+\doxysubsubsection{\texorpdfstring{primaryColorChanged}{primaryColorChanged}}
+{\footnotesize\ttfamily void Extended\+Color\+Dialog\+::primary\+Color\+Changed (\begin{DoxyParamCaption}\item[{const QColor \&}]{color,  }\item[{const QString \&}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+This signal is emitted whenever the primary color changes in the dialog. The current color is specified by color. \mbox{\Hypertarget{classExtendedColorDialog_a8e0d467873ff7c69ef6dd2a1308277e1}\label{classExtendedColorDialog_a8e0d467873ff7c69ef6dd2a1308277e1}} 
+\index{ExtendedColorDialog@{ExtendedColorDialog}!primaryTextColorChanged@{primaryTextColorChanged}}
+\index{primaryTextColorChanged@{primaryTextColorChanged}!ExtendedColorDialog@{ExtendedColorDialog}}
+\doxysubsubsection{\texorpdfstring{primaryTextColorChanged}{primaryTextColorChanged}}
+{\footnotesize\ttfamily void Extended\+Color\+Dialog\+::primary\+Text\+Color\+Changed (\begin{DoxyParamCaption}\item[{const QColor \&}]{color,  }\item[{const QString \&}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+This signal is emitted whenever the primary text color changes in the dialog. The current color is specified by color. \mbox{\Hypertarget{classExtendedColorDialog_aa04fce4d683910bc9566b3f7ed29b85d}\label{classExtendedColorDialog_aa04fce4d683910bc9566b3f7ed29b85d}} 
+\index{ExtendedColorDialog@{ExtendedColorDialog}!rgb@{rgb}}
+\index{rgb@{rgb}!ExtendedColorDialog@{ExtendedColorDialog}}
+\doxysubsubsection{\texorpdfstring{rgb()}{rgb()}}
+{\footnotesize\ttfamily QString Extended\+Color\+Dialog\+::rgb (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{extendedcolordialog_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83}{Color\+Type}}}]{type,  }\item[{int}]{alpha = {\ttfamily -\/1} }\end{DoxyParamCaption}) const}
+
+Returns the selected color as a stylesheet rgb(int, int, int) or rgba(int, int, int, int) string.
+
+The type should be either Color\+Type\+::\+Primary or Color\+Type\+::\+Secondary.
+
+If alpha is specified an rgba() form will be returned. The value of alpha must it must be between 0 (transparent) and 100 (opaque), the default, otherwise it will be ignored. If no color has been selected or \textquotesingle{}Cancel\textquotesingle{} has been pressed then an empty string is returned. \mbox{\Hypertarget{classExtendedColorDialog_adb2f40eb91d9f9e1110ffa74bf022f10}\label{classExtendedColorDialog_adb2f40eb91d9f9e1110ffa74bf022f10}} 
+\index{ExtendedColorDialog@{ExtendedColorDialog}!secondaryColorChanged@{secondaryColorChanged}}
+\index{secondaryColorChanged@{secondaryColorChanged}!ExtendedColorDialog@{ExtendedColorDialog}}
+\doxysubsubsection{\texorpdfstring{secondaryColorChanged}{secondaryColorChanged}}
+{\footnotesize\ttfamily void Extended\+Color\+Dialog\+::secondary\+Color\+Changed (\begin{DoxyParamCaption}\item[{const QColor \&}]{color,  }\item[{const QString \&}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+This signal is emitted whenever the secondary color changes in the dialog. The current color is specified by color. \mbox{\Hypertarget{classExtendedColorDialog_a84c793d5a7ceca6aa25f5511f43d3dd7}\label{classExtendedColorDialog_a84c793d5a7ceca6aa25f5511f43d3dd7}} 
+\index{ExtendedColorDialog@{ExtendedColorDialog}!secondaryTextColorChanged@{secondaryTextColorChanged}}
+\index{secondaryTextColorChanged@{secondaryTextColorChanged}!ExtendedColorDialog@{ExtendedColorDialog}}
+\doxysubsubsection{\texorpdfstring{secondaryTextColorChanged}{secondaryTextColorChanged}}
+{\footnotesize\ttfamily void Extended\+Color\+Dialog\+::secondary\+Text\+Color\+Changed (\begin{DoxyParamCaption}\item[{const QColor \&}]{color,  }\item[{const QString \&}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+This signal is emitted whenever the secondary text color changes in the dialog. The current color is specified by color. \mbox{\Hypertarget{classExtendedColorDialog_a671d108665b9db86c70c78279181dc99}\label{classExtendedColorDialog_a671d108665b9db86c70c78279181dc99}} 
+\index{ExtendedColorDialog@{ExtendedColorDialog}!setColor@{setColor}}
+\index{setColor@{setColor}!ExtendedColorDialog@{ExtendedColorDialog}}
+\doxysubsubsection{\texorpdfstring{setColor()}{setColor()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Extended\+Color\+Dialog\+::set\+Color (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{extendedcolordialog_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83}{Color\+Type}}}]{type,  }\item[{const QColor \&}]{color }\end{DoxyParamCaption})}
+
+
+
+Sets the initial background color as a QColor object. 
+
+type must be either Color\+Type\+::\+Primary for the left half of the display, or Color\+Type\+::\+Secondary for the right half.
+
+If this color has a matching SVG or X11 name this will be set automatically. 
+\begin{DoxyParams}{Parameters}
+{\em type} & -\/ either Color\+Type\+::\+Primary or Color\+Type\+::\+Secondary. \\
+\hline
+{\em color} & -\/ a QColor object. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classExtendedColorDialog_a874a7106f56bea7ac880736d1b4ca4b3}\label{classExtendedColorDialog_a874a7106f56bea7ac880736d1b4ca4b3}} 
+\index{ExtendedColorDialog@{ExtendedColorDialog}!setColor@{setColor}}
+\index{setColor@{setColor}!ExtendedColorDialog@{ExtendedColorDialog}}
+\doxysubsubsection{\texorpdfstring{setColor()}{setColor()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Extended\+Color\+Dialog\+::set\+Color (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{extendedcolordialog_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83}{Color\+Type}}}]{type,  }\item[{const QString \&}]{name }\end{DoxyParamCaption})}
+
+
+
+Sets the initial background color. 
+
+If the name is a valid SVG or X11 name, or a color hash \#ffffff string the display will be set to this backfground color, otherwise it will be ignored.
+
+type must be either Color\+Type\+::\+Primary for the left half of the display, or Color\+Type\+::\+Secondary for the right half.
+
+If this color has a matching SVG or X11 name this will be displayed. 
+\begin{DoxyParams}{Parameters}
+{\em type} & -\/ either Color\+Type\+::\+Primary or Color\+Type\+::\+Secondary. \\
+\hline
+{\em name} & -\/ an SVG or X11 color name or a color hash \#ffffff string. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classExtendedColorDialog_a246501d129e8e4d667b7bbd9daf211a6}\label{classExtendedColorDialog_a246501d129e8e4d667b7bbd9daf211a6}} 
+\index{ExtendedColorDialog@{ExtendedColorDialog}!setTextColor@{setTextColor}}
+\index{setTextColor@{setTextColor}!ExtendedColorDialog@{ExtendedColorDialog}}
+\doxysubsubsection{\texorpdfstring{setTextColor()}{setTextColor()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Extended\+Color\+Dialog\+::set\+Text\+Color (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{extendedcolordialog_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83}{Color\+Type}}}]{type,  }\item[{const QColor \&}]{color }\end{DoxyParamCaption})}
+
+
+
+Sets the initial text color as a QColor object. 
+
+type must be either Color\+Type\+::\+Primary for the left half of the display, or Color\+Type\+::\+Secondary for the right half.
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & -\/ either Color\+Type\+::\+Primary or Color\+Type\+::\+Secondary. \\
+\hline
+{\em color} & -\/ a QColor object. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classExtendedColorDialog_a5853383b992d7dae31d5b67436a04c04}\label{classExtendedColorDialog_a5853383b992d7dae31d5b67436a04c04}} 
+\index{ExtendedColorDialog@{ExtendedColorDialog}!setTextColor@{setTextColor}}
+\index{setTextColor@{setTextColor}!ExtendedColorDialog@{ExtendedColorDialog}}
+\doxysubsubsection{\texorpdfstring{setTextColor()}{setTextColor()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Extended\+Color\+Dialog\+::set\+Text\+Color (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{extendedcolordialog_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83}{Color\+Type}}}]{type,  }\item[{const QString \&}]{name }\end{DoxyParamCaption})}
+
+Sets the initial text color as a name string.
+
+type must be either Color\+Type\+::\+Primary for the left half of the display, or Color\+Type\+::\+Secondary for the right half. If the name is a valid SVG or X11 name, or a color hash \#ffffff string the display will be set to this backfground color, otherwise it will be ignored.
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & -\/ either Color\+Type\+::\+Primary or Color\+Type\+::\+Secondary. \\
+\hline
+{\em name} & -\/ an SVG or X11 color name or a color hash \#ffffff string. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classExtendedColorDialog_aabc32e00733c429af0f2ec6d0d21f922}\label{classExtendedColorDialog_aabc32e00733c429af0f2ec6d0d21f922}} 
+\index{ExtendedColorDialog@{ExtendedColorDialog}!textColor@{textColor}}
+\index{textColor@{textColor}!ExtendedColorDialog@{ExtendedColorDialog}}
+\doxysubsubsection{\texorpdfstring{textColor()}{textColor()}}
+{\footnotesize\ttfamily QColor Extended\+Color\+Dialog\+::text\+Color (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{extendedcolordialog_8h_a5e133660cf9d4bcd1cb6a49e3ec16f83}{Color\+Type}}}]{type }\end{DoxyParamCaption}) const}
+
+
+
+Returns the the text color as a QColor object. 
+
+This would be the \textquotesingle{}color\textquotesingle{} property in a stylesheet.
+
+type must be either Color\+Type\+::\+Primary for the left half of the display, or Color\+Type\+::\+Secondary for the right half.
+
+If no color has been selected or \textquotesingle{}Cancel\textquotesingle{} has been pressed then the color will be Invalid.
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & -\/ either Color\+Type\+::\+Primary or Color\+Type\+::\+Secondary. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classExtendedColorDialog_aa04fce4d683910bc9566b3f7ed29b85d}{rgb()}} 
+
+\mbox{\hyperlink{classExtendedColorDialog_aa55f25deef750c214f1143b59c82d8f5}{hsv()}} 
+
+\mbox{\hyperlink{classExtendedColorDialog_a5e560fc53f3170143daba67f98f33617}{hsl()}} 
+
+\mbox{\hyperlink{classExtendedColorDialog_ae87e6b192b79bf813906df0cdbc7496c}{name()}} 
+
+\mbox{\hyperlink{classExtendedColorDialog_a956d84d39e83e2f7fad4d389c1a3b39e}{hash()}} 
+\end{DoxySeeAlso}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{extendedcolordialog_8h}{extendedcolordialog.\+h}}\end{DoxyCompactItemize}

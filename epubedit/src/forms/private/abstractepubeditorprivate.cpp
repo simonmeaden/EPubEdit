@@ -28,13 +28,13 @@ AbstractEPubEditorPrivate::loadHref(const QString& href)
   QFile file(fileName);
   if (file.open(QIODevice::ReadOnly)) {
     auto text = file.readAll();
-    if (m_editor) {
-      auto e = qobject_cast<EPubEdit*>(m_editor);
+    if (m_widget) {
+      auto e = qobject_cast<EPubEdit*>(m_widget);
       if (e) { // is a text editor
         e->setHtml(text);
         m_href = href;
       } else { // must be a code editor
-        auto c = qobject_cast<CodeEdit*>(m_editor);
+        auto c = qobject_cast<CodeEdit*>(m_widget);
         if (c) {
           c->setPlainText(text);
         }
@@ -44,11 +44,11 @@ AbstractEPubEditorPrivate::loadHref(const QString& href)
 }
 
 QTextDocument* AbstractEPubEditorPrivate::document() {
-  auto e = qobject_cast<EPubEdit*>(m_editor);
+  auto e = qobject_cast<EPubEdit*>(m_widget);
   if (e)
   return e->document();
   else {
-    auto c = qobject_cast<CodeEdit*>(m_editor);
+    auto c = qobject_cast<CodeEdit*>(m_widget);
     if (c) {
       return c->document();
     }
@@ -59,11 +59,11 @@ QTextDocument* AbstractEPubEditorPrivate::document() {
 QTextCursor
 AbstractEPubEditorPrivate::currentCursor()
 {
-  auto e = qobject_cast<EPubEdit*>(m_editor);
+  auto e = qobject_cast<EPubEdit*>(m_widget);
   if (e)
   return e->textCursor();
   else {
-    auto c = qobject_cast<CodeEdit*>(m_editor);
+    auto c = qobject_cast<CodeEdit*>(m_widget);
     if (c) {
       return c->textCursor();
     }

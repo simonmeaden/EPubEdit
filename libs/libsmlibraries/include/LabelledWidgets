@@ -1,0 +1,6 @@
+#include "labelled/labelledcombobox.h"
+#include "labelled/labelleddoublespinbox.h"
+#include "labelled/labelledexspinbox.h"
+#include "labelled/labelledlineedit.h"
+#include "labelled/labelledspinbox.h"
+#include "labelled/labelledtextfield.h"

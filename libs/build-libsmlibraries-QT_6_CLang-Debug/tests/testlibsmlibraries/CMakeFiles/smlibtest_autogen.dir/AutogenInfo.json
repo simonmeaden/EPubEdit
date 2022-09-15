@@ -1,0 +1,107 @@
+{
+	"BUILD_DIR" : "/home/simonmeaden/workspace/epubedit/libs/build-libsmlibraries-QT_6_CLang-Debug/tests/testlibsmlibraries/smlibtest_autogen",
+	"CMAKE_BINARY_DIR" : "/home/simonmeaden/workspace/epubedit/libs/build-libsmlibraries-QT_6_CLang-Debug",
+	"CMAKE_CURRENT_BINARY_DIR" : "/home/simonmeaden/workspace/epubedit/libs/build-libsmlibraries-QT_6_CLang-Debug/tests/testlibsmlibraries",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/home/simonmeaden/workspace/epubedit/libs/libsmlibraries/tests/testlibsmlibraries",
+	"CMAKE_EXECUTABLE" : "/usr/bin/cmake",
+	"CMAKE_LIST_FILES" : 
+	[
+		"/home/simonmeaden/workspace/epubedit/libs/libsmlibraries/tests/testlibsmlibraries/CMakeLists.txt"
+	],
+	"CMAKE_SOURCE_DIR" : "/home/simonmeaden/workspace/epubedit/libs/libsmlibraries",
+	"DEP_FILE" : "/home/simonmeaden/workspace/epubedit/libs/build-libsmlibraries-QT_6_CLang-Debug/tests/testlibsmlibraries/smlibtest_autogen/deps",
+	"DEP_FILE_RULE_NAME" : "smlibtest_autogen/timestamp",
+	"HEADERS" : 
+	[
+		[
+			"/home/simonmeaden/workspace/epubedit/libs/libsmlibraries/tests/testlibsmlibraries/testbcp47languages.h",
+			"MU",
+			"EWIEGA46WW/moc_testbcp47languages.cpp",
+			null
+		]
+	],
+	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
+	"INCLUDE_DIR" : "/home/simonmeaden/workspace/epubedit/libs/build-libsmlibraries-QT_6_CLang-Debug/tests/testlibsmlibraries/smlibtest_autogen/include",
+	"MOC_COMPILATION_FILE" : "/home/simonmeaden/workspace/epubedit/libs/build-libsmlibraries-QT_6_CLang-Debug/tests/testlibsmlibraries/smlibtest_autogen/mocs_compilation.cpp",
+	"MOC_DEFINITIONS" : 
+	[
+		"QT_CORE_LIB",
+		"QT_GUI_LIB",
+		"QT_NETWORK_LIB",
+		"QT_WIDGETS_LIB",
+		"QT_XML_LIB"
+	],
+	"MOC_DEPEND_FILTERS" : 
+	[
+		[
+			"Q_PLUGIN_METADATA",
+			"[\n][ \t]*Q_PLUGIN_METADATA[ \t]*\\([^\\)]*FILE[ \t]*\"([^\"]+)\""
+		]
+	],
+	"MOC_INCLUDES" : 
+	[
+		"/home/simonmeaden/workspace/epubedit/libs/build-libsmlibraries-QT_6_CLang-Debug/tests/testlibsmlibraries",
+		"/home/simonmeaden/workspace/epubedit/libs/libsmlibraries/tests/testlibsmlibraries",
+		"/home/simonmeaden/workspace/epubedit/libs/libsmlibraries/include",
+		"/usr/include/qt6/QtGui",
+		"/usr/include/qt6",
+		"/usr/include/qt6/QtCore",
+		"/usr/lib64/qt6/mkspecs/linux-g++",
+		"/usr/include/qt6/QtWidgets",
+		"/usr/include/qt6/QtXml",
+		"/usr/include/qt6/QtNetwork",
+		"/usr/include",
+		"/usr/include/c++/12",
+		"/usr/include/c++/12/x86_64-redhat-linux",
+		"/usr/include/c++/12/backward",
+		"/usr/lib64/clang/14.0.0/include",
+		"/usr/local/include"
+	],
+	"MOC_MACRO_NAMES" : 
+	[
+		"Q_OBJECT",
+		"Q_GADGET",
+		"Q_GADGET_EXPORT",
+		"Q_NAMESPACE",
+		"Q_NAMESPACE_EXPORT"
+	],
+	"MOC_OPTIONS" : [],
+	"MOC_PATH_PREFIX" : false,
+	"MOC_PREDEFS_CMD" : 
+	[
+		"/usr/bin/clang++",
+		"-dM",
+		"-E",
+		"-c",
+		"/usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp"
+	],
+	"MOC_PREDEFS_FILE" : "/home/simonmeaden/workspace/epubedit/libs/build-libsmlibraries-QT_6_CLang-Debug/tests/testlibsmlibraries/smlibtest_autogen/moc_predefs.h",
+	"MOC_RELAXED_MODE" : false,
+	"MOC_SKIP" : [],
+	"MULTI_CONFIG" : false,
+	"PARALLEL" : 4,
+	"PARSE_CACHE_FILE" : "/home/simonmeaden/workspace/epubedit/libs/build-libsmlibraries-QT_6_CLang-Debug/tests/testlibsmlibraries/CMakeFiles/smlibtest_autogen.dir/ParseCache.txt",
+	"QT_MOC_EXECUTABLE" : "/usr/lib64/qt6/libexec/moc",
+	"QT_UIC_EXECUTABLE" : "/usr/lib64/qt6/libexec/uic",
+	"QT_VERSION_MAJOR" : 6,
+	"QT_VERSION_MINOR" : 3,
+	"SETTINGS_FILE" : "/home/simonmeaden/workspace/epubedit/libs/build-libsmlibraries-QT_6_CLang-Debug/tests/testlibsmlibraries/CMakeFiles/smlibtest_autogen.dir/AutogenUsed.txt",
+	"SOURCES" : 
+	[
+		[
+			"/home/simonmeaden/workspace/epubedit/libs/libsmlibraries/tests/testlibsmlibraries/main.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/simonmeaden/workspace/epubedit/libs/libsmlibraries/tests/testlibsmlibraries/testbcp47languages.cpp",
+			"MU",
+			null
+		]
+	],
+	"UIC_OPTIONS" : [],
+	"UIC_SEARCH_PATHS" : [],
+	"UIC_SKIP" : [],
+	"UIC_UI_FILES" : [],
+	"VERBOSITY" : 0
+}

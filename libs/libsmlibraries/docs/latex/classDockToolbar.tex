@@ -1,0 +1,80 @@
+\hypertarget{classDockToolbar}{}\doxysection{Dock\+Toolbar Class Reference}
+\label{classDockToolbar}\index{DockToolbar@{DockToolbar}}
+
+
+The \mbox{\hyperlink{classDockToolbar}{Dock\+Toolbar}} class defines a \mbox{\hyperlink{classDockToolbar}{Dock\+Toolbar}} object.  
+
+
+
+
+{\ttfamily \#include \char`\"{}includes/docker/docktoolbar.\+h\char`\"{}}
+
+Inheritance diagram for Dock\+Toolbar\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{classDockToolbar}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDockToolbar_ab7790092f77f081ef08a52c40bfb66c1}\label{classDockToolbar_ab7790092f77f081ef08a52c40bfb66c1}} 
+\mbox{\hyperlink{classDockToolbar_ab7790092f77f081ef08a52c40bfb66c1}{Dock\+Toolbar}} (Dock\+Position position, \mbox{\hyperlink{classAbstractDockWidget}{Abstract\+Dock\+Widget}} $\ast$parent)
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{classDockToolbar}{Dock\+Toolbar}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDockToolbar_ae733f5212e397e344c4a58866d22da94}\label{classDockToolbar_ae733f5212e397e344c4a58866d22da94}} 
+Dock\+Position \mbox{\hyperlink{classDockToolbar_ae733f5212e397e344c4a58866d22da94}{dock\+Position}} ()
+\begin{DoxyCompactList}\small\item\em Returns the position of the toolbar. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDockToolbar_ab1657435e0d58ba30ab91a01e8e17886}\label{classDockToolbar_ab1657435e0d58ba30ab91a01e8e17886}} 
+void \mbox{\hyperlink{classDockToolbar_ab1657435e0d58ba30ab91a01e8e17886}{set\+Dock\+Position}} (Dock\+Position position)
+\begin{DoxyCompactList}\small\item\em sets the position of the toolbar. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDockToolbar_a2139351ed4a9c94b6561314657f8507f}\label{classDockToolbar_a2139351ed4a9c94b6561314657f8507f}} 
+QSize \mbox{\hyperlink{classDockToolbar_a2139351ed4a9c94b6561314657f8507f}{size\+Hint}} () const override
+\begin{DoxyCompactList}\small\item\em Returns a size hint for this object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDockToolbar_abe5b4ed89203f881bc9fd510c84c255c}\label{classDockToolbar_abe5b4ed89203f881bc9fd510c84c255c}} 
+void \mbox{\hyperlink{classDockToolbar_abe5b4ed89203f881bc9fd510c84c255c}{paint}} (QPainter \&painter) override
+\begin{DoxyCompactList}\small\item\em Paints the \mbox{\hyperlink{classDockToolbar}{Dock\+Toolbar}} and all of it\textquotesingle{}s child widgets. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDockToolbar_afb7a748e8c81034508b5dd130e2d3cde}\label{classDockToolbar_afb7a748e8c81034508b5dd130e2d3cde}} 
+void \mbox{\hyperlink{classDockToolbar_afb7a748e8c81034508b5dd130e2d3cde}{clone}} (QObject $\ast$item) override
+\begin{DoxyCompactList}\small\item\em Creates a clone of the \mbox{\hyperlink{classDockToolbar}{Dock\+Toolbar}} into item if item is a \mbox{\hyperlink{classDockToolbar}{Dock\+Toolbar}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDockToolbar_a0c2ef43201fe4268f4e06b343444d058}\label{classDockToolbar_a0c2ef43201fe4268f4e06b343444d058}} 
+\mbox{\hyperlink{classDockToolbar_a0c2ef43201fe4268f4e06b343444d058}{Dock\+Toolbar}} (Dock\+Toolbar\+Private \&d)
+\begin{DoxyCompactList}\small\item\em d\+\_\+ptr constructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDockToolbar_afbb788488de875e32f2936fc866e9621}\label{classDockToolbar_afbb788488de875e32f2936fc866e9621}} 
+class {\bfseries Header\+Widget}
+\item 
+\mbox{\Hypertarget{classDockToolbar_a3e4a46070cf48bd7885117232387779c}\label{classDockToolbar_a3e4a46070cf48bd7885117232387779c}} 
+class {\bfseries Footer\+Widget}
+\item 
+\mbox{\Hypertarget{classDockToolbar_a4389cbe33dc7c394abc8290a07ac6e5b}\label{classDockToolbar_a4389cbe33dc7c394abc8290a07ac6e5b}} 
+class {\bfseries Dock\+Widget}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classDockToolbar}{Dock\+Toolbar}} class defines a \mbox{\hyperlink{classDockToolbar}{Dock\+Toolbar}} object. 
+
+\mbox{\hyperlink{classDockToolbar}{Dock\+Toolbar}}\textquotesingle{}s are similar to QToolbars in that you can add certain types of widget to them, primarily certain types of \mbox{\hyperlink{classButtonWidget}{Button\+Widget}}, a \mbox{\hyperlink{classLabelWidget}{Label\+Widget}} or a \mbox{\hyperlink{classListWidget}{List\+Widget}}.
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classButtonWidget}{Button\+Widget}} 
+
+\mbox{\hyperlink{classListButtonWidget}{List\+Button\+Widget}} 
+
+\mbox{\hyperlink{classLabelWidget}{Label\+Widget}} 
+
+\mbox{\hyperlink{classListWidget}{List\+Widget}} 
+
+\mbox{\hyperlink{classSeperatorWidget}{Seperator\+Widget}} 
+\end{DoxySeeAlso}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+docktoolbar.\+h\end{DoxyCompactItemize}

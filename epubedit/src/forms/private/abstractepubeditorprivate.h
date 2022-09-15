@@ -17,10 +17,8 @@ public:
   const QString& href() const;
   void loadHref(const QString& href);
 
-protected:
   PConfig m_config;
   QString m_href;
-  QAbstractScrollArea* m_editor;
 };
 
 #endif // ABSTRACTEPUBEDITORPRIVATE_H

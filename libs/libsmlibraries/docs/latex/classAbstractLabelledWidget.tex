@@ -1,0 +1,348 @@
+\hypertarget{classAbstractLabelledWidget}{}\doxysection{Abstract\+Labelled\+Widget Class Reference}
+\label{classAbstractLabelledWidget}\index{AbstractLabelledWidget@{AbstractLabelledWidget}}
+
+
+The Labelled\+Widget abstract base class.  
+
+
+
+
+{\ttfamily \#include $<$abstractlabelledwidget.\+h$>$}
+
+Inheritance diagram for Abstract\+Labelled\+Widget\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.782609cm]{classAbstractLabelledWidget}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{classAbstractLabelledWidget_a515ccd200da0cb366834d7443e56f77c}{Label\+Position}} \{ \mbox{\hyperlink{classAbstractLabelledWidget_a515ccd200da0cb366834d7443e56f77ca5471473c982b99eb9e2fd63bcd73ba29}{Left}} = 0
+, \mbox{\hyperlink{classAbstractLabelledWidget_a515ccd200da0cb366834d7443e56f77ca92348190b7078717e5c15d0985c12173}{Right}}
+, \mbox{\hyperlink{classAbstractLabelledWidget_a515ccd200da0cb366834d7443e56f77cad97b25bfaee5de264539733e19b09d0b}{Above}}
+, \mbox{\hyperlink{classAbstractLabelledWidget_a515ccd200da0cb366834d7443e56f77ca548d7533c25d4771e67b2e827aee99d9}{Below}}
+ \}
+\begin{DoxyCompactList}\small\item\em An enum defining the label position. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classAbstractLabelledWidget_ac401ed3a9861056bbf0d50bfe11647ca}\label{classAbstractLabelledWidget_ac401ed3a9861056bbf0d50bfe11647ca}} 
+void \mbox{\hyperlink{classAbstractLabelledWidget_ac401ed3a9861056bbf0d50bfe11647ca}{label\+Text\+Changed}} (const QString \&text)
+\begin{DoxyCompactList}\small\item\em signal sent when the label text is changed. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractLabelledWidget_a2ea2ea5e5f1eaf71ba374d25253bf2cc}\label{classAbstractLabelledWidget_a2ea2ea5e5f1eaf71ba374d25253bf2cc}} 
+void \mbox{\hyperlink{classAbstractLabelledWidget_a2ea2ea5e5f1eaf71ba374d25253bf2cc}{label\+Text\+Format\+Changed}} (Qt\+::\+Text\+Format format)
+\begin{DoxyCompactList}\small\item\em signal sent when the format of the label text is changed. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractLabelledWidget_a5fe49169bb58ed4449390b559ae343d7}\label{classAbstractLabelledWidget_a5fe49169bb58ed4449390b559ae343d7}} 
+void \mbox{\hyperlink{classAbstractLabelledWidget_a5fe49169bb58ed4449390b559ae343d7}{label\+Alignment\+Changed}} (Qt\+::\+Alignment alignment)
+\begin{DoxyCompactList}\small\item\em signal sent when the label alignment is changed. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractLabelledWidget_ae23034e066c53e7c46898a4a879fb6dd}\label{classAbstractLabelledWidget_ae23034e066c53e7c46898a4a879fb6dd}} 
+void \mbox{\hyperlink{classAbstractLabelledWidget_ae23034e066c53e7c46898a4a879fb6dd}{label\+Position\+Changed}} (\mbox{\hyperlink{classAbstractLabelledWidget_a515ccd200da0cb366834d7443e56f77c}{Abstract\+Labelled\+Widget\+::\+Label\+Position}} position)
+\begin{DoxyCompactList}\small\item\em signal sent when the label position is changed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classAbstractLabelledWidget_a550773688c685f8a928232cf14278595}{Abstract\+Labelled\+Widget}} (QString \mbox{\hyperlink{classAbstractLabelledWidget_a38a4d448633db671496c5ef5b9591a9d}{label\+Text}}=QString(), QWidget $\ast$parent=nullptr, Widget\+Factory const \&factory=Widget\+Factory())
+\item 
+\mbox{\Hypertarget{classAbstractLabelledWidget_a681e9bcc666291ef7e22fbb336e243cc}\label{classAbstractLabelledWidget_a681e9bcc666291ef7e22fbb336e243cc}} 
+virtual \mbox{\hyperlink{classAbstractLabelledWidget_a681e9bcc666291ef7e22fbb336e243cc}{$\sim$\+Abstract\+Labelled\+Widget}} ()
+\begin{DoxyCompactList}\small\item\em Called when the \mbox{\hyperlink{classAbstractLabelledWidget}{Abstract\+Labelled\+Widget}} is destroyed. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractLabelledWidget_a38d2595884b2daffcd5c79c77fc88c34}\label{classAbstractLabelledWidget_a38d2595884b2daffcd5c79c77fc88c34}} 
+void \mbox{\hyperlink{classAbstractLabelledWidget_a38d2595884b2daffcd5c79c77fc88c34}{set\+Label\+Text}} (const QString \&\mbox{\hyperlink{classAbstractLabelledWidget_a38a4d448633db671496c5ef5b9591a9d}{label\+Text}})
+\begin{DoxyCompactList}\small\item\em Sets the label text. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractLabelledWidget_a26cb7eb1476524f79df96a99b1ae69fb}\label{classAbstractLabelledWidget_a26cb7eb1476524f79df96a99b1ae69fb}} 
+QString \mbox{\hyperlink{classAbstractLabelledWidget_a26cb7eb1476524f79df96a99b1ae69fb}{label\+Text}} () const
+\begin{DoxyCompactList}\small\item\em Returns the label text. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractLabelledWidget_a322f7ea3ebe2b0fe60e48e7a8bb3dee6}\label{classAbstractLabelledWidget_a322f7ea3ebe2b0fe60e48e7a8bb3dee6}} 
+\mbox{\hyperlink{classAbstractLabelledWidget_a515ccd200da0cb366834d7443e56f77c}{Label\+Position}} \mbox{\hyperlink{classAbstractLabelledWidget_a322f7ea3ebe2b0fe60e48e7a8bb3dee6}{label\+Position}} () const
+\begin{DoxyCompactList}\small\item\em Returns the label position. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractLabelledWidget_aa7367ad902b65a6fffab7aa2bc7fa593}\label{classAbstractLabelledWidget_aa7367ad902b65a6fffab7aa2bc7fa593}} 
+void \mbox{\hyperlink{classAbstractLabelledWidget_aa7367ad902b65a6fffab7aa2bc7fa593}{set\+Label\+Position}} (const \mbox{\hyperlink{classAbstractLabelledWidget_a515ccd200da0cb366834d7443e56f77c}{Label\+Position}} \&\mbox{\hyperlink{classAbstractLabelledWidget_afcb242dfc1717d5f90d23351f35c4af6}{label\+Position}})
+\begin{DoxyCompactList}\small\item\em Sets the label position. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractLabelledWidget_ac707b6e59c8a1cada8149792094eee8d}\label{classAbstractLabelledWidget_ac707b6e59c8a1cada8149792094eee8d}} 
+Qt\+::\+Alignment \mbox{\hyperlink{classAbstractLabelledWidget_ac707b6e59c8a1cada8149792094eee8d}{label\+Alignment}} () const
+\begin{DoxyCompactList}\small\item\em Returns the label alignment. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractLabelledWidget_a77c44c5b838802bdc63eefd75196e161}\label{classAbstractLabelledWidget_a77c44c5b838802bdc63eefd75196e161}} 
+void \mbox{\hyperlink{classAbstractLabelledWidget_a77c44c5b838802bdc63eefd75196e161}{set\+Label\+Alignment}} (const Qt\+::\+Alignment \&widget\+Alignment)
+\begin{DoxyCompactList}\small\item\em Sets the label alignment. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractLabelledWidget_ae153997dd4d0200a3945be83c201e6b7}\label{classAbstractLabelledWidget_ae153997dd4d0200a3945be83c201e6b7}} 
+int \mbox{\hyperlink{classAbstractLabelledWidget_ae153997dd4d0200a3945be83c201e6b7}{spacing}} ()
+\begin{DoxyCompactList}\small\item\em Returns layout spacing. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractLabelledWidget_abc25f5afc5b38e368409c72767d8a249}\label{classAbstractLabelledWidget_abc25f5afc5b38e368409c72767d8a249}} 
+void \mbox{\hyperlink{classAbstractLabelledWidget_abc25f5afc5b38e368409c72767d8a249}{set\+Spacing}} (int \mbox{\hyperlink{classAbstractLabelledWidget_ae153997dd4d0200a3945be83c201e6b7}{spacing}})
+\begin{DoxyCompactList}\small\item\em Adjusts the layout spacing. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractLabelledWidget_a84b7b8b1807a7ddc04004ba4c36f865c}\label{classAbstractLabelledWidget_a84b7b8b1807a7ddc04004ba4c36f865c}} 
+Qt\+::\+Text\+Format \mbox{\hyperlink{classAbstractLabelledWidget_a84b7b8b1807a7ddc04004ba4c36f865c}{label\+Text\+Format}} () const
+\begin{DoxyCompactList}\small\item\em returns the label text format. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractLabelledWidget_aec8386a4bbae1ccc1d874dccadf0c041}\label{classAbstractLabelledWidget_aec8386a4bbae1ccc1d874dccadf0c041}} 
+void \mbox{\hyperlink{classAbstractLabelledWidget_aec8386a4bbae1ccc1d874dccadf0c041}{set\+Label\+Text\+Format}} (Qt\+::\+Text\+Format format)
+\begin{DoxyCompactList}\small\item\em Sets the label text format. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractLabelledWidget_aec5ec41fd62e6227aecec246b673e3b9}\label{classAbstractLabelledWidget_aec5ec41fd62e6227aecec246b673e3b9}} 
+QSize \mbox{\hyperlink{classAbstractLabelledWidget_aec5ec41fd62e6227aecec246b673e3b9}{size\+Hint}} () const override
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QWidget\+::size\+Hint() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractLabelledWidget_abf39de5733df4943e4dc4179adf0e7c9}\label{classAbstractLabelledWidget_abf39de5733df4943e4dc4179adf0e7c9}} 
+QSize \mbox{\hyperlink{classAbstractLabelledWidget_abf39de5733df4943e4dc4179adf0e7c9}{minimum\+Size\+Hint}} () const override
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QWidget\+::minimum\+Size\+Hint. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classAbstractLabelledWidget_a5f8a68b3cdaca7e00d58f969794eb690}{set\+Label\+Size\+Policy}} (QSize\+Policy policy)
+\item 
+void \mbox{\hyperlink{classAbstractLabelledWidget_af9a54a2deb198e95e282b0aea635d68d}{set\+Label\+Size\+Policy}} (QSize\+Policy\+::\+Policy horizontal, QSize\+Policy\+::\+Policy vertical)
+\item 
+void \mbox{\hyperlink{classAbstractLabelledWidget_aad69e3b423e19535f96ebdc735a90d63}{set\+Widget\+Size\+Policy}} (QSize\+Policy policy)
+\item 
+void \mbox{\hyperlink{classAbstractLabelledWidget_a042cac07f22db71767e627a6b046c0d6}{set\+Widget\+Size\+Policy}} (QSize\+Policy\+::\+Policy horizontal, QSize\+Policy\+::\+Policy vertical)
+\item 
+QSize\+Policy \mbox{\hyperlink{classAbstractLabelledWidget_accc2107ac1ad0b4426bda2330648caf3}{label\+Size\+Policy}} ()
+\item 
+QSize\+Policy \mbox{\hyperlink{classAbstractLabelledWidget_a69a360d61f0a023b6e86fc2e01df71cd}{widget\+Size\+Policy}} ()
+\item 
+QString \mbox{\hyperlink{classAbstractLabelledWidget_a1efbe9b53ca712c56188ff8e4ae974c9}{label\+Style\+Sheet}} ()
+\item 
+void \mbox{\hyperlink{classAbstractLabelledWidget_aa10a84728f9948a9e0f00d5ba65e03df}{set\+Label\+Style\+Sheet}} (const QString \&style\+Sheet)
+\item 
+QString \mbox{\hyperlink{classAbstractLabelledWidget_a5b7abbf3bacb2da44e23eef762f6b0e3}{widget\+Style\+Sheet}} ()
+\item 
+void \mbox{\hyperlink{classAbstractLabelledWidget_a63decd65ba70d04c59c091041d0caade}{set\+Widget\+Style\+Sheet}} (const QString \&style\+Sheet)
+\item 
+void \mbox{\hyperlink{classAbstractLabelledWidget_a49d08b6d8ab9abf664f09cdcc02da7d6}{clear\+Label}} ()
+\item 
+\mbox{\Hypertarget{classAbstractLabelledWidget_a5043a8b825c19c3056aa94491f25f9d5}\label{classAbstractLabelledWidget_a5043a8b825c19c3056aa94491f25f9d5}} 
+QLabel $\ast$ \mbox{\hyperlink{classAbstractLabelledWidget_a5043a8b825c19c3056aa94491f25f9d5}{label}} () const
+\begin{DoxyCompactList}\small\item\em Returns a pointer to the internal QLabel. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractLabelledWidget_a74a5c10d316393da8aebbba84ed931a1}\label{classAbstractLabelledWidget_a74a5c10d316393da8aebbba84ed931a1}} 
+void \mbox{\hyperlink{classAbstractLabelledWidget_a74a5c10d316393da8aebbba84ed931a1}{set\+Label}} (QLabel $\ast$\mbox{\hyperlink{classAbstractLabelledWidget_a5043a8b825c19c3056aa94491f25f9d5}{label}})
+\begin{DoxyCompactList}\small\item\em Allows the user to replace the internal QLabel with an alternative. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classAbstractLabelledWidget_a19fa823fef89435af8c98e51e860ad58}\label{classAbstractLabelledWidget_a19fa823fef89435af8c98e51e860ad58}} 
+void \mbox{\hyperlink{classAbstractLabelledWidget_a19fa823fef89435af8c98e51e860ad58}{position\+Label}} ()
+\begin{DoxyCompactList}\small\item\em Positions the label appropriately for Label\+Position. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classAbstractLabelledWidget_a7caa25a480938d572e49944c772116fa}\label{classAbstractLabelledWidget_a7caa25a480938d572e49944c772116fa}} 
+QLabel $\ast$ \mbox{\hyperlink{classAbstractLabelledWidget_a7caa25a480938d572e49944c772116fa}{m\+\_\+label}}
+\begin{DoxyCompactList}\small\item\em pointer to the Label. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractLabelledWidget_accd1dd08565b9f593ebe858481a7f086}\label{classAbstractLabelledWidget_accd1dd08565b9f593ebe858481a7f086}} 
+QWidget $\ast$ \mbox{\hyperlink{classAbstractLabelledWidget_accd1dd08565b9f593ebe858481a7f086}{m\+\_\+widget}}
+\begin{DoxyCompactList}\small\item\em pointer to the widget. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractLabelledWidget_a292b2608ce431e9d29c22bc27040e6c3}\label{classAbstractLabelledWidget_a292b2608ce431e9d29c22bc27040e6c3}} 
+QGrid\+Layout $\ast$ \mbox{\hyperlink{classAbstractLabelledWidget_a292b2608ce431e9d29c22bc27040e6c3}{m\+\_\+layout}}
+\begin{DoxyCompactList}\small\item\em widget layout \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractLabelledWidget_a266079159f32fd845ed1431c2ab628fa}\label{classAbstractLabelledWidget_a266079159f32fd845ed1431c2ab628fa}} 
+\mbox{\hyperlink{classAbstractLabelledWidget_a515ccd200da0cb366834d7443e56f77c}{Label\+Position}} \mbox{\hyperlink{classAbstractLabelledWidget_a266079159f32fd845ed1431c2ab628fa}{m\+\_\+position}}
+\begin{DoxyCompactList}\small\item\em the label position \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+QString \mbox{\hyperlink{classAbstractLabelledWidget_a38a4d448633db671496c5ef5b9591a9d}{label\+Text}}
+\begin{DoxyCompactList}\small\item\em This property holds the text of the label. \end{DoxyCompactList}\item 
+Qt\+::\+Text\+Format \mbox{\hyperlink{classAbstractLabelledWidget_a0761cba9de9e8e5bd3abca0919cb27b9}{label\+Text\+Format}}
+\begin{DoxyCompactList}\small\item\em This property holds the label\textquotesingle{}s text format. \end{DoxyCompactList}\item 
+Qt\+::\+Alignment \mbox{\hyperlink{classAbstractLabelledWidget_a684a13c24a80f2ffbe14b32fb1c56197}{label\+Alignment}}
+\begin{DoxyCompactList}\small\item\em This property holds the alignment of the label. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classAbstractLabelledWidget_a515ccd200da0cb366834d7443e56f77c}{Abstract\+Labelled\+Widget\+::\+Label\+Position}} label\+Position READ \mbox{\hyperlink{classAbstractLabelledWidget_afcb242dfc1717d5f90d23351f35c4af6}{label\+Position}}
+\begin{DoxyCompactList}\small\item\em This property holds the position of the label. Possible values are \mbox{\hyperlink{classAbstractLabelledWidget_a515ccd200da0cb366834d7443e56f77ca5471473c982b99eb9e2fd63bcd73ba29}{Abstract\+Labelled\+Widget\+::\+Left}}, the default and \mbox{\hyperlink{classAbstractLabelledWidget_a515ccd200da0cb366834d7443e56f77ca92348190b7078717e5c15d0985c12173}{Abstract\+Labelled\+Widget\+::\+Right}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The Labelled\+Widget abstract base class. 
+
+\begin{DoxySince}{Since}
+5.\+7.\+0 
+\end{DoxySince}
+\begin{DoxyParagraph}{License\+: The MIT License}
+
+\end{DoxyParagraph}
+\begin{DoxyCopyright}{Copyright}
+© 2019 -\/ 2020 Simon Meaden. All rights reserved.
+\end{DoxyCopyright}
+The class is designed as a common super class for widgets like \mbox{\hyperlink{classLabelledSpinBox}{Labelled\+Spin\+Box}} and \mbox{\hyperlink{classLabelledComboBox}{Labelled\+Combo\+Box}}.
+
+The label can be on either side of the combo box, above it or below, with the position being set using the Labelled\+Combo\+Box\+::set\+Position() method.
+
+The label\textquotesingle{}s value can be set/recovered using the text() and set\+Text methods, and their format can be modified using text\+Format() and set\+Text\+Format().
+
+The label has full alignment capability using \mbox{\hyperlink{classAbstractLabelledWidget_a77c44c5b838802bdc63eefd75196e161}{Labelled\+Combo\+Box\+::set\+Label\+Alignment()}}. Use the Labelled\+Combo\+Box\+::value() method to access.
+
+Stylesheets can be set for the individual components using either \mbox{\hyperlink{classAbstractLabelledWidget_aa10a84728f9948a9e0f00d5ba65e03df}{set\+Label\+Style\+Sheet()}} or set\+Wrapper\+Style\+Sheet(). Alternatively you can set a combined stypesheet using set\+Style\+Sheet() of the wrapping QWidget, however stylesheets set for individual components will override those set for the wrapper.
+
+QSize\+Size\+Policy can be set for either component using \mbox{\hyperlink{classAbstractLabelledWidget_a5f8a68b3cdaca7e00d58f969794eb690}{set\+Label\+Size\+Policy()}} or \mbox{\hyperlink{classAbstractLabelledWidget_aad69e3b423e19535f96ebdc735a90d63}{set\+Widget\+Size\+Policy()}}. 
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{classAbstractLabelledWidget_a515ccd200da0cb366834d7443e56f77c}\label{classAbstractLabelledWidget_a515ccd200da0cb366834d7443e56f77c}} 
+\index{AbstractLabelledWidget@{AbstractLabelledWidget}!LabelPosition@{LabelPosition}}
+\index{LabelPosition@{LabelPosition}!AbstractLabelledWidget@{AbstractLabelledWidget}}
+\doxysubsubsection{\texorpdfstring{LabelPosition}{LabelPosition}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classAbstractLabelledWidget_a515ccd200da0cb366834d7443e56f77c}{Abstract\+Labelled\+Widget\+::\+Label\+Position}}}
+
+
+
+An enum defining the label position. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Left@{Left}!AbstractLabelledWidget@{AbstractLabelledWidget}}\index{AbstractLabelledWidget@{AbstractLabelledWidget}!Left@{Left}}}\mbox{\Hypertarget{classAbstractLabelledWidget_a515ccd200da0cb366834d7443e56f77ca5471473c982b99eb9e2fd63bcd73ba29}\label{classAbstractLabelledWidget_a515ccd200da0cb366834d7443e56f77ca5471473c982b99eb9e2fd63bcd73ba29}} 
+Left&The label is positioned to the left of the widget. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Right@{Right}!AbstractLabelledWidget@{AbstractLabelledWidget}}\index{AbstractLabelledWidget@{AbstractLabelledWidget}!Right@{Right}}}\mbox{\Hypertarget{classAbstractLabelledWidget_a515ccd200da0cb366834d7443e56f77ca92348190b7078717e5c15d0985c12173}\label{classAbstractLabelledWidget_a515ccd200da0cb366834d7443e56f77ca92348190b7078717e5c15d0985c12173}} 
+Right&The label is positioned to the right of the widget. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Above@{Above}!AbstractLabelledWidget@{AbstractLabelledWidget}}\index{AbstractLabelledWidget@{AbstractLabelledWidget}!Above@{Above}}}\mbox{\Hypertarget{classAbstractLabelledWidget_a515ccd200da0cb366834d7443e56f77cad97b25bfaee5de264539733e19b09d0b}\label{classAbstractLabelledWidget_a515ccd200da0cb366834d7443e56f77cad97b25bfaee5de264539733e19b09d0b}} 
+Above&The label is positioned above the widget. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Below@{Below}!AbstractLabelledWidget@{AbstractLabelledWidget}}\index{AbstractLabelledWidget@{AbstractLabelledWidget}!Below@{Below}}}\mbox{\Hypertarget{classAbstractLabelledWidget_a515ccd200da0cb366834d7443e56f77ca548d7533c25d4771e67b2e827aee99d9}\label{classAbstractLabelledWidget_a515ccd200da0cb366834d7443e56f77ca548d7533c25d4771e67b2e827aee99d9}} 
+Below&The label is positioned below the widget. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classAbstractLabelledWidget_a550773688c685f8a928232cf14278595}\label{classAbstractLabelledWidget_a550773688c685f8a928232cf14278595}} 
+\index{AbstractLabelledWidget@{AbstractLabelledWidget}!AbstractLabelledWidget@{AbstractLabelledWidget}}
+\index{AbstractLabelledWidget@{AbstractLabelledWidget}!AbstractLabelledWidget@{AbstractLabelledWidget}}
+\doxysubsubsection{\texorpdfstring{AbstractLabelledWidget()}{AbstractLabelledWidget()}}
+{\footnotesize\ttfamily Abstract\+Labelled\+Widget\+::\+Abstract\+Labelled\+Widget (\begin{DoxyParamCaption}\item[{QString}]{label\+Text = {\ttfamily QString()},  }\item[{QWidget $\ast$}]{parent = {\ttfamily nullptr},  }\item[{Widget\+Factory const \&}]{factory = {\ttfamily WidgetFactory()} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Constructs an abstract spinbox with the given label\+Text and default parent, and label text property. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classAbstractLabelledWidget_a49d08b6d8ab9abf664f09cdcc02da7d6}\label{classAbstractLabelledWidget_a49d08b6d8ab9abf664f09cdcc02da7d6}} 
+\index{AbstractLabelledWidget@{AbstractLabelledWidget}!clearLabel@{clearLabel}}
+\index{clearLabel@{clearLabel}!AbstractLabelledWidget@{AbstractLabelledWidget}}
+\doxysubsubsection{\texorpdfstring{clearLabel()}{clearLabel()}}
+{\footnotesize\ttfamily void Abstract\+Labelled\+Widget\+::clear\+Label (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Clears the label\textquotesingle{}s text. {\bfseries{Reimplements\+:}} QLabel\+::clear(). \mbox{\Hypertarget{classAbstractLabelledWidget_accc2107ac1ad0b4426bda2330648caf3}\label{classAbstractLabelledWidget_accc2107ac1ad0b4426bda2330648caf3}} 
+\index{AbstractLabelledWidget@{AbstractLabelledWidget}!labelSizePolicy@{labelSizePolicy}}
+\index{labelSizePolicy@{labelSizePolicy}!AbstractLabelledWidget@{AbstractLabelledWidget}}
+\doxysubsubsection{\texorpdfstring{labelSizePolicy()}{labelSizePolicy()}}
+{\footnotesize\ttfamily QSize\+Policy Abstract\+Labelled\+Widget\+::label\+Size\+Policy (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns the size policy for the widget. \begin{DoxySeeAlso}{See also}
+QLabel\+::sesize\+Policy(\+QSize\+Policy\+::\+Policy, QSize\+Policy\+::\+Policy) 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classAbstractLabelledWidget_a1efbe9b53ca712c56188ff8e4ae974c9}\label{classAbstractLabelledWidget_a1efbe9b53ca712c56188ff8e4ae974c9}} 
+\index{AbstractLabelledWidget@{AbstractLabelledWidget}!labelStyleSheet@{labelStyleSheet}}
+\index{labelStyleSheet@{labelStyleSheet}!AbstractLabelledWidget@{AbstractLabelledWidget}}
+\doxysubsubsection{\texorpdfstring{labelStyleSheet()}{labelStyleSheet()}}
+{\footnotesize\ttfamily QString Abstract\+Labelled\+Widget\+::label\+Style\+Sheet (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns the stylesheet for the label. For the entire widget use QWidget\+::set\+Style\+Sheet() \mbox{\Hypertarget{classAbstractLabelledWidget_a5f8a68b3cdaca7e00d58f969794eb690}\label{classAbstractLabelledWidget_a5f8a68b3cdaca7e00d58f969794eb690}} 
+\index{AbstractLabelledWidget@{AbstractLabelledWidget}!setLabelSizePolicy@{setLabelSizePolicy}}
+\index{setLabelSizePolicy@{setLabelSizePolicy}!AbstractLabelledWidget@{AbstractLabelledWidget}}
+\doxysubsubsection{\texorpdfstring{setLabelSizePolicy()}{setLabelSizePolicy()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Abstract\+Labelled\+Widget\+::set\+Label\+Size\+Policy (\begin{DoxyParamCaption}\item[{QSize\+Policy}]{policy }\end{DoxyParamCaption})}
+
+Sets the size policy for the label. \begin{DoxySeeAlso}{See also}
+QWidget\+::set\+Size\+Policy(\+QSize\+Policy) 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classAbstractLabelledWidget_af9a54a2deb198e95e282b0aea635d68d}\label{classAbstractLabelledWidget_af9a54a2deb198e95e282b0aea635d68d}} 
+\index{AbstractLabelledWidget@{AbstractLabelledWidget}!setLabelSizePolicy@{setLabelSizePolicy}}
+\index{setLabelSizePolicy@{setLabelSizePolicy}!AbstractLabelledWidget@{AbstractLabelledWidget}}
+\doxysubsubsection{\texorpdfstring{setLabelSizePolicy()}{setLabelSizePolicy()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Abstract\+Labelled\+Widget\+::set\+Label\+Size\+Policy (\begin{DoxyParamCaption}\item[{QSize\+Policy\+::\+Policy}]{horizontal,  }\item[{QSize\+Policy\+::\+Policy}]{vertical }\end{DoxyParamCaption})}
+
+Sets the size policy for the label. \begin{DoxySeeAlso}{See also}
+QWidget\+::set\+Size\+Policy(\+QSize\+Policy\+::\+Policy, QSize\+Policy\+::\+Policy) 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classAbstractLabelledWidget_aa10a84728f9948a9e0f00d5ba65e03df}\label{classAbstractLabelledWidget_aa10a84728f9948a9e0f00d5ba65e03df}} 
+\index{AbstractLabelledWidget@{AbstractLabelledWidget}!setLabelStyleSheet@{setLabelStyleSheet}}
+\index{setLabelStyleSheet@{setLabelStyleSheet}!AbstractLabelledWidget@{AbstractLabelledWidget}}
+\doxysubsubsection{\texorpdfstring{setLabelStyleSheet()}{setLabelStyleSheet()}}
+{\footnotesize\ttfamily void Abstract\+Labelled\+Widget\+::set\+Label\+Style\+Sheet (\begin{DoxyParamCaption}\item[{const QString \&}]{style\+Sheet }\end{DoxyParamCaption})}
+
+Sets the stylesheet for the label. For the entire widget use QWidget\+::set\+Style\+Sheet() \mbox{\Hypertarget{classAbstractLabelledWidget_aad69e3b423e19535f96ebdc735a90d63}\label{classAbstractLabelledWidget_aad69e3b423e19535f96ebdc735a90d63}} 
+\index{AbstractLabelledWidget@{AbstractLabelledWidget}!setWidgetSizePolicy@{setWidgetSizePolicy}}
+\index{setWidgetSizePolicy@{setWidgetSizePolicy}!AbstractLabelledWidget@{AbstractLabelledWidget}}
+\doxysubsubsection{\texorpdfstring{setWidgetSizePolicy()}{setWidgetSizePolicy()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Abstract\+Labelled\+Widget\+::set\+Widget\+Size\+Policy (\begin{DoxyParamCaption}\item[{QSize\+Policy}]{policy }\end{DoxyParamCaption})}
+
+Sets the size policy for the widget. \begin{DoxySeeAlso}{See also}
+QWidget\+::set\+Size\+Policy(\+QSize\+Policy) 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classAbstractLabelledWidget_a042cac07f22db71767e627a6b046c0d6}\label{classAbstractLabelledWidget_a042cac07f22db71767e627a6b046c0d6}} 
+\index{AbstractLabelledWidget@{AbstractLabelledWidget}!setWidgetSizePolicy@{setWidgetSizePolicy}}
+\index{setWidgetSizePolicy@{setWidgetSizePolicy}!AbstractLabelledWidget@{AbstractLabelledWidget}}
+\doxysubsubsection{\texorpdfstring{setWidgetSizePolicy()}{setWidgetSizePolicy()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Abstract\+Labelled\+Widget\+::set\+Widget\+Size\+Policy (\begin{DoxyParamCaption}\item[{QSize\+Policy\+::\+Policy}]{horizontal,  }\item[{QSize\+Policy\+::\+Policy}]{vertical }\end{DoxyParamCaption})}
+
+Sets the size policy for the widget. \begin{DoxySeeAlso}{See also}
+QWidget\+::set\+Size\+Policy(\+QSize\+Policy\+::\+Policy, QSize\+Policy\+::\+Policy) 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classAbstractLabelledWidget_a63decd65ba70d04c59c091041d0caade}\label{classAbstractLabelledWidget_a63decd65ba70d04c59c091041d0caade}} 
+\index{AbstractLabelledWidget@{AbstractLabelledWidget}!setWidgetStyleSheet@{setWidgetStyleSheet}}
+\index{setWidgetStyleSheet@{setWidgetStyleSheet}!AbstractLabelledWidget@{AbstractLabelledWidget}}
+\doxysubsubsection{\texorpdfstring{setWidgetStyleSheet()}{setWidgetStyleSheet()}}
+{\footnotesize\ttfamily void Abstract\+Labelled\+Widget\+::set\+Widget\+Style\+Sheet (\begin{DoxyParamCaption}\item[{const QString \&}]{style\+Sheet }\end{DoxyParamCaption})}
+
+Sets the stylesheet for the widget. For the entire widget use QWidget\+::set\+Style\+Sheet() \mbox{\Hypertarget{classAbstractLabelledWidget_a69a360d61f0a023b6e86fc2e01df71cd}\label{classAbstractLabelledWidget_a69a360d61f0a023b6e86fc2e01df71cd}} 
+\index{AbstractLabelledWidget@{AbstractLabelledWidget}!widgetSizePolicy@{widgetSizePolicy}}
+\index{widgetSizePolicy@{widgetSizePolicy}!AbstractLabelledWidget@{AbstractLabelledWidget}}
+\doxysubsubsection{\texorpdfstring{widgetSizePolicy()}{widgetSizePolicy()}}
+{\footnotesize\ttfamily QSize\+Policy Abstract\+Labelled\+Widget\+::widget\+Size\+Policy (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns the size policy for the widget. \begin{DoxySeeAlso}{See also}
+QWidget\+::size\+Policy() 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classAbstractLabelledWidget_a5b7abbf3bacb2da44e23eef762f6b0e3}\label{classAbstractLabelledWidget_a5b7abbf3bacb2da44e23eef762f6b0e3}} 
+\index{AbstractLabelledWidget@{AbstractLabelledWidget}!widgetStyleSheet@{widgetStyleSheet}}
+\index{widgetStyleSheet@{widgetStyleSheet}!AbstractLabelledWidget@{AbstractLabelledWidget}}
+\doxysubsubsection{\texorpdfstring{widgetStyleSheet()}{widgetStyleSheet()}}
+{\footnotesize\ttfamily QString Abstract\+Labelled\+Widget\+::widget\+Style\+Sheet (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns the stylesheet for the widget. For the entire widget use QWidget\+::set\+Style\+Sheet() 
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{classAbstractLabelledWidget_a684a13c24a80f2ffbe14b32fb1c56197}\label{classAbstractLabelledWidget_a684a13c24a80f2ffbe14b32fb1c56197}} 
+\index{AbstractLabelledWidget@{AbstractLabelledWidget}!labelAlignment@{labelAlignment}}
+\index{labelAlignment@{labelAlignment}!AbstractLabelledWidget@{AbstractLabelledWidget}}
+\doxysubsubsection{\texorpdfstring{labelAlignment}{labelAlignment}}
+{\footnotesize\ttfamily Abstract\+Labelled\+Widget\+::label\+Alignment\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+This property holds the alignment of the label. 
+
+{\bfseries{Accessor\+:}} label\+Alignment() , \%2 \mbox{\Hypertarget{classAbstractLabelledWidget_afcb242dfc1717d5f90d23351f35c4af6}\label{classAbstractLabelledWidget_afcb242dfc1717d5f90d23351f35c4af6}} 
+\index{AbstractLabelledWidget@{AbstractLabelledWidget}!labelPosition@{labelPosition}}
+\index{labelPosition@{labelPosition}!AbstractLabelledWidget@{AbstractLabelledWidget}}
+\doxysubsubsection{\texorpdfstring{labelPosition}{labelPosition}}
+{\footnotesize\ttfamily Abstract\+Labelled\+Widget\+::label\+Position\hspace{0.3cm}{\ttfamily [write]}}
+
+
+
+This property holds the position of the label. Possible values are \mbox{\hyperlink{classAbstractLabelledWidget_a515ccd200da0cb366834d7443e56f77ca5471473c982b99eb9e2fd63bcd73ba29}{Abstract\+Labelled\+Widget\+::\+Left}}, the default and \mbox{\hyperlink{classAbstractLabelledWidget_a515ccd200da0cb366834d7443e56f77ca92348190b7078717e5c15d0985c12173}{Abstract\+Labelled\+Widget\+::\+Right}}. 
+
+{\bfseries{Accessor\+:}} position() , \%2 \mbox{\Hypertarget{classAbstractLabelledWidget_a38a4d448633db671496c5ef5b9591a9d}\label{classAbstractLabelledWidget_a38a4d448633db671496c5ef5b9591a9d}} 
+\index{AbstractLabelledWidget@{AbstractLabelledWidget}!labelText@{labelText}}
+\index{labelText@{labelText}!AbstractLabelledWidget@{AbstractLabelledWidget}}
+\doxysubsubsection{\texorpdfstring{labelText}{labelText}}
+{\footnotesize\ttfamily Abstract\+Labelled\+Widget\+::label\+Text\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+This property holds the text of the label. 
+
+{\bfseries{Accessor\+:}} label\+Text() , \%2 \mbox{\Hypertarget{classAbstractLabelledWidget_a0761cba9de9e8e5bd3abca0919cb27b9}\label{classAbstractLabelledWidget_a0761cba9de9e8e5bd3abca0919cb27b9}} 
+\index{AbstractLabelledWidget@{AbstractLabelledWidget}!labelTextFormat@{labelTextFormat}}
+\index{labelTextFormat@{labelTextFormat}!AbstractLabelledWidget@{AbstractLabelledWidget}}
+\doxysubsubsection{\texorpdfstring{labelTextFormat}{labelTextFormat}}
+{\footnotesize\ttfamily Abstract\+Labelled\+Widget\+::label\+Text\+Format\hspace{0.3cm}{\ttfamily [read]}}
+
+
+
+This property holds the label\textquotesingle{}s text format. 
+
+See the Qt\+::\+Text\+Format enum for an explanation of the possible options.
+
+The default format is Qt\+::\+Auto\+Text.
+
+{\bfseries{Accessor\+:}} label\+Text\+Format() , \%2 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{abstractlabelledwidget_8h}{abstractlabelledwidget.\+h}}\end{DoxyCompactItemize}

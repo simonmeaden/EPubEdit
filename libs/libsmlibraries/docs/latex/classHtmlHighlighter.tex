@@ -1,0 +1,99 @@
+\hypertarget{classHtmlHighlighter}{}\doxysection{Html\+Highlighter Class Reference}
+\label{classHtmlHighlighter}\index{HtmlHighlighter@{HtmlHighlighter}}
+
+
+A text highlighter for HTML 5 files.  
+
+
+
+
+{\ttfamily \#include $<$htmlhighlighter.\+h$>$}
+
+Inheritance diagram for Html\+Highlighter\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classHtmlHighlighter}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classHtmlHighlighter_a07ff114fd1cb83919c61f174a4477338}\label{classHtmlHighlighter_a07ff114fd1cb83919c61f174a4477338}} 
+\mbox{\hyperlink{classHtmlHighlighter_a07ff114fd1cb83919c61f174a4477338}{Html\+Highlighter}} (\mbox{\hyperlink{classHtmlScanner}{Html\+Scanner}} $\ast$scanner, QPlain\+Text\+Edit $\ast$parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{classHtmlHighlighter}{Html\+Highlighter}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHtmlHighlighter_aa9fd3259eeb40ab967dc8e0db59f3bc7}\label{classHtmlHighlighter_aa9fd3259eeb40ab967dc8e0db59f3bc7}} 
+void \mbox{\hyperlink{classHtmlHighlighter_aa9fd3259eeb40ab967dc8e0db59f3bc7}{cursor\+Pos\+Has\+Changed}} ()
+\begin{DoxyCompactList}\small\item\em This method should be called by the using editor whenever the editor is clicked. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHtmlHighlighter_ab3de8241c5b77472dfea1aa438ad978c}\label{classHtmlHighlighter_ab3de8241c5b77472dfea1aa438ad978c}} 
+int \mbox{\hyperlink{classHtmlHighlighter_ab3de8241c5b77472dfea1aa438ad978c}{current\+Line\+Number}} () const
+\begin{DoxyCompactList}\small\item\em Returns the line number of the current cursor position. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHtmlHighlighter_a018f3fc56f3232925c27cb89c40fa6aa}\label{classHtmlHighlighter_a018f3fc56f3232925c27cb89c40fa6aa}} 
+\mbox{\hyperlink{structTag}{Tag}} $\ast$ \mbox{\hyperlink{classHtmlHighlighter_a018f3fc56f3232925c27cb89c40fa6aa}{current\+Tag}} () const
+\begin{DoxyCompactList}\small\item\em Returns the \mbox{\hyperlink{structTag}{Tag}} at the current cursor position. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHtmlHighlighter_ab01661817bcf5e767c288293d830907a}\label{classHtmlHighlighter_ab01661817bcf5e767c288293d830907a}} 
+void \mbox{\hyperlink{classHtmlHighlighter_ab01661817bcf5e767c288293d830907a}{set\+Current\+Tag}} (\mbox{\hyperlink{structTag}{Tag}} $\ast$\mbox{\hyperlink{classHtmlHighlighter_a018f3fc56f3232925c27cb89c40fa6aa}{current\+Tag}})
+\begin{DoxyCompactList}\small\item\em Sets the current tag. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHtmlHighlighter_ab707079b38b88b1b069bbd4d059548bc}\label{classHtmlHighlighter_ab707079b38b88b1b069bbd4d059548bc}} 
+void \mbox{\hyperlink{classHtmlHighlighter_ab707079b38b88b1b069bbd4d059548bc}{set\+Background}} (const QColor \&background)
+\begin{DoxyCompactList}\small\item\em Sets the background colour for all non current line blocks. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHtmlHighlighter_aaeafbe4a5d3edf39e0e893826048e06f}\label{classHtmlHighlighter_aaeafbe4a5d3edf39e0e893826048e06f}} 
+void \mbox{\hyperlink{classHtmlHighlighter_aaeafbe4a5d3edf39e0e893826048e06f}{set\+Line\+Background}} (const QColor \&line\+Background)
+\begin{DoxyCompactList}\small\item\em Sets the background colour for cuttent line blocks. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHtmlHighlighter_a2f9f7a69d80134b4c752d771181abc63}\label{classHtmlHighlighter_a2f9f7a69d80134b4c752d771181abc63}} 
+void \mbox{\hyperlink{classHtmlHighlighter_a2f9f7a69d80134b4c752d771181abc63}{set\+Match\+Color}} (const QColor \&match\+Color)
+\begin{DoxyCompactList}\small\item\em Sets the foreground colour for tag/bracket matching. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHtmlHighlighter_ad1e33ee254c8f4e737895b75228cf695}\label{classHtmlHighlighter_ad1e33ee254c8f4e737895b75228cf695}} 
+void \mbox{\hyperlink{classHtmlHighlighter_ad1e33ee254c8f4e737895b75228cf695}{set\+Name\+Color}} (const QColor \&name\+Color)
+\begin{DoxyCompactList}\small\item\em Sets the foreground colour for tag names. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHtmlHighlighter_ae583c9ccf23d014daf1c5d0a0dc10610}\label{classHtmlHighlighter_ae583c9ccf23d014daf1c5d0a0dc10610}} 
+void \mbox{\hyperlink{classHtmlHighlighter_ae583c9ccf23d014daf1c5d0a0dc10610}{set\+Attr\+Color}} (const QColor \&attr\+Color)
+\begin{DoxyCompactList}\small\item\em Sets the foreground colour for attribute names. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHtmlHighlighter_afb8d090bc4e74ad3d2c22213fd679312}\label{classHtmlHighlighter_afb8d090bc4e74ad3d2c22213fd679312}} 
+void \mbox{\hyperlink{classHtmlHighlighter_afb8d090bc4e74ad3d2c22213fd679312}{set\+Value\+Color}} (const QColor \&value\+Color)
+\begin{DoxyCompactList}\small\item\em Sets the foreground colour for attribute values. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHtmlHighlighter_a60b3845dc308daf0e12a3a8aad722909}\label{classHtmlHighlighter_a60b3845dc308daf0e12a3a8aad722909}} 
+void \mbox{\hyperlink{classHtmlHighlighter_a60b3845dc308daf0e12a3a8aad722909}{set\+SQuote\+Color}} (const QColor \&s\+Quote\+Color)
+\begin{DoxyCompactList}\small\item\em Sets the foreground colour for values within single quotes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHtmlHighlighter_a2354ec619fe3d572e6802161880b032f}\label{classHtmlHighlighter_a2354ec619fe3d572e6802161880b032f}} 
+void \mbox{\hyperlink{classHtmlHighlighter_a2354ec619fe3d572e6802161880b032f}{set\+DQuote\+Color}} (const QColor \&d\+Quote\+Color)
+\begin{DoxyCompactList}\small\item\em Sets the foreground colour for values within double quotes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHtmlHighlighter_a61e6a1e10def623f759f3b7fbe2d29ef}\label{classHtmlHighlighter_a61e6a1e10def623f759f3b7fbe2d29ef}} 
+void \mbox{\hyperlink{classHtmlHighlighter_a61e6a1e10def623f759f3b7fbe2d29ef}{set\+Comment\+Color}} (const QColor \&comment)
+\begin{DoxyCompactList}\small\item\em Sets the foreground colour for comments. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHtmlHighlighter_ab70b0000306714a655889f62e4371c55}\label{classHtmlHighlighter_ab70b0000306714a655889f62e4371c55}} 
+void \mbox{\hyperlink{classHtmlHighlighter_ab70b0000306714a655889f62e4371c55}{set\+Text\+Color}} (const QBrush \&new\+Text\+Color)
+\begin{DoxyCompactList}\small\item\em Sets the foreground colour for non tag text. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHtmlHighlighter_a5be194724da0ed46307f7ecbfde3edd7}\label{classHtmlHighlighter_a5be194724da0ed46307f7ecbfde3edd7}} 
+void \mbox{\hyperlink{classHtmlHighlighter_a5be194724da0ed46307f7ecbfde3edd7}{set\+Error\+Color}} (const QColor \&new\+Error)
+\begin{DoxyCompactList}\small\item\em Sets the foreground colour for detected errors. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classHtmlHighlighter_a81dd80f71c7644f84cdaaab76d8dbf3d}\label{classHtmlHighlighter_a81dd80f71c7644f84cdaaab76d8dbf3d}} 
+void \mbox{\hyperlink{classHtmlHighlighter_a81dd80f71c7644f84cdaaab76d8dbf3d}{highlight\+Block}} (const QString \&text)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QSyntax\+Highlighter\+::highlight\+Block \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A text highlighter for HTML 5 files. 
+
+\begin{DoxySince}{Since}
+5.\+15.\+0 
+\end{DoxySince}
+\begin{DoxyParagraph}{License\+: The MIT License}
+
+\end{DoxyParagraph}
+\begin{DoxyCopyright}{Copyright}
+© 2021 -\/ 2022 Simon Meaden. All rights reserved. 
+\end{DoxyCopyright}
+\begin{DoxyParagraph}{Requires\+: Html\+Scanner to parse the html file}
+
+\end{DoxyParagraph}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classHtmlScanner}{Html\+Scanner}} 
+\end{DoxySeeAlso}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{htmlhighlighter_8h}{htmlhighlighter.\+h}}\end{DoxyCompactItemize}

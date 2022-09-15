@@ -1,0 +1,66 @@
+\hypertarget{classAlignableWidgetInterface}{}\doxysection{Alignable\+Widget\+Interface Interface Reference}
+\label{classAlignableWidgetInterface}\index{AlignableWidgetInterface@{AlignableWidgetInterface}}
+
+
+The alignable Labelled\+Widget interface class.  
+
+
+
+
+{\ttfamily \#include $<$abstractlabelledwidget.\+h$>$}
+
+Inheritance diagram for Alignable\+Widget\+Interface\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.608696cm]{classAlignableWidgetInterface}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual Qt\+::\+Alignment \mbox{\hyperlink{classAlignableWidgetInterface_a0a389d1e13ad1ff8051814eecc56f932}{widget\+Alignment}} () const =0
+\item 
+virtual void \mbox{\hyperlink{classAlignableWidgetInterface_a24c2835a8140a608839d3257775153f7}{set\+Widget\+Alignment}} (const Qt\+::\+Alignment \&)=0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The alignable Labelled\+Widget interface class. 
+
+\begin{DoxySince}{Since}
+5.\+7.\+0 
+\end{DoxySince}
+\begin{DoxyParagraph}{License\+: The MIT License}
+
+\end{DoxyParagraph}
+\begin{DoxyCopyright}{Copyright}
+© 2019 -\/ 2020 Simon Meaden. All rights reserved.
+\end{DoxyCopyright}
+Not all QWidgets are text alignable, QCombo\+Box for instance. Use this interface for those that are alignable, or that you want to be alignable. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classAlignableWidgetInterface_a24c2835a8140a608839d3257775153f7}\label{classAlignableWidgetInterface_a24c2835a8140a608839d3257775153f7}} 
+\index{AlignableWidgetInterface@{AlignableWidgetInterface}!setWidgetAlignment@{setWidgetAlignment}}
+\index{setWidgetAlignment@{setWidgetAlignment}!AlignableWidgetInterface@{AlignableWidgetInterface}}
+\doxysubsubsection{\texorpdfstring{setWidgetAlignment()}{setWidgetAlignment()}}
+{\footnotesize\ttfamily virtual void Alignable\+Widget\+Interface\+::set\+Widget\+Alignment (\begin{DoxyParamCaption}\item[{const Qt\+::\+Alignment \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Sets the widget alignment. This doesn\textquotesingle{}t do anything and should be overridden in derived classes. 
+
+Implemented in \mbox{\hyperlink{classLabelledTextField_ab14f2e3130370835765d3efa81581659}{Labelled\+Text\+Field}}, \mbox{\hyperlink{classLabelledLineEdit_a31c9925461ce5cdabb42796b5a2751db}{Labelled\+Line\+Edit}}, \mbox{\hyperlink{classLabelledExSpinBox_afaea37129941e3302d78fcaef6007da6}{Labelled\+Ex\+Spin\+Box}}, and \mbox{\hyperlink{classAbstractLabelledSpinBox_ab4455d96c41195bd0bd40fe3bd41b695}{Abstract\+Labelled\+Spin\+Box}}.
+
+\mbox{\Hypertarget{classAlignableWidgetInterface_a0a389d1e13ad1ff8051814eecc56f932}\label{classAlignableWidgetInterface_a0a389d1e13ad1ff8051814eecc56f932}} 
+\index{AlignableWidgetInterface@{AlignableWidgetInterface}!widgetAlignment@{widgetAlignment}}
+\index{widgetAlignment@{widgetAlignment}!AlignableWidgetInterface@{AlignableWidgetInterface}}
+\doxysubsubsection{\texorpdfstring{widgetAlignment()}{widgetAlignment()}}
+{\footnotesize\ttfamily virtual Qt\+::\+Alignment Alignable\+Widget\+Interface\+::widget\+Alignment (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Returns the widget alignment. This returns 0, indicating that the widget doesn\textquotesingle{}t support text alignment. 
+
+Implemented in \mbox{\hyperlink{classLabelledTextField_a54e42144f2f37e055b8205c45b085459}{Labelled\+Text\+Field}}, \mbox{\hyperlink{classLabelledLineEdit_a6d490d9cc40e4808ad322f5d8ecd6739}{Labelled\+Line\+Edit}}, \mbox{\hyperlink{classLabelledExSpinBox_a9a123b7530a9b363047daa733be52d77}{Labelled\+Ex\+Spin\+Box}}, and \mbox{\hyperlink{classAbstractLabelledSpinBox_ac6598c93f27d93087cd24fc51373affa}{Abstract\+Labelled\+Spin\+Box}}.
+
+
+
+The documentation for this interface was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{abstractlabelledwidget_8h}{abstractlabelledwidget.\+h}}\end{DoxyCompactItemize}

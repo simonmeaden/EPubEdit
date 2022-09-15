@@ -38,6 +38,8 @@ signals:
   void load(const QString& filename);
 
 protected:
+  void resizeEvent(QResizeEvent* event) override;
+
 private:
   PConfig m_config;
   int m_width, m_height;

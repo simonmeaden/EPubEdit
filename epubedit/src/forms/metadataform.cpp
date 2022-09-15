@@ -6,8 +6,8 @@
 #include "forms/metadatalist.h"
 #include "forms/threecolview.h"
 #include "forms/twocolview.h"
-#include "labelledlineedit.h"
-#include "languages.h"
+#include "labelled/labelledlineedit.h"
+#include "language/languages.h"
 
 //====================================================================
 //=== MetadataForm
@@ -91,17 +91,12 @@ MetadataForm::initGui()
 QWidget*
 MetadataForm::initMainDataFrame()
 {
-//  auto scrollArea = new QScrollArea(this);
-//  scrollArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-//  scrollArea->setFrameStyle(QFrame::NoFrame);
-
   auto widget = new QWidget(this);
   widget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   widget->setContentsMargins(0, 0, 0, 0);
   auto layout = new QVBoxLayout;
   layout->setContentsMargins(0, 0, 0, 0);
   widget->setLayout(layout);
-//  scrollArea->setWidget(widget);
 
   auto lbl = new QLabel(tr("Title(s) :"), this);
   lbl->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
@@ -186,8 +181,10 @@ MetadataForm::initialiseLanguageView()
   for (auto& language : languages) {
     auto subtag = language->language;
     auto bcp47 = languageDB->languageFromSubtag(subtag);
-    auto desc = bcp47->description();
-    m_languageView->addRow(subtag, desc);
+    if (bcp47){
+      auto desc = bcp47->description();
+      m_languageView->addRow(subtag, desc);
+    }
   }
 }
 

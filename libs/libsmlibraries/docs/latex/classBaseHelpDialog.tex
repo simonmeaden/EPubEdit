@@ -1,0 +1,89 @@
+\hypertarget{classBaseHelpDialog}{}\doxysection{Base\+Help\+Dialog Class Reference}
+\label{classBaseHelpDialog}\index{BaseHelpDialog@{BaseHelpDialog}}
+
+
+Base Help Dialog class.  
+
+
+
+
+{\ttfamily \#include $<$helpdialogs.\+h$>$}
+
+Inheritance diagram for Base\+Help\+Dialog\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.131979cm]{classBaseHelpDialog}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{classBaseHelpDialog_aed59398833282b4be5913ec51edfc3bc}{Type}} \{ \mbox{\hyperlink{classBaseHelpDialog_aed59398833282b4be5913ec51edfc3bca8d8785d44088202e07eccd5f71d83113}{PLAIN}}
+, \mbox{\hyperlink{classBaseHelpDialog_aed59398833282b4be5913ec51edfc3bcae7169b96fa02272cfad7a0c8ae895dc4}{HTML}}
+, \mbox{\hyperlink{classBaseHelpDialog_aed59398833282b4be5913ec51edfc3bca336c09ad483037db3c4855873be63338}{MARKDOWN}}
+ \}
+\begin{DoxyCompactList}\small\item\em Defines whether HTML or Markdown fromatting is used. The default is MARKDOWN. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBaseHelpDialog_abb33a8596cd774651f9ec0374aa65240}\label{classBaseHelpDialog_abb33a8596cd774651f9ec0374aa65240}} 
+\mbox{\hyperlink{classBaseHelpDialog_abb33a8596cd774651f9ec0374aa65240}{Base\+Help\+Dialog}} (QWidget $\ast$parent)
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{classBaseHelpDialog}{Base\+Help\+Dialog}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBaseHelpDialog_a0b7eba0660ba6353679212e3c8482111}\label{classBaseHelpDialog_a0b7eba0660ba6353679212e3c8482111}} 
+void \mbox{\hyperlink{classBaseHelpDialog_a0b7eba0660ba6353679212e3c8482111}{set\+Help\+Text}} (const QString \&text, \mbox{\hyperlink{classBaseHelpDialog_aed59398833282b4be5913ec51edfc3bc}{Type}} type=\mbox{\hyperlink{classBaseHelpDialog_aed59398833282b4be5913ec51edfc3bca336c09ad483037db3c4855873be63338}{MARKDOWN}})
+\begin{DoxyCompactList}\small\item\em Sets the text in the primary help window. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{classBaseHelpDialog_ac78e24bf9732d5119c200b7ab74f56cf}{calculate\+Minimum\+Width}} (const QString \&text)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBaseHelpDialog_a1db9a6bb2c71a05198a12b4dcee07609}\label{classBaseHelpDialog_a1db9a6bb2c71a05198a12b4dcee07609}} 
+QText\+Edit $\ast$ \mbox{\hyperlink{classBaseHelpDialog_a1db9a6bb2c71a05198a12b4dcee07609}{m\+\_\+primary\+Lbl}}
+\begin{DoxyCompactList}\small\item\em label for all dialogs \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Base Help Dialog class. 
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{classBaseHelpDialog_aed59398833282b4be5913ec51edfc3bc}\label{classBaseHelpDialog_aed59398833282b4be5913ec51edfc3bc}} 
+\index{BaseHelpDialog@{BaseHelpDialog}!Type@{Type}}
+\index{Type@{Type}!BaseHelpDialog@{BaseHelpDialog}}
+\doxysubsubsection{\texorpdfstring{Type}{Type}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classBaseHelpDialog_aed59398833282b4be5913ec51edfc3bc}{Base\+Help\+Dialog\+::\+Type}}}
+
+
+
+Defines whether HTML or Markdown fromatting is used. The default is MARKDOWN. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PLAIN@{PLAIN}!BaseHelpDialog@{BaseHelpDialog}}\index{BaseHelpDialog@{BaseHelpDialog}!PLAIN@{PLAIN}}}\mbox{\Hypertarget{classBaseHelpDialog_aed59398833282b4be5913ec51edfc3bca8d8785d44088202e07eccd5f71d83113}\label{classBaseHelpDialog_aed59398833282b4be5913ec51edfc3bca8d8785d44088202e07eccd5f71d83113}} 
+PLAIN&Text is plain text. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{HTML@{HTML}!BaseHelpDialog@{BaseHelpDialog}}\index{BaseHelpDialog@{BaseHelpDialog}!HTML@{HTML}}}\mbox{\Hypertarget{classBaseHelpDialog_aed59398833282b4be5913ec51edfc3bcae7169b96fa02272cfad7a0c8ae895dc4}\label{classBaseHelpDialog_aed59398833282b4be5913ec51edfc3bcae7169b96fa02272cfad7a0c8ae895dc4}} 
+HTML&HTML tags are used. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MARKDOWN@{MARKDOWN}!BaseHelpDialog@{BaseHelpDialog}}\index{BaseHelpDialog@{BaseHelpDialog}!MARKDOWN@{MARKDOWN}}}\mbox{\Hypertarget{classBaseHelpDialog_aed59398833282b4be5913ec51edfc3bca336c09ad483037db3c4855873be63338}\label{classBaseHelpDialog_aed59398833282b4be5913ec51edfc3bca336c09ad483037db3c4855873be63338}} 
+MARKDOWN&Markdown is used. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classBaseHelpDialog_ac78e24bf9732d5119c200b7ab74f56cf}\label{classBaseHelpDialog_ac78e24bf9732d5119c200b7ab74f56cf}} 
+\index{BaseHelpDialog@{BaseHelpDialog}!calculateMinimumWidth@{calculateMinimumWidth}}
+\index{calculateMinimumWidth@{calculateMinimumWidth}!BaseHelpDialog@{BaseHelpDialog}}
+\doxysubsubsection{\texorpdfstring{calculateMinimumWidth()}{calculateMinimumWidth()}}
+{\footnotesize\ttfamily int Base\+Help\+Dialog\+::calculate\+Minimum\+Width (\begin{DoxyParamCaption}\item[{const QString \&}]{text }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+Calculates the minimum required width for supplied text after splitting at line breaks. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{helpdialogs_8h}{helpdialogs.\+h}}\end{DoxyCompactItemize}

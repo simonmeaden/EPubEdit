@@ -46,10 +46,10 @@
 
 namespace YAML {
 
-//! Stream a QList<T> into a YAML emitter.
+//! Stream a QVector<T> into a YAML emitter.
 template<class T>
 inline Emitter&
-operator<<(Emitter& emitter, const QList<T> v)
+operator<<(Emitter& emitter, const QVector<T> v)
 {
   Node node;
   node = v;

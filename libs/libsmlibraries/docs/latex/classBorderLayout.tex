@@ -1,0 +1,112 @@
+\hypertarget{classBorderLayout}{}\doxysection{Border\+Layout Class Reference}
+\label{classBorderLayout}\index{BorderLayout@{BorderLayout}}
+
+
+The \mbox{\hyperlink{classBorderLayout}{Border\+Layout}} class allows widgets to be placed at the North, South, East and West positions.  
+
+
+
+
+{\ttfamily \#include $<$borderlayout.\+h$>$}
+
+Inheritance diagram for Border\+Layout\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classBorderLayout}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{classBorderLayout_a59e0cbfaa0f96a9a8d251850e24d68e8}{Position}} \{ \newline
+\mbox{\hyperlink{classBorderLayout_a59e0cbfaa0f96a9a8d251850e24d68e8a7118085eea195de80ceebef3bb23ea3f}{West}}
+, \mbox{\hyperlink{classBorderLayout_a59e0cbfaa0f96a9a8d251850e24d68e8a0d06eab166a89afa626fb8816dc9ca4b}{North}}
+, \mbox{\hyperlink{classBorderLayout_a59e0cbfaa0f96a9a8d251850e24d68e8ad7f1c590ba51b206ea092e9965c67622}{South}}
+, \mbox{\hyperlink{classBorderLayout_a59e0cbfaa0f96a9a8d251850e24d68e8acfe4e1f55bdd4bd4392b9aae33a8e504}{East}}
+, \newline
+\mbox{\hyperlink{classBorderLayout_a59e0cbfaa0f96a9a8d251850e24d68e8a79f61ab35ce399a08a8610374bb6e8eb}{Center}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBorderLayout_a68e256ce50591e2376fd7b278695a2cf}\label{classBorderLayout_a68e256ce50591e2376fd7b278695a2cf}} 
+\mbox{\hyperlink{classBorderLayout_a68e256ce50591e2376fd7b278695a2cf}{Border\+Layout}} (QWidget $\ast$parent, const QMargins \&margins=QMargins(), int spacing=-\/1)
+\begin{DoxyCompactList}\small\item\em Constructor for Border\+Widget specifying margins and spacing. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBorderLayout_a792cfa38e28f6d78510a901e278dd3fc}\label{classBorderLayout_a792cfa38e28f6d78510a901e278dd3fc}} 
+\mbox{\hyperlink{classBorderLayout_a792cfa38e28f6d78510a901e278dd3fc}{Border\+Layout}} (int spacing=-\/1)
+\begin{DoxyCompactList}\small\item\em Constructor for Border\+Widget specifying spacing. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBorderLayout_ae4f7827cbbce1717da73357935ea63b6}\label{classBorderLayout_ae4f7827cbbce1717da73357935ea63b6}} 
+void \mbox{\hyperlink{classBorderLayout_ae4f7827cbbce1717da73357935ea63b6}{add\+Item}} (QLayout\+Item $\ast$item) override
+\begin{DoxyCompactList}\small\item\em Adds a QLayout\+Item to the layout. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBorderLayout_ab91bbd264a21368e18d332bfa9046d3f}\label{classBorderLayout_ab91bbd264a21368e18d332bfa9046d3f}} 
+void \mbox{\hyperlink{classBorderLayout_ab91bbd264a21368e18d332bfa9046d3f}{add\+Widget}} (QWidget $\ast$widget, \mbox{\hyperlink{classBorderLayout_a59e0cbfaa0f96a9a8d251850e24d68e8}{Position}} position)
+\begin{DoxyCompactList}\small\item\em Adds a QWidget to the layout. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBorderLayout_a3fb1f597c46796fdf3c2908d06496b69}\label{classBorderLayout_a3fb1f597c46796fdf3c2908d06496b69}} 
+Qt\+::\+Orientations \mbox{\hyperlink{classBorderLayout_a3fb1f597c46796fdf3c2908d06496b69}{expanding\+Directions}} () const override
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} Qlayout\+::expanding\+Directions \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBorderLayout_acb4118c5253948863bcc66a2cf367274}\label{classBorderLayout_acb4118c5253948863bcc66a2cf367274}} 
+bool \mbox{\hyperlink{classBorderLayout_acb4118c5253948863bcc66a2cf367274}{has\+Height\+For\+Width}} () const override
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} Qlayout\+::has\+Height\+For\+Width \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBorderLayout_a651de1981984f2722632d7c749f57a32}\label{classBorderLayout_a651de1981984f2722632d7c749f57a32}} 
+int \mbox{\hyperlink{classBorderLayout_a651de1981984f2722632d7c749f57a32}{count}} () const override
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} Qlayout\+::count \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBorderLayout_a63243897baaa438a2f08e9decc490618}\label{classBorderLayout_a63243897baaa438a2f08e9decc490618}} 
+QLayout\+Item $\ast$ \mbox{\hyperlink{classBorderLayout_a63243897baaa438a2f08e9decc490618}{item\+At}} (int index) const override
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} Qlayout\+::item\+At(int) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBorderLayout_a9afbd8b49ce6044777e52822abc0388a}\label{classBorderLayout_a9afbd8b49ce6044777e52822abc0388a}} 
+QSize \mbox{\hyperlink{classBorderLayout_a9afbd8b49ce6044777e52822abc0388a}{minimum\+Size}} () const override
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} Qlayout\+::minimum\+Size \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBorderLayout_ab625a50851e8cc4aed10b82cedc1f42c}\label{classBorderLayout_ab625a50851e8cc4aed10b82cedc1f42c}} 
+void \mbox{\hyperlink{classBorderLayout_ab625a50851e8cc4aed10b82cedc1f42c}{set\+Geometry}} (const QRect \&rect) override
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} Qlayout\+::set\+Geometry(const QRect\&) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBorderLayout_a0c564ebc4b1a11c45f7e9fcc958fa511}\label{classBorderLayout_a0c564ebc4b1a11c45f7e9fcc958fa511}} 
+QSize \mbox{\hyperlink{classBorderLayout_a0c564ebc4b1a11c45f7e9fcc958fa511}{size\+Hint}} () const override
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} Qlayout\+::size\+Hint \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBorderLayout_aca7d27caaca9e636290622dcf1def897}\label{classBorderLayout_aca7d27caaca9e636290622dcf1def897}} 
+QLayout\+Item $\ast$ \mbox{\hyperlink{classBorderLayout_aca7d27caaca9e636290622dcf1def897}{take\+At}} (int index) override
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} Qlayout\+::take\+At(int) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBorderLayout_a3935fd55950b18d465c7612d49c91ad6}\label{classBorderLayout_a3935fd55950b18d465c7612d49c91ad6}} 
+void \mbox{\hyperlink{classBorderLayout_a3935fd55950b18d465c7612d49c91ad6}{add}} (QLayout\+Item $\ast$item, \mbox{\hyperlink{classBorderLayout_a59e0cbfaa0f96a9a8d251850e24d68e8}{Position}} position)
+\begin{DoxyCompactList}\small\item\em Adds the QLayout\+Item at the supplied position. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classBorderLayout}{Border\+Layout}} class allows widgets to be placed at the North, South, East and West positions. 
+
+This is directly copied from the Qt examples. 
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{classBorderLayout_a59e0cbfaa0f96a9a8d251850e24d68e8}\label{classBorderLayout_a59e0cbfaa0f96a9a8d251850e24d68e8}} 
+\index{BorderLayout@{BorderLayout}!Position@{Position}}
+\index{Position@{Position}!BorderLayout@{BorderLayout}}
+\doxysubsubsection{\texorpdfstring{Position}{Position}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classBorderLayout_a59e0cbfaa0f96a9a8d251850e24d68e8}{Border\+Layout\+::\+Position}}}
+
+The Position enumeration defgines where the widget is applied. \begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{West@{West}!BorderLayout@{BorderLayout}}\index{BorderLayout@{BorderLayout}!West@{West}}}\mbox{\Hypertarget{classBorderLayout_a59e0cbfaa0f96a9a8d251850e24d68e8a7118085eea195de80ceebef3bb23ea3f}\label{classBorderLayout_a59e0cbfaa0f96a9a8d251850e24d68e8a7118085eea195de80ceebef3bb23ea3f}} 
+West&West or Left. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{North@{North}!BorderLayout@{BorderLayout}}\index{BorderLayout@{BorderLayout}!North@{North}}}\mbox{\Hypertarget{classBorderLayout_a59e0cbfaa0f96a9a8d251850e24d68e8a0d06eab166a89afa626fb8816dc9ca4b}\label{classBorderLayout_a59e0cbfaa0f96a9a8d251850e24d68e8a0d06eab166a89afa626fb8816dc9ca4b}} 
+North&North or Top. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{South@{South}!BorderLayout@{BorderLayout}}\index{BorderLayout@{BorderLayout}!South@{South}}}\mbox{\Hypertarget{classBorderLayout_a59e0cbfaa0f96a9a8d251850e24d68e8ad7f1c590ba51b206ea092e9965c67622}\label{classBorderLayout_a59e0cbfaa0f96a9a8d251850e24d68e8ad7f1c590ba51b206ea092e9965c67622}} 
+South&South or Bottom. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{East@{East}!BorderLayout@{BorderLayout}}\index{BorderLayout@{BorderLayout}!East@{East}}}\mbox{\Hypertarget{classBorderLayout_a59e0cbfaa0f96a9a8d251850e24d68e8acfe4e1f55bdd4bd4392b9aae33a8e504}\label{classBorderLayout_a59e0cbfaa0f96a9a8d251850e24d68e8acfe4e1f55bdd4bd4392b9aae33a8e504}} 
+East&East or Right. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Center@{Center}!BorderLayout@{BorderLayout}}\index{BorderLayout@{BorderLayout}!Center@{Center}}}\mbox{\Hypertarget{classBorderLayout_a59e0cbfaa0f96a9a8d251850e24d68e8a79f61ab35ce399a08a8610374bb6e8eb}\label{classBorderLayout_a59e0cbfaa0f96a9a8d251850e24d68e8a79f61ab35ce399a08a8610374bb6e8eb}} 
+Center&Central widget. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+borderlayout.\+h\end{DoxyCompactItemize}

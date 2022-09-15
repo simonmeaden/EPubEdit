@@ -20,13 +20,25 @@
 #include "quazip.h"
 #include "quazipfile.h"
 
+#include <signalappender.h>
+
 EPubEditorPrivate::EPubEditorPrivate(PConfig config, EPubEditor* parent)
   : AbstractEPubEditorPrivate(config, parent)
 {
   Q_Q(EPubEditor);
+
+  auto signalAppender = new SignalAppender();
+  signalAppender->setFormat(
+    "[%{file}] [%{type:-7}] <%{Function}> Line:%{line} %{message}");
+  signalAppender->setDetailsLevel(Logger::Debug);
+  cuteLogger->registerAppender(signalAppender);
+//  q->connect(signalAppender,
+//          &SignalAppender::writeMessage,
+//          q,
+//          &EPubEditor::sendLogMessage);
+
   auto img = QImage(":/icons/RemoveSplitLeft");
   auto header = q->header();
-  //  auto ptr = qobject_cast<EPubEditor*>(q_ptr);
   auto widget = header->addIconButton(
     End, QIcon(QPixmap::fromImage(img)), img.size(), q->tr("Remove Split"));
   q->connect(widget, &WidgetItem::widgetClicked, q, &EPubEditor::removeSplit);
@@ -36,19 +48,17 @@ EPubEditorPrivate::EPubEditorPrivate(PConfig config, EPubEditor* parent)
   widget = header->addIconListButton(
     End, QIcon(QPixmap::fromImage(img)), img.size(), q->tr("Split"));
   auto menuWidget = qobject_cast<ListButtonWidget*>(widget);
+  q->connect(menuWidget, &ListButtonWidget::itemClicked, q, &EPubEditor::split);
 
   img = QImage(":/icons/SplitAboveAndBelow");
-  auto item = menuWidget->addItem(
+  menuWidget->addItem(
     QIcon(QPixmap::fromImage(img)), img.size(), q->tr("Split"));
-  q->connect(item, &ListItem::itemClicked, q, &EPubEditor::verticalSplit);
 
   img = QImage(":/icons/SplitSideBySide");
-  item = menuWidget->addItem(
+  menuWidget->addItem(
     QIcon(QPixmap::fromImage(img)), img.size(), q->tr("Split Side by Side"));
-  q->connect(item, &ListItem::itemClicked, q, &EPubEditor::horizontalSplit);
 
-  item = menuWidget->addItem(q_ptr->tr("Open in New Window"));
-  q->connect(item, &ListItem::itemClicked, q, &EPubEditor::toWindow);
+  menuWidget->addItem(q_ptr->tr("Open in New Window"));
 
   img = QImage(":/icons/YellowArrowLeft");
   widget = header->addIconButton(
@@ -74,29 +84,34 @@ EPubEditorPrivate::EPubEditorPrivate(PConfig config, EPubEditor* parent)
   q->connect(
     m_listWidget, &ListWidget::itemClicked, q, &EPubEditor::fileListClicked);
 
-  auto typeWidget = header->addTextListButton(
-    Start, q->tr("Type"), q->tr("Change editor type (Text/Code)"));
-  m_typeWidget = qobject_cast<ListButtonWidget*>(typeWidget);
+  auto typeWidget = header->addListWidget(
+    Start, q->tr("Change editor type (Text/Code)"));
+  m_typeWidget = qobject_cast<ListWidget*>(typeWidget);
+  q->connect(
+    m_typeWidget, &ListWidget::itemClicked, q, &EPubEditor::typeChanged);
   m_typeWidget->addItem("Text");
   m_typeWidget->addItem("Code");
-  q->connect(m_typeWidget, &ListButtonWidget::itemClicked, q, &EPubEditor::typeChanged);
 
   auto e = new EPubEdit(m_config, q_ptr);
-  m_editor = e;
+  m_widget = e;
   q->connect(e, &EPubEdit::mouseClicked, q, &EPubEditor::widgetWasClicked);
   q->connect(e, &EPubEdit::lostFocus, q, &EPubEditor::hasLostFocus);
   q->connect(e, &EPubEdit::gotFocus, q, &EPubEditor::hasGotFocus);
+  auto count = m_layout->count();
+  LOG_DEBUG() << "EPubEditorPrivate::EPubEditorPrivate m_widget " << m_widget << " count before change = " << count << "\non m_layout " << m_layout;
   q->setWidget(e);
+  count = m_layout->count();
+  LOG_DEBUG() << "EPubEditorPrivate::EPubEditorPrivate m_widget " << m_widget << " count after change = " << count;
 }
 
 QTextCursor
 EPubEditorPrivate::currentCursor()
 {
-  auto e = qobject_cast<EPubEdit*>(m_editor);
+  auto e = qobject_cast<EPubEdit*>(m_widget);
   if (e)
     return e->textCursor();
   else {
-    auto c = qobject_cast<CodeEdit*>(m_editor);
+    auto c = qobject_cast<CodeEdit*>(m_widget);
     if (c) {
       return c->textCursor();
     }
@@ -109,6 +124,11 @@ EPubEditorPrivate::minimumSize() const
 {
   return QSize(200, 200);
 }
+
+//void EPubEditorPrivate::loadHref(const QString &href)
+//{
+
+//}
 
 void
 EPubEditorPrivate::setDocument(PDocument document)
@@ -147,7 +167,7 @@ EPubEditorPrivate::setDocument(PDocument document)
       auto data = imageFile.readAll();
       //      m_images.append(data);
       auto image = QImage::fromData(data);
-      auto textDocument = dynamic_cast<IEPubEditor*>(m_editor)->document();
+      auto textDocument = dynamic_cast<IEPubEditor*>(m_widget)->document();
       textDocument->addResource(
         QTextDocument::ImageResource, QUrl(href), QVariant(image));
     }
@@ -260,7 +280,7 @@ EPubEditorPrivate::fileListClicked(int index, const QString& href)
 void
 EPubEditorPrivate::setHtml(const QString& html)
 {
-  dynamic_cast<IEPubEditor*>(m_editor)->setText(html);
+  dynamic_cast<IEPubEditor*>(m_widget)->setText(html);
 }
 
 void
@@ -275,16 +295,17 @@ EPubEditorPrivate::loadConfig()
 AbstractDockWidget*
 EPubEditorPrivate::clone(AbstractDockWidget* editor)
 {
-  Q_Q(EPubEditor);
-  auto e = qobject_cast<EPubEditor*>(editor);
+//  Q_Q(EPubEditor);
+  auto e = dynamic_cast<EPubEditor*>(editor);
+
   if (e) {
-    e->d_ptr->m_editor = m_editor;
-    e->d_ptr->m_options = m_options;
-    e->d_ptr->m_seriesDB = m_seriesDB;
-    e->d_ptr->m_authorsDB = m_authorsDB;
-    e->d_ptr->m_libraryDB = m_libraryDB;
-    e->d_ptr->setDocument(m_document);
-    e->d_ptr->loadHref(m_href);
+    e->m_widget = m_widget;
+    e->m_options = m_options;
+    e->m_seriesDB = m_seriesDB;
+    e->m_authorsDB = m_authorsDB;
+    e->m_libraryDB = m_libraryDB;
+    e->setDocument(m_document);
+    e->loadHref(m_href);
   }
   return editor;
 }

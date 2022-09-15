@@ -1,0 +1,60 @@
+\hypertarget{structClosedTag}{}\doxysection{Closed\+Tag Struct Reference}
+\label{structClosedTag}\index{ClosedTag@{ClosedTag}}
+
+
+Stores data for a closer tag for example.  
+
+
+
+
+{\ttfamily \#include $<$htmlscanner.\+h$>$}
+
+Inheritance diagram for Closed\+Tag\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=6.000000cm]{structClosedTag}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{structClosedTag_ae75c063e8009aeeb4b8966f4de6d263d}{is\+Closed}} ()
+\item 
+\mbox{\Hypertarget{structClosedTag_a8660880a22700edd01c67ba0a0c69308}\label{structClosedTag_a8660880a22700edd01c67ba0a0c69308}} 
+int \mbox{\hyperlink{structClosedTag_a8660880a22700edd01c67ba0a0c69308}{closer\+Start}} ()
+\begin{DoxyCompactList}\small\item\em Returns the closer character position. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structClosedTag_af60ce7626b46a957121829e61a4921d6}\label{structClosedTag_af60ce7626b46a957121829e61a4921d6}} 
+QText\+Cursor \mbox{\hyperlink{structClosedTag_af60ce7626b46a957121829e61a4921d6}{closer\+Start\+Cursor}}
+\begin{DoxyCompactList}\small\item\em The QText\+Cursor at the start position of the tag closer character. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Stores data for a closer tag for example. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{</html> }
+
+\end{DoxyCode}
+. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structClosedTag_ae75c063e8009aeeb4b8966f4de6d263d}\label{structClosedTag_ae75c063e8009aeeb4b8966f4de6d263d}} 
+\index{ClosedTag@{ClosedTag}!isClosed@{isClosed}}
+\index{isClosed@{isClosed}!ClosedTag@{ClosedTag}}
+\doxysubsubsection{\texorpdfstring{isClosed()}{isClosed()}}
+{\footnotesize\ttfamily bool Closed\+Tag\+::is\+Closed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+The \mbox{\hyperlink{structTag}{Tag}} is closed.
+
+This flag will not require a matching closure tag. Examples would be $<$link .. /$>$ or $<$meta .. /$>$ which have attributes but no text so can be closed directly. \begin{DoxyNote}{Note}
+Most of these need not be explicitely closed in HTML 5 files but do in XHTML files. 
+\end{DoxyNote}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+htmlscanner.\+h\end{DoxyCompactItemize}

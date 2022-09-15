@@ -1,0 +1,70 @@
+\hypertarget{classQTidyDoc}{}\doxysection{QTidy\+Doc Class Reference}
+\label{classQTidyDoc}\index{QTidyDoc@{QTidyDoc}}
+
+
+The \mbox{\hyperlink{classQTidyDoc}{QTidy\+Doc}} class is a simple wrapper class around Tidy\+Doc.  
+
+
+
+
+{\ttfamily \#include \char`\"{}includes/qtidydoc.\+h\char`\"{}}
+
+Inheritance diagram for QTidy\+Doc\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classQTidyDoc}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classQTidyDoc_af8551a340f320ac34b9b15a608bc277a}\label{classQTidyDoc_af8551a340f320ac34b9b15a608bc277a}} 
+\mbox{\hyperlink{classQTidyDoc_af8551a340f320ac34b9b15a608bc277a}{QTidy\+Doc}} (QObject $\ast$parent)
+\begin{DoxyCompactList}\small\item\em Constructs a \mbox{\hyperlink{classQTidyDoc}{QTidy\+Doc}} which is a child of parent. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classQTidyDoc_ab6c9f3ab21a823a85624525974dcdcf7}\label{classQTidyDoc_ab6c9f3ab21a823a85624525974dcdcf7}} 
+\mbox{\hyperlink{classQTidyDoc_ab6c9f3ab21a823a85624525974dcdcf7}{$\sim$\+QTidy\+Doc}} ()
+\begin{DoxyCompactList}\small\item\em Destroys the \mbox{\hyperlink{classQTidyDoc}{QTidy\+Doc}}, deleting all C internal objects. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classQTidyDoc_afb28b9f08d9b2a970571842d4574144f}\label{classQTidyDoc_afb28b9f08d9b2a970571842d4574144f}} 
+QString \mbox{\hyperlink{classQTidyDoc_afb28b9f08d9b2a970571842d4574144f}{to\+Clean\+Html}} (const QString \&text, QList$<$ \mbox{\hyperlink{structTidyDocOption}{Tidy\+Doc\+Option}} $\ast$ $>$ options=QList$<$ \mbox{\hyperlink{structTidyDocOption}{Tidy\+Doc\+Option}} $\ast$ $>$())
+\begin{DoxyCompactList}\small\item\em to\+Clean\+Html uses Tidy\+Doc to clean the input text and return it as an html 5 QString. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classQTidyDoc_a156784c0d3ad9a4b4d1baf964440d841}\label{classQTidyDoc_a156784c0d3ad9a4b4d1baf964440d841}} 
+QString \mbox{\hyperlink{classQTidyDoc_a156784c0d3ad9a4b4d1baf964440d841}{to\+Clean\+XHtml}} (const QString \&text, QList$<$ \mbox{\hyperlink{structTidyDocOption}{Tidy\+Doc\+Option}} $\ast$ $>$ options=QList$<$ \mbox{\hyperlink{structTidyDocOption}{Tidy\+Doc\+Option}} $\ast$ $>$())
+\begin{DoxyCompactList}\small\item\em to\+Clean\+XHtml uses Tidy\+Doc to clean the input text and return it as a xhtml QString. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classQTidyDoc_a29211e4b7552e764e03f1e1cf327b903}\label{classQTidyDoc_a29211e4b7552e764e03f1e1cf327b903}} 
+QString \mbox{\hyperlink{classQTidyDoc_a29211e4b7552e764e03f1e1cf327b903}{errors}} ()
+\begin{DoxyCompactList}\small\item\em Returns the Tidy\+Error as a QString. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classQTidyDoc_a13a1c26d7d1dc72fb2821e126f16dc97}{operator Tidy\+Doc}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classQTidyDoc}{QTidy\+Doc}} class is a simple wrapper class around Tidy\+Doc. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{// Create a QTidyDoc}}
+\DoxyCodeLine{\textcolor{keyword}{auto} doc = \mbox{\hyperlink{classQTidyDoc_af8551a340f320ac34b9b15a608bc277a}{QTidyDoc}}(\textcolor{keyword}{this});}
+\DoxyCodeLine{\textcolor{comment}{// Create the option list}}
+\DoxyCodeLine{QList<TidyDocOption*> options;}
+\DoxyCodeLine{\textcolor{comment}{// Add a TidyDocOption with a TidyOptionId and data, in this case a string}}
+\DoxyCodeLine{options.prepend(\textcolor{keyword}{new} \mbox{\hyperlink{structTidyDocOption}{TidyDocOption}}(TidyDoctype, \textcolor{keyword}{new} \mbox{\hyperlink{classTidyDocStrData}{TidyDocStrData}}(\textcolor{stringliteral}{"{}omit"{}})));}
+\DoxyCodeLine{\textcolor{comment}{// Clean the html/xhtml to xhtml}}
+\DoxyCodeLine{\textcolor{keyword}{auto} cleaned = doc.toCleanXHtml(input, options);}
+
+\end{DoxyCode}
+
+
+\href{https://api.html-tidy.org/tidy/quickref_5.8.0.html\#DocumentIOHeader}{\texttt{ Tidy\+Doc 5.\+8.\+0 Documentation. }} 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classQTidyDoc_a13a1c26d7d1dc72fb2821e126f16dc97}\label{classQTidyDoc_a13a1c26d7d1dc72fb2821e126f16dc97}} 
+\index{QTidyDoc@{QTidyDoc}!operator TidyDoc@{operator TidyDoc}}
+\index{operator TidyDoc@{operator TidyDoc}!QTidyDoc@{QTidyDoc}}
+\doxysubsubsection{\texorpdfstring{operator TidyDoc()}{operator TidyDoc()}}
+{\footnotesize\ttfamily QTidy\+Doc\+::operator Tidy\+Doc (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+This is used to convert an object back to the C form so it can be used in the normal C tidy functions. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+qtidydoc.\+h\end{DoxyCompactItemize}

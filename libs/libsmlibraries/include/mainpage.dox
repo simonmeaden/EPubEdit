@@ -1,10 +1,21 @@
 /*!
 \mainpage SM Libraries - A few useful Qt classes I have developed.
 
+\defgroup sm_libraries A library that wraps all these items into a single library.
+@{
+\defgroup utilities A set of assorted utility classes/functions.
+\defgroup docker A set of classes that looks similarly to the QtCreator look.
+\defgroup widgets A set of widgets thast I created for various projects.
+\defgroup multisplitter A splitter that will allow a widget to be split horizontally and vertically into multiple pages.
+\defgroup labelled A group of individual label/widget classes similar to a QFormLayout appearance.
+\defgroup layout QLayout classes. At present just the Qt demo BorderLayout class.
+\defgroup language Classes to handle html5 lang tags.
+@}
+
 Well I created them for my own use so I suppose I found them useful. They are
 released under the MIT license which is pretty loose so use them if you also
 find them useful. The normal disclaimer: They are totally free to use but if
-your house sinks into the marsh afterwards, well you are on your own. Use them,
+your house sinks into the sea afterwards, well you are on your own. Use them,
 modify them as you wish.
 
 These include
@@ -36,7 +47,7 @@ my own use. If they are useful then please feel free to use them.
 
 To use them you can either clone the library from GitHub, then use the standard cmake
 commands to construct and install them. Alternatively just download and install the
-files you want directly in your project, remebering that some of the widgets have
+files you want directly in your project, remembering that some of the widgets have
 earlier abstract forms that you will also need.
 
 \subsection gitclone Step 1: Cloning the git repository.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 7.0.0, 2022-06-22T08:40:57. -->
+<!-- Written by QtCreator 7.0.0, 2022-08-21T09:29:12. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -67,7 +67,146 @@
     <value type="bool" key="AutoTest.Framework.QtQuickTest">true</value>
     <value type="bool" key="AutoTest.Framework.QtTest">true</value>
    </valuemap>
-   <valuemap type="QVariantMap" key="AutoTest.CheckStates"/>
+   <valuemap type="QVariantMap" key="AutoTest.CheckStates">
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testjlcompress.cpp:Cyrillic">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testjlcompress.cpp:Japaneses">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testjlcompress.cpp:Zip Slip">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testjlcompress.cpp:compressDir">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testjlcompress.cpp:compressDir_data">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testjlcompress.cpp:compressFile">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testjlcompress.cpp:compressFile_data">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testjlcompress.cpp:compressFiles">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testjlcompress.cpp:compressFiles_data">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testjlcompress.cpp:different subdirs">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testjlcompress.cpp:empty dirs">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testjlcompress.cpp:extract dir">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testjlcompress.cpp:extractDir">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testjlcompress.cpp:extractDir_data">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testjlcompress.cpp:extractFile">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testjlcompress.cpp:extractFile_data">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testjlcompress.cpp:extractFiles">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testjlcompress.cpp:extractFiles_data">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testjlcompress.cpp:hidden files">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testjlcompress.cpp:russian">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testjlcompress.cpp:separate dir">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testjlcompress.cpp:simple">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testjlcompress.cpp:symlinkHandling">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testjlcompress.cpp:zeroPermissions">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testjlcompress.h:TestJlCompress">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquachecksum32.cpp:calculate">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquachecksum32.cpp:update">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquachecksum32.h:TestQuaChecksum32">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquagzipfile.cpp:constructorDestructor">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquagzipfile.cpp:read">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquagzipfile.cpp:write">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquagzipfile.h:TestQuaGzipFile">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquaziodevice.cpp:read">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquaziodevice.cpp:readMany">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquaziodevice.cpp:write">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquaziodevice.h:TestQuaZIODevice">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazip.cpp:add">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazip.cpp:add_data">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazip.cpp:dos">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazip.cpp:getFileList">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazip.cpp:getFileList_data">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazip.cpp:hebrew">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazip.cpp:japanese">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazip.cpp:russian">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazip.cpp:setAutoClose">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazip.cpp:setCommentCodec">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazip.cpp:setDataDescriptorWritingEnabled">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazip.cpp:setFileNameCodec">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazip.cpp:setFileNameCodec_data">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazip.cpp:setIoDevice">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazip.cpp:setOsCode">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazip.cpp:setOsCode_data">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazip.cpp:setZipName">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazip.cpp:simple">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazip.cpp:testQIODeviceAPI">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazip.cpp:testSequential">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazip.cpp:unix">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazip.h:TestQuaZip">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipdir.cpp:case insensitive">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipdir.cpp:case sensitive">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipdir.cpp:cd">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipdir.cpp:cdDeep">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipdir.cpp:cdDeeper">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipdir.cpp:cdDown">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipdir.cpp:cdDownUp">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipdir.cpp:cdRoot">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipdir.cpp:cdSide">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipdir.cpp:cdUp">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipdir.cpp:cd_data">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipdir.cpp:dirs only">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipdir.cpp:entryInfoList">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipdir.cpp:entryList">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipdir.cpp:entryList_data">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipdir.cpp:filePath">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipdir.cpp:files only">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipdir.cpp:name filter">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipdir.cpp:operators">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipdir.cpp:separate dir">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipdir.cpp:separate dir (subdir listing)">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipdir.cpp:simple">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipdir.cpp:sorted">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipdir.cpp:sorted by size">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipdir.cpp:sorted by time">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipdir.cpp:sorted by type">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipdir.cpp:sorted dirs first">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipdir.cpp:sorted dirs first reversed">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipdir.h:TestQuaZipDir">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfile.cpp:Cyrillic">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfile.cpp:Unicode">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfile.cpp:atEnd">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfile.cpp:atEnd_data">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfile.cpp:bytesAvailable">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfile.cpp:bytesAvailable_data">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfile.cpp:constructorDestructor">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfile.cpp:getFileInfo">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfile.cpp:getZip">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfile.cpp:large enough to flush">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfile.cpp:largeFile">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfile.cpp:password">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfile.cpp:posRead">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfile.cpp:posRead_data">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfile.cpp:posWrite">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfile.cpp:posWrite_data">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfile.cpp:setFileAttrs">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfile.cpp:setFileName">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfile.cpp:setZipName">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfile.cpp:simple">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfile.cpp:zip64">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfile.cpp:zipUnzip">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfile.cpp:zipUnzip_data">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfile.h:TestQuaZipFile">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfileinfo.cpp:all times">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfileinfo.cpp:empty">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfileinfo.cpp:getExtTime">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfileinfo.cpp:getExtTime_data">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfileinfo.cpp:getExtTime_issue43">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfileinfo.cpp:getNTFSTime">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfileinfo.cpp:getNTFSTime_data">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfileinfo.cpp:large ID">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfileinfo.cpp:negativeTime">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfileinfo.cpp:no CTime">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfileinfo.cpp:no ac time">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfileinfo.cpp:no times">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfileinfo.cpp:one non zero ID with data">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfileinfo.cpp:one zero ID with data">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfileinfo.cpp:one zero ID with no data">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfileinfo.cpp:only 1 byte">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfileinfo.cpp:only 2 bytes">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfileinfo.cpp:only 3 bytes">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfileinfo.cpp:parseExtraField">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfileinfo.cpp:parseExtraField_data">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfileinfo.cpp:repeated ID">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfileinfo.cpp:truncated data">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfileinfo.cpp:two IDs">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfileinfo.h:TestQuaZipFileInfo">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipnewinfo.cpp:setFileNTFSTimes">Unchecked</value>
+    <value type="Qt::CheckState" key="1@/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipnewinfo.h:TestQuaZipNewInfo">Unchecked</value>
+    <value type="Qt::CheckState" key="1@:Qt Test">Unchecked</value>
+   </valuemap>
    <value type="int" key="AutoTest.RunAfterBuild">0</value>
    <value type="bool" key="AutoTest.UseGlobal">true</value>
    <valuelist type="QVariantList" key="ClangCodeModel.CustomCommandLineKey"/>
@@ -312,12 +451,15 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.CustomExecutableRunConfiguration</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey"></value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">qztest</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">CMakeProjectManager.CMakeRunConfiguration.qztest</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">qztest</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
+    <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/simonmeaden/workspace/epubedit/build-extlibs-QT_5_CLang-Debug/quazip/qztest</value>
    </valuemap>
    <value type="qlonglong" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>
@@ -527,23 +669,6 @@
     <value type="bool" key="Analyzer.QmlProfiler.Settings.UseGlobalSettings">true</value>
     <value type="bool" key="Analyzer.Valgrind.Settings.UseGlobalSettings">true</value>
     <value type="QString" key="Analyzer.Valgrind.ValgrindExecutable">/usr/bin/valgrind</value>
-    <valuelist type="QVariantList" key="Analyzer.Valgrind.VisibleErrorKinds">
-     <value type="QString">0</value>
-     <value type="QString">1</value>
-     <value type="QString">2</value>
-     <value type="QString">3</value>
-     <value type="QString">4</value>
-     <value type="QString">5</value>
-     <value type="QString">6</value>
-     <value type="QString">7</value>
-     <value type="QString">8</value>
-     <value type="QString">9</value>
-     <value type="QString">10</value>
-     <value type="QString">11</value>
-     <value type="QString">12</value>
-     <value type="QString">13</value>
-     <value type="QString">14</value>
-    </valuelist>
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
@@ -762,23 +887,6 @@
     <value type="bool" key="Analyzer.QmlProfiler.Settings.UseGlobalSettings">true</value>
     <value type="bool" key="Analyzer.Valgrind.Settings.UseGlobalSettings">true</value>
     <value type="QString" key="Analyzer.Valgrind.ValgrindExecutable">/usr/bin/valgrind</value>
-    <valuelist type="QVariantList" key="Analyzer.Valgrind.VisibleErrorKinds">
-     <value type="QString">0</value>
-     <value type="QString">1</value>
-     <value type="QString">2</value>
-     <value type="QString">3</value>
-     <value type="QString">4</value>
-     <value type="QString">5</value>
-     <value type="QString">6</value>
-     <value type="QString">7</value>
-     <value type="QString">8</value>
-     <value type="QString">9</value>
-     <value type="QString">10</value>
-     <value type="QString">11</value>
-     <value type="QString">12</value>
-     <value type="QString">13</value>
-     <value type="QString">14</value>
-    </valuelist>
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
@@ -997,23 +1105,6 @@
     <value type="bool" key="Analyzer.QmlProfiler.Settings.UseGlobalSettings">true</value>
     <value type="bool" key="Analyzer.Valgrind.Settings.UseGlobalSettings">true</value>
     <value type="QString" key="Analyzer.Valgrind.ValgrindExecutable">/usr/bin/valgrind</value>
-    <valuelist type="QVariantList" key="Analyzer.Valgrind.VisibleErrorKinds">
-     <value type="QString">0</value>
-     <value type="QString">1</value>
-     <value type="QString">2</value>
-     <value type="QString">3</value>
-     <value type="QString">4</value>
-     <value type="QString">5</value>
-     <value type="QString">6</value>
-     <value type="QString">7</value>
-     <value type="QString">8</value>
-     <value type="QString">9</value>
-     <value type="QString">10</value>
-     <value type="QString">11</value>
-     <value type="QString">12</value>
-     <value type="QString">13</value>
-     <value type="QString">14</value>
-    </valuelist>
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>

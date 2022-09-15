@@ -1,0 +1,335 @@
+\hypertarget{classLabelledTextField}{}\doxysection{Labelled\+Text\+Field Class Reference}
+\label{classLabelledTextField}\index{LabelledTextField@{LabelledTextField}}
+
+
+The \mbox{\hyperlink{classLabelledTextField}{Labelled\+Text\+Field}} is a wrapper for two QLabels and provides a labelled non-\/editable text field box.  
+
+
+
+
+{\ttfamily \#include $<$labelledtextfield.\+h$>$}
+
+Inheritance diagram for Labelled\+Text\+Field\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classLabelledTextField}
+\end{center}
+\end{figure}
+\doxysubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classLabelledTextField_ab2f8aaa32a941c51af03b8ba5ea40ab6}\label{classLabelledTextField_ab2f8aaa32a941c51af03b8ba5ea40ab6}} 
+void \mbox{\hyperlink{classLabelledTextField_ab2f8aaa32a941c51af03b8ba5ea40ab6}{link\+Activated}} (const QString \&link)
+\begin{DoxyCompactList}\small\item\em This signal is emitted when the user clicks a link. The URL referred to by the anchor is passed in link. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledTextField_ad35bf7cd4efbde631ee08a41577a6354}\label{classLabelledTextField_ad35bf7cd4efbde631ee08a41577a6354}} 
+void \mbox{\hyperlink{classLabelledTextField_ad35bf7cd4efbde631ee08a41577a6354}{link\+Hovered}} (const QString \&link)
+\begin{DoxyCompactList}\small\item\em This signal is emitted when the user hovers over a link. The URL referred to by the anchor is passed in link. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classLabelledTextField_a22868b973c6d559cc5abe000a9e79fff}{Labelled\+Text\+Field}} (const QString \&\mbox{\hyperlink{classAbstractLabelledWidget_a38a4d448633db671496c5ef5b9591a9d}{label\+Text}}, QWidget $\ast$parent=nullptr)
+\item 
+\mbox{\hyperlink{classLabelledTextField_a142fa4f5f1c695d4cb2b9e6c41f0fa72}{Labelled\+Text\+Field}} (const QString \&\mbox{\hyperlink{classAbstractLabelledWidget_a38a4d448633db671496c5ef5b9591a9d}{label\+Text}}, const QString \&contents=QString(), QWidget $\ast$parent=nullptr)
+\item 
+\mbox{\Hypertarget{classLabelledTextField_ad75f71cb7f9f84eb15147c419a012d7b}\label{classLabelledTextField_ad75f71cb7f9f84eb15147c419a012d7b}} 
+QLabel $\ast$ \mbox{\hyperlink{classLabelledTextField_ad75f71cb7f9f84eb15147c419a012d7b}{textfield}} ()
+\begin{DoxyCompactList}\small\item\em Returns the QLabel widget. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledTextField_aebe27534f5641c1227318817c60fedb1}\label{classLabelledTextField_aebe27534f5641c1227318817c60fedb1}} 
+QString \mbox{\hyperlink{classLabelledTextField_aebe27534f5641c1227318817c60fedb1}{text}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLabel\+::text() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledTextField_ab0f70b9d4d9a050cdfb63c8448d1cba7}\label{classLabelledTextField_ab0f70b9d4d9a050cdfb63c8448d1cba7}} 
+void \mbox{\hyperlink{classLabelledTextField_ab0f70b9d4d9a050cdfb63c8448d1cba7}{set\+Text}} (const QString \&\mbox{\hyperlink{classLabelledTextField_ac21bd629e518c90a0654266a935ff866}{text}})
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLabel\+::set\+Text(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledTextField_a02de08772e69e17f244411e0ce15f1ed}\label{classLabelledTextField_a02de08772e69e17f244411e0ce15f1ed}} 
+Qt\+::\+Text\+Format \mbox{\hyperlink{classLabelledTextField_a02de08772e69e17f244411e0ce15f1ed}{text\+Format}} () const override
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLabel\+::text\+Format() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledTextField_a89e098025d685f698c9d547717f43ad9}\label{classLabelledTextField_a89e098025d685f698c9d547717f43ad9}} 
+void \mbox{\hyperlink{classLabelledTextField_a89e098025d685f698c9d547717f43ad9}{set\+Text\+Format}} (Qt\+::\+Text\+Format format) override
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLabel\+::set\+Text\+Format(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledTextField_a641f4c21055713963fb24bca8451c4a9}\label{classLabelledTextField_a641f4c21055713963fb24bca8451c4a9}} 
+QPixmap \mbox{\hyperlink{classLabelledTextField_a641f4c21055713963fb24bca8451c4a9}{pixmap}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLabel\+::pixmap() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledTextField_a3f9eb52068fff4f02d11fe8d7bbe0a09}\label{classLabelledTextField_a3f9eb52068fff4f02d11fe8d7bbe0a09}} 
+void \mbox{\hyperlink{classLabelledTextField_a3f9eb52068fff4f02d11fe8d7bbe0a09}{set\+Pixmap}} (const QPixmap \&\mbox{\hyperlink{classLabelledTextField_abec34b2f69212cd0be80500b1cb3bcb8}{pixmap}})
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLabel\+::set\+Pixmap(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledTextField_a73529481a50bb9c7c825d3c015dd9a34}\label{classLabelledTextField_a73529481a50bb9c7c825d3c015dd9a34}} 
+QPicture \mbox{\hyperlink{classLabelledTextField_a73529481a50bb9c7c825d3c015dd9a34}{picture}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLabel\+::picture() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledTextField_af826baaab60e65e9e71a3f97462700ee}\label{classLabelledTextField_af826baaab60e65e9e71a3f97462700ee}} 
+void \mbox{\hyperlink{classLabelledTextField_af826baaab60e65e9e71a3f97462700ee}{set\+Picture}} (const QPicture \&\mbox{\hyperlink{classLabelledTextField_a73529481a50bb9c7c825d3c015dd9a34}{picture}})
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLabel\+::set\+Picture(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledTextField_a9e1743a94b540c697fe8633f96778d2b}\label{classLabelledTextField_a9e1743a94b540c697fe8633f96778d2b}} 
+bool \mbox{\hyperlink{classLabelledTextField_a9e1743a94b540c697fe8633f96778d2b}{has\+Scaled\+Contents}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLabel\+::has\+Scaled\+Contents() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledTextField_a0ca34e5167b32311ccdaaeae5235b5ec}\label{classLabelledTextField_a0ca34e5167b32311ccdaaeae5235b5ec}} 
+void \mbox{\hyperlink{classLabelledTextField_a0ca34e5167b32311ccdaaeae5235b5ec}{set\+Scaled\+Contents}} (bool scaled)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLabel\+::set\+Scaled\+Contents(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledTextField_a54e42144f2f37e055b8205c45b085459}\label{classLabelledTextField_a54e42144f2f37e055b8205c45b085459}} 
+Qt\+::\+Alignment \mbox{\hyperlink{classLabelledTextField_a54e42144f2f37e055b8205c45b085459}{widget\+Alignment}} () const override
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLabel\+::alignment() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledTextField_ab14f2e3130370835765d3efa81581659}\label{classLabelledTextField_ab14f2e3130370835765d3efa81581659}} 
+void \mbox{\hyperlink{classLabelledTextField_ab14f2e3130370835765d3efa81581659}{set\+Widget\+Alignment}} (const Qt\+::\+Alignment \&\mbox{\hyperlink{classLabelledTextField_a5a250ec7a15993f255424e97b76c1f9e}{widget\+Alignment}}) override
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLabel\+::set\+Alignment(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledTextField_a795128858ccc0514d670c4329931ba83}\label{classLabelledTextField_a795128858ccc0514d670c4329931ba83}} 
+bool \mbox{\hyperlink{classLabelledTextField_a795128858ccc0514d670c4329931ba83}{word\+Wrap}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLabel\+::word\+Wrap() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledTextField_a327c21e330bf2b471b151f72b419daf8}\label{classLabelledTextField_a327c21e330bf2b471b151f72b419daf8}} 
+void \mbox{\hyperlink{classLabelledTextField_a327c21e330bf2b471b151f72b419daf8}{set\+Word\+Wrap}} (bool on)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLabel\+::set\+Word\+Wrap(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledTextField_ad34520a00e8a526df0f9cc45fda955a0}\label{classLabelledTextField_ad34520a00e8a526df0f9cc45fda955a0}} 
+int \mbox{\hyperlink{classLabelledTextField_ad34520a00e8a526df0f9cc45fda955a0}{indent}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLabel\+::indent() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledTextField_a6415169061e106b59dc6497ee21d6458}\label{classLabelledTextField_a6415169061e106b59dc6497ee21d6458}} 
+void \mbox{\hyperlink{classLabelledTextField_a6415169061e106b59dc6497ee21d6458}{set\+Indent}} (int)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLabel\+::set\+Indent(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledTextField_a7ab036f00ca4d266e3ff85754b5907e1}\label{classLabelledTextField_a7ab036f00ca4d266e3ff85754b5907e1}} 
+int \mbox{\hyperlink{classLabelledTextField_a7ab036f00ca4d266e3ff85754b5907e1}{margin}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLabel\+::margin() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledTextField_afe3c25e6b2282c6b1d920eaadeed182e}\label{classLabelledTextField_afe3c25e6b2282c6b1d920eaadeed182e}} 
+void \mbox{\hyperlink{classLabelledTextField_afe3c25e6b2282c6b1d920eaadeed182e}{set\+Margin}} (int)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLabel\+::set\+Margin(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledTextField_a7a4e3f4e7ad83dc84095b468638435b2}\label{classLabelledTextField_a7a4e3f4e7ad83dc84095b468638435b2}} 
+bool \mbox{\hyperlink{classLabelledTextField_a7a4e3f4e7ad83dc84095b468638435b2}{open\+External\+Links}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLabel\+::open\+External\+Links() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledTextField_a89d0a32c4d2061522c497c1e4f96f689}\label{classLabelledTextField_a89d0a32c4d2061522c497c1e4f96f689}} 
+void \mbox{\hyperlink{classLabelledTextField_a89d0a32c4d2061522c497c1e4f96f689}{set\+Open\+External\+Links}} (bool open)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLabel\+::set\+Open\+External\+Links(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledTextField_a48eaca270f4f22d05a9be0a1600a0048}\label{classLabelledTextField_a48eaca270f4f22d05a9be0a1600a0048}} 
+void \mbox{\hyperlink{classLabelledTextField_a48eaca270f4f22d05a9be0a1600a0048}{set\+Text\+Interaction\+Flags}} (Qt\+::\+Text\+Interaction\+Flags flags)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLabel\+::set\+Text\+Interaction\+Flags(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledTextField_aa18033b2486afb2554120afe0cd9b216}\label{classLabelledTextField_aa18033b2486afb2554120afe0cd9b216}} 
+Qt\+::\+Text\+Interaction\+Flags \mbox{\hyperlink{classLabelledTextField_aa18033b2486afb2554120afe0cd9b216}{text\+Interaction\+Flags}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLabel\+::text\+Interaction\+Flags() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledTextField_ab1daa894a49bf77017be35c7d4913829}\label{classLabelledTextField_ab1daa894a49bf77017be35c7d4913829}} 
+void \mbox{\hyperlink{classLabelledTextField_ab1daa894a49bf77017be35c7d4913829}{set\+Selection}} (int start, int length)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLabel\+::set\+Selection(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledTextField_a978e114f65873b332b072822a54fe1ed}\label{classLabelledTextField_a978e114f65873b332b072822a54fe1ed}} 
+bool \mbox{\hyperlink{classLabelledTextField_a978e114f65873b332b072822a54fe1ed}{has\+Selected\+Text}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLabel\+::text() has\+Selected\+Text. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledTextField_a57eebb6412f4274dfd47ba37aec146d1}\label{classLabelledTextField_a57eebb6412f4274dfd47ba37aec146d1}} 
+QString \mbox{\hyperlink{classLabelledTextField_a57eebb6412f4274dfd47ba37aec146d1}{selected\+Text}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLabel\+::selected\+Text() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledTextField_a1da076df848d1d9370fb3536981f5a4a}\label{classLabelledTextField_a1da076df848d1d9370fb3536981f5a4a}} 
+int \mbox{\hyperlink{classLabelledTextField_a1da076df848d1d9370fb3536981f5a4a}{selection\+Start}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLabel\+::selection\+Start() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledTextField_a19c8a50faa1e79fe8109dacbb808eb01}\label{classLabelledTextField_a19c8a50faa1e79fe8109dacbb808eb01}} 
+int \mbox{\hyperlink{classLabelledTextField_a19c8a50faa1e79fe8109dacbb808eb01}{height\+For\+Width}} (int height) const override
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLabel\+::height\+For\+Width() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledTextField_a5f944464b08816c01a593b604d0451ec}\label{classLabelledTextField_a5f944464b08816c01a593b604d0451ec}} 
+void \mbox{\hyperlink{classLabelledTextField_a5f944464b08816c01a593b604d0451ec}{set\+Num}} (int)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLabel\+::set\+Num(int). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledTextField_ab6b4382d0e82606cd19a390f971144f5}\label{classLabelledTextField_ab6b4382d0e82606cd19a390f971144f5}} 
+void \mbox{\hyperlink{classLabelledTextField_ab6b4382d0e82606cd19a390f971144f5}{set\+Num}} (double)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLabel\+::set\+Num(double). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledTextField_a63d820e59f0b3a398ada15cf196be229}\label{classLabelledTextField_a63d820e59f0b3a398ada15cf196be229}} 
+void \mbox{\hyperlink{classLabelledTextField_a63d820e59f0b3a398ada15cf196be229}{clear\+Field}} ()
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLabel\+::clear(). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+QString \mbox{\hyperlink{classLabelledTextField_ac21bd629e518c90a0654266a935ff866}{text}}
+\begin{DoxyCompactList}\small\item\em This property holds the field\textquotesingle{}s text. \end{DoxyCompactList}\item 
+Qt\+::\+Text\+Format \mbox{\hyperlink{classLabelledTextField_a8c5864fc2faaf9621068f941d9b5fe50}{text\+Format}}
+\begin{DoxyCompactList}\small\item\em This property holds the field\textquotesingle{}s text format. \end{DoxyCompactList}\item 
+QPixmap \mbox{\hyperlink{classLabelledTextField_abec34b2f69212cd0be80500b1cb3bcb8}{pixmap}}
+\begin{DoxyCompactList}\small\item\em This property holds the field\textquotesingle{}s pixmap. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classLabelledTextField_a61414f4f24c3973c1610282c874fd796}{scaled\+Contents}}
+\begin{DoxyCompactList}\small\item\em This property holds whether the field will scale its contents to fill all a vailable space. \end{DoxyCompactList}\item 
+Qt\+::\+Alignment \mbox{\hyperlink{classLabelledTextField_a5a250ec7a15993f255424e97b76c1f9e}{widget\+Alignment}}
+\begin{DoxyCompactList}\small\item\em This property holds the alignment of the field\textquotesingle{}s contents. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classLabelledTextField_a66b8646305b94a2496d4f89771c59aec}{word\+Wrap}}
+\begin{DoxyCompactList}\small\item\em This property holds the field\textquotesingle{}s word-\/wrapping policy. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classLabelledTextField_aad90ec776bbbc2c621e312490e4d8665}{margin}}
+\begin{DoxyCompactList}\small\item\em This property holds the width of the field\textquotesingle{}s margin. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classLabelledTextField_a56c4370908e55e6dba0a56a2188d7083}{indent}}
+\begin{DoxyCompactList}\small\item\em This property holds the field\textquotesingle{}s text indent in pixels. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classLabelledTextField_a8c82f6c5e05604ae1637ce4ab4ff6dc2}{open\+External\+Links}}
+\begin{DoxyCompactList}\small\item\em Specifies whether the field should automatically open links using QDesktop\+Services\+::open\+Url() instead of emitting the \mbox{\hyperlink{classLabelledTextField_ab2f8aaa32a941c51af03b8ba5ea40ab6}{link\+Activated()}} signal. \end{DoxyCompactList}\item 
+Qt\+::\+Text\+Interaction\+Flags text\+Interaction\+Flags READ \mbox{\hyperlink{classLabelledTextField_a4152bbc13928cf6b842e286c53a7cf3b}{text\+Interaction\+Flags}}
+\begin{DoxyCompactList}\small\item\em Specifies how the field should interact with user input if it displays text. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classLabelledTextField_a34d258d944f14fe0ac2d664eed69d556}{has\+Selected\+Text}}
+\begin{DoxyCompactList}\small\item\em This property holds whether the field has any text selected. \end{DoxyCompactList}\item 
+QString \mbox{\hyperlink{classLabelledTextField_aded28750040d42b9d753ee75384510c6}{selected\+Text}}
+\begin{DoxyCompactList}\small\item\em This property holds the field\textquotesingle{}s selected text. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classLabelledTextField}{Labelled\+Text\+Field}} is a wrapper for two QLabels and provides a labelled non-\/editable text field box. 
+
+\begin{DoxySince}{Since}
+5.\+7.\+0 
+\end{DoxySince}
+\begin{DoxyParagraph}{License\+: The MIT License}
+
+\end{DoxyParagraph}
+\begin{DoxyCopyright}{Copyright}
+© 2019 -\/ 2020 Simon Meaden. All rights reserved.
+\end{DoxyCopyright}
+All properties of the text QLabel are copied across to this widget. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classLabelledTextField_a22868b973c6d559cc5abe000a9e79fff}\label{classLabelledTextField_a22868b973c6d559cc5abe000a9e79fff}} 
+\index{LabelledTextField@{LabelledTextField}!LabelledTextField@{LabelledTextField}}
+\index{LabelledTextField@{LabelledTextField}!LabelledTextField@{LabelledTextField}}
+\doxysubsubsection{\texorpdfstring{LabelledTextField()}{LabelledTextField()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Labelled\+Text\+Field\+::\+Labelled\+Text\+Field (\begin{DoxyParamCaption}\item[{const QString \&}]{label\+Text,  }\item[{QWidget $\ast$}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Constructs a text field with the given parent, and supplied label and empty text properties.
+
+
+\begin{DoxyParams}{Parameters}
+{\em label\+Text} & the label text string. \\
+\hline
+{\em parent} & the parent widget. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classLabelledTextField_a142fa4f5f1c695d4cb2b9e6c41f0fa72}\label{classLabelledTextField_a142fa4f5f1c695d4cb2b9e6c41f0fa72}} 
+\index{LabelledTextField@{LabelledTextField}!LabelledTextField@{LabelledTextField}}
+\index{LabelledTextField@{LabelledTextField}!LabelledTextField@{LabelledTextField}}
+\doxysubsubsection{\texorpdfstring{LabelledTextField()}{LabelledTextField()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Labelled\+Text\+Field\+::\+Labelled\+Text\+Field (\begin{DoxyParamCaption}\item[{const QString \&}]{label\+Text,  }\item[{const QString \&}]{contents = {\ttfamily QString()},  }\item[{QWidget $\ast$}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Constructs a text field with the given parent, and supplied label and text properties.
+
+
+\begin{DoxyParams}{Parameters}
+{\em label\+Text} & the label text string. \\
+\hline
+{\em contents} & of the QLine\+Edit. \\
+\hline
+{\em parent} & the parent widget. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{classLabelledTextField_a34d258d944f14fe0ac2d664eed69d556}\label{classLabelledTextField_a34d258d944f14fe0ac2d664eed69d556}} 
+\index{LabelledTextField@{LabelledTextField}!hasSelectedText@{hasSelectedText}}
+\index{hasSelectedText@{hasSelectedText}!LabelledTextField@{LabelledTextField}}
+\doxysubsubsection{\texorpdfstring{hasSelectedText}{hasSelectedText}}
+{\footnotesize\ttfamily Labelled\+Text\+Field\+::has\+Selected\+Text\hspace{0.3cm}{\ttfamily [read]}}
+
+
+
+This property holds whether the field has any text selected. 
+
+{\bfseries{Reimplements\+:}} QLabel\+::has\+Selected\+Text {\bfseries{Accessor\+:}} has\+Selected\+Text() \mbox{\Hypertarget{classLabelledTextField_a56c4370908e55e6dba0a56a2188d7083}\label{classLabelledTextField_a56c4370908e55e6dba0a56a2188d7083}} 
+\index{LabelledTextField@{LabelledTextField}!indent@{indent}}
+\index{indent@{indent}!LabelledTextField@{LabelledTextField}}
+\doxysubsubsection{\texorpdfstring{indent}{indent}}
+{\footnotesize\ttfamily Labelled\+Text\+Field\+::indent\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+This property holds the field\textquotesingle{}s text indent in pixels. 
+
+{\bfseries{Reimplements\+:}} QLabel\+::indent {\bfseries{Accessor\+:}} indent() , \%2 \mbox{\Hypertarget{classLabelledTextField_aad90ec776bbbc2c621e312490e4d8665}\label{classLabelledTextField_aad90ec776bbbc2c621e312490e4d8665}} 
+\index{LabelledTextField@{LabelledTextField}!margin@{margin}}
+\index{margin@{margin}!LabelledTextField@{LabelledTextField}}
+\doxysubsubsection{\texorpdfstring{margin}{margin}}
+{\footnotesize\ttfamily Labelled\+Text\+Field\+::margin\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+This property holds the width of the field\textquotesingle{}s margin. 
+
+{\bfseries{Reimplements\+:}} QLabel\+::margin {\bfseries{Accessor\+:}} margin() , \%2 \mbox{\Hypertarget{classLabelledTextField_a8c82f6c5e05604ae1637ce4ab4ff6dc2}\label{classLabelledTextField_a8c82f6c5e05604ae1637ce4ab4ff6dc2}} 
+\index{LabelledTextField@{LabelledTextField}!openExternalLinks@{openExternalLinks}}
+\index{openExternalLinks@{openExternalLinks}!LabelledTextField@{LabelledTextField}}
+\doxysubsubsection{\texorpdfstring{openExternalLinks}{openExternalLinks}}
+{\footnotesize\ttfamily Labelled\+Text\+Field\+::open\+External\+Links\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+Specifies whether the field should automatically open links using QDesktop\+Services\+::open\+Url() instead of emitting the \mbox{\hyperlink{classLabelledTextField_ab2f8aaa32a941c51af03b8ba5ea40ab6}{link\+Activated()}} signal. 
+
+{\bfseries{Reimplements\+:}} QLabel\+::open\+External\+Links {\bfseries{Accessor\+:}} open\+External\+Links() , \%2 \mbox{\Hypertarget{classLabelledTextField_abec34b2f69212cd0be80500b1cb3bcb8}\label{classLabelledTextField_abec34b2f69212cd0be80500b1cb3bcb8}} 
+\index{LabelledTextField@{LabelledTextField}!pixmap@{pixmap}}
+\index{pixmap@{pixmap}!LabelledTextField@{LabelledTextField}}
+\doxysubsubsection{\texorpdfstring{pixmap}{pixmap}}
+{\footnotesize\ttfamily Labelled\+Text\+Field\+::pixmap\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+This property holds the field\textquotesingle{}s pixmap. 
+
+{\bfseries{Reimplements\+:}} QLabel\+::pixmap {\bfseries{Accessor\+:}} pixmap() , \%2 \mbox{\Hypertarget{classLabelledTextField_a61414f4f24c3973c1610282c874fd796}\label{classLabelledTextField_a61414f4f24c3973c1610282c874fd796}} 
+\index{LabelledTextField@{LabelledTextField}!scaledContents@{scaledContents}}
+\index{scaledContents@{scaledContents}!LabelledTextField@{LabelledTextField}}
+\doxysubsubsection{\texorpdfstring{scaledContents}{scaledContents}}
+{\footnotesize\ttfamily Labelled\+Text\+Field\+::scaled\+Contents\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+This property holds whether the field will scale its contents to fill all a vailable space. 
+
+{\bfseries{Reimplements\+:}} QLabel\+::scaled\+Contents {\bfseries{Accessor\+:}} has\+Scaled\+Contents() , \%2 \mbox{\Hypertarget{classLabelledTextField_aded28750040d42b9d753ee75384510c6}\label{classLabelledTextField_aded28750040d42b9d753ee75384510c6}} 
+\index{LabelledTextField@{LabelledTextField}!selectedText@{selectedText}}
+\index{selectedText@{selectedText}!LabelledTextField@{LabelledTextField}}
+\doxysubsubsection{\texorpdfstring{selectedText}{selectedText}}
+{\footnotesize\ttfamily Labelled\+Text\+Field\+::selected\+Text\hspace{0.3cm}{\ttfamily [read]}}
+
+
+
+This property holds the field\textquotesingle{}s selected text. 
+
+{\bfseries{Reimplements\+:}} QLabel\+::selected\+Text {\bfseries{Accessor\+:}} selected\+Text() \mbox{\Hypertarget{classLabelledTextField_ac21bd629e518c90a0654266a935ff866}\label{classLabelledTextField_ac21bd629e518c90a0654266a935ff866}} 
+\index{LabelledTextField@{LabelledTextField}!text@{text}}
+\index{text@{text}!LabelledTextField@{LabelledTextField}}
+\doxysubsubsection{\texorpdfstring{text}{text}}
+{\footnotesize\ttfamily Labelled\+Text\+Field\+::text\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+This property holds the field\textquotesingle{}s text. 
+
+{\bfseries{Reimplements\+:}} QLabel\+::text
+
+{\bfseries{Accessor\+:}} text() , \%2 {\bfseries{Notifier\+:}} text\+Changed() \mbox{\Hypertarget{classLabelledTextField_a8c5864fc2faaf9621068f941d9b5fe50}\label{classLabelledTextField_a8c5864fc2faaf9621068f941d9b5fe50}} 
+\index{LabelledTextField@{LabelledTextField}!textFormat@{textFormat}}
+\index{textFormat@{textFormat}!LabelledTextField@{LabelledTextField}}
+\doxysubsubsection{\texorpdfstring{textFormat}{textFormat}}
+{\footnotesize\ttfamily Labelled\+Text\+Field\+::text\+Format\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+This property holds the field\textquotesingle{}s text format. 
+
+{\bfseries{Reimplements\+:}} QLabel\+::text\+Format
+
+{\bfseries{Accessor\+:}} text\+Format() , \%2 \mbox{\Hypertarget{classLabelledTextField_a4152bbc13928cf6b842e286c53a7cf3b}\label{classLabelledTextField_a4152bbc13928cf6b842e286c53a7cf3b}} 
+\index{LabelledTextField@{LabelledTextField}!textInteractionFlags@{textInteractionFlags}}
+\index{textInteractionFlags@{textInteractionFlags}!LabelledTextField@{LabelledTextField}}
+\doxysubsubsection{\texorpdfstring{textInteractionFlags}{textInteractionFlags}}
+{\footnotesize\ttfamily Labelled\+Text\+Field\+::text\+Interaction\+Flags\hspace{0.3cm}{\ttfamily [write]}}
+
+
+
+Specifies how the field should interact with user input if it displays text. 
+
+{\bfseries{Reimplements\+:}} QLabel\+::text\+Interaction\+Flags {\bfseries{Accessor\+:}} text\+Interaction\+Flags() , \%2 set\+Text\+Interaction\+Flags(Qt\+::\+Text\+Interaction\+Flags) \mbox{\Hypertarget{classLabelledTextField_a5a250ec7a15993f255424e97b76c1f9e}\label{classLabelledTextField_a5a250ec7a15993f255424e97b76c1f9e}} 
+\index{LabelledTextField@{LabelledTextField}!widgetAlignment@{widgetAlignment}}
+\index{widgetAlignment@{widgetAlignment}!LabelledTextField@{LabelledTextField}}
+\doxysubsubsection{\texorpdfstring{widgetAlignment}{widgetAlignment}}
+{\footnotesize\ttfamily Labelled\+Text\+Field\+::widget\+Alignment\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+This property holds the alignment of the field\textquotesingle{}s contents. 
+
+{\bfseries{Reimplements\+:}} QLabel\+::alignment {\bfseries{Accessor\+:}} alignment() , \%2 \mbox{\Hypertarget{classLabelledTextField_a66b8646305b94a2496d4f89771c59aec}\label{classLabelledTextField_a66b8646305b94a2496d4f89771c59aec}} 
+\index{LabelledTextField@{LabelledTextField}!wordWrap@{wordWrap}}
+\index{wordWrap@{wordWrap}!LabelledTextField@{LabelledTextField}}
+\doxysubsubsection{\texorpdfstring{wordWrap}{wordWrap}}
+{\footnotesize\ttfamily Labelled\+Text\+Field\+::word\+Wrap\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+This property holds the field\textquotesingle{}s word-\/wrapping policy. 
+
+{\bfseries{Reimplements\+:}} QLabel\+::word\+Wrap {\bfseries{Accessor\+:}} word\+Wrap() , \%2 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{labelledtextfield_8h}{labelledtextfield.\+h}}\end{DoxyCompactItemize}

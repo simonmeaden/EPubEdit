@@ -1,0 +1,209 @@
+\hypertarget{classWidgetItem}{}\doxysection{Widget\+Item Class Reference}
+\label{classWidgetItem}\index{WidgetItem@{WidgetItem}}
+
+
+The \mbox{\hyperlink{classWidgetItem}{Widget\+Item}} class is the base class for all dock widget items.  
+
+
+
+
+{\ttfamily \#include $<$widgetitem.\+cpp$>$}
+
+Inheritance diagram for Widget\+Item\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.414634cm]{classWidgetItem}
+\end{center}
+\end{figure}
+\doxysubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classWidgetItem_ac20f3e1b9d42cced8744b654609a3b3e}{widget\+Clicked}} (QPoint pos)
+\begin{DoxyCompactList}\small\item\em This signal is emitted whenever the item is clicked. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classWidgetItem_a4572a464a545396c0d5764b70f592485}\label{classWidgetItem_a4572a464a545396c0d5764b70f592485}} 
+void \mbox{\hyperlink{classWidgetItem_a4572a464a545396c0d5764b70f592485}{widget\+Changed}} ()
+\begin{DoxyCompactList}\small\item\em This signal is emitted when the widget is changed in any way that would modify the layout. This could be a size change, a margin change or an arrangement change. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+Q\+\_\+\+INVOKABLE \mbox{\hyperlink{classWidgetItem_aaa0783c3f2769a4b8a769bf92e379c33}{Widget\+Item}} (\mbox{\hyperlink{classAbstractDockWidget}{Abstract\+Dock\+Widget}} $\ast$parent)
+\item 
+\mbox{\Hypertarget{classWidgetItem_aadf8b92c5c9dc303d2e7369d511c1ad4}\label{classWidgetItem_aadf8b92c5c9dc303d2e7369d511c1ad4}} 
+Widget\+Type \mbox{\hyperlink{classWidgetItem_aadf8b92c5c9dc303d2e7369d511c1ad4}{type}} () const
+\begin{DoxyCompactList}\small\item\em Returns the Widget\+Type of the widget. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classWidgetItem_a11ac3295886acd54fe77b45aa1fcd8b9}\label{classWidgetItem_a11ac3295886acd54fe77b45aa1fcd8b9}} 
+void \mbox{\hyperlink{classWidgetItem_a11ac3295886acd54fe77b45aa1fcd8b9}{set\+Type}} (Widget\+Type new\+Type)
+\begin{DoxyCompactList}\small\item\em Sets the type of the widget. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classWidgetItem_ac03438be3da9069def79cbc39807f685}\label{classWidgetItem_ac03438be3da9069def79cbc39807f685}} 
+Widget\+Position \mbox{\hyperlink{classWidgetItem_ac03438be3da9069def79cbc39807f685}{widget\+Position}} () const
+\begin{DoxyCompactList}\small\item\em Returns the docking position of the widget. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classWidgetItem_a08ea91c7ca1e69a6268c98a976db5e38}\label{classWidgetItem_a08ea91c7ca1e69a6268c98a976db5e38}} 
+void \mbox{\hyperlink{classWidgetItem_a08ea91c7ca1e69a6268c98a976db5e38}{set\+Widget\+Position}} (Widget\+Position new\+Position)
+\begin{DoxyCompactList}\small\item\em Sets the docking position of the widget. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classWidgetItem_a4b37e7b73a8f45d1e6cf7302a08922cf}\label{classWidgetItem_a4b37e7b73a8f45d1e6cf7302a08922cf}} 
+const QString \& \mbox{\hyperlink{classWidgetItem_a4b37e7b73a8f45d1e6cf7302a08922cf}{tooltip}} () const
+\begin{DoxyCompactList}\small\item\em Returns the value of the optional tooltip, empty if not specified. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classWidgetItem_aae3cd99d66fcb98574f9c8073dedb66f}\label{classWidgetItem_aae3cd99d66fcb98574f9c8073dedb66f}} 
+void \mbox{\hyperlink{classWidgetItem_aae3cd99d66fcb98574f9c8073dedb66f}{set\+Tooltip}} (const QString \&new\+Tooltip)
+\begin{DoxyCompactList}\small\item\em Sets the value of the optional tooltip. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classWidgetItem_affb5027bbcaab428e21f55e637814479}\label{classWidgetItem_affb5027bbcaab428e21f55e637814479}} 
+const QMargins \& \mbox{\hyperlink{classWidgetItem_affb5027bbcaab428e21f55e637814479}{margins}} () const
+\begin{DoxyCompactList}\small\item\em Returns the widget margins. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classWidgetItem_a574518ee6015a5aebd92879dda9d0f67}\label{classWidgetItem_a574518ee6015a5aebd92879dda9d0f67}} 
+void \mbox{\hyperlink{classWidgetItem_a574518ee6015a5aebd92879dda9d0f67}{set\+Margins}} (const QMargins \&\mbox{\hyperlink{classWidgetItem_affb5027bbcaab428e21f55e637814479}{margins}})
+\begin{DoxyCompactList}\small\item\em Sets the widgets margins. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classWidgetItem_a567ace9f521697843c0b0f675b5a2632}\label{classWidgetItem_a567ace9f521697843c0b0f675b5a2632}} 
+int \mbox{\hyperlink{classWidgetItem_a567ace9f521697843c0b0f675b5a2632}{left\+Margin}} ()
+\begin{DoxyCompactList}\small\item\em Returns the left margin. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classWidgetItem_a3058335ec8c45cbb079e8a7802ad69ff}\label{classWidgetItem_a3058335ec8c45cbb079e8a7802ad69ff}} 
+void \mbox{\hyperlink{classWidgetItem_a3058335ec8c45cbb079e8a7802ad69ff}{set\+Left\+Margin}} (int margin)
+\begin{DoxyCompactList}\small\item\em Sets the widgets left margin. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classWidgetItem_abe3c12d207d71e9277c9808c99520650}\label{classWidgetItem_abe3c12d207d71e9277c9808c99520650}} 
+int \mbox{\hyperlink{classWidgetItem_abe3c12d207d71e9277c9808c99520650}{right\+Margin}} ()
+\begin{DoxyCompactList}\small\item\em Returns the right margin. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classWidgetItem_a878b358d7794dbdcaac3533ef7d79829}\label{classWidgetItem_a878b358d7794dbdcaac3533ef7d79829}} 
+void \mbox{\hyperlink{classWidgetItem_a878b358d7794dbdcaac3533ef7d79829}{set\+Right\+Margin}} (int margin)
+\begin{DoxyCompactList}\small\item\em Sets the widgets right margin. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classWidgetItem_a77ae5496cb076d812b70a6442394a489}\label{classWidgetItem_a77ae5496cb076d812b70a6442394a489}} 
+int \mbox{\hyperlink{classWidgetItem_a77ae5496cb076d812b70a6442394a489}{top\+Margin}} ()
+\begin{DoxyCompactList}\small\item\em Returns the top margin. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classWidgetItem_afaa18446d67019ce82daf82ad7239d7c}\label{classWidgetItem_afaa18446d67019ce82daf82ad7239d7c}} 
+void \mbox{\hyperlink{classWidgetItem_afaa18446d67019ce82daf82ad7239d7c}{set\+Top\+Margin}} (int margin)
+\begin{DoxyCompactList}\small\item\em Sets the widgets top margin. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classWidgetItem_aa4a8394daa1a8ce937d3a1bd2467271e}\label{classWidgetItem_aa4a8394daa1a8ce937d3a1bd2467271e}} 
+int \mbox{\hyperlink{classWidgetItem_aa4a8394daa1a8ce937d3a1bd2467271e}{bottom\+Margin}} ()
+\begin{DoxyCompactList}\small\item\em Returns the bottom margin. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classWidgetItem_a710f7ae175a7bf73eddd25292c5c8ba6}\label{classWidgetItem_a710f7ae175a7bf73eddd25292c5c8ba6}} 
+void \mbox{\hyperlink{classWidgetItem_a710f7ae175a7bf73eddd25292c5c8ba6}{set\+Bottom\+Margin}} (int margin)
+\begin{DoxyCompactList}\small\item\em Sets the widgets bottom margin. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classWidgetItem_a29733c0560533e67b20b2ff7f48a7268}\label{classWidgetItem_a29733c0560533e67b20b2ff7f48a7268}} 
+bool \mbox{\hyperlink{classWidgetItem_a29733c0560533e67b20b2ff7f48a7268}{is\+Enabled}} () const
+\begin{DoxyCompactList}\small\item\em Returns the value of the enabled flag. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classWidgetItem_ac6ab501df680c9a512debdc7795b13ec}\label{classWidgetItem_ac6ab501df680c9a512debdc7795b13ec}} 
+void \mbox{\hyperlink{classWidgetItem_ac6ab501df680c9a512debdc7795b13ec}{set\+Enabled}} (bool new\+Enabled)
+\begin{DoxyCompactList}\small\item\em Sets the value of the enabled flag. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classWidgetItem_a36471a9f6b6e0a3752b12e5c267afb0e}\label{classWidgetItem_a36471a9f6b6e0a3752b12e5c267afb0e}} 
+bool \mbox{\hyperlink{classWidgetItem_a36471a9f6b6e0a3752b12e5c267afb0e}{is\+Selected}} () const
+\begin{DoxyCompactList}\small\item\em Returns the value of the selected flag. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classWidgetItem_a899aec8a133f2feb0b1edda896376c98}\label{classWidgetItem_a899aec8a133f2feb0b1edda896376c98}} 
+void \mbox{\hyperlink{classWidgetItem_a899aec8a133f2feb0b1edda896376c98}{set\+Selected}} (bool selected)
+\begin{DoxyCompactList}\small\item\em Sets the value of the selected flag. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classWidgetItem_a7d80ca920598eccf527cde49269033b4}{hide\+Widget}} ()
+\begin{DoxyCompactList}\small\item\em Hides the widget. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classWidgetItem_ab0efd25c728b502ab5b5b7201e46f694}\label{classWidgetItem_ab0efd25c728b502ab5b5b7201e46f694}} 
+const QVariant \& \mbox{\hyperlink{classWidgetItem_ab0efd25c728b502ab5b5b7201e46f694}{data}} () const
+\begin{DoxyCompactList}\small\item\em Retrieves a QVariant data object from the store. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classWidgetItem_a8486fe4a5e461f4ed2b82e13ad9db1d4}\label{classWidgetItem_a8486fe4a5e461f4ed2b82e13ad9db1d4}} 
+void \mbox{\hyperlink{classWidgetItem_a8486fe4a5e461f4ed2b82e13ad9db1d4}{set\+Data}} (const QVariant \&\mbox{\hyperlink{classWidgetItem_ab0efd25c728b502ab5b5b7201e46f694}{data}})
+\begin{DoxyCompactList}\small\item\em Sets a QVariant data object from the store. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classWidgetItem_add652a1cc43b8242803d546d4a1d4003}\label{classWidgetItem_add652a1cc43b8242803d546d4a1d4003}} 
+void \mbox{\hyperlink{classWidgetItem_add652a1cc43b8242803d546d4a1d4003}{clone}} (QObject $\ast$item=nullptr) override
+\begin{DoxyCompactList}\small\item\em Creates a clone of the \mbox{\hyperlink{classWidgetItem}{Widget\+Item}}, passing it\textquotesingle{}s variables and settings into the supplied \textquotesingle{}master\textquotesingle{}. All subclasses of \mbox{\hyperlink{classWidgetItem}{Widget\+Item}} should create their own \mbox{\hyperlink{classWidgetItem_add652a1cc43b8242803d546d4a1d4003}{clone()}} methods. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classWidgetItem_aa19505ccf3f9a654e66b59db62a154c3}\label{classWidgetItem_aa19505ccf3f9a654e66b59db62a154c3}} 
+\mbox{\hyperlink{classWidgetItem}{Widget\+Item}} $\ast$ \mbox{\hyperlink{classWidgetItem_aa19505ccf3f9a654e66b59db62a154c3}{create\+From\+Name}} (\mbox{\hyperlink{classWidgetItem}{Widget\+Item}} $\ast$item)
+\begin{DoxyCompactList}\small\item\em Creates a new instance of \mbox{\hyperlink{classWidgetItem}{Widget\+Item}} using the object name. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classWidgetItem_a912dbae134361a29f9f6796d953a690f}\label{classWidgetItem_a912dbae134361a29f9f6796d953a690f}} 
+bool \mbox{\hyperlink{classWidgetItem_a912dbae134361a29f9f6796d953a690f}{is\+Hover\+Over}} () const
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classWidgetItem}{Widget\+Item}} hover check flag getter. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classWidgetItem_a20aa5c188df4f484e88023aa18618e67}\label{classWidgetItem_a20aa5c188df4f484e88023aa18618e67}} 
+void \mbox{\hyperlink{classWidgetItem_a20aa5c188df4f484e88023aa18618e67}{set\+Hover\+Over}} (bool new\+Hover\+Over)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classWidgetItem}{Widget\+Item}} hover check flag setter. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classWidgetItem_acb0e6d4fd71f1bb79cc53395a1b1c758}\label{classWidgetItem_acb0e6d4fd71f1bb79cc53395a1b1c758}} 
+bool \mbox{\hyperlink{classWidgetItem_acb0e6d4fd71f1bb79cc53395a1b1c758}{is\+Visible}} () const
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classWidgetItem}{Widget\+Item}} visibility check. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classWidgetItem_a632347ed2ff6b0e5e6b958257c4df470}\label{classWidgetItem_a632347ed2ff6b0e5e6b958257c4df470}} 
+const QRect \& \mbox{\hyperlink{classWidgetItem_a632347ed2ff6b0e5e6b958257c4df470}{rect}} () const
+\begin{DoxyCompactList}\small\item\em Display area for the \mbox{\hyperlink{classWidgetItem}{Widget\+Item}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classWidgetItem_a501a9bbb442b69c968e14267ed4932b4}\label{classWidgetItem_a501a9bbb442b69c968e14267ed4932b4}} 
+virtual void \mbox{\hyperlink{classWidgetItem_a501a9bbb442b69c968e14267ed4932b4}{paint}} (QPainter \&)
+\begin{DoxyCompactList}\small\item\em Painter function for \mbox{\hyperlink{classWidgetItem}{Widget\+Item}}. A pure virtual function at this level. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classWidgetItem_a7b7c67a23e8c8730992466b840c6b421}\label{classWidgetItem_a7b7c67a23e8c8730992466b840c6b421}} 
+QSize \mbox{\hyperlink{classWidgetItem_a7b7c67a23e8c8730992466b840c6b421}{size\+Hint}} () const
+\begin{DoxyCompactList}\small\item\em Returns the size hint for the \mbox{\hyperlink{classWidgetItem}{Widget\+Item}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classWidgetItem_ae1688a2665651370967d4d318d6451c9}\label{classWidgetItem_ae1688a2665651370967d4d318d6451c9}} 
+virtual void \mbox{\hyperlink{classWidgetItem_ae1688a2665651370967d4d318d6451c9}{set\+Geometry}} (const QRect \&\mbox{\hyperlink{classWidgetItem_a632347ed2ff6b0e5e6b958257c4df470}{rect}}, const QRect \&=QRect())
+\begin{DoxyCompactList}\small\item\em sets the geometry for the \mbox{\hyperlink{classWidgetItem}{Widget\+Item}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classWidgetItem_a6a1f0d8a380fc9b1b522cd4545aeea5c}\label{classWidgetItem_a6a1f0d8a380fc9b1b522cd4545aeea5c}} 
+virtual const QSize \mbox{\hyperlink{classWidgetItem_a6a1f0d8a380fc9b1b522cd4545aeea5c}{calc\+Minimum\+Size}} ()
+\begin{DoxyCompactList}\small\item\em Calkculates the minimum size for the \mbox{\hyperlink{classWidgetItem}{Widget\+Item}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classWidgetItem_af7c38629f6ca0496765ff2bb4bbc2f58}\label{classWidgetItem_af7c38629f6ca0496765ff2bb4bbc2f58}} 
+class {\bfseries Abstract\+Dock\+Item}
+\item 
+\mbox{\Hypertarget{classWidgetItem_a53f63dc4f738e124a4f6e4359ce7de89}\label{classWidgetItem_a53f63dc4f738e124a4f6e4359ce7de89}} 
+class {\bfseries Abstract\+Dock\+Widget}
+\item 
+\mbox{\Hypertarget{classWidgetItem_afbb788488de875e32f2936fc866e9621}\label{classWidgetItem_afbb788488de875e32f2936fc866e9621}} 
+class {\bfseries Header\+Widget}
+\item 
+\mbox{\Hypertarget{classWidgetItem_a3e4a46070cf48bd7885117232387779c}\label{classWidgetItem_a3e4a46070cf48bd7885117232387779c}} 
+class {\bfseries Footer\+Widget}
+\item 
+\mbox{\Hypertarget{classWidgetItem_adebdc5fa4b4d2e878e776a0c5703fcea}\label{classWidgetItem_adebdc5fa4b4d2e878e776a0c5703fcea}} 
+class {\bfseries Header\+Footer\+Widget}
+\item 
+\mbox{\Hypertarget{classWidgetItem_a4389cbe33dc7c394abc8290a07ac6e5b}\label{classWidgetItem_a4389cbe33dc7c394abc8290a07ac6e5b}} 
+class {\bfseries Dock\+Widget}
+\item 
+\mbox{\Hypertarget{classWidgetItem_a64a791ff49f0082eb210ab95cc19edb5}\label{classWidgetItem_a64a791ff49f0082eb210ab95cc19edb5}} 
+class {\bfseries Dock\+Header}
+\item 
+\mbox{\Hypertarget{classWidgetItem_a0c4f831725b0ab9e28592e8f64d5ee5c}\label{classWidgetItem_a0c4f831725b0ab9e28592e8f64d5ee5c}} 
+class {\bfseries Dock\+Footer}
+\item 
+\mbox{\Hypertarget{classWidgetItem_aa9976ddfa81405a98a15004aacd437a2}\label{classWidgetItem_aa9976ddfa81405a98a15004aacd437a2}} 
+class {\bfseries Dock\+Toolbar}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classWidgetItem}{Widget\+Item}} class is the base class for all dock widget items. 
+
+\mbox{\hyperlink{classWidgetItem}{Widget\+Item}} provide an abstract class for creation of \mbox{\hyperlink{classWidgetItem}{Widget\+Item}}\textquotesingle{}s. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classWidgetItem_aaa0783c3f2769a4b8a769bf92e379c33}\label{classWidgetItem_aaa0783c3f2769a4b8a769bf92e379c33}} 
+\index{WidgetItem@{WidgetItem}!WidgetItem@{WidgetItem}}
+\index{WidgetItem@{WidgetItem}!WidgetItem@{WidgetItem}}
+\doxysubsubsection{\texorpdfstring{WidgetItem()}{WidgetItem()}}
+{\footnotesize\ttfamily Q\+\_\+\+INVOKABLE Widget\+Item\+::\+Widget\+Item (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classAbstractDockWidget}{Abstract\+Dock\+Widget}} $\ast$}]{parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Construct a \mbox{\hyperlink{classWidgetItem}{Widget\+Item}} that is a child of parent.
+
+parent connot be a nullptr, the item must have a parent widget. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classWidgetItem_a7d80ca920598eccf527cde49269033b4}\label{classWidgetItem_a7d80ca920598eccf527cde49269033b4}} 
+\index{WidgetItem@{WidgetItem}!hideWidget@{hideWidget}}
+\index{hideWidget@{hideWidget}!WidgetItem@{WidgetItem}}
+\doxysubsubsection{\texorpdfstring{hideWidget()}{hideWidget()}}
+{\footnotesize\ttfamily virtual void Widget\+Item\+::hide\+Widget (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Hides the widget. 
+
+\begin{DoxySeeAlso}{See also}
+show\+Widget 
+\end{DoxySeeAlso}
+
+
+Reimplemented in \mbox{\hyperlink{classListWidget_a9bd0846123d54339be20e1111cfea537}{List\+Widget}}, and \mbox{\hyperlink{classListButtonWidget_a2b4498a63543187dfea29bebceeea2fa}{List\+Button\+Widget}}.
+
+\mbox{\Hypertarget{classWidgetItem_ac20f3e1b9d42cced8744b654609a3b3e}\label{classWidgetItem_ac20f3e1b9d42cced8744b654609a3b3e}} 
+\index{WidgetItem@{WidgetItem}!widgetClicked@{widgetClicked}}
+\index{widgetClicked@{widgetClicked}!WidgetItem@{WidgetItem}}
+\doxysubsubsection{\texorpdfstring{widgetClicked}{widgetClicked}}
+{\footnotesize\ttfamily void Widget\+Item\+::widget\+Clicked (\begin{DoxyParamCaption}\item[{QPoint}]{pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+This signal is emitted whenever the item is clicked. 
+
+Not all widgets will emit this signal when clicked. \mbox{\hyperlink{classSeperatorWidget}{Seperator\+Widget}}\textquotesingle{}s and Label\+Widgets are examples of these. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+widgetitem.\+h\end{DoxyCompactItemize}

@@ -1,0 +1,96 @@
+\hypertarget{classDockCorner}{}\doxysection{Dock\+Corner Class Reference}
+\label{classDockCorner}\index{DockCorner@{DockCorner}}
+
+
+The \mbox{\hyperlink{classDockCorner}{Dock\+Corner}} class defines the appearance of the corners of the dockwidget.  
+
+
+
+
+{\ttfamily \#include \char`\"{}includes/docker/dockcorner.\+h\char`\"{}}
+
+Inheritance diagram for Dock\+Corner\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{classDockCorner}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classDockCorner_a9d9a8e613d2ab5ccc27307761633ebd7}{Dock\+Corner}} (Corner\+Type \mbox{\hyperlink{classDockCorner_a445b11b7904769f76861e4e742b01a13}{type}}, Dock\+Position position, \mbox{\hyperlink{classAbstractDockWidget}{Abstract\+Dock\+Widget}} $\ast$parent)
+\begin{DoxyCompactList}\small\item\em Constructor for a \mbox{\hyperlink{classDockCorner}{Dock\+Corner}} specifying type, position and parent. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDockCorner_a30c5d173c0c9df4a74ed99c769fb220a}\label{classDockCorner_a30c5d173c0c9df4a74ed99c769fb220a}} 
+Dock\+Position \mbox{\hyperlink{classDockCorner_a30c5d173c0c9df4a74ed99c769fb220a}{dock\+Position}} ()
+\begin{DoxyCompactList}\small\item\em Returns the Dock\+Position for this \mbox{\hyperlink{classDockCorner}{Dock\+Corner}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDockCorner_a8abf306b67db367afc6c82b5a303997d}\label{classDockCorner_a8abf306b67db367afc6c82b5a303997d}} 
+void \mbox{\hyperlink{classDockCorner_a8abf306b67db367afc6c82b5a303997d}{set\+Dock\+Position}} (Dock\+Position position)
+\begin{DoxyCompactList}\small\item\em Sets the Dock\+Position for this \mbox{\hyperlink{classDockCorner}{Dock\+Corner}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDockCorner_a445b11b7904769f76861e4e742b01a13}\label{classDockCorner_a445b11b7904769f76861e4e742b01a13}} 
+Corner\+Type \mbox{\hyperlink{classDockCorner_a445b11b7904769f76861e4e742b01a13}{type}} ()
+\begin{DoxyCompactList}\small\item\em Returns the Corner\+Type for this \mbox{\hyperlink{classDockCorner}{Dock\+Corner}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDockCorner_a2bab0494b04dca831fee8e69c48d61fa}\label{classDockCorner_a2bab0494b04dca831fee8e69c48d61fa}} 
+void \mbox{\hyperlink{classDockCorner_a2bab0494b04dca831fee8e69c48d61fa}{set\+Type}} (Corner\+Type \mbox{\hyperlink{classDockCorner_a445b11b7904769f76861e4e742b01a13}{type}})
+\begin{DoxyCompactList}\small\item\em Sets the Corner\+Type for this \mbox{\hyperlink{classDockCorner}{Dock\+Corner}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDockCorner_af523194a6d6a2725bba887ff0e992d74}\label{classDockCorner_af523194a6d6a2725bba887ff0e992d74}} 
+QSize \mbox{\hyperlink{classDockCorner_af523194a6d6a2725bba887ff0e992d74}{size\+Hint}} () const override
+\begin{DoxyCompactList}\small\item\em Returns the size hint for this \mbox{\hyperlink{classDockCorner}{Dock\+Corner}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDockCorner_aa5a5c19d4b17228a2cac66604b91b162}\label{classDockCorner_aa5a5c19d4b17228a2cac66604b91b162}} 
+void \mbox{\hyperlink{classDockCorner_aa5a5c19d4b17228a2cac66604b91b162}{clone}} (QObject $\ast$item) override
+\begin{DoxyCompactList}\small\item\em Clones the \mbox{\hyperlink{classDockCorner}{Dock\+Corner}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDockCorner_a7e9c4e6869b6a46699c035b177e6f7a1}\label{classDockCorner_a7e9c4e6869b6a46699c035b177e6f7a1}} 
+\mbox{\hyperlink{classDockCorner_a7e9c4e6869b6a46699c035b177e6f7a1}{Dock\+Corner}} (Dock\+Corner\+Private \&d)
+\begin{DoxyCompactList}\small\item\em d\+\_\+ptr constructor \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDockCorner_afbb788488de875e32f2936fc866e9621}\label{classDockCorner_afbb788488de875e32f2936fc866e9621}} 
+class {\bfseries Header\+Widget}
+\item 
+\mbox{\Hypertarget{classDockCorner_a3e4a46070cf48bd7885117232387779c}\label{classDockCorner_a3e4a46070cf48bd7885117232387779c}} 
+class {\bfseries Footer\+Widget}
+\item 
+\mbox{\Hypertarget{classDockCorner_adebdc5fa4b4d2e878e776a0c5703fcea}\label{classDockCorner_adebdc5fa4b4d2e878e776a0c5703fcea}} 
+class {\bfseries Header\+Footer\+Widget}
+\item 
+\mbox{\Hypertarget{classDockCorner_a4389cbe33dc7c394abc8290a07ac6e5b}\label{classDockCorner_a4389cbe33dc7c394abc8290a07ac6e5b}} 
+class {\bfseries Dock\+Widget}
+\item 
+\mbox{\Hypertarget{classDockCorner_aa95205f8a052693618d79c71a02282c8}\label{classDockCorner_aa95205f8a052693618d79c71a02282c8}} 
+class {\bfseries Dock\+Widget\+Private}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classDockCorner}{Dock\+Corner}} class defines the appearance of the corners of the dockwidget. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classDockCorner_a9d9a8e613d2ab5ccc27307761633ebd7}\label{classDockCorner_a9d9a8e613d2ab5ccc27307761633ebd7}} 
+\index{DockCorner@{DockCorner}!DockCorner@{DockCorner}}
+\index{DockCorner@{DockCorner}!DockCorner@{DockCorner}}
+\doxysubsubsection{\texorpdfstring{DockCorner()}{DockCorner()}}
+{\footnotesize\ttfamily Dock\+Corner\+::\+Dock\+Corner (\begin{DoxyParamCaption}\item[{Corner\+Type}]{type,  }\item[{Dock\+Position}]{position,  }\item[{\mbox{\hyperlink{classAbstractDockWidget}{Abstract\+Dock\+Widget}} $\ast$}]{parent }\end{DoxyParamCaption})}
+
+
+
+Constructor for a \mbox{\hyperlink{classDockCorner}{Dock\+Corner}} specifying type, position and parent. 
+
+Type has three useable values, Box, VEdge and HEdge. None can have unexpected results depending on addition order.
+
+
+\begin{DoxyItemize}
+\item Box which specifies a blank box at the corner.
+\item VEdge which allow the North/\+South items to reach the edges. East/\+West items butt against the North/\+South items.
+\item HEdge which allow the West/\+East items to reach the edges. North/\+South items butt against the East/\+West items.
+\item None No corner is specified and the layout will depend on addition order.
+\end{DoxyItemize}
+
+Position specifies which corner. Dock\+Position actually has nine possible values, but only four Dock\+Position\+::\+North\+East, Dock\+Position\+::\+North\+West, Dock\+Position\+::\+South\+East and Dock\+Position\+::\+South\+West are valid for a \mbox{\hyperlink{classDockCorner}{Dock\+Corner}}. Using other values can have anomalous results. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+dockcorner.\+h\end{DoxyCompactItemize}

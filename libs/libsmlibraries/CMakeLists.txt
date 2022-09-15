@@ -1,9 +1,33 @@
+cmake_minimum_required(VERSION 3.14)
+
 project(libsmlibraries LANGUAGES CXX)
 
 option(BUILD_DOC "Build documentation" ON)
 
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+set(MIN_YAMLCPP_VERSION 0.6.0)
+find_package(yaml-cpp REQUIRED)
+
+if (NOT DEFINED EPUBEDIT_BUILD)
+  find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Gui Widgets Network Xml Svg Concurrent LinguistTools)
+  if (QT_VERSION_MAJOR EQUAL 5)
+    find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Gui Widgets Network Xml Svg Concurrent LinguistTools)
+  elseif (QT_VERSION_MAJOR EQUAL 6)
+    find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Gui Widgets Network Xml Svg Concurrent LinguistTools Core5Compat)
+  endif()
+endif()
+
 find_package(Doxygen)
 if (DOXYGEN_FOUND)
+  # Only build documentation when building in Release mode
   if (CMAKE_BUILD_TYPE MATCHES "^[Rr]elease")
     # set input and output files
     set(DOXYGEN_IN ${CMAKE_CURRENT_SOURCE_DIR}/doxygen/Doxyfile.in)
@@ -30,6 +54,7 @@ add_library(SMLibraries::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 target_compile_options(${PROJECT_NAME} PRIVATE -Werror)
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX "d")
+set_target_properties(${PROJECT_NAME} PROPERTIES AUTOMOC TRUE)
 
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
@@ -46,6 +71,8 @@ target_link_libraries(${PROJECT_NAME}
     CuteLogger
 )
 
+set_target_properties(${PROJECT_NAME} PROPERTIES AUTOMOC TRUE)
+
 target_include_directories(${PROJECT_NAME}
     PUBLIC
         $<INSTALL_INTERFACE:include>
@@ -54,161 +81,8 @@ target_include_directories(${PROJECT_NAME}
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-set(TS_FILES ${CMAKE_SOURCE_DIR}/i18n/${PROJECT_NAME}_en_gb.ts ${CMAKE_SOURCE_DIR}/i18n/${PROJECT_NAME}_en_us.ts ${CMAKE_SOURCE_DIR}/i18n/${PROJECT_NAME}_de.ts)
 
-target_sources(${PROJECT_NAME}
-#  PUBLIC
-
-  PRIVATE
-    # DOxygen configuration file
-    doxygen/Doxyfile.in
-
-    # NEED to include the header files here otherwise MOC won't handle them.
-    # they are also automatically included in the target_include_directories 
-    # section above
-
-    # internationallanguage classes
-    include/languages.h
-    src/languages.cpp
-    include/unstatistical.h
-    src/unstatistical.cpp
-    #
-    include/filedownloader.h
-    src/filedownloader.cpp
-    # html tidy wrapper.
-    include/qtidydoc.h
-    src/qtidydoc.cpp
-
-    # labelled classes
-    include/abstractlabelledspinbox.h
-    src/abstractlabelledspinbox.cpp
-    include/abstractlabelledwidget.h
-    src/abstractlabelledwidget.cpp
-    include/exspinbox.h
-    src/exspinbox.cpp
-    include/extendedcolordialog.h
-    src/extendedcolordialog.cpp
-    include/extendedcolordialog.h
-    src/extendedcolordialog.cpp
-    include/hexformatdelegate.h
-    src/hexformatdelegate.cpp
-    include/labelledcombobox.h
-    src/labelledcombobox.cpp
-    include/labelleddoublespinbox.h
-    src/labelleddoublespinbox.cpp
-    include/labelledexspinbox.h
-    src/labelledexspinbox.cpp
-    include/labelledlineedit.h
-    src/labelledlineedit.cpp
-    include/labelledspinbox.h
-    src/labelledspinbox.cpp
-    include/labelledtextfield.h
-    src/labelledtextfield.cpp
-    src/sm_widgets_global.h
-    include/x11colors.h
-    src/x11colors.cpp
-    include/paths.h
-    src/paths.cpp
-    include/helpdialogs.h
-    src/helpdialogs.cpp
-    include/stringutil.h
-    src/stringutil.cpp
-
-    # dockwidget classes
-    include/docktypes.h
-
-    include/abstractdockwidget.h
-    src/abstractdockwidget.cpp
-    include/private/abstractdockwidgetprivate.h
-    src/private/abstractdockwidgetprivate.cpp
-
-    include/dockwidget.h
-    src/dockwidget.cpp
-    include/private/dockwidgetprivate.h
-    src/private/dockwidgetprivate.cpp
-
-    include/abstractdockitem.h
-    src/abstractdockitem.cpp
-    src/private/abstractdockitemprivate.h
-    src/private/abstractdockitemprivate.cpp
-
-    include/dockheader.h
-    src/dockheader.cpp
-
-    include/dockfooter.h
-    src/dockfooter.cpp
-
-    include/docktoolbar.h
-    src/docktoolbar.cpp
-
-    include/dockcorner.h
-    src/dockcorner.cpp
-
-    include/headerwidget.h
-    src/headerwidget.cpp
-    include/private/headerwidgetprivate.h
-    src/private/headerwidgetprivate.cpp
-
-    include/footerwidget.h
-    src/footerwidget.cpp
-    include/private/footerwidgetprivate.h
-    src/private/footerwidgetprivate.cpp
-
-    include/headerfooterwidget.h
-    src/headerfooterwidget.cpp
-    include/private/headerfooterwidgetprivate.h
-    src/private/headerfooterwidgetprivate.cpp
-
-    include/widgetitem.h
-    src/widgetitem.cpp
-    src/private/widgetitemprivate.cpp
-    src/private/widgetitemprivate.h
-
-    include/seperatorwidget.h
-    src/seperatorwidget.cpp
-    src/private/seperatorwidgetprivate.cpp
-    src/private/seperatorwidgetprivate.h
-
-    include/labelwidget.h
-    src/labelwidget.cpp
-    src/private/labelwidgetprivate.cpp
-    src/private/labelwidgetprivate.h
-
-    include/buttonwidget.h
-    src/buttonwidget.cpp
-    src/private/buttonwidgetprivate.cpp
-    src/private/buttonwidgetprivate.h
-
-    include/docklistitem.h
-    src/docklistitem.cpp
-
-    include/listbuttonwidget.h
-    src/listbuttonwidget.cpp
-    src/private/listbuttonwidgetprivate.cpp
-    src/private/listbuttonwidgetprivate.h
-
-    include/listwidget.h
-    src/listwidget.cpp
-    src/private/listwidgetprivate.cpp
-    src/private/listwidgetprivate.h
-
-    include/docksplitter.h
-    src/docksplitter.cpp
-    # multisplitter
-    include/multisplitter.h
-    src/multisplitter.cpp
-    # borderlayout Qt example
-    include/borderlayout.h
-    src/borderlayout.cpp
-
-    # tinyxml library
-    include/tinyxml2.h
-    src/tinyxml2.cpp
-    include/tinyxmldocument.h
-    src/tinyxmldocument.cpp
-
-)
-
+add_subdirectory(src)
 add_subdirectory(tests)
 
 #message("SM Qt major version " ${QT_MAJOR_VERSION})

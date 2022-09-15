@@ -1,0 +1,60 @@
+\hypertarget{classLabelWidget}{}\doxysection{Label\+Widget Class Reference}
+\label{classLabelWidget}\index{LabelWidget@{LabelWidget}}
+
+
+The \mbox{\hyperlink{classLabelWidget}{Label\+Widget}} class supplies a simple label widget.  
+
+
+
+
+{\ttfamily \#include $<$widgetitem.\+cpp$>$}
+
+Inheritance diagram for Label\+Widget\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{classLabelWidget}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+Q\+\_\+\+INVOKABLE \mbox{\hyperlink{classLabelWidget_a8faf819977d3c4867cbaef0b398704f4}{Label\+Widget}} (\mbox{\hyperlink{classAbstractDockWidget}{Abstract\+Dock\+Widget}} $\ast$parent)
+\item 
+\mbox{\Hypertarget{classLabelWidget_a0d8cc97b213838f8413cdbaafec633f6}\label{classLabelWidget_a0d8cc97b213838f8413cdbaafec633f6}} 
+const QString \& \mbox{\hyperlink{classLabelWidget_a0d8cc97b213838f8413cdbaafec633f6}{text}} ()
+\begin{DoxyCompactList}\small\item\em Returns the text of the label. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelWidget_a853eb04281ae1182ebe27e3967897d7b}\label{classLabelWidget_a853eb04281ae1182ebe27e3967897d7b}} 
+void \mbox{\hyperlink{classLabelWidget_a853eb04281ae1182ebe27e3967897d7b}{set\+Text}} (const QString \&\mbox{\hyperlink{classLabelWidget_a0d8cc97b213838f8413cdbaafec633f6}{text}})
+\begin{DoxyCompactList}\small\item\em Sets the text of the label. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelWidget_a9dcf8e8cf4cfbd0779b902b7f0d90eb4}\label{classLabelWidget_a9dcf8e8cf4cfbd0779b902b7f0d90eb4}} 
+const QColor \& \mbox{\hyperlink{classLabelWidget_a9dcf8e8cf4cfbd0779b902b7f0d90eb4}{text\+Color}} ()
+\begin{DoxyCompactList}\small\item\em Returns the text color of the label. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelWidget_ad8e0fc8a4f2650ea99c8d0880507cf26}\label{classLabelWidget_ad8e0fc8a4f2650ea99c8d0880507cf26}} 
+void \mbox{\hyperlink{classLabelWidget_ad8e0fc8a4f2650ea99c8d0880507cf26}{set\+Text\+Color}} (const QColor \&\mbox{\hyperlink{classLabelWidget_a9dcf8e8cf4cfbd0779b902b7f0d90eb4}{text\+Color}})
+\begin{DoxyCompactList}\small\item\em Sets the text color of the label. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelWidget_a37cbe3b2d421b504c28e746e7d39acee}\label{classLabelWidget_a37cbe3b2d421b504c28e746e7d39acee}} 
+void \mbox{\hyperlink{classLabelWidget_a37cbe3b2d421b504c28e746e7d39acee}{clone}} (QObject $\ast$widget=nullptr) override
+\begin{DoxyCompactList}\small\item\em Creates a clone of the \mbox{\hyperlink{classWidgetItem}{Widget\+Item}}, passing it\textquotesingle{}s variables and settings into the supplied \textquotesingle{}master\textquotesingle{}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelWidget_a62433dd52b531d4b1a905915aa0620b3}\label{classLabelWidget_a62433dd52b531d4b1a905915aa0620b3}} 
+void \mbox{\hyperlink{classLabelWidget_a62433dd52b531d4b1a905915aa0620b3}{paint}} (QPainter \&painter) override
+\begin{DoxyCompactList}\small\item\em Painter function for \mbox{\hyperlink{classWidgetItem}{Widget\+Item}}. A pure virtual function at this level. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classLabelWidget}{Label\+Widget}} class supplies a simple label widget. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classLabelWidget_a8faf819977d3c4867cbaef0b398704f4}\label{classLabelWidget_a8faf819977d3c4867cbaef0b398704f4}} 
+\index{LabelWidget@{LabelWidget}!LabelWidget@{LabelWidget}}
+\index{LabelWidget@{LabelWidget}!LabelWidget@{LabelWidget}}
+\doxysubsubsection{\texorpdfstring{LabelWidget()}{LabelWidget()}}
+{\footnotesize\ttfamily Q\+\_\+\+INVOKABLE Label\+Widget\+::\+Label\+Widget (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classAbstractDockWidget}{Abstract\+Dock\+Widget}} $\ast$}]{parent }\end{DoxyParamCaption})}
+
+Construct a \mbox{\hyperlink{classLabelWidget}{Label\+Widget}} that is a child of parent.
+
+parent connot be a nullptr, the item must have a parent widget. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+labelwidget.\+h\end{DoxyCompactItemize}

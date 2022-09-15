@@ -6,7 +6,7 @@
 #include <QUndoView>
 #include <QWidget>
 
-#include "dockwidget.h"
+#include "docker/dockwidget.h"
 
 class EPubEditor;
 class InfoWidget;

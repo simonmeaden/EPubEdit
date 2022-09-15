@@ -1,9 +1,9 @@
 #include "infowidget.h"
-#include "abstractdockitem.h"
-#include "buttonwidget.h"
+#include "docker/abstractdockitem.h"
+#include "docker/buttonwidget.h"
 #include "config.h"
-#include "dockheader.h"
-#include "widgetitem.h"
+#include "docker/dockheader.h"
+#include "docker/widgetitem.h"
 
 #include "common.h"
 

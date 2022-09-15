@@ -1,0 +1,545 @@
+\hypertarget{classBCP47Languages}{}\doxysection{BCP47\+Languages Class Reference}
+\label{classBCP47Languages}\index{BCP47Languages@{BCP47Languages}}
+
+
+A utility class to supply IAIN language tag names.  
+
+
+
+
+{\ttfamily \#include $<$languages.\+h$>$}
+
+Inheritance diagram for BCP47\+Languages\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classBCP47Languages}
+\end{center}
+\end{figure}
+\doxysubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBCP47Languages_ae1680db5bf3abe148011d80a30d6ac5f}\label{classBCP47Languages_ae1680db5bf3abe148011d80a30d6ac5f}} 
+void \mbox{\hyperlink{classBCP47Languages_ae1680db5bf3abe148011d80a30d6ac5f}{completed}} ()
+\begin{DoxyCompactList}\small\item\em Emitted when the local YAML data file has been fully loaded. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBCP47Languages_aae389252e97dec2b8ebe3295b6b941c7}{languages\+Reset}} ()
+\begin{DoxyCompactList}\small\item\em Emitted when a newer IAIN BCP47 file has been located and parsing has been completed. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Languages_a53f045b977926c39f31b5687929b455a}\label{classBCP47Languages_a53f045b977926c39f31b5687929b455a}} 
+void \mbox{\hyperlink{classBCP47Languages_a53f045b977926c39f31b5687929b455a}{send\+Message}} (const QString \&message)
+\begin{DoxyCompactList}\small\item\em Emitted when internal messages are sent out to the user. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Languages_a33d076100b9ad35ae447f131dbe6fd06}\label{classBCP47Languages_a33d076100b9ad35ae447f131dbe6fd06}} 
+void \mbox{\hyperlink{classBCP47Languages_a33d076100b9ad35ae447f131dbe6fd06}{error}} (const QString \&error\+Str)
+\begin{DoxyCompactList}\small\item\em Emitted when general errors occur. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Languages_a3a14e210fff01cfb20733b90f99d74d4}\label{classBCP47Languages_a3a14e210fff01cfb20733b90f99d74d4}} 
+void \mbox{\hyperlink{classBCP47Languages_a3a14e210fff01cfb20733b90f99d74d4}{parsing\+Error}} (const QString \&error\+Str)
+\begin{DoxyCompactList}\small\item\em Emitted when parsing errors occur. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBCP47Languages_ac2806224174cb3a03e04fff0341b4108}\label{classBCP47Languages_ac2806224174cb3a03e04fff0341b4108}} 
+\mbox{\hyperlink{classBCP47Languages_ac2806224174cb3a03e04fff0341b4108}{BCP47\+Languages}} (QObject $\ast$parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{classBCP47Languages}{BCP47\+Languages}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Languages_a9133ce3db4ef8216d96fcf641e105582}\label{classBCP47Languages_a9133ce3db4ef8216d96fcf641e105582}} 
+void \mbox{\hyperlink{classBCP47Languages_a9133ce3db4ef8216d96fcf641e105582}{rebuild\+From\+Registry}} ()
+\begin{DoxyCompactList}\small\item\em Forces a rebuild of the language file fromn the registry. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classBCP47Languages_ad5ac64ce2a36b4fb5fcf2ad8ecbb8d65}{read\+From\+Local\+File}} (const QString \&filename)
+\begin{DoxyCompactList}\small\item\em Reads the data from the local YAML file. \end{DoxyCompactList}\item 
+QVector$<$ QString $>$ \mbox{\hyperlink{classBCP47Languages_a3c9ff8bd5925a6f0ac55de873bc715be}{descriptions}} () const
+\begin{DoxyCompactList}\small\item\em Returns the set of description strings. \end{DoxyCompactList}\item 
+QVector$<$ QShared\+Pointer$<$ \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} $>$ $>$ \mbox{\hyperlink{classBCP47Languages_a3df2579c2ee0d545d1820f93059f128a}{from\+Description}} (const QString \&description)
+\begin{DoxyCompactList}\small\item\em Returns a list of the \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} data objects for the supplied description. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Languages_afcdf36615792b789e87095bc283da2db}\label{classBCP47Languages_afcdf36615792b789e87095bc283da2db}} 
+QShared\+Pointer$<$ \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} $>$ \mbox{\hyperlink{classBCP47Languages_afcdf36615792b789e87095bc283da2db}{language\+From\+Description}} (const QString \&description)
+\begin{DoxyCompactList}\small\item\em Returns the \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} data for the supplied description for \mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04a887bfd83789a0621b6c8e39378327745}{BCP47\+Language\+::\+LANGUAGE}} types. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Languages_aa21376963b047d5ca8c23e54a98537ce}\label{classBCP47Languages_aa21376963b047d5ca8c23e54a98537ce}} 
+QShared\+Pointer$<$ \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} $>$ \mbox{\hyperlink{classBCP47Languages_aa21376963b047d5ca8c23e54a98537ce}{extlang\+From\+Description}} (const QString \&description)
+\begin{DoxyCompactList}\small\item\em Returns the \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} data for the supplied description for \mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04ae550c17ae7249e92091feafe7d62bb77}{BCP47\+Language\+::\+EXTLANG}} types. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Languages_a376e958a0acbbec8d0f1e9e88bc80c91}\label{classBCP47Languages_a376e958a0acbbec8d0f1e9e88bc80c91}} 
+QShared\+Pointer$<$ \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} $>$ \mbox{\hyperlink{classBCP47Languages_a376e958a0acbbec8d0f1e9e88bc80c91}{variant\+From\+Description}} (const QString \&description)
+\begin{DoxyCompactList}\small\item\em Returns the \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} data for the supplied description for \mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04adb1cd887a6dc948ee9b8c01824d65eb6}{BCP47\+Language\+::\+VARIANT}} types. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Languages_a50c8edd8ced7ed335a82e8878e2d5fb2}\label{classBCP47Languages_a50c8edd8ced7ed335a82e8878e2d5fb2}} 
+QShared\+Pointer$<$ \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} $>$ \mbox{\hyperlink{classBCP47Languages_a50c8edd8ced7ed335a82e8878e2d5fb2}{region\+From\+Description}} (const QString \&description)
+\begin{DoxyCompactList}\small\item\em Returns the \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} data for the supplied description for \mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04a4d4597330df0532b6cc4d33cf5435fd6}{BCP47\+Language\+::\+REGION}} types. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Languages_ac041077640165eaf88c0148fc7e4a07c}\label{classBCP47Languages_ac041077640165eaf88c0148fc7e4a07c}} 
+QShared\+Pointer$<$ \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} $>$ \mbox{\hyperlink{classBCP47Languages_ac041077640165eaf88c0148fc7e4a07c}{script\+From\+Description}} (const QString \&description)
+\begin{DoxyCompactList}\small\item\em Returns the \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} data for the supplied description for \mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04ab7df48e2785aa0caa04bcee7855fbf43}{BCP47\+Language\+::\+SCRIPT}} types. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Languages_a77216b2533cafa9e33427c1ad2fe85d9}\label{classBCP47Languages_a77216b2533cafa9e33427c1ad2fe85d9}} 
+QShared\+Pointer$<$ \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} $>$ \mbox{\hyperlink{classBCP47Languages_a77216b2533cafa9e33427c1ad2fe85d9}{redundant\+From\+Description}} (const QString \&description)
+\begin{DoxyCompactList}\small\item\em Returns the \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} data for the supplied description for \mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04aa458e2b59aa93bb38035601061dc3774}{BCP47\+Language\+::\+REDUNDANT}} types. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Languages_ab56fd6a6396c226d7c804a1137beb8e3}\label{classBCP47Languages_ab56fd6a6396c226d7c804a1137beb8e3}} 
+QShared\+Pointer$<$ \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} $>$ \mbox{\hyperlink{classBCP47Languages_ab56fd6a6396c226d7c804a1137beb8e3}{grandfathered\+From\+Description}} (const QString \&description)
+\begin{DoxyCompactList}\small\item\em Returns the \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} data for the supplied description for \mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04a7c8e418d5de5371511de286be9b228fd}{BCP47\+Language\+::\+GRANDFATHERED}} types. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Languages_a192b317fa6163a75381891fb5b77d19f}\label{classBCP47Languages_a192b317fa6163a75381891fb5b77d19f}} 
+QShared\+Pointer$<$ \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} $>$ \mbox{\hyperlink{classBCP47Languages_a192b317fa6163a75381891fb5b77d19f}{language\+From\+Subtag}} (const QString \&subtag)
+\begin{DoxyCompactList}\small\item\em Returns the \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} data for the supplied subtag for \mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04a887bfd83789a0621b6c8e39378327745}{BCP47\+Language\+::\+LANGUAGE}} types. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Languages_a937922091f26b7818502cba9e2600f99}\label{classBCP47Languages_a937922091f26b7818502cba9e2600f99}} 
+QShared\+Pointer$<$ \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} $>$ \mbox{\hyperlink{classBCP47Languages_a937922091f26b7818502cba9e2600f99}{extlang\+From\+Subtag}} (const QString \&subtag)
+\begin{DoxyCompactList}\small\item\em Returns the \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} data for the supplied subtag for \mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04ae550c17ae7249e92091feafe7d62bb77}{BCP47\+Language\+::\+EXTLANG}} types. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Languages_ae291d18321d62f82d10ac28502f10b51}\label{classBCP47Languages_ae291d18321d62f82d10ac28502f10b51}} 
+QShared\+Pointer$<$ \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} $>$ \mbox{\hyperlink{classBCP47Languages_ae291d18321d62f82d10ac28502f10b51}{variant\+From\+Subtag}} (const QString \&subtag)
+\begin{DoxyCompactList}\small\item\em Returns the \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} data for the supplied subtag for \mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04adb1cd887a6dc948ee9b8c01824d65eb6}{BCP47\+Language\+::\+VARIANT}} types. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Languages_ae3dee8975e41419f52bf3fe33512db4d}\label{classBCP47Languages_ae3dee8975e41419f52bf3fe33512db4d}} 
+QShared\+Pointer$<$ \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} $>$ \mbox{\hyperlink{classBCP47Languages_ae3dee8975e41419f52bf3fe33512db4d}{region\+From\+Subtag}} (const QString \&subtag)
+\begin{DoxyCompactList}\small\item\em Returns the \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} data for the supplied subtag for \mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04a4d4597330df0532b6cc4d33cf5435fd6}{BCP47\+Language\+::\+REGION}} types. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Languages_acb4d16e219d992ab6f5d0ac734ee9312}\label{classBCP47Languages_acb4d16e219d992ab6f5d0ac734ee9312}} 
+QShared\+Pointer$<$ \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} $>$ \mbox{\hyperlink{classBCP47Languages_acb4d16e219d992ab6f5d0ac734ee9312}{script\+From\+Subtag}} (const QString \&subtag)
+\begin{DoxyCompactList}\small\item\em Returns the \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} data for the supplied subtag for \mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04ab7df48e2785aa0caa04bcee7855fbf43}{BCP47\+Language\+::\+SCRIPT}} types. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Languages_a2764f14e7c3b3762fc96478b70d2071d}\label{classBCP47Languages_a2764f14e7c3b3762fc96478b70d2071d}} 
+QShared\+Pointer$<$ \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} $>$ \mbox{\hyperlink{classBCP47Languages_a2764f14e7c3b3762fc96478b70d2071d}{redundant\+From\+Tag}} (const QString \&tag)
+\begin{DoxyCompactList}\small\item\em Returns the \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} data for the supplied tag for \mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04aa458e2b59aa93bb38035601061dc3774}{BCP47\+Language\+::\+REDUNDANT}} types. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Languages_aa08e2e64eab7fac20efea919573c7ec1}\label{classBCP47Languages_aa08e2e64eab7fac20efea919573c7ec1}} 
+QShared\+Pointer$<$ \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} $>$ \mbox{\hyperlink{classBCP47Languages_aa08e2e64eab7fac20efea919573c7ec1}{grandfathered\+From\+Tag}} (const QString \&tag)
+\begin{DoxyCompactList}\small\item\em Returns the \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} data for the supplied tag for \mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04a7c8e418d5de5371511de286be9b228fd}{BCP47\+Language\+::\+GRANDFATHERED}} types. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Languages_a9d7793e15d7db1e552fab8aa5ddd96cf}\label{classBCP47Languages_a9d7793e15d7db1e552fab8aa5ddd96cf}} 
+QVector$<$ QString $>$ \mbox{\hyperlink{classBCP47Languages_a9d7793e15d7db1e552fab8aa5ddd96cf}{extlangs\+With\+Prefix}} (const QString subtag)
+\begin{DoxyCompactList}\small\item\em Returns a list of descriptions of all those \mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04ae550c17ae7249e92091feafe7d62bb77}{BCP47\+Language\+::\+EXTLANG}} types that have the supplied subtag, or an empty list if none exist. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Languages_abc2d915c8d459153ac9b0eb2adbe1193}\label{classBCP47Languages_abc2d915c8d459153ac9b0eb2adbe1193}} 
+QVector$<$ QString $>$ \mbox{\hyperlink{classBCP47Languages_abc2d915c8d459153ac9b0eb2adbe1193}{variants\+With\+Prefix}} (const QString subtag)
+\begin{DoxyCompactList}\small\item\em Returns a list of descriptions of all those \mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04adb1cd887a6dc948ee9b8c01824d65eb6}{BCP47\+Language\+::\+VARIANT}} types that have the supplied subtag, or an empty list if none exist. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Languages_ae2102cb66a22388a0cea44be86ac485c}\label{classBCP47Languages_ae2102cb66a22388a0cea44be86ac485c}} 
+QVector$<$ QString $>$ \mbox{\hyperlink{classBCP47Languages_ae2102cb66a22388a0cea44be86ac485c}{language\+Descriptions}} () const
+\begin{DoxyCompactList}\small\item\em Returns the set of primary language descriptions as a list of QString. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Languages_a421b4c0fcfc97554ed61ea61a0fbf2e2}\label{classBCP47Languages_a421b4c0fcfc97554ed61ea61a0fbf2e2}} 
+QVector$<$ QString $>$ \mbox{\hyperlink{classBCP47Languages_a421b4c0fcfc97554ed61ea61a0fbf2e2}{language\+Subtags}} () const
+\begin{DoxyCompactList}\small\item\em Returns the set of primary language subtags as a list of QString. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Languages_a1bb0ddb2e94f23ce380321975afefcc7}\label{classBCP47Languages_a1bb0ddb2e94f23ce380321975afefcc7}} 
+QVector$<$ QString $>$ \mbox{\hyperlink{classBCP47Languages_a1bb0ddb2e94f23ce380321975afefcc7}{region\+Descriptions}} () const
+\begin{DoxyCompactList}\small\item\em Returns the set of regional descriptions as a list of QString. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Languages_a33d7cee24884d49b5a0f79c4dd83acba}\label{classBCP47Languages_a33d7cee24884d49b5a0f79c4dd83acba}} 
+QVector$<$ QString $>$ \mbox{\hyperlink{classBCP47Languages_a33d7cee24884d49b5a0f79c4dd83acba}{region\+Subtags}} () const
+\begin{DoxyCompactList}\small\item\em Returns the set of regional subtags as a list of QString. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Languages_a41c4a32c2a11cec356d8780f1771c629}\label{classBCP47Languages_a41c4a32c2a11cec356d8780f1771c629}} 
+QVector$<$ QString $>$ \mbox{\hyperlink{classBCP47Languages_a41c4a32c2a11cec356d8780f1771c629}{extlang\+Descriptions}} () const
+\begin{DoxyCompactList}\small\item\em Returns the set of extended language descriptions as a list of QStrings. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Languages_a157bd9401e8eaf1a70e3281337c6ed79}\label{classBCP47Languages_a157bd9401e8eaf1a70e3281337c6ed79}} 
+QVector$<$ QString $>$ \mbox{\hyperlink{classBCP47Languages_a157bd9401e8eaf1a70e3281337c6ed79}{extlang\+Subtags}} () const
+\begin{DoxyCompactList}\small\item\em Returns the set of extended language subtags as a list of QStrings. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Languages_a0bcc83edb86afe35968d0504704d4c2c}\label{classBCP47Languages_a0bcc83edb86afe35968d0504704d4c2c}} 
+QVector$<$ QString $>$ \mbox{\hyperlink{classBCP47Languages_a0bcc83edb86afe35968d0504704d4c2c}{script\+Descriptions}} () const
+\begin{DoxyCompactList}\small\item\em The list of script descriptions as a list of QStrings. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Languages_a5ee86bf1a64b6701aa6ae2962e3a977c}\label{classBCP47Languages_a5ee86bf1a64b6701aa6ae2962e3a977c}} 
+QVector$<$ QString $>$ \mbox{\hyperlink{classBCP47Languages_a5ee86bf1a64b6701aa6ae2962e3a977c}{script\+Subtags}} () const
+\begin{DoxyCompactList}\small\item\em The list of script subtags as a list of QStrings. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Languages_a288d3e9c65725d9b0df27a33ebe36a2a}\label{classBCP47Languages_a288d3e9c65725d9b0df27a33ebe36a2a}} 
+QVector$<$ QString $>$ \mbox{\hyperlink{classBCP47Languages_a288d3e9c65725d9b0df27a33ebe36a2a}{variant\+Descriptions}} () const
+\begin{DoxyCompactList}\small\item\em The list of variant descriptions as a list of QStrings. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Languages_a8b186aa23af97114720863372c6cd25e}\label{classBCP47Languages_a8b186aa23af97114720863372c6cd25e}} 
+QVector$<$ QString $>$ \mbox{\hyperlink{classBCP47Languages_a8b186aa23af97114720863372c6cd25e}{variant\+Subtags}} () const
+\begin{DoxyCompactList}\small\item\em The list of variant subtags as a list of QStrings. \end{DoxyCompactList}\item 
+QVector$<$ QString $>$ \mbox{\hyperlink{classBCP47Languages_a3f46a1f099a8bbc5f51c8d730289b200}{grandfathered\+Descriptions}} () const
+\begin{DoxyCompactList}\small\item\em The list of grandfathered descriptions as a list of QStrings. \end{DoxyCompactList}\item 
+QVector$<$ QString $>$ \mbox{\hyperlink{classBCP47Languages_a25a2e1ac3ad055117064f209112c943c}{grandfathered\+Tags}} () const
+\begin{DoxyCompactList}\small\item\em The list of grandfathered tags as a list of QStrings. \end{DoxyCompactList}\item 
+QVector$<$ QString $>$ \mbox{\hyperlink{classBCP47Languages_a2d2fd0779573f9f73697737f09a452fa}{redundant\+Descriptions}} () const
+\begin{DoxyCompactList}\small\item\em The list of redundant descriptions as a list of QStrings. \end{DoxyCompactList}\item 
+QVector$<$ QString $>$ \mbox{\hyperlink{classBCP47Languages_a5527882f1ce50859d972424c875d39e7}{redundant\+Tags}} () const
+\begin{DoxyCompactList}\small\item\em The list of redundant tags as a list of QStrings. \end{DoxyCompactList}\item 
+QString \mbox{\hyperlink{classBCP47Languages_a5aa174eff8e20638895db8a02d11f63b}{language\+Tag}} (const QString \&language\+Name, const QString \&region\+Name)
+\begin{DoxyCompactList}\small\item\em Returns the tag for the supplied language name, with optional region name. \end{DoxyCompactList}\item 
+QString \mbox{\hyperlink{classBCP47Languages_a21123f232ee02cd10379d9c351518001}{ext\+Lang\+Tag}} (const QString \&extlan\+Name)
+\begin{DoxyCompactList}\small\item\em Return the tag value for the supplied extlang name . \end{DoxyCompactList}\item 
+QString \mbox{\hyperlink{classBCP47Languages_afb54fade05a51b40b8681eb828adffd0}{script\+Tag}} (const QString \&language\+Name, const QString \&script\+Name)
+\begin{DoxyCompactList}\small\item\em Return the tag value for the supplied language name and script name. \end{DoxyCompactList}\item 
+QString \mbox{\hyperlink{classBCP47Languages_afe08e17306c322a628ff042c9919bdfa}{variant\+Tag}} (const QString \&script\+Name, const QString \&region)
+\begin{DoxyCompactList}\small\item\em Return the tag value for the supplied script name and optionally region name. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04}{BCP47\+Language\+::\+Type}} \mbox{\hyperlink{classBCP47Languages_a80d6a9a774e44eee399fab4f90166a85}{type\+From\+String}} (const QString \&value)
+\item 
+\mbox{\Hypertarget{classBCP47Languages_a9209725b42c4ec056f83d321ff294fc6}\label{classBCP47Languages_a9209725b42c4ec056f83d321ff294fc6}} 
+QVector$<$ QShared\+Pointer$<$ \mbox{\hyperlink{structBCP47Language_1_1TagTestResult}{BCP47\+Language\+::\+Tag\+Test\+Result}} $>$ $>$ \mbox{\hyperlink{classBCP47Languages_a9209725b42c4ec056f83d321ff294fc6}{test\+Tag}} (QString \&tag)
+\begin{DoxyCompactList}\small\item\em tests the tag for correctness. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classBCP47Languages_a5aa3bb85909d752245c2d1cc3c354cc4}{is\+Primary\+Language}} (const QString \&subtag)
+\item 
+bool \mbox{\hyperlink{classBCP47Languages_a5b25fd49fb1e9fc60b0a4b1a155eb71e}{is\+Ext\+Lang}} (const QString \&subtag)
+\item 
+bool \mbox{\hyperlink{classBCP47Languages_a48cf44abb0d0caa57635f9df8f7ef2ac}{is\+Variant}} (const QString \&subtag)
+\item 
+bool \mbox{\hyperlink{classBCP47Languages_a1a4bb3737a19f98e9e4422ac545511c6}{is\+Region}} (const QString \&subtag)
+\item 
+bool \mbox{\hyperlink{classBCP47Languages_a33f97b6c573c4e4c70d667fa6f35bacd}{is\+Script}} (const QString \&subtag)
+\item 
+bool \mbox{\hyperlink{classBCP47Languages_a3525a12e45ed050ef5530ad157ca81db}{is\+Grandfathered}} (const QString \&subtag)
+\item 
+bool \mbox{\hyperlink{classBCP47Languages_aa1e636bded557399095c6bb49909b4b3}{is\+Redundant}} (const QString \&subtag)
+\item 
+\mbox{\Hypertarget{classBCP47Languages_a7585234bef581c705b7efa99ff5f4c1f}\label{classBCP47Languages_a7585234bef581c705b7efa99ff5f4c1f}} 
+QDate \mbox{\hyperlink{classBCP47Languages_a7585234bef581c705b7efa99ff5f4c1f}{file\+Date}} () const
+\begin{DoxyCompactList}\small\item\em Returns the date of the file. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Languages_ac17f982030371a1f6145411661713f78}\label{classBCP47Languages_ac17f982030371a1f6145411661713f78}} 
+QMulti\+Map$<$ QString, QShared\+Pointer$<$ \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} $>$ $>$ \mbox{\hyperlink{classBCP47Languages_ac17f982030371a1f6145411661713f78}{dataset}} ()
+\begin{DoxyCompactList}\small\item\em Returns the entire map of Description to \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} objects. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classBCP47Languages_a4334f14ee2a9511639a5d1fe47311d78}{save\+To\+Local\+File}} (const QString \&filename)
+\item 
+void \mbox{\hyperlink{classBCP47Languages_a14ebc624ae37a6108d30ceb7b347df5f}{set\+Registry}} (const QString \&registry)
+\item 
+\mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105}{BCP47\+Language\+::\+Tag\+Type}} \mbox{\hyperlink{classBCP47Languages_a94399c77efb0f564675dc1bb7fc8ba30}{check\+Primary\+Language}} (const QString \&value)
+\item 
+\mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105}{BCP47\+Language\+::\+Tag\+Type}} \mbox{\hyperlink{classBCP47Languages_afab76780bc1f3cd1cafdf7696317fa39}{check\+Extendedlanguage}} (const QString \&value)
+\item 
+\mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105}{BCP47\+Language\+::\+Tag\+Type}} \mbox{\hyperlink{classBCP47Languages_a273229074170b7c29d66b566ee06a85e}{check\+Script}} (const QString \&value)
+\item 
+\mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105}{BCP47\+Language\+::\+Tag\+Type}} \mbox{\hyperlink{classBCP47Languages_a72af7ef0f5bb932a301b90b3d49c615b}{check\+Region}} (const QString \&value)
+\item 
+\mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105}{BCP47\+Language\+::\+Tag\+Type}} \mbox{\hyperlink{classBCP47Languages_aadebae8a1360bb89f9861f3c20dbc641}{check\+Variant}} (const QString \&value)
+\item 
+\mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105}{BCP47\+Language\+::\+Tag\+Type}} \mbox{\hyperlink{classBCP47Languages_ae3336986fcf7114adf358f453d513305}{check\+Grandfathered}} (const QString \&value)
+\item 
+\mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105}{BCP47\+Language\+::\+Tag\+Type}} \mbox{\hyperlink{classBCP47Languages_ab0a9673285fb30bc6e1e14def4a23fa4}{check\+Redundant}} (const QString \&value)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{classBCP47Languages_afa78da88bd05c9c2a20bbf625aa20546}{is\+Type}} (const QString \&type)
+\begin{DoxyCompactList}\small\item\em static method which checks whether the supplied string is one of the valid tag names. Returns true if it is, otherwise returns false. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBCP47Languages_a261721a0fd7f917c0946c9eb266d16ed}\label{classBCP47Languages_a261721a0fd7f917c0946c9eb266d16ed}} 
+class {\bfseries Language\+Parser}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A utility class to supply IAIN language tag names. 
+
+The complete list of languages tags. These are stored in a set of QString=$>$\mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} maps. The full list of mixed tag types can be recovered using the complete\+Map() method, alternatively you can use language\+Map(), extlan\+Map(), region\+Map(), script\+Map() or variant\+Map() to recover the specialised maps.
+
+The data for the list is recovered directly from the IANA website and requires web access. The the list should not be manually created. The web connection is only required the first time, although if it is available the file-\/date is checked and if a newer file is available it will be updated accordingly. Once downloaded and parsed it is stored locally in a YAML file to enable faster access. Downloading and parsing are both done in seperate threads so as not to delay the main application.
+
+Data is stored in a map of registry description against \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} objects.
+
+Region names, defined by the \mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04a4d4597330df0532b6cc4d33cf5435fd6}{BCP47\+Language\+::\+REGION}} type are used to extend a language in a similar way to the EXTLANG types. However these types ONLY define the regional code and do not specify the primary language.
+
+Region names are used with a hyphon to specify a regional variation of a primary language for example Canadian French would be specified by fr-\/\+CA with fr being the primary language and CA specifying Canada as a region.
+
+Prefixes are defined using the xx\+\_\+yyy format where xx is the main language defined by \mbox{\hyperlink{classBCP47Language_a0fcf76727c52931c67b094bf74057e1e}{BCP47\+Language\+::prefix()}}.at(0) and yyy is the sub-\/language defined by \mbox{\hyperlink{classBCP47Language_aaf4db218966cab0e9d104dfe806c6423}{BCP47\+Language\+::preferred\+Value()}}. For example \textquotesingle{}Algerian Saharan Arabic\textquotesingle{} has a prefix of Arabic (ar) and a preferred\+Value() of (aao) and would be specified using \textquotesingle{}ar\+\_\+aao\textquotesingle{}.
+
+\begin{DoxyNote}{Note}
+extlang languages have a single prefix, however other types can\# have more than one, VARIANT for example which is why prefix() returns a QVector$<$\+QString$>$ rather than a single value.
+\end{DoxyNote}
+You can force a data rebuild by calling \mbox{\hyperlink{classBCP47Languages_a9133ce3db4ef8216d96fcf641e105582}{rebuild\+From\+Registry()}};
+
+A different registry file can be set with \mbox{\hyperlink{classBCP47Languages_a14ebc624ae37a6108d30ceb7b347df5f}{set\+Registry()}}
+
+For a more extensive handling see \href{https://www.w3.org/International/articles/language-tags/}{\texttt{ https\+://www.\+w3.\+org/\+International/articles/language-\/tags/}}.
+
+This class loads the language tag definitions from the \href{https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry}{\texttt{ IAIN language tag registry}} and parses it into an easier to use-\/ish form. It will also save the data into a local YAML file for easier/faster recovery. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classBCP47Languages_afab76780bc1f3cd1cafdf7696317fa39}\label{classBCP47Languages_afab76780bc1f3cd1cafdf7696317fa39}} 
+\index{BCP47Languages@{BCP47Languages}!checkExtendedlanguage@{checkExtendedlanguage}}
+\index{checkExtendedlanguage@{checkExtendedlanguage}!BCP47Languages@{BCP47Languages}}
+\doxysubsubsection{\texorpdfstring{checkExtendedlanguage()}{checkExtendedlanguage()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105}{BCP47\+Language\+::\+Tag\+Type}} BCP47\+Languages\+::check\+Extendedlanguage (\begin{DoxyParamCaption}\item[{const QString \&}]{value }\end{DoxyParamCaption})}
+
+Checks whether the tag is a primary language tag.
+
+Returns one of two values\+:
+\begin{DoxyItemize}
+\item BCP47\+Language\+::\+EXTENDED\+\_\+\+LANGUAGE if it is an extended language tag.
+\item BCP47\+Language\+::\+NO\+\_\+\+EXTENDED\+\_\+\+LANGUAGE if it is NOT an extended language tag. 
+\end{DoxyItemize}\mbox{\Hypertarget{classBCP47Languages_ae3336986fcf7114adf358f453d513305}\label{classBCP47Languages_ae3336986fcf7114adf358f453d513305}} 
+\index{BCP47Languages@{BCP47Languages}!checkGrandfathered@{checkGrandfathered}}
+\index{checkGrandfathered@{checkGrandfathered}!BCP47Languages@{BCP47Languages}}
+\doxysubsubsection{\texorpdfstring{checkGrandfathered()}{checkGrandfathered()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105}{BCP47\+Language\+::\+Tag\+Type}} BCP47\+Languages\+::check\+Grandfathered (\begin{DoxyParamCaption}\item[{const QString \&}]{value }\end{DoxyParamCaption})}
+
+Checks whether the tag is a grandfathered language tag.
+
+Returns one of two values\+:
+\begin{DoxyItemize}
+\item \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105ab623e97e692d2e3008034822b0579182}{BCP47\+Language\+::\+GRANDFATHERED\+\_\+\+LANGUAGE}} if it is an grandfathered language tag.
+\item \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a6afcbf3f8b5601fdd699420a80dc395b}{BCP47\+Language\+::\+NO\+\_\+\+GRANDFATHERED\+\_\+\+LANGUAGE}} if it is NOT an grandfathered language tag. 
+\end{DoxyItemize}\mbox{\Hypertarget{classBCP47Languages_a94399c77efb0f564675dc1bb7fc8ba30}\label{classBCP47Languages_a94399c77efb0f564675dc1bb7fc8ba30}} 
+\index{BCP47Languages@{BCP47Languages}!checkPrimaryLanguage@{checkPrimaryLanguage}}
+\index{checkPrimaryLanguage@{checkPrimaryLanguage}!BCP47Languages@{BCP47Languages}}
+\doxysubsubsection{\texorpdfstring{checkPrimaryLanguage()}{checkPrimaryLanguage()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105}{BCP47\+Language\+::\+Tag\+Type}} BCP47\+Languages\+::check\+Primary\+Language (\begin{DoxyParamCaption}\item[{const QString \&}]{value }\end{DoxyParamCaption})}
+
+Checks whether the tag is a primary language tag.
+
+Returns one of three values\+:
+\begin{DoxyItemize}
+\item \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105abbf353062e5951102ea07b4eea4d08f6}{BCP47\+Language\+::\+PRIMARY\+\_\+\+LANGUAGE}} if it is a primary language tag.
+\item \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a0e77a2237355d91e6681290039ed07fc}{BCP47\+Language\+::\+PRIVATE\+\_\+\+LANGUAGE}} if it is a private use language tag.
+\item \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a635196f9d2ed0cd7d589357f1174fa28}{BCP47\+Language\+::\+NO\+\_\+\+PRIMARY\+\_\+\+LANGUAGE}} if it is NOT a primary language tag. 
+\end{DoxyItemize}\mbox{\Hypertarget{classBCP47Languages_ab0a9673285fb30bc6e1e14def4a23fa4}\label{classBCP47Languages_ab0a9673285fb30bc6e1e14def4a23fa4}} 
+\index{BCP47Languages@{BCP47Languages}!checkRedundant@{checkRedundant}}
+\index{checkRedundant@{checkRedundant}!BCP47Languages@{BCP47Languages}}
+\doxysubsubsection{\texorpdfstring{checkRedundant()}{checkRedundant()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105}{BCP47\+Language\+::\+Tag\+Type}} BCP47\+Languages\+::check\+Redundant (\begin{DoxyParamCaption}\item[{const QString \&}]{value }\end{DoxyParamCaption})}
+
+Checks whether the tag is a redundant language tag.
+
+Returns one of two values\+:
+\begin{DoxyItemize}
+\item \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105abc248eedba9a690503c238766e393960}{BCP47\+Language\+::\+REDUNDANT\+\_\+\+LANGUAGE}} if it is an redundant language tag.
+\item \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105aef65618c0cec35e1ee6d7ba17c351118}{BCP47\+Language\+::\+NO\+\_\+\+REDUNDANT\+\_\+\+LANGUAGE}} if it is NOT an redundant language tag. 
+\end{DoxyItemize}\mbox{\Hypertarget{classBCP47Languages_a72af7ef0f5bb932a301b90b3d49c615b}\label{classBCP47Languages_a72af7ef0f5bb932a301b90b3d49c615b}} 
+\index{BCP47Languages@{BCP47Languages}!checkRegion@{checkRegion}}
+\index{checkRegion@{checkRegion}!BCP47Languages@{BCP47Languages}}
+\doxysubsubsection{\texorpdfstring{checkRegion()}{checkRegion()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105}{BCP47\+Language\+::\+Tag\+Type}} BCP47\+Languages\+::check\+Region (\begin{DoxyParamCaption}\item[{const QString \&}]{value }\end{DoxyParamCaption})}
+
+Checks whether the tag is a regional tag.
+
+Returns one of three values\+:
+\begin{DoxyItemize}
+\item BCP47\+Language\+::\+REGIONAL\+\_\+\+LANGUAGE if it is a primary language tag.
+\item \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a6a7bc9cb99a473b21914a9f1f6b19a99}{BCP47\+Language\+::\+PRIVATE\+\_\+\+REGION}} if it is a private use language tag.
+\item \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105aa142147410c2a77786fa6a480cb6d7c0}{BCP47\+Language\+::\+NO\+\_\+\+REGION}} if it is NOT a primary language tag. 
+\end{DoxyItemize}\mbox{\Hypertarget{classBCP47Languages_a273229074170b7c29d66b566ee06a85e}\label{classBCP47Languages_a273229074170b7c29d66b566ee06a85e}} 
+\index{BCP47Languages@{BCP47Languages}!checkScript@{checkScript}}
+\index{checkScript@{checkScript}!BCP47Languages@{BCP47Languages}}
+\doxysubsubsection{\texorpdfstring{checkScript()}{checkScript()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105}{BCP47\+Language\+::\+Tag\+Type}} BCP47\+Languages\+::check\+Script (\begin{DoxyParamCaption}\item[{const QString \&}]{value }\end{DoxyParamCaption})}
+
+Checks whether the tag is a script tag.
+
+Returns one of three values\+:
+\begin{DoxyItemize}
+\item BCP47\+Language\+::\+SCRIPT\+\_\+\+LANGUAGE if it is a script tag.
+\item \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a47cc6b8022647a40f378d0a39d058805}{BCP47\+Language\+::\+PRIVATE\+\_\+\+SCRIPT}} if it is a private use script tag.
+\item \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a200d86c1aefd66f37084030ecb55e11f}{BCP47\+Language\+::\+NO\+\_\+\+SCRIPT}} if it is NOT a script tag. 
+\end{DoxyItemize}\mbox{\Hypertarget{classBCP47Languages_aadebae8a1360bb89f9861f3c20dbc641}\label{classBCP47Languages_aadebae8a1360bb89f9861f3c20dbc641}} 
+\index{BCP47Languages@{BCP47Languages}!checkVariant@{checkVariant}}
+\index{checkVariant@{checkVariant}!BCP47Languages@{BCP47Languages}}
+\doxysubsubsection{\texorpdfstring{checkVariant()}{checkVariant()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105}{BCP47\+Language\+::\+Tag\+Type}} BCP47\+Languages\+::check\+Variant (\begin{DoxyParamCaption}\item[{const QString \&}]{value }\end{DoxyParamCaption})}
+
+Checks whether the tag is a variant language tag.
+
+Returns one of two values\+:
+\begin{DoxyItemize}
+\item \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a35d67fc218c766829fc214600700fc09}{BCP47\+Language\+::\+VARIANT\+\_\+\+LANGUAGE}} if it is an variant language tag.
+\item \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a721ea48e934e3cfae0b2cccddaf114a1}{BCP47\+Language\+::\+NO\+\_\+\+VARIANT\+\_\+\+LANGUAGE}} if it is NOT an variant language tag. 
+\end{DoxyItemize}\mbox{\Hypertarget{classBCP47Languages_a3c9ff8bd5925a6f0ac55de873bc715be}\label{classBCP47Languages_a3c9ff8bd5925a6f0ac55de873bc715be}} 
+\index{BCP47Languages@{BCP47Languages}!descriptions@{descriptions}}
+\index{descriptions@{descriptions}!BCP47Languages@{BCP47Languages}}
+\doxysubsubsection{\texorpdfstring{descriptions()}{descriptions()}}
+{\footnotesize\ttfamily QVector$<$QString$>$ BCP47\+Languages\+::descriptions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Returns the set of description strings. 
+
+This is the entire list of descriptions for ALL \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} types. Use these values to access the entire list of types. \mbox{\Hypertarget{classBCP47Languages_a21123f232ee02cd10379d9c351518001}\label{classBCP47Languages_a21123f232ee02cd10379d9c351518001}} 
+\index{BCP47Languages@{BCP47Languages}!extLangTag@{extLangTag}}
+\index{extLangTag@{extLangTag}!BCP47Languages@{BCP47Languages}}
+\doxysubsubsection{\texorpdfstring{extLangTag()}{extLangTag()}}
+{\footnotesize\ttfamily QString BCP47\+Languages\+::ext\+Lang\+Tag (\begin{DoxyParamCaption}\item[{const QString \&}]{extlan\+Name }\end{DoxyParamCaption})}
+
+
+
+Return the tag value for the supplied extlang name . 
+
+For example for the Gulf Arabic it would return {\bfseries{ar-\/afb}} would be returned.
+
+If the name in invalid then an empty string will be returned. \mbox{\Hypertarget{classBCP47Languages_a3df2579c2ee0d545d1820f93059f128a}\label{classBCP47Languages_a3df2579c2ee0d545d1820f93059f128a}} 
+\index{BCP47Languages@{BCP47Languages}!fromDescription@{fromDescription}}
+\index{fromDescription@{fromDescription}!BCP47Languages@{BCP47Languages}}
+\doxysubsubsection{\texorpdfstring{fromDescription()}{fromDescription()}}
+{\footnotesize\ttfamily QVector$<$QShared\+Pointer$<$\mbox{\hyperlink{classBCP47Language}{BCP47\+Language}}$>$ $>$ BCP47\+Languages\+::from\+Description (\begin{DoxyParamCaption}\item[{const QString \&}]{description }\end{DoxyParamCaption})}
+
+
+
+Returns a list of the \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} data objects for the supplied description. 
+
+\begin{DoxyNote}{Note}
+This does not check the type of the language. It could be either a main language, a regional language or an extended language or something else.
+
+If you know for example that you are requiring a \mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04a887bfd83789a0621b6c8e39378327745}{BCP47\+Language\+::\+LANGUAGE}} use the language\+For\+Description(\+QString) method, similarly for SCRIPT, VARIANT etc. Alternatively you will need to iterate through the list until you find the type you require.
+
+the GRANDFATHERED type has one special case where tyhere are two grandfathered objects with the same description.
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+language\+For\+Description(\+QString) 
+
+extlang\+For\+Description(\+QString) 
+
+region\+For\+Description(\+QString) 
+
+variant\+For\+Description(\+QString) 
+
+script\+For\+Description(\+QString) 
+
+grandfathered\+For\+Description(\+QString) 
+
+redundant\+For\+Description(\+QString) 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classBCP47Languages_a3f46a1f099a8bbc5f51c8d730289b200}\label{classBCP47Languages_a3f46a1f099a8bbc5f51c8d730289b200}} 
+\index{BCP47Languages@{BCP47Languages}!grandfatheredDescriptions@{grandfatheredDescriptions}}
+\index{grandfatheredDescriptions@{grandfatheredDescriptions}!BCP47Languages@{BCP47Languages}}
+\doxysubsubsection{\texorpdfstring{grandfatheredDescriptions()}{grandfatheredDescriptions()}}
+{\footnotesize\ttfamily QVector$<$QString$>$ BCP47\+Languages\+::grandfathered\+Descriptions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+The list of grandfathered descriptions as a list of QStrings. 
+
+These tags should generally not be used and are retained for historical reasons. \mbox{\Hypertarget{classBCP47Languages_a25a2e1ac3ad055117064f209112c943c}\label{classBCP47Languages_a25a2e1ac3ad055117064f209112c943c}} 
+\index{BCP47Languages@{BCP47Languages}!grandfatheredTags@{grandfatheredTags}}
+\index{grandfatheredTags@{grandfatheredTags}!BCP47Languages@{BCP47Languages}}
+\doxysubsubsection{\texorpdfstring{grandfatheredTags()}{grandfatheredTags()}}
+{\footnotesize\ttfamily QVector$<$QString$>$ BCP47\+Languages\+::grandfathered\+Tags (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+The list of grandfathered tags as a list of QStrings. 
+
+These tags should generally not be used and are retained for historical reasons. \mbox{\Hypertarget{classBCP47Languages_a5b25fd49fb1e9fc60b0a4b1a155eb71e}\label{classBCP47Languages_a5b25fd49fb1e9fc60b0a4b1a155eb71e}} 
+\index{BCP47Languages@{BCP47Languages}!isExtLang@{isExtLang}}
+\index{isExtLang@{isExtLang}!BCP47Languages@{BCP47Languages}}
+\doxysubsubsection{\texorpdfstring{isExtLang()}{isExtLang()}}
+{\footnotesize\ttfamily bool BCP47\+Languages\+::is\+Ext\+Lang (\begin{DoxyParamCaption}\item[{const QString \&}]{subtag }\end{DoxyParamCaption})}
+
+Tests whether the subtag string is a valid extlang tag. Returns true if it is otherwise returns false. \mbox{\Hypertarget{classBCP47Languages_a3525a12e45ed050ef5530ad157ca81db}\label{classBCP47Languages_a3525a12e45ed050ef5530ad157ca81db}} 
+\index{BCP47Languages@{BCP47Languages}!isGrandfathered@{isGrandfathered}}
+\index{isGrandfathered@{isGrandfathered}!BCP47Languages@{BCP47Languages}}
+\doxysubsubsection{\texorpdfstring{isGrandfathered()}{isGrandfathered()}}
+{\footnotesize\ttfamily bool BCP47\+Languages\+::is\+Grandfathered (\begin{DoxyParamCaption}\item[{const QString \&}]{subtag }\end{DoxyParamCaption})}
+
+Tests whether the subtag string is a valid grandfathered tag. Returns true if it is otherwise returns false. \mbox{\Hypertarget{classBCP47Languages_a5aa3bb85909d752245c2d1cc3c354cc4}\label{classBCP47Languages_a5aa3bb85909d752245c2d1cc3c354cc4}} 
+\index{BCP47Languages@{BCP47Languages}!isPrimaryLanguage@{isPrimaryLanguage}}
+\index{isPrimaryLanguage@{isPrimaryLanguage}!BCP47Languages@{BCP47Languages}}
+\doxysubsubsection{\texorpdfstring{isPrimaryLanguage()}{isPrimaryLanguage()}}
+{\footnotesize\ttfamily bool BCP47\+Languages\+::is\+Primary\+Language (\begin{DoxyParamCaption}\item[{const QString \&}]{subtag }\end{DoxyParamCaption})}
+
+Tests whether the subtag string is a valid primary language tag. Returns true if it is otherwise returns false. \mbox{\Hypertarget{classBCP47Languages_aa1e636bded557399095c6bb49909b4b3}\label{classBCP47Languages_aa1e636bded557399095c6bb49909b4b3}} 
+\index{BCP47Languages@{BCP47Languages}!isRedundant@{isRedundant}}
+\index{isRedundant@{isRedundant}!BCP47Languages@{BCP47Languages}}
+\doxysubsubsection{\texorpdfstring{isRedundant()}{isRedundant()}}
+{\footnotesize\ttfamily bool BCP47\+Languages\+::is\+Redundant (\begin{DoxyParamCaption}\item[{const QString \&}]{subtag }\end{DoxyParamCaption})}
+
+Tests whether the subtag string is a valid redundant tag. Returns true if it is otherwise returns false. \mbox{\Hypertarget{classBCP47Languages_a1a4bb3737a19f98e9e4422ac545511c6}\label{classBCP47Languages_a1a4bb3737a19f98e9e4422ac545511c6}} 
+\index{BCP47Languages@{BCP47Languages}!isRegion@{isRegion}}
+\index{isRegion@{isRegion}!BCP47Languages@{BCP47Languages}}
+\doxysubsubsection{\texorpdfstring{isRegion()}{isRegion()}}
+{\footnotesize\ttfamily bool BCP47\+Languages\+::is\+Region (\begin{DoxyParamCaption}\item[{const QString \&}]{subtag }\end{DoxyParamCaption})}
+
+Tests whether the subtag string is a valid region tag. Returns true if it is otherwise returns false. \mbox{\Hypertarget{classBCP47Languages_a33f97b6c573c4e4c70d667fa6f35bacd}\label{classBCP47Languages_a33f97b6c573c4e4c70d667fa6f35bacd}} 
+\index{BCP47Languages@{BCP47Languages}!isScript@{isScript}}
+\index{isScript@{isScript}!BCP47Languages@{BCP47Languages}}
+\doxysubsubsection{\texorpdfstring{isScript()}{isScript()}}
+{\footnotesize\ttfamily bool BCP47\+Languages\+::is\+Script (\begin{DoxyParamCaption}\item[{const QString \&}]{subtag }\end{DoxyParamCaption})}
+
+Tests whether the subtag string is a valid script tag. Returns true if it is otherwise returns false. \mbox{\Hypertarget{classBCP47Languages_afa78da88bd05c9c2a20bbf625aa20546}\label{classBCP47Languages_afa78da88bd05c9c2a20bbf625aa20546}} 
+\index{BCP47Languages@{BCP47Languages}!isType@{isType}}
+\index{isType@{isType}!BCP47Languages@{BCP47Languages}}
+\doxysubsubsection{\texorpdfstring{isType()}{isType()}}
+{\footnotesize\ttfamily static bool BCP47\+Languages\+::is\+Type (\begin{DoxyParamCaption}\item[{const QString \&}]{type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+static method which checks whether the supplied string is one of the valid tag names. Returns true if it is, otherwise returns false. 
+
+The string comparison is case insensitive. \mbox{\Hypertarget{classBCP47Languages_a48cf44abb0d0caa57635f9df8f7ef2ac}\label{classBCP47Languages_a48cf44abb0d0caa57635f9df8f7ef2ac}} 
+\index{BCP47Languages@{BCP47Languages}!isVariant@{isVariant}}
+\index{isVariant@{isVariant}!BCP47Languages@{BCP47Languages}}
+\doxysubsubsection{\texorpdfstring{isVariant()}{isVariant()}}
+{\footnotesize\ttfamily bool BCP47\+Languages\+::is\+Variant (\begin{DoxyParamCaption}\item[{const QString \&}]{subtag }\end{DoxyParamCaption})}
+
+Tests whether the subtag string is a valid variant tag. Returns true if it is otherwise returns false. \mbox{\Hypertarget{classBCP47Languages_aae389252e97dec2b8ebe3295b6b941c7}\label{classBCP47Languages_aae389252e97dec2b8ebe3295b6b941c7}} 
+\index{BCP47Languages@{BCP47Languages}!languagesReset@{languagesReset}}
+\index{languagesReset@{languagesReset}!BCP47Languages@{BCP47Languages}}
+\doxysubsubsection{\texorpdfstring{languagesReset}{languagesReset}}
+{\footnotesize\ttfamily void BCP47\+Languages\+::languages\+Reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Emitted when a newer IAIN BCP47 file has been located and parsing has been completed. 
+
+The original data and YAML file will be replaced with the newer data. \mbox{\Hypertarget{classBCP47Languages_a5aa174eff8e20638895db8a02d11f63b}\label{classBCP47Languages_a5aa174eff8e20638895db8a02d11f63b}} 
+\index{BCP47Languages@{BCP47Languages}!languageTag@{languageTag}}
+\index{languageTag@{languageTag}!BCP47Languages@{BCP47Languages}}
+\doxysubsubsection{\texorpdfstring{languageTag()}{languageTag()}}
+{\footnotesize\ttfamily QString BCP47\+Languages\+::language\+Tag (\begin{DoxyParamCaption}\item[{const QString \&}]{language\+Name,  }\item[{const QString \&}]{region\+Name }\end{DoxyParamCaption})}
+
+
+
+Returns the tag for the supplied language name, with optional region name. 
+
+For example if English are specified the {\bfseries{en}} is returned, however if a region of {\itshape United States} is specified then {\bfseries{en-\/\+US}} will be returned. \mbox{\Hypertarget{classBCP47Languages_ad5ac64ce2a36b4fb5fcf2ad8ecbb8d65}\label{classBCP47Languages_ad5ac64ce2a36b4fb5fcf2ad8ecbb8d65}} 
+\index{BCP47Languages@{BCP47Languages}!readFromLocalFile@{readFromLocalFile}}
+\index{readFromLocalFile@{readFromLocalFile}!BCP47Languages@{BCP47Languages}}
+\doxysubsubsection{\texorpdfstring{readFromLocalFile()}{readFromLocalFile()}}
+{\footnotesize\ttfamily virtual void BCP47\+Languages\+::read\+From\+Local\+File (\begin{DoxyParamCaption}\item[{const QString \&}]{filename }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reads the data from the local YAML file. 
+
+This also reloads the registry in a background thread, checks if the file has been updated and updates the stored data and YAML file accordingly. \mbox{\Hypertarget{classBCP47Languages_a2d2fd0779573f9f73697737f09a452fa}\label{classBCP47Languages_a2d2fd0779573f9f73697737f09a452fa}} 
+\index{BCP47Languages@{BCP47Languages}!redundantDescriptions@{redundantDescriptions}}
+\index{redundantDescriptions@{redundantDescriptions}!BCP47Languages@{BCP47Languages}}
+\doxysubsubsection{\texorpdfstring{redundantDescriptions()}{redundantDescriptions()}}
+{\footnotesize\ttfamily QVector$<$QString$>$ BCP47\+Languages\+::redundant\+Descriptions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+The list of redundant descriptions as a list of QStrings. 
+
+These tags should generally not be used and are retained for historical reasons. \mbox{\Hypertarget{classBCP47Languages_a5527882f1ce50859d972424c875d39e7}\label{classBCP47Languages_a5527882f1ce50859d972424c875d39e7}} 
+\index{BCP47Languages@{BCP47Languages}!redundantTags@{redundantTags}}
+\index{redundantTags@{redundantTags}!BCP47Languages@{BCP47Languages}}
+\doxysubsubsection{\texorpdfstring{redundantTags()}{redundantTags()}}
+{\footnotesize\ttfamily QVector$<$QString$>$ BCP47\+Languages\+::redundant\+Tags (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+The list of redundant tags as a list of QStrings. 
+
+These tags should generally not be used and are retained for historical reasons. \mbox{\Hypertarget{classBCP47Languages_a4334f14ee2a9511639a5d1fe47311d78}\label{classBCP47Languages_a4334f14ee2a9511639a5d1fe47311d78}} 
+\index{BCP47Languages@{BCP47Languages}!saveToLocalFile@{saveToLocalFile}}
+\index{saveToLocalFile@{saveToLocalFile}!BCP47Languages@{BCP47Languages}}
+\doxysubsubsection{\texorpdfstring{saveToLocalFile()}{saveToLocalFile()}}
+{\footnotesize\ttfamily virtual void BCP47\+Languages\+::save\+To\+Local\+File (\begin{DoxyParamCaption}\item[{const QString \&}]{filename }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Saves the data to a local file.
+
+By default the data is saved to a YAML file. This method is virtual to allow users to create their own languages class that saves the data to a different file format. \mbox{\Hypertarget{classBCP47Languages_afb54fade05a51b40b8681eb828adffd0}\label{classBCP47Languages_afb54fade05a51b40b8681eb828adffd0}} 
+\index{BCP47Languages@{BCP47Languages}!scriptTag@{scriptTag}}
+\index{scriptTag@{scriptTag}!BCP47Languages@{BCP47Languages}}
+\doxysubsubsection{\texorpdfstring{scriptTag()}{scriptTag()}}
+{\footnotesize\ttfamily QString BCP47\+Languages\+::script\+Tag (\begin{DoxyParamCaption}\item[{const QString \&}]{language\+Name,  }\item[{const QString \&}]{script\+Name }\end{DoxyParamCaption})}
+
+
+
+Return the tag value for the supplied language name and script name. 
+
+For example for the Azerbaijani, written in Latin script it would return {\bfseries{az-\/latn}}.
+
+If either of the names in invalid then an empty string will be returned. \mbox{\Hypertarget{classBCP47Languages_a14ebc624ae37a6108d30ceb7b347df5f}\label{classBCP47Languages_a14ebc624ae37a6108d30ceb7b347df5f}} 
+\index{BCP47Languages@{BCP47Languages}!setRegistry@{setRegistry}}
+\index{setRegistry@{setRegistry}!BCP47Languages@{BCP47Languages}}
+\doxysubsubsection{\texorpdfstring{setRegistry()}{setRegistry()}}
+{\footnotesize\ttfamily void BCP47\+Languages\+::set\+Registry (\begin{DoxyParamCaption}\item[{const QString \&}]{registry }\end{DoxyParamCaption})}
+
+Sets the registry name for the iain language registry.
+
+The registry url is set automatically. You should only need to enter a registry name if the registry is changed or if you need a non-\/standard registry. \mbox{\Hypertarget{classBCP47Languages_a80d6a9a774e44eee399fab4f90166a85}\label{classBCP47Languages_a80d6a9a774e44eee399fab4f90166a85}} 
+\index{BCP47Languages@{BCP47Languages}!typeFromString@{typeFromString}}
+\index{typeFromString@{typeFromString}!BCP47Languages@{BCP47Languages}}
+\doxysubsubsection{\texorpdfstring{typeFromString()}{typeFromString()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04}{BCP47\+Language\+::\+Type}} BCP47\+Languages\+::type\+From\+String (\begin{DoxyParamCaption}\item[{const QString \&}]{value }\end{DoxyParamCaption})}
+
+Returns the \mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04}{BCP47\+Language\+::\+Type}} for the supplied subtag string or BAD\+\_\+\+TAG if it is not a valid subtag of any type.
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04}{BCP47\+Language\+::\+Type}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classBCP47Languages_afe08e17306c322a628ff042c9919bdfa}\label{classBCP47Languages_afe08e17306c322a628ff042c9919bdfa}} 
+\index{BCP47Languages@{BCP47Languages}!variantTag@{variantTag}}
+\index{variantTag@{variantTag}!BCP47Languages@{BCP47Languages}}
+\doxysubsubsection{\texorpdfstring{variantTag()}{variantTag()}}
+{\footnotesize\ttfamily QString BCP47\+Languages\+::variant\+Tag (\begin{DoxyParamCaption}\item[{const QString \&}]{script\+Name,  }\item[{const QString \&}]{region }\end{DoxyParamCaption})}
+
+
+
+Return the tag value for the supplied script name and optionally region name. 
+
+For example for the Nadiza dialect of Slovenian it would return {\bfseries{sl-\/nedis}}, however if the Italy region is specified then {\bfseries{sl-\/\+IT-\/nedis}} would be returned.
+
+If either of the names in invalid then an empty string will be returned. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+languages.\+h\end{DoxyCompactItemize}

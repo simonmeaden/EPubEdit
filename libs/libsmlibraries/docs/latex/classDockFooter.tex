@@ -1,0 +1,81 @@
+\hypertarget{classDockFooter}{}\doxysection{Dock\+Footer Class Reference}
+\label{classDockFooter}\index{DockFooter@{DockFooter}}
+
+
+The \mbox{\hyperlink{classDockFooter}{Dock\+Footer}} class is a special case of Dock\+Item that is fixed at the bottom.  
+
+
+
+
+{\ttfamily \#include \char`\"{}include/docker/dockfooter.\+h\char`\"{}}
+
+Inheritance diagram for Dock\+Footer\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{classDockFooter}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDockFooter_aff55e41f3d0fee782bc57933f7ae36f2}\label{classDockFooter_aff55e41f3d0fee782bc57933f7ae36f2}} 
+\mbox{\hyperlink{classDockFooter_aff55e41f3d0fee782bc57933f7ae36f2}{Dock\+Footer}} (\mbox{\hyperlink{classAbstractDockWidget}{Abstract\+Dock\+Widget}} $\ast$parent)
+\begin{DoxyCompactList}\small\item\em d\+\_\+ptr constructor \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDockFooter_af3ceecf6e8e6560b7f5c5cfeab7048e9}\label{classDockFooter_af3ceecf6e8e6560b7f5c5cfeab7048e9}} 
+QSize \mbox{\hyperlink{classDockFooter_af3ceecf6e8e6560b7f5c5cfeab7048e9}{size\+Hint}} () const
+\begin{DoxyCompactList}\small\item\em Returns a size hint for this object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDockFooter_a71f1ac43fbb625fa26260276d5bcd605}\label{classDockFooter_a71f1ac43fbb625fa26260276d5bcd605}} 
+void \mbox{\hyperlink{classDockFooter_a71f1ac43fbb625fa26260276d5bcd605}{paint}} (QPainter \&painter)
+\begin{DoxyCompactList}\small\item\em paints the dock item \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classWidgetItem}{Widget\+Item}} $\ast$ \mbox{\hyperlink{classDockFooter_ad862c4466ad67c216ba08560344edc21}{add\+List\+Widget}} (Widget\+Position pos, const QString \&tooltip=QString())
+\begin{DoxyCompactList}\small\item\em Adds a \mbox{\hyperlink{classListWidget}{List\+Widget}} to the Footer widget with an optional tooltip. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDockFooter_ab2f8bb3ba4f7efcdc246d1dc533b5842}\label{classDockFooter_ab2f8bb3ba4f7efcdc246d1dc533b5842}} 
+void \mbox{\hyperlink{classDockFooter_ab2f8bb3ba4f7efcdc246d1dc533b5842}{clone}} (QObject $\ast$item)
+\begin{DoxyCompactList}\small\item\em Creates a clone of the \mbox{\hyperlink{classDockFooter}{Dock\+Footer}} into item. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDockFooter_af6139f22b58e943f0a8f55b790a751e0}\label{classDockFooter_af6139f22b58e943f0a8f55b790a751e0}} 
+\mbox{\hyperlink{classDockFooter_af6139f22b58e943f0a8f55b790a751e0}{Dock\+Footer}} (Dock\+Footer\+Private \&d)
+\begin{DoxyCompactList}\small\item\em d\+\_\+ptr constructor \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDockFooter_afbb788488de875e32f2936fc866e9621}\label{classDockFooter_afbb788488de875e32f2936fc866e9621}} 
+class {\bfseries Header\+Widget}
+\item 
+\mbox{\Hypertarget{classDockFooter_a3e4a46070cf48bd7885117232387779c}\label{classDockFooter_a3e4a46070cf48bd7885117232387779c}} 
+class {\bfseries Footer\+Widget}
+\item 
+\mbox{\Hypertarget{classDockFooter_a4389cbe33dc7c394abc8290a07ac6e5b}\label{classDockFooter_a4389cbe33dc7c394abc8290a07ac6e5b}} 
+class {\bfseries Dock\+Widget}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classDockFooter}{Dock\+Footer}} class is a special case of Dock\+Item that is fixed at the bottom. 
+
+Please note that \mbox{\hyperlink{classDockFooter}{Dock\+Footer}} buttons only allow icons, any text is ignored. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classDockFooter_ad862c4466ad67c216ba08560344edc21}\label{classDockFooter_ad862c4466ad67c216ba08560344edc21}} 
+\index{DockFooter@{DockFooter}!addListWidget@{addListWidget}}
+\index{addListWidget@{addListWidget}!DockFooter@{DockFooter}}
+\doxysubsubsection{\texorpdfstring{addListWidget()}{addListWidget()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classWidgetItem}{Widget\+Item}}$\ast$ Dock\+Footer\+::add\+List\+Widget (\begin{DoxyParamCaption}\item[{Widget\+Position}]{pos,  }\item[{const QString \&}]{tooltip = {\ttfamily QString()} }\end{DoxyParamCaption})}
+
+
+
+Adds a \mbox{\hyperlink{classListWidget}{List\+Widget}} to the Footer widget with an optional tooltip. 
+
+Items must be added to the list later as each item can have an optional QIcon. Use List\+Widget\+::add\+Item(\+QString), \mbox{\hyperlink{classListWidget_a86f30c1035977dc91786514c0c106783}{List\+Widget\+::add\+Item}}(QIcon, QString) or List\+Widget\+::set\+Items(\+QString\+List) to add items to the \mbox{\hyperlink{classListWidget}{List\+Widget}}. \mbox{\hyperlink{classListWidget_a5e886fdd8b42b03da874d7cd490e528e}{List\+Widget\+::set\+Text(int, QString)}}, \mbox{\hyperlink{classListWidget_a02b11056f39e2cbb6ba32ee603c8531e}{List\+Widget\+::set\+Icon}}(int, QIcon) and List\+Widget\+::set\+Item(int, QString, QIcon) to set or reset the values of particular items.
+
+\begin{DoxyReturn}{Returns}
+a pointer to the stored wrapper. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+dockfooter.\+h\end{DoxyCompactItemize}

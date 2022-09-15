@@ -1,0 +1,391 @@
+\hypertarget{classBCP47Language}{}\doxysection{BCP47\+Language Class Reference}
+\label{classBCP47Language}\index{BCP47Language@{BCP47Language}}
+
+
+A class that specifies information about a single language tag, extended language tag, script tag, regional tag or grandfathered tag.  
+
+
+
+
+{\ttfamily \#include $<$languages.\+h$>$}
+
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structBCP47Language_1_1TagTestResult}{Tag\+Test\+Result}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04}{Type}} \{ \newline
+\mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04a0fcef41af1664ba6f21b11605a4b6b65}{BAD\+\_\+\+TAG}}
+, \mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04a887bfd83789a0621b6c8e39378327745}{LANGUAGE}}
+, \mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04ae550c17ae7249e92091feafe7d62bb77}{EXTLANG}}
+, \mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04ab7df48e2785aa0caa04bcee7855fbf43}{SCRIPT}}
+, \newline
+\mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04a4d4597330df0532b6cc4d33cf5435fd6}{REGION}}
+, \mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04adb1cd887a6dc948ee9b8c01824d65eb6}{VARIANT}}
+, \mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04a7c8e418d5de5371511de286be9b228fd}{GRANDFATHERED}}
+, \mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04aa458e2b59aa93bb38035601061dc3774}{REDUNDANT}}
+ \}
+\item 
+enum \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105}{Tag\+Type}} \{ \newline
+{\bfseries NO\+\_\+\+VALUE} = 0
+, \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105abbf353062e5951102ea07b4eea4d08f6}{PRIMARY\+\_\+\+LANGUAGE}} = 0x1
+, \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a0e77a2237355d91e6681290039ed07fc}{PRIVATE\+\_\+\+LANGUAGE}} = 0x2
+, \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a635196f9d2ed0cd7d589357f1174fa28}{NO\+\_\+\+PRIMARY\+\_\+\+LANGUAGE}}
+, \newline
+{\bfseries EXTENDED\+\_\+\+LANGUAGE} = 0x8
+, \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a750dc5fe3510dcc8c8d04f2ad75a063c}{EXTLANG\+\_\+\+MISMATCH}} = 0x10
+, {\bfseries NO\+\_\+\+EXTENDED\+\_\+\+LANGUAGE}
+, \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105ac68bab41f5cabc78d3555efc2986e961}{DUPLICATE\+\_\+\+EXTENDED}} = 0x20
+, \newline
+\mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a12f6ad84a73ee006c5762cb9f72301fe}{EXTENDED\+\_\+\+FOLLOWS\+\_\+\+SCRIPT}}
+, \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a179ee7b32c63363e7e09ad140c873d91}{EXTENDED\+\_\+\+FOLLOWS\+\_\+\+REGION}}
+, {\bfseries SCRIPT\+\_\+\+LANGUAGE} = 0x100
+, \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a32196bc8a7a890244c9550350d3b27e7}{DUPLICATE\+\_\+\+SCRIPT}} = 0x200
+, \newline
+\mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a47cc6b8022647a40f378d0a39d058805}{PRIVATE\+\_\+\+SCRIPT}} = 0x400
+, \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a200d86c1aefd66f37084030ecb55e11f}{NO\+\_\+\+SCRIPT}} = 0x800
+, {\bfseries REGIONAL\+\_\+\+LANGUAGE} = 0x10000
+, \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a6a7bc9cb99a473b21914a9f1f6b19a99}{PRIVATE\+\_\+\+REGION}} = 0x20000
+, \newline
+\mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105aa142147410c2a77786fa6a480cb6d7c0}{NO\+\_\+\+REGION}} = 0x40000
+, \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105aa3913d604618e2a8dc592b111c508393}{UN\+\_\+\+STATISTICAL\+\_\+\+REGION}} = 0x80000
+, \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a049219f097293b2e11fa6dcaebc6b501}{DUPLICATE\+\_\+\+REGION}} = 0x100000
+, \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a35d67fc218c766829fc214600700fc09}{VARIANT\+\_\+\+LANGUAGE}} = 0x200000
+, \newline
+\mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a721ea48e934e3cfae0b2cccddaf114a1}{NO\+\_\+\+VARIANT\+\_\+\+LANGUAGE}} = 0x400000
+, \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105ab623e97e692d2e3008034822b0579182}{GRANDFATHERED\+\_\+\+LANGUAGE}} = 0x100000
+, \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a6afcbf3f8b5601fdd699420a80dc395b}{NO\+\_\+\+GRANDFATHERED\+\_\+\+LANGUAGE}} = 0x1000000
+, \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105abc248eedba9a690503c238766e393960}{REDUNDANT\+\_\+\+LANGUAGE}} = 0x200000
+, \newline
+\mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105aef65618c0cec35e1ee6d7ba17c351118}{NO\+\_\+\+REDUNDANT\+\_\+\+LANGUAGE}} = 0x4000000
+, {\bfseries BAD\+\_\+\+SPACE} = 0x80000000
+, {\bfseries BAD\+\_\+\+SUBTAG} = 0x40000000
+, {\bfseries SUBTAG\+\_\+\+OUT\+\_\+\+OF\+\_\+\+POSITION} = 0x80000000
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classBCP47Language_ab16d870b8e42b3ad54a9785c1dce9de6}{BCP47\+Language}} ()
+\item 
+\mbox{\Hypertarget{classBCP47Language_a07bbae3d4959a9c236c36f89ec5da920}\label{classBCP47Language_a07bbae3d4959a9c236c36f89ec5da920}} 
+\mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04}{Type}} \mbox{\hyperlink{classBCP47Language_a07bbae3d4959a9c236c36f89ec5da920}{type}} () const
+\begin{DoxyCompactList}\small\item\em Returns the tag type. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Language_aeb74b52b4b9a9c379bff7dc818e53cd1}\label{classBCP47Language_aeb74b52b4b9a9c379bff7dc818e53cd1}} 
+void \mbox{\hyperlink{classBCP47Language_aeb74b52b4b9a9c379bff7dc818e53cd1}{set\+Type}} (const \mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04}{Type}} \&\mbox{\hyperlink{classBCP47Language_a07bbae3d4959a9c236c36f89ec5da920}{type}})
+\begin{DoxyCompactList}\small\item\em Sets the tag type. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Language_a11803603b759bcd44a07b354b31dfa66}\label{classBCP47Language_a11803603b759bcd44a07b354b31dfa66}} 
+void \mbox{\hyperlink{classBCP47Language_a11803603b759bcd44a07b354b31dfa66}{set\+Type\+From\+String}} (const QString \&)
+\begin{DoxyCompactList}\small\item\em Sets the tag type from a tag string value. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Language_a39b370005ff28fc0d02203465cf48c97}\label{classBCP47Language_a39b370005ff28fc0d02203465cf48c97}} 
+QString \mbox{\hyperlink{classBCP47Language_a39b370005ff28fc0d02203465cf48c97}{type\+String}} ()
+\begin{DoxyCompactList}\small\item\em Return a tag string from the tag type. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Language_aa4f8b08f02ac27e2854115ee62d2e4c5}\label{classBCP47Language_aa4f8b08f02ac27e2854115ee62d2e4c5}} 
+void \mbox{\hyperlink{classBCP47Language_aa4f8b08f02ac27e2854115ee62d2e4c5}{set\+Subtag}} (const QString \&\mbox{\hyperlink{classBCP47Language_a55ff431ae7515edfa63eb5780c1f55f2}{tag}})
+\begin{DoxyCompactList}\small\item\em Set the subtag value. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Language_a0215dc5de52d1b62e4c417d86e98fa32}\label{classBCP47Language_a0215dc5de52d1b62e4c417d86e98fa32}} 
+QString \mbox{\hyperlink{classBCP47Language_a0215dc5de52d1b62e4c417d86e98fa32}{subtag}} () const
+\begin{DoxyCompactList}\small\item\em Returns the subtag name. \end{DoxyCompactList}\item 
+QString \mbox{\hyperlink{classBCP47Language_a98f5ff52df9a0aa3b37537e3ed10c71a}{description}} () const
+\item 
+\mbox{\Hypertarget{classBCP47Language_aa73df5d3b6da99a37b5a340ea8df9bc6}\label{classBCP47Language_aa73df5d3b6da99a37b5a340ea8df9bc6}} 
+void \mbox{\hyperlink{classBCP47Language_aa73df5d3b6da99a37b5a340ea8df9bc6}{add\+Description}} (const QString \&desc)
+\begin{DoxyCompactList}\small\item\em Adds a description string to the list. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Language_aeb8dfcaa28189de4161c609d27bd70e0}\label{classBCP47Language_aeb8dfcaa28189de4161c609d27bd70e0}} 
+void \mbox{\hyperlink{classBCP47Language_aeb8dfcaa28189de4161c609d27bd70e0}{append\+Description}} (const QString \&desc)
+\begin{DoxyCompactList}\small\item\em Appends further characters to the last string in the list. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Language_af0fabb0fb157ee0112ede046f20d487f}\label{classBCP47Language_af0fabb0fb157ee0112ede046f20d487f}} 
+QVector$<$ QString $>$ \mbox{\hyperlink{classBCP47Language_af0fabb0fb157ee0112ede046f20d487f}{descriptions}} () const
+\begin{DoxyCompactList}\small\item\em Returns the full list of descriptions for the tag. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Language_ac981b468e39696402d98220f5fdfc41b}\label{classBCP47Language_ac981b468e39696402d98220f5fdfc41b}} 
+void \mbox{\hyperlink{classBCP47Language_ac981b468e39696402d98220f5fdfc41b}{set\+Date\+Added}} (const QDate \&date)
+\begin{DoxyCompactList}\small\item\em Sets the date added value. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Language_acb529c7e5394836ec855fbd5b077bdbd}\label{classBCP47Language_acb529c7e5394836ec855fbd5b077bdbd}} 
+QDate \mbox{\hyperlink{classBCP47Language_acb529c7e5394836ec855fbd5b077bdbd}{date\+Added}} () const
+\begin{DoxyCompactList}\small\item\em Returns the date added value. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Language_a6a2bce34b2c4fa18bbe7463d19c22c16}\label{classBCP47Language_a6a2bce34b2c4fa18bbe7463d19c22c16}} 
+void \mbox{\hyperlink{classBCP47Language_a6a2bce34b2c4fa18bbe7463d19c22c16}{set\+Suppress\+Script}} (const QString \&lang)
+\begin{DoxyCompactList}\small\item\em Sets the suppress-\/script name for this tag if any. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Language_ad170f8e6ac4b42cd761e14132d6cbe6e}\label{classBCP47Language_ad170f8e6ac4b42cd761e14132d6cbe6e}} 
+QString \mbox{\hyperlink{classBCP47Language_ad170f8e6ac4b42cd761e14132d6cbe6e}{suppress\+Script\+Lang}} () const
+\begin{DoxyCompactList}\small\item\em Returns the suppress-\/script name, or an empty QString if none. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Language_a51e23f976fe80e3a8b721a7348948787}\label{classBCP47Language_a51e23f976fe80e3a8b721a7348948787}} 
+bool \mbox{\hyperlink{classBCP47Language_a51e23f976fe80e3a8b721a7348948787}{has\+Suppress\+Script\+Lang}} () const
+\begin{DoxyCompactList}\small\item\em Returns true if there is a suppress script lang, otherwise returns false. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Language_a28dae09257525afbae61a4198c767512}\label{classBCP47Language_a28dae09257525afbae61a4198c767512}} 
+void \mbox{\hyperlink{classBCP47Language_a28dae09257525afbae61a4198c767512}{set\+Macrolanguage\+Name}} (const QString \&microlang)
+\begin{DoxyCompactList}\small\item\em Sets the macrolanguage name for this tag, if any. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Language_a7b171f35f79a6c8197ec664def58501c}\label{classBCP47Language_a7b171f35f79a6c8197ec664def58501c}} 
+QString \mbox{\hyperlink{classBCP47Language_a7b171f35f79a6c8197ec664def58501c}{macrolanguage\+Name}} () const
+\begin{DoxyCompactList}\small\item\em Returns the macrolanguage name or an empty string if none. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Language_a9e9e00d422d3bd6d3a4cea2d0d15e653}\label{classBCP47Language_a9e9e00d422d3bd6d3a4cea2d0d15e653}} 
+void \mbox{\hyperlink{classBCP47Language_a9e9e00d422d3bd6d3a4cea2d0d15e653}{set\+Collection}} (bool collection)
+\begin{DoxyCompactList}\small\item\em Sets the collection flag if this is a collection tag, default false. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Language_a823503269409fedbfbee9a1d4d7b520d}\label{classBCP47Language_a823503269409fedbfbee9a1d4d7b520d}} 
+bool \mbox{\hyperlink{classBCP47Language_a823503269409fedbfbee9a1d4d7b520d}{is\+Collection}} () const
+\begin{DoxyCompactList}\small\item\em Returns the collection flag. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBCP47Language_a6a25d0cde2ff0d428b0a3a1bdddf3382}{set\+Macrolanguage}} (bool \mbox{\hyperlink{classBCP47Language_abdd6d6d53a701ed8106086c5ee3db822}{is\+Macrolanguage}})
+\item 
+\mbox{\Hypertarget{classBCP47Language_abdd6d6d53a701ed8106086c5ee3db822}\label{classBCP47Language_abdd6d6d53a701ed8106086c5ee3db822}} 
+bool \mbox{\hyperlink{classBCP47Language_abdd6d6d53a701ed8106086c5ee3db822}{is\+Macrolanguage}} () const
+\begin{DoxyCompactList}\small\item\em Returns the macrolanguage flag. True if it is a macrolanguage. \end{DoxyCompactList}\item 
+QString \mbox{\hyperlink{classBCP47Language_a7a82c1e4c30f24fa89ddcafab2d46d27}{comments}} () const
+\item 
+\mbox{\Hypertarget{classBCP47Language_ab22edee6a651645d4291582a780969e6}\label{classBCP47Language_ab22edee6a651645d4291582a780969e6}} 
+void \mbox{\hyperlink{classBCP47Language_ab22edee6a651645d4291582a780969e6}{set\+Comments}} (const QString \&\mbox{\hyperlink{classBCP47Language_a7a82c1e4c30f24fa89ddcafab2d46d27}{comments}})
+\begin{DoxyCompactList}\small\item\em Sets the value of the comment, if any. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Language_aae321e8910db588774aa98a5666a89cc}\label{classBCP47Language_aae321e8910db588774aa98a5666a89cc}} 
+void \mbox{\hyperlink{classBCP47Language_aae321e8910db588774aa98a5666a89cc}{append\+Comment}} (const QString \&extra)
+\begin{DoxyCompactList}\small\item\em Appends further characters to the comment string. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classBCP47Language_acdf370862c4db4d65d4d81c28695b5da}{has\+Comment}} ()
+\item 
+\mbox{\Hypertarget{classBCP47Language_ac8e17b819dfcc65128878649d438c191}\label{classBCP47Language_ac8e17b819dfcc65128878649d438c191}} 
+bool \mbox{\hyperlink{classBCP47Language_ac8e17b819dfcc65128878649d438c191}{is\+Deprecated}} () const
+\begin{DoxyCompactList}\small\item\em Returns true if this tag is deprecated. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Language_a679981ea3398626dde918cc1e3d30edc}\label{classBCP47Language_a679981ea3398626dde918cc1e3d30edc}} 
+void \mbox{\hyperlink{classBCP47Language_a679981ea3398626dde918cc1e3d30edc}{set\+Deprecated}} (bool deprecated)
+\begin{DoxyCompactList}\small\item\em Sets the value of the deprecated flag. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Language_aaf4db218966cab0e9d104dfe806c6423}\label{classBCP47Language_aaf4db218966cab0e9d104dfe806c6423}} 
+QString \mbox{\hyperlink{classBCP47Language_aaf4db218966cab0e9d104dfe806c6423}{preferred\+Value}} () const
+\begin{DoxyCompactList}\small\item\em Returns the preferred value of this tag. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Language_acca12965a07fed6eb8ab2e53514b3843}\label{classBCP47Language_acca12965a07fed6eb8ab2e53514b3843}} 
+void \mbox{\hyperlink{classBCP47Language_acca12965a07fed6eb8ab2e53514b3843}{set\+Preferred\+Value}} (const QString \&\mbox{\hyperlink{classBCP47Language_aaf4db218966cab0e9d104dfe806c6423}{preferred\+Value}})
+\begin{DoxyCompactList}\small\item\em Sets the preferred value of this tag, if any. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Language_a2f446c995722b8a578ec0932954ec47f}\label{classBCP47Language_a2f446c995722b8a578ec0932954ec47f}} 
+bool \mbox{\hyperlink{classBCP47Language_a2f446c995722b8a578ec0932954ec47f}{has\+Preferred\+Value}} ()
+\begin{DoxyCompactList}\small\item\em Returns true if the language has a preferred value. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Language_a0fcf76727c52931c67b094bf74057e1e}\label{classBCP47Language_a0fcf76727c52931c67b094bf74057e1e}} 
+QVector$<$ QString $>$ \mbox{\hyperlink{classBCP47Language_a0fcf76727c52931c67b094bf74057e1e}{prefix}} () const
+\begin{DoxyCompactList}\small\item\em Returns the list of possible prefix values. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBCP47Language_af456d13132118b5a4f5885027346d14e}\label{classBCP47Language_af456d13132118b5a4f5885027346d14e}} 
+void \mbox{\hyperlink{classBCP47Language_af456d13132118b5a4f5885027346d14e}{add\+Prefix}} (const QString \&\mbox{\hyperlink{classBCP47Language_a0fcf76727c52931c67b094bf74057e1e}{prefix}})
+\begin{DoxyCompactList}\small\item\em Adds a prefix to the list. \end{DoxyCompactList}\item 
+QString \mbox{\hyperlink{classBCP47Language_a55ff431ae7515edfa63eb5780c1f55f2}{tag}} () const
+\item 
+\mbox{\Hypertarget{classBCP47Language_acc509088292b29db4cbf9f3d80fd5df3}\label{classBCP47Language_acc509088292b29db4cbf9f3d80fd5df3}} 
+void \mbox{\hyperlink{classBCP47Language_acc509088292b29db4cbf9f3d80fd5df3}{set\+Tag}} (const QString \&\mbox{\hyperlink{classBCP47Language_a55ff431ae7515edfa63eb5780c1f55f2}{tag}})
+\begin{DoxyCompactList}\small\item\em Sets the name value of the grandfathered tag. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBCP47Language_a04688f7cd716fd6e8c452a3f2e1b993b}\label{classBCP47Language_a04688f7cd716fd6e8c452a3f2e1b993b}} 
+static \mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04}{Type}} \mbox{\hyperlink{classBCP47Language_a04688f7cd716fd6e8c452a3f2e1b993b}{from\+String}} (const QString \&name)
+\begin{DoxyCompactList}\small\item\em static method to create a tag type from the name string. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A class that specifies information about a single language tag, extended language tag, script tag, regional tag or grandfathered tag. 
+
+There are several different types of tag.
+\begin{DoxyItemize}
+\item LANGUAGE These are the primary language tags.
+\begin{DoxyItemize}
+\item A two character ISO639-\/1\+:2002 code.
+\item A three character ISO 639-\/2\+:1998, ISO 639-\/3\+:2007 or ISO 639-\/5\+:2008 code.
+\item A single character \textquotesingle{}i\textquotesingle{} or \textquotesingle{}x\textquotesingle{} or a three character code in the range \textquotesingle{}qaa\textquotesingle{} to \textquotesingle{}qtz\textquotesingle{} which are solely for non-\/registered private usage.
+\end{DoxyItemize}
+\item EXTLAN These are language extensions
+\item SCRIPT These indicate the possible script for the language.
+\item REGION These indicate the regional variation for the language.
+\item VARIANT These indicate a variation on the primary language.
+\item GRANDFATHERED These are generally older tag names which shouldn\textquotesingle{}t really be used any more. They generally have a prefered\+Value() that shows the tag that you should now use. This can be recovered using prefered\+Value().
+\item REDUNDANT These are generally older tag names which shouldn\textquotesingle{}t really be used any more.
+\end{DoxyItemize}
+
+For a more extensive handling see \href{https://www.w3.org/International/articles/language-tags/}{\texttt{ https\+://www.\+w3.\+org/\+International/articles/language-\/tags/}}.
+
+This class loads the language tag definitions from the \href{https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry}{\texttt{ IAIN language tag registry}} and parses it into an easier to use-\/ish form. It will also save the data into a local YAML file for easier/faster recovery. 
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105}\label{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105}} 
+\index{BCP47Language@{BCP47Language}!TagType@{TagType}}
+\index{TagType@{TagType}!BCP47Language@{BCP47Language}}
+\doxysubsubsection{\texorpdfstring{TagType}{TagType}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105}{BCP47\+Language\+::\+Tag\+Type}}}
+
+Enumeration used to detect tag states.
+
+Tags can be made up of several parts, the primary language, a language extension (which can be used as a primary language), a script or a regional variation.
+\begin{DoxyItemize}
+\item The primary language consists of a two or three character code. 
+\end{DoxyItemize}\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PRIMARY\_LANGUAGE@{PRIMARY\_LANGUAGE}!BCP47Language@{BCP47Language}}\index{BCP47Language@{BCP47Language}!PRIMARY\_LANGUAGE@{PRIMARY\_LANGUAGE}}}\mbox{\Hypertarget{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105abbf353062e5951102ea07b4eea4d08f6}\label{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105abbf353062e5951102ea07b4eea4d08f6}} 
+PRIMARY\+\_\+\+LANGUAGE&Language tags or Values flag. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PRIVATE\_LANGUAGE@{PRIVATE\_LANGUAGE}!BCP47Language@{BCP47Language}}\index{BCP47Language@{BCP47Language}!PRIVATE\_LANGUAGE@{PRIVATE\_LANGUAGE}}}\mbox{\Hypertarget{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a0e77a2237355d91e6681290039ed07fc}\label{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a0e77a2237355d91e6681290039ed07fc}} 
+PRIVATE\+\_\+\+LANGUAGE&\textquotesingle{}x\textquotesingle{} or \textquotesingle{}i\textquotesingle{} indicate a private language \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NO\_PRIMARY\_LANGUAGE@{NO\_PRIMARY\_LANGUAGE}!BCP47Language@{BCP47Language}}\index{BCP47Language@{BCP47Language}!NO\_PRIMARY\_LANGUAGE@{NO\_PRIMARY\_LANGUAGE}}}\mbox{\Hypertarget{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a635196f9d2ed0cd7d589357f1174fa28}\label{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a635196f9d2ed0cd7d589357f1174fa28}} 
+NO\+\_\+\+PRIMARY\+\_\+\+LANGUAGE&Not a primary, private or extended language. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{EXTLANG\_MISMATCH@{EXTLANG\_MISMATCH}!BCP47Language@{BCP47Language}}\index{BCP47Language@{BCP47Language}!EXTLANG\_MISMATCH@{EXTLANG\_MISMATCH}}}\mbox{\Hypertarget{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a750dc5fe3510dcc8c8d04f2ad75a063c}\label{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a750dc5fe3510dcc8c8d04f2ad75a063c}} 
+EXTLANG\+\_\+\+MISMATCH&Language and extended language don\textquotesingle{}t match. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DUPLICATE\_EXTENDED@{DUPLICATE\_EXTENDED}!BCP47Language@{BCP47Language}}\index{BCP47Language@{BCP47Language}!DUPLICATE\_EXTENDED@{DUPLICATE\_EXTENDED}}}\mbox{\Hypertarget{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105ac68bab41f5cabc78d3555efc2986e961}\label{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105ac68bab41f5cabc78d3555efc2986e961}} 
+DUPLICATE\+\_\+\+EXTENDED&extended followed by extended not allowed \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{EXTENDED\_FOLLOWS\_SCRIPT@{EXTENDED\_FOLLOWS\_SCRIPT}!BCP47Language@{BCP47Language}}\index{BCP47Language@{BCP47Language}!EXTENDED\_FOLLOWS\_SCRIPT@{EXTENDED\_FOLLOWS\_SCRIPT}}}\mbox{\Hypertarget{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a12f6ad84a73ee006c5762cb9f72301fe}\label{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a12f6ad84a73ee006c5762cb9f72301fe}} 
+EXTENDED\+\_\+\+FOLLOWS\+\_\+\+SCRIPT&script MUST follow extlang if it exists. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{EXTENDED\_FOLLOWS\_REGION@{EXTENDED\_FOLLOWS\_REGION}!BCP47Language@{BCP47Language}}\index{BCP47Language@{BCP47Language}!EXTENDED\_FOLLOWS\_REGION@{EXTENDED\_FOLLOWS\_REGION}}}\mbox{\Hypertarget{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a179ee7b32c63363e7e09ad140c873d91}\label{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a179ee7b32c63363e7e09ad140c873d91}} 
+EXTENDED\+\_\+\+FOLLOWS\+\_\+\+REGION&region MUST follow extlang if it exists. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DUPLICATE\_SCRIPT@{DUPLICATE\_SCRIPT}!BCP47Language@{BCP47Language}}\index{BCP47Language@{BCP47Language}!DUPLICATE\_SCRIPT@{DUPLICATE\_SCRIPT}}}\mbox{\Hypertarget{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a32196bc8a7a890244c9550350d3b27e7}\label{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a32196bc8a7a890244c9550350d3b27e7}} 
+DUPLICATE\+\_\+\+SCRIPT&DUPLICATE SCRIPT flag. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PRIVATE\_SCRIPT@{PRIVATE\_SCRIPT}!BCP47Language@{BCP47Language}}\index{BCP47Language@{BCP47Language}!PRIVATE\_SCRIPT@{PRIVATE\_SCRIPT}}}\mbox{\Hypertarget{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a47cc6b8022647a40f378d0a39d058805}\label{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a47cc6b8022647a40f378d0a39d058805}} 
+PRIVATE\+\_\+\+SCRIPT&A private script language. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NO\_SCRIPT@{NO\_SCRIPT}!BCP47Language@{BCP47Language}}\index{BCP47Language@{BCP47Language}!NO\_SCRIPT@{NO\_SCRIPT}}}\mbox{\Hypertarget{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a200d86c1aefd66f37084030ecb55e11f}\label{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a200d86c1aefd66f37084030ecb55e11f}} 
+NO\+\_\+\+SCRIPT&No script section. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PRIVATE\_REGION@{PRIVATE\_REGION}!BCP47Language@{BCP47Language}}\index{BCP47Language@{BCP47Language}!PRIVATE\_REGION@{PRIVATE\_REGION}}}\mbox{\Hypertarget{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a6a7bc9cb99a473b21914a9f1f6b19a99}\label{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a6a7bc9cb99a473b21914a9f1f6b19a99}} 
+PRIVATE\+\_\+\+REGION&A private region. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NO\_REGION@{NO\_REGION}!BCP47Language@{BCP47Language}}\index{BCP47Language@{BCP47Language}!NO\_REGION@{NO\_REGION}}}\mbox{\Hypertarget{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105aa142147410c2a77786fa6a480cb6d7c0}\label{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105aa142147410c2a77786fa6a480cb6d7c0}} 
+NO\+\_\+\+REGION&No region section. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{UN\_STATISTICAL\_REGION@{UN\_STATISTICAL\_REGION}!BCP47Language@{BCP47Language}}\index{BCP47Language@{BCP47Language}!UN\_STATISTICAL\_REGION@{UN\_STATISTICAL\_REGION}}}\mbox{\Hypertarget{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105aa3913d604618e2a8dc592b111c508393}\label{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105aa3913d604618e2a8dc592b111c508393}} 
+UN\+\_\+\+STATISTICAL\+\_\+\+REGION&A UN statistical area code. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DUPLICATE\_REGION@{DUPLICATE\_REGION}!BCP47Language@{BCP47Language}}\index{BCP47Language@{BCP47Language}!DUPLICATE\_REGION@{DUPLICATE\_REGION}}}\mbox{\Hypertarget{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a049219f097293b2e11fa6dcaebc6b501}\label{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a049219f097293b2e11fa6dcaebc6b501}} 
+DUPLICATE\+\_\+\+REGION&A UN statistical area code. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VARIANT\_LANGUAGE@{VARIANT\_LANGUAGE}!BCP47Language@{BCP47Language}}\index{BCP47Language@{BCP47Language}!VARIANT\_LANGUAGE@{VARIANT\_LANGUAGE}}}\mbox{\Hypertarget{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a35d67fc218c766829fc214600700fc09}\label{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a35d67fc218c766829fc214600700fc09}} 
+VARIANT\+\_\+\+LANGUAGE&A variant language. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NO\_VARIANT\_LANGUAGE@{NO\_VARIANT\_LANGUAGE}!BCP47Language@{BCP47Language}}\index{BCP47Language@{BCP47Language}!NO\_VARIANT\_LANGUAGE@{NO\_VARIANT\_LANGUAGE}}}\mbox{\Hypertarget{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a721ea48e934e3cfae0b2cccddaf114a1}\label{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a721ea48e934e3cfae0b2cccddaf114a1}} 
+NO\+\_\+\+VARIANT\+\_\+\+LANGUAGE&Not a variant language. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GRANDFATHERED\_LANGUAGE@{GRANDFATHERED\_LANGUAGE}!BCP47Language@{BCP47Language}}\index{BCP47Language@{BCP47Language}!GRANDFATHERED\_LANGUAGE@{GRANDFATHERED\_LANGUAGE}}}\mbox{\Hypertarget{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105ab623e97e692d2e3008034822b0579182}\label{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105ab623e97e692d2e3008034822b0579182}} 
+GRANDFATHERED\+\_\+\+LANGUAGE&A variant language. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NO\_GRANDFATHERED\_LANGUAGE@{NO\_GRANDFATHERED\_LANGUAGE}!BCP47Language@{BCP47Language}}\index{BCP47Language@{BCP47Language}!NO\_GRANDFATHERED\_LANGUAGE@{NO\_GRANDFATHERED\_LANGUAGE}}}\mbox{\Hypertarget{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a6afcbf3f8b5601fdd699420a80dc395b}\label{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105a6afcbf3f8b5601fdd699420a80dc395b}} 
+NO\+\_\+\+GRANDFATHERED\+\_\+\+LANGUAGE&Not a variant language. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{REDUNDANT\_LANGUAGE@{REDUNDANT\_LANGUAGE}!BCP47Language@{BCP47Language}}\index{BCP47Language@{BCP47Language}!REDUNDANT\_LANGUAGE@{REDUNDANT\_LANGUAGE}}}\mbox{\Hypertarget{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105abc248eedba9a690503c238766e393960}\label{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105abc248eedba9a690503c238766e393960}} 
+REDUNDANT\+\_\+\+LANGUAGE&A redundant language. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NO\_REDUNDANT\_LANGUAGE@{NO\_REDUNDANT\_LANGUAGE}!BCP47Language@{BCP47Language}}\index{BCP47Language@{BCP47Language}!NO\_REDUNDANT\_LANGUAGE@{NO\_REDUNDANT\_LANGUAGE}}}\mbox{\Hypertarget{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105aef65618c0cec35e1ee6d7ba17c351118}\label{classBCP47Language_aee9238c636740e58ede37b8a2bbe4105aef65618c0cec35e1ee6d7ba17c351118}} 
+NO\+\_\+\+REDUNDANT\+\_\+\+LANGUAGE&Not a redundant language. \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04}\label{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04}} 
+\index{BCP47Language@{BCP47Language}!Type@{Type}}
+\index{Type@{Type}!BCP47Language@{BCP47Language}}
+\doxysubsubsection{\texorpdfstring{Type}{Type}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04}{BCP47\+Language\+::\+Type}}}
+
+Enumeration describing the type of language tag. \begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BAD\_TAG@{BAD\_TAG}!BCP47Language@{BCP47Language}}\index{BCP47Language@{BCP47Language}!BAD\_TAG@{BAD\_TAG}}}\mbox{\Hypertarget{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04a0fcef41af1664ba6f21b11605a4b6b65}\label{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04a0fcef41af1664ba6f21b11605a4b6b65}} 
+BAD\+\_\+\+TAG&Bad tag. Sould never happen. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LANGUAGE@{LANGUAGE}!BCP47Language@{BCP47Language}}\index{BCP47Language@{BCP47Language}!LANGUAGE@{LANGUAGE}}}\mbox{\Hypertarget{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04a887bfd83789a0621b6c8e39378327745}\label{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04a887bfd83789a0621b6c8e39378327745}} 
+LANGUAGE&Language tags or Values flag. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{EXTLANG@{EXTLANG}!BCP47Language@{BCP47Language}}\index{BCP47Language@{BCP47Language}!EXTLANG@{EXTLANG}}}\mbox{\Hypertarget{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04ae550c17ae7249e92091feafe7d62bb77}\label{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04ae550c17ae7249e92091feafe7d62bb77}} 
+EXTLANG&Ext\+Lang tags or Values flag. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SCRIPT@{SCRIPT}!BCP47Language@{BCP47Language}}\index{BCP47Language@{BCP47Language}!SCRIPT@{SCRIPT}}}\mbox{\Hypertarget{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04ab7df48e2785aa0caa04bcee7855fbf43}\label{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04ab7df48e2785aa0caa04bcee7855fbf43}} 
+SCRIPT&Script tags or Values flag. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{REGION@{REGION}!BCP47Language@{BCP47Language}}\index{BCP47Language@{BCP47Language}!REGION@{REGION}}}\mbox{\Hypertarget{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04a4d4597330df0532b6cc4d33cf5435fd6}\label{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04a4d4597330df0532b6cc4d33cf5435fd6}} 
+REGION&Regional tags or Values flag. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VARIANT@{VARIANT}!BCP47Language@{BCP47Language}}\index{BCP47Language@{BCP47Language}!VARIANT@{VARIANT}}}\mbox{\Hypertarget{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04adb1cd887a6dc948ee9b8c01824d65eb6}\label{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04adb1cd887a6dc948ee9b8c01824d65eb6}} 
+VARIANT&Variant tags or Values flag. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GRANDFATHERED@{GRANDFATHERED}!BCP47Language@{BCP47Language}}\index{BCP47Language@{BCP47Language}!GRANDFATHERED@{GRANDFATHERED}}}\mbox{\Hypertarget{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04a7c8e418d5de5371511de286be9b228fd}\label{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04a7c8e418d5de5371511de286be9b228fd}} 
+GRANDFATHERED&Grandfathered tags or Values flag. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{REDUNDANT@{REDUNDANT}!BCP47Language@{BCP47Language}}\index{BCP47Language@{BCP47Language}!REDUNDANT@{REDUNDANT}}}\mbox{\Hypertarget{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04aa458e2b59aa93bb38035601061dc3774}\label{classBCP47Language_af32a4c60911b4630fb9e7be7d9d68b04aa458e2b59aa93bb38035601061dc3774}} 
+REDUNDANT&Reduntant tag or Values flag. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classBCP47Language_ab16d870b8e42b3ad54a9785c1dce9de6}\label{classBCP47Language_ab16d870b8e42b3ad54a9785c1dce9de6}} 
+\index{BCP47Language@{BCP47Language}!BCP47Language@{BCP47Language}}
+\index{BCP47Language@{BCP47Language}!BCP47Language@{BCP47Language}}
+\doxysubsubsection{\texorpdfstring{BCP47Language()}{BCP47Language()}}
+{\footnotesize\ttfamily BCP47\+Language\+::\+BCP47\+Language (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Construct a \mbox{\hyperlink{classBCP47Language}{BCP47\+Language}} object. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classBCP47Language_a7a82c1e4c30f24fa89ddcafab2d46d27}\label{classBCP47Language_a7a82c1e4c30f24fa89ddcafab2d46d27}} 
+\index{BCP47Language@{BCP47Language}!comments@{comments}}
+\index{comments@{comments}!BCP47Language@{BCP47Language}}
+\doxysubsubsection{\texorpdfstring{comments()}{comments()}}
+{\footnotesize\ttfamily QString BCP47\+Language\+::comments (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns any comment for this tag, default is an empty string.
+
+\begin{DoxyNote}{Note}
+this could be a multiline comment. 
+\end{DoxyNote}
+\mbox{\Hypertarget{classBCP47Language_a98f5ff52df9a0aa3b37537e3ed10c71a}\label{classBCP47Language_a98f5ff52df9a0aa3b37537e3ed10c71a}} 
+\index{BCP47Language@{BCP47Language}!description@{description}}
+\index{description@{description}!BCP47Language@{BCP47Language}}
+\doxysubsubsection{\texorpdfstring{description()}{description()}}
+{\footnotesize\ttfamily QString BCP47\+Language\+::description (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the primary (first) tag description.
+
+This is used to locate the tags from one of the tag maps. \mbox{\Hypertarget{classBCP47Language_acdf370862c4db4d65d4d81c28695b5da}\label{classBCP47Language_acdf370862c4db4d65d4d81c28695b5da}} 
+\index{BCP47Language@{BCP47Language}!hasComment@{hasComment}}
+\index{hasComment@{hasComment}!BCP47Language@{BCP47Language}}
+\doxysubsubsection{\texorpdfstring{hasComment()}{hasComment()}}
+{\footnotesize\ttfamily bool BCP47\+Language\+::has\+Comment (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns true if the BCPLanguage object has a comment, otherwise returns false. \mbox{\Hypertarget{classBCP47Language_a6a25d0cde2ff0d428b0a3a1bdddf3382}\label{classBCP47Language_a6a25d0cde2ff0d428b0a3a1bdddf3382}} 
+\index{BCP47Language@{BCP47Language}!setMacrolanguage@{setMacrolanguage}}
+\index{setMacrolanguage@{setMacrolanguage}!BCP47Language@{BCP47Language}}
+\doxysubsubsection{\texorpdfstring{setMacrolanguage()}{setMacrolanguage()}}
+{\footnotesize\ttfamily void BCP47\+Language\+::set\+Macrolanguage (\begin{DoxyParamCaption}\item[{bool}]{is\+Macrolanguage }\end{DoxyParamCaption})}
+
+Sets the macrolanguage flag if this tag is for a macrolanguage, default false. \mbox{\Hypertarget{classBCP47Language_a55ff431ae7515edfa63eb5780c1f55f2}\label{classBCP47Language_a55ff431ae7515edfa63eb5780c1f55f2}} 
+\index{BCP47Language@{BCP47Language}!tag@{tag}}
+\index{tag@{tag}!BCP47Language@{BCP47Language}}
+\doxysubsubsection{\texorpdfstring{tag()}{tag()}}
+{\footnotesize\ttfamily QString BCP47\+Language\+::tag (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the value of the grandfathered tag.
+
+This is only used for grandfathered tags. Use \mbox{\hyperlink{classBCP47Language_aaf4db218966cab0e9d104dfe806c6423}{preferred\+Value()}} to recover the value that you should use for modern tags. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+languages.\+h\end{DoxyCompactItemize}

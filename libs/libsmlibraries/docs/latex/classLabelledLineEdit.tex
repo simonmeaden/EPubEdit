@@ -1,0 +1,545 @@
+\hypertarget{classLabelledLineEdit}{}\doxysection{Labelled\+Line\+Edit Class Reference}
+\label{classLabelledLineEdit}\index{LabelledLineEdit@{LabelledLineEdit}}
+
+
+The \mbox{\hyperlink{classLabelledTextField}{Labelled\+Text\+Field}} is a wrapper for QLabel and a QLine\+Edit provides a labelled non-\/editable text field box.  
+
+
+
+
+{\ttfamily \#include $<$labelledlineedit.\+h$>$}
+
+Inheritance diagram for Labelled\+Line\+Edit\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classLabelledLineEdit}
+\end{center}
+\end{figure}
+\doxysubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a26590393f480517470129f601b9d80f4}\label{classLabelledLineEdit_a26590393f480517470129f601b9d80f4}} 
+void \mbox{\hyperlink{classLabelledLineEdit_a26590393f480517470129f601b9d80f4}{cursor\+Position\+Changed}} (int old\+Pos, int new\+Pos)
+\begin{DoxyCompactList}\small\item\em This signal is emitted whenever the cursor moves. The previous position is given by old, and the new position by new. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a65fee9e57554532246768c03ba741b81}\label{classLabelledLineEdit_a65fee9e57554532246768c03ba741b81}} 
+void \mbox{\hyperlink{classLabelledLineEdit_a65fee9e57554532246768c03ba741b81}{editing\+Finished}} ()
+\begin{DoxyCompactList}\small\item\em This signal is emitted when the Return or Enter key is pressed or the line edit loses focus. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a524dd435b7c8c5a5067d0068b3ef14f1}\label{classLabelledLineEdit_a524dd435b7c8c5a5067d0068b3ef14f1}} 
+void \mbox{\hyperlink{classLabelledLineEdit_a524dd435b7c8c5a5067d0068b3ef14f1}{return\+Pressed}} ()
+\begin{DoxyCompactList}\small\item\em This signal is emitted when the Return or Enter key is pressed. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a833237c5610753b4f91f7ae95b56b9a2}\label{classLabelledLineEdit_a833237c5610753b4f91f7ae95b56b9a2}} 
+void \mbox{\hyperlink{classLabelledLineEdit_a833237c5610753b4f91f7ae95b56b9a2}{selection\+Changed}} ()
+\begin{DoxyCompactList}\small\item\em This signal is emitted whenever the selection changes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a2d4abb8fb669d26f974bb435b0188d19}\label{classLabelledLineEdit_a2d4abb8fb669d26f974bb435b0188d19}} 
+void \mbox{\hyperlink{classLabelledLineEdit_a2d4abb8fb669d26f974bb435b0188d19}{text\+Changed}} (const QString \&)
+\begin{DoxyCompactList}\small\item\em This signal is emitted whenever the text changes. The text argument is the new text. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a1b24a422a2a66fbbcb5b2f74d912d430}\label{classLabelledLineEdit_a1b24a422a2a66fbbcb5b2f74d912d430}} 
+void \mbox{\hyperlink{classLabelledLineEdit_a1b24a422a2a66fbbcb5b2f74d912d430}{text\+Edited}} (const QString \&)
+\begin{DoxyCompactList}\small\item\em This signal is emitted whenever the text is edited. The text argument is the new text. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a0894cb9546e80bd63b383aeaf2b8b1ec}\label{classLabelledLineEdit_a0894cb9546e80bd63b383aeaf2b8b1ec}} 
+void \mbox{\hyperlink{classLabelledLineEdit_a0894cb9546e80bd63b383aeaf2b8b1ec}{input\+Rejected}} ()
+\begin{DoxyCompactList}\small\item\em This signal is emitted when the user presses a key that is not considered to be acceptable input. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classLabelledLineEdit_aef286d9202c71d0c689410e4e70398b9}{Labelled\+Line\+Edit}} (const QString \&\mbox{\hyperlink{classAbstractLabelledWidget_a38a4d448633db671496c5ef5b9591a9d}{label\+Text}}, QWidget $\ast$parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructs a \mbox{\hyperlink{classLabelledLineEdit}{Labelled\+Line\+Edit}} with given label\+Text and default parent. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classLabelledLineEdit_a7e05d181daf0c1d5b76b8b76fed3b4ff}{Labelled\+Line\+Edit}} (const QString \&\mbox{\hyperlink{classAbstractLabelledWidget_a38a4d448633db671496c5ef5b9591a9d}{label\+Text}}, const QString \&contents, QWidget $\ast$parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructs a \mbox{\hyperlink{classLabelledLineEdit}{Labelled\+Line\+Edit}} with given label\+Text and lineedit contents, and default parent. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a3474b800f80754b69edbd2ffac09eafd}\label{classLabelledLineEdit_a3474b800f80754b69edbd2ffac09eafd}} 
+void \mbox{\hyperlink{classLabelledLineEdit_a3474b800f80754b69edbd2ffac09eafd}{add\+Action}} (QAction $\ast$action, QLine\+Edit\+::\+Action\+Position \mbox{\hyperlink{classAbstractLabelledWidget_afcb242dfc1717d5f90d23351f35c4af6}{label\+Position}})
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::add\+Action(\+QAction,  QLine\+Edit\+::\+Action\+Position). \end{DoxyCompactList}\item 
+QAction $\ast$ \mbox{\hyperlink{classLabelledLineEdit_a643b53b6d728f42650d22a09ce511372}{add\+Action}} (const QIcon \&icon, QLine\+Edit\+::\+Action\+Position \mbox{\hyperlink{classAbstractLabelledWidget_afcb242dfc1717d5f90d23351f35c4af6}{label\+Position}})
+\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a23295ecfe74429edd2d807614ff1f672}\label{classLabelledLineEdit_a23295ecfe74429edd2d807614ff1f672}} 
+void \mbox{\hyperlink{classLabelledLineEdit_a23295ecfe74429edd2d807614ff1f672}{backspace}} ()
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::backspace(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a1b2b49105b5a85500b798f20080c79ad}\label{classLabelledLineEdit_a1b2b49105b5a85500b798f20080c79ad}} 
+QCompleter $\ast$ \mbox{\hyperlink{classLabelledLineEdit_a1b2b49105b5a85500b798f20080c79ad}{completer}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::completer(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a384e4ee2b9745dd0d1efd61b6d955fd3}\label{classLabelledLineEdit_a384e4ee2b9745dd0d1efd61b6d955fd3}} 
+QMenu $\ast$ \mbox{\hyperlink{classLabelledLineEdit_a384e4ee2b9745dd0d1efd61b6d955fd3}{create\+Standard\+Context\+Menu}} ()
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::backspace(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a1192077707c3cacf23c6ebca3b335d59}\label{classLabelledLineEdit_a1192077707c3cacf23c6ebca3b335d59}} 
+void \mbox{\hyperlink{classLabelledLineEdit_a1192077707c3cacf23c6ebca3b335d59}{cursor\+Backward}} (bool mark, int steps=1)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::cursor\+Backward(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_ab39b083ebca172bd2b0ec6d827d03969}\label{classLabelledLineEdit_ab39b083ebca172bd2b0ec6d827d03969}} 
+void \mbox{\hyperlink{classLabelledLineEdit_ab39b083ebca172bd2b0ec6d827d03969}{cursor\+Forward}} (bool mark, int steps=1)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::cursor\+Forward(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_ad1897de319dc7521af5b989feb945cab}\label{classLabelledLineEdit_ad1897de319dc7521af5b989feb945cab}} 
+int \mbox{\hyperlink{classLabelledLineEdit_ad1897de319dc7521af5b989feb945cab}{cursor\+Position\+At}} (const QPoint \&pos)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::cursor\+Position\+At(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_ad713d93577bdfc1e6faab2a4bc409ab0}\label{classLabelledLineEdit_ad713d93577bdfc1e6faab2a4bc409ab0}} 
+void \mbox{\hyperlink{classLabelledLineEdit_ad713d93577bdfc1e6faab2a4bc409ab0}{cursor\+Word\+Backward}} (bool mark)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::cursor\+Word\+Backward(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a01f3bb995f7f70a4520926f9b2960f61}\label{classLabelledLineEdit_a01f3bb995f7f70a4520926f9b2960f61}} 
+void \mbox{\hyperlink{classLabelledLineEdit_a01f3bb995f7f70a4520926f9b2960f61}{cursor\+Word\+Forward}} (bool mark)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::cursor\+Word\+Forward(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a0fcc8c95bc16cb0c0d5adabde6a92b6e}\label{classLabelledLineEdit_a0fcc8c95bc16cb0c0d5adabde6a92b6e}} 
+void \mbox{\hyperlink{classLabelledLineEdit_a0fcc8c95bc16cb0c0d5adabde6a92b6e}{del}} ()
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::del(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a60f450c2b6cf4d30f47f40755406415c}\label{classLabelledLineEdit_a60f450c2b6cf4d30f47f40755406415c}} 
+void \mbox{\hyperlink{classLabelledLineEdit_a60f450c2b6cf4d30f47f40755406415c}{deselect}} ()
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::deselect(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_aa41e4d3240d4aca385a45bd30a8d3f12}\label{classLabelledLineEdit_aa41e4d3240d4aca385a45bd30a8d3f12}} 
+void \mbox{\hyperlink{classLabelledLineEdit_aa41e4d3240d4aca385a45bd30a8d3f12}{end}} (bool mark)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::end(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_acc48a0ca62736ba5a3a1d3955a78906b}\label{classLabelledLineEdit_acc48a0ca62736ba5a3a1d3955a78906b}} 
+void \mbox{\hyperlink{classLabelledLineEdit_acc48a0ca62736ba5a3a1d3955a78906b}{home}} (bool mark)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::home(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_aab7df97a6ca1840b11d5aea2606de4a1}\label{classLabelledLineEdit_aab7df97a6ca1840b11d5aea2606de4a1}} 
+void \mbox{\hyperlink{classLabelledLineEdit_aab7df97a6ca1840b11d5aea2606de4a1}{insert}} (const QString \&new\+Text)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::insert(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a8e1fa145d62f11c8a82314ab02463414}\label{classLabelledLineEdit_a8e1fa145d62f11c8a82314ab02463414}} 
+int \mbox{\hyperlink{classLabelledLineEdit_a8e1fa145d62f11c8a82314ab02463414}{selection\+End}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::selection\+End(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a974fb935686a504317753971bcd5c288}\label{classLabelledLineEdit_a974fb935686a504317753971bcd5c288}} 
+int \mbox{\hyperlink{classLabelledLineEdit_a974fb935686a504317753971bcd5c288}{selection\+Length}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::selection\+Length(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_ad27dce8d6dd6b26efa019c02ce19628f}\label{classLabelledLineEdit_ad27dce8d6dd6b26efa019c02ce19628f}} 
+int \mbox{\hyperlink{classLabelledLineEdit_ad27dce8d6dd6b26efa019c02ce19628f}{selection\+Start}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::selection\+Start(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_af6be0a01b682816506f81d3619e9a1d4}\label{classLabelledLineEdit_af6be0a01b682816506f81d3619e9a1d4}} 
+void \mbox{\hyperlink{classLabelledLineEdit_af6be0a01b682816506f81d3619e9a1d4}{set\+Completer}} (QCompleter $\ast$c)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::set\+Completer(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a41e19ab3930ecfcbaa89213bcd07044f}\label{classLabelledLineEdit_a41e19ab3930ecfcbaa89213bcd07044f}} 
+void \mbox{\hyperlink{classLabelledLineEdit_a41e19ab3930ecfcbaa89213bcd07044f}{set\+Selection}} (int start, int \mbox{\hyperlink{classLabelledLineEdit_a5b82213b959fa17e2e078dcd760f288f}{length}})
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::set\+Selection(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a610a7bbd1d1937f3bc0ed20cd9c16d8b}\label{classLabelledLineEdit_a610a7bbd1d1937f3bc0ed20cd9c16d8b}} 
+void \mbox{\hyperlink{classLabelledLineEdit_a610a7bbd1d1937f3bc0ed20cd9c16d8b}{set\+Text\+Margins}} (int left, int top, int right, int bottom)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::set\+Text\+Margins(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_ac867a45eacced0fc47be9dbdc09ca253}\label{classLabelledLineEdit_ac867a45eacced0fc47be9dbdc09ca253}} 
+void \mbox{\hyperlink{classLabelledLineEdit_ac867a45eacced0fc47be9dbdc09ca253}{set\+Validator}} (const QValidator $\ast$v)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::set\+Validator(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a381643cc2e2c93e7db980a146e3f5fd0}\label{classLabelledLineEdit_a381643cc2e2c93e7db980a146e3f5fd0}} 
+QMargins \mbox{\hyperlink{classLabelledLineEdit_a381643cc2e2c93e7db980a146e3f5fd0}{text\+Margins}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::text\+Margins(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a28cf64542fb0269e6bf23fe42bcd8909}\label{classLabelledLineEdit_a28cf64542fb0269e6bf23fe42bcd8909}} 
+const QValidator $\ast$ \mbox{\hyperlink{classLabelledLineEdit_a28cf64542fb0269e6bf23fe42bcd8909}{validator}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::validator(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a1b0fa13bf547318a95dadc29e4a73f58}\label{classLabelledLineEdit_a1b0fa13bf547318a95dadc29e4a73f58}} 
+QString \mbox{\hyperlink{classLabelledLineEdit_a1b0fa13bf547318a95dadc29e4a73f58}{text}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::text(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_aa014be30c23f830d71423e76533027a3}\label{classLabelledLineEdit_aa014be30c23f830d71423e76533027a3}} 
+void \mbox{\hyperlink{classLabelledLineEdit_aa014be30c23f830d71423e76533027a3}{set\+Text}} (const QString \&\mbox{\hyperlink{classLabelledLineEdit_ab2fa9b7a00ff20333329e7b8a0f484b3}{text}})
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} \{QLine\+Edit\+::set\+Text().\} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a4108f4dc0c5695deebc0768b3846f3d9}\label{classLabelledLineEdit_a4108f4dc0c5695deebc0768b3846f3d9}} 
+bool \mbox{\hyperlink{classLabelledLineEdit_a4108f4dc0c5695deebc0768b3846f3d9}{has\+Acceptable\+Input}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::has\+Acceptable\+Input(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a31c9925461ce5cdabb42796b5a2751db}\label{classLabelledLineEdit_a31c9925461ce5cdabb42796b5a2751db}} 
+void \mbox{\hyperlink{classLabelledLineEdit_a31c9925461ce5cdabb42796b5a2751db}{set\+Widget\+Alignment}} (const Qt\+::\+Alignment \&\mbox{\hyperlink{classLabelledLineEdit_a2274dc2117b595921111606532f07abb}{widget\+Alignment}}) override
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::set\+Alignment(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a6d490d9cc40e4808ad322f5d8ecd6739}\label{classLabelledLineEdit_a6d490d9cc40e4808ad322f5d8ecd6739}} 
+Qt\+::\+Alignment \mbox{\hyperlink{classLabelledLineEdit_a6d490d9cc40e4808ad322f5d8ecd6739}{widget\+Alignment}} () const override
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::alignment(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_ad3cf2da5cab7c5ee18854342538f24d3}\label{classLabelledLineEdit_ad3cf2da5cab7c5ee18854342538f24d3}} 
+bool \mbox{\hyperlink{classLabelledLineEdit_ad3cf2da5cab7c5ee18854342538f24d3}{is\+Clear\+Button\+Enabled}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::is\+Clear\+Button\+Enabled(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_ae7a63d86afead3b085cebe7f69efc684}\label{classLabelledLineEdit_ae7a63d86afead3b085cebe7f69efc684}} 
+void \mbox{\hyperlink{classLabelledLineEdit_ae7a63d86afead3b085cebe7f69efc684}{set\+Clear\+Button\+Enabled}} (bool enable)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::set\+Clear\+Button\+Enabled(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_afc4b64569231a3cadf6c56b0d6e93a20}\label{classLabelledLineEdit_afc4b64569231a3cadf6c56b0d6e93a20}} 
+Qt\+::\+Cursor\+Move\+Style \mbox{\hyperlink{classLabelledLineEdit_afc4b64569231a3cadf6c56b0d6e93a20}{cursor\+Move\+Style}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::cursor\+Move\+Style(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a04b6891f491ffc7b80b3a6fd0e76fb9b}\label{classLabelledLineEdit_a04b6891f491ffc7b80b3a6fd0e76fb9b}} 
+void \mbox{\hyperlink{classLabelledLineEdit_a04b6891f491ffc7b80b3a6fd0e76fb9b}{set\+Cursor\+Move\+Style}} (Qt\+::\+Cursor\+Move\+Style style)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::set\+Cursor\+Move\+Style(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_abb886c8bbb7d141711c6eb353f76d303}\label{classLabelledLineEdit_abb886c8bbb7d141711c6eb353f76d303}} 
+int \mbox{\hyperlink{classLabelledLineEdit_abb886c8bbb7d141711c6eb353f76d303}{cursor\+Position}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::cursor\+Position(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a07ae32e92d910be7e849ea0193215e15}\label{classLabelledLineEdit_a07ae32e92d910be7e849ea0193215e15}} 
+void \mbox{\hyperlink{classLabelledLineEdit_a07ae32e92d910be7e849ea0193215e15}{set\+Cursor\+Position}} (int position)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::set\+Cursor\+Position(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a3347d1a4ce166057f66f76c0c267017f}\label{classLabelledLineEdit_a3347d1a4ce166057f66f76c0c267017f}} 
+QString \mbox{\hyperlink{classLabelledLineEdit_a3347d1a4ce166057f66f76c0c267017f}{display\+Text}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::display\+Text(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a2c41e0b3cd619208cfef3a0727b996be}\label{classLabelledLineEdit_a2c41e0b3cd619208cfef3a0727b996be}} 
+bool \mbox{\hyperlink{classLabelledLineEdit_a2c41e0b3cd619208cfef3a0727b996be}{drag\+Enabled}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::drag\+Enabled(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a8c6a3b91c1153569fc19e69ab11f8e3f}\label{classLabelledLineEdit_a8c6a3b91c1153569fc19e69ab11f8e3f}} 
+void \mbox{\hyperlink{classLabelledLineEdit_a8c6a3b91c1153569fc19e69ab11f8e3f}{set\+Drag\+Enabled}} (bool enabled)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::set\+Drag\+Enabled(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a1ac9a309256be5ad363eaee91a3dbbe2}\label{classLabelledLineEdit_a1ac9a309256be5ad363eaee91a3dbbe2}} 
+QLine\+Edit\+::\+Echo\+Mode \mbox{\hyperlink{classLabelledLineEdit_a1ac9a309256be5ad363eaee91a3dbbe2}{echo\+Mode}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::echo\+Mode(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a344864f5f2e42461581672a06c655fd6}\label{classLabelledLineEdit_a344864f5f2e42461581672a06c655fd6}} 
+void \mbox{\hyperlink{classLabelledLineEdit_a344864f5f2e42461581672a06c655fd6}{set\+Echo\+Mode}} (QLine\+Edit\+::\+Echo\+Mode echomode)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::set\+Echo\+Mode(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a8c17a3047ac5a81a98be0e30de3aca73}\label{classLabelledLineEdit_a8c17a3047ac5a81a98be0e30de3aca73}} 
+bool \mbox{\hyperlink{classLabelledLineEdit_a8c17a3047ac5a81a98be0e30de3aca73}{has\+Selected\+Text}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::has\+Selected\+Text(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a3660c8de5a70b29fa6934ad474604bbc}\label{classLabelledLineEdit_a3660c8de5a70b29fa6934ad474604bbc}} 
+QString \mbox{\hyperlink{classLabelledLineEdit_a3660c8de5a70b29fa6934ad474604bbc}{input\+Mask}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::input\+Mask(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a84610c2a90e2c275b04bb11e6cf79dbf}\label{classLabelledLineEdit_a84610c2a90e2c275b04bb11e6cf79dbf}} 
+void \mbox{\hyperlink{classLabelledLineEdit_a84610c2a90e2c275b04bb11e6cf79dbf}{set\+Input\+Mask}} (const QString \&\mbox{\hyperlink{classLabelledLineEdit_ad60c59e32037f9d2db9489dac9138b11}{input\+Mask}})
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::set\+Input\+Mask(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a5a9b6f6d7e4209c9c348f4f0feea07a1}\label{classLabelledLineEdit_a5a9b6f6d7e4209c9c348f4f0feea07a1}} 
+int \mbox{\hyperlink{classLabelledLineEdit_a5a9b6f6d7e4209c9c348f4f0feea07a1}{max\+Length}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::max\+Length(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_ac6034e849e77706a9867b17afb582d01}\label{classLabelledLineEdit_ac6034e849e77706a9867b17afb582d01}} 
+void \mbox{\hyperlink{classLabelledLineEdit_ac6034e849e77706a9867b17afb582d01}{set\+Max\+Length}} (int \mbox{\hyperlink{classLabelledLineEdit_a5b82213b959fa17e2e078dcd760f288f}{length}})
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::set\+Max\+Length(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a138f93c78b79bdfb85745dd72bb026b2}\label{classLabelledLineEdit_a138f93c78b79bdfb85745dd72bb026b2}} 
+bool \mbox{\hyperlink{classLabelledLineEdit_a138f93c78b79bdfb85745dd72bb026b2}{is\+Modified}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::is\+Modified(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a8b50d7918937ab30e1effee7e79f3d50}\label{classLabelledLineEdit_a8b50d7918937ab30e1effee7e79f3d50}} 
+void \mbox{\hyperlink{classLabelledLineEdit_a8b50d7918937ab30e1effee7e79f3d50}{set\+Modified}} (bool \mbox{\hyperlink{classLabelledLineEdit_ac26d249e78010be3d60e41acf25cabb6}{modified}})
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::set\+Modified(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a5f400ec541eda6cff6423e7ac5b8970a}\label{classLabelledLineEdit_a5f400ec541eda6cff6423e7ac5b8970a}} 
+QString \mbox{\hyperlink{classLabelledLineEdit_a5f400ec541eda6cff6423e7ac5b8970a}{placeholder\+Text}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::placeholder\+Text(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_aca434e9a46b27ea2669568e5ce30e405}\label{classLabelledLineEdit_aca434e9a46b27ea2669568e5ce30e405}} 
+void \mbox{\hyperlink{classLabelledLineEdit_aca434e9a46b27ea2669568e5ce30e405}{set\+Placeholder\+Text}} (const QString \&\mbox{\hyperlink{classLabelledLineEdit_a48a21eae7aaf18bd347e55ae2f2b0c02}{placeholder\+Text}})
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::set\+Placeholder\+Text(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_aca375e8188d3aa0f78eb8b31952ed90c}\label{classLabelledLineEdit_aca375e8188d3aa0f78eb8b31952ed90c}} 
+bool \mbox{\hyperlink{classLabelledLineEdit_aca375e8188d3aa0f78eb8b31952ed90c}{is\+Read\+Only}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::is\+Read\+Only(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_adab82986a78814c9cf21c9404d9b39ea}\label{classLabelledLineEdit_adab82986a78814c9cf21c9404d9b39ea}} 
+void \mbox{\hyperlink{classLabelledLineEdit_adab82986a78814c9cf21c9404d9b39ea}{set\+Read\+Only}} (bool readonly)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::set\+Read\+Only(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a18bcf3357b6a85091d7fbdabddd20b39}\label{classLabelledLineEdit_a18bcf3357b6a85091d7fbdabddd20b39}} 
+bool \mbox{\hyperlink{classLabelledLineEdit_a18bcf3357b6a85091d7fbdabddd20b39}{is\+Redo\+Available}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::is\+Redo\+Available(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a50538e3963328fa6c5e991f86220f98a}\label{classLabelledLineEdit_a50538e3963328fa6c5e991f86220f98a}} 
+QString \mbox{\hyperlink{classLabelledLineEdit_a50538e3963328fa6c5e991f86220f98a}{selected\+Text}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::selected\+Text(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a7a6be50e3e7eccb241989f4fd9a19d0e}\label{classLabelledLineEdit_a7a6be50e3e7eccb241989f4fd9a19d0e}} 
+bool \mbox{\hyperlink{classLabelledLineEdit_a7a6be50e3e7eccb241989f4fd9a19d0e}{is\+Undo\+Available}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QLine\+Edit\+::is\+Undo\+Available(). \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classLabelledLineEdit_a18142b9af7e65268c9263dc73f63dd20}{is\+Empty}} () const
+\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a137921083cd2ded2782627ab4c326f3a}\label{classLabelledLineEdit_a137921083cd2ded2782627ab4c326f3a}} 
+int \mbox{\hyperlink{classLabelledLineEdit_a137921083cd2ded2782627ab4c326f3a}{size}} () const
+\begin{DoxyCompactList}\small\item\em Returns the length of the line edit text. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classLabelledLineEdit_a5b82213b959fa17e2e078dcd760f288f}{length}} () const
+\item 
+\mbox{\Hypertarget{classLabelledLineEdit_a1ae685b2eca1287bcd6b35bad02718f1}\label{classLabelledLineEdit_a1ae685b2eca1287bcd6b35bad02718f1}} 
+void \mbox{\hyperlink{classLabelledLineEdit_a1ae685b2eca1287bcd6b35bad02718f1}{clear}} ()
+\begin{DoxyCompactList}\small\item\em Clears the line edit text. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+QString \mbox{\hyperlink{classLabelledLineEdit_ab2fa9b7a00ff20333329e7b8a0f484b3}{text}}
+\begin{DoxyCompactList}\small\item\em This property holds the line edit\textquotesingle{}s text. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classLabelledLineEdit_aa329ff15cd1d50420e702ebf62b872ca}{acceptable\+Input}}
+\begin{DoxyCompactList}\small\item\em This property holds whether the input satisfies the input\+Mask and the validator. \end{DoxyCompactList}\item 
+Qt\+::\+Alignment \mbox{\hyperlink{classLabelledLineEdit_a2274dc2117b595921111606532f07abb}{widget\+Alignment}}
+\begin{DoxyCompactList}\small\item\em This property holds the alignment of the line edit. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classLabelledLineEdit_ae8bbb523e743e1a4b6c99aa03c48ac4e}{clear\+Button\+Enabled}}
+\begin{DoxyCompactList}\small\item\em This property holds whether the line edit displays a clear button when it is not empty. \end{DoxyCompactList}\item 
+Qt\+::\+Cursor\+Move\+Style \mbox{\hyperlink{classLabelledLineEdit_a42eeb387837af127544a3ba45af5439a}{cursor\+Move\+Style}}
+\begin{DoxyCompactList}\small\item\em This property holds the movement style of cursor in this line edit. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classLabelledLineEdit_a5fae2b35ed618dc2c0c7dc6615699701}{cursor\+Position}}
+\begin{DoxyCompactList}\small\item\em This property holds the current cursor position for this line edit. \end{DoxyCompactList}\item 
+QString \mbox{\hyperlink{classLabelledLineEdit_a45fb5f9001ef196132ca81c008aebfd7}{display\+Text}}
+\begin{DoxyCompactList}\small\item\em This property holds the displayed text. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classLabelledLineEdit_afeb13cafc1e5338e44498ea002507d11}{drag\+Enabled}}
+\begin{DoxyCompactList}\small\item\em This property holds whether the lineedit starts a drag if the user presses and moves the mouse on some selected text. \end{DoxyCompactList}\item 
+QLine\+Edit\+::\+Echo\+Mode \mbox{\hyperlink{classLabelledLineEdit_a73219b13de99effad62145ffbc5587c3}{echo\+Mode}}
+\begin{DoxyCompactList}\small\item\em This property holds the line edit\textquotesingle{}s echo mode. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classLabelledLineEdit_a2c2e284c1dc28d8b200efd854bd7743c}{selected\+Text}}
+\begin{DoxyCompactList}\small\item\em This property holds whether there is any text selected. \end{DoxyCompactList}\item 
+QString \mbox{\hyperlink{classLabelledLineEdit_ad60c59e32037f9d2db9489dac9138b11}{input\+Mask}}
+\begin{DoxyCompactList}\small\item\em This property holds the validation input mask. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classLabelledLineEdit_aab62e6b42c8c3f2033e2e14532d7632b}{max\+Length}}
+\begin{DoxyCompactList}\small\item\em This property holds the maximum permitted length of the text. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classLabelledLineEdit_ac26d249e78010be3d60e41acf25cabb6}{modified}}
+\begin{DoxyCompactList}\small\item\em This property holds whether the line edit\textquotesingle{}s contents has been modified by the user. \end{DoxyCompactList}\item 
+QString \mbox{\hyperlink{classLabelledLineEdit_a48a21eae7aaf18bd347e55ae2f2b0c02}{placeholder\+Text}}
+\begin{DoxyCompactList}\small\item\em Sets a placeholder\+Text text shown when no valid index is set. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classLabelledLineEdit_a8f4f54294d1c5885f940d9662d0ad0e7}{read\+Only}}
+\begin{DoxyCompactList}\small\item\em This property holds whether the line edit is read only. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classLabelledLineEdit_a39f78ca12169aa07cc75c4776ee6f8de}{redo\+Available}}
+\begin{DoxyCompactList}\small\item\em This property holds whether redo is available. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classLabelledLineEdit_a9100286e821dea60ad97d638bc737cda}{undo\+Available}}
+\begin{DoxyCompactList}\small\item\em This property holds whether undo is available. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classLabelledTextField}{Labelled\+Text\+Field}} is a wrapper for QLabel and a QLine\+Edit provides a labelled non-\/editable text field box. 
+
+\begin{DoxySince}{Since}
+5.\+7.\+0 
+\end{DoxySince}
+\begin{DoxyParagraph}{License\+: THe MIT License}
+
+\end{DoxyParagraph}
+\begin{DoxyCopyright}{Copyright}
+© 2019 -\/ 2020 Simon Meaden. All rights reserved.
+\end{DoxyCopyright}
+All properties of the QLine\+Edit are copied across to this widget. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classLabelledLineEdit_aef286d9202c71d0c689410e4e70398b9}\label{classLabelledLineEdit_aef286d9202c71d0c689410e4e70398b9}} 
+\index{LabelledLineEdit@{LabelledLineEdit}!LabelledLineEdit@{LabelledLineEdit}}
+\index{LabelledLineEdit@{LabelledLineEdit}!LabelledLineEdit@{LabelledLineEdit}}
+\doxysubsubsection{\texorpdfstring{LabelledLineEdit()}{LabelledLineEdit()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Labelled\+Line\+Edit\+::\+Labelled\+Line\+Edit (\begin{DoxyParamCaption}\item[{const QString \&}]{label\+Text,  }\item[{QWidget $\ast$}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructs a \mbox{\hyperlink{classLabelledLineEdit}{Labelled\+Line\+Edit}} with given label\+Text and default parent. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em label\+Text} & the label text string. \\
+\hline
+{\em parent} & the parent widget. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classLabelledLineEdit_a7e05d181daf0c1d5b76b8b76fed3b4ff}\label{classLabelledLineEdit_a7e05d181daf0c1d5b76b8b76fed3b4ff}} 
+\index{LabelledLineEdit@{LabelledLineEdit}!LabelledLineEdit@{LabelledLineEdit}}
+\index{LabelledLineEdit@{LabelledLineEdit}!LabelledLineEdit@{LabelledLineEdit}}
+\doxysubsubsection{\texorpdfstring{LabelledLineEdit()}{LabelledLineEdit()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Labelled\+Line\+Edit\+::\+Labelled\+Line\+Edit (\begin{DoxyParamCaption}\item[{const QString \&}]{label\+Text,  }\item[{const QString \&}]{contents,  }\item[{QWidget $\ast$}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructs a \mbox{\hyperlink{classLabelledLineEdit}{Labelled\+Line\+Edit}} with given label\+Text and lineedit contents, and default parent. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em label\+Text} & the label text string. \\
+\hline
+{\em contents} & of the QLine\+Edit. \\
+\hline
+{\em parent} & the parent widget. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classLabelledLineEdit_a643b53b6d728f42650d22a09ce511372}\label{classLabelledLineEdit_a643b53b6d728f42650d22a09ce511372}} 
+\index{LabelledLineEdit@{LabelledLineEdit}!addAction@{addAction}}
+\index{addAction@{addAction}!LabelledLineEdit@{LabelledLineEdit}}
+\doxysubsubsection{\texorpdfstring{addAction()}{addAction()}}
+{\footnotesize\ttfamily QAction$\ast$ Labelled\+Line\+Edit\+::add\+Action (\begin{DoxyParamCaption}\item[{const QIcon \&}]{icon,  }\item[{QLine\+Edit\+::\+Action\+Position}]{label\+Position }\end{DoxyParamCaption})}
+
+{\bfseries{Reimplements\+:}} QLine\+Edit\+::add\+Action(const QIcon\&,
+
+QLine\+Edit\+::\+Action\+Position). \mbox{\Hypertarget{classLabelledLineEdit_a18142b9af7e65268c9263dc73f63dd20}\label{classLabelledLineEdit_a18142b9af7e65268c9263dc73f63dd20}} 
+\index{LabelledLineEdit@{LabelledLineEdit}!isEmpty@{isEmpty}}
+\index{isEmpty@{isEmpty}!LabelledLineEdit@{LabelledLineEdit}}
+\doxysubsubsection{\texorpdfstring{isEmpty()}{isEmpty()}}
+{\footnotesize\ttfamily bool Labelled\+Line\+Edit\+::is\+Empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Checks whether the line edit is empty. Returns true if it is, otherwise returns false. \mbox{\Hypertarget{classLabelledLineEdit_a5b82213b959fa17e2e078dcd760f288f}\label{classLabelledLineEdit_a5b82213b959fa17e2e078dcd760f288f}} 
+\index{LabelledLineEdit@{LabelledLineEdit}!length@{length}}
+\index{length@{length}!LabelledLineEdit@{LabelledLineEdit}}
+\doxysubsubsection{\texorpdfstring{length()}{length()}}
+{\footnotesize\ttfamily int Labelled\+Line\+Edit\+::length (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Returns the length of the line edit text. This is an alias for \mbox{\hyperlink{classLabelledLineEdit_a137921083cd2ded2782627ab4c326f3a}{size()}}. 
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{classLabelledLineEdit_aa329ff15cd1d50420e702ebf62b872ca}\label{classLabelledLineEdit_aa329ff15cd1d50420e702ebf62b872ca}} 
+\index{LabelledLineEdit@{LabelledLineEdit}!acceptableInput@{acceptableInput}}
+\index{acceptableInput@{acceptableInput}!LabelledLineEdit@{LabelledLineEdit}}
+\doxysubsubsection{\texorpdfstring{acceptableInput}{acceptableInput}}
+{\footnotesize\ttfamily Labelled\+Line\+Edit\+::acceptable\+Input\hspace{0.3cm}{\ttfamily [read]}}
+
+
+
+This property holds whether the input satisfies the input\+Mask and the validator. 
+
+{\bfseries{Reimplements\+:}} QLine\+Edit\+::acceptable\+Input
+
+{\bfseries{Accessor\+:}} has\+Acceptable\+Input() \mbox{\Hypertarget{classLabelledLineEdit_ae8bbb523e743e1a4b6c99aa03c48ac4e}\label{classLabelledLineEdit_ae8bbb523e743e1a4b6c99aa03c48ac4e}} 
+\index{LabelledLineEdit@{LabelledLineEdit}!clearButtonEnabled@{clearButtonEnabled}}
+\index{clearButtonEnabled@{clearButtonEnabled}!LabelledLineEdit@{LabelledLineEdit}}
+\doxysubsubsection{\texorpdfstring{clearButtonEnabled}{clearButtonEnabled}}
+{\footnotesize\ttfamily Labelled\+Line\+Edit\+::clear\+Button\+Enabled\hspace{0.3cm}{\ttfamily [read]}}
+
+
+
+This property holds whether the line edit displays a clear button when it is not empty. 
+
+{\bfseries{Reimplements\+:}} QLine\+Edit\+::clear\+Button\+Enabled
+
+{\bfseries{Accessor\+:}} is\+Clear\+Button\+Enabled() , \%2 \mbox{\Hypertarget{classLabelledLineEdit_a42eeb387837af127544a3ba45af5439a}\label{classLabelledLineEdit_a42eeb387837af127544a3ba45af5439a}} 
+\index{LabelledLineEdit@{LabelledLineEdit}!cursorMoveStyle@{cursorMoveStyle}}
+\index{cursorMoveStyle@{cursorMoveStyle}!LabelledLineEdit@{LabelledLineEdit}}
+\doxysubsubsection{\texorpdfstring{cursorMoveStyle}{cursorMoveStyle}}
+{\footnotesize\ttfamily Labelled\+Line\+Edit\+::cursor\+Move\+Style\hspace{0.3cm}{\ttfamily [read]}}
+
+
+
+This property holds the movement style of cursor in this line edit. 
+
+{\bfseries{Reimplements\+:}} QLine\+Edit\+::cursor\+Move\+Style
+
+{\bfseries{Accessor\+:}} cursor\+Move\+Style() , \%2 \mbox{\Hypertarget{classLabelledLineEdit_a5fae2b35ed618dc2c0c7dc6615699701}\label{classLabelledLineEdit_a5fae2b35ed618dc2c0c7dc6615699701}} 
+\index{LabelledLineEdit@{LabelledLineEdit}!cursorPosition@{cursorPosition}}
+\index{cursorPosition@{cursorPosition}!LabelledLineEdit@{LabelledLineEdit}}
+\doxysubsubsection{\texorpdfstring{cursorPosition}{cursorPosition}}
+{\footnotesize\ttfamily Labelled\+Line\+Edit\+::cursor\+Position\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+This property holds the current cursor position for this line edit. 
+
+{\bfseries{Reimplements\+:}} QLine\+Edit\+::cursor\+Position
+
+{\bfseries{Accessor\+:}} cursor\+Position() , \%2 \mbox{\Hypertarget{classLabelledLineEdit_a45fb5f9001ef196132ca81c008aebfd7}\label{classLabelledLineEdit_a45fb5f9001ef196132ca81c008aebfd7}} 
+\index{LabelledLineEdit@{LabelledLineEdit}!displayText@{displayText}}
+\index{displayText@{displayText}!LabelledLineEdit@{LabelledLineEdit}}
+\doxysubsubsection{\texorpdfstring{displayText}{displayText}}
+{\footnotesize\ttfamily Labelled\+Line\+Edit\+::display\+Text\hspace{0.3cm}{\ttfamily [read]}}
+
+
+
+This property holds the displayed text. 
+
+{\bfseries{Reimplements\+:}} QLine\+Edit\+::display\+Text
+
+{\bfseries{Accessor\+:}} display\+Text() \mbox{\Hypertarget{classLabelledLineEdit_afeb13cafc1e5338e44498ea002507d11}\label{classLabelledLineEdit_afeb13cafc1e5338e44498ea002507d11}} 
+\index{LabelledLineEdit@{LabelledLineEdit}!dragEnabled@{dragEnabled}}
+\index{dragEnabled@{dragEnabled}!LabelledLineEdit@{LabelledLineEdit}}
+\doxysubsubsection{\texorpdfstring{dragEnabled}{dragEnabled}}
+{\footnotesize\ttfamily Labelled\+Line\+Edit\+::drag\+Enabled\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+This property holds whether the lineedit starts a drag if the user presses and moves the mouse on some selected text. 
+
+{\bfseries{Reimplements\+:}} QLine\+Edit\+::drag\+Enabled
+
+{\bfseries{Accessor\+:}} drag\+Enabled() , \%2 \mbox{\Hypertarget{classLabelledLineEdit_a73219b13de99effad62145ffbc5587c3}\label{classLabelledLineEdit_a73219b13de99effad62145ffbc5587c3}} 
+\index{LabelledLineEdit@{LabelledLineEdit}!echoMode@{echoMode}}
+\index{echoMode@{echoMode}!LabelledLineEdit@{LabelledLineEdit}}
+\doxysubsubsection{\texorpdfstring{echoMode}{echoMode}}
+{\footnotesize\ttfamily Labelled\+Line\+Edit\+::echo\+Mode\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+This property holds the line edit\textquotesingle{}s echo mode. 
+
+{\bfseries{Reimplements\+:}} QLine\+Edit\+::echo\+Mode
+
+{\bfseries{Accessor\+:}} echo\+Mode() , \%2 \mbox{\Hypertarget{classLabelledLineEdit_ad60c59e32037f9d2db9489dac9138b11}\label{classLabelledLineEdit_ad60c59e32037f9d2db9489dac9138b11}} 
+\index{LabelledLineEdit@{LabelledLineEdit}!inputMask@{inputMask}}
+\index{inputMask@{inputMask}!LabelledLineEdit@{LabelledLineEdit}}
+\doxysubsubsection{\texorpdfstring{inputMask}{inputMask}}
+{\footnotesize\ttfamily Labelled\+Line\+Edit\+::input\+Mask\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+This property holds the validation input mask. 
+
+{\bfseries{Reimplements\+:}} QLine\+Edit\+::input\+Mask
+
+{\bfseries{Accessor\+:}} input\+Mask() , \%2 \mbox{\Hypertarget{classLabelledLineEdit_aab62e6b42c8c3f2033e2e14532d7632b}\label{classLabelledLineEdit_aab62e6b42c8c3f2033e2e14532d7632b}} 
+\index{LabelledLineEdit@{LabelledLineEdit}!maxLength@{maxLength}}
+\index{maxLength@{maxLength}!LabelledLineEdit@{LabelledLineEdit}}
+\doxysubsubsection{\texorpdfstring{maxLength}{maxLength}}
+{\footnotesize\ttfamily Labelled\+Line\+Edit\+::max\+Length\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+This property holds the maximum permitted length of the text. 
+
+{\bfseries{Reimplements\+:}} QLine\+Edit\+::max\+Length
+
+{\bfseries{Accessor\+:}} max\+Length() , \%2 \mbox{\Hypertarget{classLabelledLineEdit_ac26d249e78010be3d60e41acf25cabb6}\label{classLabelledLineEdit_ac26d249e78010be3d60e41acf25cabb6}} 
+\index{LabelledLineEdit@{LabelledLineEdit}!modified@{modified}}
+\index{modified@{modified}!LabelledLineEdit@{LabelledLineEdit}}
+\doxysubsubsection{\texorpdfstring{modified}{modified}}
+{\footnotesize\ttfamily Labelled\+Line\+Edit\+::modified\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+This property holds whether the line edit\textquotesingle{}s contents has been modified by the user. 
+
+{\bfseries{Reimplements\+:}} QLine\+Edit\+::modified
+
+{\bfseries{Accessor\+:}} is\+Modified() , \%2 \mbox{\Hypertarget{classLabelledLineEdit_a48a21eae7aaf18bd347e55ae2f2b0c02}\label{classLabelledLineEdit_a48a21eae7aaf18bd347e55ae2f2b0c02}} 
+\index{LabelledLineEdit@{LabelledLineEdit}!placeholderText@{placeholderText}}
+\index{placeholderText@{placeholderText}!LabelledLineEdit@{LabelledLineEdit}}
+\doxysubsubsection{\texorpdfstring{placeholderText}{placeholderText}}
+{\footnotesize\ttfamily Labelled\+Line\+Edit\+::placeholder\+Text\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+Sets a placeholder\+Text text shown when no valid index is set. 
+
+{\bfseries{Reimplements\+:}} QLine\+Edit\+::placeholder\+Text
+
+{\bfseries{Accessor\+:}} placeholder\+Text(void) , \%2 \mbox{\Hypertarget{classLabelledLineEdit_a8f4f54294d1c5885f940d9662d0ad0e7}\label{classLabelledLineEdit_a8f4f54294d1c5885f940d9662d0ad0e7}} 
+\index{LabelledLineEdit@{LabelledLineEdit}!readOnly@{readOnly}}
+\index{readOnly@{readOnly}!LabelledLineEdit@{LabelledLineEdit}}
+\doxysubsubsection{\texorpdfstring{readOnly}{readOnly}}
+{\footnotesize\ttfamily Labelled\+Line\+Edit\+::read\+Only\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+This property holds whether the line edit is read only. 
+
+{\bfseries{Reimplements\+:}} QLine\+Edit\+::read\+Only
+
+{\bfseries{Accessor\+:}} is\+Read\+Only() , \%2 \mbox{\Hypertarget{classLabelledLineEdit_a39f78ca12169aa07cc75c4776ee6f8de}\label{classLabelledLineEdit_a39f78ca12169aa07cc75c4776ee6f8de}} 
+\index{LabelledLineEdit@{LabelledLineEdit}!redoAvailable@{redoAvailable}}
+\index{redoAvailable@{redoAvailable}!LabelledLineEdit@{LabelledLineEdit}}
+\doxysubsubsection{\texorpdfstring{redoAvailable}{redoAvailable}}
+{\footnotesize\ttfamily Labelled\+Line\+Edit\+::redo\+Available\hspace{0.3cm}{\ttfamily [read]}}
+
+
+
+This property holds whether redo is available. 
+
+{\bfseries{Reimplements\+:}} QLine\+Edit\+::redo\+Available
+
+{\bfseries{Accessor\+:}} is\+Redo\+Available() \mbox{\Hypertarget{classLabelledLineEdit_a2c2e284c1dc28d8b200efd854bd7743c}\label{classLabelledLineEdit_a2c2e284c1dc28d8b200efd854bd7743c}} 
+\index{LabelledLineEdit@{LabelledLineEdit}!selectedText@{selectedText}}
+\index{selectedText@{selectedText}!LabelledLineEdit@{LabelledLineEdit}}
+\doxysubsubsection{\texorpdfstring{selectedText}{selectedText}}
+{\footnotesize\ttfamily Labelled\+Line\+Edit\+::selected\+Text\hspace{0.3cm}{\ttfamily [read]}}
+
+
+
+This property holds whether there is any text selected. 
+
+{\bfseries{Reimplements\+:}} QLine\+Edit\+::selected\+Text
+
+{\bfseries{Accessor\+:}} has\+Selected\+Text() \mbox{\Hypertarget{classLabelledLineEdit_ab2fa9b7a00ff20333329e7b8a0f484b3}\label{classLabelledLineEdit_ab2fa9b7a00ff20333329e7b8a0f484b3}} 
+\index{LabelledLineEdit@{LabelledLineEdit}!text@{text}}
+\index{text@{text}!LabelledLineEdit@{LabelledLineEdit}}
+\doxysubsubsection{\texorpdfstring{text}{text}}
+{\footnotesize\ttfamily Labelled\+Line\+Edit\+::text\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+This property holds the line edit\textquotesingle{}s text. 
+
+{\bfseries{Reimplements\+:}} QLine\+Edit\+::text
+
+{\bfseries{Accessor\+:}} text(void) , \%2 {\bfseries{Notifier\+:}} \mbox{\hyperlink{classLabelledLineEdit_a2d4abb8fb669d26f974bb435b0188d19}{text\+Changed(const QString\&)}} \mbox{\Hypertarget{classLabelledLineEdit_a9100286e821dea60ad97d638bc737cda}\label{classLabelledLineEdit_a9100286e821dea60ad97d638bc737cda}} 
+\index{LabelledLineEdit@{LabelledLineEdit}!undoAvailable@{undoAvailable}}
+\index{undoAvailable@{undoAvailable}!LabelledLineEdit@{LabelledLineEdit}}
+\doxysubsubsection{\texorpdfstring{undoAvailable}{undoAvailable}}
+{\footnotesize\ttfamily Labelled\+Line\+Edit\+::undo\+Available\hspace{0.3cm}{\ttfamily [read]}}
+
+
+
+This property holds whether undo is available. 
+
+{\bfseries{Reimplements\+:}} QLine\+Edit\+::undo\+Available
+
+{\bfseries{Accessor\+:}} is\+Undo\+Available() \mbox{\Hypertarget{classLabelledLineEdit_a2274dc2117b595921111606532f07abb}\label{classLabelledLineEdit_a2274dc2117b595921111606532f07abb}} 
+\index{LabelledLineEdit@{LabelledLineEdit}!widgetAlignment@{widgetAlignment}}
+\index{widgetAlignment@{widgetAlignment}!LabelledLineEdit@{LabelledLineEdit}}
+\doxysubsubsection{\texorpdfstring{widgetAlignment}{widgetAlignment}}
+{\footnotesize\ttfamily Labelled\+Line\+Edit\+::widget\+Alignment\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+This property holds the alignment of the line edit. 
+
+{\bfseries{Reimplements\+:}} QLine\+Edit\+::widget\+Alignment
+
+{\bfseries{Accessor\+:}} widget\+Alignment() , \%2 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{labelledlineedit_8h}{labelledlineedit.\+h}}\end{DoxyCompactItemize}

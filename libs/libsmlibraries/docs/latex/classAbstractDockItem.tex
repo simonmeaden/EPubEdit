@@ -1,0 +1,356 @@
+\hypertarget{classAbstractDockItem}{}\doxysection{Abstract\+Dock\+Item Class Reference}
+\label{classAbstractDockItem}\index{AbstractDockItem@{AbstractDockItem}}
+
+
+This class is the base class of all the Toolbar\+Widget/\+Header\+Widget and \mbox{\hyperlink{classFooterWidget}{Footer\+Widget}} classes and does most of the background work of those classes.  
+
+
+
+
+{\ttfamily \#include \char`\"{}include/docker/abstractdockitem.\+h\char`\"{}}
+
+Inheritance diagram for Abstract\+Dock\+Item\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.414634cm]{classAbstractDockItem}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classAbstractDockItem_a4176c3db92db1e91fdb7c1cf611643a5}\label{classAbstractDockItem_a4176c3db92db1e91fdb7c1cf611643a5}} 
+\mbox{\hyperlink{classAbstractDockItem_a4176c3db92db1e91fdb7c1cf611643a5}{Abstract\+Dock\+Item}} (Dock\+Position position, \mbox{\hyperlink{classAbstractDockWidget}{Abstract\+Dock\+Widget}} $\ast$parent)
+\begin{DoxyCompactList}\small\item\em Constructs a Dock\+Item which is a child of parent. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classButtonWidget}{Button\+Widget}} $\ast$ \mbox{\hyperlink{classAbstractDockItem_a88d5794b01067d6ec3a381a6bf7f3ca6}{add\+Icon\+Button}} (Widget\+Position pos, QIcon icon, QSize icon\+Size, const QString \&tooltip=QString())
+\begin{DoxyCompactList}\small\item\em Adds an icon only \mbox{\hyperlink{classButtonWidget}{Button\+Widget}} to the Header/\+Footer/\+Toolbar widget with an optional tooltip. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classButtonWidget}{Button\+Widget}} $\ast$ \mbox{\hyperlink{classAbstractDockItem_a38d6f6eb3cf1d8a6966f250d6ce7f326}{add\+Icon\+List\+Button}} (Widget\+Position pos, QIcon icon, QSize icon\+Size, const QString \&tooltip=QString())
+\begin{DoxyCompactList}\small\item\em Adds an icon only \mbox{\hyperlink{classListButtonWidget}{List\+Button\+Widget}} to the Header/\+Footer/\+Toolbar widget with an optional tooltip. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classButtonWidget}{Button\+Widget}} $\ast$ \mbox{\hyperlink{classAbstractDockItem_a00b2fed068ba081ccb17b50a2d9b2c03}{add\+Icon\+Text\+Button}} (Widget\+Position pos, QIcon icon, QSize icon\+Size, const QString \&text, Arrangement text\+Pos=Arrangement\+::\+Text\+Below\+Icon, const QString \&tooltip=QString())
+\begin{DoxyCompactList}\small\item\em Adds an icon with text \mbox{\hyperlink{classButtonWidget}{Button\+Widget}} to the Header/\+Footer/\+Toolbar widget and an optional tooltip. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classButtonWidget}{Button\+Widget}} $\ast$ \mbox{\hyperlink{classAbstractDockItem_a1d242fc4babf406522b0916d4d501a09}{add\+Icon\+Text\+List\+Button}} (Widget\+Position pos, QIcon icon, QSize icon\+Size, const QString \&text, Arrangement text\+Pos=Arrangement\+::\+Text\+Below\+Icon, const QString \&tooltip=QString())
+\begin{DoxyCompactList}\small\item\em Adds an icon with text \mbox{\hyperlink{classListButtonWidget}{List\+Button\+Widget}} to the Header/\+Footer/\+Toolbar widget and an optional tooltip. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classButtonWidget}{Button\+Widget}} $\ast$ \mbox{\hyperlink{classAbstractDockItem_afdfae8ed141811458f481fdbe1c0e64e}{add\+Text\+Button}} (Widget\+Position pos, const QString \&text, const QString \&tooltip=QString())
+\begin{DoxyCompactList}\small\item\em Adds an text only \mbox{\hyperlink{classButtonWidget}{Button\+Widget}} to the Header/\+Footer/\+Toolbar widget with an optional tooltip. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classButtonWidget}{Button\+Widget}} $\ast$ \mbox{\hyperlink{classAbstractDockItem_a119ab2a027f915d88b4151f03686e4ae}{add\+Text\+List\+Button}} (Widget\+Position pos, const QString \&text, const QString \&tooltip=QString())
+\begin{DoxyCompactList}\small\item\em Adds an text only \mbox{\hyperlink{classListButtonWidget}{List\+Button\+Widget}} to the Header/\+Footer/\+Toolbar widget with an optional tooltip. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classWidgetItem}{Widget\+Item}} $\ast$ \mbox{\hyperlink{classAbstractDockItem_aef302be5a9d2a48772149a0d378d7f7a}{add\+Text\+Label}} (Widget\+Position pos, const QString \&text, const QString \&tooltip=QString())
+\begin{DoxyCompactList}\small\item\em Adds a text label to the Header/\+Footer/\+Toolbar widget with an optional tooltip. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classWidgetItem}{Widget\+Item}} $\ast$ \mbox{\hyperlink{classAbstractDockItem_aa597c450d91122c3b5694cb7553692a8}{add\+Seperator}} (Widget\+Position)
+\begin{DoxyCompactList}\small\item\em add\+Spacer \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractDockItem_a4db0d07d4a99d62749855db7f708bc9d}\label{classAbstractDockItem_a4db0d07d4a99d62749855db7f708bc9d}} 
+\mbox{\hyperlink{classWidgetItem}{Widget\+Item}} $\ast$ \mbox{\hyperlink{classAbstractDockItem_a4db0d07d4a99d62749855db7f708bc9d}{add\+Custom\+Widget}} (\mbox{\hyperlink{classCustomWidget}{Custom\+Widget}} $\ast$w)
+\begin{DoxyCompactList}\small\item\em Adds a custom widget to the Header/\+Footer/\+Toolbar widget. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classAbstractDockItem_adc324b533f25a3b148029836f092b5cf}{set\+Text}} (int index, const QString \&text)
+\begin{DoxyCompactList}\small\item\em Sets the text in the Header/\+Footer/\+Toolbar widget. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractDockItem_a19f987bc15aadbd0b6859f94d4be672c}\label{classAbstractDockItem_a19f987bc15aadbd0b6859f94d4be672c}} 
+void \mbox{\hyperlink{classAbstractDockItem_a19f987bc15aadbd0b6859f94d4be672c}{set\+Tool\+Tip}} (int index, const QString \&tooltip)
+\begin{DoxyCompactList}\small\item\em Sets the tooltip in the widget. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classWidgetItem}{Widget\+Item}} $\ast$ \mbox{\hyperlink{classAbstractDockItem_af0b2151d04006c784d2a530d32ed50d8}{take\+At}} (int index)
+\begin{DoxyCompactList}\small\item\em Returns and removes the widget at the index. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classWidgetItem}{Widget\+Item}} $\ast$ \mbox{\hyperlink{classAbstractDockItem_a041c529021fda0ce466dd7c8403554a3}{at}} (int index)
+\begin{DoxyCompactList}\small\item\em Returns the widget at the index. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractDockItem_a5d6c75b3fedd1548b2c2e37a0413bd53}\label{classAbstractDockItem_a5d6c75b3fedd1548b2c2e37a0413bd53}} 
+int \mbox{\hyperlink{classAbstractDockItem_a5d6c75b3fedd1548b2c2e37a0413bd53}{count}} ()
+\begin{DoxyCompactList}\small\item\em Returns the number of \mbox{\hyperlink{classWidgetItem}{Widget\+Item}} stored in this \mbox{\hyperlink{classAbstractDockItem}{Abstract\+Dock\+Item}}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classAbstractDockItem_a7fdaa6b4163158df6d75382e4076b5b5}{replace}} (int index, \mbox{\hyperlink{classWidgetItem}{Widget\+Item}} $\ast$w)
+\begin{DoxyCompactList}\small\item\em Replaces the existing widget with another. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classAbstractDockItem_a9bbd5fb5db3260e9b8274e73eb59ba30}{widget\+Enabled}} (int index)
+\item 
+\mbox{\Hypertarget{classAbstractDockItem_abdc0f7f9c7b20d0b771f61cefd64ddb9}\label{classAbstractDockItem_abdc0f7f9c7b20d0b771f61cefd64ddb9}} 
+bool \mbox{\hyperlink{classAbstractDockItem_abdc0f7f9c7b20d0b771f61cefd64ddb9}{enable\+Widget}} (int index, bool value)
+\begin{DoxyCompactList}\small\item\em Enables the widget at index if value is true, otherwise disables widget. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classAbstractDockItem_a64c92680486190dfbdcae5a87f99dc32}{selected}} (int index)
+\item 
+\mbox{\Hypertarget{classAbstractDockItem_aab1f7241ba05842d2cb74528999223c4}\label{classAbstractDockItem_aab1f7241ba05842d2cb74528999223c4}} 
+bool \mbox{\hyperlink{classAbstractDockItem_aab1f7241ba05842d2cb74528999223c4}{set\+Selected}} (int index, bool value)
+\begin{DoxyCompactList}\small\item\em Selects the widget at index if value is true, otherwise deselects widget. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractDockItem_aa04131882135d76aded806cf7980054d}\label{classAbstractDockItem_aa04131882135d76aded806cf7980054d}} 
+QMargins \mbox{\hyperlink{classAbstractDockItem_aa04131882135d76aded806cf7980054d}{widget\+Margins}} (int index)
+\begin{DoxyCompactList}\small\item\em Returns the margins of the selected widget at index. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractDockItem_a60f7840d0845e9f8ceea03868eaa918d}\label{classAbstractDockItem_a60f7840d0845e9f8ceea03868eaa918d}} 
+void \mbox{\hyperlink{classAbstractDockItem_a60f7840d0845e9f8ceea03868eaa918d}{set\+Widget\+Margins}} (int index, int left, int top, int right, int bottom)
+\begin{DoxyCompactList}\small\item\em Sets the margins of the selected widget at index. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractDockItem_acd3c57eca0560f3b7025ba85c38f6d8e}\label{classAbstractDockItem_acd3c57eca0560f3b7025ba85c38f6d8e}} 
+void \mbox{\hyperlink{classAbstractDockItem_acd3c57eca0560f3b7025ba85c38f6d8e}{set\+Preferred\+Size}} (int \mbox{\hyperlink{classAbstractDockItem_a37b072dc62f9389504f905e78ac4d172}{width}}, int \mbox{\hyperlink{classAbstractDockItem_aeaad65193546a558398f8e4757a506d4}{height}})
+\begin{DoxyCompactList}\small\item\em Sets the preferred size to width and height. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractDockItem_ab243b3634b72f908f2f8e015278d1860}\label{classAbstractDockItem_ab243b3634b72f908f2f8e015278d1860}} 
+void \mbox{\hyperlink{classAbstractDockItem_ab243b3634b72f908f2f8e015278d1860}{set\+Preferred\+Size}} (QSize size)
+\begin{DoxyCompactList}\small\item\em Sets the preferred size to size. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractDockItem_a5c7cf2cf57c16237d90384b449e30e83}\label{classAbstractDockItem_a5c7cf2cf57c16237d90384b449e30e83}} 
+void \mbox{\hyperlink{classAbstractDockItem_a5c7cf2cf57c16237d90384b449e30e83}{set\+Preferred\+Width}} (int \mbox{\hyperlink{classAbstractDockItem_a37b072dc62f9389504f905e78ac4d172}{width}})
+\begin{DoxyCompactList}\small\item\em Sets the preferred width to width. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractDockItem_a4ff220e49b3c3263e97c0cb09759a9d9}\label{classAbstractDockItem_a4ff220e49b3c3263e97c0cb09759a9d9}} 
+void \mbox{\hyperlink{classAbstractDockItem_a4ff220e49b3c3263e97c0cb09759a9d9}{set\+Preferred\+Height}} (int \mbox{\hyperlink{classAbstractDockItem_aeaad65193546a558398f8e4757a506d4}{height}})
+\begin{DoxyCompactList}\small\item\em Sets the preferred height to height. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractDockItem_acc5cbd90d65a3fcbd568ec0f22688883}\label{classAbstractDockItem_acc5cbd90d65a3fcbd568ec0f22688883}} 
+Dock\+Position \mbox{\hyperlink{classAbstractDockItem_acc5cbd90d65a3fcbd568ec0f22688883}{dock\+Position}} () const
+\begin{DoxyCompactList}\small\item\em Returns the Dock\+Position of the Dock\+Item. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractDockItem_aeaad65193546a558398f8e4757a506d4}\label{classAbstractDockItem_aeaad65193546a558398f8e4757a506d4}} 
+int \mbox{\hyperlink{classAbstractDockItem_aeaad65193546a558398f8e4757a506d4}{height}} ()
+\begin{DoxyCompactList}\small\item\em Returns the height of the Dock\+Item. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractDockItem_ab40e0cbe106fc5b60d780c1414da5ef0}\label{classAbstractDockItem_ab40e0cbe106fc5b60d780c1414da5ef0}} 
+void \mbox{\hyperlink{classAbstractDockItem_ab40e0cbe106fc5b60d780c1414da5ef0}{set\+Height}} (int \mbox{\hyperlink{classAbstractDockItem_aeaad65193546a558398f8e4757a506d4}{height}})
+\begin{DoxyCompactList}\small\item\em sets the height of the Dock\+Item. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractDockItem_a37b072dc62f9389504f905e78ac4d172}\label{classAbstractDockItem_a37b072dc62f9389504f905e78ac4d172}} 
+int \mbox{\hyperlink{classAbstractDockItem_a37b072dc62f9389504f905e78ac4d172}{width}} ()
+\begin{DoxyCompactList}\small\item\em Returns the width of the Dock\+Item. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractDockItem_af983271583da0f276319bb4bad1052f9}\label{classAbstractDockItem_af983271583da0f276319bb4bad1052f9}} 
+void \mbox{\hyperlink{classAbstractDockItem_af983271583da0f276319bb4bad1052f9}{set\+Width}} (int \mbox{\hyperlink{classAbstractDockItem_a37b072dc62f9389504f905e78ac4d172}{width}})
+\begin{DoxyCompactList}\small\item\em sets the width of the Dock\+Item. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractDockItem_aa926e9c03fac1d79757f821d640f3453}\label{classAbstractDockItem_aa926e9c03fac1d79757f821d640f3453}} 
+bool \mbox{\hyperlink{classAbstractDockItem_aa926e9c03fac1d79757f821d640f3453}{is\+Visible}} () const
+\begin{DoxyCompactList}\small\item\em Returns the value of the visible flag. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractDockItem_aa1702ab7c6794bfc3535f61bfd4949e5}\label{classAbstractDockItem_aa1702ab7c6794bfc3535f61bfd4949e5}} 
+void \mbox{\hyperlink{classAbstractDockItem_aa1702ab7c6794bfc3535f61bfd4949e5}{set\+Visible}} (bool new\+Show)
+\begin{DoxyCompactList}\small\item\em Sets the value of the visible flag. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractDockItem_a91f914b11c77b202bff7fe5f8b9d0e85}\label{classAbstractDockItem_a91f914b11c77b202bff7fe5f8b9d0e85}} 
+void \mbox{\hyperlink{classAbstractDockItem_a91f914b11c77b202bff7fe5f8b9d0e85}{show}} ()
+\begin{DoxyCompactList}\small\item\em Shows the Dock\+Item. Equivalent of set\+Visible(true). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractDockItem_a5a2940f89dedf949e57f67b19d6c72bf}\label{classAbstractDockItem_a5a2940f89dedf949e57f67b19d6c72bf}} 
+void \mbox{\hyperlink{classAbstractDockItem_a5a2940f89dedf949e57f67b19d6c72bf}{hide}} ()
+\begin{DoxyCompactList}\small\item\em Hides the Dock\+Item. Equivalent of set\+Visible(false). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractDockItem_a221001ec3f1ea739b655561090ea3937}\label{classAbstractDockItem_a221001ec3f1ea739b655561090ea3937}} 
+virtual void \mbox{\hyperlink{classAbstractDockItem_a221001ec3f1ea739b655561090ea3937}{paint}} (QPainter \&painter)
+\begin{DoxyCompactList}\small\item\em paints the dock item \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractDockItem_a7b51168f0d291408a575478ea3ddf7a2}\label{classAbstractDockItem_a7b51168f0d291408a575478ea3ddf7a2}} 
+const QList$<$ \mbox{\hyperlink{classWidgetItem}{Widget\+Item}} $\ast$ $>$ \& \mbox{\hyperlink{classAbstractDockItem_a7b51168f0d291408a575478ea3ddf7a2}{widgets}} () const
+\begin{DoxyCompactList}\small\item\em Returns a list of all the \mbox{\hyperlink{classWidgetItem}{Widget\+Item}}\textquotesingle{}s added to this Dock\+Item. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractDockItem_a19c00d627cf20b6898eb981a0f7ed6af}\label{classAbstractDockItem_a19c00d627cf20b6898eb981a0f7ed6af}} 
+const QRect \& \mbox{\hyperlink{classAbstractDockItem_a19c00d627cf20b6898eb981a0f7ed6af}{rect}} () const
+\begin{DoxyCompactList}\small\item\em Defines the QRect display area of this \mbox{\hyperlink{classDockWidget}{Dock\+Widget}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractDockItem_a5927909503207436e0d9385c4a193255}\label{classAbstractDockItem_a5927909503207436e0d9385c4a193255}} 
+virtual QSize \mbox{\hyperlink{classAbstractDockItem_a5927909503207436e0d9385c4a193255}{size\+Hint}} () const =0
+\begin{DoxyCompactList}\small\item\em Returns a size hint for this object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractDockItem_a7dfd8ad94c30ba4ec547386a1baec968}\label{classAbstractDockItem_a7dfd8ad94c30ba4ec547386a1baec968}} 
+void \mbox{\hyperlink{classAbstractDockItem_a7dfd8ad94c30ba4ec547386a1baec968}{calculate\+Geometry}} (const QRect \&\mbox{\hyperlink{classAbstractDockItem_a19c00d627cf20b6898eb981a0f7ed6af}{rect}})
+\begin{DoxyCompactList}\small\item\em Recalculates the geometry of this Dock\+Item and it\textquotesingle{}s children. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractDockItem_ab0f423a2b38342974f5cf5328342d24f}\label{classAbstractDockItem_ab0f423a2b38342974f5cf5328342d24f}} 
+void \mbox{\hyperlink{classAbstractDockItem_ab0f423a2b38342974f5cf5328342d24f}{calc\+Max\+Widget\+Sizes}} ()
+\begin{DoxyCompactList}\small\item\em Calculates the maximum widget sizes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classAbstractDockItem_a2d0966c9e550875122971cfb562dbc3a}\label{classAbstractDockItem_a2d0966c9e550875122971cfb562dbc3a}} 
+\mbox{\hyperlink{classAbstractDockItem_a2d0966c9e550875122971cfb562dbc3a}{Abstract\+Dock\+Item}} (Abstract\+Dock\+Item\+Private \&d)
+\begin{DoxyCompactList}\small\item\em protected d\+\_\+ptr constructor \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractDockItem_ae67446f45d77049a735d04107a18aad3}\label{classAbstractDockItem_ae67446f45d77049a735d04107a18aad3}} 
+void \mbox{\hyperlink{classAbstractDockItem_ae67446f45d77049a735d04107a18aad3}{clone}} (QObject $\ast$object) override
+\begin{DoxyCompactList}\small\item\em Creates a clone of the Dock\+Item, passing it\textquotesingle{}s variables and settings into the supplied \textquotesingle{}master\textquotesingle{}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classWidgetItem}{Widget\+Item}} $\ast$ \mbox{\hyperlink{classAbstractDockItem_a455fb46ec9ee1ca008a58b5aecae309f}{add\+Item}} (\mbox{\hyperlink{classWidgetItem}{Widget\+Item}} $\ast$item)
+\begin{DoxyCompactList}\small\item\em Adds a prebuilt widget to the Dock\+Toolbar/\+Dock\+Header/\+Dock\+Footer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classAbstractDockItem_ab42949d7412538295fc771c452aafcbf}\label{classAbstractDockItem_ab42949d7412538295fc771c452aafcbf}} 
+Abstract\+Dock\+Item\+Private $\ast$ \mbox{\hyperlink{classAbstractDockItem_ab42949d7412538295fc771c452aafcbf}{d\+\_\+ptr}} = nullptr
+\begin{DoxyCompactList}\small\item\em protected d\+\_\+ptr instance \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classAbstractDockItem_afbb788488de875e32f2936fc866e9621}\label{classAbstractDockItem_afbb788488de875e32f2936fc866e9621}} 
+class {\bfseries Header\+Widget}
+\item 
+\mbox{\Hypertarget{classAbstractDockItem_a3e4a46070cf48bd7885117232387779c}\label{classAbstractDockItem_a3e4a46070cf48bd7885117232387779c}} 
+class {\bfseries Footer\+Widget}
+\item 
+\mbox{\Hypertarget{classAbstractDockItem_adebdc5fa4b4d2e878e776a0c5703fcea}\label{classAbstractDockItem_adebdc5fa4b4d2e878e776a0c5703fcea}} 
+class {\bfseries Header\+Footer\+Widget}
+\item 
+\mbox{\Hypertarget{classAbstractDockItem_a4389cbe33dc7c394abc8290a07ac6e5b}\label{classAbstractDockItem_a4389cbe33dc7c394abc8290a07ac6e5b}} 
+class {\bfseries Dock\+Widget}
+\item 
+\mbox{\Hypertarget{classAbstractDockItem_a850d1bf365fdb8adce8ef52b4392cb44}\label{classAbstractDockItem_a850d1bf365fdb8adce8ef52b4392cb44}} 
+class {\bfseries Seperator\+Widget}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class is the base class of all the Toolbar\+Widget/\+Header\+Widget and \mbox{\hyperlink{classFooterWidget}{Footer\+Widget}} classes and does most of the background work of those classes. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classAbstractDockItem_a88d5794b01067d6ec3a381a6bf7f3ca6}\label{classAbstractDockItem_a88d5794b01067d6ec3a381a6bf7f3ca6}} 
+\index{AbstractDockItem@{AbstractDockItem}!addIconButton@{addIconButton}}
+\index{addIconButton@{addIconButton}!AbstractDockItem@{AbstractDockItem}}
+\doxysubsubsection{\texorpdfstring{addIconButton()}{addIconButton()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classButtonWidget}{Button\+Widget}}$\ast$ Abstract\+Dock\+Item\+::add\+Icon\+Button (\begin{DoxyParamCaption}\item[{Widget\+Position}]{pos,  }\item[{QIcon}]{icon,  }\item[{QSize}]{icon\+Size,  }\item[{const QString \&}]{tooltip = {\ttfamily QString()} }\end{DoxyParamCaption})}
+
+
+
+Adds an icon only \mbox{\hyperlink{classButtonWidget}{Button\+Widget}} to the Header/\+Footer/\+Toolbar widget with an optional tooltip. 
+
+\begin{DoxyReturn}{Returns}
+a pointer to the stored wrapper. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classAbstractDockItem_a38d6f6eb3cf1d8a6966f250d6ce7f326}\label{classAbstractDockItem_a38d6f6eb3cf1d8a6966f250d6ce7f326}} 
+\index{AbstractDockItem@{AbstractDockItem}!addIconListButton@{addIconListButton}}
+\index{addIconListButton@{addIconListButton}!AbstractDockItem@{AbstractDockItem}}
+\doxysubsubsection{\texorpdfstring{addIconListButton()}{addIconListButton()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classButtonWidget}{Button\+Widget}}$\ast$ Abstract\+Dock\+Item\+::add\+Icon\+List\+Button (\begin{DoxyParamCaption}\item[{Widget\+Position}]{pos,  }\item[{QIcon}]{icon,  }\item[{QSize}]{icon\+Size,  }\item[{const QString \&}]{tooltip = {\ttfamily QString()} }\end{DoxyParamCaption})}
+
+
+
+Adds an icon only \mbox{\hyperlink{classListButtonWidget}{List\+Button\+Widget}} to the Header/\+Footer/\+Toolbar widget with an optional tooltip. 
+
+\begin{DoxyReturn}{Returns}
+a pointer to the stored wrapper. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classAbstractDockItem_a00b2fed068ba081ccb17b50a2d9b2c03}\label{classAbstractDockItem_a00b2fed068ba081ccb17b50a2d9b2c03}} 
+\index{AbstractDockItem@{AbstractDockItem}!addIconTextButton@{addIconTextButton}}
+\index{addIconTextButton@{addIconTextButton}!AbstractDockItem@{AbstractDockItem}}
+\doxysubsubsection{\texorpdfstring{addIconTextButton()}{addIconTextButton()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classButtonWidget}{Button\+Widget}}$\ast$ Abstract\+Dock\+Item\+::add\+Icon\+Text\+Button (\begin{DoxyParamCaption}\item[{Widget\+Position}]{pos,  }\item[{QIcon}]{icon,  }\item[{QSize}]{icon\+Size,  }\item[{const QString \&}]{text,  }\item[{Arrangement}]{text\+Pos = {\ttfamily Arrangement\+:\+:TextBelowIcon},  }\item[{const QString \&}]{tooltip = {\ttfamily QString()} }\end{DoxyParamCaption})}
+
+
+
+Adds an icon with text \mbox{\hyperlink{classButtonWidget}{Button\+Widget}} to the Header/\+Footer/\+Toolbar widget and an optional tooltip. 
+
+\begin{DoxyReturn}{Returns}
+a pointer to the stored wrapper. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classAbstractDockItem_a1d242fc4babf406522b0916d4d501a09}\label{classAbstractDockItem_a1d242fc4babf406522b0916d4d501a09}} 
+\index{AbstractDockItem@{AbstractDockItem}!addIconTextListButton@{addIconTextListButton}}
+\index{addIconTextListButton@{addIconTextListButton}!AbstractDockItem@{AbstractDockItem}}
+\doxysubsubsection{\texorpdfstring{addIconTextListButton()}{addIconTextListButton()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classButtonWidget}{Button\+Widget}}$\ast$ Abstract\+Dock\+Item\+::add\+Icon\+Text\+List\+Button (\begin{DoxyParamCaption}\item[{Widget\+Position}]{pos,  }\item[{QIcon}]{icon,  }\item[{QSize}]{icon\+Size,  }\item[{const QString \&}]{text,  }\item[{Arrangement}]{text\+Pos = {\ttfamily Arrangement\+:\+:TextBelowIcon},  }\item[{const QString \&}]{tooltip = {\ttfamily QString()} }\end{DoxyParamCaption})}
+
+
+
+Adds an icon with text \mbox{\hyperlink{classListButtonWidget}{List\+Button\+Widget}} to the Header/\+Footer/\+Toolbar widget and an optional tooltip. 
+
+\begin{DoxyReturn}{Returns}
+a pointer to the stored wrapper. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classAbstractDockItem_a455fb46ec9ee1ca008a58b5aecae309f}\label{classAbstractDockItem_a455fb46ec9ee1ca008a58b5aecae309f}} 
+\index{AbstractDockItem@{AbstractDockItem}!addItem@{addItem}}
+\index{addItem@{addItem}!AbstractDockItem@{AbstractDockItem}}
+\doxysubsubsection{\texorpdfstring{addItem()}{addItem()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classWidgetItem}{Widget\+Item}}$\ast$ Abstract\+Dock\+Item\+::add\+Item (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classWidgetItem}{Widget\+Item}} $\ast$}]{item }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Adds a prebuilt widget to the Dock\+Toolbar/\+Dock\+Header/\+Dock\+Footer. 
+
+This is used internally to allow the user to clone the appropriate Dock\+Item. This was originally added to allow the \mbox{\hyperlink{classMultiSplitter}{Multi\+Splitter}} widget to clone it\textquotesingle{}s various widgets along with their headers and footers without having to totally rebuild them from scatch. \mbox{\Hypertarget{classAbstractDockItem_aa597c450d91122c3b5694cb7553692a8}\label{classAbstractDockItem_aa597c450d91122c3b5694cb7553692a8}} 
+\index{AbstractDockItem@{AbstractDockItem}!addSeperator@{addSeperator}}
+\index{addSeperator@{addSeperator}!AbstractDockItem@{AbstractDockItem}}
+\doxysubsubsection{\texorpdfstring{addSeperator()}{addSeperator()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classWidgetItem}{Widget\+Item}}$\ast$ Abstract\+Dock\+Item\+::add\+Seperator (\begin{DoxyParamCaption}\item[{Widget\+Position}]{ }\end{DoxyParamCaption})}
+
+
+
+add\+Spacer 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classAbstractDockItem_afdfae8ed141811458f481fdbe1c0e64e}\label{classAbstractDockItem_afdfae8ed141811458f481fdbe1c0e64e}} 
+\index{AbstractDockItem@{AbstractDockItem}!addTextButton@{addTextButton}}
+\index{addTextButton@{addTextButton}!AbstractDockItem@{AbstractDockItem}}
+\doxysubsubsection{\texorpdfstring{addTextButton()}{addTextButton()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classButtonWidget}{Button\+Widget}}$\ast$ Abstract\+Dock\+Item\+::add\+Text\+Button (\begin{DoxyParamCaption}\item[{Widget\+Position}]{pos,  }\item[{const QString \&}]{text,  }\item[{const QString \&}]{tooltip = {\ttfamily QString()} }\end{DoxyParamCaption})}
+
+
+
+Adds an text only \mbox{\hyperlink{classButtonWidget}{Button\+Widget}} to the Header/\+Footer/\+Toolbar widget with an optional tooltip. 
+
+\begin{DoxyReturn}{Returns}
+a pointer to the stored wrapper. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classAbstractDockItem_aef302be5a9d2a48772149a0d378d7f7a}\label{classAbstractDockItem_aef302be5a9d2a48772149a0d378d7f7a}} 
+\index{AbstractDockItem@{AbstractDockItem}!addTextLabel@{addTextLabel}}
+\index{addTextLabel@{addTextLabel}!AbstractDockItem@{AbstractDockItem}}
+\doxysubsubsection{\texorpdfstring{addTextLabel()}{addTextLabel()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classWidgetItem}{Widget\+Item}}$\ast$ Abstract\+Dock\+Item\+::add\+Text\+Label (\begin{DoxyParamCaption}\item[{Widget\+Position}]{pos,  }\item[{const QString \&}]{text,  }\item[{const QString \&}]{tooltip = {\ttfamily QString()} }\end{DoxyParamCaption})}
+
+
+
+Adds a text label to the Header/\+Footer/\+Toolbar widget with an optional tooltip. 
+
+\begin{DoxyReturn}{Returns}
+a pointer to the stored wrapper. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classAbstractDockItem_a119ab2a027f915d88b4151f03686e4ae}\label{classAbstractDockItem_a119ab2a027f915d88b4151f03686e4ae}} 
+\index{AbstractDockItem@{AbstractDockItem}!addTextListButton@{addTextListButton}}
+\index{addTextListButton@{addTextListButton}!AbstractDockItem@{AbstractDockItem}}
+\doxysubsubsection{\texorpdfstring{addTextListButton()}{addTextListButton()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classButtonWidget}{Button\+Widget}}$\ast$ Abstract\+Dock\+Item\+::add\+Text\+List\+Button (\begin{DoxyParamCaption}\item[{Widget\+Position}]{pos,  }\item[{const QString \&}]{text,  }\item[{const QString \&}]{tooltip = {\ttfamily QString()} }\end{DoxyParamCaption})}
+
+
+
+Adds an text only \mbox{\hyperlink{classListButtonWidget}{List\+Button\+Widget}} to the Header/\+Footer/\+Toolbar widget with an optional tooltip. 
+
+\begin{DoxyReturn}{Returns}
+a pointer to the stored wrapper. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classAbstractDockItem_a041c529021fda0ce466dd7c8403554a3}\label{classAbstractDockItem_a041c529021fda0ce466dd7c8403554a3}} 
+\index{AbstractDockItem@{AbstractDockItem}!at@{at}}
+\index{at@{at}!AbstractDockItem@{AbstractDockItem}}
+\doxysubsubsection{\texorpdfstring{at()}{at()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classWidgetItem}{Widget\+Item}}$\ast$ Abstract\+Dock\+Item\+::at (\begin{DoxyParamCaption}\item[{int}]{index }\end{DoxyParamCaption})}
+
+
+
+Returns the widget at the index. 
+
+If the index value is invalid then a nullptr is returned, otherwise the widget at that index is returned. The widget is still stored in the list.
+
+\begin{DoxyNote}{Note}
+The index indicates the position in which the widget was added, not necessarily the position within the list. 
+\end{DoxyNote}
+\mbox{\Hypertarget{classAbstractDockItem_a7fdaa6b4163158df6d75382e4076b5b5}\label{classAbstractDockItem_a7fdaa6b4163158df6d75382e4076b5b5}} 
+\index{AbstractDockItem@{AbstractDockItem}!replace@{replace}}
+\index{replace@{replace}!AbstractDockItem@{AbstractDockItem}}
+\doxysubsubsection{\texorpdfstring{replace()}{replace()}}
+{\footnotesize\ttfamily bool Abstract\+Dock\+Item\+::replace (\begin{DoxyParamCaption}\item[{int}]{index,  }\item[{\mbox{\hyperlink{classWidgetItem}{Widget\+Item}} $\ast$}]{w }\end{DoxyParamCaption})}
+
+
+
+Replaces the existing widget with another. 
+
+The index must exist within the stored list. Returns true if the replacement was successful, otherwise returns false.
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classAbstractDockItem_a64c92680486190dfbdcae5a87f99dc32}\label{classAbstractDockItem_a64c92680486190dfbdcae5a87f99dc32}} 
+\index{AbstractDockItem@{AbstractDockItem}!selected@{selected}}
+\index{selected@{selected}!AbstractDockItem@{AbstractDockItem}}
+\doxysubsubsection{\texorpdfstring{selected()}{selected()}}
+{\footnotesize\ttfamily bool Abstract\+Dock\+Item\+::selected (\begin{DoxyParamCaption}\item[{int}]{index }\end{DoxyParamCaption})}
+
+Returns true if the specified widget at index is selected, otherwise false; \mbox{\Hypertarget{classAbstractDockItem_adc324b533f25a3b148029836f092b5cf}\label{classAbstractDockItem_adc324b533f25a3b148029836f092b5cf}} 
+\index{AbstractDockItem@{AbstractDockItem}!setText@{setText}}
+\index{setText@{setText}!AbstractDockItem@{AbstractDockItem}}
+\doxysubsubsection{\texorpdfstring{setText()}{setText()}}
+{\footnotesize\ttfamily void Abstract\+Dock\+Item\+::set\+Text (\begin{DoxyParamCaption}\item[{int}]{index,  }\item[{const QString \&}]{text }\end{DoxyParamCaption})}
+
+
+
+Sets the text in the Header/\+Footer/\+Toolbar widget. 
+
+The text is set to the supplied value ONLY if the widget is of an appropriate type, otherwise it is ignored. For example an ICON\+\_\+\+WIDGET has no text. \mbox{\Hypertarget{classAbstractDockItem_af0b2151d04006c784d2a530d32ed50d8}\label{classAbstractDockItem_af0b2151d04006c784d2a530d32ed50d8}} 
+\index{AbstractDockItem@{AbstractDockItem}!takeAt@{takeAt}}
+\index{takeAt@{takeAt}!AbstractDockItem@{AbstractDockItem}}
+\doxysubsubsection{\texorpdfstring{takeAt()}{takeAt()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classWidgetItem}{Widget\+Item}}$\ast$ Abstract\+Dock\+Item\+::take\+At (\begin{DoxyParamCaption}\item[{int}]{index }\end{DoxyParamCaption})}
+
+
+
+Returns and removes the widget at the index. 
+
+If the index value is invalid then a nullptr is returned, otherwise the widget at that index is returned. The widget is no longer stored in the list.
+
+\begin{DoxyNote}{Note}
+The index indicates the position in which the widget was added, not necessarily the position within the list. 
+\end{DoxyNote}
+\mbox{\Hypertarget{classAbstractDockItem_a9bbd5fb5db3260e9b8274e73eb59ba30}\label{classAbstractDockItem_a9bbd5fb5db3260e9b8274e73eb59ba30}} 
+\index{AbstractDockItem@{AbstractDockItem}!widgetEnabled@{widgetEnabled}}
+\index{widgetEnabled@{widgetEnabled}!AbstractDockItem@{AbstractDockItem}}
+\doxysubsubsection{\texorpdfstring{widgetEnabled()}{widgetEnabled()}}
+{\footnotesize\ttfamily bool Abstract\+Dock\+Item\+::widget\+Enabled (\begin{DoxyParamCaption}\item[{int}]{index }\end{DoxyParamCaption})}
+
+Returns true if the specified widget at index is enabled, otherwise false; 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+abstractdockitem.\+h\end{DoxyCompactItemize}

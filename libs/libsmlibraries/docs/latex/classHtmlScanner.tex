@@ -1,0 +1,140 @@
+\hypertarget{classHtmlScanner}{}\doxysection{Html\+Scanner Class Reference}
+\label{classHtmlScanner}\index{HtmlScanner@{HtmlScanner}}
+
+
+Scanner/\+Parser for html code.  
+
+
+
+
+{\ttfamily \#include \char`\"{}includes/widgets/htmlscanner.\+h\char`\"{}}
+
+Inheritance diagram for Html\+Scanner\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classHtmlScanner}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classHtmlScanner_a56f79aa25587830ed4b6353a1554121c}\label{classHtmlScanner_a56f79aa25587830ed4b6353a1554121c}} 
+\mbox{\hyperlink{classHtmlScanner_a56f79aa25587830ed4b6353a1554121c}{Html\+Scanner}} (QText\+Document $\ast$parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{classHtmlScanner}{Html\+Scanner}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHtmlScanner_a1c05f52acb97f43a989a717793c9440b}\label{classHtmlScanner_a1c05f52acb97f43a989a717793c9440b}} 
+void \mbox{\hyperlink{classHtmlScanner_a1c05f52acb97f43a989a717793c9440b}{load}} (const QString \&text)
+\begin{DoxyCompactList}\small\item\em Scans an entire string of HTML 5 text. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHtmlScanner_a970915712b0e2133d120ad0470ddca3a}\label{classHtmlScanner_a970915712b0e2133d120ad0470ddca3a}} 
+void \mbox{\hyperlink{classHtmlScanner_a970915712b0e2133d120ad0470ddca3a}{load}} (QText\+Stream \&sin)
+\begin{DoxyCompactList}\small\item\em Scans an entire stream of HTML 5 text. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHtmlScanner_a12b792144141ecedfed350ab578a1414}\label{classHtmlScanner_a12b792144141ecedfed350ab578a1414}} 
+\mbox{\hyperlink{structTag}{Tag}} $\ast$ \mbox{\hyperlink{classHtmlScanner_a12b792144141ecedfed350ab578a1414}{rescan\+Tag}} (const QString text, int start\+Point, int count)
+\begin{DoxyCompactList}\small\item\em Scans part of an HTML 5 page starting at start for count characters. \end{DoxyCompactList}\item 
+QVector$<$ \mbox{\hyperlink{structTag}{Tag}} $\ast$ $>$ \mbox{\hyperlink{classHtmlScanner_a5a946cad2bef7aeb3862066611b07e4a}{tag\+List}} ()
+\begin{DoxyCompactList}\small\item\em Returns the HTML page as a list of \mbox{\hyperlink{structTag}{Tag}} pointers. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classHtmlScanner_ae1575c9b4b3b388e5e5fea991fd55ec7}{move\+Tag\+Right}} (\mbox{\hyperlink{structTag}{Tag}} $\ast$tag)
+\begin{DoxyCompactList}\small\item\em Moves the \mbox{\hyperlink{structTag}{Tag}} one tag right. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classHtmlScanner_a40c00e4238a1d4c496fbeb423b3fd244}{move\+Tag\+Left}} (\mbox{\hyperlink{structTag}{Tag}} $\ast$tag)
+\begin{DoxyCompactList}\small\item\em Moves the \mbox{\hyperlink{structTag}{Tag}} one tag left. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHtmlScanner_a255fe41e5c8d0ce1359e9f5ad3e5df65}\label{classHtmlScanner_a255fe41e5c8d0ce1359e9f5ad3e5df65}} 
+void \mbox{\hyperlink{classHtmlScanner_a255fe41e5c8d0ce1359e9f5ad3e5df65}{move\+To}} (\mbox{\hyperlink{structTag}{Tag}} $\ast$, int position)
+\begin{DoxyCompactList}\small\item\em Moves \mbox{\hyperlink{structTag}{Tag}} to selected position. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHtmlScanner_a63d497cd37ee12daab10f0d209977e29}\label{classHtmlScanner_a63d497cd37ee12daab10f0d209977e29}} 
+void \mbox{\hyperlink{classHtmlScanner_a63d497cd37ee12daab10f0d209977e29}{set\+Tag}} (int index, \mbox{\hyperlink{structTag}{Tag}} $\ast$tag)
+\begin{DoxyCompactList}\small\item\em Sets the \mbox{\hyperlink{structTag}{Tag}} at index to the new \mbox{\hyperlink{structTag}{Tag}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHtmlScanner_a335a6a791eeecadbfafcb63c00fe2691}\label{classHtmlScanner_a335a6a791eeecadbfafcb63c00fe2691}} 
+void \mbox{\hyperlink{classHtmlScanner_a335a6a791eeecadbfafcb63c00fe2691}{replace\+Tag}} (\mbox{\hyperlink{structTag}{Tag}} $\ast$first\+Tag, \mbox{\hyperlink{structTag}{Tag}} $\ast$second\+Tag)
+\begin{DoxyCompactList}\small\item\em Replaces the \mbox{\hyperlink{structTag}{Tag}} at index to the new \mbox{\hyperlink{structTag}{Tag}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHtmlScanner_a89789e41534d7d99835b2d56e65c546d}\label{classHtmlScanner_a89789e41534d7d99835b2d56e65c546d}} 
+void \mbox{\hyperlink{classHtmlScanner_a89789e41534d7d99835b2d56e65c546d}{swap\+Tags}} (int first\+Index, int second\+Index)
+\begin{DoxyCompactList}\small\item\em Swaps the two \mbox{\hyperlink{structTag}{Tag}}\textquotesingle{}s at index to the new \mbox{\hyperlink{structTag}{Tag}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHtmlScanner_a2a97f39e1e0afebef5bbc4b0471b469e}\label{classHtmlScanner_a2a97f39e1e0afebef5bbc4b0471b469e}} 
+void \mbox{\hyperlink{classHtmlScanner_a2a97f39e1e0afebef5bbc4b0471b469e}{swap\+Tags}} (\mbox{\hyperlink{structTag}{Tag}} $\ast$fisrt\+Tag, \mbox{\hyperlink{structTag}{Tag}} $\ast$second\+Tag)
+\begin{DoxyCompactList}\small\item\em Swaps the two \mbox{\hyperlink{structTag}{Tag}}\textquotesingle{}s at index to the new \mbox{\hyperlink{structTag}{Tag}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHtmlScanner_aff2495cad28055ffc6436c3da474b55f}\label{classHtmlScanner_aff2495cad28055ffc6436c3da474b55f}} 
+\mbox{\hyperlink{structTag}{Tag}} $\ast$ \mbox{\hyperlink{classHtmlScanner_aff2495cad28055ffc6436c3da474b55f}{tag\+At}} (int position)
+\begin{DoxyCompactList}\small\item\em Recovers the tag at index in the \mbox{\hyperlink{structTag}{Tag}} list. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHtmlScanner_a1227de123ff8fb475090b2a14685a671}\label{classHtmlScanner_a1227de123ff8fb475090b2a14685a671}} 
+bool \mbox{\hyperlink{classHtmlScanner_a1227de123ff8fb475090b2a14685a671}{is\+Valid\+Tag}} (\mbox{\hyperlink{structTag}{Tag}} $\ast$tag)
+\begin{DoxyCompactList}\small\item\em Returns true if the \mbox{\hyperlink{structTag}{Tag}} is a valid tag. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHtmlScanner_a3f8f333ff8b1124fbbd7a76d583f9790}\label{classHtmlScanner_a3f8f333ff8b1124fbbd7a76d583f9790}} 
+bool \mbox{\hyperlink{classHtmlScanner_a3f8f333ff8b1124fbbd7a76d583f9790}{is\+Valid\+Tag\+Name}} (const QString \&name)
+\begin{DoxyCompactList}\small\item\em Returns true if the \mbox{\hyperlink{structTag}{Tag}} name is a valid tag, otherwise returns false. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHtmlScanner_a4bee216ddf8de59ae8240a6307348ba0}\label{classHtmlScanner_a4bee216ddf8de59ae8240a6307348ba0}} 
+bool \mbox{\hyperlink{classHtmlScanner_a4bee216ddf8de59ae8240a6307348ba0}{is\+Valid\+Attribute\+For\+Tag}} (const QString \&name, const QString \&attribute)
+\begin{DoxyCompactList}\small\item\em Returns true if the attribute string is valid for the supplied tag name, otherwise returns false. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHtmlScanner_a927beffe521b29db77801dc4c7351992}\label{classHtmlScanner_a927beffe521b29db77801dc4c7351992}} 
+bool \mbox{\hyperlink{classHtmlScanner_a927beffe521b29db77801dc4c7351992}{is\+Valid\+Attribute\+Value\+For\+Tag}} (const QString \&name, const QString \&attribute, const QString \&value)
+\begin{DoxyCompactList}\small\item\em Returns true if the attribute value string is valid for the supplied tag name and attribute name, otherwise returns false. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classHtmlScanner_a4c078da54fe686da8c8004c05e914080}{set\+Languages}} (\mbox{\hyperlink{classBCP47Languages}{BCP47\+Languages}} $\ast$languages)
+\begin{DoxyCompactList}\small\item\em Sets the language list to allow a language tag to be tested for validity. \end{DoxyCompactList}\item 
+const QVector$<$ \mbox{\hyperlink{structTagMatch}{Tag\+Match}} $\ast$ $>$ \& \mbox{\hyperlink{classHtmlScanner_a715db79e63f81f62ea113ff83e73fe52}{matched\+Tags}} () const
+\begin{DoxyCompactList}\small\item\em Returns the list of matching tags. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Scanner/\+Parser for html code. 
+
+Walks throughan html page, detecting and marking html tags and detecting incorrect code, such as misspelled tag and attribute names.
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classHtmlHighlighter}{Html\+Highlighter}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classHtmlScanner_a715db79e63f81f62ea113ff83e73fe52}\label{classHtmlScanner_a715db79e63f81f62ea113ff83e73fe52}} 
+\index{HtmlScanner@{HtmlScanner}!matchedTags@{matchedTags}}
+\index{matchedTags@{matchedTags}!HtmlScanner@{HtmlScanner}}
+\doxysubsubsection{\texorpdfstring{matchedTags()}{matchedTags()}}
+{\footnotesize\ttfamily const QVector$<$\mbox{\hyperlink{structTagMatch}{Tag\+Match}}$\ast$$>$\& Html\+Scanner\+::matched\+Tags (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Returns the list of matching tags. 
+
+When the HTML page is scanned it produces a list of matching \mbox{\hyperlink{structTag}{Tag}}\textquotesingle{}s. This list will only match to the next closing tag of the same type, \mbox{\Hypertarget{classHtmlScanner_a40c00e4238a1d4c496fbeb423b3fd244}\label{classHtmlScanner_a40c00e4238a1d4c496fbeb423b3fd244}} 
+\index{HtmlScanner@{HtmlScanner}!moveTagLeft@{moveTagLeft}}
+\index{moveTagLeft@{moveTagLeft}!HtmlScanner@{HtmlScanner}}
+\doxysubsubsection{\texorpdfstring{moveTagLeft()}{moveTagLeft()}}
+{\footnotesize\ttfamily void Html\+Scanner\+::move\+Tag\+Left (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structTag}{Tag}} $\ast$}]{tag }\end{DoxyParamCaption})}
+
+
+
+Moves the \mbox{\hyperlink{structTag}{Tag}} one tag left. 
+
+If the tag is the first tag then nothing is done. \mbox{\Hypertarget{classHtmlScanner_ae1575c9b4b3b388e5e5fea991fd55ec7}\label{classHtmlScanner_ae1575c9b4b3b388e5e5fea991fd55ec7}} 
+\index{HtmlScanner@{HtmlScanner}!moveTagRight@{moveTagRight}}
+\index{moveTagRight@{moveTagRight}!HtmlScanner@{HtmlScanner}}
+\doxysubsubsection{\texorpdfstring{moveTagRight()}{moveTagRight()}}
+{\footnotesize\ttfamily void Html\+Scanner\+::move\+Tag\+Right (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structTag}{Tag}} $\ast$}]{tag }\end{DoxyParamCaption})}
+
+
+
+Moves the \mbox{\hyperlink{structTag}{Tag}} one tag right. 
+
+If the tag is the final tag then nothing is done. \mbox{\Hypertarget{classHtmlScanner_a4c078da54fe686da8c8004c05e914080}\label{classHtmlScanner_a4c078da54fe686da8c8004c05e914080}} 
+\index{HtmlScanner@{HtmlScanner}!setLanguages@{setLanguages}}
+\index{setLanguages@{setLanguages}!HtmlScanner@{HtmlScanner}}
+\doxysubsubsection{\texorpdfstring{setLanguages()}{setLanguages()}}
+{\footnotesize\ttfamily void Html\+Scanner\+::set\+Languages (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classBCP47Languages}{BCP47\+Languages}} $\ast$}]{languages }\end{DoxyParamCaption})}
+
+
+
+Sets the language list to allow a language tag to be tested for validity. 
+
+If this is not set then language tag testing is not done. \mbox{\Hypertarget{classHtmlScanner_a5a946cad2bef7aeb3862066611b07e4a}\label{classHtmlScanner_a5a946cad2bef7aeb3862066611b07e4a}} 
+\index{HtmlScanner@{HtmlScanner}!tagList@{tagList}}
+\index{tagList@{tagList}!HtmlScanner@{HtmlScanner}}
+\doxysubsubsection{\texorpdfstring{tagList()}{tagList()}}
+{\footnotesize\ttfamily QVector$<$\mbox{\hyperlink{structTag}{Tag}}$\ast$$>$ Html\+Scanner\+::tag\+List (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns the HTML page as a list of \mbox{\hyperlink{structTag}{Tag}} pointers. 
+
+An empty QVector$<$\+QString$>$ unless scan has previously been called. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+htmlscanner.\+h\end{DoxyCompactItemize}

@@ -2,7 +2,16 @@
     <qresource prefix="/icons">
         <file>icons/AppLogoColor.png</file>
         <file>icons/accessories-calculator.png</file>
+        <file alias="BlackDot">icons/blackdot.png</file>
+        <file alias="BlueDot">icons/bluedot.png</file>
         <file>icons/bookmark.png</file>
+        <file alias="BookmarkFlag">icons/bookmarkflag.png</file>
+        <file alias="Cross">icons/cross.png</file>
+        <file alias="CyanDot">icons/cyandot.png</file>
+        <file alias="DarkBlueDot">icons/darkbluedot.png</file>
+        <file alias="DarkGreenDot">icons/darkgreendot.png</file>
+        <file alias="DarkRedDot">icons/darkreddot.png</file>
+        <file alias="Dash">icons/dash.png</file>
         <file>icons/dialog-error.png</file>
         <file>icons/dialog-question.png</file>
         <file>icons/dialog-warning.png</file>
@@ -68,16 +77,20 @@
         <file>icons/go-previous.png</file>
         <file>icons/go-top.png</file>
         <file>icons/go-up.png</file>
+        <file alias="GreenDot">icons/greendot.png</file>
         <file alias="GreyArrowDown">icons/greyarrowdown.png</file>
         <file alias="GreyArrowUp">icons/greyarrowup.png</file>
         <file>icons/help-about.png</file>
         <file>icons/help-contents.png</file>
         <file>icons/help-faq.png</file>
-        <file>icons/list-add.png</file>
-        <file>icons/list-remove.png</file>
+        <file alias="Add">icons/list-add.png</file>
+        <file alias="Remove">icons/list-remove.png</file>
         <file alias="ListButton">icons/listbutton.png</file>
         <file>icons/meta_48.png</file>
         <file>icons/options_48.png</file>
+        <file alias="OrangeDot">icons/orangedot.png</file>
+        <file alias="PinkDot">icons/pinkdot.png</file>
+        <file alias="RedDot">icons/reddot.png</file>
         <file alias="RemoveSplitDown">icons/removeSplitDown.png</file>
         <file alias="RemoveSplitLeft">icons/removeSplitLeft.png</file>
         <file alias="RemoveSplitRight">icons/removeSplitRight.png</file>
@@ -91,9 +104,15 @@
         <file alias="Splitscreen">icons/splitscreen.png</file>
         <file>icons/text-html.png</file>
         <file>icons/tree.png</file>
+        <file alias="WhiteDot">icons/whitedot.png</file>
         <file alias="YellowArrowDown">icons/yellowarrowdown.png</file>
-        <file alias="YellowArrowUp">icons/yellowarrowup.png</file>
         <file alias="YellowArrowLeft">icons/yellowarrowleft.png</file>
         <file alias="YellowArrowRight">icons/yellowarrowright.png</file>
+        <file alias="YellowArrowUp">icons/yellowarrowup.png</file>
+        <file alias="YellowDot">icons/yellowdot.png</file>
+        <file alias="FoldedCross">icons/crossInSquare.png</file>
+        <file alias="UnfoldedArrow">icons/fold.png</file>
+        <file alias="UnfoldedCross">icons/minusInSquare.png</file>
+        <file alias="FoldedArrow">icons/unfold.png</file>
     </qresource>
 </RCC>

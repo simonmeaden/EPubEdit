@@ -4,6 +4,7 @@ add_subdirectory(quazip)
 
 add_subdirectory(CuteLogger)
 #add_subdirectory(Log4Qt)
+#add_subdirectory(xhscanner)
 
 #add_subdirectory(tinyxml2)
 #set(MIN_Tidy_VERSION 6)

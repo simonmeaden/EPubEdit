@@ -1,0 +1,75 @@
+\hypertarget{structCommentTag}{}\doxysection{Comment\+Tag Struct Reference}
+\label{structCommentTag}\index{CommentTag@{CommentTag}}
+
+
+Used to store html comments.  
+
+
+
+
+{\ttfamily \#include $<$htmlscanner.\+h$>$}
+
+Inheritance diagram for Comment\+Tag\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{structCommentTag}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+QString \mbox{\hyperlink{structCommentTag_ad61cba18c6b96596ac2398add0f7a343}{to\+String}} () override
+\begin{DoxyCompactList}\small\item\em Creates a string version of the tag. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structCommentTag_a8d56e0f640bdfbaebd9533157304912f}\label{structCommentTag_a8d56e0f640bdfbaebd9533157304912f}} 
+int \mbox{\hyperlink{structCommentTag_a8d56e0f640bdfbaebd9533157304912f}{text\+Start}} ()
+\begin{DoxyCompactList}\small\item\em Returns the text start position. \end{DoxyCompactList}\item 
+Is\+In\+Type \mbox{\hyperlink{structCommentTag_a6355df42c221d461b12d53487d1d0833}{is\+In}} (int cursor\+Pos) override
+\begin{DoxyCompactList}\small\item\em is\+In method of all \mbox{\hyperlink{structTag}{Tag}} types. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structCommentTag_aa374f3d2ab18549e4c7fd4f78c57dc13}\label{structCommentTag_aa374f3d2ab18549e4c7fd4f78c57dc13}} 
+QString \mbox{\hyperlink{structCommentTag_aa374f3d2ab18549e4c7fd4f78c57dc13}{text}}
+\begin{DoxyCompactList}\small\item\em The tag text. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structCommentTag_ac14c7340e00b1d4fa2f7b86bbdc133a5}\label{structCommentTag_ac14c7340e00b1d4fa2f7b86bbdc133a5}} 
+QText\+Cursor \mbox{\hyperlink{structCommentTag_ac14c7340e00b1d4fa2f7b86bbdc133a5}{text\+Start\+Cursor}}
+\begin{DoxyCompactList}\small\item\em The QText\+Cursor at the start position of the tag text. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Used to store html comments. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structCommentTag_a6355df42c221d461b12d53487d1d0833}\label{structCommentTag_a6355df42c221d461b12d53487d1d0833}} 
+\index{CommentTag@{CommentTag}!isIn@{isIn}}
+\index{isIn@{isIn}!CommentTag@{CommentTag}}
+\doxysubsubsection{\texorpdfstring{isIn()}{isIn()}}
+{\footnotesize\ttfamily Is\+In\+Type Comment\+Tag\+::is\+In (\begin{DoxyParamCaption}\item[{int}]{cursor\+Pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+is\+In method of all \mbox{\hyperlink{structTag}{Tag}} types. 
+
+Returns the result of a test whether the cursor is within the tag. Returns one of the Is\+In\+Type values. 
+
+Reimplemented from \mbox{\hyperlink{structTag_a9bcf07edef2c8dce4c510da12960b1b9}{Tag}}.
+
+\mbox{\Hypertarget{structCommentTag_ad61cba18c6b96596ac2398add0f7a343}\label{structCommentTag_ad61cba18c6b96596ac2398add0f7a343}} 
+\index{CommentTag@{CommentTag}!toString@{toString}}
+\index{toString@{toString}!CommentTag@{CommentTag}}
+\doxysubsubsection{\texorpdfstring{toString()}{toString()}}
+{\footnotesize\ttfamily QString Comment\+Tag\+::to\+String (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Creates a string version of the tag. 
+
+Override to create a string version of derived tags. 
+
+Implements \mbox{\hyperlink{structTag_a4da658a0743db8f0218cd3f256125217}{Tag}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+htmlscanner.\+h\end{DoxyCompactItemize}

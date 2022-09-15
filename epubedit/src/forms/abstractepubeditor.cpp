@@ -1,24 +1,14 @@
 #include "abstractepubeditor.h"
-#include "private/abstractepubeditorprivate.h"
+//#include "private/abstractepubeditorprivate.h"
 
-AbstractEPubEditor::AbstractEPubEditor(QWidget *parent)
+AbstractEPubEditor::AbstractEPubEditor(QWidget* parent)
   : HeaderWidget(parent)
 {
 }
 
 AbstractEPubEditor::AbstractEPubEditor(PConfig config, QWidget* parent)
-  : HeaderWidget(*new AbstractEPubEditorPrivate(config, this), parent)
-{
-}
-
-AbstractEPubEditor::AbstractEPubEditor(AbstractEPubEditorPrivate& d)
-  : HeaderWidget(d)
-{
-}
-
-AbstractEPubEditor::AbstractEPubEditor(AbstractEPubEditorPrivate& d,
-                                       QWidget* parent)
-  : HeaderWidget(d, parent)
+  : HeaderWidget(parent)
+  , m_config(config)
 {
 }
 

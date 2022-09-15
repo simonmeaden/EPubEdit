@@ -1,0 +1,139 @@
+\hypertarget{classHeaderFooterWidget}{}\doxysection{Header\+Footer\+Widget Class Reference}
+\label{classHeaderFooterWidget}\index{HeaderFooterWidget@{HeaderFooterWidget}}
+
+
+The \mbox{\hyperlink{classHeaderWidget}{Header\+Widget}} class defines a \mbox{\hyperlink{classHeaderWidget}{Header\+Widget}} object.  
+
+
+
+
+{\ttfamily \#include $<$headerfooterwidget.\+h$>$}
+
+Inheritance diagram for Header\+Footer\+Widget\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{classHeaderFooterWidget}
+\end{center}
+\end{figure}
+\doxysubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classHeaderFooterWidget_ad638cdce4543d0c5ac832c047cfeb619}\label{classHeaderFooterWidget_ad638cdce4543d0c5ac832c047cfeb619}} 
+void \mbox{\hyperlink{classHeaderFooterWidget_ad638cdce4543d0c5ac832c047cfeb619}{size\+Changed}} (QWidget $\ast$\mbox{\hyperlink{classAbstractDockWidget_afe926b35b85e362a8116a0f3695d600c}{widget}}, const QSize \&size)
+\begin{DoxyCompactList}\small\item\em Triggered when the widgets size changes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHeaderFooterWidget_a2a8622dc76633254fc54f454358cb283}\label{classHeaderFooterWidget_a2a8622dc76633254fc54f454358cb283}} 
+void \mbox{\hyperlink{classHeaderFooterWidget_a2a8622dc76633254fc54f454358cb283}{lost\+Focus}} (QWidget $\ast$)
+\begin{DoxyCompactList}\small\item\em Triggered when focus uis lost. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHeaderFooterWidget_a016396269a30dee358602c8b10cca295}\label{classHeaderFooterWidget_a016396269a30dee358602c8b10cca295}} 
+void \mbox{\hyperlink{classHeaderFooterWidget_a016396269a30dee358602c8b10cca295}{got\+Focus}} (QWidget $\ast$)
+\begin{DoxyCompactList}\small\item\em Triggered whenfocus is gained. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classHeaderFooterWidget_a5fb6388052822015eddf87bec39abe54}\label{classHeaderFooterWidget_a5fb6388052822015eddf87bec39abe54}} 
+\mbox{\hyperlink{classHeaderFooterWidget_a5fb6388052822015eddf87bec39abe54}{Header\+Footer\+Widget}} (QWidget $\ast$parent)
+\begin{DoxyCompactList}\small\item\em Constructs a \mbox{\hyperlink{classHeaderFooterWidget}{Header\+Footer\+Widget}} which is a child of parent. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHeaderFooterWidget_a189e9573301a0542d15a9ad94e6cded0}\label{classHeaderFooterWidget_a189e9573301a0542d15a9ad94e6cded0}} 
+\mbox{\hyperlink{classDockHeader}{Dock\+Header}} $\ast$ \mbox{\hyperlink{classHeaderFooterWidget_a189e9573301a0542d15a9ad94e6cded0}{header}} ()
+\begin{DoxyCompactList}\small\item\em Returns the \mbox{\hyperlink{classDockHeader}{Dock\+Header}} attached to this \mbox{\hyperlink{classHeaderWidget}{Header\+Widget}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHeaderFooterWidget_a78e9582fc8e4451e8040ab7431397255}\label{classHeaderFooterWidget_a78e9582fc8e4451e8040ab7431397255}} 
+\mbox{\hyperlink{classDockFooter}{Dock\+Footer}} $\ast$ \mbox{\hyperlink{classHeaderFooterWidget_a78e9582fc8e4451e8040ab7431397255}{footer}} ()
+\begin{DoxyCompactList}\small\item\em Returns the \mbox{\hyperlink{classDockFooter}{Dock\+Footer}} attached to this \mbox{\hyperlink{classHeaderWidget}{Header\+Widget}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classHeaderFooterWidget_a35838dd5373e0416f935292513d8920f}{hide\+Widget}} ()
+\begin{DoxyCompactList}\small\item\em Hides the widget. if show\+Header\+On\+Hide is true then the header remains visible, otherwise the entire widget is hidden. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHeaderFooterWidget_a0fd41547f6577c8bca64fcf6e123253e}\label{classHeaderFooterWidget_a0fd41547f6577c8bca64fcf6e123253e}} 
+void \mbox{\hyperlink{classHeaderFooterWidget_a0fd41547f6577c8bca64fcf6e123253e}{show\+Widget}} ()
+\begin{DoxyCompactList}\small\item\em Shows the widget. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHeaderFooterWidget_a5de4b44e25d2753d9f405635993058d1}\label{classHeaderFooterWidget_a5de4b44e25d2753d9f405635993058d1}} 
+bool \mbox{\hyperlink{classHeaderFooterWidget_a5de4b44e25d2753d9f405635993058d1}{is\+Widget\+Visible}} ()
+\begin{DoxyCompactList}\small\item\em True if the widget is visible, otherwise false. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHeaderFooterWidget_ae83a1bfd39d5a7c00607c243b5d0e582}\label{classHeaderFooterWidget_ae83a1bfd39d5a7c00607c243b5d0e582}} 
+QWidget $\ast$ \mbox{\hyperlink{classHeaderFooterWidget_ae83a1bfd39d5a7c00607c243b5d0e582}{clone}} (QWidget $\ast$\mbox{\hyperlink{classAbstractDockWidget_afe926b35b85e362a8116a0f3695d600c}{widget}}) override
+\begin{DoxyCompactList}\small\item\em Creates a clone of the \mbox{\hyperlink{classHeaderFooterWidget}{Header\+Footer\+Widget}}, passing it\textquotesingle{}s variable and settings into the supplied \textquotesingle{}master\textquotesingle{}. If the widget parameter is nullptr then it will create a clone of itself. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classHeaderFooterWidget_a809eec93d1899ed0d8b3ab27f91ba924}\label{classHeaderFooterWidget_a809eec93d1899ed0d8b3ab27f91ba924}} 
+\mbox{\hyperlink{classHeaderFooterWidget_a809eec93d1899ed0d8b3ab27f91ba924}{Header\+Footer\+Widget}} (Header\+Footer\+Widget\+Private \&d)
+\begin{DoxyCompactList}\small\item\em d\+\_\+ptr constructor \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHeaderFooterWidget_a46372f887a6b52db540bbfeaa83b301e}\label{classHeaderFooterWidget_a46372f887a6b52db540bbfeaa83b301e}} 
+void \mbox{\hyperlink{classHeaderFooterWidget_a46372f887a6b52db540bbfeaa83b301e}{paint\+Event}} (QPaint\+Event $\ast$\mbox{\hyperlink{classHeaderFooterWidget_af3182f070ee0c07eb3f53c1b957277fe}{event}}) override
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QWidget\+::paint\+Event \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHeaderFooterWidget_a52c308e5eefe1770ec24f1d014a997a6}\label{classHeaderFooterWidget_a52c308e5eefe1770ec24f1d014a997a6}} 
+void \mbox{\hyperlink{classHeaderFooterWidget_a52c308e5eefe1770ec24f1d014a997a6}{hover\+Enter\+Event}} (QHover\+Event $\ast$\mbox{\hyperlink{classHeaderFooterWidget_af3182f070ee0c07eb3f53c1b957277fe}{event}})
+\begin{DoxyCompactList}\small\item\em Implements a Hover Enter event. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHeaderFooterWidget_aef4bddb5c06e4556d3675401a9367445}\label{classHeaderFooterWidget_aef4bddb5c06e4556d3675401a9367445}} 
+void \mbox{\hyperlink{classHeaderFooterWidget_aef4bddb5c06e4556d3675401a9367445}{hover\+Leave\+Event}} (QHover\+Event $\ast$\mbox{\hyperlink{classHeaderFooterWidget_af3182f070ee0c07eb3f53c1b957277fe}{event}})
+\begin{DoxyCompactList}\small\item\em Implements a Hover Leave event. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHeaderFooterWidget_a05a13e29237ebde5e184ecd41c3487e2}\label{classHeaderFooterWidget_a05a13e29237ebde5e184ecd41c3487e2}} 
+void \mbox{\hyperlink{classHeaderFooterWidget_a05a13e29237ebde5e184ecd41c3487e2}{hover\+Move\+Event}} (QHover\+Event $\ast$\mbox{\hyperlink{classHeaderFooterWidget_af3182f070ee0c07eb3f53c1b957277fe}{event}})
+\begin{DoxyCompactList}\small\item\em Implements a Hover Move event. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHeaderFooterWidget_ada16b4bd9fabf67dce6518296a3b067b}\label{classHeaderFooterWidget_ada16b4bd9fabf67dce6518296a3b067b}} 
+void \mbox{\hyperlink{classHeaderFooterWidget_ada16b4bd9fabf67dce6518296a3b067b}{mouse\+Press\+Event}} (QMouse\+Event $\ast$\mbox{\hyperlink{classHeaderFooterWidget_af3182f070ee0c07eb3f53c1b957277fe}{event}}) override
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QWidget\+::mouse\+Press\+Event \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classHeaderFooterWidget_af3182f070ee0c07eb3f53c1b957277fe}{event}} (QEvent $\ast$event) override
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QWidget\+::mouse\+Release\+Event \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHeaderFooterWidget_a8fcc6753c24cd5efd5c22a774ae5c7ae}\label{classHeaderFooterWidget_a8fcc6753c24cd5efd5c22a774ae5c7ae}} 
+void \mbox{\hyperlink{classHeaderFooterWidget_a8fcc6753c24cd5efd5c22a774ae5c7ae}{resize\+Event}} (QResize\+Event $\ast$\mbox{\hyperlink{classHeaderFooterWidget_af3182f070ee0c07eb3f53c1b957277fe}{event}}) override
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QWidget\+::resize\+Event \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHeaderFooterWidget_ae84517c9ef7d9bcf65d8d64118a1dc1a}\label{classHeaderFooterWidget_ae84517c9ef7d9bcf65d8d64118a1dc1a}} 
+void \mbox{\hyperlink{classHeaderFooterWidget_ae84517c9ef7d9bcf65d8d64118a1dc1a}{focus\+In\+Event}} (QFocus\+Event $\ast$\mbox{\hyperlink{classHeaderFooterWidget_af3182f070ee0c07eb3f53c1b957277fe}{event}}) override
+\begin{DoxyCompactList}\small\item\em Implements QWidget\+::focus\+In\+Event. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHeaderFooterWidget_aaf53a0216e5b3c73aff68e6b2ab174f7}\label{classHeaderFooterWidget_aaf53a0216e5b3c73aff68e6b2ab174f7}} 
+void \mbox{\hyperlink{classHeaderFooterWidget_aaf53a0216e5b3c73aff68e6b2ab174f7}{focus\+Out\+Event}} (QFocus\+Event $\ast$\mbox{\hyperlink{classHeaderFooterWidget_af3182f070ee0c07eb3f53c1b957277fe}{event}}) override
+\begin{DoxyCompactList}\small\item\em Implements QWidget\+::focus\+Out\+Event. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classHeaderWidget}{Header\+Widget}} class defines a \mbox{\hyperlink{classHeaderWidget}{Header\+Widget}} object. 
+
+\char`\"{}includes/headerfooterwidget.\+h\char`\"{}
+
+A \mbox{\hyperlink{classHeaderFooterWidget}{Header\+Footer\+Widget}} is a QWidget with both a header a footer bar in which various widgets$\ast$ can be placed. The actual widgets are stored in a \mbox{\hyperlink{classDockHeader}{Dock\+Header}} and a \mbox{\hyperlink{classDockFooter}{Dock\+Footer}} which can be accessed via the \mbox{\hyperlink{classHeaderFooterWidget_a189e9573301a0542d15a9ad94e6cded0}{header()}} and \mbox{\hyperlink{classHeaderFooterWidget_a78e9582fc8e4451e8040ab7431397255}{footer()}} methods respectively.
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classDockHeader}{Dock\+Header}} 
+
+\mbox{\hyperlink{classDockFooter}{Dock\+Footer}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classHeaderFooterWidget_af3182f070ee0c07eb3f53c1b957277fe}\label{classHeaderFooterWidget_af3182f070ee0c07eb3f53c1b957277fe}} 
+\index{HeaderFooterWidget@{HeaderFooterWidget}!event@{event}}
+\index{event@{event}!HeaderFooterWidget@{HeaderFooterWidget}}
+\doxysubsubsection{\texorpdfstring{event()}{event()}}
+{\footnotesize\ttfamily bool Header\+Footer\+Widget\+::event (\begin{DoxyParamCaption}\item[{QEvent $\ast$}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+
+
+{\bfseries{Reimplements\+:}} QWidget\+::mouse\+Release\+Event 
+
+{\bfseries{Reimplements\+:}} QWidget\+::event \mbox{\Hypertarget{classHeaderFooterWidget_a35838dd5373e0416f935292513d8920f}\label{classHeaderFooterWidget_a35838dd5373e0416f935292513d8920f}} 
+\index{HeaderFooterWidget@{HeaderFooterWidget}!hideWidget@{hideWidget}}
+\index{hideWidget@{hideWidget}!HeaderFooterWidget@{HeaderFooterWidget}}
+\doxysubsubsection{\texorpdfstring{hideWidget()}{hideWidget()}}
+{\footnotesize\ttfamily void Header\+Footer\+Widget\+::hide\+Widget (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Hides the widget. if show\+Header\+On\+Hide is true then the header remains visible, otherwise the entire widget is hidden. 
+
+\begin{DoxyVerb}   \brief Sets the central widget of the DockWidget.
+
+   If the new QWidget is replacing an existing widget a pointer tothe old
+   QWidget is returned, otherwise a nullptr is returned. The old QWidget is
+   NOT deleted.
+
+   \note If the QWidget is replaced with itself, the pointer is returned but
+   nothing else is done. You will need to delete it yourself.
+  &zwj;/
+\end{DoxyVerb}
+ QWidget$\ast$ \mbox{\hyperlink{classAbstractDockWidget_a67bf97e4c9deb3e9ac47b524f314f056}{set\+Widget(\+QWidget$\ast$ widget)}};
+
+/$\ast$! 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+headerfooterwidget.\+h\end{DoxyCompactItemize}

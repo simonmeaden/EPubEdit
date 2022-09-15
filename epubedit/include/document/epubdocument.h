@@ -25,8 +25,8 @@
 #include <QtSvg/QSvgRenderer>
 
 #include "document/bookstructs.h"
-#include "tinyxml2.h"
-#include "util/csvsplitter.h"
+#include "utilities//csvsplitter.h"
+#include "utilities/tinyxml2.h"
 
 class Metadata;
 class QuaZip;

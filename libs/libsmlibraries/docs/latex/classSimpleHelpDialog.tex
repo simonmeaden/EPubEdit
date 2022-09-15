@@ -1,0 +1,48 @@
+\hypertarget{classSimpleHelpDialog}{}\doxysection{Simple\+Help\+Dialog Class Reference}
+\label{classSimpleHelpDialog}\index{SimpleHelpDialog@{SimpleHelpDialog}}
+
+
+An help window that displays a simple help dialog.  
+
+
+
+
+{\ttfamily \#include $<$helpdialogs.\+h$>$}
+
+Inheritance diagram for Simple\+Help\+Dialog\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classSimpleHelpDialog}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classSimpleHelpDialog_a2e82639377fb94fffbeabfd79fa2928c}\label{classSimpleHelpDialog_a2e82639377fb94fffbeabfd79fa2928c}} 
+\mbox{\hyperlink{classSimpleHelpDialog_a2e82639377fb94fffbeabfd79fa2928c}{Simple\+Help\+Dialog}} (const QString \&title=QString(), QWidget $\ast$parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{classSimpleHelpDialog}{Simple\+Help\+Dialog}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+An help window that displays a simple help dialog. 
+
+The dialog simply displays the help string and a \textquotesingle{}Close\textquotesingle{} button. The \textquotesingle{}Close\textquotesingle{} button returns no value is returned so use the show() method rather that exec() method to invoke the dialog.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{auto} dlg = \textcolor{keyword}{new} SimpleDialog(\textcolor{keyword}{this});}
+\DoxyCodeLine{dlg-\/>setHelptext(}
+\DoxyCodeLine{  tr(\textcolor{stringliteral}{"{}This text can be used to display a simple\(\backslash\)n"{}}}
+\DoxyCodeLine{     \textcolor{stringliteral}{"{}text help message. Multiline can bedisplayed\(\backslash\)n"{}}}
+\DoxyCodeLine{     \textcolor{stringliteral}{"{}simply be adding newline characters."{}}}
+\DoxyCodeLine{  );}
+\DoxyCodeLine{);}
+\DoxyCodeLine{dlg-\/>show();}
+
+\end{DoxyCode}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{helpdialogs_8h}{helpdialogs.\+h}}\end{DoxyCompactItemize}

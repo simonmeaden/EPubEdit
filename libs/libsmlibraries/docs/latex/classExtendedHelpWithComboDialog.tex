@@ -1,0 +1,68 @@
+\hypertarget{classExtendedHelpWithComboDialog}{}\doxysection{Extended\+Help\+With\+Combo\+Dialog Class Reference}
+\label{classExtendedHelpWithComboDialog}\index{ExtendedHelpWithComboDialog@{ExtendedHelpWithComboDialog}}
+
+
+An help window that displays a more extended help dialog, with a combo box extension page.  
+
+
+
+
+{\ttfamily \#include $<$helpdialogs.\+h$>$}
+
+Inheritance diagram for Extended\+Help\+With\+Combo\+Dialog\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classExtendedHelpWithComboDialog}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classExtendedHelpWithComboDialog_a2925b8fa3142dcb31ac24bdf5b89510f}\label{classExtendedHelpWithComboDialog_a2925b8fa3142dcb31ac24bdf5b89510f}} 
+\mbox{\hyperlink{classExtendedHelpWithComboDialog_a2925b8fa3142dcb31ac24bdf5b89510f}{Extended\+Help\+With\+Combo\+Dialog}} (const QString \&title=QString(), QWidget $\ast$parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{classExtendedHelpWithComboDialog}{Extended\+Help\+With\+Combo\+Dialog}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classExtendedHelpWithComboDialog_abd8e6a18a395f69acaea32fa3c65bb6d}\label{classExtendedHelpWithComboDialog_abd8e6a18a395f69acaea32fa3c65bb6d}} 
+void \mbox{\hyperlink{classExtendedHelpWithComboDialog_abd8e6a18a395f69acaea32fa3c65bb6d}{add\+Additional\+Help\+Page}} (const QString \&title, const QString \&text, \mbox{\hyperlink{classBaseHelpDialog_aed59398833282b4be5913ec51edfc3bc}{Type}} type=\mbox{\hyperlink{classBaseHelpDialog_aed59398833282b4be5913ec51edfc3bca336c09ad483037db3c4855873be63338}{MARKDOWN}})
+\begin{DoxyCompactList}\small\item\em Sets the text in the additional help window. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+An help window that displays a more extended help dialog, with a combo box extension page. 
+
+The dialog displays the help string and holds a \textquotesingle{}Close\textquotesingle{} button, however a \textquotesingle{}More\textquotesingle{} button is also displayed and this will cause a hidden area, in which more help pages can be stored, to appear. The \textquotesingle{}More\textquotesingle{} button will now read \textquotesingle{}Less\textquotesingle{}. Pages are chosen via the combo box.
+
+The \textquotesingle{}Close\textquotesingle{} button returns no value is returned so use the show() method rather that exec() method to invoke the dialog.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{auto} dlg = \textcolor{keyword}{new} \mbox{\hyperlink{classExtendedHelpWithTabsDialog}{ExtendedHelpWithTabsDialog}}(\textcolor{keyword}{this});}
+\DoxyCodeLine{dlg-\/>setPrimaryHelpText(}
+\DoxyCodeLine{  tr(\textcolor{stringliteral}{"{}This text can be used to display a simple\(\backslash\)n"{}}}
+\DoxyCodeLine{     \textcolor{stringliteral}{"{}text help message. Multiline can bedisplayed\(\backslash\)n"{}}}
+\DoxyCodeLine{     \textcolor{stringliteral}{"{}simply be adding newline characters."{}}}
+\DoxyCodeLine{  );}
+\DoxyCodeLine{dlg-\/>setPrimaryHelpText(}
+\DoxyCodeLine{  tr(\textcolor{stringliteral}{"{}This text can be used to display a simple\(\backslash\)n"{}}}
+\DoxyCodeLine{     \textcolor{stringliteral}{"{}text help message. Multiline can bedisplayed\(\backslash\)n"{}}}
+\DoxyCodeLine{     \textcolor{stringliteral}{"{}simply be adding newline characters."{}}}
+\DoxyCodeLine{  );}
+\DoxyCodeLine{dlg-\/>addAdditionalHelpPage(}
+\DoxyCodeLine{  tr(\textcolor{stringliteral}{"{}More help text can be added here in the hidden area.\(\backslash\)n"{}}}
+\DoxyCodeLine{     \textcolor{stringliteral}{"{}This will not appear until the 'More' button is clicked.\(\backslash\)n"{}}}
+\DoxyCodeLine{     \textcolor{stringliteral}{"{}Clicking the button, now displaying 'Less' will cause the\(\backslash\)n"{}}}
+\DoxyCodeLine{     \textcolor{stringliteral}{"{}hidden area to disappear again, returning the button text to 'More'\(\backslash\)n"{}}}
+\DoxyCodeLine{     \textcolor{stringliteral}{"{}Multiline can bedisplayed simply be adding newline characters."{}}}
+\DoxyCodeLine{  );}
+\DoxyCodeLine{  \textcolor{comment}{// More pages can be added here.}}
+\DoxyCodeLine{);}
+\DoxyCodeLine{dlg-\/>show();}
+
+\end{DoxyCode}
+
+
+If you only require a few pages the \mbox{\hyperlink{classExtendedHelpWithTabsDialog}{Extended\+Help\+With\+Tabs\+Dialog}} dialog might be preferable. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{helpdialogs_8h}{helpdialogs.\+h}}\end{DoxyCompactItemize}

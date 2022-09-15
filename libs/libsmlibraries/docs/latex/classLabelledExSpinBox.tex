@@ -1,0 +1,260 @@
+\hypertarget{classLabelledExSpinBox}{}\doxysection{Labelled\+Ex\+Spin\+Box Class Reference}
+\label{classLabelledExSpinBox}\index{LabelledExSpinBox@{LabelledExSpinBox}}
+
+
+The \mbox{\hyperlink{classLabelledExSpinBox}{Labelled\+Ex\+Spin\+Box}} is a wrapper for QLabel and \mbox{\hyperlink{classExSpinBox}{Ex\+Spin\+Box}} that provides a labelled extended spin box.  
+
+
+
+
+{\ttfamily \#include $<$labelledexspinbox.\+h$>$}
+
+Inheritance diagram for Labelled\+Ex\+Spin\+Box\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{classLabelledExSpinBox}
+\end{center}
+\end{figure}
+\doxysubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classLabelledExSpinBox_a237c4c378e5e5ae786244c78e54b6fcf}{display\+Type\+Changed}} (\mbox{\hyperlink{classExSpinBox_aa253d1b6202dba708ea336a06c34a9dc}{Ex\+Spin\+Box\+::\+Display\+Type}})
+\item 
+void \mbox{\hyperlink{classLabelledExSpinBox_a7a8fddaaf207215fb15754988842344c}{value\+Changed}} (int)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classLabelledExSpinBox_a6fda58bb47d8fc7cba4b55b978c449cd}{Labelled\+Ex\+Spin\+Box}} (const QString \&\mbox{\hyperlink{classAbstractLabelledWidget_a38a4d448633db671496c5ef5b9591a9d}{label\+Text}}=QString(), QWidget $\ast$parent=nullptr)
+\begin{DoxyCompactList}\small\item\em The \mbox{\hyperlink{classLabelledExSpinBox}{Labelled\+Ex\+Spin\+Box}} is a wrapper for QLabel and QSpin\+Box that provides a labelled extended spin box. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledExSpinBox_ae0fdbd5ebe0817014183d23639da3283}\label{classLabelledExSpinBox_ae0fdbd5ebe0817014183d23639da3283}} 
+quint8 \mbox{\hyperlink{classLabelledExSpinBox_ae0fdbd5ebe0817014183d23639da3283}{display\+Digits}} () const
+\begin{DoxyCompactList}\small\item\em Returns the number of displayable digits in the text string. By default 2. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledExSpinBox_a871bd55162670c56506f43027d16f7bb}\label{classLabelledExSpinBox_a871bd55162670c56506f43027d16f7bb}} 
+\mbox{\hyperlink{classExSpinBox_aa253d1b6202dba708ea336a06c34a9dc}{Ex\+Spin\+Box\+::\+Display\+Type}} \mbox{\hyperlink{classLabelledExSpinBox_a871bd55162670c56506f43027d16f7bb}{display\+Type}} () const
+\begin{DoxyCompactList}\small\item\em Returns the type of the display, by default \mbox{\hyperlink{classExSpinBox}{Ex\+Spin\+Box}} Hexadecimal. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledExSpinBox_aa0a116357fb738c18b95fe82fdab0a46}\label{classLabelledExSpinBox_aa0a116357fb738c18b95fe82fdab0a46}} 
+int \mbox{\hyperlink{classLabelledExSpinBox_aa0a116357fb738c18b95fe82fdab0a46}{single\+Step}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QSpin\+Box\+::single\+Step() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledExSpinBox_ac9b02345647019c6e6d1c0379a12967a}\label{classLabelledExSpinBox_ac9b02345647019c6e6d1c0379a12967a}} 
+void \mbox{\hyperlink{classLabelledExSpinBox_ac9b02345647019c6e6d1c0379a12967a}{set\+Single\+Step}} (int step)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QSpin\+Box\+::set\+Single\+Step(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledExSpinBox_a7823c583c3fdf74113c8fd9b22d45808}\label{classLabelledExSpinBox_a7823c583c3fdf74113c8fd9b22d45808}} 
+void \mbox{\hyperlink{classLabelledExSpinBox_a7823c583c3fdf74113c8fd9b22d45808}{set\+Display\+Type}} (\mbox{\hyperlink{classExSpinBox_aa253d1b6202dba708ea336a06c34a9dc}{Ex\+Spin\+Box\+::\+Display\+Type}} type)
+\begin{DoxyCompactList}\small\item\em Sets the type of the display, by default \mbox{\hyperlink{classExSpinBox}{Ex\+Spin\+Box}} Hexadecimal. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledExSpinBox_af1bcbed14e33027978fe591655ad3a0f}\label{classLabelledExSpinBox_af1bcbed14e33027978fe591655ad3a0f}} 
+bool \mbox{\hyperlink{classLabelledExSpinBox_af1bcbed14e33027978fe591655ad3a0f}{show\+Leading\+Zeroes}} () const
+\begin{DoxyCompactList}\small\item\em returns whether leading zeroes are displayed. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledExSpinBox_a70f97675ce57aaa884f30483d133d475}\label{classLabelledExSpinBox_a70f97675ce57aaa884f30483d133d475}} 
+void \mbox{\hyperlink{classLabelledExSpinBox_a70f97675ce57aaa884f30483d133d475}{set\+Show\+Leading\+Zeroes}} (bool \mbox{\hyperlink{classLabelledExSpinBox_a2434d6ba468a64a255e4bc1a01194ebc}{show\+Leading\+Zeroes}})
+\begin{DoxyCompactList}\small\item\em Sets whether leading zeroes are displayed. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledExSpinBox_ad95d8be45e0cb184d0c5ef30c22d4bbf}\label{classLabelledExSpinBox_ad95d8be45e0cb184d0c5ef30c22d4bbf}} 
+int \mbox{\hyperlink{classLabelledExSpinBox_ad95d8be45e0cb184d0c5ef30c22d4bbf}{value}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QSpin\+Box\+::value() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledExSpinBox_a0f104ca461d556662e8b4c39537a2ad0}\label{classLabelledExSpinBox_a0f104ca461d556662e8b4c39537a2ad0}} 
+void \mbox{\hyperlink{classLabelledExSpinBox_a0f104ca461d556662e8b4c39537a2ad0}{set\+Value}} (int v)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QSpin\+Box\+::set\+Value(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledExSpinBox_a68056289d686595ec7ba4c29f9ecca04}\label{classLabelledExSpinBox_a68056289d686595ec7ba4c29f9ecca04}} 
+int \mbox{\hyperlink{classLabelledExSpinBox_a68056289d686595ec7ba4c29f9ecca04}{maximum}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QSpin\+Box\+::maximum() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledExSpinBox_aae31c7d5e63f0025755c568286daec2c}\label{classLabelledExSpinBox_aae31c7d5e63f0025755c568286daec2c}} 
+void \mbox{\hyperlink{classLabelledExSpinBox_aae31c7d5e63f0025755c568286daec2c}{set\+Maximum}} (int max)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QSpin\+Box\+::set\+Maximum(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledExSpinBox_aa13f48f6ba718ea07439e7bb33b68bae}\label{classLabelledExSpinBox_aa13f48f6ba718ea07439e7bb33b68bae}} 
+int \mbox{\hyperlink{classLabelledExSpinBox_aa13f48f6ba718ea07439e7bb33b68bae}{minimum}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QSpin\+Box\+::minimum() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledExSpinBox_a11601ed7809b9f3ec60c207921a34bd6}\label{classLabelledExSpinBox_a11601ed7809b9f3ec60c207921a34bd6}} 
+void \mbox{\hyperlink{classLabelledExSpinBox_a11601ed7809b9f3ec60c207921a34bd6}{set\+Minimum}} (int min)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QSpin\+Box\+::set\+Minimum(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledExSpinBox_a7c58149779cb95d774c3a4d47be9d740}\label{classLabelledExSpinBox_a7c58149779cb95d774c3a4d47be9d740}} 
+void \mbox{\hyperlink{classLabelledExSpinBox_a7c58149779cb95d774c3a4d47be9d740}{set\+Range}} (int min, int max)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QSpin\+Box\+::set\+Range(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledExSpinBox_a867592cdceae57acbaee1047859e580f}\label{classLabelledExSpinBox_a867592cdceae57acbaee1047859e580f}} 
+QString \mbox{\hyperlink{classLabelledExSpinBox_a867592cdceae57acbaee1047859e580f}{prefix}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QSpin\+Box\+::prefix(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledExSpinBox_aa79483176db42a34b006490786c72815}\label{classLabelledExSpinBox_aa79483176db42a34b006490786c72815}} 
+void \mbox{\hyperlink{classLabelledExSpinBox_aa79483176db42a34b006490786c72815}{set\+Prefix}} (const QString \&\mbox{\hyperlink{classAbstractLabelledWidget_a38a4d448633db671496c5ef5b9591a9d}{label\+Text}})
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QSpin\+Box\+::set\+Prefix(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledExSpinBox_aa97dfd95968ab819265e1b4681354c6a}\label{classLabelledExSpinBox_aa97dfd95968ab819265e1b4681354c6a}} 
+QString \mbox{\hyperlink{classLabelledExSpinBox_aa97dfd95968ab819265e1b4681354c6a}{suffix}} ()
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QSpin\+Box\+::suffix(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledExSpinBox_a59f9b9ffc675cf642ee1d69305966d2d}\label{classLabelledExSpinBox_a59f9b9ffc675cf642ee1d69305966d2d}} 
+void \mbox{\hyperlink{classLabelledExSpinBox_a59f9b9ffc675cf642ee1d69305966d2d}{set\+Suffix}} (const QString \&text)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QSpin\+Box\+::set\+Suffix(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledExSpinBox_a894ef29460a56c4902bf8be0e13b2815}\label{classLabelledExSpinBox_a894ef29460a56c4902bf8be0e13b2815}} 
+bool \mbox{\hyperlink{classLabelledExSpinBox_a894ef29460a56c4902bf8be0e13b2815}{neg\+Before\+Prefix}} () const
+\begin{DoxyCompactList}\small\item\em Returns the value of the negative before prefix flag. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classLabelledExSpinBox_ad3e34ea9852043ecafd3b289359fb4c1}{set\+Neg\+Before\+Prefix}} (bool \mbox{\hyperlink{classLabelledExSpinBox_a9ed42d5678bd049fc3be695640c9a75b}{neg\+Before\+Prefix}})
+\item 
+\mbox{\Hypertarget{classLabelledExSpinBox_a912f5a8cc4e9c3fd68771f80cfcbbad9}\label{classLabelledExSpinBox_a912f5a8cc4e9c3fd68771f80cfcbbad9}} 
+QAbstract\+Spin\+Box\+::\+Step\+Type \mbox{\hyperlink{classLabelledExSpinBox_a912f5a8cc4e9c3fd68771f80cfcbbad9}{step\+Type}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QSpin\+Box\+::step\+Type(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledExSpinBox_a912557884c946acb3d7c80021feca640}\label{classLabelledExSpinBox_a912557884c946acb3d7c80021feca640}} 
+void \mbox{\hyperlink{classLabelledExSpinBox_a912557884c946acb3d7c80021feca640}{set\+Step\+Type}} (QAbstract\+Spin\+Box\+::\+Step\+Type type)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QSpin\+Box\+::set\+Step\+Type(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledExSpinBox_aad3ffa43d23fc2415c4f6cdcc851258a}\label{classLabelledExSpinBox_aad3ffa43d23fc2415c4f6cdcc851258a}} 
+QString \mbox{\hyperlink{classLabelledExSpinBox_aad3ffa43d23fc2415c4f6cdcc851258a}{clean\+Text}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QSpin\+Box\+::clean\+Text(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledExSpinBox_afaea37129941e3302d78fcaef6007da6}\label{classLabelledExSpinBox_afaea37129941e3302d78fcaef6007da6}} 
+void \mbox{\hyperlink{classLabelledExSpinBox_afaea37129941e3302d78fcaef6007da6}{set\+Widget\+Alignment}} (const Qt\+::\+Alignment \&\mbox{\hyperlink{classLabelledExSpinBox_a9a123b7530a9b363047daa733be52d77}{widget\+Alignment}})
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QSpin\+Box\+::set\+Widget\+Alignment(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classLabelledExSpinBox_a9a123b7530a9b363047daa733be52d77}\label{classLabelledExSpinBox_a9a123b7530a9b363047daa733be52d77}} 
+Qt\+::\+Alignment \mbox{\hyperlink{classLabelledExSpinBox_a9a123b7530a9b363047daa733be52d77}{widget\+Alignment}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QSpin\+Box\+::widget\+Alignment(). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{classLabelledExSpinBox_ac40effb5702f6b89cf87c91fd37239e2}{display\+Digits}}
+\begin{DoxyCompactList}\small\item\em This property holds the number of displayable digits of the spin box. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classExSpinBox_aa253d1b6202dba708ea336a06c34a9dc}{Ex\+Spin\+Box\+::\+Display\+Type}} \mbox{\hyperlink{classLabelledExSpinBox_a84857f274b5e9fa24b35efe498e82b9a}{display\+Type}}
+\begin{DoxyCompactList}\small\item\em This property holds the type for the spin box to display. By default \mbox{\hyperlink{classExSpinBox_aa253d1b6202dba708ea336a06c34a9dca8fd7fa451debde033dc2d7e953387a8a}{Ex\+Spin\+Box\+::\+Hexadecimal}}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classLabelledExSpinBox_a2434d6ba468a64a255e4bc1a01194ebc}{show\+Leading\+Zeroes}}
+\begin{DoxyCompactList}\small\item\em This property holds whether the spin box shows leading zeroes. \end{DoxyCompactList}\item 
+QSpin\+Box\+::\+Step\+Type \mbox{\hyperlink{classLabelledExSpinBox_a7ce4fb79159986b8e85d76f30dc5fbeb}{step\+Type}}
+\begin{DoxyCompactList}\small\item\em This property holds the step type. \end{DoxyCompactList}\item 
+QString \mbox{\hyperlink{classLabelledExSpinBox_af3700ed7cc2df2a219310e2975ac9c7c}{prefix}}
+\begin{DoxyCompactList}\small\item\em This property holds the spin box\textquotesingle{}s prefix. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classLabelledExSpinBox_a9ed42d5678bd049fc3be695640c9a75b}{neg\+Before\+Prefix}}
+\begin{DoxyCompactList}\small\item\em This property holds the display negative sign before prefix flag. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classLabelledExSpinBox}{Labelled\+Ex\+Spin\+Box}} is a wrapper for QLabel and \mbox{\hyperlink{classExSpinBox}{Ex\+Spin\+Box}} that provides a labelled extended spin box. 
+
+\begin{DoxySince}{Since}
+5.\+7.\+0 
+\end{DoxySince}
+\begin{DoxyParagraph}{License\+: The MIT License}
+
+\end{DoxyParagraph}
+\begin{DoxyCopyright}{Copyright}
+© 2019 -\/ 2020 Simon Meaden. All rights reserved.
+\end{DoxyCopyright}
+All properties of the QSpin\+Box are copied across to this widget.
+
+By default the \mbox{\hyperlink{classExSpinBox}{Ex\+Spin\+Box}} type is \mbox{\hyperlink{classExSpinBox_aa253d1b6202dba708ea336a06c34a9dca8fd7fa451debde033dc2d7e953387a8a}{Ex\+Spin\+Box\+::\+Hexadecimal}}. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classLabelledExSpinBox_a6fda58bb47d8fc7cba4b55b978c449cd}\label{classLabelledExSpinBox_a6fda58bb47d8fc7cba4b55b978c449cd}} 
+\index{LabelledExSpinBox@{LabelledExSpinBox}!LabelledExSpinBox@{LabelledExSpinBox}}
+\index{LabelledExSpinBox@{LabelledExSpinBox}!LabelledExSpinBox@{LabelledExSpinBox}}
+\doxysubsubsection{\texorpdfstring{LabelledExSpinBox()}{LabelledExSpinBox()}}
+{\footnotesize\ttfamily Labelled\+Ex\+Spin\+Box\+::\+Labelled\+Ex\+Spin\+Box (\begin{DoxyParamCaption}\item[{const QString \&}]{label\+Text = {\ttfamily QString()},  }\item[{QWidget $\ast$}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+The \mbox{\hyperlink{classLabelledExSpinBox}{Labelled\+Ex\+Spin\+Box}} is a wrapper for QLabel and QSpin\+Box that provides a labelled extended spin box. 
+
+Extends \mbox{\hyperlink{classAbstractLabelledSpinBox}{Abstract\+Labelled\+Spin\+Box}} to supply a spin box with hexadecimal, octal and binary display of interger values.
+
+
+\begin{DoxyParams}{Parameters}
+{\em label\+Text} & the label text string. \\
+\hline
+{\em parent} & the parent widget.$\ast$ / \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classLabelledExSpinBox_a237c4c378e5e5ae786244c78e54b6fcf}\label{classLabelledExSpinBox_a237c4c378e5e5ae786244c78e54b6fcf}} 
+\index{LabelledExSpinBox@{LabelledExSpinBox}!displayTypeChanged@{displayTypeChanged}}
+\index{displayTypeChanged@{displayTypeChanged}!LabelledExSpinBox@{LabelledExSpinBox}}
+\doxysubsubsection{\texorpdfstring{displayTypeChanged}{displayTypeChanged}}
+{\footnotesize\ttfamily Labelled\+Ex\+Spin\+Box\+::display\+Type\+Changed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classExSpinBox_aa253d1b6202dba708ea336a06c34a9dc}{Ex\+Spin\+Box\+::\+Display\+Type}}}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+This signal is sent when the user changes the display type of the spin box. \mbox{\Hypertarget{classLabelledExSpinBox_ad3e34ea9852043ecafd3b289359fb4c1}\label{classLabelledExSpinBox_ad3e34ea9852043ecafd3b289359fb4c1}} 
+\index{LabelledExSpinBox@{LabelledExSpinBox}!setNegBeforePrefix@{setNegBeforePrefix}}
+\index{setNegBeforePrefix@{setNegBeforePrefix}!LabelledExSpinBox@{LabelledExSpinBox}}
+\doxysubsubsection{\texorpdfstring{setNegBeforePrefix()}{setNegBeforePrefix()}}
+{\footnotesize\ttfamily void Labelled\+Ex\+Spin\+Box\+::set\+Neg\+Before\+Prefix (\begin{DoxyParamCaption}\item[{bool}]{neg\+Before\+Prefix }\end{DoxyParamCaption})}
+
+Sets the value of the negative before prefix flag. \mbox{\Hypertarget{classLabelledExSpinBox_a7a8fddaaf207215fb15754988842344c}\label{classLabelledExSpinBox_a7a8fddaaf207215fb15754988842344c}} 
+\index{LabelledExSpinBox@{LabelledExSpinBox}!valueChanged@{valueChanged}}
+\index{valueChanged@{valueChanged}!LabelledExSpinBox@{LabelledExSpinBox}}
+\doxysubsubsection{\texorpdfstring{valueChanged}{valueChanged}}
+{\footnotesize\ttfamily Labelled\+Ex\+Spin\+Box\+::value\+Changed (\begin{DoxyParamCaption}\item[{int}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+\begin{DoxyParagraph}{From\+: QSpin\+Box\+::value}
+
+\end{DoxyParagraph}
+
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{classLabelledExSpinBox_ac40effb5702f6b89cf87c91fd37239e2}\label{classLabelledExSpinBox_ac40effb5702f6b89cf87c91fd37239e2}} 
+\index{LabelledExSpinBox@{LabelledExSpinBox}!displayDigits@{displayDigits}}
+\index{displayDigits@{displayDigits}!LabelledExSpinBox@{LabelledExSpinBox}}
+\doxysubsubsection{\texorpdfstring{displayDigits}{displayDigits}}
+{\footnotesize\ttfamily Labelled\+Ex\+Spin\+Box\+::display\+Digits\hspace{0.3cm}{\ttfamily [read]}}
+
+
+
+This property holds the number of displayable digits of the spin box. 
+
+This is not necessarily the number of digits displayed unless show\+Leading\+Zeroes is true.
+
+{\bfseries{Accessor\+:}} display\+Digits() \mbox{\Hypertarget{classLabelledExSpinBox_a84857f274b5e9fa24b35efe498e82b9a}\label{classLabelledExSpinBox_a84857f274b5e9fa24b35efe498e82b9a}} 
+\index{LabelledExSpinBox@{LabelledExSpinBox}!displayType@{displayType}}
+\index{displayType@{displayType}!LabelledExSpinBox@{LabelledExSpinBox}}
+\doxysubsubsection{\texorpdfstring{displayType}{displayType}}
+{\footnotesize\ttfamily Labelled\+Ex\+Spin\+Box\+::display\+Type\hspace{0.3cm}{\ttfamily [read]}}
+
+
+
+This property holds the type for the spin box to display. By default \mbox{\hyperlink{classExSpinBox_aa253d1b6202dba708ea336a06c34a9dca8fd7fa451debde033dc2d7e953387a8a}{Ex\+Spin\+Box\+::\+Hexadecimal}}. 
+
+{\bfseries{Accessor\+:}} display\+Type(void) , \%2 {\bfseries{Notifier\+:}} \mbox{\hyperlink{classLabelledExSpinBox_a237c4c378e5e5ae786244c78e54b6fcf}{display\+Type\+Changed()}} \mbox{\Hypertarget{classLabelledExSpinBox_a9ed42d5678bd049fc3be695640c9a75b}\label{classLabelledExSpinBox_a9ed42d5678bd049fc3be695640c9a75b}} 
+\index{LabelledExSpinBox@{LabelledExSpinBox}!negBeforePrefix@{negBeforePrefix}}
+\index{negBeforePrefix@{negBeforePrefix}!LabelledExSpinBox@{LabelledExSpinBox}}
+\doxysubsubsection{\texorpdfstring{negBeforePrefix}{negBeforePrefix}}
+{\footnotesize\ttfamily Labelled\+Ex\+Spin\+Box\+::neg\+Before\+Prefix\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+This property holds the display negative sign before prefix flag. 
+
+Default is false. This only applies to a user supplied prefix, not the internal \char`\"{}0x\char`\"{} (Hexadecimal), \char`\"{}0\char`\"{} (Octal), \char`\"{}0b\char`\"{} (Binary) prefixes which are always supplied.
+
+If false, the default, and assuming you set a prefix of \char`\"{}£\char`\"{} for a hexadecimal spin box then the result would be \char`\"{}£-\/0x\+FF\char`\"{} for an int value of
+\begin{DoxyEnumerate}
+\item If set to true then \char`\"{}-\/£0x\+FF\char`\"{} would result. Of course this is a very odd example and I cannot see any reason to display hexadecimal currency.
+\end{DoxyEnumerate}
+
+{\bfseries{Accessor\+:}} neg\+Before\+Prefix() , \%2 \mbox{\Hypertarget{classLabelledExSpinBox_af3700ed7cc2df2a219310e2975ac9c7c}\label{classLabelledExSpinBox_af3700ed7cc2df2a219310e2975ac9c7c}} 
+\index{LabelledExSpinBox@{LabelledExSpinBox}!prefix@{prefix}}
+\index{prefix@{prefix}!LabelledExSpinBox@{LabelledExSpinBox}}
+\doxysubsubsection{\texorpdfstring{prefix}{prefix}}
+{\footnotesize\ttfamily Labelled\+Ex\+Spin\+Box\+::prefix\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+This property holds the spin box\textquotesingle{}s prefix. 
+
+{\bfseries{Reimplements\+:}} QSpin\+Box\+::prefix {\bfseries{Accessor\+:}} prefix() , \%2 \mbox{\Hypertarget{classLabelledExSpinBox_a2434d6ba468a64a255e4bc1a01194ebc}\label{classLabelledExSpinBox_a2434d6ba468a64a255e4bc1a01194ebc}} 
+\index{LabelledExSpinBox@{LabelledExSpinBox}!showLeadingZeroes@{showLeadingZeroes}}
+\index{showLeadingZeroes@{showLeadingZeroes}!LabelledExSpinBox@{LabelledExSpinBox}}
+\doxysubsubsection{\texorpdfstring{showLeadingZeroes}{showLeadingZeroes}}
+{\footnotesize\ttfamily Labelled\+Ex\+Spin\+Box\+::show\+Leading\+Zeroes\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+This property holds whether the spin box shows leading zeroes. 
+
+If true leading zeroes are added until number\+Of\+Digits characters are reached.
+
+{\bfseries{Accessor\+:}} show\+Leading\+Zeroes(void) , \%2 \mbox{\Hypertarget{classLabelledExSpinBox_a7ce4fb79159986b8e85d76f30dc5fbeb}\label{classLabelledExSpinBox_a7ce4fb79159986b8e85d76f30dc5fbeb}} 
+\index{LabelledExSpinBox@{LabelledExSpinBox}!stepType@{stepType}}
+\index{stepType@{stepType}!LabelledExSpinBox@{LabelledExSpinBox}}
+\doxysubsubsection{\texorpdfstring{stepType}{stepType}}
+{\footnotesize\ttfamily Labelled\+Ex\+Spin\+Box\+::step\+Type\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+This property holds the step type. 
+
+{\bfseries{Reimplements\+:}} QSpin\+Box\+::step\+Type {\bfseries{Accessor\+:}} step\+Type() , \%2 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{labelledexspinbox_8h}{labelledexspinbox.\+h}}\end{DoxyCompactItemize}

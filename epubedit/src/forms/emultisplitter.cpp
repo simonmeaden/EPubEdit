@@ -26,7 +26,7 @@ EMultiSplitter::createEditor()
   EPubEditor* editor=nullptr;
 
   if (current)
-    editor = current->clone();
+    editor = current->clone(dynamic_cast<IEPubEditor*>(editor));
   else
     editor = new EPubEditor(m_config, this);
 
@@ -38,7 +38,7 @@ EMultiSplitter::createEditor()
   connect(editor,
           &EPubEditor::splitToWindow,
           this,
-          &MultiSplitter::createSplitToWindow);
+          &MultiSplitter::openToNewWindow);
   return editor;
 }
 

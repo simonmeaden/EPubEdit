@@ -104,33 +104,64 @@ struct convert<QList<T>>
   }
 };
 
-//! Conversion YAML::convert template class for QMap<K, V>
-template<class K, class V>
-struct convert<QMap<K, V>>
+////! Conversion YAML::convert template class for QMap<K, V>
+//template<class K, class V>
+//struct convert<QMap<K, V>>
+//{
+//  //! encode a QMap<K, V> into a YAML Node.
+//  static Node encode(const QMap<K, V>& rhs)
+//  {
+//    Node node(NodeType::Map);
+
+//    std::map<K, V> smap = rhs.toStdMap();
+//    node = smap;
+
+//    return node;
+//  }
+
+//  //! decodes a YAML node back into a QMap<K, V>
+//  static bool decode(const Node& node, QMap<K, V>& rhs)
+//  {
+//    if (!node.IsMap()) {
+//      return false;
+//    }
+
+//    std::map<K, V> smap = node.as<std::map<K, V>>();
+//    rhs = QMap<K, V>(smap);
+
+//    return true;
+//  }
+//};
+
+template<typename Key, typename Value>
+struct convert<QMap<Key, Value>>
 {
-  //! encode a QMap<K, V> into a YAML Node.
-  static Node encode(const QMap<K, V>& rhs)
-  {
-    Node node(NodeType::Map);
-
-    std::map<K, V> smap = rhs.toStdMap();
-    node = smap;
-
-    return node;
-  }
-
-  //! decodes a YAML node back into a QMap<K, V>
-  static bool decode(const Node& node, QMap<K, V>& rhs)
-  {
-    if (!node.IsMap()) {
-      return false;
+    static Node encode(const QMap<Key,Value>& rhs)
+    {
+        Node node(NodeType::Map);
+        auto it = rhs.constBegin();
+        while (it != rhs.constEnd())
+        {
+            node.force_insert(it.key(), it.value());
+            ++it;
+        }
+        return node;
     }
 
-    std::map<K, V> smap = node.as<std::map<K, V>>();
-    rhs = QMap<K, V>(smap);
+    static bool decode(const Node& node, QMap<Key, Value>& rhs)
+    {
+        if (!node.IsMap())
+            return false;
 
-    return true;
-  }
+        rhs.clear();
+        const_iterator it = node.begin();
+        while (it != node.end())
+        {
+            rhs[it->first.as<Key>()] = it->second.as<Value>();
+            ++it;
+        }
+        return true;
+    }
 };
 
 ////! Conversion YAML::convert template class for QList<T>

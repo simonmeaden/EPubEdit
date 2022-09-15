@@ -8,7 +8,7 @@
 
 #include "document/bookpointers.h"
 #include "document/metadata.h"
-#include "x11colors.h"
+#include "utilities/x11colors.h"
 
 
 class ContentsFrame : public QWidget

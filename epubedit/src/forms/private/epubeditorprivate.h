@@ -37,6 +37,8 @@ public:
 
   QSize minimumSize() const;
 
+//  void loadHref(const QString& href);
+
   void removeSplit();
   void dragFile();
   void goBack();
@@ -56,7 +58,7 @@ private:
   PSeriesDB m_seriesDB;
   PAuthorsDB m_authorsDB;
   ListWidget* m_listWidget = nullptr;
-  ListButtonWidget* m_typeWidget = nullptr;
+  ListWidget* m_typeWidget = nullptr;
   QStringList m_docFileList;
 
   QString m_currentBookFilename;

@@ -1,0 +1,33 @@
+\hypertarget{classCloneableWidgetInterface}{}\doxysection{Cloneable\+Widget\+Interface Class Reference}
+\label{classCloneableWidgetInterface}\index{CloneableWidgetInterface@{CloneableWidgetInterface}}
+
+
+Creates an interface that allows your QWidget extensions to clone themselves.  
+
+
+
+
+{\ttfamily \#include $<$cloneableinterface.\+h$>$}
+
+Inheritance diagram for Cloneable\+Widget\+Interface\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.393939cm]{classCloneableWidgetInterface}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classCloneableWidgetInterface_a69823aaa3e316d95714c9a97a93f8bb3}\label{classCloneableWidgetInterface_a69823aaa3e316d95714c9a97a93f8bb3}} 
+virtual QWidget $\ast$ \mbox{\hyperlink{classCloneableWidgetInterface_a69823aaa3e316d95714c9a97a93f8bb3}{clone}} (QWidget $\ast$widget)=0
+\begin{DoxyCompactList}\small\item\em implement this method in your cloneable classes. This will allow \mbox{\hyperlink{classMultiSplitter}{Multi\+Splitter}} to create a clone of your QWidget. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Creates an interface that allows your QWidget extensions to clone themselves. 
+
+Intended for use by the \mbox{\hyperlink{classMultiSplitter}{Multi\+Splitter}} widget. When the splitter split\textquotesingle{}s a QWidget it checks the existing widget, and if it extends the \mbox{\hyperlink{classCloneableWidgetInterface}{Cloneable\+Widget\+Interface}} class it will be cloned, placing a copy of the widget in each split. Otherwise it will attempt to create a copy of the QWidget. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+cloneableinterface.\+h\end{DoxyCompactItemize}

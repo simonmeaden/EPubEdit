@@ -1,0 +1,79 @@
+\hypertarget{structHtmlTag}{}\doxysection{Html\+Tag Struct Reference}
+\label{structHtmlTag}\index{HtmlTag@{HtmlTag}}
+
+
+Stores tags. This is the most common type.  
+
+
+
+
+{\ttfamily \#include $<$htmlscanner.\+h$>$}
+
+Inheritance diagram for Html\+Tag\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=6.000000cm]{structHtmlTag}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+QString \mbox{\hyperlink{structHtmlTag_a2c745f07d04208772a8be9efd1fe688f}{to\+String}} () override
+\begin{DoxyCompactList}\small\item\em Creates a string version of the tag. \end{DoxyCompactList}\item 
+Is\+In\+Type \mbox{\hyperlink{structHtmlTag_add86c2e52b1dbe2e5e0bd68221a4d584}{is\+In}} (int cursor\+Pos) override
+\begin{DoxyCompactList}\small\item\em is\+In method of all \mbox{\hyperlink{structTag}{Tag}} types. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structHtmlTag_af948e26bed3fba9ae1306646a23a8a43}\label{structHtmlTag_af948e26bed3fba9ae1306646a23a8a43}} 
+bool \mbox{\hyperlink{structHtmlTag_af948e26bed3fba9ae1306646a23a8a43}{has\+Attribute\+Index}} ()
+\begin{DoxyCompactList}\small\item\em tests whther the \mbox{\hyperlink{structHtmlTag}{Html\+Tag}} has in attribute\+Index value set. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structHtmlTag_a0611bf7268ce2afa89de0f501f1b585b}\label{structHtmlTag_a0611bf7268ce2afa89de0f501f1b585b}} 
+int \mbox{\hyperlink{structHtmlTag_a0611bf7268ce2afa89de0f501f1b585b}{attribute\+Index}} = -\/1
+\begin{DoxyCompactList}\small\item\em The index of the attribute that has been detected by the Is\+In method. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structHtmlTag_a9dbc0f706ba9df29e5adf1fdfbd3db1f}\label{structHtmlTag_a9dbc0f706ba9df29e5adf1fdfbd3db1f}} 
+QVector$<$ \mbox{\hyperlink{structAttribute}{Attribute}} $\ast$ $>$ \mbox{\hyperlink{structHtmlTag_a9dbc0f706ba9df29e5adf1fdfbd3db1f}{attributes}}
+\begin{DoxyCompactList}\small\item\em List of attrubutes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Stores tags. This is the most common type. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structHtmlTag_add86c2e52b1dbe2e5e0bd68221a4d584}\label{structHtmlTag_add86c2e52b1dbe2e5e0bd68221a4d584}} 
+\index{HtmlTag@{HtmlTag}!isIn@{isIn}}
+\index{isIn@{isIn}!HtmlTag@{HtmlTag}}
+\doxysubsubsection{\texorpdfstring{isIn()}{isIn()}}
+{\footnotesize\ttfamily Is\+In\+Type Html\+Tag\+::is\+In (\begin{DoxyParamCaption}\item[{int}]{cursor\+Pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+is\+In method of all \mbox{\hyperlink{structTag}{Tag}} types. 
+
+Returns the result of a test whether the cursor is within the tag. Returns one of the Is\+In\+Type values. 
+
+Reimplemented from \mbox{\hyperlink{structNameTag_af2a950ba2545f74ca3b5e8d4443545fb}{Name\+Tag}}.
+
+\mbox{\Hypertarget{structHtmlTag_a2c745f07d04208772a8be9efd1fe688f}\label{structHtmlTag_a2c745f07d04208772a8be9efd1fe688f}} 
+\index{HtmlTag@{HtmlTag}!toString@{toString}}
+\index{toString@{toString}!HtmlTag@{HtmlTag}}
+\doxysubsubsection{\texorpdfstring{toString()}{toString()}}
+{\footnotesize\ttfamily QString Html\+Tag\+::to\+String (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Creates a string version of the tag. 
+
+Override to create a string version of derived tags. 
+
+Implements \mbox{\hyperlink{structTag_a4da658a0743db8f0218cd3f256125217}{Tag}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{structXmlTag_a92fcc642cc68298dd6d30244ad53962f}{Xml\+Tag}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+htmlscanner.\+h\end{DoxyCompactItemize}

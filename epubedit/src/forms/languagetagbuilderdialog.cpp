@@ -1,8 +1,8 @@
 #include "forms/languagetagbuilderdialog.h"
-#include "helpdialogs.h"
-#include "paths.h"
-#include "stringutil.h"
-#include "x11colors.h"
+#include "widgets/helpdialogs.h"
+#include "utilities/paths.h"
+#include "utilities/stringutil.h"
+#include "utilities/x11colors.h"
 
 //====================================================================
 //=== LanguageTagBuilderDialog
@@ -1739,7 +1739,7 @@ LanguageLabel::hoverMove(QHoverEvent* event)
 {
   if (m_document->toPlainText().size() > 0) {
     auto layout = m_document->documentLayout();
-    auto pos = event->pos();
+    auto pos = event->position().toPoint();
     auto cursorPos = layout->hitTest(pos, Qt::FuzzyHit);
     if (cursorPos > -1) {
       for (auto block : m_hoverData) {

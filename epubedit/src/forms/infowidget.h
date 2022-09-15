@@ -6,7 +6,7 @@
 #include <QUndoStack>
 #include <QUndoView>
 
-#include "headerwidget.h"
+#include "docker/headerwidget.h"
 #include "document/bookpointers.h"
 
 class ButtonWidget;

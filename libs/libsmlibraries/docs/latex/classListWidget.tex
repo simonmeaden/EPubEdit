@@ -1,0 +1,113 @@
+\hypertarget{classListWidget}{}\doxysection{List\+Widget Class Reference}
+\label{classListWidget}\index{ListWidget@{ListWidget}}
+
+
+The \mbox{\hyperlink{classListWidget}{List\+Widget}} class supplies a button with a drop down menu, also displays the selected text or the first if none selected..  
+
+
+
+
+{\ttfamily \#include $<$widgetitem.\+cpp$>$}
+
+Inheritance diagram for List\+Widget\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{classListWidget}
+\end{center}
+\end{figure}
+\doxysubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classListWidget_a2c269d52f72e00f18e6c158ce013a81b}\label{classListWidget_a2c269d52f72e00f18e6c158ce013a81b}} 
+void \mbox{\hyperlink{classListWidget_a2c269d52f72e00f18e6c158ce013a81b}{item\+Clicked}} (int index, const QString \&text)
+\begin{DoxyCompactList}\small\item\em sent when an item in the dropdown list is selected. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classListWidget_a343f18e7721e3eb7839d52df32ea468c}\label{classListWidget_a343f18e7721e3eb7839d52df32ea468c}} 
+\mbox{\hyperlink{classListWidget_a343f18e7721e3eb7839d52df32ea468c}{List\+Widget}} (\mbox{\hyperlink{classAbstractDockWidget}{Abstract\+Dock\+Widget}} $\ast$parent, \mbox{\hyperlink{classAbstractDockItem}{Abstract\+Dock\+Item}} $\ast$dock\+Item)
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{classListWidget}{List\+Widget}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classListWidget_a90a014a74ec9fbbc8ee2ac2a8176a6c9}\label{classListWidget_a90a014a74ec9fbbc8ee2ac2a8176a6c9}} 
+const QList$<$ \mbox{\hyperlink{classListItem}{List\+Item}} $\ast$ $>$ \& \mbox{\hyperlink{classListWidget_a90a014a74ec9fbbc8ee2ac2a8176a6c9}{items}} ()
+\begin{DoxyCompactList}\small\item\em Returns a list of the dropdown list \mbox{\hyperlink{classListItem}{List\+Item}}\textquotesingle{}s. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classListWidget_a86f30c1035977dc91786514c0c106783}\label{classListWidget_a86f30c1035977dc91786514c0c106783}} 
+void \mbox{\hyperlink{classListWidget_a86f30c1035977dc91786514c0c106783}{add\+Item}} (const QString \&text)
+\begin{DoxyCompactList}\small\item\em Adds a text list item to the buttons dropdown list. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classListWidget_a08c86022d4d7c62929cde7260b8d10de}\label{classListWidget_a08c86022d4d7c62929cde7260b8d10de}} 
+void \mbox{\hyperlink{classListWidget_a08c86022d4d7c62929cde7260b8d10de}{add\+Item}} (const QIcon \&icon, const QSize \&icon\+Size, const QString \&text)
+\begin{DoxyCompactList}\small\item\em Adds a text and icon list item to the buttons dropdown list. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classListWidget_a9af08bf4a5cf0b7566bbae0bd6a42676}\label{classListWidget_a9af08bf4a5cf0b7566bbae0bd6a42676}} 
+void \mbox{\hyperlink{classListWidget_a9af08bf4a5cf0b7566bbae0bd6a42676}{set\+Items}} (const QString\+List \&\mbox{\hyperlink{classListWidget_a90a014a74ec9fbbc8ee2ac2a8176a6c9}{items}})
+\begin{DoxyCompactList}\small\item\em Sets a list of text only items for the dropdown list. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classListWidget_ab1769e28bf1a2a60819b85a707dc56d9}\label{classListWidget_ab1769e28bf1a2a60819b85a707dc56d9}} 
+void \mbox{\hyperlink{classListWidget_ab1769e28bf1a2a60819b85a707dc56d9}{set\+Items}} (const QList$<$ \mbox{\hyperlink{classListItem}{List\+Item}} $\ast$ $>$ \&\mbox{\hyperlink{classListWidget_a90a014a74ec9fbbc8ee2ac2a8176a6c9}{items}})
+\begin{DoxyCompactList}\small\item\em Sets a list of items for the dropdown list. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classListWidget_a7793737ee76cd52a13ecf7fdf31de356}\label{classListWidget_a7793737ee76cd52a13ecf7fdf31de356}} 
+int \mbox{\hyperlink{classListWidget_a7793737ee76cd52a13ecf7fdf31de356}{current\+Item}} ()
+\begin{DoxyCompactList}\small\item\em Returns the currently selected item. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classListWidget_a46e691d51b1e50e694915a17685af3a3}\label{classListWidget_a46e691d51b1e50e694915a17685af3a3}} 
+void \mbox{\hyperlink{classListWidget_a46e691d51b1e50e694915a17685af3a3}{set\+Current\+Item}} (int index)
+\begin{DoxyCompactList}\small\item\em Sets the currently selected item. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classListWidget_abf6fdd5d7bf284cfd0893bcdff834ec8}\label{classListWidget_abf6fdd5d7bf284cfd0893bcdff834ec8}} 
+void \mbox{\hyperlink{classListWidget_abf6fdd5d7bf284cfd0893bcdff834ec8}{show\+List}} ()
+\begin{DoxyCompactList}\small\item\em Shows the dropdown list. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classListWidget_af84100b2cc2b603e93a5e26c054434a4}\label{classListWidget_af84100b2cc2b603e93a5e26c054434a4}} 
+void \mbox{\hyperlink{classListWidget_af84100b2cc2b603e93a5e26c054434a4}{set\+Text}} (const QString text)
+\begin{DoxyCompactList}\small\item\em Sets the list widgets display text. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classListWidget_ac71586cbdcaf01768457eeb903981b94}{set\+Spacer}} (int spacer)
+\item 
+\mbox{\Hypertarget{classListWidget_a5e886fdd8b42b03da874d7cd490e528e}\label{classListWidget_a5e886fdd8b42b03da874d7cd490e528e}} 
+void \mbox{\hyperlink{classListWidget_a5e886fdd8b42b03da874d7cd490e528e}{set\+Text}} (int index, const QString text)
+\begin{DoxyCompactList}\small\item\em Sets the text for the item at index. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classListWidget_a02b11056f39e2cbb6ba32ee603c8531e}\label{classListWidget_a02b11056f39e2cbb6ba32ee603c8531e}} 
+void \mbox{\hyperlink{classListWidget_a02b11056f39e2cbb6ba32ee603c8531e}{set\+Icon}} (int index, const QIcon \&icon, const QSize \&icon\+Size)
+\begin{DoxyCompactList}\small\item\em Sets the icon for the item at index. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classListWidget_ab01dbf001e111147045fe231f41873fe}\label{classListWidget_ab01dbf001e111147045fe231f41873fe}} 
+void \mbox{\hyperlink{classListWidget_ab01dbf001e111147045fe231f41873fe}{set\+Item}} (int index, const QIcon \&icon, const QSize \&icon\+Size, const QString text)
+\begin{DoxyCompactList}\small\item\em Sets the text and the icon for the item at index. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classListWidget_a23ab5d014df479fc59c1b93b0094c9bb}\label{classListWidget_a23ab5d014df479fc59c1b93b0094c9bb}} 
+const QRect \& \mbox{\hyperlink{classListWidget_a23ab5d014df479fc59c1b93b0094c9bb}{text\+Rect}} ()
+\begin{DoxyCompactList}\small\item\em Returns the display area of the \mbox{\hyperlink{classListWidget}{List\+Widget}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classListWidget_afa92465d7673af64bbfbab1337db8a62}\label{classListWidget_afa92465d7673af64bbfbab1337db8a62}} 
+void \mbox{\hyperlink{classListWidget_afa92465d7673af64bbfbab1337db8a62}{set\+Text\+Rect}} (const QRect \&\mbox{\hyperlink{classListWidget_a23ab5d014df479fc59c1b93b0094c9bb}{text\+Rect}})
+\begin{DoxyCompactList}\small\item\em Sets the display area of the \mbox{\hyperlink{classListWidget}{List\+Widget}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classListWidget_ab7d5a093edb91d3efad3e3080e7d7d46}\label{classListWidget_ab7d5a093edb91d3efad3e3080e7d7d46}} 
+QSize \mbox{\hyperlink{classListWidget_ab7d5a093edb91d3efad3e3080e7d7d46}{size\+Hint}} ()
+\begin{DoxyCompactList}\small\item\em Returns the size hint. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classListWidget_a6203e417d00d1fa3bf72eddae9426acd}\label{classListWidget_a6203e417d00d1fa3bf72eddae9426acd}} 
+bool \mbox{\hyperlink{classListWidget_a6203e417d00d1fa3bf72eddae9426acd}{is\+Visible}} ()
+\begin{DoxyCompactList}\small\item\em Checks whether the widget is visible, true if it is otherwise false. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classListWidget_a9bd0846123d54339be20e1111cfea537}\label{classListWidget_a9bd0846123d54339be20e1111cfea537}} 
+void \mbox{\hyperlink{classListWidget_a9bd0846123d54339be20e1111cfea537}{hide\+Widget}} () override
+\begin{DoxyCompactList}\small\item\em Hides the list widget. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classListWidget_a4d4da2889bc90f0cc16e7347bbfe2724}\label{classListWidget_a4d4da2889bc90f0cc16e7347bbfe2724}} 
+void \mbox{\hyperlink{classListWidget_a4d4da2889bc90f0cc16e7347bbfe2724}{clone}} (QObject $\ast$item=nullptr) override
+\begin{DoxyCompactList}\small\item\em Creates a clone of the \mbox{\hyperlink{classWidgetItem}{Widget\+Item}}, passing it\textquotesingle{}s variables and settings into the supplied \textquotesingle{}master\textquotesingle{}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classListWidget}{List\+Widget}} class supplies a button with a drop down menu, also displays the selected text or the first if none selected.. 
+
+\mbox{\hyperlink{classListWidget}{List\+Widget}} is a subclass of \mbox{\hyperlink{classWidgetItem}{Widget\+Item}} that supplies a drop down menu when it is clicked. This is only available to headers and footers at present.
+
+Preferably add\+List\+Widget(...) of the \mbox{\hyperlink{classDockHeader}{Dock\+Header}} or \mbox{\hyperlink{classDockFooter}{Dock\+Footer}} should be used to create the button as it assures the button is properly created.
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classListWidget}{List\+Widget}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classListWidget_ac71586cbdcaf01768457eeb903981b94}\label{classListWidget_ac71586cbdcaf01768457eeb903981b94}} 
+\index{ListWidget@{ListWidget}!setSpacer@{setSpacer}}
+\index{setSpacer@{setSpacer}!ListWidget@{ListWidget}}
+\doxysubsubsection{\texorpdfstring{setSpacer()}{setSpacer()}}
+{\footnotesize\ttfamily void List\+Widget\+::set\+Spacer (\begin{DoxyParamCaption}\item[{int}]{spacer }\end{DoxyParamCaption})}
+
+Sets the size of the spacer between the icon and the text.
+
+Does nothing if there is no icon. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+listwidget.\+h\end{DoxyCompactItemize}

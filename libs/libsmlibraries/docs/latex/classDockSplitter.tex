@@ -1,0 +1,58 @@
+\hypertarget{classDockSplitter}{}\doxysection{Dock\+Splitter Class Reference}
+\label{classDockSplitter}\index{DockSplitter@{DockSplitter}}
+
+
+{\ttfamily \#include \char`\"{}include/docksplitter.\+h\char`\"{}}
+
+Inheritance diagram for Dock\+Splitter\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classDockSplitter}
+\end{center}
+\end{figure}
+\doxysubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDockSplitter_a64bda8c92f8c1700290fc06793922178}\label{classDockSplitter_a64bda8c92f8c1700290fc06793922178}} 
+void \mbox{\hyperlink{classDockSplitter_a64bda8c92f8c1700290fc06793922178}{manual\+Splitter\+Move}} ()
+\begin{DoxyCompactList}\small\item\em Emitted when the splitter is dragged. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDockSplitter_ac76019e6d1d177958e2a9613c24567ac}\label{classDockSplitter_ac76019e6d1d177958e2a9613c24567ac}} 
+\mbox{\hyperlink{classDockSplitter_ac76019e6d1d177958e2a9613c24567ac}{Dock\+Splitter}} (QWidget $\ast$parent)
+\begin{DoxyCompactList}\small\item\em Default constructor for \mbox{\hyperlink{classDockSplitter}{Dock\+Splitter}} which is a child of parent. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDockSplitter_a0efa335c2fc6a7e6429f7e3a0fb6782d}\label{classDockSplitter_a0efa335c2fc6a7e6429f7e3a0fb6782d}} 
+\mbox{\hyperlink{classDockSplitter_a0efa335c2fc6a7e6429f7e3a0fb6782d}{Dock\+Splitter}} (Qt\+::\+Orientation orientation, QWidget $\ast$parent)
+\begin{DoxyCompactList}\small\item\em Constructs a \mbox{\hyperlink{classDockSplitter}{Dock\+Splitter}} which is a child of parent. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classDockSplitter_ac74b71785f17e3e99631adb11e446cae}{widget\+Size\+Changed}} (QWidget $\ast$widget, const QSize \&size)
+\begin{DoxyCompactList}\small\item\em Should be called by parent classes when their size changes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Extension to QSplitter to handle size changes of the \mbox{\hyperlink{classDockWidget}{Dock\+Widget}} / \mbox{\hyperlink{classHeaderWidget}{Header\+Widget}} / \mbox{\hyperlink{classFooterWidget}{Footer\+Widget}} / \mbox{\hyperlink{classHeaderFooterWidget}{Header\+Footer\+Widget}} classes. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classDockSplitter_ac74b71785f17e3e99631adb11e446cae}\label{classDockSplitter_ac74b71785f17e3e99631adb11e446cae}} 
+\index{DockSplitter@{DockSplitter}!widgetSizeChanged@{widgetSizeChanged}}
+\index{widgetSizeChanged@{widgetSizeChanged}!DockSplitter@{DockSplitter}}
+\doxysubsubsection{\texorpdfstring{widgetSizeChanged()}{widgetSizeChanged()}}
+{\footnotesize\ttfamily void Dock\+Splitter\+::widget\+Size\+Changed (\begin{DoxyParamCaption}\item[{QWidget $\ast$}]{widget,  }\item[{const QSize \&}]{size }\end{DoxyParamCaption})}
+
+
+
+Should be called by parent classes when their size changes. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{// InfoWidget has a sizeChanged signal}}
+\DoxyCodeLine{m\_widget = \textcolor{keyword}{new} InfoWidget(\textcolor{keyword}{this});}
+\DoxyCodeLine{connect(m\_widget, \&InfoWidget::sizeChanged,}
+\DoxyCodeLine{        m\_mainSplitter, \&\mbox{\hyperlink{classDockSplitter_ac74b71785f17e3e99631adb11e446cae}{DockSplitter::widgetSizeChanged}});}
+
+\end{DoxyCode}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+docksplitter.\+h\end{DoxyCompactItemize}

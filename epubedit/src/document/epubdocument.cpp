@@ -9,9 +9,9 @@
 #include "document/library.h"
 #include "document/metadata.h"
 #include "forms/navitem.h"
-#include "paths.h"
-#include "qtidydoc.h"
-#include "tinyxmldocument.h"
+#include "utilities/paths.h"
+#include "utilities/qtidydoc.h"
+#include "utilities/tinyxmldocument.h"
 
 const QString EPubDocument::METAINF_FOLDER = "META-INF";
 const QString EPubDocument::OEBPS_FOLDER = "OEBPS";

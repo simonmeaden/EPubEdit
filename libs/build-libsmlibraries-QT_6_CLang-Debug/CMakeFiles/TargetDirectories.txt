@@ -1,0 +1,12 @@
+/home/simonmeaden/workspace/epubedit/libs/build-libsmlibraries-QT_6_CLang-Debug/CMakeFiles/libsmlibraries.dir
+/home/simonmeaden/workspace/epubedit/libs/build-libsmlibraries-QT_6_CLang-Debug/CMakeFiles/edit_cache.dir
+/home/simonmeaden/workspace/epubedit/libs/build-libsmlibraries-QT_6_CLang-Debug/CMakeFiles/rebuild_cache.dir
+/home/simonmeaden/workspace/epubedit/libs/build-libsmlibraries-QT_6_CLang-Debug/CMakeFiles/libsmlibraries_autogen_timestamp_deps.dir
+/home/simonmeaden/workspace/epubedit/libs/build-libsmlibraries-QT_6_CLang-Debug/CMakeFiles/libsmlibraries_autogen.dir
+/home/simonmeaden/workspace/epubedit/libs/build-libsmlibraries-QT_6_CLang-Debug/tests/CMakeFiles/edit_cache.dir
+/home/simonmeaden/workspace/epubedit/libs/build-libsmlibraries-QT_6_CLang-Debug/tests/CMakeFiles/rebuild_cache.dir
+/home/simonmeaden/workspace/epubedit/libs/build-libsmlibraries-QT_6_CLang-Debug/tests/testlibsmlibraries/CMakeFiles/smlibtest.dir
+/home/simonmeaden/workspace/epubedit/libs/build-libsmlibraries-QT_6_CLang-Debug/tests/testlibsmlibraries/CMakeFiles/edit_cache.dir
+/home/simonmeaden/workspace/epubedit/libs/build-libsmlibraries-QT_6_CLang-Debug/tests/testlibsmlibraries/CMakeFiles/rebuild_cache.dir
+/home/simonmeaden/workspace/epubedit/libs/build-libsmlibraries-QT_6_CLang-Debug/tests/testlibsmlibraries/CMakeFiles/smlibtest_autogen_timestamp_deps.dir
+/home/simonmeaden/workspace/epubedit/libs/build-libsmlibraries-QT_6_CLang-Debug/tests/testlibsmlibraries/CMakeFiles/smlibtest_autogen.dir

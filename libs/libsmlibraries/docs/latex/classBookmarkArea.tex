@@ -1,0 +1,125 @@
+\hypertarget{classBookmarkArea}{}\doxysection{Bookmark\+Area Class Reference}
+\label{classBookmarkArea}\index{BookmarkArea@{BookmarkArea}}
+Inheritance diagram for Bookmark\+Area\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classBookmarkArea}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBookmarkArea_a4e82f5e34ffe8177e834de39d12abe56}\label{classBookmarkArea_a4e82f5e34ffe8177e834de39d12abe56}} 
+enum {\bfseries Icon\+Id} \{ \newline
+{\bfseries Bookmark}
+, {\bfseries Cross}
+, {\bfseries Bar}
+, {\bfseries Black}
+, \newline
+{\bfseries White}
+, {\bfseries Blue}
+, {\bfseries Dark\+Blue}
+, {\bfseries Red}
+, \newline
+{\bfseries Dark\+Red}
+, {\bfseries Green}
+, {\bfseries Dark\+Green}
+, {\bfseries Yellow}
+, \newline
+{\bfseries Orange}
+, {\bfseries Pink}
+, {\bfseries Cyan}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBookmarkArea_a90f6c95f776a448d5a781785e178d1fb}\label{classBookmarkArea_a90f6c95f776a448d5a781785e178d1fb}} 
+{\bfseries Bookmark\+Area} (\mbox{\hyperlink{classLNPlainTextEdit}{LNPlain\+Text\+Edit}} $\ast$parent=nullptr)
+\item 
+\mbox{\Hypertarget{classBookmarkArea_a16aa28e649655c7a0836fb3eb545a4cf}\label{classBookmarkArea_a16aa28e649655c7a0836fb3eb545a4cf}} 
+QSize {\bfseries size\+Hint} () const override
+\item 
+\mbox{\Hypertarget{classBookmarkArea_a8f7fea16330e70fb84528adc2d19e3b0}\label{classBookmarkArea_a8f7fea16330e70fb84528adc2d19e3b0}} 
+int {\bfseries bookmark\+Area\+Width} () const
+\item 
+\mbox{\Hypertarget{classBookmarkArea_aa1bc864e950942fa9356192e27e5c6f9}\label{classBookmarkArea_aa1bc864e950942fa9356192e27e5c6f9}} 
+void {\bfseries set\+Width} (int width)
+\item 
+\mbox{\Hypertarget{classBookmarkArea_a6afc2efe0c4cc398878a2566f42f2014}\label{classBookmarkArea_a6afc2efe0c4cc398878a2566f42f2014}} 
+int {\bfseries is\+In} (QPoint pos)
+\item 
+\mbox{\Hypertarget{classBookmarkArea_a7d531c4f97e12c024eb4324a07a7076d}\label{classBookmarkArea_a7d531c4f97e12c024eb4324a07a7076d}} 
+const QPixmap $\ast$ {\bfseries pixmap} (Icon\+Id id)
+\item 
+\mbox{\Hypertarget{classBookmarkArea_aef5c163d705683df338a7f438f43f1c1}\label{classBookmarkArea_aef5c163d705683df338a7f438f43f1c1}} 
+QMap$<$ int, \mbox{\hyperlink{classBookmarkData}{Bookmark\+Data}} $\ast$ $>$ $\ast$ {\bfseries bookmarks} ()
+\item 
+\mbox{\Hypertarget{classBookmarkArea_a715f2683d54cc3b18e7923b2198fe1c5}\label{classBookmarkArea_a715f2683d54cc3b18e7923b2198fe1c5}} 
+\mbox{\hyperlink{classBookmarkData}{Bookmark\+Data}} $\ast$ {\bfseries bookmark} (int number)
+\item 
+\mbox{\Hypertarget{classBookmarkArea_abd0f4a2f756420d394b563f28276dbc2}\label{classBookmarkArea_abd0f4a2f756420d394b563f28276dbc2}} 
+void {\bfseries set\+Bookmarks} (QMap$<$ int, \mbox{\hyperlink{classBookmarkData}{Bookmark\+Data}} $\ast$ $>$ $\ast$bookmarks)
+\item 
+\mbox{\Hypertarget{classBookmarkArea_a747ece1deaaefd8123c529269db77959}\label{classBookmarkArea_a747ece1deaaefd8123c529269db77959}} 
+void {\bfseries insert\+Bookmark} (int bookmark, const QString \&text=QString())
+\item 
+\mbox{\Hypertarget{classBookmarkArea_a23011d8dda74855a9f899501c37e4a2e}\label{classBookmarkArea_a23011d8dda74855a9f899501c37e4a2e}} 
+void {\bfseries toggle\+Bookmark} (int bookmark)
+\item 
+\mbox{\Hypertarget{classBookmarkArea_a07dda997eadfc61c34ed619d0add95e7}\label{classBookmarkArea_a07dda997eadfc61c34ed619d0add95e7}} 
+void {\bfseries remove\+Bookmark} (int bookmark)
+\item 
+\mbox{\Hypertarget{classBookmarkArea_a4d49815bba2721c9bedfa587d6fe5eef}\label{classBookmarkArea_a4d49815bba2721c9bedfa587d6fe5eef}} 
+void {\bfseries edit\+Bookmark} (int line\+Number)
+\item 
+\mbox{\Hypertarget{classBookmarkArea_a623dacaa75788b0a3da55833d9cc1839}\label{classBookmarkArea_a623dacaa75788b0a3da55833d9cc1839}} 
+void {\bfseries clear\+Bookmarks} ()
+\item 
+\mbox{\Hypertarget{classBookmarkArea_aa4a4efdc634756fb90a936126de305e9}\label{classBookmarkArea_aa4a4efdc634756fb90a936126de305e9}} 
+bool {\bfseries has\+Bookmark} (int bookmark)
+\item 
+\mbox{\Hypertarget{classBookmarkArea_a7f10219674a63e01f2ff6d0af9922e02}\label{classBookmarkArea_a7f10219674a63e01f2ff6d0af9922e02}} 
+bool {\bfseries has\+Bookmarks} ()
+\item 
+\mbox{\Hypertarget{classBookmarkArea_af1bf0d0520ee73408b971374450d5f46}\label{classBookmarkArea_af1bf0d0520ee73408b971374450d5f46}} 
+bool {\bfseries has\+Bookmark\+Text} (int bookmark)
+\item 
+\mbox{\Hypertarget{classBookmarkArea_a125d40500c5eff1e2cf6f611e277d6e5}\label{classBookmarkArea_a125d40500c5eff1e2cf6f611e277d6e5}} 
+QString {\bfseries bookmark\+Text} (int bookmark)
+\item 
+\mbox{\Hypertarget{classBookmarkArea_a2e10e183d45e0177186d76a82406ddbd}\label{classBookmarkArea_a2e10e183d45e0177186d76a82406ddbd}} 
+int {\bfseries count} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBookmarkArea_a4a712587eb7d8b3ec7450c1a401a8b0c}\label{classBookmarkArea_a4a712587eb7d8b3ec7450c1a401a8b0c}} 
+void {\bfseries paint\+Event} (QPaint\+Event $\ast$event) override
+\item 
+\mbox{\Hypertarget{classBookmarkArea_a65e838eb1e6ac3118137f0ebf7e915ce}\label{classBookmarkArea_a65e838eb1e6ac3118137f0ebf7e915ce}} 
+void {\bfseries mouse\+Press\+Event} (QMouse\+Event $\ast$event) override
+\item 
+\mbox{\Hypertarget{classBookmarkArea_a362328f4bbf5c4d112787589f6d13c59}\label{classBookmarkArea_a362328f4bbf5c4d112787589f6d13c59}} 
+void {\bfseries mouse\+Move\+Event} (QMouse\+Event $\ast$) override
+\item 
+\mbox{\Hypertarget{classBookmarkArea_aa6b8809041f100b28e98a162090d3e58}\label{classBookmarkArea_aa6b8809041f100b28e98a162090d3e58}} 
+void {\bfseries handle\+Add\+Bookmark} (bool)
+\item 
+\mbox{\Hypertarget{classBookmarkArea_a93e5820327a54dbc460c313b0a77e0ef}\label{classBookmarkArea_a93e5820327a54dbc460c313b0a77e0ef}} 
+void {\bfseries handle\+Remove\+Bookmark} (bool)
+\item 
+\mbox{\Hypertarget{classBookmarkArea_a890fd12a7cee9eb20073ba5cb8967c5f}\label{classBookmarkArea_a890fd12a7cee9eb20073ba5cb8967c5f}} 
+void {\bfseries handle\+Edit\+Bookmark} (bool)
+\item 
+\mbox{\Hypertarget{classBookmarkArea_a82d5b6483ce70e1df91913a7c39739aa}\label{classBookmarkArea_a82d5b6483ce70e1df91913a7c39739aa}} 
+void {\bfseries handle\+Goto\+Bookmark} ()
+\item 
+\mbox{\Hypertarget{classBookmarkArea_ac44687358cfbdd41971dcfbc34bc5bd4}\label{classBookmarkArea_ac44687358cfbdd41971dcfbc34bc5bd4}} 
+void {\bfseries handle\+Clear\+Bookmarks} (bool)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+lnplaintextedit.\+cpp\end{DoxyCompactItemize}

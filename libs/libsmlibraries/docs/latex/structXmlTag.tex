@@ -1,0 +1,62 @@
+\hypertarget{structXmlTag}{}\doxysection{Xml\+Tag Struct Reference}
+\label{structXmlTag}\index{XmlTag@{XmlTag}}
+
+
+Stores the xml tag at start of the file.  
+
+
+
+
+{\ttfamily \#include $<$htmlscanner.\+h$>$}
+
+Inheritance diagram for Xml\+Tag\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=6.000000cm]{structXmlTag}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+QString \mbox{\hyperlink{structXmlTag_a92fcc642cc68298dd6d30244ad53962f}{to\+String}} () override
+\begin{DoxyCompactList}\small\item\em Creates a string version of the tag. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structXmlTag_acedbcfe0caf1b5b6da9682ab9994a7c5}\label{structXmlTag_acedbcfe0caf1b5b6da9682ab9994a7c5}} 
+bool \mbox{\hyperlink{structXmlTag_acedbcfe0caf1b5b6da9682ab9994a7c5}{has\+Starter}} ()
+\begin{DoxyCompactList}\small\item\em tests whether the \mbox{\hyperlink{structXmlTag}{Xml\+Tag}} has a starter character set. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structXmlTag_a5b5928a712f9a71f113bbac52453bb65}\label{structXmlTag_a5b5928a712f9a71f113bbac52453bb65}} 
+bool \mbox{\hyperlink{structXmlTag_a5b5928a712f9a71f113bbac52453bb65}{has\+Ender}} ()
+\begin{DoxyCompactList}\small\item\em tests whether the \mbox{\hyperlink{structXmlTag}{Xml\+Tag}} has an ender character set. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structXmlTag_abf055b43504aa4340bf4a614e86c5354}\label{structXmlTag_abf055b43504aa4340bf4a614e86c5354}} 
+QChar \mbox{\hyperlink{structXmlTag_abf055b43504aa4340bf4a614e86c5354}{start\+Char}}
+\begin{DoxyCompactList}\small\item\em start character (normally ?) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structXmlTag_a021153024e0d146f7838021c85b1c00e}\label{structXmlTag_a021153024e0d146f7838021c85b1c00e}} 
+QChar \mbox{\hyperlink{structXmlTag_a021153024e0d146f7838021c85b1c00e}{end\+Char}}
+\begin{DoxyCompactList}\small\item\em end character (normally ?) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Stores the xml tag at start of the file. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structXmlTag_a92fcc642cc68298dd6d30244ad53962f}\label{structXmlTag_a92fcc642cc68298dd6d30244ad53962f}} 
+\index{XmlTag@{XmlTag}!toString@{toString}}
+\index{toString@{toString}!XmlTag@{XmlTag}}
+\doxysubsubsection{\texorpdfstring{toString()}{toString()}}
+{\footnotesize\ttfamily QString Xml\+Tag\+::to\+String (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Creates a string version of the tag. 
+
+Override to create a string version of derived tags. 
+
+Reimplemented from \mbox{\hyperlink{structHtmlTag_a2c745f07d04208772a8be9efd1fe688f}{Html\+Tag}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+htmlscanner.\+h\end{DoxyCompactItemize}

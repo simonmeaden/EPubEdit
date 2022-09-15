@@ -1,0 +1,70 @@
+\hypertarget{structAttribute}{}\doxysection{Attribute Struct Reference}
+\label{structAttribute}\index{Attribute@{Attribute}}
+
+
+Stores data about a parsed html attribute.  
+
+
+
+
+{\ttfamily \#include $<$htmlscanner.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+Is\+In\+Type \mbox{\hyperlink{structAttribute_a26f55aca786a7011d332cac1956e73e2}{is\+In}} (int cursor\+Pos)
+\begin{DoxyCompactList}\small\item\em is\+In method of the attribute. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structAttribute_a1949300aeaa241b07d8e2a65db2a82f8}\label{structAttribute_a1949300aeaa241b07d8e2a65db2a82f8}} 
+int \mbox{\hyperlink{structAttribute_a1949300aeaa241b07d8e2a65db2a82f8}{name\+Start}} ()
+\begin{DoxyCompactList}\small\item\em Returns the attribute name start position. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structAttribute_abc3db4e2213ed58ac77c970b12235bef}\label{structAttribute_abc3db4e2213ed58ac77c970b12235bef}} 
+int \mbox{\hyperlink{structAttribute_abc3db4e2213ed58ac77c970b12235bef}{value\+Start}} ()
+\begin{DoxyCompactList}\small\item\em Returns the attribute value start position. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structAttribute_a26692b7aa53e699bf836fff18a65b623}\label{structAttribute_a26692b7aa53e699bf836fff18a65b623}} 
+bool \mbox{\hyperlink{structAttribute_a26692b7aa53e699bf836fff18a65b623}{has\+Value}} ()
+\begin{DoxyCompactList}\small\item\em Tests whether the attribute has a value. Some html 5 tags have no values. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structAttribute_a1fa048dc3a0215815826ddd10d7db0be}\label{structAttribute_a1fa048dc3a0215815826ddd10d7db0be}} 
+QString \mbox{\hyperlink{structAttribute_a1fa048dc3a0215815826ddd10d7db0be}{to\+String}} ()
+\begin{DoxyCompactList}\small\item\em Creates a string version of the attribute. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structAttribute_ad58628ef68f74acbab53eb80cd04d98f}\label{structAttribute_ad58628ef68f74acbab53eb80cd04d98f}} 
+QString \mbox{\hyperlink{structAttribute_ad58628ef68f74acbab53eb80cd04d98f}{name}}
+\begin{DoxyCompactList}\small\item\em The tag name. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structAttribute_a58763b2c8a286160dad1b0d8e5f85b6e}\label{structAttribute_a58763b2c8a286160dad1b0d8e5f85b6e}} 
+QText\+Cursor \mbox{\hyperlink{structAttribute_a58763b2c8a286160dad1b0d8e5f85b6e}{name\+Start\+Cursor}}
+\begin{DoxyCompactList}\small\item\em The start position of the tag. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structAttribute_a3e78bec4176c3cbc32160827a537e436}\label{structAttribute_a3e78bec4176c3cbc32160827a537e436}} 
+QString \mbox{\hyperlink{structAttribute_a3e78bec4176c3cbc32160827a537e436}{value}}
+\begin{DoxyCompactList}\small\item\em The attrivute value. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structAttribute_a6ed0777fdf08a1e031d67ea59c20ef5b}\label{structAttribute_a6ed0777fdf08a1e031d67ea59c20ef5b}} 
+QText\+Cursor \mbox{\hyperlink{structAttribute_a6ed0777fdf08a1e031d67ea59c20ef5b}{value\+Start\+Cursor}}
+\begin{DoxyCompactList}\small\item\em The end position of the tag. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structAttribute_ac2061634b53ccab752607111b6604420}\label{structAttribute_ac2061634b53ccab752607111b6604420}} 
+Scanner\+Errors \mbox{\hyperlink{structAttribute_ac2061634b53ccab752607111b6604420}{errors}} = No\+Error
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structAttribute}{Attribute}} parsing errors. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structAttribute_a90c61e84715cc668781c5416add81a55}\label{structAttribute_a90c61e84715cc668781c5416add81a55}} 
+QString \mbox{\hyperlink{structAttribute_a90c61e84715cc668781c5416add81a55}{hover\+Text}}
+\begin{DoxyCompactList}\small\item\em text to display when hovering \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Stores data about a parsed html attribute. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structAttribute_a26f55aca786a7011d332cac1956e73e2}\label{structAttribute_a26f55aca786a7011d332cac1956e73e2}} 
+\index{Attribute@{Attribute}!isIn@{isIn}}
+\index{isIn@{isIn}!Attribute@{Attribute}}
+\doxysubsubsection{\texorpdfstring{isIn()}{isIn()}}
+{\footnotesize\ttfamily Is\+In\+Type Attribute\+::is\+In (\begin{DoxyParamCaption}\item[{int}]{cursor\+Pos }\end{DoxyParamCaption})}
+
+
+
+is\+In method of the attribute. 
+
+Returns the result of a test whether the cursor is within the tag. Returns one of the Is\+In\+Type values. 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+htmlscanner.\+h\end{DoxyCompactItemize}

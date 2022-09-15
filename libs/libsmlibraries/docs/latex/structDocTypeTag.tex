@@ -1,0 +1,78 @@
+\hypertarget{structDocTypeTag}{}\doxysection{Doc\+Type\+Tag Struct Reference}
+\label{structDocTypeTag}\index{DocTypeTag@{DocTypeTag}}
+
+
+Stores DOCTYPE tags.  
+
+
+
+
+{\ttfamily \#include $<$htmlscanner.\+h$>$}
+
+Inheritance diagram for Doc\+Type\+Tag\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=5.000000cm]{structDocTypeTag}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+QString \mbox{\hyperlink{structDocTypeTag_a0b75f3375b9b79cd1f02918a726d43c9}{to\+String}} () override
+\begin{DoxyCompactList}\small\item\em Creates a string version of the tag. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structDocTypeTag_a8b01cc1b0316a4c48cf9dc43750166ea}\label{structDocTypeTag_a8b01cc1b0316a4c48cf9dc43750166ea}} 
+QString \mbox{\hyperlink{structDocTypeTag_a8b01cc1b0316a4c48cf9dc43750166ea}{data\+At}} (int index)
+\begin{DoxyCompactList}\small\item\em Returns the data string at index. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structDocTypeTag_ae6d6717887777f1f51981776d2570d01}\label{structDocTypeTag_ae6d6717887777f1f51981776d2570d01}} 
+int \mbox{\hyperlink{structDocTypeTag_ae6d6717887777f1f51981776d2570d01}{data\+Position}} (int index)
+\begin{DoxyCompactList}\small\item\em Returns the data position within the tag at index. \end{DoxyCompactList}\item 
+Is\+In\+Type \mbox{\hyperlink{structDocTypeTag_adbe661102ff0c9e07d86a3f9bdd1139a}{is\+In}} (int cursor\+Pos) override
+\begin{DoxyCompactList}\small\item\em is\+In method of all \mbox{\hyperlink{structTag}{Tag}} types. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structDocTypeTag_a0277168651c1e043fc2cd743e6f22614}\label{structDocTypeTag_a0277168651c1e043fc2cd743e6f22614}} 
+QVector$<$ QString $>$ \mbox{\hyperlink{structDocTypeTag_a0277168651c1e043fc2cd743e6f22614}{data}}
+\begin{DoxyCompactList}\small\item\em The doctype data string. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structDocTypeTag_a57f0a1b1ead67d0bbe8e77c932732d68}\label{structDocTypeTag_a57f0a1b1ead67d0bbe8e77c932732d68}} 
+QVector$<$ QText\+Cursor $>$ \mbox{\hyperlink{structDocTypeTag_a57f0a1b1ead67d0bbe8e77c932732d68}{data\+Pos\+Cursors}}
+\begin{DoxyCompactList}\small\item\em The QText\+Cursor at the start position of each doctype data string. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Stores DOCTYPE tags. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structDocTypeTag_adbe661102ff0c9e07d86a3f9bdd1139a}\label{structDocTypeTag_adbe661102ff0c9e07d86a3f9bdd1139a}} 
+\index{DocTypeTag@{DocTypeTag}!isIn@{isIn}}
+\index{isIn@{isIn}!DocTypeTag@{DocTypeTag}}
+\doxysubsubsection{\texorpdfstring{isIn()}{isIn()}}
+{\footnotesize\ttfamily Is\+In\+Type Doc\+Type\+Tag\+::is\+In (\begin{DoxyParamCaption}\item[{int}]{cursor\+Pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+is\+In method of all \mbox{\hyperlink{structTag}{Tag}} types. 
+
+Returns the result of a test whether the cursor is within the tag. Returns one of the Is\+In\+Type values. 
+
+Reimplemented from \mbox{\hyperlink{structNameTag_af2a950ba2545f74ca3b5e8d4443545fb}{Name\+Tag}}.
+
+\mbox{\Hypertarget{structDocTypeTag_a0b75f3375b9b79cd1f02918a726d43c9}\label{structDocTypeTag_a0b75f3375b9b79cd1f02918a726d43c9}} 
+\index{DocTypeTag@{DocTypeTag}!toString@{toString}}
+\index{toString@{toString}!DocTypeTag@{DocTypeTag}}
+\doxysubsubsection{\texorpdfstring{toString()}{toString()}}
+{\footnotesize\ttfamily QString Doc\+Type\+Tag\+::to\+String (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Creates a string version of the tag. 
+
+Override to create a string version of derived tags. 
+
+Implements \mbox{\hyperlink{structTag_a4da658a0743db8f0218cd3f256125217}{Tag}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+htmlscanner.\+h\end{DoxyCompactItemize}

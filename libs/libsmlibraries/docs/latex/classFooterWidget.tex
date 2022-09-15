@@ -1,0 +1,130 @@
+\hypertarget{classFooterWidget}{}\doxysection{Footer\+Widget Class Reference}
+\label{classFooterWidget}\index{FooterWidget@{FooterWidget}}
+
+
+The \mbox{\hyperlink{classFooterWidget}{Footer\+Widget}} class defines a \mbox{\hyperlink{classFooterWidget}{Footer\+Widget}} object.  
+
+
+
+
+{\ttfamily \#include \char`\"{}includes/footerwidget.\+h\char`\"{}}
+
+Inheritance diagram for Footer\+Widget\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{classFooterWidget}
+\end{center}
+\end{figure}
+\doxysubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classFooterWidget_a5cf0773a4c004c4152b11e6857194ad9}\label{classFooterWidget_a5cf0773a4c004c4152b11e6857194ad9}} 
+void \mbox{\hyperlink{classFooterWidget_a5cf0773a4c004c4152b11e6857194ad9}{size\+Changed}} (QWidget $\ast$\mbox{\hyperlink{classAbstractDockWidget_afe926b35b85e362a8116a0f3695d600c}{widget}}, const QSize \&size)
+\begin{DoxyCompactList}\small\item\em Triggered when the widgets size changes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classFooterWidget_a55bad979193cdf98f210154322280dbd}\label{classFooterWidget_a55bad979193cdf98f210154322280dbd}} 
+void \mbox{\hyperlink{classFooterWidget_a55bad979193cdf98f210154322280dbd}{lost\+Focus}} (QWidget $\ast$)
+\begin{DoxyCompactList}\small\item\em Triggered when focus is lost. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classFooterWidget_ab34e650481add704549550e9df5d2d63}\label{classFooterWidget_ab34e650481add704549550e9df5d2d63}} 
+void \mbox{\hyperlink{classFooterWidget_ab34e650481add704549550e9df5d2d63}{got\+Focus}} (QWidget $\ast$)
+\begin{DoxyCompactList}\small\item\em Triggered whenfocus is gained. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classFooterWidget_a0ac2e54f93d55d0166ee975857ae331b}\label{classFooterWidget_a0ac2e54f93d55d0166ee975857ae331b}} 
+\mbox{\hyperlink{classFooterWidget_a0ac2e54f93d55d0166ee975857ae331b}{Footer\+Widget}} (QWidget $\ast$parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructs a \mbox{\hyperlink{classFooterWidget}{Footer\+Widget}} which is a child of parent. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classFooterWidget_ad799e823d4e69f511c3af3b1f871b907}\label{classFooterWidget_ad799e823d4e69f511c3af3b1f871b907}} 
+\mbox{\hyperlink{classDockFooter}{Dock\+Footer}} $\ast$ \mbox{\hyperlink{classFooterWidget_ad799e823d4e69f511c3af3b1f871b907}{footer}} ()
+\begin{DoxyCompactList}\small\item\em Returns the \mbox{\hyperlink{classDockFooter}{Dock\+Footer}} attached to this \mbox{\hyperlink{classFooterWidget}{Footer\+Widget}}. \end{DoxyCompactList}\item 
+QWidget $\ast$ \mbox{\hyperlink{classFooterWidget_a3aab9184da0d886d4c10b9298233f667}{clone}} (QWidget $\ast$\mbox{\hyperlink{classAbstractDockWidget_afe926b35b85e362a8116a0f3695d600c}{widget}}) override
+\begin{DoxyCompactList}\small\item\em Hides the widget. void hide\+Widget(); ! Shows the widget. void show\+Widget(); ! True if the widget is visible, otherwise false. bool is\+Widget\+Visible();. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classFooterWidget_aa4c80809fe8842a9ec6c12d7445303ac}\label{classFooterWidget_aa4c80809fe8842a9ec6c12d7445303ac}} 
+\mbox{\hyperlink{classFooterWidget_aa4c80809fe8842a9ec6c12d7445303ac}{Footer\+Widget}} (Footer\+Widget\+Private \&d)
+\begin{DoxyCompactList}\small\item\em d\+\_\+ptr constructor \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classFooterWidget_a7d3e869e02e9ce3b4eef1ce9c0dcabae}\label{classFooterWidget_a7d3e869e02e9ce3b4eef1ce9c0dcabae}} 
+DO\+\_\+\+NOT\+\_\+\+DOCUMENT void \mbox{\hyperlink{classFooterWidget_a7d3e869e02e9ce3b4eef1ce9c0dcabae}{paint\+Event}} (QPaint\+Event $\ast$\mbox{\hyperlink{classFooterWidget_a9eaa62aae6e6b76bd68878d94093c915}{event}}) override
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QWidget\+::paint\+Event \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classFooterWidget_a011175f5a5d93d9661804302feab15a0}\label{classFooterWidget_a011175f5a5d93d9661804302feab15a0}} 
+void \mbox{\hyperlink{classFooterWidget_a011175f5a5d93d9661804302feab15a0}{hover\+Enter\+Event}} (QHover\+Event $\ast$\mbox{\hyperlink{classFooterWidget_a9eaa62aae6e6b76bd68878d94093c915}{event}})
+\begin{DoxyCompactList}\small\item\em Implements a Hover Enter event. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classFooterWidget_af4bfa2b845c3ce08349f0c7437042ab6}\label{classFooterWidget_af4bfa2b845c3ce08349f0c7437042ab6}} 
+void \mbox{\hyperlink{classFooterWidget_af4bfa2b845c3ce08349f0c7437042ab6}{hover\+Leave\+Event}} (QHover\+Event $\ast$)
+\begin{DoxyCompactList}\small\item\em Implements a Hover Leave event. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classFooterWidget_a9eb87094a29c1bf653446288e74abbf5}\label{classFooterWidget_a9eb87094a29c1bf653446288e74abbf5}} 
+void \mbox{\hyperlink{classFooterWidget_a9eb87094a29c1bf653446288e74abbf5}{hover\+Move\+Event}} (QHover\+Event $\ast$\mbox{\hyperlink{classFooterWidget_a9eaa62aae6e6b76bd68878d94093c915}{event}})
+\begin{DoxyCompactList}\small\item\em Implements a Hover Move event. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classFooterWidget_a94275f1e5129c86c2c59334a4bd02268}\label{classFooterWidget_a94275f1e5129c86c2c59334a4bd02268}} 
+void \mbox{\hyperlink{classFooterWidget_a94275f1e5129c86c2c59334a4bd02268}{mouse\+Press\+Event}} (QMouse\+Event $\ast$\mbox{\hyperlink{classFooterWidget_a9eaa62aae6e6b76bd68878d94093c915}{event}}) override
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QWidget\+::mouse\+Press\+Event \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classFooterWidget_a9eaa62aae6e6b76bd68878d94093c915}\label{classFooterWidget_a9eaa62aae6e6b76bd68878d94093c915}} 
+bool \mbox{\hyperlink{classFooterWidget_a9eaa62aae6e6b76bd68878d94093c915}{event}} (QEvent $\ast$event) override
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QWidget\+::mouse\+Release\+Event \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classFooterWidget_aeb012751b09b5214fac5f0d09bffca2b}\label{classFooterWidget_aeb012751b09b5214fac5f0d09bffca2b}} 
+void \mbox{\hyperlink{classFooterWidget_aeb012751b09b5214fac5f0d09bffca2b}{resize\+Event}} (QResize\+Event $\ast$\mbox{\hyperlink{classFooterWidget_a9eaa62aae6e6b76bd68878d94093c915}{event}}) override
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QWidget\+::resize\+Event \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classFooterWidget_a9503131d4fcd93fbcb601419b7cd656a}\label{classFooterWidget_a9503131d4fcd93fbcb601419b7cd656a}} 
+void \mbox{\hyperlink{classFooterWidget_a9503131d4fcd93fbcb601419b7cd656a}{focus\+In\+Event}} (QFocus\+Event $\ast$\mbox{\hyperlink{classFooterWidget_a9eaa62aae6e6b76bd68878d94093c915}{event}}) override
+\begin{DoxyCompactList}\small\item\em Implements QWidget\+::focus\+In\+Event. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classFooterWidget_a9fe64eae398dde18c90efa223484c83d}\label{classFooterWidget_a9fe64eae398dde18c90efa223484c83d}} 
+void \mbox{\hyperlink{classFooterWidget_a9fe64eae398dde18c90efa223484c83d}{focus\+Out\+Event}} (QFocus\+Event $\ast$\mbox{\hyperlink{classFooterWidget_a9eaa62aae6e6b76bd68878d94093c915}{event}}) override
+\begin{DoxyCompactList}\small\item\em Implements QWidget\+::focus\+Out\+Event. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classFooterWidget_ac766cec60f45cc85416c3ca9d23fd030}\label{classFooterWidget_ac766cec60f45cc85416c3ca9d23fd030}} 
+void \mbox{\hyperlink{classFooterWidget_ac766cec60f45cc85416c3ca9d23fd030}{widget\+Was\+Clicked}} (QPoint pos)
+\begin{DoxyCompactList}\small\item\em called whenever the widget was clicked \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classFooterWidget_acda732f9705b75229bd039d8b342df1a}\label{classFooterWidget_acda732f9705b75229bd039d8b342df1a}} 
+Footer\+Widget\+Private $\ast$ \mbox{\hyperlink{classFooterWidget_acda732f9705b75229bd039d8b342df1a}{d\+\_\+ptr}}
+\begin{DoxyCompactList}\small\item\em d\+\_\+ptr instance \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classFooterWidget}{Footer\+Widget}} class defines a \mbox{\hyperlink{classFooterWidget}{Footer\+Widget}} object. 
+
+A \mbox{\hyperlink{classFooterWidget}{Footer\+Widget}} is a QWidget with a header bar in which various widgets can be placed. The actual widgets are stored in a \mbox{\hyperlink{classDockFooter}{Dock\+Footer}} which can be accessed via the \mbox{\hyperlink{classFooterWidget_ad799e823d4e69f511c3af3b1f871b907}{footer()}} method.
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classDockFooter}{Dock\+Footer}} 
+\end{DoxySeeAlso}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classFooterWidget_a3aab9184da0d886d4c10b9298233f667}\label{classFooterWidget_a3aab9184da0d886d4c10b9298233f667}} 
+\index{FooterWidget@{FooterWidget}!clone@{clone}}
+\index{clone@{clone}!FooterWidget@{FooterWidget}}
+\doxysubsubsection{\texorpdfstring{clone()}{clone()}}
+{\footnotesize\ttfamily QWidget$\ast$ Footer\+Widget\+::clone (\begin{DoxyParamCaption}\item[{QWidget $\ast$}]{widget }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Hides the widget. void hide\+Widget(); ! Shows the widget. void show\+Widget(); ! True if the widget is visible, otherwise false. bool is\+Widget\+Visible();. 
+
+\begin{DoxyVerb}   \brief Sets the central widget of the DockWidget.
+
+   If the new QWidget is replacing an existing widget a pointer tothe old
+   QWidget is returned, otherwise a nullptr is returned. The old QWidget is
+   NOT deleted.
+
+   \note If the QWidget is replaced with itself, the pointer is returned but
+   nothing else is done. You will need to delete it yourself.
+  &zwj;/
+\end{DoxyVerb}
+ QWidget$\ast$ \mbox{\hyperlink{classAbstractDockWidget_a67bf97e4c9deb3e9ac47b524f314f056}{set\+Widget(\+QWidget$\ast$ widget)}};
+
+!
+
+/$\ast$!
+
+Creates a clone of the \mbox{\hyperlink{classDockWidget}{Dock\+Widget}}, passing it\textquotesingle{}s variable and settings into the supplied \textquotesingle{}master\textquotesingle{}. If the widget parameter is nullptr then it will create a clone of itself. 
+
+Reimplemented from \mbox{\hyperlink{classAbstractDockWidget_a63a04fac924237bcfb8ec36042d99fe9}{Abstract\+Dock\+Widget}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+footerwidget.\+h\end{DoxyCompactItemize}

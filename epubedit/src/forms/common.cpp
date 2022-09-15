@@ -1,5 +1,5 @@
 #include "common.h"
-#include "headerwidget.h"
+#include "docker/headerwidget.h"
 #include <QPlainTextEdit>
 
 QWidget* createEditor(QWidget*parent) {

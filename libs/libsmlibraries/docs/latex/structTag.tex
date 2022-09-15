@@ -1,0 +1,90 @@
+\hypertarget{structTag}{}\doxysection{Tag Struct Reference}
+\label{structTag}\index{Tag@{Tag}}
+
+
+Base struct of all \mbox{\hyperlink{structTag}{Tag}} types.  
+
+
+
+
+{\ttfamily \#include $<$htmlscanner.\+h$>$}
+
+Inheritance diagram for Tag\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=6.000000cm]{structTag}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual Is\+In\+Type \mbox{\hyperlink{structTag_a9bcf07edef2c8dce4c510da12960b1b9}{is\+In}} (int cursor\+Pos)
+\begin{DoxyCompactList}\small\item\em is\+In method of all \mbox{\hyperlink{structTag}{Tag}} types. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structTag_a785a8d8a4b0832a642fd663a0d4da60a}\label{structTag_a785a8d8a4b0832a642fd663a0d4da60a}} 
+int \mbox{\hyperlink{structTag_a785a8d8a4b0832a642fd663a0d4da60a}{start}} ()
+\begin{DoxyCompactList}\small\item\em Returns the tag start position. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structTag_a84fa94ff77ec9b5326b786f799d2c1c9}\label{structTag_a84fa94ff77ec9b5326b786f799d2c1c9}} 
+int \mbox{\hyperlink{structTag_a84fa94ff77ec9b5326b786f799d2c1c9}{end}} ()
+\begin{DoxyCompactList}\small\item\em Returns the tag end position. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structTag_a50d1e7b7c3fe2c678ce5f493b70d6d1b}\label{structTag_a50d1e7b7c3fe2c678ce5f493b70d6d1b}} 
+int \mbox{\hyperlink{structTag_a50d1e7b7c3fe2c678ce5f493b70d6d1b}{length}} ()
+\begin{DoxyCompactList}\small\item\em Returns the tag length. \end{DoxyCompactList}\item 
+virtual QString \mbox{\hyperlink{structTag_a4da658a0743db8f0218cd3f256125217}{to\+String}} ()=0
+\begin{DoxyCompactList}\small\item\em Creates a string version of the tag. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structTag_a0302100af6a22b8999c1fa7ca4eb3221}\label{structTag_a0302100af6a22b8999c1fa7ca4eb3221}} 
+Tag\+Type \mbox{\hyperlink{structTag_a0302100af6a22b8999c1fa7ca4eb3221}{type}} = No\+Type
+\begin{DoxyCompactList}\small\item\em The \mbox{\hyperlink{structTag}{Tag}} type. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structTag_a8ab0fd2a17b456555ae05f019819afc2}\label{structTag_a8ab0fd2a17b456555ae05f019819afc2}} 
+bool \mbox{\hyperlink{structTag_a8ab0fd2a17b456555ae05f019819afc2}{selected}} = false
+\begin{DoxyCompactList}\small\item\em Indicates that the tag has been selected. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structTag_a2595d60abc5b28aef28bb837676b04b6}\label{structTag_a2595d60abc5b28aef28bb837676b04b6}} 
+QText\+Cursor \mbox{\hyperlink{structTag_a2595d60abc5b28aef28bb837676b04b6}{start\+Cursor}}
+\begin{DoxyCompactList}\small\item\em The QText\+Cursor at the start position of the tag. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structTag_ab7019996370e27697ba21c0f6271b60d}\label{structTag_ab7019996370e27697ba21c0f6271b60d}} 
+QText\+Cursor \mbox{\hyperlink{structTag_ab7019996370e27697ba21c0f6271b60d}{end\+Cursor}}
+\begin{DoxyCompactList}\small\item\em The QText\+Cursor at the end position of the tag. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structTag_a744c79766e49115de69889b08e58059d}\label{structTag_a744c79766e49115de69889b08e58059d}} 
+QString \mbox{\hyperlink{structTag_a744c79766e49115de69889b08e58059d}{hover\+Text}}
+\begin{DoxyCompactList}\small\item\em text to display when hovering \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Base struct of all \mbox{\hyperlink{structTag}{Tag}} types. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structTag_a9bcf07edef2c8dce4c510da12960b1b9}\label{structTag_a9bcf07edef2c8dce4c510da12960b1b9}} 
+\index{Tag@{Tag}!isIn@{isIn}}
+\index{isIn@{isIn}!Tag@{Tag}}
+\doxysubsubsection{\texorpdfstring{isIn()}{isIn()}}
+{\footnotesize\ttfamily virtual Is\+In\+Type Tag\+::is\+In (\begin{DoxyParamCaption}\item[{int}]{cursor\+Pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+is\+In method of all \mbox{\hyperlink{structTag}{Tag}} types. 
+
+Returns the result of a test whether the cursor is within the tag. Returns one of the Is\+In\+Type values. 
+
+Reimplemented in \mbox{\hyperlink{structHtmlTag_add86c2e52b1dbe2e5e0bd68221a4d584}{Html\+Tag}}, \mbox{\hyperlink{structDocTypeTag_adbe661102ff0c9e07d86a3f9bdd1139a}{Doc\+Type\+Tag}}, \mbox{\hyperlink{structCommentTag_a6355df42c221d461b12d53487d1d0833}{Comment\+Tag}}, \mbox{\hyperlink{structNameTag_af2a950ba2545f74ca3b5e8d4443545fb}{Name\+Tag}}, and \mbox{\hyperlink{structTextTag_a27a6f34f716a8158537b099e73a243ad}{Text\+Tag}}.
+
+\mbox{\Hypertarget{structTag_a4da658a0743db8f0218cd3f256125217}\label{structTag_a4da658a0743db8f0218cd3f256125217}} 
+\index{Tag@{Tag}!toString@{toString}}
+\index{toString@{toString}!Tag@{Tag}}
+\doxysubsubsection{\texorpdfstring{toString()}{toString()}}
+{\footnotesize\ttfamily virtual QString Tag\+::to\+String (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Creates a string version of the tag. 
+
+This is an empty virtual method in \mbox{\hyperlink{structTag}{Tag}}. 
+
+Implemented in \mbox{\hyperlink{structXmlTag_a92fcc642cc68298dd6d30244ad53962f}{Xml\+Tag}}, \mbox{\hyperlink{structHtmlTag_a2c745f07d04208772a8be9efd1fe688f}{Html\+Tag}}, \mbox{\hyperlink{structDocTypeTag_a0b75f3375b9b79cd1f02918a726d43c9}{Doc\+Type\+Tag}}, \mbox{\hyperlink{structCloserTag_af20db2bd19d79c1ae916985e3f6b03a1}{Closer\+Tag}}, \mbox{\hyperlink{structCommentTag_ad61cba18c6b96596ac2398add0f7a343}{Comment\+Tag}}, and \mbox{\hyperlink{structTextTag_a476cdfb0536bba4fbae8ebcc9a50f2c5}{Text\+Tag}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+htmlscanner.\+h\end{DoxyCompactItemize}

@@ -1,0 +1,79 @@
+\hypertarget{classDockHeader}{}\doxysection{Dock\+Header Class Reference}
+\label{classDockHeader}\index{DockHeader@{DockHeader}}
+
+
+The \mbox{\hyperlink{classDockHeader}{Dock\+Header}} class is a special case of Dock\+Item that is fixed at the top.  
+
+
+
+
+{\ttfamily \#include \char`\"{}include/docker/dockheader.\+h\char`\"{}}
+
+Inheritance diagram for Dock\+Header\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{classDockHeader}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDockHeader_a2873dafc803a638e49f06be384c9fb36}\label{classDockHeader_a2873dafc803a638e49f06be384c9fb36}} 
+\mbox{\hyperlink{classDockHeader_a2873dafc803a638e49f06be384c9fb36}{Dock\+Header}} (\mbox{\hyperlink{classAbstractDockWidget}{Abstract\+Dock\+Widget}} $\ast$parent)
+\begin{DoxyCompactList}\small\item\em d\+\_\+ptr constructor \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDockHeader_a68c76ebe7a353bc44b9fe0624a0295df}\label{classDockHeader_a68c76ebe7a353bc44b9fe0624a0295df}} 
+QSize \mbox{\hyperlink{classDockHeader_a68c76ebe7a353bc44b9fe0624a0295df}{size\+Hint}} () const
+\begin{DoxyCompactList}\small\item\em Returns a size hint for this object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDockHeader_a61dbf0ba739ee07af068c0fedfae0ddd}\label{classDockHeader_a61dbf0ba739ee07af068c0fedfae0ddd}} 
+void \mbox{\hyperlink{classDockHeader_a61dbf0ba739ee07af068c0fedfae0ddd}{paint}} (QPainter \&painter)
+\begin{DoxyCompactList}\small\item\em paints the dock item \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classWidgetItem}{Widget\+Item}} $\ast$ \mbox{\hyperlink{classDockHeader_a99fd03b7d4165b92f2a3af9c90fcffc5}{add\+List\+Widget}} (Widget\+Position pos, const QString \&tooltip=QString())
+\begin{DoxyCompactList}\small\item\em Adds a \mbox{\hyperlink{classListWidget}{List\+Widget}} to the Header widget with an optional tooltip. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classDockHeader_a06128c14813a7368a703470b4a0ed2e1}\label{classDockHeader_a06128c14813a7368a703470b4a0ed2e1}} 
+void \mbox{\hyperlink{classDockHeader_a06128c14813a7368a703470b4a0ed2e1}{clone}} (QObject $\ast$item)
+\begin{DoxyCompactList}\small\item\em Creates a clone of the \mbox{\hyperlink{classDockHeader}{Dock\+Header}}, passing it\textquotesingle{}s variable and settings into the supplied \textquotesingle{}master\textquotesingle{}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDockHeader_aa9dace7f640d72e82d81dac566a005bf}\label{classDockHeader_aa9dace7f640d72e82d81dac566a005bf}} 
+\mbox{\hyperlink{classDockHeader_aa9dace7f640d72e82d81dac566a005bf}{Dock\+Header}} (Dock\+Header\+Private \&d)
+\begin{DoxyCompactList}\small\item\em d\+\_\+ptr constructor \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classDockHeader_afbb788488de875e32f2936fc866e9621}\label{classDockHeader_afbb788488de875e32f2936fc866e9621}} 
+class {\bfseries Header\+Widget}
+\item 
+\mbox{\Hypertarget{classDockHeader_a3e4a46070cf48bd7885117232387779c}\label{classDockHeader_a3e4a46070cf48bd7885117232387779c}} 
+class {\bfseries Footer\+Widget}
+\item 
+\mbox{\Hypertarget{classDockHeader_a4389cbe33dc7c394abc8290a07ac6e5b}\label{classDockHeader_a4389cbe33dc7c394abc8290a07ac6e5b}} 
+class {\bfseries Dock\+Widget}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classDockHeader}{Dock\+Header}} class is a special case of Dock\+Item that is fixed at the top. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classDockHeader_a99fd03b7d4165b92f2a3af9c90fcffc5}\label{classDockHeader_a99fd03b7d4165b92f2a3af9c90fcffc5}} 
+\index{DockHeader@{DockHeader}!addListWidget@{addListWidget}}
+\index{addListWidget@{addListWidget}!DockHeader@{DockHeader}}
+\doxysubsubsection{\texorpdfstring{addListWidget()}{addListWidget()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classWidgetItem}{Widget\+Item}}$\ast$ Dock\+Header\+::add\+List\+Widget (\begin{DoxyParamCaption}\item[{Widget\+Position}]{pos,  }\item[{const QString \&}]{tooltip = {\ttfamily QString()} }\end{DoxyParamCaption})}
+
+
+
+Adds a \mbox{\hyperlink{classListWidget}{List\+Widget}} to the Header widget with an optional tooltip. 
+
+Items must be added to the list later as each item can have an optional QIcon. Use List\+Widget\+::add\+Item(\+QString), \mbox{\hyperlink{classListWidget_a86f30c1035977dc91786514c0c106783}{List\+Widget\+::add\+Item}}(QIcon, QString) or List\+Widget\+::set\+Items(\+QString\+List) to add items to the \mbox{\hyperlink{classListWidget}{List\+Widget}}. \mbox{\hyperlink{classListWidget_a5e886fdd8b42b03da874d7cd490e528e}{List\+Widget\+::set\+Text(int, QString)}}, \mbox{\hyperlink{classListWidget_a02b11056f39e2cbb6ba32ee603c8531e}{List\+Widget\+::set\+Icon}}(int, QIcon) and List\+Widget\+::set\+Item(int, QString, QIcon) to set or reset the values of particular items.
+
+\begin{DoxyReturn}{Returns}
+a pointer to the stored wrapper. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+dockheader.\+h\end{DoxyCompactItemize}

@@ -1,0 +1,56 @@
+\hypertarget{classFileDownloader}{}\doxysection{File\+Downloader Class Reference}
+\label{classFileDownloader}\index{FileDownloader@{FileDownloader}}
+
+
+An http file downloader.  
+
+
+
+
+{\ttfamily \#include \char`\"{}utilities/filedownloader.\+h\char`\"{}}
+
+Inheritance diagram for File\+Downloader\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classFileDownloader}
+\end{center}
+\end{figure}
+\doxysubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classFileDownloader_a8582842fc4d4e264950d55e86ab460de}\label{classFileDownloader_a8582842fc4d4e264950d55e86ab460de}} 
+void \mbox{\hyperlink{classFileDownloader_a8582842fc4d4e264950d55e86ab460de}{finished}} ()
+\begin{DoxyCompactList}\small\item\em emitted when the download is complete. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classFileDownloader_a524872ddef33fc2658592f23aa48f2d8}\label{classFileDownloader_a524872ddef33fc2658592f23aa48f2d8}} 
+void \mbox{\hyperlink{classFileDownloader_a524872ddef33fc2658592f23aa48f2d8}{data\+Downloaded}} (const QByte\+Array \&data)
+\begin{DoxyCompactList}\small\item\em emited when the download is complete, transmitting the returned data. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classFileDownloader_a051ae6090ee3a18fc88deb08f28c8408}\label{classFileDownloader_a051ae6090ee3a18fc88deb08f28c8408}} 
+void \mbox{\hyperlink{classFileDownloader_a051ae6090ee3a18fc88deb08f28c8408}{error}} (const QString \&error\+Str)
+\begin{DoxyCompactList}\small\item\em Emitted if a download error occurs. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classFileDownloader_a7a7554a207d7feedfbacd1cf65c1f34f}\label{classFileDownloader_a7a7554a207d7feedfbacd1cf65c1f34f}} 
+\mbox{\hyperlink{classFileDownloader_a7a7554a207d7feedfbacd1cf65c1f34f}{File\+Downloader}} (QObject $\ast$parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{classFileDownloader}{File\+Downloader}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classFileDownloader_a96024ee8b9ec1b99a4501d39c374f99e}\label{classFileDownloader_a96024ee8b9ec1b99a4501d39c374f99e}} 
+void \mbox{\hyperlink{classFileDownloader_a96024ee8b9ec1b99a4501d39c374f99e}{set\+Download\+Url}} (const QString \&url\+Str)
+\begin{DoxyCompactList}\small\item\em Sets the URL of the file to download as a QString. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classFileDownloader_a104edb5b4f115affe887415e10c05bd8}\label{classFileDownloader_a104edb5b4f115affe887415e10c05bd8}} 
+void \mbox{\hyperlink{classFileDownloader_a104edb5b4f115affe887415e10c05bd8}{set\+Download\+Url}} (QUrl url)
+\begin{DoxyCompactList}\small\item\em Sets the URL of the file to download as a QUrl. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classFileDownloader_a5b9bdf7bfb4ba729bc46bc0a545be120}\label{classFileDownloader_a5b9bdf7bfb4ba729bc46bc0a545be120}} 
+void \mbox{\hyperlink{classFileDownloader_a5b9bdf7bfb4ba729bc46bc0a545be120}{download}} ()
+\begin{DoxyCompactList}\small\item\em Starts the download process. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+An http file downloader. 
+
+A simple class that allows a file to be downloaded over the internet.
+
+This was based closely on the \textquotesingle{}Download Data from URL\textquotesingle{} tutorial. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{filedownloader_8h}{filedownloader.\+h}}\end{DoxyCompactItemize}

@@ -1,0 +1,25 @@
+<RCC>
+    <qresource prefix="/icon">
+        <file alias="BlackDot">icons/blackdot.png</file>
+        <file alias="BlueDot">icons/bluedot.png</file>
+        <file alias="BookmarkFlag">icons/bookmarkflag.png</file>
+        <file alias="Cross">icons/cross.png</file>
+        <file alias="FoldedCross">icons/crossInSquare.png</file>
+        <file alias="CyanDot">icons/cyandot.png</file>
+        <file alias="DarkBlueDot">icons/darkbluedot.png</file>
+        <file alias="DarkGreenDot">icons/darkgreendot.png</file>
+        <file alias="DarkRedDot">icons/darkreddot.png</file>
+        <file alias="UnfoldedArrow">icons/fold.png</file>
+        <file alias="GreenDot">icons/greendot.png</file>
+        <file alias="Copy">icons/hovercopy.png</file>
+        <file alias="CopyPressed">icons/hovercopypressed.png</file>
+        <file alias="UnfoldedCross">icons/minusInSquare.png</file>
+        <file alias="OrangeDot">icons/orangedot.png</file>
+        <file alias="PinkDot">icons/pinkdot.png</file>
+        <file alias="RedDot">icons/reddot.png</file>
+        <file alias="FoldedArrow">icons/unfold.png</file>
+        <file alias="Warning">icons/warning12.png</file>
+        <file alias="WhiteDot">icons/whitedot.png</file>
+        <file alias="YellowDot">icons/yellowdot.png</file>
+    </qresource>
+</RCC>

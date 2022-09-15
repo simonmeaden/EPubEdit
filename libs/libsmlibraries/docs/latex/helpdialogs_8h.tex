@@ -1,0 +1,48 @@
+\hypertarget{helpdialogs_8h}{}\doxysection{helpdialogs.\+h File Reference}
+\label{helpdialogs_8h}\index{helpdialogs.h@{helpdialogs.h}}
+{\ttfamily \#include $<$QCombo\+Box$>$}\newline
+{\ttfamily \#include $<$QDialog$>$}\newline
+{\ttfamily \#include $<$QFrame$>$}\newline
+{\ttfamily \#include $<$QGrid\+Layout$>$}\newline
+{\ttfamily \#include $<$QLabel$>$}\newline
+{\ttfamily \#include $<$QPush\+Button$>$}\newline
+{\ttfamily \#include $<$QStacked\+Layout$>$}\newline
+{\ttfamily \#include $<$QTab\+Widget$>$}\newline
+{\ttfamily \#include $<$QText\+Edit$>$}\newline
+{\ttfamily \#include $<$QWidget$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classBaseHelpDialog}{Base\+Help\+Dialog}}
+\begin{DoxyCompactList}\small\item\em Base Help Dialog class. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classSimpleHelpDialog}{Simple\+Help\+Dialog}}
+\begin{DoxyCompactList}\small\item\em An help window that displays a simple help dialog. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classExtendedHelpDialog}{Extended\+Help\+Dialog}}
+\begin{DoxyCompactList}\small\item\em An help window that displays a slightly extended help dialog. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classExtendedHelpWithTabsDialog}{Extended\+Help\+With\+Tabs\+Dialog}}
+\begin{DoxyCompactList}\small\item\em An help window that displays a more extended help dialog, with a tabbed extension page. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classExtendedHelpWithComboDialog}{Extended\+Help\+With\+Combo\+Dialog}}
+\begin{DoxyCompactList}\small\item\em An help window that displays a more extended help dialog, with a combo box extension page. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This module holds a few simple help dialogs for when you only need a simple dialog to show a small amount of help and don\textquotesingle{}t not require the power of an integrated help system.
+
+All help text is displayed in a QText\+Edit so anythig text that can be added to a QText\+Edit can be used, for instance html tags or Markdown. By default the dialogs expect text to be in Markdown format. If you need to use HTML then you will need to set the Typw flags to HTML rather than MARKDOWN the default.
+
+\href{https://doc.qt.io/qt-5/richtext-html-subset.html}{\texttt{ The supported subset of HTML can be found}} \href{https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet}{\texttt{ The supported set of Markdown can be found}}
+
+
+\begin{DoxyItemize}
+\item \mbox{\hyperlink{classSimpleHelpDialog}{Simple\+Help\+Dialog}} Shows a single page of text.
+\item \mbox{\hyperlink{classExtendedHelpDialog}{Extended\+Help\+Dialog}} Shows a single page of text, with a hidden page of extra text displayed via a \textquotesingle{}More/\+Less\textquotesingle{} button.
+\item \mbox{\hyperlink{classExtendedHelpWithTabsDialog}{Extended\+Help\+With\+Tabs\+Dialog}} Shows a single page of text, with one or more hidden page of extra text displayed via a \textquotesingle{}More/\+Less\textquotesingle{} button. Pages are store in a QTab\+Widget so pages can be titled. This is suitable if you only have a few extra pages.
+\item \mbox{\hyperlink{classExtendedHelpWithComboDialog}{Extended\+Help\+With\+Combo\+Dialog}} Shows a single page of text, with one or more hidden page of extra text displayed via a \textquotesingle{}More/\+Less\textquotesingle{} button. Pages are store in a stack with a controlling combo box which shows a list of available page descriptions. This is suitable if you only have more than a few extra pages.
+\item Primary help is set using the set\+Help\+Text(\+QString) method.
+\item Secondary page(s) are set using the set\+Additional\+Help\+Text(\+QString, Type) for \mbox{\hyperlink{classExtendedHelpDialog}{Extended\+Help\+Dialog}} and add\+Additional\+Help\+Page(\+QString,\+QString, Type) for the multi-\/page versions.
+
+\begin{DoxyNote}{Note}
+The dialogs are non-\/resizable, however they attempt to resize appropriately for the supplied text length. 
+\end{DoxyNote}
+
+\end{DoxyItemize}

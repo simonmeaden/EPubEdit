@@ -1,0 +1,66 @@
+\hypertarget{structNameTag}{}\doxysection{Name\+Tag Struct Reference}
+\label{structNameTag}\index{NameTag@{NameTag}}
+
+
+Stores tag name. Not created directly.  
+
+
+
+
+{\ttfamily \#include $<$htmlscanner.\+h$>$}
+
+Inheritance diagram for Name\+Tag\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=6.000000cm]{structNameTag}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structNameTag_a747d5798a306d6b6e72dd466a7452fcc}\label{structNameTag_a747d5798a306d6b6e72dd466a7452fcc}} 
+int \mbox{\hyperlink{structNameTag_a747d5798a306d6b6e72dd466a7452fcc}{name\+Start}} ()
+\begin{DoxyCompactList}\small\item\em Returns the tag name start position. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structNameTag_afe489e7b5adb2bd76a9cbf127fdc4849}\label{structNameTag_afe489e7b5adb2bd76a9cbf127fdc4849}} 
+int \mbox{\hyperlink{structNameTag_afe489e7b5adb2bd76a9cbf127fdc4849}{name\+Length}} ()
+\begin{DoxyCompactList}\small\item\em Returns the length of the text. \end{DoxyCompactList}\item 
+Is\+In\+Type \mbox{\hyperlink{structNameTag_af2a950ba2545f74ca3b5e8d4443545fb}{is\+In}} (int cursor\+Pos) override
+\begin{DoxyCompactList}\small\item\em is\+In method of all \mbox{\hyperlink{structTag}{Tag}} types. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structNameTag_a3c8efde55629f23f50e8f56377b901a5}\label{structNameTag_a3c8efde55629f23f50e8f56377b901a5}} 
+QString \mbox{\hyperlink{structNameTag_a3c8efde55629f23f50e8f56377b901a5}{name}}
+\begin{DoxyCompactList}\small\item\em The tag name. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structNameTag_a9249eed11465dc73dc5ddfd3f3eb922b}\label{structNameTag_a9249eed11465dc73dc5ddfd3f3eb922b}} 
+QText\+Cursor \mbox{\hyperlink{structNameTag_a9249eed11465dc73dc5ddfd3f3eb922b}{name\+Start\+Cursor}}
+\begin{DoxyCompactList}\small\item\em The QText\+Cursor at the start position of the tag name. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Stores tag name. Not created directly. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structNameTag_af2a950ba2545f74ca3b5e8d4443545fb}\label{structNameTag_af2a950ba2545f74ca3b5e8d4443545fb}} 
+\index{NameTag@{NameTag}!isIn@{isIn}}
+\index{isIn@{isIn}!NameTag@{NameTag}}
+\doxysubsubsection{\texorpdfstring{isIn()}{isIn()}}
+{\footnotesize\ttfamily Is\+In\+Type Name\+Tag\+::is\+In (\begin{DoxyParamCaption}\item[{int}]{cursor\+Pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+is\+In method of all \mbox{\hyperlink{structTag}{Tag}} types. 
+
+Returns the result of a test whether the cursor is within the tag. Returns one of the Is\+In\+Type values. 
+
+Reimplemented from \mbox{\hyperlink{structTag_a9bcf07edef2c8dce4c510da12960b1b9}{Tag}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{structHtmlTag_add86c2e52b1dbe2e5e0bd68221a4d584}{Html\+Tag}}, and \mbox{\hyperlink{structDocTypeTag_adbe661102ff0c9e07d86a3f9bdd1139a}{Doc\+Type\+Tag}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+htmlscanner.\+h\end{DoxyCompactItemize}

@@ -1,0 +1,60 @@
+\hypertarget{classSeperatorWidget}{}\doxysection{Seperator\+Widget Class Reference}
+\label{classSeperatorWidget}\index{SeperatorWidget@{SeperatorWidget}}
+
+
+The \mbox{\hyperlink{classSeperatorWidget}{Seperator\+Widget}} class is used as a visual indicator of seperate widget types.  
+
+
+
+
+{\ttfamily \#include $<$widgetitem.\+cpp$>$}
+
+Inheritance diagram for Seperator\+Widget\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{classSeperatorWidget}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+Q\+\_\+\+INVOKABLE \mbox{\hyperlink{classSeperatorWidget_a401f2afb6851d751294717fcd729e73e}{Seperator\+Widget}} (\mbox{\hyperlink{classAbstractDockWidget}{Abstract\+Dock\+Widget}} $\ast$parent)
+\item 
+\mbox{\Hypertarget{classSeperatorWidget_ab9abd2fa16387050e48b3e2eac1dddeb}\label{classSeperatorWidget_ab9abd2fa16387050e48b3e2eac1dddeb}} 
+const QColor \& \mbox{\hyperlink{classSeperatorWidget_ab9abd2fa16387050e48b3e2eac1dddeb}{color}} ()
+\begin{DoxyCompactList}\small\item\em Returns the color of the seperator bar. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSeperatorWidget_afd40945fcb16f43ce6cb3a645ec6b4f4}\label{classSeperatorWidget_afd40945fcb16f43ce6cb3a645ec6b4f4}} 
+void \mbox{\hyperlink{classSeperatorWidget_afd40945fcb16f43ce6cb3a645ec6b4f4}{set\+Color}} (const QColor \&\mbox{\hyperlink{classSeperatorWidget_ab9abd2fa16387050e48b3e2eac1dddeb}{color}})
+\begin{DoxyCompactList}\small\item\em Sets the color of the seperator bar. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSeperatorWidget_a2b05884e58e14065f4c27dff12d7902f}\label{classSeperatorWidget_a2b05884e58e14065f4c27dff12d7902f}} 
+int \mbox{\hyperlink{classSeperatorWidget_a2b05884e58e14065f4c27dff12d7902f}{thickness}} ()
+\begin{DoxyCompactList}\small\item\em Returns the thickness of the seperator bar. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSeperatorWidget_acfa086fcb60b7dbf36fab8a841ac60e1}\label{classSeperatorWidget_acfa086fcb60b7dbf36fab8a841ac60e1}} 
+void \mbox{\hyperlink{classSeperatorWidget_acfa086fcb60b7dbf36fab8a841ac60e1}{set\+Thickness}} (int new\+Thickness)
+\begin{DoxyCompactList}\small\item\em Sets the thickness of the seperator bar. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSeperatorWidget_a833c79e88187788ce5b20ce77e277f70}\label{classSeperatorWidget_a833c79e88187788ce5b20ce77e277f70}} 
+void \mbox{\hyperlink{classSeperatorWidget_a833c79e88187788ce5b20ce77e277f70}{clone}} (QObject $\ast$item=nullptr) override
+\begin{DoxyCompactList}\small\item\em Creates a clone of the \mbox{\hyperlink{classWidgetItem}{Widget\+Item}}, passing it\textquotesingle{}s variables and settings into the supplied \textquotesingle{}master\textquotesingle{}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classSeperatorWidget_a4ec173a9a2b603811b3b14b609eeca2a}\label{classSeperatorWidget_a4ec173a9a2b603811b3b14b609eeca2a}} 
+void \mbox{\hyperlink{classSeperatorWidget_a4ec173a9a2b603811b3b14b609eeca2a}{paint}} (QPainter \&painter) override
+\begin{DoxyCompactList}\small\item\em Painter function for \mbox{\hyperlink{classWidgetItem}{Widget\+Item}}. A pure virtual function at this level. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classSeperatorWidget}{Seperator\+Widget}} class is used as a visual indicator of seperate widget types. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classSeperatorWidget_a401f2afb6851d751294717fcd729e73e}\label{classSeperatorWidget_a401f2afb6851d751294717fcd729e73e}} 
+\index{SeperatorWidget@{SeperatorWidget}!SeperatorWidget@{SeperatorWidget}}
+\index{SeperatorWidget@{SeperatorWidget}!SeperatorWidget@{SeperatorWidget}}
+\doxysubsubsection{\texorpdfstring{SeperatorWidget()}{SeperatorWidget()}}
+{\footnotesize\ttfamily Q\+\_\+\+INVOKABLE Seperator\+Widget\+::\+Seperator\+Widget (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classAbstractDockWidget}{Abstract\+Dock\+Widget}} $\ast$}]{parent }\end{DoxyParamCaption})}
+
+Construct a \mbox{\hyperlink{classSeperatorWidget}{Seperator\+Widget}} that is a child of parent.
+
+parent connot be a nullptr, the item must have a parent widget. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+seperatorwidget.\+h\end{DoxyCompactItemize}

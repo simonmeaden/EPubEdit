@@ -2,7 +2,7 @@
 #define EMULTISPLITTER_H
 
 #include "document/bookpointers.h"
-#include <multisplitter.h>
+#include "multisplitter/multisplitter.h"
 
 class AbstractEPubEditor;
 class EPubEditor;

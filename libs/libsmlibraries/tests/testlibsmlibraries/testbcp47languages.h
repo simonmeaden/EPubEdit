@@ -1,8 +1,8 @@
 #ifndef TESTBCP47LANGUAGES_H
 #define TESTBCP47LANGUAGES_H
 
-#include "languages.h"
-#include "paths.h"
+#include "language/languages.h"
+#include "utilities/paths.h"
 #include "gtest/gtest.h"
 #include <QDir>
 #include <QFile>

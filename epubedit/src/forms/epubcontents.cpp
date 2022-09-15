@@ -1,6 +1,6 @@
 #include "epubcontents.h"
 //#include "basewidget.h"
-#include "dockwidget.h"
+#include "docker/dockwidget.h"
 
 //====================================================================
 //=== ContentsForm

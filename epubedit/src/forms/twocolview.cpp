@@ -1,7 +1,7 @@
 #include "twocolview.h"
 #include "config.h"
 #include "document/metadata.h"
-#include "languages.h"
+#include "language/languages.h"
 
 //====================================================================
 //=== TwoColView

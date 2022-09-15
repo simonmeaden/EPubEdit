@@ -1,0 +1,79 @@
+\hypertarget{classListItem}{}\doxysection{List\+Item Class Reference}
+\label{classListItem}\index{ListItem@{ListItem}}
+
+
+The \mbox{\hyperlink{classListItem}{List\+Item}} class is used to store items in \mbox{\hyperlink{classListWidget}{List\+Widget}}\textquotesingle{}s and \mbox{\hyperlink{classListButtonWidget}{List\+Button\+Widget}}\textquotesingle{}s.  
+
+
+
+
+{\ttfamily \#include \char`\"{}includes/widgetitem.\+h\char`\"{}}
+
+Inheritance diagram for List\+Item\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classListItem}
+\end{center}
+\end{figure}
+\doxysubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classListItem_a60f208e9a93cdf208456744342127407}\label{classListItem_a60f208e9a93cdf208456744342127407}} 
+void \mbox{\hyperlink{classListItem_a60f208e9a93cdf208456744342127407}{item\+Clicked}} ()
+\begin{DoxyCompactList}\small\item\em The item\+Clicked signal is triggered when the menu list is clicked. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classListItem_ae18339a15ad89d22d9c831f00a24227b}\label{classListItem_ae18339a15ad89d22d9c831f00a24227b}} 
+\mbox{\hyperlink{classListItem_ae18339a15ad89d22d9c831f00a24227b}{List\+Item}} (QObject $\ast$parent)
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{classListItem}{List\+Item}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classListItem_a4a3e4baeb92c3d6fd5d90102d3c60d90}\label{classListItem_a4a3e4baeb92c3d6fd5d90102d3c60d90}} 
+const QString \& \mbox{\hyperlink{classListItem_a4a3e4baeb92c3d6fd5d90102d3c60d90}{text}} () const
+\begin{DoxyCompactList}\small\item\em Returns the item text. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classListItem_abd1ae50e6bd72d65dc83c73285a4e359}\label{classListItem_abd1ae50e6bd72d65dc83c73285a4e359}} 
+void \mbox{\hyperlink{classListItem_abd1ae50e6bd72d65dc83c73285a4e359}{set\+Text}} (const QString \&new\+Text)
+\begin{DoxyCompactList}\small\item\em Sets the item text. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classListItem_a6fb73a8674a1a52192653b15023dcfe9}\label{classListItem_a6fb73a8674a1a52192653b15023dcfe9}} 
+const QIcon \& \mbox{\hyperlink{classListItem_a6fb73a8674a1a52192653b15023dcfe9}{icon}} () const
+\begin{DoxyCompactList}\small\item\em Returns the item icon. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classListItem_a41a34acff6d147a0ef87363860afa7ea}\label{classListItem_a41a34acff6d147a0ef87363860afa7ea}} 
+void \mbox{\hyperlink{classListItem_a41a34acff6d147a0ef87363860afa7ea}{set\+Icon}} (const QIcon \&\mbox{\hyperlink{classListItem_a6fb73a8674a1a52192653b15023dcfe9}{icon}}, const QSize \&\mbox{\hyperlink{classListItem_ade9f16bd2752f333e6a0217ae5b420b5}{icon\+Size}})
+\begin{DoxyCompactList}\small\item\em Sets the item icon. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classListItem_a0651c155f56b59a2f3dd0efbb3550707}\label{classListItem_a0651c155f56b59a2f3dd0efbb3550707}} 
+const QRect \& \mbox{\hyperlink{classListItem_a0651c155f56b59a2f3dd0efbb3550707}{rect}} () const
+\begin{DoxyCompactList}\small\item\em Returns the item display area. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classListItem_a386875887bebeccacdb792012113b257}\label{classListItem_a386875887bebeccacdb792012113b257}} 
+void \mbox{\hyperlink{classListItem_a386875887bebeccacdb792012113b257}{set\+Rect}} (const QRect \&\mbox{\hyperlink{classListItem_a0651c155f56b59a2f3dd0efbb3550707}{rect}})
+\begin{DoxyCompactList}\small\item\em Sets the item display area. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classListItem_ade9f16bd2752f333e6a0217ae5b420b5}\label{classListItem_ade9f16bd2752f333e6a0217ae5b420b5}} 
+const QSize \& \mbox{\hyperlink{classListItem_ade9f16bd2752f333e6a0217ae5b420b5}{icon\+Size}} () const
+\begin{DoxyCompactList}\small\item\em returns the preferred icon size/ \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classListItem_aaee64b8006106b49acefb09adcb2e079}\label{classListItem_aaee64b8006106b49acefb09adcb2e079}} 
+int \mbox{\hyperlink{classListItem_aaee64b8006106b49acefb09adcb2e079}{text\+Left}} () const
+\begin{DoxyCompactList}\small\item\em Returns the left offset of the text. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classListItem_a656adf6e92e598ebba739865b6b8965e}\label{classListItem_a656adf6e92e598ebba739865b6b8965e}} 
+void \mbox{\hyperlink{classListItem_a656adf6e92e598ebba739865b6b8965e}{set\+Text\+Left}} (int \mbox{\hyperlink{classListItem_aaee64b8006106b49acefb09adcb2e079}{text\+Left}})
+\begin{DoxyCompactList}\small\item\em Sets the left offset of the text. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classListItem}{List\+Item}} class is used to store items in \mbox{\hyperlink{classListWidget}{List\+Widget}}\textquotesingle{}s and \mbox{\hyperlink{classListButtonWidget}{List\+Button\+Widget}}\textquotesingle{}s. 
+
+When an item is added to \mbox{\hyperlink{classListButtonWidget}{List\+Button\+Widget}} then a List\+Item$\ast$ is returned. This can then be used to connect the \mbox{\hyperlink{classListItem_a60f208e9a93cdf208456744342127407}{List\+Item\+::item\+Clicked}} signal to your receiver method.
+
+\mbox{\hyperlink{classListItem}{List\+Item}}\textquotesingle{}s are not returned when used in a \mbox{\hyperlink{classListWidget}{List\+Widget}} as instead the \mbox{\hyperlink{classListWidget_a2c269d52f72e00f18e6c158ce013a81b}{List\+Widget\+::item\+Clicked}} signal has parameters of the int index and QString text of the item.
+
+You should never need to create one of these items manually as they are created internally when items are added to the \mbox{\hyperlink{classListButtonWidget}{List\+Button\+Widget}}.
+
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classListWidget}{List\+Widget}} 
+
+\mbox{\hyperlink{classListButtonWidget}{List\+Button\+Widget}} 
+
+\mbox{\hyperlink{classListItem_a60f208e9a93cdf208456744342127407}{List\+Item\+::item\+Clicked()}} 
+\end{DoxySeeAlso}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+docklistitem.\+h\end{DoxyCompactItemize}

@@ -1,0 +1,37 @@
+\hypertarget{x11colors_8h}{}\doxysection{x11colors.\+h File Reference}
+\label{x11colors_8h}\index{x11colors.h@{x11colors.h}}
+
+
+An extension of the namespace which supplies extra functions to the standard Svg namespace and adds an extra X11 namespace that matches the Svg color set with an set that matches the X11 rgb.\+txt colors.  
+
+
+{\ttfamily \#include $<$QColor$>$}\newline
+{\ttfamily \#include $<$QMap$>$}\newline
+{\ttfamily \#include $<$QString$>$}\newline
+{\ttfamily \#include $<$Qt\+Math$>$}\newline
+
+
+\doxysubsection{Detailed Description}
+An extension of the namespace which supplies extra functions to the standard Svg namespace and adds an extra X11 namespace that matches the Svg color set with an set that matches the X11 rgb.\+txt colors. 
+
+\begin{DoxySince}{Since}
+5.\+7.\+0 
+\end{DoxySince}
+\begin{DoxyParagraph}{License\+: The MIT License}
+
+\end{DoxyParagraph}
+\begin{DoxyCopyright}{Copyright}
+© 2020 -\/ 2021 Simon Meaden. All rights reserved.
+\end{DoxyCopyright}
+The Svg color set evolved from the X11 rgb.\+txt color set, with many of the names being the same. However some of the names generate a similar, but different color. The X11 set is also larger and offers a more extended set of color name options.
+
+Similarly to QColor\+Constants\+::\+Svg\+:color\+\_\+name you can use QColor\+Constants\+::\+X11\+::color\+\_\+name.
+
+The extended functions, namely name(\+QColor) and color(\+QString) which exist as QColor\+Constants\+::\+Svg\+::name(), QColor\+Constants\+::\+Svg\+::color().QColor\+Constants\+::\+X11\+::name() and QColor\+Constants\+::\+X11\+::color() variants return a QColor object or a name string respectively.
+
+There are also two helper functions in the QColor\+Constants namespace. svg\+Or\+X11\+Name(\+QColor) which returns a QString and svg\+Or\+X11\+Color(\+QString) which returns a QColor. Both of these functions test against the Svg set first, returning Svg values by preference before testing against the X11 set.
+
+\begin{DoxyNote}{Note}
+I admit that QColor\+Constants is not the best place for these functions, but I am unsure exactly where the best place is.
+\end{DoxyNote}
+\hypertarget{x11colors_8h_autotoc_md0}{}\doxysubsection{X11 Colors}\label{x11colors_8h_autotoc_md0}

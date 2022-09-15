@@ -16,34 +16,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_SOURCE_DIR}/cmake)
 
-find_package(
-#  QT5
-#  NAMES
-    Qt5
-  COMPONENTS
-    Gui
-    Widgets
-    Xml
-    Svg
-    Network
-    Concurrent
-    LinguistTools
-  REQUIRED)
-find_package(
-#  QT6
-#  NAMES
-    Qt6
-  COMPONENTS
-    Core5Compat
-    Gui
-    Widgets
-    Xml
-    Svg
-    Network
-    Concurrent
-    LinguistTools
-    Test
-  REQUIRED)
+set(EPUBEDIT_BUILD)
+
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Gui Widgets Network Xml Svg Concurrent LinguistTools)
+if (QT_VERSION_MAJOR EQUAL 5)
+  find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Gui Widgets Network Xml Svg Concurrent LinguistTools)
+elseif (QT_VERSION_MAJOR EQUAL 6)
+  find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Gui Widgets Network Xml Svg Concurrent LinguistTools Core5Compat)
+endif()
 
 set(TS_FILES ${CMAKE_SOURCE_DIR}/i18n/${PROJECT_NAME}_en_gb.ts ${CMAKE_SOURCE_DIR}/i18n/${PROJECT_NAME}_en_us.ts ${CMAKE_SOURCE_DIR}/i18n/${PROJECT_NAME}_de.ts)
 

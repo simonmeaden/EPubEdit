@@ -1,0 +1,1184 @@
+\hypertarget{classCircularBuffer}{}\doxysection{Circular\+Buffer$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$ Class Template Reference}
+\label{classCircularBuffer}\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+
+
+A template class that implements a circular or ring buffer.  
+
+
+
+
+{\ttfamily \#include $<$circularbuffer.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classCircularBuffer_ab5b3c8de70e924bdec71dc915365e260}{Circular\+Buffer}} (int \mbox{\hyperlink{classCircularBuffer_a59530258197a44c29342291568f427bf}{capacity}})
+\begin{DoxyCompactList}\small\item\em Constructor of the \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classCircularBuffer_abacad2af962b5b0d969ad14c0fb2dc83}{Circular\+Buffer}} (const QList$<$ value\+\_\+type $>$ \&items, int \mbox{\hyperlink{classCircularBuffer_a59530258197a44c29342291568f427bf}{capacity}}=-\/1)
+\begin{DoxyCompactList}\small\item\em Constructor of the \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classCircularBuffer_ae2e3c4727a8fb2ad8cc48a2b9d9bbe48}{Circular\+Buffer}} (const QVector$<$ value\+\_\+type $>$ \&items, int \mbox{\hyperlink{classCircularBuffer_a59530258197a44c29342291568f427bf}{capacity}}=-\/1)
+\begin{DoxyCompactList}\small\item\em Constructor of the \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classCircularBuffer_a2217da374388fdefffff2e91b6f325ce}{Circular\+Buffer}} (const \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ value\+\_\+type $>$ \&other)
+\begin{DoxyCompactList}\small\item\em Constructs a copy of other. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classCircularBuffer_a9b89607fa7a2e28ea69dbcf44ede6996}\label{classCircularBuffer_a9b89607fa7a2e28ea69dbcf44ede6996}} 
+iterator \mbox{\hyperlink{classCircularBuffer_a9b89607fa7a2e28ea69dbcf44ede6996}{begin}} ()
+\begin{DoxyCompactList}\small\item\em Returns an STL-\/style iterator pointing to the first item in the vector. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classCircularBuffer_a40aceb6e8fecead7298e363dbb867a9e}\label{classCircularBuffer_a40aceb6e8fecead7298e363dbb867a9e}} 
+const\+\_\+iterator \mbox{\hyperlink{classCircularBuffer_a40aceb6e8fecead7298e363dbb867a9e}{begin}} () const
+\begin{DoxyCompactList}\small\item\em This is an overloaded function. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classCircularBuffer_abd7a49179bd7b00d660db479a131b489}\label{classCircularBuffer_abd7a49179bd7b00d660db479a131b489}} 
+const\+\_\+iterator \mbox{\hyperlink{classCircularBuffer_abd7a49179bd7b00d660db479a131b489}{cbegin}} () const
+\begin{DoxyCompactList}\small\item\em Returns an constant STL-\/style iterator pointing to the first item in the vector. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classCircularBuffer_ad6c827cbb0d4dfd800a8642818a657be}\label{classCircularBuffer_ad6c827cbb0d4dfd800a8642818a657be}} 
+const\+\_\+iterator \mbox{\hyperlink{classCircularBuffer_ad6c827cbb0d4dfd800a8642818a657be}{const\+Begin}} () const
+\begin{DoxyCompactList}\small\item\em Returns an constant STL-\/style iterator pointing to the first item in the vector. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classCircularBuffer_a00ea98e112e1a796e289b1f919aa636c}\label{classCircularBuffer_a00ea98e112e1a796e289b1f919aa636c}} 
+iterator \mbox{\hyperlink{classCircularBuffer_a00ea98e112e1a796e289b1f919aa636c}{end}} ()
+\begin{DoxyCompactList}\small\item\em Returns an STL-\/style iterator pointing to the last item in the vector. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classCircularBuffer_aa0155d87e6abc9e4fdeef79522c0f8df}\label{classCircularBuffer_aa0155d87e6abc9e4fdeef79522c0f8df}} 
+const\+\_\+iterator \mbox{\hyperlink{classCircularBuffer_aa0155d87e6abc9e4fdeef79522c0f8df}{end}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Returns an constant STL-\/style iterator pointing to the last item in the vector. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classCircularBuffer_a2b594bd84e8ce7866c17af5ced3a8f1d}\label{classCircularBuffer_a2b594bd84e8ce7866c17af5ced3a8f1d}} 
+const\+\_\+iterator \mbox{\hyperlink{classCircularBuffer_a2b594bd84e8ce7866c17af5ced3a8f1d}{cend}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Returns an constant STL-\/style iterator pointing to the last item in the vector. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classCircularBuffer_a7dda4abbb4c6cb1b0f340672d412b4cc}\label{classCircularBuffer_a7dda4abbb4c6cb1b0f340672d412b4cc}} 
+const\+\_\+iterator \mbox{\hyperlink{classCircularBuffer_a7dda4abbb4c6cb1b0f340672d412b4cc}{const\+End}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Returns a const STL-\/style iterator pointing to the imaginary item after the last item in the \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classCircularBuffer_a83dd285d4977d731b133671e5878b39b}\label{classCircularBuffer_a83dd285d4977d731b133671e5878b39b}} 
+reverse\+\_\+iterator \mbox{\hyperlink{classCircularBuffer_a83dd285d4977d731b133671e5878b39b}{rbegin}} ()
+\begin{DoxyCompactList}\small\item\em Returns a STL-\/style reverse iterator pointing to the first item in the vector, in reverse order. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classCircularBuffer_ae2112d8ce0cacbd66d1720b5bbde2e2c}\label{classCircularBuffer_ae2112d8ce0cacbd66d1720b5bbde2e2c}} 
+reverse\+\_\+iterator \mbox{\hyperlink{classCircularBuffer_ae2112d8ce0cacbd66d1720b5bbde2e2c}{rend}} ()
+\begin{DoxyCompactList}\small\item\em Returns a STL-\/style reverse iterator pointing to the last item in the vector, in reverse order. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classCircularBuffer_ae5d61c6b00cdcda6fd2db5bbc9acbd79}\label{classCircularBuffer_ae5d61c6b00cdcda6fd2db5bbc9acbd79}} 
+const\+\_\+reverse\+\_\+iterator \mbox{\hyperlink{classCircularBuffer_ae5d61c6b00cdcda6fd2db5bbc9acbd79}{rbegin}} () const
+\begin{DoxyCompactList}\small\item\em Returns a const STL-\/style reverse iterator pointing to the first item in the vector, in reverse order. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classCircularBuffer_af4ca83491768aaaf02280b509c49029b}\label{classCircularBuffer_af4ca83491768aaaf02280b509c49029b}} 
+const\+\_\+reverse\+\_\+iterator \mbox{\hyperlink{classCircularBuffer_af4ca83491768aaaf02280b509c49029b}{rend}} () const
+\begin{DoxyCompactList}\small\item\em Returns a constant STL-\/style reverse iterator pointing to the last item in the vector, in reverse order. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classCircularBuffer_a3d061b98913ff530ee31331f866f2042}\label{classCircularBuffer_a3d061b98913ff530ee31331f866f2042}} 
+const\+\_\+reverse\+\_\+iterator \mbox{\hyperlink{classCircularBuffer_a3d061b98913ff530ee31331f866f2042}{crbegin}} () const
+\begin{DoxyCompactList}\small\item\em Returns a const STL-\/style reverse iterator pointing to the first item in the vector, in reverse order. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classCircularBuffer_acd95a773bc0bd8d4ccbb3e914abca5e3}\label{classCircularBuffer_acd95a773bc0bd8d4ccbb3e914abca5e3}} 
+const\+\_\+reverse\+\_\+iterator \mbox{\hyperlink{classCircularBuffer_acd95a773bc0bd8d4ccbb3e914abca5e3}{crend}} () const
+\begin{DoxyCompactList}\small\item\em Returns a const STL-\/style reverse iterator pointing to the last item in the vector, in reverse order. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classCircularBuffer_a81a09a6e0d8567d5b9af9f956bd7be55}{pop}} ()
+\begin{DoxyCompactList}\small\item\em Deletes the first element. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classCircularBuffer_ae0a7b658a605d6421c9bb187a5e1f406}{remove\+First}} ()
+\begin{DoxyCompactList}\small\item\em Deletes the first element. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classCircularBuffer_abde089c9e08735367fb80783be334780}{pop\+\_\+front}} ()
+\begin{DoxyCompactList}\small\item\em Deletes the first element. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classCircularBuffer_aef1791c6160fe8daa0d84c4788a4bbc4}{pop\+Front}} ()
+\begin{DoxyCompactList}\small\item\em Deletes the first element. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classCircularBuffer_a3ca2994bd5cce14dc72ecd1d5bb40fdc}{pop\+First}} ()
+\begin{DoxyCompactList}\small\item\em Deletes the first element. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classCircularBuffer_ab5da153a3f7c33b972f4f91694813c97}{push}} (const value\+\_\+type \&\mbox{\hyperlink{classCircularBuffer_ab49b0c13f2a4af3efbddf5832614d6a0}{value}})
+\begin{DoxyCompactList}\small\item\em Pushes a new item at the head position. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classCircularBuffer_a29b56924fc7cb412ed89e32d8322a508}{push\+\_\+back}} (const value\+\_\+type \&\mbox{\hyperlink{classCircularBuffer_ab49b0c13f2a4af3efbddf5832614d6a0}{value}})
+\begin{DoxyCompactList}\small\item\em Pushes a new item at the head position. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classCircularBuffer_a6a3ccbdb781cce2a2799c52af68ecd48}{append}} (const value\+\_\+type \&\mbox{\hyperlink{classCircularBuffer_ab49b0c13f2a4af3efbddf5832614d6a0}{value}})
+\begin{DoxyCompactList}\small\item\em Pushes a new item at the head position. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classCircularBuffer_a91f5d316f1fae066fdeb1978155479d7}{push}} (const QList$<$ value\+\_\+type $>$ values)
+\begin{DoxyCompactList}\small\item\em Pushes a list of items to the buffer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classCircularBuffer_a01434fe991daa3020e26aa290bf37aaf}{append}} (const QList$<$ value\+\_\+type $>$ values)
+\begin{DoxyCompactList}\small\item\em Pushes a new item at the head position. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classCircularBuffer_a9305ca519cd0d7bc850298709d2d043e}{push}} (const QVector$<$ value\+\_\+type $>$ \&values)
+\begin{DoxyCompactList}\small\item\em Pushes a vector of items to the buffer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classCircularBuffer_ac084fd3bc6096ea544950508ef5c949e}{append}} (const QVector$<$ value\+\_\+type $>$ \&values)
+\begin{DoxyCompactList}\small\item\em Pushes a vector of items to the buffer. \end{DoxyCompactList}\item 
+const value\+\_\+type \mbox{\hyperlink{classCircularBuffer_a2ccd41c830b60c72a1d8605fecde67e5}{get}} ()
+\begin{DoxyCompactList}\small\item\em pulls an item from the front position and returns it. \end{DoxyCompactList}\item 
+const value\+\_\+type \mbox{\hyperlink{classCircularBuffer_a88ce5231f66d39548844703f93cd4bf9}{take\+First}} ()
+\begin{DoxyCompactList}\small\item\em pulls an item from the front position and returns it. \end{DoxyCompactList}\item 
+const value\+\_\+type \mbox{\hyperlink{classCircularBuffer_a28e14174200a3d99e53da805da70d003}{take\+Front}} ()
+\begin{DoxyCompactList}\small\item\em pulls an item from the front position and returns it. \end{DoxyCompactList}\item 
+const QVector$<$ value\+\_\+type $>$ \mbox{\hyperlink{classCircularBuffer_a090c9c6ec8f544fd19c2b6a0055c1805}{get}} (int \mbox{\hyperlink{classCircularBuffer_a6ec5132660c3a9c41f6c0584e74c4a8b}{count}})
+\begin{DoxyCompactList}\small\item\em pulls an count items from the front position. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classCircularBuffer_a1d7cc7952570f9066b2c278f503444cb}{fill}} (value\+\_\+type \&\mbox{\hyperlink{classCircularBuffer_ab49b0c13f2a4af3efbddf5832614d6a0}{value}}, int \mbox{\hyperlink{classCircularBuffer_a6600179eace34c6de4ae0781246ee0b4}{size}}=-\/1)
+\begin{DoxyCompactList}\small\item\em Assigns value to all, or size, items in the vector. \end{DoxyCompactList}\item 
+reference \mbox{\hyperlink{classCircularBuffer_a11000942e29ce9625dc35683becef9e0}{at}} (int index)
+\begin{DoxyCompactList}\small\item\em Access the element at index, relative to the tail of the buffer. \end{DoxyCompactList}\item 
+const\+\_\+reference \mbox{\hyperlink{classCircularBuffer_a5c4dfdd88975c243d17c0d7b623bc03c}{at}} (int index) const
+\begin{DoxyCompactList}\small\item\em Access the element at index, relative to the tail of the buffer. \end{DoxyCompactList}\item 
+value\+\_\+type \mbox{\hyperlink{classCircularBuffer_ab49b0c13f2a4af3efbddf5832614d6a0}{value}} (int index)
+\begin{DoxyCompactList}\small\item\em Access the element at index, relative to the tail of the buffer. \end{DoxyCompactList}\item 
+value\+\_\+type \mbox{\hyperlink{classCircularBuffer_acadfcf767d3efcfed33d6c08cd8c98c1}{value}} (int index, const value\+\_\+type default\+Value)
+\begin{DoxyCompactList}\small\item\em Access the element at index, relative to the tail of the buffer or a supplied default value. \end{DoxyCompactList}\item 
+reference \mbox{\hyperlink{classCircularBuffer_a5fc2878ede1b6b8c2612f77a0b4752c5}{first}} ()
+\begin{DoxyCompactList}\small\item\em Access the first element. \end{DoxyCompactList}\item 
+const\+\_\+reference \& \mbox{\hyperlink{classCircularBuffer_a4847cd4379d1ce36055b0cf74ddc4acf}{first}} () const
+\begin{DoxyCompactList}\small\item\em Access the first element. \end{DoxyCompactList}\item 
+reference \mbox{\hyperlink{classCircularBuffer_a1d3b8caeed73e0384045ba4f4081f15b}{front}} ()
+\begin{DoxyCompactList}\small\item\em Access the first element. \end{DoxyCompactList}\item 
+const\+\_\+reference \mbox{\hyperlink{classCircularBuffer_a6ff6b930a002cef801b4722bb92c762d}{front}} () const
+\begin{DoxyCompactList}\small\item\em Access the first element. \end{DoxyCompactList}\item 
+const\+\_\+reference \& \mbox{\hyperlink{classCircularBuffer_a926ea46b3d459ec32db2a420d7b5a640}{const\+First}} () const
+\begin{DoxyCompactList}\small\item\em Access the first element. \end{DoxyCompactList}\item 
+const\+\_\+reference \& \mbox{\hyperlink{classCircularBuffer_affcb65586740b7873cd7c91467aa98fa}{const\+Front}} () const
+\begin{DoxyCompactList}\small\item\em Access the first element. \end{DoxyCompactList}\item 
+reference \mbox{\hyperlink{classCircularBuffer_a73b27a250169aea48f03a3187de6f238}{back}} ()
+\begin{DoxyCompactList}\small\item\em Access the last element. \end{DoxyCompactList}\item 
+const\+\_\+reference \mbox{\hyperlink{classCircularBuffer_abc9dfa40c186a050982259c2493a1286}{back}} () const
+\begin{DoxyCompactList}\small\item\em Access the last element. \end{DoxyCompactList}\item 
+reference \mbox{\hyperlink{classCircularBuffer_a0e91cf81442adb22e413e2d1ec0d6177}{last}} ()
+\begin{DoxyCompactList}\small\item\em Access the last element. \end{DoxyCompactList}\item 
+const\+\_\+reference \mbox{\hyperlink{classCircularBuffer_ab56ae7118e07ac69180e26f1f6b44cb3}{last}} () const
+\begin{DoxyCompactList}\small\item\em Access the last element. \end{DoxyCompactList}\item 
+const\+\_\+reference \mbox{\hyperlink{classCircularBuffer_ab50bbd5c853bdae84d201e95cfbc1dcd}{const\+Last}} () const
+\begin{DoxyCompactList}\small\item\em Access the last element. \end{DoxyCompactList}\item 
+const QVector$<$ value\+\_\+type $>$ \mbox{\hyperlink{classCircularBuffer_ad2f7f8e6edc9189b8938222776bcbe68}{to\+Vector}} ()
+\begin{DoxyCompactList}\small\item\em Access the data as a QVector. \end{DoxyCompactList}\item 
+const QVector$<$ value\+\_\+type $>$ \mbox{\hyperlink{classCircularBuffer_ae21ff905f06a74db2dce6bc3527ec4d3}{pull\+Vector}} ()
+\begin{DoxyCompactList}\small\item\em Access the data as a QVector, emptying the buffer. \end{DoxyCompactList}\item 
+const std\+::vector$<$ value\+\_\+type $>$ \mbox{\hyperlink{classCircularBuffer_a69996ee0803ab3543f4904d4fc5c9985}{to\+Std\+Vector}} ()
+\begin{DoxyCompactList}\small\item\em Access the data as a std\+::vector. \end{DoxyCompactList}\item 
+const std\+::vector$<$ value\+\_\+type $>$ \mbox{\hyperlink{classCircularBuffer_adb0282ed740c6dd8f58e5645d3670836}{pull\+Std\+Vector}} ()
+\begin{DoxyCompactList}\small\item\em Access the data as a std\+::vector. \end{DoxyCompactList}\item 
+const QList$<$ value\+\_\+type $>$ \mbox{\hyperlink{classCircularBuffer_ab4edf2083cb71ee06c6249cf0f486f83}{to\+List}} ()
+\begin{DoxyCompactList}\small\item\em Access the data as a QList. \end{DoxyCompactList}\item 
+const QList$<$ value\+\_\+type $>$ \mbox{\hyperlink{classCircularBuffer_a63a93aa0b1a6e6c14a2180ecb9be231b}{pull\+List}} ()
+\begin{DoxyCompactList}\small\item\em Access the data as a QList. \end{DoxyCompactList}\item 
+const std\+::list$<$ value\+\_\+type $>$ \mbox{\hyperlink{classCircularBuffer_a56ffb6a42f0377c2ada4b2ff03db23a3}{to\+Std\+List}} ()
+\begin{DoxyCompactList}\small\item\em Access the data as a std\+::list. \end{DoxyCompactList}\item 
+const std\+::list$<$ value\+\_\+type $>$ \mbox{\hyperlink{classCircularBuffer_a0ad8aece5983ba783632a7daf2ccad22}{pull\+Std\+List}} ()
+\begin{DoxyCompactList}\small\item\em Access the data as a QList. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classCircularBuffer_a6600179eace34c6de4ae0781246ee0b4}\label{classCircularBuffer_a6600179eace34c6de4ae0781246ee0b4}} 
+int \mbox{\hyperlink{classCircularBuffer_a6600179eace34c6de4ae0781246ee0b4}{size}} () const
+\begin{DoxyCompactList}\small\item\em Returns the number of items stored in the buffer. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classCircularBuffer_a6ec5132660c3a9c41f6c0584e74c4a8b}{count}} () const
+\begin{DoxyCompactList}\small\item\em Returns the number of items stored in the buffer. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classCircularBuffer_ac0e3d8da20b284f9159309e6e4d60273}{length}} () const
+\begin{DoxyCompactList}\small\item\em Returns the number of items stored in the buffer. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classCircularBuffer_a59530258197a44c29342291568f427bf}{capacity}} () const
+\begin{DoxyCompactList}\small\item\em Gets the total capacity of the buffer. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classCircularBuffer_af52a24e18b39e92fa36b7c48b1feaadf}\label{classCircularBuffer_af52a24e18b39e92fa36b7c48b1feaadf}} 
+int \mbox{\hyperlink{classCircularBuffer_af52a24e18b39e92fa36b7c48b1feaadf}{available}} () const
+\begin{DoxyCompactList}\small\item\em Gets the total free space still available to the buffer. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classCircularBuffer_a2078a5f761bbe226681a422b1f35d0bb}\label{classCircularBuffer_a2078a5f761bbe226681a422b1f35d0bb}} 
+bool \mbox{\hyperlink{classCircularBuffer_a2078a5f761bbe226681a422b1f35d0bb}{empty}} () const
+\begin{DoxyCompactList}\small\item\em Checks if the buffer is empty. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classCircularBuffer_a3981716c7fd8d014a02fafd6b3db1e62}{is\+Empty}} () const
+\begin{DoxyCompactList}\small\item\em Checks if the buffer is empty. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classCircularBuffer_a6c6bc2d47789b7a5d1b61b65b18df9a2}{is\+Full}} () const
+\begin{DoxyCompactList}\small\item\em Checks if the buffer is full. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classCircularBuffer_a60c780f5d1b46d7519e057d65ea8be8e}\label{classCircularBuffer_a60c780f5d1b46d7519e057d65ea8be8e}} 
+void \mbox{\hyperlink{classCircularBuffer_a60c780f5d1b46d7519e057d65ea8be8e}{clear}} ()
+\begin{DoxyCompactList}\small\item\em Removes all the elements from the vector. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classCircularBuffer_abd0bd3ff763b344c9a9c514dd044f32c}{reserve}} (const int \mbox{\hyperlink{classCircularBuffer_a59530258197a44c29342291568f427bf}{capacity}})
+\begin{DoxyCompactList}\small\item\em Resizes the buffer to a new capacity. \end{DoxyCompactList}\item 
+reference \mbox{\hyperlink{classCircularBuffer_a03a4250a22aeb8777ee17fa192d8ac36}{operator\mbox{[}$\,$\mbox{]}}} (int index)
+\begin{DoxyCompactList}\small\item\em Gets the value at the index, relative to the tail of the buffer. \end{DoxyCompactList}\item 
+const\+\_\+reference \mbox{\hyperlink{classCircularBuffer_a29fff81d518245ded92a4d1f433e3778}{operator\mbox{[}$\,$\mbox{]}}} (int index) const
+\begin{DoxyCompactList}\small\item\em Gets the value at the index, relative to the tail of the buffer. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classCircularBuffer_ab4b86c094e83d3b9efe903dc65954298}\label{classCircularBuffer_ab4b86c094e83d3b9efe903dc65954298}} 
+\mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}} \& \mbox{\hyperlink{classCircularBuffer_ab4b86c094e83d3b9efe903dc65954298}{operator=}} (self\+\_\+type \&other)
+\begin{DoxyCompactList}\small\item\em Assigns other to this buffer and returns a reference to this buffer. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classCircularBuffer_af11d51fe9b91080b8388395324cb4db2}\label{classCircularBuffer_af11d51fe9b91080b8388395324cb4db2}} 
+\mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}} \& \mbox{\hyperlink{classCircularBuffer_af11d51fe9b91080b8388395324cb4db2}{operator=}} (const self\+\_\+type \&other)
+\begin{DoxyCompactList}\small\item\em Assigns other to this buffer and returns a reference to this buffer. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ value\+\_\+type $>$ \& \mbox{\hyperlink{classCircularBuffer_aa9afaff501c953375a85cf634a27f3c1}{operator$<$$<$}} (const value\+\_\+type \mbox{\hyperlink{classCircularBuffer_ab49b0c13f2a4af3efbddf5832614d6a0}{value}})
+\begin{DoxyCompactList}\small\item\em Pushes a new item at the head position. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ value\+\_\+type $>$ \& \mbox{\hyperlink{classCircularBuffer_ab3a94923b0319035036187a63ce4e760}{operator$<$$<$}} (const QVector$<$ value\+\_\+type $>$ \&other)
+\begin{DoxyCompactList}\small\item\em Pushes a vector of items to the buffer. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ value\+\_\+type $>$ \& \mbox{\hyperlink{classCircularBuffer_a563e9dca98c880f12c8ba0ddbd5eccbd}{operator$<$$<$}} (const QList$<$ value\+\_\+type $>$ \&other)
+\begin{DoxyCompactList}\small\item\em Pushes a list of items to the buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T, bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc = std\+::allocator$<$\+T$>$$>$\newline
+class Circular\+Buffer$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$}
+
+A template class that implements a circular or ring buffer. 
+
+\begin{DoxySince}{Since}
+5.\+14.\+0
+\end{DoxySince}
+\mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}} works basically like a queue with items pushed to the head of the buffer and pulled from the tail. Unlike a queue however, when the buffer is full the items overwrite the oldest data and the \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}} is NOT resized.
+
+The primary constructor, \mbox{\hyperlink{classCircularBuffer_ab5b3c8de70e924bdec71dc915365e260}{Circular\+Buffer(int)}} which initialises a buffer with a supplied capacity but a size of 0. Alternatively you can initialise the buffer using either a QList$<$value\+\_\+type$>$ or a QVector$<$value\+\_\+type$>$, either directly which creates a buffer with a capacity the same size as the supplied item, or with a supplied int capacity which will will set the capacity accordingly. Please note that if the capcity set is smaller than the supplied list/vector then only the last N items will be retained.
+
+It is also possible to \mbox{\hyperlink{classCircularBuffer_ab5da153a3f7c33b972f4f91694813c97}{push()}} a QList or a QVector of items onto the buffer, or alternatively use Circular\+Buffer\+::iterator which are basically a typedef of std\+::iterator. \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}} has a \mbox{\hyperlink{classCircularBuffer_a9b89607fa7a2e28ea69dbcf44ede6996}{begin()}} and \mbox{\hyperlink{classCircularBuffer_a00ea98e112e1a796e289b1f919aa636c}{end()}} iterator, also \mbox{\hyperlink{classCircularBuffer_abd7a49179bd7b00d660db479a131b489}{cbegin()}}, \mbox{\hyperlink{classCircularBuffer_a2b594bd84e8ce7866c17af5ced3a8f1d}{cend()}}, \mbox{\hyperlink{classCircularBuffer_ad6c827cbb0d4dfd800a8642818a657be}{const\+Begin()}}, \mbox{\hyperlink{classCircularBuffer_a7dda4abbb4c6cb1b0f340672d412b4cc}{const\+End()}}, \mbox{\hyperlink{classCircularBuffer_a83dd285d4977d731b133671e5878b39b}{rbegin()}} and \mbox{\hyperlink{classCircularBuffer_ae2112d8ce0cacbd66d1720b5bbde2e2c}{rend()}} in exactly the same way as QVector, which makes sense as the underlying class to \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}} is a QVector(). A further option is to push items using the \mbox{\hyperlink{classCircularBuffer_aa9afaff501c953375a85cf634a27f3c1}{operator$<$$<$()}} which allows the pushing of a single item of type T, or alternatively a QVector$<$value\+\_\+type$>$ or a QList$<$value\+\_\+type$>$.
+
+The earliest item on the buffer can be accessed and removed using the pull() method. Alternatively you can pull more than one item by calling pull(count) which pulls either \textquotesingle{}count\textquotesingle{} items or \mbox{\hyperlink{classCircularBuffer_a6600179eace34c6de4ae0781246ee0b4}{size()}} items whichever is smaller. The \mbox{\hyperlink{classCircularBuffer_ad2f7f8e6edc9189b8938222776bcbe68}{to\+Vector()}}, \mbox{\hyperlink{classCircularBuffer_ab4edf2083cb71ee06c6249cf0f486f83}{to\+List()}}, \mbox{\hyperlink{classCircularBuffer_a69996ee0803ab3543f4904d4fc5c9985}{to\+Std\+Vector()}} and \mbox{\hyperlink{classCircularBuffer_a56ffb6a42f0377c2ada4b2ff03db23a3}{to\+Std\+List()}} methods can be used to access the entire contents as a QVector$<$value\+\_\+type$>$, a QList$<$value\+\_\+type$>$, a std\+::vector$<$value\+\_\+type$>$ or a std\+::list$<$value\+\_\+type$>$ respectively.
+
+As in most Qt collection classes, there are alternatives to most of the methods\+: for example \mbox{\hyperlink{classCircularBuffer_ab5da153a3f7c33b972f4f91694813c97}{push()}}, \mbox{\hyperlink{classCircularBuffer_a6a3ccbdb781cce2a2799c52af68ecd48}{append()}} or \mbox{\hyperlink{classCircularBuffer_aa9afaff501c953375a85cf634a27f3c1}{operator$<$$<$()}} or \mbox{\hyperlink{classCircularBuffer_a1d3b8caeed73e0384045ba4f4081f15b}{front()}}, \mbox{\hyperlink{classCircularBuffer_a5fc2878ede1b6b8c2612f77a0b4752c5}{first()}}. These are mostly supplied to match either historical Qt or STL methods.
+
+You can call \mbox{\hyperlink{classCircularBuffer_a1d7cc7952570f9066b2c278f503444cb}{fill()}} at any time to fill the vector with a particular value.
+
+This is basically just a wrapper around the stl style circular\+\_\+buffer calls by Peter Goodliffe.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & template type. \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classCircularBuffer_ab5b3c8de70e924bdec71dc915365e260}\label{classCircularBuffer_ab5b3c8de70e924bdec71dc915365e260}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!CircularBuffer@{CircularBuffer}}
+\index{CircularBuffer@{CircularBuffer}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{CircularBuffer()}{CircularBuffer()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+\mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::\mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}} (\begin{DoxyParamCaption}\item[{int}]{capacity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+
+
+Constructor of the \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}. 
+
+Creates a new circular buffer with a capacity of capacity, and fills it with default values of type T.
+
+
+\begin{DoxyParams}{Parameters}
+{\em capacity} & -\/ an int value specifying how many items may be stored in the buffer. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classCircularBuffer_abacad2af962b5b0d969ad14c0fb2dc83}\label{classCircularBuffer_abacad2af962b5b0d969ad14c0fb2dc83}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!CircularBuffer@{CircularBuffer}}
+\index{CircularBuffer@{CircularBuffer}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{CircularBuffer()}{CircularBuffer()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+\mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::\mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}} (\begin{DoxyParamCaption}\item[{const QList$<$ value\+\_\+type $>$ \&}]{items,  }\item[{int}]{capacity = {\ttfamily -\/1} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor of the \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}. 
+
+Creates a new circular buffer, using the size and contents of the list, unless the optional capacity is used in which this value is used. If the capcity is less than the size of the supplied QList, only the last N values are stored. Primitive types like int and double, as well as for pointer types, the C++ language doesn\textquotesingle{}t specify any initialization; in those cases, Qt\textquotesingle{}s containers automatically initialize the value to 0.
+
+
+\begin{DoxyParams}{Parameters}
+{\em items} & -\/ a QList$<$value\+\_\+type$>$ containig the items to push. \\
+\hline
+{\em capacity} & -\/ an optional capacity for the buffer. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classCircularBuffer_ae2e3c4727a8fb2ad8cc48a2b9d9bbe48}\label{classCircularBuffer_ae2e3c4727a8fb2ad8cc48a2b9d9bbe48}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!CircularBuffer@{CircularBuffer}}
+\index{CircularBuffer@{CircularBuffer}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{CircularBuffer()}{CircularBuffer()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+\mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::\mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}} (\begin{DoxyParamCaption}\item[{const QVector$<$ value\+\_\+type $>$ \&}]{items,  }\item[{int}]{capacity = {\ttfamily -\/1} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor of the \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}. 
+
+Creates a new circular buffer, using the size and contents of the vector, unless the optional capacity is used in which this value is used. If the capacity is less than the size of the supplied QVector, only the last N values are stored.
+
+
+\begin{DoxyParams}{Parameters}
+{\em items} & -\/ a QVector$<$value\+\_\+type$>$ containing the items to push. \\
+\hline
+{\em capacity} & -\/ an optional capacity for the buffer. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classCircularBuffer_a2217da374388fdefffff2e91b6f325ce}\label{classCircularBuffer_a2217da374388fdefffff2e91b6f325ce}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!CircularBuffer@{CircularBuffer}}
+\index{CircularBuffer@{CircularBuffer}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{CircularBuffer()}{CircularBuffer()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+\mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::\mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ value\+\_\+type $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs a copy of other. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & -\/ another \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classCircularBuffer_a01434fe991daa3020e26aa290bf37aaf}\label{classCircularBuffer_a01434fe991daa3020e26aa290bf37aaf}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!append@{append}}
+\index{append@{append}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{append()}{append()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+void \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::append (\begin{DoxyParamCaption}\item[{const QList$<$ value\+\_\+type $>$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pushes a new item at the head position. 
+
+This is an overloaded function. It is the equivalent of \mbox{\hyperlink{classCircularBuffer_ab5da153a3f7c33b972f4f91694813c97}{push()}}.
+
+Note\+: You should check if there is space to enter more data before adding more as it will overwrite the oldest data if there is insufficient space available.
+
+
+\begin{DoxyParams}{Parameters}
+{\em values} & -\/ an object of type value\+\_\+type. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classCircularBuffer_ac084fd3bc6096ea544950508ef5c949e}\label{classCircularBuffer_ac084fd3bc6096ea544950508ef5c949e}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!append@{append}}
+\index{append@{append}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{append()}{append()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+void \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::append (\begin{DoxyParamCaption}\item[{const QVector$<$ value\+\_\+type $>$ \&}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pushes a vector of items to the buffer. 
+
+This is an overloaded function.
+
+This will push the items to the buffer but does not alter the size of the buffer so if the vector is too large onle the last N items will be stored where N = the capacity of the buffer.
+
+
+\begin{DoxyParams}{Parameters}
+{\em values} & -\/ a QVector of type value\+\_\+type. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classCircularBuffer_ab5da153a3f7c33b972f4f91694813c97}{push()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classCircularBuffer_a6a3ccbdb781cce2a2799c52af68ecd48}\label{classCircularBuffer_a6a3ccbdb781cce2a2799c52af68ecd48}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!append@{append}}
+\index{append@{append}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{append()}{append()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+void \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::append (\begin{DoxyParamCaption}\item[{const value\+\_\+type \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pushes a new item at the head position. 
+
+This is an overloaded function. It is the equivalent of \mbox{\hyperlink{classCircularBuffer_ab5da153a3f7c33b972f4f91694813c97}{push()}}.
+
+Note\+: You should check if there is space to enter more data before adding more as it will overwrite the oldest data if there is insufficient space available.
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & -\/ an object of type value\+\_\+type. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classCircularBuffer_a11000942e29ce9625dc35683becef9e0}\label{classCircularBuffer_a11000942e29ce9625dc35683becef9e0}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!at@{at}}
+\index{at@{at}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{at()}{at()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+reference \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::at (\begin{DoxyParamCaption}\item[{int}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access the element at index, relative to the tail of the buffer. 
+
+index must be a valid index position in the buffer (i.\+e., 0 $<$= i $<$ \mbox{\hyperlink{classCircularBuffer_a6600179eace34c6de4ae0781246ee0b4}{size()}}).
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & -\/ the index within the buffer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+an object of type value\+\_\+type. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCircularBuffer_a5c4dfdd88975c243d17c0d7b623bc03c}\label{classCircularBuffer_a5c4dfdd88975c243d17c0d7b623bc03c}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!at@{at}}
+\index{at@{at}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{at()}{at()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+const\+\_\+reference \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::at (\begin{DoxyParamCaption}\item[{int}]{index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access the element at index, relative to the tail of the buffer. 
+
+index must be a valid index position in the buffer (i.\+e., 0 $<$= i $<$ \mbox{\hyperlink{classCircularBuffer_a6600179eace34c6de4ae0781246ee0b4}{size()}}).
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & -\/ an int offset value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+an object of type value\+\_\+type. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCircularBuffer_a73b27a250169aea48f03a3187de6f238}\label{classCircularBuffer_a73b27a250169aea48f03a3187de6f238}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!back@{back}}
+\index{back@{back}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{back()}{back()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+reference \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::back (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access the last element. 
+
+This is an overloaded function.
+
+This function is provided for STL compatibility. It is equivalent to \mbox{\hyperlink{classCircularBuffer_a0e91cf81442adb22e413e2d1ec0d6177}{last()}}.
+
+\begin{DoxyReturn}{Returns}
+a reference to the last item in the vector. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCircularBuffer_abc9dfa40c186a050982259c2493a1286}\label{classCircularBuffer_abc9dfa40c186a050982259c2493a1286}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!back@{back}}
+\index{back@{back}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{back()}{back()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+const\+\_\+reference \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::back (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access the last element. 
+
+This is an overloaded function.
+
+This function is provided for STL compatibility. It is equivalent to \mbox{\hyperlink{classCircularBuffer_a0e91cf81442adb22e413e2d1ec0d6177}{last()}}.
+
+\begin{DoxyReturn}{Returns}
+a const reference to the last item in the vector. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCircularBuffer_a59530258197a44c29342291568f427bf}\label{classCircularBuffer_a59530258197a44c29342291568f427bf}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!capacity@{capacity}}
+\index{capacity@{capacity}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{capacity()}{capacity()}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+int \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::capacity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the total capacity of the buffer. 
+
+\begin{DoxyReturn}{Returns}
+-\/ an int value. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCircularBuffer_a926ea46b3d459ec32db2a420d7b5a640}\label{classCircularBuffer_a926ea46b3d459ec32db2a420d7b5a640}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!constFirst@{constFirst}}
+\index{constFirst@{constFirst}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{constFirst()}{constFirst()}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+const\+\_\+reference\& \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::const\+First (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access the first element. 
+
+This is an overloaded function. It is equivalent to \mbox{\hyperlink{classCircularBuffer_a5fc2878ede1b6b8c2612f77a0b4752c5}{first()}}.
+
+\begin{DoxyReturn}{Returns}
+a const reference to the first item in the vector. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCircularBuffer_affcb65586740b7873cd7c91467aa98fa}\label{classCircularBuffer_affcb65586740b7873cd7c91467aa98fa}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!constFront@{constFront}}
+\index{constFront@{constFront}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{constFront()}{constFront()}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+const\+\_\+reference\& \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::const\+Front (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access the first element. 
+
+This is an overloaded function. It is equivalent to \mbox{\hyperlink{classCircularBuffer_a5fc2878ede1b6b8c2612f77a0b4752c5}{first()}}.
+
+\begin{DoxyReturn}{Returns}
+a const reference to the first item in the vector. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCircularBuffer_ab50bbd5c853bdae84d201e95cfbc1dcd}\label{classCircularBuffer_ab50bbd5c853bdae84d201e95cfbc1dcd}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!constLast@{constLast}}
+\index{constLast@{constLast}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{constLast()}{constLast()}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+const\+\_\+reference \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::const\+Last (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access the last element. 
+
+This is an overloaded function. It is equivalent to \mbox{\hyperlink{classCircularBuffer_a0e91cf81442adb22e413e2d1ec0d6177}{last()}}.
+
+\begin{DoxyReturn}{Returns}
+a const reference to the last item in the vector. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCircularBuffer_a6ec5132660c3a9c41f6c0584e74c4a8b}\label{classCircularBuffer_a6ec5132660c3a9c41f6c0584e74c4a8b}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!count@{count}}
+\index{count@{count}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{count()}{count()}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+int \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the number of items stored in the buffer. 
+
+This is an overloaded function, the equivalent of \mbox{\hyperlink{classCircularBuffer_a6600179eace34c6de4ae0781246ee0b4}{size()}}. \mbox{\Hypertarget{classCircularBuffer_a1d7cc7952570f9066b2c278f503444cb}\label{classCircularBuffer_a1d7cc7952570f9066b2c278f503444cb}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!fill@{fill}}
+\index{fill@{fill}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{fill()}{fill()}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+void \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::fill (\begin{DoxyParamCaption}\item[{value\+\_\+type \&}]{value,  }\item[{int}]{size = {\ttfamily -\/1} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Assigns value to all, or size, items in the vector. 
+
+If size is -\/1 (the default), or size is greater than the available items then all of the available items are set to \textquotesingle{}value\textquotesingle{}, however if size is less than the available items only that number of items is set to \textquotesingle{}value\textquotesingle{}.
+
+Generally you will not need to use this method as default values are automatically entered.
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & -\/ the value\+\_\+type value to fill the buffer with. \\
+\hline
+{\em size} & -\/ the number of slots to fill. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classCircularBuffer_a5fc2878ede1b6b8c2612f77a0b4752c5}\label{classCircularBuffer_a5fc2878ede1b6b8c2612f77a0b4752c5}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!first@{first}}
+\index{first@{first}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{first()}{first()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+reference \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::first (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access the first element. 
+
+This function assumes that the vector isn\textquotesingle{}t empty.
+
+\begin{DoxyReturn}{Returns}
+a reference to the first item in the vector. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCircularBuffer_a4847cd4379d1ce36055b0cf74ddc4acf}\label{classCircularBuffer_a4847cd4379d1ce36055b0cf74ddc4acf}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!first@{first}}
+\index{first@{first}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{first()}{first()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+const\+\_\+reference\& \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::first (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access the first element. 
+
+This is an overloaded function. This function assumes that the vector isn\textquotesingle{}t empty.
+
+\begin{DoxyReturn}{Returns}
+a const reference to the first item in the vector. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCircularBuffer_a1d3b8caeed73e0384045ba4f4081f15b}\label{classCircularBuffer_a1d3b8caeed73e0384045ba4f4081f15b}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!front@{front}}
+\index{front@{front}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{front()}{front()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+reference \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::front (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access the first element. 
+
+This is an overloaded function.
+
+This function is provided for STL compatibility. It is equivalent to \mbox{\hyperlink{classCircularBuffer_a5fc2878ede1b6b8c2612f77a0b4752c5}{first()}}.
+
+\begin{DoxyReturn}{Returns}
+a reference to the first item in the vector. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCircularBuffer_a6ff6b930a002cef801b4722bb92c762d}\label{classCircularBuffer_a6ff6b930a002cef801b4722bb92c762d}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!front@{front}}
+\index{front@{front}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{front()}{front()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+const\+\_\+reference \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::front (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access the first element. 
+
+This is an overloaded function.
+
+This function is provided for STL compatibility. It is equivalent to \mbox{\hyperlink{classCircularBuffer_a5fc2878ede1b6b8c2612f77a0b4752c5}{first()}}.
+
+\begin{DoxyReturn}{Returns}
+a const reference to the first item in the vector. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCircularBuffer_a2ccd41c830b60c72a1d8605fecde67e5}\label{classCircularBuffer_a2ccd41c830b60c72a1d8605fecde67e5}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!get@{get}}
+\index{get@{get}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{get()}{get()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+const value\+\_\+type \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::get (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+pulls an item from the front position and returns it. 
+
+The item is removed and the back position is incremented by one position.
+
+\begin{DoxyReturn}{Returns}
+-\/ an object of type value\+\_\+type. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCircularBuffer_a090c9c6ec8f544fd19c2b6a0055c1805}\label{classCircularBuffer_a090c9c6ec8f544fd19c2b6a0055c1805}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!get@{get}}
+\index{get@{get}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{get()}{get()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+const QVector$<$value\+\_\+type$>$ \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::get (\begin{DoxyParamCaption}\item[{int}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+pulls an count items from the front position. 
+
+The items are removed and the front position is incremented by count positions, or \mbox{\hyperlink{classCircularBuffer_a6600179eace34c6de4ae0781246ee0b4}{size()}} positions if the buffer size is less than count.
+
+\begin{DoxyReturn}{Returns}
+-\/ an object of type value\+\_\+type. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCircularBuffer_a3981716c7fd8d014a02fafd6b3db1e62}\label{classCircularBuffer_a3981716c7fd8d014a02fafd6b3db1e62}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!isEmpty@{isEmpty}}
+\index{isEmpty@{isEmpty}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{isEmpty()}{isEmpty()}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+bool \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::is\+Empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checks if the buffer is empty. 
+
+This is an overloaded function, the equivalent of \mbox{\hyperlink{classCircularBuffer_a2078a5f761bbe226681a422b1f35d0bb}{empty()}}. \mbox{\Hypertarget{classCircularBuffer_a6c6bc2d47789b7a5d1b61b65b18df9a2}\label{classCircularBuffer_a6c6bc2d47789b7a5d1b61b65b18df9a2}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!isFull@{isFull}}
+\index{isFull@{isFull}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{isFull()}{isFull()}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+bool \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::is\+Full (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Checks if the buffer is full. 
+
+\begin{DoxyReturn}{Returns}
+true if full, otherwise false. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCircularBuffer_a0e91cf81442adb22e413e2d1ec0d6177}\label{classCircularBuffer_a0e91cf81442adb22e413e2d1ec0d6177}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!last@{last}}
+\index{last@{last}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{last()}{last()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+reference \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::last (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access the last element. 
+
+This function is provided for STL compatibility.
+
+\begin{DoxyReturn}{Returns}
+a const reference to the last item in the vector. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCircularBuffer_ab56ae7118e07ac69180e26f1f6b44cb3}\label{classCircularBuffer_ab56ae7118e07ac69180e26f1f6b44cb3}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!last@{last}}
+\index{last@{last}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{last()}{last()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+const\+\_\+reference \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::last (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access the last element. 
+
+This is an overloaded function.
+
+This function is provided for STL compatibility.
+
+\begin{DoxyReturn}{Returns}
+a const reference to the last item in the vector. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCircularBuffer_ac0e3d8da20b284f9159309e6e4d60273}\label{classCircularBuffer_ac0e3d8da20b284f9159309e6e4d60273}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!length@{length}}
+\index{length@{length}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{length()}{length()}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+int \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::length (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the number of items stored in the buffer. 
+
+This is an overloaded function, the equivalent of \mbox{\hyperlink{classCircularBuffer_a6600179eace34c6de4ae0781246ee0b4}{size()}}. \mbox{\Hypertarget{classCircularBuffer_a563e9dca98c880f12c8ba0ddbd5eccbd}\label{classCircularBuffer_a563e9dca98c880f12c8ba0ddbd5eccbd}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+\mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$value\+\_\+type$>$\& \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{const QList$<$ value\+\_\+type $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pushes a list of items to the buffer. 
+
+This will push the items to the buffer but does not alter the size of the buffer so if the list is too large onle the last N items will be stored where N = the capacity of the buffer.
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & -\/ a const QList of type value\+\_\+type. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+Circular\+Buffer\+::push(\+QVector$<$value\+\_\+type$>$) 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classCircularBuffer_ab3a94923b0319035036187a63ce4e760}\label{classCircularBuffer_ab3a94923b0319035036187a63ce4e760}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+\mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$value\+\_\+type$>$\& \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{const QVector$<$ value\+\_\+type $>$ \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pushes a vector of items to the buffer. 
+
+This will push the items to the buffer but does not alter the size of the buffer so if the list is too large onle the last N items will be stored where N = the capacity of the buffer.
+
+
+\begin{DoxyParams}{Parameters}
+{\em other} & -\/ a const QVector of type value\+\_\+type. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+Circular\+Buffer\+::push(\+QVector$<$value\+\_\+type$>$) 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classCircularBuffer_aa9afaff501c953375a85cf634a27f3c1}\label{classCircularBuffer_aa9afaff501c953375a85cf634a27f3c1}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+\mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$value\+\_\+type$>$\& \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{const value\+\_\+type}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pushes a new item at the head position. 
+
+Note\+: You should check if there is space to enter more data before adding more as it will overwrite the oldest data if there is insufficient space available.
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & -\/ an constant object of type value\+\_\+type. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classCircularBuffer_ab5da153a3f7c33b972f4f91694813c97}{Circular\+Buffer\+::push()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classCircularBuffer_a03a4250a22aeb8777ee17fa192d8ac36}\label{classCircularBuffer_a03a4250a22aeb8777ee17fa192d8ac36}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+reference \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{int}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the value at the index, relative to the tail of the buffer. 
+
+A similar operator \mbox{\hyperlink{classCircularBuffer_a11000942e29ce9625dc35683becef9e0}{at()}} can also be used. The difference is that \mbox{\hyperlink{classCircularBuffer_a11000942e29ce9625dc35683becef9e0}{at()}} is bounds checked and throws an std\+::out\+\_\+of\+\_\+bounds exception if index is outside the size of the buffer. In this case this causes undefined behaviour.
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & -\/ an int offset value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a reference to the item at index. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCircularBuffer_a29fff81d518245ded92a4d1f433e3778}\label{classCircularBuffer_a29fff81d518245ded92a4d1f433e3778}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+const\+\_\+reference \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{int}]{index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gets the value at the index, relative to the tail of the buffer. 
+
+A similar operator \mbox{\hyperlink{classCircularBuffer_a11000942e29ce9625dc35683becef9e0}{at()}} can also be used. The difference is that \mbox{\hyperlink{classCircularBuffer_a11000942e29ce9625dc35683becef9e0}{at()}} is bounds checked and throws an std\+::out\+\_\+of\+\_\+bounds exception if index is outside the size of the buffer. In this case this causes undefined behaviour.
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & -\/ an int offset value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a const reference to the item at index. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCircularBuffer_a81a09a6e0d8567d5b9af9f956bd7be55}\label{classCircularBuffer_a81a09a6e0d8567d5b9af9f956bd7be55}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!pop@{pop}}
+\index{pop@{pop}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{pop()}{pop()}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+void \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::pop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Deletes the first element. 
+
+To access the first element use \mbox{\hyperlink{classCircularBuffer_a1d3b8caeed73e0384045ba4f4081f15b}{Circular\+Buffer\+::front()}} or \mbox{\hyperlink{classCircularBuffer_a5fc2878ede1b6b8c2612f77a0b4752c5}{Circular\+Buffer\+::first()}}. \mbox{\Hypertarget{classCircularBuffer_abde089c9e08735367fb80783be334780}\label{classCircularBuffer_abde089c9e08735367fb80783be334780}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!pop\_front@{pop\_front}}
+\index{pop\_front@{pop\_front}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{pop\_front()}{pop\_front()}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+void \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::pop\+\_\+front (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Deletes the first element. 
+
+This is an overloaded function. It is the equivalent of \mbox{\hyperlink{classCircularBuffer_a81a09a6e0d8567d5b9af9f956bd7be55}{pop()}}. \mbox{\Hypertarget{classCircularBuffer_a3ca2994bd5cce14dc72ecd1d5bb40fdc}\label{classCircularBuffer_a3ca2994bd5cce14dc72ecd1d5bb40fdc}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!popFirst@{popFirst}}
+\index{popFirst@{popFirst}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{popFirst()}{popFirst()}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+void \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::pop\+First (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Deletes the first element. 
+
+This is an overloaded function. It is the equivalent of \mbox{\hyperlink{classCircularBuffer_a81a09a6e0d8567d5b9af9f956bd7be55}{pop()}}. \mbox{\Hypertarget{classCircularBuffer_aef1791c6160fe8daa0d84c4788a4bbc4}\label{classCircularBuffer_aef1791c6160fe8daa0d84c4788a4bbc4}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!popFront@{popFront}}
+\index{popFront@{popFront}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{popFront()}{popFront()}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+void \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::pop\+Front (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Deletes the first element. 
+
+This is an overloaded function. It is the equivalent of \mbox{\hyperlink{classCircularBuffer_a81a09a6e0d8567d5b9af9f956bd7be55}{pop()}}. \mbox{\Hypertarget{classCircularBuffer_a63a93aa0b1a6e6c14a2180ecb9be231b}\label{classCircularBuffer_a63a93aa0b1a6e6c14a2180ecb9be231b}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!pullList@{pullList}}
+\index{pullList@{pullList}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{pullList()}{pullList()}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+const QList$<$value\+\_\+type$>$ \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::pull\+List (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access the data as a QList. 
+
+The buffer is empty and the end of this.
+
+\begin{DoxyReturn}{Returns}
+a vector of values. 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classCircularBuffer_ab4edf2083cb71ee06c6249cf0f486f83}{to\+List()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classCircularBuffer_a0ad8aece5983ba783632a7daf2ccad22}\label{classCircularBuffer_a0ad8aece5983ba783632a7daf2ccad22}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!pullStdList@{pullStdList}}
+\index{pullStdList@{pullStdList}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{pullStdList()}{pullStdList()}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+const std\+::list$<$value\+\_\+type$>$ \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::pull\+Std\+List (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access the data as a QList. 
+
+The buffer is empty and the end of this.
+
+\begin{DoxyReturn}{Returns}
+a vector of values. 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classCircularBuffer_a56ffb6a42f0377c2ada4b2ff03db23a3}{to\+Std\+List()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classCircularBuffer_adb0282ed740c6dd8f58e5645d3670836}\label{classCircularBuffer_adb0282ed740c6dd8f58e5645d3670836}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!pullStdVector@{pullStdVector}}
+\index{pullStdVector@{pullStdVector}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{pullStdVector()}{pullStdVector()}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+const std\+::vector$<$value\+\_\+type$>$ \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::pull\+Std\+Vector (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access the data as a std\+::vector. 
+
+\begin{DoxyReturn}{Returns}
+a vector of values. 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classCircularBuffer_a69996ee0803ab3543f4904d4fc5c9985}{to\+Std\+Vector()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classCircularBuffer_ae21ff905f06a74db2dce6bc3527ec4d3}\label{classCircularBuffer_ae21ff905f06a74db2dce6bc3527ec4d3}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!pullVector@{pullVector}}
+\index{pullVector@{pullVector}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{pullVector()}{pullVector()}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+const QVector$<$value\+\_\+type$>$ \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::pull\+Vector (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access the data as a QVector, emptying the buffer. 
+
+\begin{DoxyReturn}{Returns}
+a QVector of values. 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classCircularBuffer_ad2f7f8e6edc9189b8938222776bcbe68}{to\+Vector()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classCircularBuffer_a91f5d316f1fae066fdeb1978155479d7}\label{classCircularBuffer_a91f5d316f1fae066fdeb1978155479d7}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!push@{push}}
+\index{push@{push}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{push()}{push()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+void \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::push (\begin{DoxyParamCaption}\item[{const QList$<$ value\+\_\+type $>$}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pushes a list of items to the buffer. 
+
+This will push the items to the buffer but does not alter the size of the buffer so if the list is too large onle the last N items will be stored where N = the capacity of the buffer.
+
+
+\begin{DoxyParams}{Parameters}
+{\em values} & -\/ a QList of type value\+\_\+type. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classCircularBuffer_a9305ca519cd0d7bc850298709d2d043e}\label{classCircularBuffer_a9305ca519cd0d7bc850298709d2d043e}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!push@{push}}
+\index{push@{push}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{push()}{push()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+void \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::push (\begin{DoxyParamCaption}\item[{const QVector$<$ value\+\_\+type $>$ \&}]{values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pushes a vector of items to the buffer. 
+
+This will push the items to the buffer but does not alter the size of the buffer so if the vector is too large onle the last N items will be stored where N = the capacity of the buffer.
+
+
+\begin{DoxyParams}{Parameters}
+{\em values} & -\/ a QVector of type value\+\_\+type. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classCircularBuffer_ab5da153a3f7c33b972f4f91694813c97}{push()}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classCircularBuffer_ab5da153a3f7c33b972f4f91694813c97}\label{classCircularBuffer_ab5da153a3f7c33b972f4f91694813c97}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!push@{push}}
+\index{push@{push}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{push()}{push()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+void \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::push (\begin{DoxyParamCaption}\item[{const value\+\_\+type \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pushes a new item at the head position. 
+
+Note\+: You should check if there is space to enter more data before adding more as it will overwrite the oldest data if there is insufficient space available.
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & -\/ an object of type value\+\_\+type. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classCircularBuffer_a29b56924fc7cb412ed89e32d8322a508}\label{classCircularBuffer_a29b56924fc7cb412ed89e32d8322a508}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!push\_back@{push\_back}}
+\index{push\_back@{push\_back}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{push\_back()}{push\_back()}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+void \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::push\+\_\+back (\begin{DoxyParamCaption}\item[{const value\+\_\+type \&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pushes a new item at the head position. 
+
+This is an overloaded function. It is the equivalent of \mbox{\hyperlink{classCircularBuffer_ab5da153a3f7c33b972f4f91694813c97}{push()}}.
+
+Note\+: You should check if there is space to enter more data before adding more as it will overwrite the oldest data if there is insufficient space available.
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & -\/ an object of type value\+\_\+type. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classCircularBuffer_ae0a7b658a605d6421c9bb187a5e1f406}\label{classCircularBuffer_ae0a7b658a605d6421c9bb187a5e1f406}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!removeFirst@{removeFirst}}
+\index{removeFirst@{removeFirst}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{removeFirst()}{removeFirst()}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+void \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::remove\+First (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Deletes the first element. 
+
+This is an overloaded function. It is the equivalent of \mbox{\hyperlink{classCircularBuffer_a81a09a6e0d8567d5b9af9f956bd7be55}{pop()}}. \mbox{\Hypertarget{classCircularBuffer_abd0bd3ff763b344c9a9c514dd044f32c}\label{classCircularBuffer_abd0bd3ff763b344c9a9c514dd044f32c}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!reserve@{reserve}}
+\index{reserve@{reserve}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{reserve()}{reserve()}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+void \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::reserve (\begin{DoxyParamCaption}\item[{const int}]{capacity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Resizes the buffer to a new capacity. 
+
+Resizes the buffer to the supplied size. If the new capacity is larger then all of the old will be retained, otherwise only the most recent additions will be retained.
+
+
+\begin{DoxyParams}{Parameters}
+{\em capacity} & -\/ the capacity value. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classCircularBuffer_a88ce5231f66d39548844703f93cd4bf9}\label{classCircularBuffer_a88ce5231f66d39548844703f93cd4bf9}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!takeFirst@{takeFirst}}
+\index{takeFirst@{takeFirst}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{takeFirst()}{takeFirst()}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+const value\+\_\+type \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::take\+First (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+pulls an item from the front position and returns it. 
+
+This is an overloaded function.
+
+The item is removed and the back position is incremented by one position.
+
+\begin{DoxyReturn}{Returns}
+-\/ an object of type value\+\_\+type. 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+pull() 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classCircularBuffer_a28e14174200a3d99e53da805da70d003}\label{classCircularBuffer_a28e14174200a3d99e53da805da70d003}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!takeFront@{takeFront}}
+\index{takeFront@{takeFront}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{takeFront()}{takeFront()}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+const value\+\_\+type \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::take\+Front (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+pulls an item from the front position and returns it. 
+
+This is an overloaded function.
+
+The item is removed and the back position is incremented by one position.
+
+\begin{DoxyReturn}{Returns}
+-\/ an object of type value\+\_\+type. 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+pull() 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{classCircularBuffer_ab4edf2083cb71ee06c6249cf0f486f83}\label{classCircularBuffer_ab4edf2083cb71ee06c6249cf0f486f83}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!toList@{toList}}
+\index{toList@{toList}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{toList()}{toList()}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+const QList$<$value\+\_\+type$>$ \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::to\+List (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access the data as a QList. 
+
+If you want to remove the data, you can use \mbox{\hyperlink{classCircularBuffer_a63a93aa0b1a6e6c14a2180ecb9be231b}{pull\+List()}}.
+
+\begin{DoxyReturn}{Returns}
+a vector of values. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCircularBuffer_a56ffb6a42f0377c2ada4b2ff03db23a3}\label{classCircularBuffer_a56ffb6a42f0377c2ada4b2ff03db23a3}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!toStdList@{toStdList}}
+\index{toStdList@{toStdList}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{toStdList()}{toStdList()}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+const std\+::list$<$value\+\_\+type$>$ \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::to\+Std\+List (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access the data as a std\+::list. 
+
+If you want to remove the data, you can use \mbox{\hyperlink{classCircularBuffer_a0ad8aece5983ba783632a7daf2ccad22}{pull\+Std\+List()}}.
+
+\begin{DoxyReturn}{Returns}
+a vector of values. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCircularBuffer_a69996ee0803ab3543f4904d4fc5c9985}\label{classCircularBuffer_a69996ee0803ab3543f4904d4fc5c9985}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!toStdVector@{toStdVector}}
+\index{toStdVector@{toStdVector}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{toStdVector()}{toStdVector()}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+const std\+::vector$<$value\+\_\+type$>$ \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::to\+Std\+Vector (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access the data as a std\+::vector. 
+
+If you want to remove the data, you can use \mbox{\hyperlink{classCircularBuffer_adb0282ed740c6dd8f58e5645d3670836}{pull\+Std\+Vector()}}.
+
+\begin{DoxyReturn}{Returns}
+a vector of values. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCircularBuffer_ad2f7f8e6edc9189b8938222776bcbe68}\label{classCircularBuffer_ad2f7f8e6edc9189b8938222776bcbe68}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!toVector@{toVector}}
+\index{toVector@{toVector}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{toVector()}{toVector()}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+const QVector$<$value\+\_\+type$>$ \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::to\+Vector (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access the data as a QVector. 
+
+If you want to remove the data, you can use \mbox{\hyperlink{classCircularBuffer_ae21ff905f06a74db2dce6bc3527ec4d3}{pull\+Vector()}}.
+
+\begin{DoxyReturn}{Returns}
+a QVector of values. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCircularBuffer_ab49b0c13f2a4af3efbddf5832614d6a0}\label{classCircularBuffer_ab49b0c13f2a4af3efbddf5832614d6a0}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!value@{value}}
+\index{value@{value}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{value()}{value()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+value\+\_\+type \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::value (\begin{DoxyParamCaption}\item[{int}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access the element at index, relative to the tail of the buffer. 
+
+If the index i is out of bounds, the function returns a default-\/constructed value. If you are certain that i is within bounds, you can use \mbox{\hyperlink{classCircularBuffer_a11000942e29ce9625dc35683becef9e0}{at()}} instead which is slightly faster.
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & -\/ the index within the buffer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+an object of type value\+\_\+type. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classCircularBuffer_acadfcf767d3efcfed33d6c08cd8c98c1}\label{classCircularBuffer_acadfcf767d3efcfed33d6c08cd8c98c1}} 
+\index{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}!value@{value}}
+\index{value@{value}!CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$@{CircularBuffer$<$ T, always\_accept\_data\_when\_full, Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{value()}{value()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T , bool always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full = true, typename Alloc  = std\+::allocator$<$\+T$>$$>$ \\
+value\+\_\+type \mbox{\hyperlink{classCircularBuffer}{Circular\+Buffer}}$<$ T, always\+\_\+accept\+\_\+data\+\_\+when\+\_\+full, Alloc $>$\+::value (\begin{DoxyParamCaption}\item[{int}]{index,  }\item[{const value\+\_\+type}]{default\+Value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Access the element at index, relative to the tail of the buffer or a supplied default value. 
+
+This is an overloaded function.
+
+If the index i is out of bounds, the function returns a default-\/constructed value. If you are certain that i is within bounds, you can use \mbox{\hyperlink{classCircularBuffer_a11000942e29ce9625dc35683becef9e0}{at()}} instead which is slightly faster.
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & -\/ the index within the buffer. \\
+\hline
+{\em default\+Value} & -\/ the default item to use to fill the buffer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+an object of type value\+\_\+type. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Circular\+Buffer.\+h\end{DoxyCompactItemize}

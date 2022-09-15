@@ -1,0 +1,74 @@
+\hypertarget{keymap_8h}{}\doxysection{keymap.\+h File Reference}
+\label{keymap_8h}\index{keymap.h@{keymap.h}}
+
+
+stores a set of Key maps for storage in a configuration file.  
+
+
+{\ttfamily \#include $<$QMap$>$}\newline
+{\ttfamily \#include \char`\"{}qyamlcpp.\+h\char`\"{}}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structKeyMapper}{Key\+Mapper}}
+\begin{DoxyCompactList}\small\item\em Stores a key/modifier value for a key press. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structYAML_1_1convert_3_01KeyEventMapper_01_4}{YAML\+::convert$<$ Key\+Event\+Mapper $>$}}
+\begin{DoxyCompactList}\small\item\em A yaml-\/cpp convertion class for Key\+Event\+Mapper. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structYAML_1_1convert_3_01KeyMapper_01_4}{YAML\+::convert$<$ Key\+Mapper $>$}}
+\begin{DoxyCompactList}\small\item\em A yaml-\/cpp convertion class for \mbox{\hyperlink{structKeyMapper}{Key\+Mapper}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39}{Key\+Event\+Mapper}} \{ \mbox{\hyperlink{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39a101f5c3557c0c90f333b30c9469831c8}{No\+Key}}
+, \mbox{\hyperlink{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39ae4829263875aeeb4b6cd5b17dc273215}{Previous\+Bookmark}}
+, \mbox{\hyperlink{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39a1e84ab686bfb0589f425bf06d7ee0ead}{Next\+Bookmark}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{keymap_8h_ac094288a7809a52546c0323b36751bb5}\label{keymap_8h_ac094288a7809a52546c0323b36751bb5}} 
+Emitter \& \mbox{\hyperlink{keymap_8h_ac094288a7809a52546c0323b36751bb5}{YAML\+::operator$<$$<$}} (Emitter \&out, const \mbox{\hyperlink{structKeyMapper}{Key\+Mapper}} v)
+\begin{DoxyCompactList}\small\item\em A yaml-\/cpp emitter operator for \mbox{\hyperlink{structKeyMapper}{Key\+Mapper}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{keymap_8h_a0cbe347b63a0d39753df4b85ef0bd975}\label{keymap_8h_a0cbe347b63a0d39753df4b85ef0bd975}} 
+Emitter \& \mbox{\hyperlink{keymap_8h_a0cbe347b63a0d39753df4b85ef0bd975}{YAML\+::operator$<$$<$}} (Emitter \&out, const \mbox{\hyperlink{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39}{Key\+Event\+Mapper}} v)
+\begin{DoxyCompactList}\small\item\em A yaml-\/cpp emitter operator for Key\+Event\+Mapper. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{keymap_8h_aebd408f8a61ab0e799020cb8f6c3696c}\label{keymap_8h_aebd408f8a61ab0e799020cb8f6c3696c}} 
+Emitter \& \mbox{\hyperlink{keymap_8h_aebd408f8a61ab0e799020cb8f6c3696c}{YAML\+::operator$<$$<$}} (Emitter \&out, const QMap$<$ \mbox{\hyperlink{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39}{Key\+Event\+Mapper}}, \mbox{\hyperlink{structKeyMapper}{Key\+Mapper}} $>$ \&v)
+\begin{DoxyCompactList}\small\item\em A yaml-\/cpp emitter operator for QMap$<$\+Key\+Event\+Mapper, Key\+Mapper$>$. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+stores a set of Key maps for storage in a configuration file. 
+
+\begin{DoxyAuthor}{Author}
+Simon Meaden 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2022-\/08-\/10
+\end{DoxyDate}
+Not really intended for anyone else to use as you can see from to paucity of mapping keys.
+
+Data is stored in a QMap$<$\+Key\+Event\+Mapper, Key\+Mapper$>$ and the main part of the code is to allow the data to be stored/recovered from a YAML file using yaml-\/cpp. 
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39}\label{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39}} 
+\index{keymap.h@{keymap.h}!KeyEventMapper@{KeyEventMapper}}
+\index{KeyEventMapper@{KeyEventMapper}!keymap.h@{keymap.h}}
+\doxysubsubsection{\texorpdfstring{KeyEventMapper}{KeyEventMapper}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39}{Key\+Event\+Mapper}}}
+
+Defines the key for a map of key/modifier structures. \begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NoKey@{NoKey}!keymap.h@{keymap.h}}\index{keymap.h@{keymap.h}!NoKey@{NoKey}}}\mbox{\Hypertarget{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39a101f5c3557c0c90f333b30c9469831c8}\label{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39a101f5c3557c0c90f333b30c9469831c8}} 
+No\+Key&No key was pressed. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PreviousBookmark@{PreviousBookmark}!keymap.h@{keymap.h}}\index{keymap.h@{keymap.h}!PreviousBookmark@{PreviousBookmark}}}\mbox{\Hypertarget{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39ae4829263875aeeb4b6cd5b17dc273215}\label{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39ae4829263875aeeb4b6cd5b17dc273215}} 
+Previous\+Bookmark&Go to the previous bookmark. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NextBookmark@{NextBookmark}!keymap.h@{keymap.h}}\index{keymap.h@{keymap.h}!NextBookmark@{NextBookmark}}}\mbox{\Hypertarget{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39a1e84ab686bfb0589f425bf06d7ee0ead}\label{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39a1e84ab686bfb0589f425bf06d7ee0ead}} 
+Next\+Bookmark&Go to the next bookmark. \\
+\hline
+
+\end{DoxyEnumFields}

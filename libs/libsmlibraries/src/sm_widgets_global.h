@@ -1,5 +1,5 @@
-#ifndef EXTENDEDTABWIDGET_GLOBAL_H
-#define EXTENDEDTABWIDGET_GLOBAL_H
+#ifndef SM_WIDGETS_GLOBAL_H
+#define SM_WIDGETS_GLOBAL_H
 
 #include <QtCore/qglobal.h>
 
@@ -9,4 +9,4 @@
   #define SM_WIDGETS_SHARED_EXPORT Q_DECL_IMPORT
 #endif
 
-#endif // EXTENDEDTABWIDGET_GLOBAL_H
+#endif // SM_WIDGETS_GLOBAL_H

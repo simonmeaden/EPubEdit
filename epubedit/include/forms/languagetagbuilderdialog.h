@@ -34,9 +34,9 @@
 #include <QWidget>
 
 #include "config.h"
-#include "languages.h"
-#include "stringutil.h"
-#include "x11colors.h"
+#include "language/languages.h"
+#include "utilities/stringutil.h"
+#include "utilities/x11colors.h"
 
 class LanguageTagBuilderDialog;
 

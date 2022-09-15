@@ -5,13 +5,11 @@
 #include <QWidget>
 
 #include "document/bookpointers.h"
-#include "headerwidget.h"
+#include "docker/headerwidget.h"
 
-class AbstractEPubEditorPrivate;
 class AbstractEPubEditor : public HeaderWidget
 {
   Q_OBJECT
-  Q_DECLARE_PRIVATE(AbstractEPubEditor)
 public:
   AbstractEPubEditor(QWidget* parent = nullptr);
   explicit AbstractEPubEditor(PConfig config, QWidget* parent = nullptr);
@@ -21,9 +19,11 @@ signals:
   void sendLogMessage(const QString& message);
 
 protected:
-  AbstractEPubEditor(AbstractEPubEditorPrivate& d);
-  AbstractEPubEditor(AbstractEPubEditorPrivate& d, QWidget* parent);
+  PConfig m_config;
+  QString m_href;
   void mousePressEvent(QMouseEvent* event);
-};
+
+private:
+ };
 
 #endif // ABSTRACTEPUBEDITOR_H

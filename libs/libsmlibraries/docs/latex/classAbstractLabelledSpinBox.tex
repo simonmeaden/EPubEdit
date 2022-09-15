@@ -1,0 +1,112 @@
+\hypertarget{classAbstractLabelledSpinBox}{}\doxysection{Abstract\+Labelled\+Spin\+Box Class Reference}
+\label{classAbstractLabelledSpinBox}\index{AbstractLabelledSpinBox@{AbstractLabelledSpinBox}}
+
+
+The Labelled\+Spin\+Widget abstract base class.  
+
+
+
+
+{\ttfamily \#include $<$abstractlabelledspinbox.\+h$>$}
+
+Inheritance diagram for Abstract\+Labelled\+Spin\+Box\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{classAbstractLabelledSpinBox}
+\end{center}
+\end{figure}
+\doxysubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classAbstractLabelledSpinBox_a9e95b13024ab859f86ea66e6bc756034}{text\+Changed}} (const QString \&\mbox{\hyperlink{classAbstractLabelledWidget_a38a4d448633db671496c5ef5b9591a9d}{label\+Text}})
+\item 
+void \mbox{\hyperlink{classAbstractLabelledSpinBox_ab83d25ed1d3a1956f94b4a0a3b59778e}{suffix\+Changed}} (const QString \&\mbox{\hyperlink{classAbstractLabelledSpinBox_a4506d7a50b56008cc74d1ae9c1c2e65b}{suffix}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classAbstractLabelledSpinBox_aee6be0952422cb8604b858334683938a}\label{classAbstractLabelledSpinBox_aee6be0952422cb8604b858334683938a}} 
+\mbox{\hyperlink{classAbstractLabelledSpinBox_aee6be0952422cb8604b858334683938a}{Abstract\+Labelled\+Spin\+Box}} (const QString \&\mbox{\hyperlink{classAbstractLabelledWidget_a38a4d448633db671496c5ef5b9591a9d}{label\+Text}}=QString(), QWidget $\ast$parent=nullptr, Widget\+Factory const \&factory=Widget\+Factory())
+\begin{DoxyCompactList}\small\item\em Constructs a lineedit with the given parent, and supplied label. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractLabelledSpinBox_a06120ff2e354d0387c0fbe79f93266d7}\label{classAbstractLabelledSpinBox_a06120ff2e354d0387c0fbe79f93266d7}} 
+QString \mbox{\hyperlink{classAbstractLabelledSpinBox_a06120ff2e354d0387c0fbe79f93266d7}{suffix}} ()
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QSpin\+Box\+::suffix() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractLabelledSpinBox_a9c718ea37af897d1a4e410ee012ed994}\label{classAbstractLabelledSpinBox_a9c718ea37af897d1a4e410ee012ed994}} 
+void \mbox{\hyperlink{classAbstractLabelledSpinBox_a9c718ea37af897d1a4e410ee012ed994}{set\+Suffix}} (const QString \&\mbox{\hyperlink{classAbstractLabelledWidget_a38a4d448633db671496c5ef5b9591a9d}{label\+Text}})
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QSpin\+Box\+::set\+Suffix(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractLabelledSpinBox_a10c51ec701fb702721b2d7f29fef83cf}\label{classAbstractLabelledSpinBox_a10c51ec701fb702721b2d7f29fef83cf}} 
+QAbstract\+Spin\+Box\+::\+Step\+Type \mbox{\hyperlink{classAbstractLabelledSpinBox_a10c51ec701fb702721b2d7f29fef83cf}{step\+Type}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QSpin\+Box\+::step\+Type() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractLabelledSpinBox_a0f32cdf69e85744936fb7d29c83a8351}\label{classAbstractLabelledSpinBox_a0f32cdf69e85744936fb7d29c83a8351}} 
+void \mbox{\hyperlink{classAbstractLabelledSpinBox_a0f32cdf69e85744936fb7d29c83a8351}{set\+Step\+Type}} (QAbstract\+Spin\+Box\+::\+Step\+Type type)
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QSpin\+Box\+::set\+Step\+Type(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractLabelledSpinBox_ada791ffac292499a591cc8b056559593}\label{classAbstractLabelledSpinBox_ada791ffac292499a591cc8b056559593}} 
+QString \mbox{\hyperlink{classAbstractLabelledSpinBox_ada791ffac292499a591cc8b056559593}{clean\+Text}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QSpin\+Box\+::clean\+Text(). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractLabelledSpinBox_ab4455d96c41195bd0bd40fe3bd41b695}\label{classAbstractLabelledSpinBox_ab4455d96c41195bd0bd40fe3bd41b695}} 
+void \mbox{\hyperlink{classAbstractLabelledSpinBox_ab4455d96c41195bd0bd40fe3bd41b695}{set\+Widget\+Alignment}} (const Qt\+::\+Alignment \&\mbox{\hyperlink{classAbstractLabelledSpinBox_ac6598c93f27d93087cd24fc51373affa}{widget\+Alignment}})
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QSpin\+Box\+::set\+Alignment() const. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classAbstractLabelledSpinBox_ac6598c93f27d93087cd24fc51373affa}\label{classAbstractLabelledSpinBox_ac6598c93f27d93087cd24fc51373affa}} 
+Qt\+::\+Alignment \mbox{\hyperlink{classAbstractLabelledSpinBox_ac6598c93f27d93087cd24fc51373affa}{widget\+Alignment}} () const
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QSpin\+Box\+::alignment() const. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+QString \mbox{\hyperlink{classAbstractLabelledSpinBox_a4506d7a50b56008cc74d1ae9c1c2e65b}{suffix}}
+\begin{DoxyCompactList}\small\item\em This property holds the suffix of the spin box. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The Labelled\+Spin\+Widget abstract base class. 
+
+\begin{DoxySince}{Since}
+5.\+7.\+0 
+\end{DoxySince}
+\begin{DoxyParagraph}{License\+: The MIT License}
+
+\end{DoxyParagraph}
+\begin{DoxyCopyright}{Copyright}
+© 2019 -\/ 2020 Simon Meaden. All rights reserved.
+\end{DoxyCopyright}
+Extends \mbox{\hyperlink{classAbstractLabelledWidget}{Abstract\+Labelled\+Widget}} to supply common capability to the various labelled spin boxes.
+
+All properties of the QSpin\+Box are copied across to this widget. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classAbstractLabelledSpinBox_ab83d25ed1d3a1956f94b4a0a3b59778e}\label{classAbstractLabelledSpinBox_ab83d25ed1d3a1956f94b4a0a3b59778e}} 
+\index{AbstractLabelledSpinBox@{AbstractLabelledSpinBox}!suffixChanged@{suffixChanged}}
+\index{suffixChanged@{suffixChanged}!AbstractLabelledSpinBox@{AbstractLabelledSpinBox}}
+\doxysubsubsection{\texorpdfstring{suffixChanged}{suffixChanged}}
+{\footnotesize\ttfamily Abstract\+Labelled\+Spin\+Box\+::suffix\+Changed (\begin{DoxyParamCaption}\item[{const QString \&}]{suffix }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+Notifies when the suffix changes. \mbox{\Hypertarget{classAbstractLabelledSpinBox_a9e95b13024ab859f86ea66e6bc756034}\label{classAbstractLabelledSpinBox_a9e95b13024ab859f86ea66e6bc756034}} 
+\index{AbstractLabelledSpinBox@{AbstractLabelledSpinBox}!textChanged@{textChanged}}
+\index{textChanged@{textChanged}!AbstractLabelledSpinBox@{AbstractLabelledSpinBox}}
+\doxysubsubsection{\texorpdfstring{textChanged}{textChanged}}
+{\footnotesize\ttfamily Abstract\+Labelled\+Spin\+Box\+::text\+Changed (\begin{DoxyParamCaption}\item[{const QString \&}]{label\+Text }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+\begin{DoxyParagraph}{From\+: QSpin\+Box\+::text\+Changed}
+
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{Not Property\+: value}
+
+\end{DoxyParagraph}
+
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{classAbstractLabelledSpinBox_a4506d7a50b56008cc74d1ae9c1c2e65b}\label{classAbstractLabelledSpinBox_a4506d7a50b56008cc74d1ae9c1c2e65b}} 
+\index{AbstractLabelledSpinBox@{AbstractLabelledSpinBox}!suffix@{suffix}}
+\index{suffix@{suffix}!AbstractLabelledSpinBox@{AbstractLabelledSpinBox}}
+\doxysubsubsection{\texorpdfstring{suffix}{suffix}}
+{\footnotesize\ttfamily Abstract\+Labelled\+Spin\+Box\+::suffix\hspace{0.3cm}{\ttfamily [read]}, {\ttfamily [write]}}
+
+
+
+This property holds the suffix of the spin box. 
+
+{\bfseries{Reimplements\+:}} QSpin\+Box\+::suffix {\bfseries{Accessor\+:}} suffix() , \%2 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{abstractlabelledspinbox_8h}{abstractlabelledspinbox.\+h}}\end{DoxyCompactItemize}

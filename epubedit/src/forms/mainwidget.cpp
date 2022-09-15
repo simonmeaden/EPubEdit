@@ -1,12 +1,12 @@
 #include "mainwidget.h"
-#include "abstractdockitem.h"
-#include "buttonwidget.h"
+#include "docker/abstractdockitem.h"
+#include "docker/buttonwidget.h"
 #include "editorwidget.h"
-#include "dockfooter.h"
-#include "docktoolbar.h"
-#include "epubeditor.h"
-#include "labelwidget.h"
-#include "widgetitem.h"
+#include "docker/dockfooter.h"
+#include "docker/docktoolbar.h"
+#include "forms/epubeditor.h"
+#include "docker/labelwidget.h"
+#include "docker/widgetitem.h"
 
 MainWidget::MainWidget(PConfig config, QUndoStack* undoStack, QWidget* parent)
   : DockWidget(parent)
@@ -18,15 +18,6 @@ MainWidget::MainWidget(PConfig config, QUndoStack* undoStack, QWidget* parent)
 
   m_currentWidget = new EditorWidget(config, undoStack, this);
   setWidget(m_currentWidget);
-
-  //  auto f = new QFrame(this);
-  //  auto p = f->palette();
-  //  p.setColor(QPalette::Window, QColor("red"));
-  //  f->setPalette(p);
-
-  //  f->setFrameStyle(QFrame::Box);
-  //  f->setLineWidth(10);
-  //  setWidget(f);
 
   setCorner(NorthWest, Box);
   setCorner(SouthWest, Box);
@@ -65,7 +56,7 @@ MainWidget::MainWidget(PConfig config, QUndoStack* undoStack, QWidget* parent)
           &MainWidget::toggleRightSidebar);
 
   m_lineNoLbl =
-    footer->addTextLabel(End, tr("Line: 0, Col: 0"), tr("Show Right Sidebar"));
+    footer->addTextLabel(End, tr("Line: 0, Col: 0, Cursor: 0"), tr("Show Right Sidebar"));
 
   widget = footer->addTextButton(End, tr("Show Info"));
   connect(widget,

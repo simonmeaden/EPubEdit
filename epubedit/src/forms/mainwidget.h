@@ -8,7 +8,7 @@
 #include <QUndoView>
 
 #include "config.h"
-#include "dockwidget.h"
+#include "docker/dockwidget.h"
 #include "document/bookpointers.h"
 
 class EditorWidget;
