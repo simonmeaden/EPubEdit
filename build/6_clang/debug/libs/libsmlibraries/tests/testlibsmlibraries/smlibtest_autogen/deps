@@ -1,0 +1,6 @@
+smlibtest_autogen/timestamp: \
+	/home/simonmeaden/workspace/epubedit/libs/libsmlibraries/tests/testlibsmlibraries/CMakeLists.txt \
+	/home/simonmeaden/workspace/epubedit/libs/libsmlibraries/tests/testlibsmlibraries/main.cpp \
+	/home/simonmeaden/workspace/epubedit/libs/libsmlibraries/tests/testlibsmlibraries/testbcp47languages.cpp \
+	/home/simonmeaden/workspace/epubedit/libs/libsmlibraries/tests/testlibsmlibraries/testbcp47languages.h \
+	/usr/bin/cmake

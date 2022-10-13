@@ -581,6 +581,11 @@ Config::keyMap()
   return m_keyMap;
 }
 
+bool Config::isModified() const
+{
+  return m_modified;
+}
+
 bool
 Config::isLeftSidebarVisible() const
 {

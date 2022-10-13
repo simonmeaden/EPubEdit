@@ -35,8 +35,8 @@ FooterWidgetPrivate::footer()
 void
 FooterWidgetPrivate::hideWidget()
 {
-  m_widget->hide();
-  m_layout->removeWidget(m_widget);
+  m_centralWidget->hide();
+  m_layout->removeWidget(m_centralWidget);
   m_hiddenSize = QSize(m_width, 0);
   m_visibleSize = QSize(m_width, m_height);
 }
@@ -44,14 +44,14 @@ FooterWidgetPrivate::hideWidget()
 void
 FooterWidgetPrivate::showWidget()
 {
-  m_widget->show();
-  m_layout->addWidget(m_widget);
+  m_centralWidget->show();
+  m_layout->addWidget(m_centralWidget);
 }
 
 bool
 FooterWidgetPrivate::isWidgetVisible()
 {
-  return m_widget->isVisible();
+  return m_centralWidget->isVisible();
 }
 
 void
@@ -92,10 +92,24 @@ FooterWidgetPrivate::hoverMove(QPoint pos)
 }
 
 void
-FooterWidgetPrivate::mousePress(QPoint pos)
+FooterWidgetPrivate::mousePress(QMouseEvent *event)
 {
   if (m_footer) {
-    mouseClickCheck(m_footer, pos);
+    mousePressCheck(m_footer, event);
+  }
+}
+
+void FooterWidgetPrivate::mouseRelease(QMouseEvent *event)
+{
+  if (m_footer) {
+    mouseReleaseCheck(m_footer, event);
+  }
+}
+
+void FooterWidgetPrivate::mouseMove(QMouseEvent *event)
+{
+  if (m_footer) {
+    mouseMoveCheck(m_footer, event);
   }
 }
 

@@ -1,0 +1,22 @@
+{
+	"BUILD_DIR" : "/home/simonmeaden/workspace/epubedit/build/5_clang/debug/extlibs/quazip/qztest/qztest_autogen",
+	"CMAKE_BINARY_DIR" : "/home/simonmeaden/workspace/epubedit/build/5_clang/debug",
+	"CMAKE_CURRENT_BINARY_DIR" : "/home/simonmeaden/workspace/epubedit/build/5_clang/debug/extlibs/quazip/qztest",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest",
+	"CMAKE_SOURCE_DIR" : "/home/simonmeaden/workspace/epubedit",
+	"INCLUDE_DIR" : "/home/simonmeaden/workspace/epubedit/build/5_clang/debug/extlibs/quazip/qztest/qztest_autogen/include",
+	"INPUTS" : 
+	[
+		"/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/test_files/issue43_cant_get_dates.zip"
+	],
+	"LOCK_FILE" : "/home/simonmeaden/workspace/epubedit/build/5_clang/debug/extlibs/quazip/qztest/CMakeFiles/qztest_autogen.dir/AutoRcc_qztest_EWIEGA46WW_Lock.lock",
+	"MULTI_CONFIG" : false,
+	"OPTIONS" : [ "-name", "qztest" ],
+	"OUTPUT_CHECKSUM" : "EWIEGA46WW",
+	"OUTPUT_NAME" : "qrc_qztest.cpp",
+	"RCC_EXECUTABLE" : "/usr/lib64/qt6/libexec/rcc",
+	"RCC_LIST_OPTIONS" : [ "--list" ],
+	"SETTINGS_FILE" : "/home/simonmeaden/workspace/epubedit/build/5_clang/debug/extlibs/quazip/qztest/CMakeFiles/qztest_autogen.dir/AutoRcc_qztest_EWIEGA46WW_Used.txt",
+	"SOURCE" : "/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/qztest.qrc",
+	"VERBOSITY" : 0
+}

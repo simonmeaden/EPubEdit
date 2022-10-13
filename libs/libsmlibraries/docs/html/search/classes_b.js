@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['nametag_860',['NameTag',['../structNameTag.html',1,'']]]
+  ['multisplitter_897',['MultiSplitter',['../classMultiSplitter.html',1,'']]]
 ];

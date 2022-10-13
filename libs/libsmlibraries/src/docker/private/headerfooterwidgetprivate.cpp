@@ -26,25 +26,10 @@ HeaderFooterWidgetPrivate::footer()
   return nullptr;
 }
 
-//QWidget*
-//HeaderFooterWidgetPrivate::setWidget(QWidget* widget)
-//{
-//  if (widget == m_widget)
-//    return widget;
-
-//  auto oldWidget = m_widget;
-//  if (oldWidget) {
-//    m_layout->removeWidget(oldWidget);
-//  }
-//  m_widget = widget;
-//  m_layout->addWidget(m_widget);
-//  return oldWidget;
-//}
-
 void
 HeaderFooterWidgetPrivate::hideWidget()
 {
-  m_layout->removeWidget(m_widget);
+  m_layout->removeWidget(m_centralWidget);
   m_hiddenSize = QSize(m_width, 0);
   m_visibleSize = QSize(m_width, m_height);
 }
@@ -112,21 +97,35 @@ HeaderFooterWidgetPrivate::hoverMove(QPoint pos)
 }
 
 void
-HeaderFooterWidgetPrivate::mousePress(QPoint pos)
+HeaderFooterWidgetPrivate::mousePress(QMouseEvent *event)
 {
   if (m_header) {
-    mouseClickCheck(m_header, pos);
+    mousePressCheck(m_header, event);
   }
   if (m_footer) {
-    mouseClickCheck(m_footer, pos);
+    mousePressCheck(m_footer, event);
   }
 }
 
-// void
-// HeaderFooterWidgetPrivate::resizeEvent(QResizeEvent* /*event*/)
-//{
-//   calculateGeometry(q_ptr->rect());
-// }
+void HeaderFooterWidgetPrivate::mouseMove(QMouseEvent *event)
+{
+  if (m_header) {
+    mouseMoveCheck(m_header, event);
+  }
+  if (m_footer) {
+    mouseMoveCheck(m_footer, event);
+  }
+}
+
+void HeaderFooterWidgetPrivate::mouseRelease(QMouseEvent *event)
+{
+  if (m_header) {
+    mouseReleaseCheck(m_header, event);
+  }
+  if (m_footer) {
+    mouseReleaseCheck(m_footer, event);
+  }
+}
 
 void
 HeaderFooterWidgetPrivate::calculateGeometry(const QRect& rect)

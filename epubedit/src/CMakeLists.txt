@@ -25,7 +25,7 @@ target_sources(${PROJECT_NAME}
   ../include/forms/languagetagbuilderdialog.h
   ../include/document/epubdocument.h
   ../include/widgets/epubedit.h
-  ../include/widgets/codeedit.h
+  ../include/widgets/htmledit.h
   ../include/widgets/imageedit.h
 
   #
@@ -75,7 +75,7 @@ target_sources(${PROJECT_NAME}
     widgets/imageedit.cpp
 
     widgets/epubedit.cpp
-    widgets/codeedit.cpp
+    widgets/htmledit.cpp
 
     forms/epubeditor.h
     forms/epubeditor.cpp

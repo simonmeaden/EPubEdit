@@ -34,8 +34,8 @@ HeaderWidgetPrivate::header()
 void
 HeaderWidgetPrivate::hideWidget()
 {
-  m_widget->hide();
-  m_layout->removeWidget(m_widget);
+  m_centralWidget->hide();
+  m_layout->removeWidget(m_centralWidget);
   m_hiddenSize = QSize(m_width, 0);
   m_visibleSize = QSize(m_width, m_height);
 }
@@ -43,14 +43,14 @@ HeaderWidgetPrivate::hideWidget()
 void
 HeaderWidgetPrivate::showWidget()
 {
-  m_widget->show();
-  m_layout->addWidget(m_widget);
+  m_centralWidget->show();
+  m_layout->addWidget(m_centralWidget);
 }
 
 bool
 HeaderWidgetPrivate::isWidgetVisible()
 {
-  return m_widget->isVisible();
+  return m_centralWidget->isVisible();
 }
 
 AbstractDockWidget*
@@ -110,10 +110,24 @@ HeaderWidgetPrivate::hoverMove(QPoint pos)
 }
 
 void
-HeaderWidgetPrivate::mousePress(QPoint pos)
+HeaderWidgetPrivate::mousePress(QMouseEvent *event)
 {
   if (m_header) {
-    mouseClickCheck(m_header, pos);
+    mousePressCheck(m_header, event);
+  }
+}
+
+void HeaderWidgetPrivate::mouseMove(QMouseEvent *event)
+{
+  if (m_header) {
+    mouseMoveCheck(m_header, event);
+  }
+}
+
+void HeaderWidgetPrivate::mouseRelease(QMouseEvent *event)
+{
+  if (m_header) {
+    mouseReleaseCheck(m_header, event);
   }
 }
 

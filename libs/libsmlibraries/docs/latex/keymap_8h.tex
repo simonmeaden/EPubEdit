@@ -5,6 +5,7 @@
 stores a set of Key maps for storage in a configuration file.  
 
 
+{\ttfamily \#include $<$QKey\+Sequence$>$}\newline
 {\ttfamily \#include $<$QMap$>$}\newline
 {\ttfamily \#include \char`\"{}qyamlcpp.\+h\char`\"{}}\newline
 \doxysubsection*{Classes}
@@ -19,9 +20,18 @@ struct \mbox{\hyperlink{structYAML_1_1convert_3_01KeyMapper_01_4}{YAML\+::conver
 \doxysubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
-enum \mbox{\hyperlink{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39}{Key\+Event\+Mapper}} \{ \mbox{\hyperlink{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39a101f5c3557c0c90f333b30c9469831c8}{No\+Key}}
+enum \mbox{\hyperlink{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39}{Key\+Event\+Mapper}} \{ \newline
+\mbox{\hyperlink{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39a101f5c3557c0c90f333b30c9469831c8}{No\+Key}}
 , \mbox{\hyperlink{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39ae4829263875aeeb4b6cd5b17dc273215}{Previous\+Bookmark}}
 , \mbox{\hyperlink{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39a1e84ab686bfb0589f425bf06d7ee0ead}{Next\+Bookmark}}
+, \mbox{\hyperlink{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39a10c077cb32e87f7c1c7315bb8f50cf57}{Go\+To\+Bookmark}}
+, \newline
+\mbox{\hyperlink{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39a4d12744ca7b245035eadf93b19491429}{Add\+Bookmark}}
+, \mbox{\hyperlink{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39af1daa7950d47d34ecd0152b1c8985557}{Toggle\+Bookmark}}
+, \mbox{\hyperlink{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39a7fb0385af6cd208968f10acc9da0a991}{Edit\+Bookmark}}
+, \mbox{\hyperlink{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39ab087dc87d743063ac8000e6b1b19cf19}{Remove\+Bookmark}}
+, \newline
+\mbox{\hyperlink{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39a34f1f36570772904a8355f64e39a59ed}{Clear\+Bookmarks}}
  \}
 \end{DoxyCompactItemize}
 \doxysubsection*{Functions}
@@ -69,6 +79,30 @@ Previous\+Bookmark&Go to the previous bookmark. \\
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{NextBookmark@{NextBookmark}!keymap.h@{keymap.h}}\index{keymap.h@{keymap.h}!NextBookmark@{NextBookmark}}}\mbox{\Hypertarget{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39a1e84ab686bfb0589f425bf06d7ee0ead}\label{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39a1e84ab686bfb0589f425bf06d7ee0ead}} 
 Next\+Bookmark&Go to the next bookmark. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GoToBookmark@{GoToBookmark}!keymap.h@{keymap.h}}\index{keymap.h@{keymap.h}!GoToBookmark@{GoToBookmark}}}\mbox{\Hypertarget{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39a10c077cb32e87f7c1c7315bb8f50cf57}\label{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39a10c077cb32e87f7c1c7315bb8f50cf57}} 
+Go\+To\+Bookmark&Go to selected bookmark. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{AddBookmark@{AddBookmark}!keymap.h@{keymap.h}}\index{keymap.h@{keymap.h}!AddBookmark@{AddBookmark}}}\mbox{\Hypertarget{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39a4d12744ca7b245035eadf93b19491429}\label{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39a4d12744ca7b245035eadf93b19491429}} 
+Add\+Bookmark&Add a new bookmark. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ToggleBookmark@{ToggleBookmark}!keymap.h@{keymap.h}}\index{keymap.h@{keymap.h}!ToggleBookmark@{ToggleBookmark}}}\mbox{\Hypertarget{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39af1daa7950d47d34ecd0152b1c8985557}\label{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39af1daa7950d47d34ecd0152b1c8985557}} 
+Toggle\+Bookmark&Toggle current bookmark. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{EditBookmark@{EditBookmark}!keymap.h@{keymap.h}}\index{keymap.h@{keymap.h}!EditBookmark@{EditBookmark}}}\mbox{\Hypertarget{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39a7fb0385af6cd208968f10acc9da0a991}\label{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39a7fb0385af6cd208968f10acc9da0a991}} 
+Edit\+Bookmark&Edit bookmark. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RemoveBookmark@{RemoveBookmark}!keymap.h@{keymap.h}}\index{keymap.h@{keymap.h}!RemoveBookmark@{RemoveBookmark}}}\mbox{\Hypertarget{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39ab087dc87d743063ac8000e6b1b19cf19}\label{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39ab087dc87d743063ac8000e6b1b19cf19}} 
+Remove\+Bookmark&Remove current bookmark. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ClearBookmarks@{ClearBookmarks}!keymap.h@{keymap.h}}\index{keymap.h@{keymap.h}!ClearBookmarks@{ClearBookmarks}}}\mbox{\Hypertarget{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39a34f1f36570772904a8355f64e39a59ed}\label{keymap_8h_a1e621eeffccff09f81cca0b0fd62dc39a34f1f36570772904a8355f64e39a59ed}} 
+Clear\+Bookmarks&Clears all bookmarks. \\
 \hline
 
 \end{DoxyEnumFields}

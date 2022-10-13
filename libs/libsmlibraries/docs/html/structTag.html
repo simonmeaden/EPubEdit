@@ -81,15 +81,16 @@ Inheritance diagram for Tag:</div>
  <div class="center">
   <img src="structTag.png" usemap="#Tag_map" alt=""/>
   <map id="Tag_map" name="Tag_map">
-<area href="structErrorTag.html" title="Stores errors. Not created directly." alt="ErrorTag" shape="rect" coords="47,56,131,80"/>
-<area href="structTextTag.html" title="A text block. Not created directly." alt="TextTag" shape="rect" coords="141,56,225,80"/>
-<area href="structCommentTag.html" title="Used to store html comments." alt="CommentTag" shape="rect" coords="0,112,84,136"/>
-<area href="structNameTag.html" title="Stores tag name. Not created directly." alt="NameTag" shape="rect" coords="94,112,178,136"/>
-<area href="structClosedTag.html" title="Stores data for a closer tag for example." alt="ClosedTag" shape="rect" coords="47,168,131,192"/>
-<area href="structCloserTag.html" title="Stores closer tags. These are tags that start with a backslash." alt="CloserTag" shape="rect" coords="141,168,225,192"/>
-<area href="structDocTypeTag.html" title="Stores DOCTYPE tags." alt="DocTypeTag" shape="rect" coords="0,224,84,248"/>
-<area href="structHtmlTag.html" title="Stores tags. This is the most common type." alt="HtmlTag" shape="rect" coords="94,224,178,248"/>
-<area href="structXmlTag.html" title="Stores the xml tag at start of the file." alt="XmlTag" shape="rect" coords="94,280,178,304"/>
+<area href="structErrorTag.html" title="Stores errors. Not created directly." alt="ErrorTag" shape="rect" coords="56,56,159,80"/>
+<area href="structSpecialCharTag.html" title="Handles special characters such as left newline character." alt="SpecialCharTag" shape="rect" coords="169,56,272,80"/>
+<area href="structTextTag.html" title="A text block. Not created directly." alt="TextTag" shape="rect" coords="282,56,385,80"/>
+<area href="structCommentTag.html" title="Used to store html comments." alt="CommentTag" shape="rect" coords="0,112,103,136"/>
+<area href="structNameTag.html" title="Stores tag name. Not created directly." alt="NameTag" shape="rect" coords="113,112,216,136"/>
+<area href="structClosedTag.html" title="Stores data for a closer tag for example." alt="ClosedTag" shape="rect" coords="56,168,159,192"/>
+<area href="structCloserTag.html" title="Stores closer tags. These are tags that start with a backslash." alt="CloserTag" shape="rect" coords="169,168,272,192"/>
+<area href="structDocTypeTag.html" title="Stores DOCTYPE tags." alt="DocTypeTag" shape="rect" coords="0,224,103,248"/>
+<area href="structHtmlTag.html" title="Stores tags. This is the most common type." alt="HtmlTag" shape="rect" coords="113,224,216,248"/>
+<area href="structXmlDeclaration.html" alt="XmlDeclaration" shape="rect" coords="113,280,216,304"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -113,6 +114,10 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struc
 <tr class="memitem:a4da658a0743db8f0218cd3f256125217"><td class="memItemLeft" align="right" valign="top">virtual QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTag.html#a4da658a0743db8f0218cd3f256125217">toString</a> ()=0</td></tr>
 <tr class="memdesc:a4da658a0743db8f0218cd3f256125217"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a string version of the tag.  <a href="structTag.html#a4da658a0743db8f0218cd3f256125217">More...</a><br /></td></tr>
 <tr class="separator:a4da658a0743db8f0218cd3f256125217"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35a58834433027727befee80f6cec773"><td class="memItemLeft" align="right" valign="top"><a id="a35a58834433027727befee80f6cec773"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTag.html#a35a58834433027727befee80f6cec773">copyTagInto</a> (<a class="el" href="structTag.html">Tag</a> *tag)</td></tr>
+<tr class="memdesc:a35a58834433027727befee80f6cec773"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies values from the supplied tag into this tag. <br /></td></tr>
+<tr class="separator:a35a58834433027727befee80f6cec773"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -134,7 +139,7 @@ QTextCursor&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <tr class="separator:ab7019996370e27697ba21c0f6271b60d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a744c79766e49115de69889b08e58059d"><td class="memItemLeft" align="right" valign="top"><a id="a744c79766e49115de69889b08e58059d"></a>
 QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTag.html#a744c79766e49115de69889b08e58059d">hoverText</a></td></tr>
-<tr class="memdesc:a744c79766e49115de69889b08e58059d"><td class="mdescLeft">&#160;</td><td class="mdescRight">text to display when hovering <br /></td></tr>
+<tr class="memdesc:a744c79766e49115de69889b08e58059d"><td class="mdescLeft">&#160;</td><td class="mdescRight">text to display when hovering. <br /></td></tr>
 <tr class="separator:a744c79766e49115de69889b08e58059d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -197,7 +202,7 @@ QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="s
 <p>Creates a string version of the tag. </p>
 <p>This is an empty virtual method in <a class="el" href="structTag.html" title="Base struct of all Tag types.">Tag</a>. </p>
 
-<p>Implemented in <a class="el" href="structXmlTag.html#a92fcc642cc68298dd6d30244ad53962f">XmlTag</a>, <a class="el" href="structHtmlTag.html#a2c745f07d04208772a8be9efd1fe688f">HtmlTag</a>, <a class="el" href="structDocTypeTag.html#a0b75f3375b9b79cd1f02918a726d43c9">DocTypeTag</a>, <a class="el" href="structCloserTag.html#af20db2bd19d79c1ae916985e3f6b03a1">CloserTag</a>, <a class="el" href="structCommentTag.html#ad61cba18c6b96596ac2398add0f7a343">CommentTag</a>, and <a class="el" href="structTextTag.html#a476cdfb0536bba4fbae8ebcc9a50f2c5">TextTag</a>.</p>
+<p>Implemented in <a class="el" href="structXmlDeclaration.html#a2bc7da4f19d762ed01de7e13d2a77b04">XmlDeclaration</a>, <a class="el" href="structHtmlTag.html#a2c745f07d04208772a8be9efd1fe688f">HtmlTag</a>, <a class="el" href="structDocTypeTag.html#a0b75f3375b9b79cd1f02918a726d43c9">DocTypeTag</a>, <a class="el" href="structCloserTag.html#af20db2bd19d79c1ae916985e3f6b03a1">CloserTag</a>, <a class="el" href="structCommentTag.html#ad61cba18c6b96596ac2398add0f7a343">CommentTag</a>, <a class="el" href="structTextTag.html#a476cdfb0536bba4fbae8ebcc9a50f2c5">TextTag</a>, and <a class="el" href="structSpecialCharTag.html#aadda6091b6fa3b68c9ec7fcdc3e8c903">SpecialCharTag</a>.</p>
 
 </div>
 </div>

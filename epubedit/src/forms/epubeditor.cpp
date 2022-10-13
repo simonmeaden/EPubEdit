@@ -16,7 +16,7 @@
 #include "document/options.h"
 #include "document/series.h"
 #include "document/sharedbookdata.h"
-#include "widgets/codeedit.h"
+#include "widgets/htmledit.h"
 #include "forms/epubcontents.h"
 #include "widgets/epubedit.h"
 #include "forms/epubeditor.h"
@@ -136,7 +136,7 @@ EPubEditor::loadHref(const QString& href)
         e->setHtml(text);
         m_href = href;
       } else { // must be a code editor
-        auto c = qobject_cast<CodeEdit*>(w);
+        auto c = qobject_cast<HtmlEdit*>(w);
         if (c) {
           c->setPlainText(text);
         }
@@ -174,16 +174,17 @@ EPubEditor::setCurrentEditor(IEPubEditor::Type type)
     }
     case IEPubEditor::Code: {
       if (!m_codeedit) {
-        m_codeedit = new CodeEdit(m_config, this);
+        auto settings = new HtmlEditSettings(this);
+        m_codeedit = new HtmlEdit(m_config, settings, this);
         m_codeedit->loadHref(m_href);
         connect(m_codeedit,
-                &CodeEdit::mouseClicked,
+                &HtmlEdit::mouseClicked,
                 this,
                 &EPubEditor::widgetWasClicked);
         connect(
-          m_codeedit, &CodeEdit::lostFocus, this, &EPubEditor::hasLostFocus);
+          m_codeedit, &HtmlEdit::lostFocus, this, &EPubEditor::hasLostFocus);
         connect(
-          m_codeedit, &CodeEdit::gotFocus, this, &EPubEditor::hasGotFocus);
+          m_codeedit, &HtmlEdit::gotFocus, this, &EPubEditor::hasGotFocus);
       }
       m_currentEditor = m_codeedit;
       setWidget(m_codeedit);

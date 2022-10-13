@@ -1,0 +1,19 @@
+{
+	"BUILD_DIR" : "/home/simonmeaden/workspace/epubedit/build/5_clang/debug/libs/libsmlibraries/libsmlibraries_autogen",
+	"CMAKE_BINARY_DIR" : "/home/simonmeaden/workspace/epubedit/build/5_clang/debug",
+	"CMAKE_CURRENT_BINARY_DIR" : "/home/simonmeaden/workspace/epubedit/build/5_clang/debug/libs/libsmlibraries",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/home/simonmeaden/workspace/epubedit/libs/libsmlibraries",
+	"CMAKE_SOURCE_DIR" : "/home/simonmeaden/workspace/epubedit",
+	"INCLUDE_DIR" : "/home/simonmeaden/workspace/epubedit/build/5_clang/debug/libs/libsmlibraries/libsmlibraries_autogen/include",
+	"INPUTS" : [],
+	"LOCK_FILE" : "/home/simonmeaden/workspace/epubedit/build/5_clang/debug/libs/libsmlibraries/CMakeFiles/libsmlibraries_autogen.dir/AutoRcc_fonts_RZ4CM6YYJ6_Lock.lock",
+	"MULTI_CONFIG" : false,
+	"OPTIONS" : [ "-name", "fonts" ],
+	"OUTPUT_CHECKSUM" : "RZ4CM6YYJ6",
+	"OUTPUT_NAME" : "qrc_fonts.cpp",
+	"RCC_EXECUTABLE" : "/usr/lib64/qt6/libexec/rcc",
+	"RCC_LIST_OPTIONS" : [ "--list" ],
+	"SETTINGS_FILE" : "/home/simonmeaden/workspace/epubedit/build/5_clang/debug/libs/libsmlibraries/CMakeFiles/libsmlibraries_autogen.dir/AutoRcc_fonts_RZ4CM6YYJ6_Used.txt",
+	"SOURCE" : "/home/simonmeaden/workspace/epubedit/libs/libsmlibraries/src/widgets/fonts.qrc",
+	"VERBOSITY" : 0
+}

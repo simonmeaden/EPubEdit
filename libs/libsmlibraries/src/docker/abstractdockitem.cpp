@@ -1,6 +1,7 @@
 #include "docker/abstractdockitem.h"
 #include "docker/abstractdockwidget.h"
 #include "docker/buttonwidget.h"
+#include "docker/docktypes.h"
 #include "docker/labelwidget.h"
 #include "docker/listbuttonwidget.h"
 #include "docker/listwidget.h"
@@ -21,90 +22,6 @@ AbstractDockItem::AbstractDockItem(DockPosition position,
 AbstractDockItem::AbstractDockItem(AbstractDockItemPrivate& d)
   : d_ptr(&d)
 {
-}
-
-ButtonWidget*
-AbstractDockItem::addIconButton(WidgetPosition pos,
-                                QIcon icon,
-                                QSize iconSize,
-                                const QString& tooltip)
-{
-  Q_D(AbstractDockItem);
-  return d->addIconButton(pos, icon, iconSize, tooltip);
-}
-
-ButtonWidget*
-AbstractDockItem::addIconListButton(WidgetPosition pos,
-                                    QIcon icon,
-                                    QSize iconSize,
-                                    const QString& tooltip)
-{
-  return d_ptr->addIconListButton(pos, icon, iconSize, tooltip);
-}
-
-ButtonWidget*
-AbstractDockItem::addIconTextButton(WidgetPosition pos,
-                                    QIcon icon,
-                                    QSize iconSize,
-                                    const QString& text,
-                                    Arrangement textPos,
-                                    const QString& tooltip)
-{
-  return d_ptr->addIconTextButton(pos, icon, iconSize, text, textPos, tooltip);
-}
-
-ButtonWidget*
-AbstractDockItem::addIconTextListButton(WidgetPosition pos,
-                                        QIcon icon,
-                                        QSize iconSize,
-                                        const QString& text,
-                                        Arrangement textPos,
-                                        const QString& tooltip)
-{
-  return d_ptr->addIconTextListButton(
-    pos, icon, iconSize, text, textPos, tooltip);
-}
-
-ButtonWidget*
-AbstractDockItem::addTextButton(WidgetPosition pos,
-                                const QString& text,
-                                const QString& tooltip)
-{
-  return d_ptr->addTextButton(pos, text, tooltip);
-}
-
-ButtonWidget*
-AbstractDockItem::addTextListButton(WidgetPosition pos,
-                                    const QString& text,
-                                    const QString& tooltip)
-{
-  return d_ptr->addTextListButton(pos, text, tooltip);
-}
-
-WidgetItem*
-AbstractDockItem::addItem(WidgetItem* item)
-{
-  return d_ptr->addItem(item);
-}
-
-WidgetItem*
-AbstractDockItem::addTextLabel(WidgetPosition pos,
-                               const QString& text,
-                               const QString& tooltip)
-{
-  return d_ptr->addTextLabel(pos, text, tooltip);
-}
-
-WidgetItem*
-AbstractDockItem::addSeperator(WidgetPosition pos)
-{
-  return d_ptr->addSeperator(pos);
-}
-
-WidgetItem*
-AbstractDockItem::addCustomWidget(CustomWidget* item)
-{
-  return d_ptr->addCustomWidget(item);
 }
 
 void
@@ -189,34 +106,48 @@ AbstractDockItem::setWidgetMargins(int index,
   d_ptr->setWidgetMargins(index, left, top, right, bottom);
 }
 
-///*
-// * Scans the sub widgets to find the maximum widget size. This means that all
-// * the sub-widgets are the same size, at least if they are buttons. Other
-// * sub-widgets may or may not affect this value.
-// */
-// void
-// DockItem::calcMaxWidgetSizes()
-//{
-//  auto maxMargins = calcMaxMargins();
-//  auto maxContentsSize = calcMaxContentsSize();
-//  auto w = maxMargins.left() + maxContentsSize.width() + maxMargins.right();
-//  auto h = maxMargins.top() + maxContentsSize.height() + maxMargins.bottom();
-
-//  m_maxWidgetWidth = std::max(w, m_maxWidgetWidth);
-//  m_maxWidgetHeight = std::max(h, m_maxWidgetHeight);
-//}
-
 const QRect&
 AbstractDockItem::rect() const
 {
   return d_ptr->rect();
 }
 
-void AbstractDockItem::clone(QObject *object)
+void
+AbstractDockItem::clone(QObject* object)
 {
   auto anobject = qobject_cast<AbstractDockItem*>(object);
   if (anobject)
     d_ptr->clone(anobject);
+}
+
+WidgetItem*
+AbstractDockItem::addItem(WidgetItem* item)
+{
+  return d_ptr->addItem(item);
+}
+
+const QMargins&
+AbstractDockItem::margins() const
+{
+  return d_ptr->margins();
+}
+
+void
+AbstractDockItem::setMargins(const QMargins& margins)
+{
+  d_ptr->setMargins(margins);
+}
+
+int
+AbstractDockItem::spacer() const
+{
+  return d_ptr->spacer();
+}
+
+void
+AbstractDockItem::setSpacer(int spacer)
+{
+  d_ptr->setSpacer(spacer);
 }
 
 void

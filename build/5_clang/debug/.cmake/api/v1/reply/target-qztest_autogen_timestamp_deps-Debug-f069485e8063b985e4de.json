@@ -1,0 +1,64 @@
+{
+	"backtrace" : 0,
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : 
+		[
+			"extlibs/quazip/qztest/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			}
+		]
+	},
+	"dependencies" : 
+	[
+		{
+			"id" : "QuaZip::@8e0568282309ae69d219"
+		}
+	],
+	"id" : "qztest_autogen_timestamp_deps::@b357e9bc245a47d0e08e",
+	"isGeneratorProvided" : true,
+	"name" : "qztest_autogen_timestamp_deps",
+	"paths" : 
+	{
+		"build" : "extlibs/quazip/qztest",
+		"source" : "extlibs/quazip/qztest"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		},
+		{
+			"name" : "CMake Rules",
+			"sourceIndexes" : 
+			[
+				1
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/5_clang/debug/extlibs/quazip/qztest/CMakeFiles/qztest_autogen_timestamp_deps",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/5_clang/debug/extlibs/quazip/qztest/CMakeFiles/qztest_autogen_timestamp_deps.rule",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "UTILITY"
+}

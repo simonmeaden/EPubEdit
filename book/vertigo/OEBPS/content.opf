@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<package unique-identifier="FB2BookID" version="2.0" xmlns="http://www.idpf.org/2007/opf">
+  <metadata xmlns="http://www.idpf.org/2007/opf" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <dc:identifier id="FB2BookID" p6:scheme="URI" xmlns:p6="http://www.idpf.org/2007/opf">urn:uuid:fbd-e17a44-615d-4d40-199d-e6ce-ed8a-5d519b</dc:identifier>
+    <meta name="cover" content="VERTIGO1979.jpg"/>
+    <dc:title>Vertigo</dc:title>
+    <dc:creator file-as="Shaw, Bob" role="aut">Bob Shaw</dc:creator>
+    <dc:language>en</dc:language>
+    <dc:date event="original-publication">1979-01-01</dc:date>
+    <dc:publisher>Ace Books</dc:publisher>
+    <dc:description>The invention of a cheap and easy-to-use antigravity harness revolutionises society. Humanity takes to the skies in its millions, with huge resultant problems for governments and police. Virtually all aircraft are grounded, because of the risk of collision with a stray flyer. Airborne delinquents and criminals are practically impossible to control and can be lethal. Robert Hasson is a good policeman. But a near-fatal airborne confrontation with a psychopath has left him shattered, both physically and mentally. Sent to Canada to recuperate (and to escape the attentions of a local businessman whose son he has put away), Hasson is a broken man, unable to face human company, haunted by nightmares and certain that he will never again put on an anti-gravity harness. But his Canadian host, police chief Al Werry, has a major problem on his hands in the shape of a towering unfinished hotel, the Chinook, whose upper levels are inaccessible from the ground, and are used as an illegal meeting place by local gangs of flyers. Worse, the hotel's owner, Buck Morlacher, intends to take the law into his own hands to deal with them. The violence that has been simmering in the town threatens to erupt and Werry seems powerless to stop it. Unwillingly, Hasson finds himself drawn into the conflict and forced to face his own problems.  “Vertigo”  is vintage Bob Shaw, fast-moving, intelligent and immensely readable.  “Terminal Velocity”  (1991) contains the same story as  “Vertigo”  but also includes, as a prologue, an 11-page short story by Bob Shaw that was first published as  “Dark Icarus”  in  Science Fiction Monthly  vol. 1, No. 4 (1974), then retitled as  “A Little Night Flying”  for “ If - Worlds of ScienceFiction”  (August 1974), and also included in  “Cosmic Kaleidoscope”  (1976).</dc:description>
+    <meta content="0.9.1" name="Sigil version"/>
+    <dc:date opf:event="modification" xmlns:opf="http://www.idpf.org/2007/opf">2017-11-19</dc:date>
+  </metadata>
+  <manifest>
+    <item href="Fonts/LiberationSerif-Regular.ttf" id="LiberationSerif-Regular" media-type="application/x-font-ttf"/>
+    <item href="Fonts/LiberationSerif-Italic.ttf" id="LiberationSerif-Italic" media-type="application/x-font-ttf"/>
+    <item href="Fonts/LiberationSerif-Bold.ttf" id="LiberationSerif-Bold" media-type="application/x-font-ttf"/>
+    <item href="Fonts/LiberationSerif-BoldItalic.ttf" id="LiberationSerif-BoldItalic" media-type="application/x-font-ttf"/>
+    <item href="Styles/main.css" id="mainCSS" media-type="text/css"/>
+    <item href="Text/cover.xhtml" id="cover" media-type="application/xhtml+xml"/>
+    <item href="Text/annotation.xhtml" id="annotation" media-type="application/xhtml+xml"/>
+    <item href="Text/scrob.xhtml" id="scrob.xhtml" media-type="application/xhtml+xml"/>
+    <item href="Text/ded.xhtml" id="ded.xhtml" media-type="application/xhtml+xml"/>
+    <item href="Text/Chap01.xhtml" id="Chap01.xhtml" media-type="application/xhtml+xml"/>
+    <item href="Text/Chap02.xhtml" id="Chap02.xhtml" media-type="application/xhtml+xml"/>
+    <item href="Text/Chap03.xhtml" id="Chap03.xhtml" media-type="application/xhtml+xml"/>
+    <item href="Text/Chap04.xhtml" id="Chap04.xhtml" media-type="application/xhtml+xml"/>
+    <item href="Text/Chap05.xhtml" id="Chap05.xhtml" media-type="application/xhtml+xml"/>
+    <item href="Text/Chap06.xhtml" id="Chap06.xhtml" media-type="application/xhtml+xml"/>
+    <item href="Text/Chap07.xhtml" id="Chap07.xhtml" media-type="application/xhtml+xml"/>
+    <item href="Text/Chap08.xhtml" id="Chap08.xhtml" media-type="application/xhtml+xml"/>
+    <item href="Text/Chap09.xhtml" id="Chap09.xhtml" media-type="application/xhtml+xml"/>
+    <item href="Text/Chap10.xhtml" id="Chap10.xhtml" media-type="application/xhtml+xml"/>
+    <item href="Text/Chap11.xhtml" id="Chap11.xhtml" media-type="application/xhtml+xml"/>
+    <item href="toc.ncx" id="ncx" media-type="application/x-dtbncx+xml"/>
+    <item href="Images/acelogo2.jpg" id="acelogo2.jpg" media-type="image/jpeg"/>
+    <item href="Text/title.xhtml" id="title.xhtml" media-type="application/xhtml+xml"/>
+    <item href="Images/VERTIGO1979.jpg" id="VERTIGO1979.jpg" media-type="image/jpeg"/>
+    <item href="Images/1%20-%20Black%20-%20Smaller.jpg" id="x1_-_Black_-_Smaller.jpg" media-type="image/jpeg"/>
+    <item href="Styles/sgc-toc.css" id="sgc-toc.css" media-type="text/css"/>
+    <item href="Text/TOC.xhtml" id="TOC.xhtml" media-type="application/xhtml+xml"/>
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="cover"/>
+    <itemref idref="scrob.xhtml"/>
+    <itemref idref="title.xhtml"/>
+    <itemref idref="TOC.xhtml"/>
+    <itemref idref="annotation"/>
+    <itemref idref="ded.xhtml"/>
+    <itemref idref="Chap01.xhtml"/>
+    <itemref idref="Chap02.xhtml"/>
+    <itemref idref="Chap03.xhtml"/>
+    <itemref idref="Chap04.xhtml"/>
+    <itemref idref="Chap05.xhtml"/>
+    <itemref idref="Chap06.xhtml"/>
+    <itemref idref="Chap07.xhtml"/>
+    <itemref idref="Chap08.xhtml"/>
+    <itemref idref="Chap09.xhtml"/>
+    <itemref idref="Chap10.xhtml"/>
+    <itemref idref="Chap11.xhtml"/>
+  </spine>
+  <guide>
+    <reference href="Text/cover.xhtml" title="cover" type="cover"/>
+    <reference href="Text/annotation.xhtml" title="annotation" type="preface"/>
+    <reference href="Text/title.xhtml" title="bookcontent1_0" type="title-page"/>
+    <reference href="Text/ded.xhtml" title="bookcontent2_0" type="text"/>
+    <reference href="Text/Chap01.xhtml" title="bookcontent3_0" type="text"/>
+    <reference href="Text/Chap02.xhtml" title="bookcontent4_0" type="text"/>
+    <reference href="Text/Chap03.xhtml" title="bookcontent5_0" type="text"/>
+    <reference href="Text/Chap04.xhtml" title="bookcontent6_0" type="text"/>
+    <reference href="Text/Chap05.xhtml" title="bookcontent7_0" type="text"/>
+    <reference href="Text/Chap06.xhtml" title="bookcontent8_0" type="text"/>
+    <reference href="Text/Chap07.xhtml" title="bookcontent9_0" type="text"/>
+    <reference href="Text/Chap08.xhtml" title="bookcontent10_0" type="text"/>
+    <reference href="Text/Chap09.xhtml" title="bookcontent11_0" type="text"/>
+    <reference href="Text/Chap10.xhtml" title="bookcontent12_0" type="text"/>
+    <reference href="Text/Chap11.xhtml" title="bookcontent13_0" type="text"/>
+    <reference href="Text/TOC.xhtml" title="Table Of Contents" type="toc"/>
+  </guide>
+</package>

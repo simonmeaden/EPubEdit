@@ -1,0 +1,45 @@
+\hypertarget{classasKeyValueRange}{}\doxysection{as\+Key\+Value\+Range$<$ T $>$ Class Template Reference}
+\label{classasKeyValueRange}\index{asKeyValueRange$<$ T $>$@{asKeyValueRange$<$ T $>$}}
+
+
+Allows Qt C++17 key-\/value mapping on QMap \& QHash.  
+
+
+
+
+{\ttfamily \#include $<$Container\+Util.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classasKeyValueRange_a134e9fe9198b4bf8fd1ea6d9743b6e80}\label{classasKeyValueRange_a134e9fe9198b4bf8fd1ea6d9743b6e80}} 
+\mbox{\hyperlink{classasKeyValueRange_a134e9fe9198b4bf8fd1ea6d9743b6e80}{as\+Key\+Value\+Range}} (T \&data)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classasKeyValueRange_a291f844b968370c59b63a63e763f8e85}\label{classasKeyValueRange_a291f844b968370c59b63a63e763f8e85}} 
+auto \mbox{\hyperlink{classasKeyValueRange_a291f844b968370c59b63a63e763f8e85}{begin}} ()
+\begin{DoxyCompactList}\small\item\em Renames key\+Value\+Begin() to \mbox{\hyperlink{classasKeyValueRange_a291f844b968370c59b63a63e763f8e85}{begin()}} \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classasKeyValueRange_ade687efc9e449d4b53d0efbd9e53474e}\label{classasKeyValueRange_ade687efc9e449d4b53d0efbd9e53474e}} 
+auto \mbox{\hyperlink{classasKeyValueRange_ade687efc9e449d4b53d0efbd9e53474e}{end}} ()
+\begin{DoxyCompactList}\small\item\em Renames key\+Value\+End() to \mbox{\hyperlink{classasKeyValueRange_ade687efc9e449d4b53d0efbd9e53474e}{end()}} \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class as\+Key\+Value\+Range$<$ T $>$}
+
+Allows Qt C++17 key-\/value mapping on QMap \& QHash. 
+
+Based on the code in the KDAB blog by \href{https://www.kdab.com/author/ivan/}{\texttt{ Ivan Čukić}} on C++17 structured bindings \href{https://www.kdab.com/qt-range-based-for-loops-and-structured-bindings/}{\texttt{ Qt, range-\/based for loops and structured bindings}} int the section \textquotesingle{}QHash, QMap and STL compatibility\textquotesingle{} which allows the following code 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keywordflow}{for} (\textcolor{keyword}{auto} [key, value]: \mbox{\hyperlink{classasKeyValueRange_a134e9fe9198b4bf8fd1ea6d9743b6e80}{asKeyValueRange}}(map)) \{}
+\DoxyCodeLine{ \textcolor{comment}{// ...}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ to allow key/value iteration in Qt code.
+
+This is easily remedied by using a simple wrapper over QHash and QMap that will rename .key\+Value\+Begin() and .key\+Value\+End() to .\mbox{\hyperlink{classasKeyValueRange_a291f844b968370c59b63a63e763f8e85}{begin()}} and .\mbox{\hyperlink{classasKeyValueRange_ade687efc9e449d4b53d0efbd9e53474e}{end()}} as required by C++17 stl. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Container\+Util.\+h\end{DoxyCompactItemize}

@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<svg xmlns='http://www.w3.org/2000/svg' width='610' height='378' version='1.0' shape-rendering='geometricPrecision' preserveAspectRatio='xMidYMid meet' viewBox='0 0 610 378'>
+  <defs>
+    <style type='text/css'>
+      @font-face { font-family: sans-serif; }
+    </style>
+    <filter id='shadowBlur' x='0' y='0' width='200%' height='200%'>
+      <feOffset in='SourceGraphic' dx='3.0003002' dy='3.0003002' result='offOut'/>
+      <feGaussianBlur in='offOut' stdDeviation='3'/>
+    </filter>
+  </defs>
+  <g stroke-width='1' stroke-linecap='square' stroke-linejoin='round'>
+    <rect x='0' y='0' width='610' height='378' style='fill: #ffffff'/>
+    <path stroke='#969696' fill='#969696' filter='url(#shadowBlur)' d='M555.0 336.0 Q555.0 343.0 550.0 343.0 L380.0 343.0 Q375.0 343.0 375.0 336.0 L375.0 294.0 L375.0 294.0 Q375.0 287.0 380.0 287.0 L550.0 287.0 L550.0 287.0 Q555.0 287.0 555.0 294.0 L555.0 336.0 z'/>
+    <path stroke='#969696' fill='#969696' filter='url(#shadowBlur)' d='M410.0 161.0 Q415.0 161.0 415.0 168.0 L415.0 210.0 Q415.0 217.0 410.0 217.0 L250.0 217.0 L250.0 217.0 Q245.0 217.0 245.0 210.0 L245.0 168.0 L245.0 168.0 Q245.0 161.0 250.0 161.0 L410.0 161.0 z'/>
+    <path stroke='#969696' fill='#969696' filter='url(#shadowBlur)' d='M190.0 161.0 Q195.0 161.0 195.0 168.0 L195.0 210.0 Q195.0 217.0 190.0 217.0 L30.0 217.0 L30.0 217.0 Q25.0 217.0 25.0 210.0 L25.0 168.0 L25.0 168.0 Q25.0 161.0 30.0 161.0 L190.0 161.0 z'/>
+    <path stroke='#969696' fill='#969696' filter='url(#shadowBlur)' d='M390.0 35.0 Q395.0 35.0 395.0 42.0 L395.0 84.0 Q395.0 91.0 390.0 91.0 L280.0 91.0 L280.0 91.0 Q275.0 91.0 275.0 84.0 L275.0 42.0 L275.0 42.0 Q275.0 35.0 280.0 35.0 L390.0 35.0 z'/>
+    <path stroke='#000000' stroke-width='1.0' stroke-linecap='round' stroke-linejoin='round' fill='#eeeeaa' d='M555.0 336.0 Q555.0 343.0 550.0 343.0 L380.0 343.0 Q375.0 343.0 375.0 336.0 L375.0 294.0 L375.0 294.0 Q375.0 287.0 380.0 287.0 L550.0 287.0 L550.0 287.0 Q555.0 287.0 555.0 294.0 L555.0 336.0 z'/>
+    <path stroke='#000000' stroke-width='1.0' stroke-linecap='round' stroke-linejoin='round' fill='#eeeeaa' d='M410.0 161.0 Q415.0 161.0 415.0 168.0 L415.0 210.0 Q415.0 217.0 410.0 217.0 L250.0 217.0 L250.0 217.0 Q245.0 217.0 245.0 210.0 L245.0 168.0 L245.0 168.0 Q245.0 161.0 250.0 161.0 L410.0 161.0 z'/>
+    <path stroke='#000000' stroke-width='1.0' stroke-linecap='round' stroke-linejoin='round' fill='#eeeeaa' d='M190.0 161.0 Q195.0 161.0 195.0 168.0 L195.0 210.0 Q195.0 217.0 190.0 217.0 L30.0 217.0 L30.0 217.0 Q25.0 217.0 25.0 210.0 L25.0 168.0 L25.0 168.0 Q25.0 161.0 30.0 161.0 L190.0 161.0 z'/>
+    <path stroke='#000000' stroke-width='1.0' stroke-dasharray='5.000000,5.000000' stroke-miterlimit='0' stroke-linecap='butt' stroke-linejoin='round' fill='white' d='M495.0 273.0 L495.0 119.0 L375.0 119.0 L375.0 91.0 '/>
+    <path stroke='#000000' stroke-width='1.0' stroke-linecap='round' stroke-linejoin='round' fill='#eeeeaa' d='M390.0 35.0 Q395.0 35.0 395.0 42.0 L395.0 84.0 Q395.0 91.0 390.0 91.0 L280.0 91.0 L280.0 91.0 Q275.0 91.0 275.0 84.0 L275.0 42.0 L275.0 42.0 Q275.0 35.0 280.0 35.0 L390.0 35.0 z'/>
+    <path stroke='none' stroke-width='1.0' stroke-linecap='round' stroke-linejoin='round' fill='#000000' d='M110.0 140.0 L115.0 154.0 L120.0 140.0 z'/>
+    <path stroke='none' stroke-width='1.0' stroke-linecap='round' stroke-linejoin='round' fill='#000000' d='M330.0 140.0 L335.0 154.0 L340.0 140.0 z'/>
+    <path stroke='none' stroke-width='1.0' stroke-linecap='round' stroke-linejoin='round' fill='#000000' d='M430.0 266.0 L435.0 280.0 L440.0 266.0 z'/>
+    <path stroke='none' stroke-width='1.0' stroke-linecap='round' stroke-linejoin='round' fill='#000000' d='M490.0 266.0 L495.0 280.0 L500.0 266.0 z'/>
+    <path stroke='#000000' stroke-width='1.0' stroke-linecap='round' stroke-linejoin='round' fill='none' d='M545.0 315.0 L385.0 315.0 '/>
+    <path stroke='#000000' stroke-width='1.0' stroke-linecap='round' stroke-linejoin='round' fill='none' d='M405.0 189.0 L255.0 189.0 '/>
+    <path stroke='#000000' stroke-width='1.0' stroke-linecap='round' stroke-linejoin='round' fill='none' d='M35.0 189.0 L185.0 189.0 '/>
+    <path stroke='#000000' stroke-width='1.0' stroke-linecap='round' stroke-linejoin='round' fill='none' d='M295.0 91.0 L295.0 119.0 L115.0 119.0 L115.0 147.0 '/>
+    <path stroke='#000000' stroke-width='1.0' stroke-linecap='round' stroke-linejoin='round' fill='none' d='M335.0 91.0 L335.0 147.0 '/>
+    <path stroke='#000000' stroke-width='1.0' stroke-linecap='round' stroke-linejoin='round' fill='none' d='M435.0 273.0 L435.0 245.0 L335.0 245.0 L335.0 217.0 '/>
+    <text x='87' y='180' font-family='sans-serif' font-size='15' stroke='none' fill='#000000'>
+      <![CDATA[libNet]]>
+    </text>
+    <text x='34' y='208' font-family='sans-serif' font-size='14' stroke='none' fill='#000000'>
+      <![CDATA[INTERFACE_FOO ON]]>
+    </text>
+    <text x='386' y='334' font-family='sans-serif' font-size='14' stroke='none' fill='#000000'>
+      <![CDATA[INTERFACE_FOO OFF]]>
+    </text>
+    <text x='312' y='67' font-family='sans-serif' font-size='12' stroke='none' fill='#000000'>
+      <![CDATA[MyApp]]>
+    </text>
+    <text x='439' y='306' font-family='sans-serif' font-size='15' stroke='none' fill='#000000'>
+      <![CDATA[libCalc]]>
+    </text>
+    <text x='254' y='208' font-family='sans-serif' font-size='14' stroke='none' fill='#000000'>
+      <![CDATA[INTERFACE_FOO ON]]>
+    </text>
+    <text x='313' y='180' font-family='sans-serif' font-size='15' stroke='none' fill='#000000'>
+      <![CDATA[libUtil]]>
+    </text>
+    <text x='459' y='110' font-family='sans-serif' font-size='15' stroke='none' fill='#000000'>
+      <![CDATA[Transitive link]]>
+    </text>
+  </g>
+</svg>

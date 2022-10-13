@@ -71,6 +71,9 @@ Thumbs.db
 *.dll
 *.exe
 
-/build/*
-/book/*
+*/build/*
+*/book/*
+*/docs/*
 *.epub
+*.html
+*.xhtml

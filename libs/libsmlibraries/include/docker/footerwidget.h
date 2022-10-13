@@ -86,9 +86,11 @@ protected:
   void hoverMoveEvent(QHoverEvent* event);
   //! \reimplements{QWidget::mousePressEvent}
   void mousePressEvent(QMouseEvent* event) override;
+  //! \reimplements{QWidget::mouseMoveEvent}
+  void mouseMoveEvent(QMouseEvent*event) override;
   //! \reimplements{QWidget::mouseReleaseEvent}
-//  void mouseReleaseEvent(QMouseEvent*) override;
-//  //! \reimplements{QWidget::event}
+  void mouseReleaseEvent(QMouseEvent*event) override;
+  //! \reimplements{QWidget::event}
   bool event(QEvent* event) override;
   //! \reimplements{QWidget::resizeEvent}
   void resizeEvent(QResizeEvent* event) override;

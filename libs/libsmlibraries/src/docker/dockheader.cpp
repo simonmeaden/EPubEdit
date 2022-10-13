@@ -111,6 +111,88 @@ DockHeader::DockHeader(DockHeaderPrivate& d)
 {
 }
 
+ButtonWidget*
+DockHeader::addIconButton(WidgetPosition pos,
+                          QPixmap pixmap,
+                          const QString& tooltip)
+{
+  Q_D(AbstractDockItem);
+  return d->addIconButton(pos, pixmap, tooltip);
+}
+
+ButtonWidget*
+DockHeader::addDragIconButton(WidgetPosition pos,
+                              QPixmap pixmap,
+                              const QString& tooltip)
+{
+  Q_D(AbstractDockItem);
+  return d->addIconButton(pos, pixmap, tooltip);
+}
+
+ButtonWidget*
+DockHeader::addIconListButton(WidgetPosition pos,
+                              QPixmap pixmap,
+                              const QString& tooltip)
+{
+  return d_ptr->addIconListButton(pos, pixmap, tooltip);
+}
+
+ButtonWidget*
+DockHeader::addIconTextButton(WidgetPosition pos,
+                              QPixmap pixmap,
+                              const QString& text,
+                              Arrangement textPos,
+                              const QString& tooltip)
+{
+  return d_ptr->addIconTextButton(pos, pixmap, text, textPos, tooltip);
+}
+
+ButtonWidget*
+DockHeader::addIconTextListButton(WidgetPosition pos,
+                                  QPixmap pixmap,
+                                  const QString& text,
+                                  Arrangement textPos,
+                                  const QString& tooltip)
+{
+  return d_ptr->addIconTextListButton(pos, pixmap, text, textPos, tooltip);
+}
+
+ButtonWidget*
+DockHeader::addTextButton(WidgetPosition pos,
+                          const QString& text,
+                          const QString& tooltip)
+{
+  return d_ptr->addTextButton(pos, text, tooltip);
+}
+
+ButtonWidget*
+DockHeader::addTextListButton(WidgetPosition pos,
+                              const QString& text,
+                              const QString& tooltip)
+{
+  return d_ptr->addTextListButton(pos, text, tooltip);
+}
+
+WidgetItem*
+DockHeader::addTextLabel(WidgetPosition pos,
+                         const QString& text,
+                         const QString& tooltip)
+{
+  return d_ptr->addTextLabel(pos, text, tooltip);
+}
+
+WidgetItem*
+DockHeader::addSeperator(WidgetPosition pos)
+{
+  return d_ptr->addSeperator(pos);
+}
+
+WidgetItem*
+DockHeader::addCustomWidget(CustomWidget* item)
+{
+  return d_ptr->addCustomWidget(item);
+}
+
 QSize
 DockHeader::sizeHint() const
 {
@@ -124,7 +206,7 @@ DockHeader::paint(QPainter& painter)
 }
 
 void
-DockHeader::clone(QObject *item)
+DockHeader::clone(QObject* item)
 {
   auto anobject = qobject_cast<DockHeader*>(item);
   if (anobject)

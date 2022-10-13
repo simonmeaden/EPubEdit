@@ -33,17 +33,19 @@ public:
   //! Returns the DockHeader attached to this HeaderWidget
   DockHeader* header();
 
-//  /*!
-//   * \brief Sets the central widget of the DockWidget.
-//   *
-//   * If the new QWidget is replacing an existing widget a pointer tothe old
-//   * QWidget is returned, otherwise a nullptr is returned. The old QWidget is
-//   * NOT deleted.
-//   *
-//   * \note If the QWidget is replaced with itself, the pointer is returned but
-//   * nothing else is done. You will need to delete it yourself.
-//   */
-//  QWidget* setWidget(QWidget* centralWidget);
+  //  /*!
+  //   * \brief Sets the central widget of the DockWidget.
+  //   *
+  //   * If the new QWidget is replacing an existing widget a pointer tothe old
+  //   * QWidget is returned, otherwise a nullptr is returned. The old QWidget
+  //   is
+  //   * NOT deleted.
+  //   *
+  //   * \note If the QWidget is replaced with itself, the pointer is returned
+  //   but
+  //   * nothing else is done. You will need to delete it yourself.
+  //   */
+  //  QWidget* setWidget(QWidget* centralWidget);
 
   //! \brief Hides the widget.
   void hideWidget();
@@ -57,7 +59,7 @@ public:
    * and settings into the supplied 'master'. If the widget parameter is
    * nullptr then it will create a clone of itself.
    */
-  QWidget *clone(QWidget *widget = nullptr) override;
+  QWidget* clone(QWidget* widget = nullptr) override;
 
   //! \brief Called by external widgets when they're mouse clicked.
   //!
@@ -94,10 +96,10 @@ protected:
   //  void hoverMoveEvent(QHoverEvent* event);
   //! \reimplements{QWidget::mousePressEvent}
   void mousePressEvent(QMouseEvent* event) override;
-  //  //! \reimplements{QWidget::mouseMoveEvent}
-  //  void mouseMoveEvent(QMouseEvent* event) override;
-  //  //! \reimplements{QWidget::mouseReleaseEvent}
-  //  void mouseReleaseEvent(QMouseEvent*) override;
+  //! \reimplements{QWidget::mouseMoveEvent}
+  void mouseMoveEvent(QMouseEvent* event) override;
+  //! \reimplements{QWidget::mouseReleaseEvent}
+  void mouseReleaseEvent(QMouseEvent* event) override;
   //! \reimplements{QWidget::event}
   bool event(QEvent* event) override;
   //! \reimplements{QWidget::resizeEvent}

@@ -38,9 +38,9 @@ public:
   Q_INVOKABLE ButtonWidget(AbstractDockWidget* parent);
 
   //! Returns the icon of the label.
-  const QIcon& icon();
+  const QPixmap &pixmap();
   //! Sets the icon of the label.
-  void setIcon(const QIcon& icon);
+  void setPixmap(const QPixmap &pixmap);
 
   /*!
    * \brief Returns the size the icon of the label.
@@ -48,12 +48,12 @@ public:
    * This needs to be specified as icons can have multiple sizes.
    */
   const QSize& iconSize() ;
-  /*!
-   * \brief Sets the size the icon of the label.
-   *
-   * This needs to be specified as icons can have multiple sizes.
-   */
-  void setIconSize(const QSize& iconSize);
+//  /*!
+//   * \brief Sets the size the icon of the label.
+//   *
+//   * This needs to be specified as icons can have multiple sizes.
+//   */
+//  void setIconSize(const QSize& iconSize);
 
   //! Returns the text of the button
   const QString& text();
@@ -70,7 +70,8 @@ public:
   void setSpacer(int spacer);
 
   //! returns the text color of the button
-  const QColor& textColor();
+  const QColor& textColor();//    setItems(m_items);
+
   //! Sets the text color of the button
   void setTextColor(const QColor& textColor);
 

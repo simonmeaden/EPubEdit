@@ -944,8 +944,10 @@ EXCLUDE_SYMLINKS       = NO
 # Note that the wildcards are matched against the file with absolute path, so to
 # exclude all test directories for example use the pattern */test/*
 
-EXCLUDE_PATTERNS       = */OLDSHIT/*
-EXCLUDE_PATTERNS       += */tiny*
+EXCLUDE_PATTERNS       = */OLDSHIT/* \
+                         */tiny*     \
+                         */private*  \
+                         */quazip*
 
 
 # The EXCLUDE_SYMBOLS tag can be used to specify one or more symbol names

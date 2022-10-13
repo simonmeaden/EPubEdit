@@ -15,6 +15,8 @@
 enum WidgetType
 {
   Button,     //!< A ButtonWidget with text, an optional QIcon and tool tip.
+  DragButton, //!< A draggable ButtonWidget with text, an optional QIcon and
+              //!< tool tip.
   MenuButton, //!< A ListButtonWidget with text, an optional QIcon and tool tip
               //!< plus a dropdown menu.
   List,       //!< A Dropdown list of strings.
@@ -28,6 +30,14 @@ enum WidgetType
  *
  * The WidgetPosition defines where the widget appears within the
  * toolbar/header/footer. The two options are Start and End.
+ *
+ * Start indicates the left end in a horizontal widget
+ * DockHeader, DockFooter, DockToolbar (North/South)
+ * and the top of a vertical DockToolbar (East/West).
+ *
+ * End indicates the right end in a horizontal widget
+ * DockHeader, DockFooter, DockToolbar (North/South)
+ * and the bottom of a vertical DockToolbar (East/West).
  */
 enum WidgetPosition
 {
@@ -98,6 +108,23 @@ enum DockPosition
   SouthWest, //!< Only corner widgets.
   Center     //!< The centre widget position.
 };
+
+//! default top margin
+static const int TOPMARGIN = 1;
+//! default bottom margin
+static const int BOTTOMMARGIN = 1;
+//! default left margin
+static const int LEFTMARGIN = 3;
+//! default right margin
+static const int RIGHTMARGIN = 3;
+
+static const int HEIGHT = 25;
+static const int WIDTH = 25;
+static const int SPACER_TOP = 1;
+static const int SPACER_BOTTOM = 1;
+static const int SPACER = 3;
+// just places a blank space at the end of the toolbar.
+static const int TOOLBAR_ENDER = 5;
 
 //! @}
 

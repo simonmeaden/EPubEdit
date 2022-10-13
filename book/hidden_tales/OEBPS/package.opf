@@ -1,0 +1,120 @@
+<package xmlns="http://www.idpf.org/2007/opf" prefix="rendition: http://www.idpf.org/vocab/rendition/#" unique-identifier="pub-id" version="3.0" xml:lang="en">
+<metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+<dc:title id="title">A Daughter of No Nation</dc:title>
+<dc:identifier id="pub-id">urn:isbn:9781466812369</dc:identifier>
+<dc:language>en-US</dc:language>
+<dc:creator id="creator">A. M. Dellamonica</dc:creator>
+<dc:publisher>Tom Doherty Associates</dc:publisher>
+<dc:rights>All rights reserved</dc:rights>
+<meta property="dcterms:modified">2015-09-30T06:44:09Z</meta>
+<meta id="auth" property="dcterms:creator">A. M. Dellamonica</meta>
+<meta property="dcterms:date">2015</meta>
+<meta property="rendition:orientation">auto</meta>
+<meta property="rendition:spread">auto</meta>
+<meta content="cover-image" name="cover"/>
+<description xmlns="http://purl.org/dc/elements/1.1/">&lt;p&gt;As soon as Sophie Hansa returned to our world, she is anxious to once again go back to Stormwrack. Unable to discuss the wondrous sights she has seen, and unable to tell anyone what happened to her in her time away, Sophie is in a holding pattern, focused entirely on her eventual chance to return.&lt;/p&gt;&lt;p&gt;With the sudden arrival of Garland Parrish, Sophie is once again gone. This time, she has been called back to Stormwrack in order to spend time with her father, a Duelist-Adjudicator, who is an unrivaled combatant and fearsome negotiator. But is he driven by his commitment to seeing justice prevail, or is he a sociopath? Soon, she discovers something repellent about him that makes her reject him, and everything he is offering.&lt;br&gt;Adrift again, she discovers that her time spent with her father is not without advantages, however, for Sophie has discovered there is nothing to stop her from setting up a forensic institute in Stormwrack, investigating cases that have been bogged down...</description>
+</metadata>
+<manifest>
+<item href="nav.xhtml" id="nav" media-type="application/xhtml+xml" properties="nav"/>
+<item href="toc.ncx" id="toc" media-type="application/x-dtbncx+xml"/>
+<item href="xhtml/cover.xhtml" id="html-cover-page" media-type="application/xhtml+xml"/>
+<item href="xhtml/title.xhtml" id="tit" media-type="application/xhtml+xml"/>
+<item href="xhtml/mini_toc.xhtml" id="mini_toc" media-type="application/xhtml+xml"/>
+<item href="xhtml/copyrightnotice.xhtml" id="copyrightnotice" media-type="application/xhtml+xml"/>
+<item href="xhtml/dedication.xhtml" id="dedication" media-type="application/xhtml+xml"/>
+<item href="xhtml/acknowledgments.xhtml" id="acknowledgments" media-type="application/xhtml+xml"/>
+<item href="xhtml/chapter1.xhtml" id="chapter1" media-type="application/xhtml+xml"/>
+<item href="xhtml/chapter2.xhtml" id="chapter2" media-type="application/xhtml+xml"/>
+<item href="xhtml/chapter3.xhtml" id="chapter3" media-type="application/xhtml+xml"/>
+<item href="xhtml/chapter4.xhtml" id="chapter4" media-type="application/xhtml+xml"/>
+<item href="xhtml/chapter5.xhtml" id="chapter5" media-type="application/xhtml+xml"/>
+<item href="xhtml/chapter6.xhtml" id="chapter6" media-type="application/xhtml+xml"/>
+<item href="xhtml/chapter7.xhtml" id="chapter7" media-type="application/xhtml+xml"/>
+<item href="xhtml/chapter8.xhtml" id="chapter8" media-type="application/xhtml+xml"/>
+<item href="xhtml/chapter9.xhtml" id="chapter9" media-type="application/xhtml+xml"/>
+<item href="xhtml/chapter10.xhtml" id="chapter10" media-type="application/xhtml+xml"/>
+<item href="xhtml/chapter11.xhtml" id="chapter11" media-type="application/xhtml+xml"/>
+<item href="xhtml/chapter12.xhtml" id="chapter12" media-type="application/xhtml+xml"/>
+<item href="xhtml/chapter13.xhtml" id="chapter13" media-type="application/xhtml+xml"/>
+<item href="xhtml/chapter14.xhtml" id="chapter14" media-type="application/xhtml+xml"/>
+<item href="xhtml/chapter15.xhtml" id="chapter15" media-type="application/xhtml+xml"/>
+<item href="xhtml/chapter16.xhtml" id="chapter16" media-type="application/xhtml+xml"/>
+<item href="xhtml/chapter17.xhtml" id="chapter17" media-type="application/xhtml+xml"/>
+<item href="xhtml/chapter18.xhtml" id="chapter18" media-type="application/xhtml+xml"/>
+<item href="xhtml/chapter19.xhtml" id="chapter19" media-type="application/xhtml+xml"/>
+<item href="xhtml/chapter20.xhtml" id="chapter20" media-type="application/xhtml+xml"/>
+<item href="xhtml/chapter21.xhtml" id="chapter21" media-type="application/xhtml+xml"/>
+<item href="xhtml/chapter22.xhtml" id="chapter22" media-type="application/xhtml+xml"/>
+<item href="xhtml/chapter23.xhtml" id="chapter23" media-type="application/xhtml+xml"/>
+<item href="xhtml/chapter24.xhtml" id="chapter24" media-type="application/xhtml+xml"/>
+<item href="xhtml/chapter25.xhtml" id="chapter25" media-type="application/xhtml+xml"/>
+<item href="xhtml/chapter26.xhtml" id="chapter26" media-type="application/xhtml+xml"/>
+<item href="xhtml/chapter27.xhtml" id="chapter27" media-type="application/xhtml+xml"/>
+<item href="xhtml/chapter28.xhtml" id="chapter28" media-type="application/xhtml+xml"/>
+<item href="xhtml/chapter29.xhtml" id="chapter29" media-type="application/xhtml+xml"/>
+<item href="xhtml/chapter30.xhtml" id="chapter30" media-type="application/xhtml+xml"/>
+<item href="xhtml/chapter31.xhtml" id="chapter31" media-type="application/xhtml+xml"/>
+<item href="xhtml/abouttheauthor.xhtml" id="abouttheauthor" media-type="application/xhtml+xml"/>
+<item href="xhtml/adcard.xhtml" id="adcard" media-type="application/xhtml+xml"/>
+<item href="xhtml/newsletter.xhtml" id="newsletter" media-type="application/xhtml+xml"/>
+<item href="xhtml/torad.xhtml" id="torad" media-type="application/xhtml+xml"/>
+<item href="xhtml/contents.xhtml" id="contents" media-type="application/xhtml+xml"/>
+<item href="xhtml/copyright.xhtml" id="copyright" media-type="application/xhtml+xml"/>
+<item href="styles/stylesheet.css" id="css" media-type="text/css"/>
+<item href="images/9781466812369.jpg" id="cover-image" media-type="image/jpeg"/>
+<item href="images/backad.jpg" id="image-001" media-type="image/jpeg"/>
+<item href="images/fmt.jpg" id="image-002" media-type="image/jpeg"/>
+<item href="images/title-page.jpg" id="image-003" media-type="image/jpeg"/>
+<item href="images/NewsletterSignup.jpg" id="image-004" media-type="image/jpeg"/>
+<item href="images/twitter_logo.png" id="image-005" media-type="image/png"/>
+</manifest>
+<spine page-progression-direction="ltr" toc="toc">
+<itemref idref="html-cover-page"/>
+<itemref idref="tit"/>
+<itemref idref="mini_toc"/>
+<itemref idref="copyrightnotice"/>
+<itemref idref="dedication"/>
+<itemref idref="acknowledgments"/>
+<itemref idref="chapter1"/>
+<itemref idref="chapter2"/>
+<itemref idref="chapter3"/>
+<itemref idref="chapter4"/>
+<itemref idref="chapter5"/>
+<itemref idref="chapter6"/>
+<itemref idref="chapter7"/>
+<itemref idref="chapter8"/>
+<itemref idref="chapter9"/>
+<itemref idref="chapter10"/>
+<itemref idref="chapter11"/>
+<itemref idref="chapter12"/>
+<itemref idref="chapter13"/>
+<itemref idref="chapter14"/>
+<itemref idref="chapter15"/>
+<itemref idref="chapter16"/>
+<itemref idref="chapter17"/>
+<itemref idref="chapter18"/>
+<itemref idref="chapter19"/>
+<itemref idref="chapter20"/>
+<itemref idref="chapter21"/>
+<itemref idref="chapter22"/>
+<itemref idref="chapter23"/>
+<itemref idref="chapter24"/>
+<itemref idref="chapter25"/>
+<itemref idref="chapter26"/>
+<itemref idref="chapter27"/>
+<itemref idref="chapter28"/>
+<itemref idref="chapter29"/>
+<itemref idref="chapter30"/>
+<itemref idref="chapter31"/>
+<itemref idref="abouttheauthor"/>
+<itemref idref="adcard"/>
+<itemref idref="newsletter"/>
+<itemref idref="torad"/>
+<itemref idref="contents" linear="no"/>
+<itemref idref="copyright"/>
+</spine>
+<guide>
+<reference href="xhtml/contents.xhtml" title="Contents" type="toc"/>
+<reference href="xhtml/cover.xhtml" title="Cover Image" type="cover"/>
+</guide>
+</package>

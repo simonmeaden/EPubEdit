@@ -36,12 +36,12 @@ HeaderFooterWidget::footer()
   return d->footer();
 }
 
-//QWidget*
-//HeaderFooterWidget::setWidget(QWidget* widget)
+// QWidget*
+// HeaderFooterWidget::setWidget(QWidget* widget)
 //{
-//  Q_D(HeaderFooterWidget);
-//  return d->setWidget(widget);
-//}
+//   Q_D(HeaderFooterWidget);
+//   return d->setWidget(widget);
+// }
 
 void
 HeaderFooterWidget::hideWidget()
@@ -97,8 +97,21 @@ void
 HeaderFooterWidget::mousePressEvent(QMouseEvent* event)
 {
   Q_D(HeaderFooterWidget);
-  auto pos = event->pos();
-  d->mousePress(pos);
+  d->mousePress(event);
+}
+
+void
+HeaderFooterWidget::mouseMoveEvent(QMouseEvent*event)
+{
+  Q_D(HeaderFooterWidget);
+  d->mouseMove(event);
+}
+
+void
+HeaderFooterWidget::mouseReleaseEvent(QMouseEvent*event)
+{
+  Q_D(HeaderFooterWidget);
+  d->mouseRelease(event);
 }
 
 bool

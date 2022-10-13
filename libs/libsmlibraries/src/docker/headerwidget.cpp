@@ -32,12 +32,12 @@ HeaderWidget::header()
   return d->header();
 }
 
-//QWidget*
-//HeaderWidget::setWidget(QWidget* widget)
+// QWidget*
+// HeaderWidget::setWidget(QWidget* widget)
 //{
-//  Q_D(HeaderWidget);
-//  return d->setWidget(widget);
-//}
+//   Q_D(HeaderWidget);
+//   return d->setWidget(widget);
+// }
 
 void
 HeaderWidget::hideWidget()
@@ -72,36 +72,48 @@ HeaderWidget::paintEvent(QPaintEvent* /*event*/)
   d->paint(painter);
 }
 
-//void
-//HeaderWidget::hoverEnterEvent(QHoverEvent* event)
+// void
+// HeaderWidget::hoverEnterEvent(QHoverEvent* event)
 //{
-//  Q_D(HeaderWidget);
-//  auto p = event->pos();
-//  d->hoverEnter(p);
-//}
+//   Q_D(HeaderWidget);
+//   auto p = event->pos();
+//   d->hoverEnter(p);
+// }
 
-//void
-//HeaderWidget::hoverLeaveEvent(QHoverEvent*)
+// void
+// HeaderWidget::hoverLeaveEvent(QHoverEvent*)
 //{
-//  Q_D(HeaderWidget);
-//  d->hoverLeave();
-//}
+//   Q_D(HeaderWidget);
+//   d->hoverLeave();
+// }
 
-//void
-//HeaderWidget::hoverMoveEvent(QHoverEvent* event)
+// void
+// HeaderWidget::hoverMoveEvent(QHoverEvent* event)
 //{
-//  Q_D(HeaderWidget);
-//  auto p = event->pos();
-//  d->hoverMove(p);
-//}
+//   Q_D(HeaderWidget);
+//   auto p = event->pos();
+//   d->hoverMove(p);
+// }
 
 void
 HeaderWidget::mousePressEvent(QMouseEvent* event)
 {
   Q_D(HeaderWidget);
-  auto pos = event->pos();
-  setFocus();
-  d->mousePress(pos);
+  d->mousePress(event);
+}
+
+void
+HeaderWidget::mouseMoveEvent(QMouseEvent* event)
+{
+  Q_D(HeaderWidget);
+  d->mouseMove(event);
+}
+
+void
+HeaderWidget::mouseReleaseEvent(QMouseEvent* event)
+{
+  Q_D(HeaderWidget);
+  d->mouseRelease(event);
 }
 
 bool

@@ -28,7 +28,8 @@
  */
 enum KeyEventMapper
 {
-  NoKey,            //!< No key was pressed.
+  NoKey, //!< No key was pressed.
+
   PreviousBookmark, //!< Go to the previous bookmark
   NextBookmark,     //!< Go to the next bookmark.
   GoToBookmark,     //!< Go to selected bookmark.
@@ -37,6 +38,11 @@ enum KeyEventMapper
   EditBookmark,     //!< Edit bookmark.
   RemoveBookmark,   //!< Remove current bookmark.
   ClearBookmarks,   //!< Clears all bookmarks.
+
+  NextTag,     //!< Go to the previous tag
+  PreviousTag, //!< Go to the next tag.
+
+  Options, //!< Calls options dialog
 };
 
 /*!

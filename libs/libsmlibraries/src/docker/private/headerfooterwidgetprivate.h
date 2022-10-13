@@ -19,8 +19,6 @@ public:
   DockHeader *header();
   DockFooter* footer();
 
-//  QWidget* setWidget(QWidget* widget);
-
   void hideWidget();
   void showWidget();
   bool isWidgetVisible();
@@ -36,8 +34,11 @@ public:
   void hoverLeave(QPoint);
   //  //!< Implements a Hover Move event
   void hoverMove(QPoint pos);
-  //  //!< \reimplements{QWidget::mousePressEvent}
-  void mousePress(QPoint pos);
+
+  void mousePress(QMouseEvent* event) override;
+  void mouseMove(QMouseEvent* event) override;
+  void mouseRelease(QMouseEvent* event) override;
+
   //  //!< \reimplements{QWidget::mouseReleaseEvent}
   //  void mouseReleaseEvent(QMouseEvent*) override;
   //  //!< \reimplements{QWidget::event}

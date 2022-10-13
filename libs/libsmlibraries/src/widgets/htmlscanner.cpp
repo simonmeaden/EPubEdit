@@ -184,6 +184,20 @@ HtmlScanner::matchedTags() const
   return m_matchedTags;
 }
 
+Tag*
+HtmlScanner::matchedTag(Tag* tag)
+{
+  for (auto matches : m_matchedTags) {
+    if (matches->first == tag) {
+      return matches->second;
+    }
+    if (matches->second == tag) {
+      return matches->first;
+    }
+  }
+  return nullptr;
+}
+
 // QTextDocument *HtmlScanner::document() const
 //{
 //   return m_document;
@@ -282,7 +296,8 @@ HtmlScanner::checkHtmlAttribute(Tag* tag,
         htmltag->name, attribute->name, attribute->value)) {
     attribute->errors.setFlag(BadAttributeValue);
   }
-  if (s.startsWith(Characters::QUOTATION) || s.startsWith(Characters::SQUOTE)) {
+  if (s.startsWith(Characters::QUOTATION) ||
+      s.startsWith(Characters::SINGLEQUOTE)) {
     bool mismatched = (s.last(1) != s.first(1));
     if (mismatched) {
       attribute->errors.setFlag(ScannerError::MismatchedQuotes);
@@ -618,12 +633,12 @@ HtmlScanner::scan(const QString& text, int startPoint, int n)
       expected = NoExpectation;
       hasQuestion = false;
       hasExplanation = false;
-    } else if (c == Characters::SQUOTE ||
+    } else if (c == Characters::SINGLEQUOTE ||
                c == Characters::QUOTATION) { // Single quote
       if (s.isEmpty()) {
         addCharToString(s, c, sPos, i, state);
         if (state == NoState) {
-          if (c == Characters::SQUOTE)
+          if (c == Characters::SINGLEQUOTE)
             state = SingleQuotes;
           else if (c == Characters::QUOTATION)
             state = DoubleQuotes;
@@ -706,23 +721,40 @@ HtmlScanner::insertTag(int index, Tag* tag)
 }
 
 void
+HtmlScanner::insertAfter(Tag* tag, Tag* insertTag)
+{
+  if (m_tagList.contains(tag)) {
+    auto index = indexOfTag(tag);
+    m_tagList.insert(index + 1, insertTag);
+  } else {
+
+  }
+}
+
+void
 HtmlScanner::replaceTag(Tag* firstTag, Tag* secondTag)
 {
   int index = m_tagList.indexOf(firstTag);
   m_tagList.replace(index, secondTag);
 }
 
-//void
-//HtmlScanner::swapTags(int firstIndex, int secondIndex)
-//{
-//  // TODO
-//}
+int
+HtmlScanner::indexOfTag(Tag* tag)
+{
+  return m_tagList.indexOf(tag);
+}
 
-//void
-//HtmlScanner::swapTags(Tag* firstTag, Tag* secondTag)
+// void
+// HtmlScanner::swapTags(int firstIndex, int secondIndex)
 //{
-//  // TODO
-//}
+//   // TODO
+// }
+
+// void
+// HtmlScanner::swapTags(Tag* firstTag, Tag* secondTag)
+//{
+//   // TODO
+// }
 
 Tag*
 HtmlScanner::tagAt(int position)
@@ -795,7 +827,7 @@ Tag::end()
 int
 Tag::length()
 {
-  return end() - start() - 1;
+  return end() - start();
 }
 
 void

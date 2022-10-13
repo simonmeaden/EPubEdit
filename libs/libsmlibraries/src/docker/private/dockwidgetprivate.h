@@ -52,7 +52,10 @@ public:
   void hoverEnter(QPoint pos);
   void hoverLeave();
   void hoverMove(QPoint pos);
-  void mousePress(QPoint pos);
+
+  void mousePress(QMouseEvent *event)  override;
+  void mouseMove(QMouseEvent* event) override;
+  void mouseRelease(QMouseEvent* event) override;
 
   DockHeader* header();
   DockFooter* footer();

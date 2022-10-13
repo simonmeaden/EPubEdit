@@ -3,25 +3,14 @@
 #include "utilities/MathUtilities.h"
 #include "utilities/x11colors.h"
 
+int ButtonWidgetPrivate::BUTTON_ROUND = 3;
+
 ButtonWidgetPrivate::ButtonWidgetPrivate(AbstractDockWidget* parent,
                                          WidgetItem* qptr)
   : WidgetItemPrivate(parent, qptr)
   , m_textColor(QColorConstants::X11::LightGrey)
 {
 }
-
-const QIcon&
-ButtonWidgetPrivate::icon()
-{
-  return m_icon;
-}
-
-//void
-//ButtonWidgetPrivate::setIcon(const QIcon& icon)
-//{
-//  m_icon = icon;
-//  m_parentWidget->repaint(m_rect);
-//}
 
 const QSize&
 ButtonWidgetPrivate::iconSize()
@@ -34,7 +23,6 @@ ButtonWidgetPrivate::setIconSize(const QSize& newIconSize)
 {
   m_iconSize = newIconSize;
   emit q_ptr->widgetChanged();
-//  m_parentWidget->repaint(m_rect);
 }
 
 const QString&
@@ -48,7 +36,7 @@ ButtonWidgetPrivate::setText(const QString& newText)
 {
   m_text = newText;
   emit q_ptr->widgetChanged();
-//  m_parentWidget->repaint(m_rect);
+  //  m_parentWidget->repaint(m_rect);
 }
 
 int
@@ -61,7 +49,7 @@ void
 ButtonWidgetPrivate::setSpacer(int newSpacer)
 {
   m_spacer = newSpacer;
-//  m_parentWidget->repaint(m_rect);
+  //  m_parentWidget->repaint(m_rect);
 }
 
 const QColor&
@@ -87,7 +75,7 @@ ButtonWidgetPrivate::setArrangement(Arrangement newArrangement)
 {
   m_arrangement = newArrangement;
   emit q_ptr->widgetChanged();
-//  m_parentWidget->repaint(m_rect);
+  //  m_parentWidget->repaint(m_rect);
 }
 
 WidgetItem*
@@ -102,8 +90,8 @@ ButtonWidgetPrivate::clone(WidgetItem* widget)
     WidgetItemPrivate::clone(widget);
     button->setText(m_text);
     button->setTextColor(m_textColor);
-    button->setIcon(QIcon(m_icon));
-    button->setIconSize(m_iconSize);
+    button->setPixmap(m_pixmap);
+//    button->setIconSize(m_iconSize);
     button->setSpacer(m_spacer);
     button->setArrangement(m_arrangement);
   }
@@ -116,9 +104,10 @@ ButtonWidgetPrivate::calcMinimumSize()
   auto width = 0, height = 0, value = 0;
   auto iconWidth = 0, iconHeight = 0, textWidth = 0, textHeight = 0;
 
-  if (!icon().isNull()) {
-    iconWidth = iconSize().width();
-    iconHeight = iconSize().height();
+  if (!m_pixmap.isNull()) {
+    auto size = m_pixmap.size();
+    iconWidth = size.width();
+    iconHeight = size.height();
   }
 
   if (!text().isEmpty()) {
@@ -173,6 +162,10 @@ ButtonWidgetPrivate::calcMinimumSize()
     case NoArrangement:
       break;
   }
+  m_minContentSize.rwidth() += m_margins.left();
+  m_minContentSize.rwidth() += m_margins.right();
+  m_minContentSize.rheight() += m_margins.top();
+  m_minContentSize.rheight() += m_margins.bottom();
   return m_minContentSize;
 }
 
@@ -180,13 +173,24 @@ void
 ButtonWidgetPrivate::paint(QPainter& painter)
 {
   painter.save();
+  painter.setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing,
+                         true);
   paintBackground(painter);
 
-  if (!m_icon.isNull()) {
-    auto pixmap = icon().pixmap(m_iconSize,
+  if (!m_pixmap.isNull()) {
+    auto pixmap = QIcon(m_pixmap).pixmap(m_iconSize,
                                 isEnabled() ? QIcon::Normal : QIcon::Disabled,
                                 isSelected() ? QIcon::On : QIcon::Off);
     painter.drawPixmap(m_iconRect.topLeft(), pixmap);
+  }
+
+  if (m_showBorder) {
+    painter.save();
+    auto pen = painter.pen();
+    pen.setColor(QColorConstants::X11::grey53);
+    painter.setPen(pen);
+    painter.drawRoundedRect(m_rect, BUTTON_ROUND, BUTTON_ROUND);
+    painter.restore();
   }
 
   if (!m_text.isEmpty()) {
@@ -216,12 +220,13 @@ ButtonWidgetPrivate::setGeometry(const QRect& widgetRect,
       if (!m_text.isEmpty()) {
         x = Math::halfDifference(contentsRect.width(), m_textRect.width());
         m_textRect.moveLeft(contentsRect.x() + x);
-        y = Math::halfDifference(contentsRect.height(), m_minContentSize.height());
+        y = Math::halfDifference(contentsRect.height(),
+                                 m_minContentSize.height());
         m_textRect.moveTop(contentsRect.y() + y);
         max = m_textRect.bottom() + spacer();
       }
 
-      if (!m_icon.isNull()) {
+      if (!m_pixmap.isNull()) {
         x = Math::halfDifference(contentsRect.width(), m_iconSize.width());
         m_iconRect.moveLeft(contentsRect.x() + x);
         m_iconRect.moveTop(max);
@@ -230,10 +235,11 @@ ButtonWidgetPrivate::setGeometry(const QRect& widgetRect,
       break;
     }
     case TextBelowIcon: {
-      if (!m_icon.isNull()) {
+      if (!m_pixmap.isNull()) {
         x = Math::halfDifference(contentsRect.width(), m_iconSize.width());
         m_iconRect.moveLeft(contentsRect.x() + x);
-        y = Math::halfDifference(contentsRect.height(), m_minContentSize.height());
+        y = Math::halfDifference(contentsRect.height(),
+                                 m_minContentSize.height());
         m_iconRect.moveTop(contentsRect.y() + y);
         max = m_iconRect.bottom() /*+ spacer()*/;
       }
@@ -246,8 +252,9 @@ ButtonWidgetPrivate::setGeometry(const QRect& widgetRect,
       break;
     }
     case TextToRight: {
-      if (!m_icon.isNull()) {
-        x = Math::halfDifference(contentsRect.width(), m_minContentSize.width());
+      if (!m_pixmap.isNull()) {
+        x =
+          Math::halfDifference(contentsRect.width(), m_minContentSize.width());
         m_iconRect.moveLeft(contentsRect.x() + x);
         y = Math::halfDifference(contentsRect.height(), m_iconSize.height());
         m_iconRect.moveTop(contentsRect.y() + y);
@@ -263,14 +270,15 @@ ButtonWidgetPrivate::setGeometry(const QRect& widgetRect,
     }
     case TextToLeft: {
       if (!m_text.isEmpty()) {
-        x = Math::halfDifference(contentsRect.width(), m_minContentSize.width());
+        x =
+          Math::halfDifference(contentsRect.width(), m_minContentSize.width());
         m_textRect.moveLeft(contentsRect.x() + x);
         y = Math::halfDifference(contentsRect.height(), fm.height());
         m_textRect.moveTop(contentsRect.y() + y);
         max = m_textRect.right() + spacer();
       }
 
-      if (!m_icon.isNull()) {
+      if (!m_pixmap.isNull()) {
         m_iconRect.moveLeft(max);
         y = Math::halfDifference(contentsRect.height(), m_iconSize.height());
         m_iconRect.moveTop(contentsRect.y() + y);
@@ -278,7 +286,7 @@ ButtonWidgetPrivate::setGeometry(const QRect& widgetRect,
       break;
     }
     case IconOnly: {
-      if (!m_icon.isNull()) {
+      if (!m_pixmap.isNull()) {
         x = Math::halfDifference(contentsRect.width(), m_iconSize.width());
         m_iconRect.moveLeft(contentsRect.x() + x);
         y = Math::halfDifference(contentsRect.height(), m_iconSize.height());
@@ -324,4 +332,16 @@ void
 ButtonWidgetPrivate::setTextRect(const QRect& newTextRect)
 {
   m_textRect = newTextRect;
+}
+
+bool
+ButtonWidgetPrivate::isShowBorder() const
+{
+  return m_showBorder;
+}
+
+void
+ButtonWidgetPrivate::setShowBorder(bool ShowBorder)
+{
+  m_showBorder = ShowBorder;
 }

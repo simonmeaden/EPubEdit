@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package xmlns="http://www.idpf.org/2007/opf" version="2.0" unique-identifier="uuid_id">
+  <metadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opf="http://www.idpf.org/2007/opf" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:calibre="http://calibre.kovidgoyal.net/2009/metadata" xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc:publisher>Pan</dc:publisher>
+    <meta name="calibre:series_index" content="2"/>
+    <meta name="calibre:title_sort" content="Diamond Mask"/>
+    <meta name="calibre:rating" content="8.00"/>
+    <dc:description>&lt;p class="description"&gt;The 21st century was drawing to a close, and metapsychic humankind was poised at last to achieve Unity  to be admitted into the group mind of the already unified alien races of the Galactic Milieu. But a growing corps of rebels was plotting to keep the people of Earth forever separate in the name of human individuality. And the rebels had a secret supporter: Fury, the insane metapsychic creatrue that would stop at nothing to claim humanity for itself. Fury's greatest enemy was the mutant genius Jack the Bodiless, whose power it craved. But Jack would never be a tool for Fury . . .   &lt;br&gt;And so it turned to Dorothea Macdonald, a young woman who had spent a lifetime hiding her towering mindpowers from the best mind readers of the Milieu. But she could not hide them from Fury  or from Jack. Time and again she rejected their advances, unwilling to be drawn into the maelstrom of galactic politics or megalomaniacal dreams. And in the end, no one  not Jack, not Fury, not even the Galactic Milieu  would be a match for the awesome powers of the girl who would come to be called Diamond Mask . . .&lt;/p&gt;</dc:description>
+    <dc:language>en</dc:language>
+    <dc:creator opf:file-as="May, Julian" opf:role="aut">Julian May</dc:creator>
+    <meta name="calibre:timestamp" content="2011-11-19T12:36:41+00:00"/>
+    <dc:title>Diamond Mask</dc:title>
+    <meta name="cover" content="cover"/>
+    <dc:date>1994-01-01T05:00:00+00:00</dc:date>
+    <meta name="calibre:series" content="Galactic Milieu Trilogy"/>
+    <dc:contributor opf:role="bkp">calibre (0.9.10) [http://calibre-ebook.com]</dc:contributor>
+    <dc:identifier opf:scheme="ISBN">9780330322997</dc:identifier>
+    <dc:identifier opf:scheme="AMAZON">B001UC1S1M</dc:identifier>
+    <dc:identifier opf:scheme="GOOGLE">CO1DAwAACAAJ</dc:identifier>
+    <dc:identifier opf:scheme="FF">m/julian-may/diamond-mask</dc:identifier>
+    <dc:identifier opf:scheme="GOODREADS">378414</dc:identifier>
+    <dc:identifier id="uuid_id" opf:scheme="uuid">704627ae-98f3-4d44-ae9b-226206a18161</dc:identifier>
+  </metadata>
+  <manifest>
+    <item href="cover.jpeg" id="cover" media-type="image/jpeg"/>
+    <item href="Diamond_Mask_split_000.html" id="id19" media-type="application/xhtml+xml"/>
+    <item href="Diamond_Mask_split_001.html" id="id18" media-type="application/xhtml+xml"/>
+    <item href="Diamond_Mask_split_002.html" id="id17" media-type="application/xhtml+xml"/>
+    <item href="Diamond_Mask_split_003.html" id="id16" media-type="application/xhtml+xml"/>
+    <item href="Diamond_Mask_split_004.html" id="id15" media-type="application/xhtml+xml"/>
+    <item href="Diamond_Mask_split_005.html" id="id14" media-type="application/xhtml+xml"/>
+    <item href="Diamond_Mask_split_006.html" id="id13" media-type="application/xhtml+xml"/>
+    <item href="Diamond_Mask_split_007.html" id="id12" media-type="application/xhtml+xml"/>
+    <item href="Diamond_Mask_split_008.html" id="id11" media-type="application/xhtml+xml"/>
+    <item href="jacket.xhtml" id="calibre_jacket" media-type="application/xhtml+xml"/>
+    <item href="page_styles.css" id="page_css" media-type="text/css"/>
+    <item href="stylesheet.css" id="css" media-type="text/css"/>
+    <item href="titlepage.xhtml" id="titlepage" media-type="application/xhtml+xml"/>
+    <item href="toc.ncx" media-type="application/x-dtbncx+xml" id="ncx"/>
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="titlepage"/>
+    <itemref idref="calibre_jacket"/>
+    <itemref idref="id19"/>
+    <itemref idref="id18"/>
+    <itemref idref="id17"/>
+    <itemref idref="id16"/>
+    <itemref idref="id15"/>
+    <itemref idref="id14"/>
+    <itemref idref="id13"/>
+    <itemref idref="id12"/>
+    <itemref idref="id11"/>
+  </spine>
+  <guide>
+    <reference href="Diamond_Mask_split_008.html#filepos1115967" type="toc" title="Table of Contents"/>
+    <reference href="titlepage.xhtml" type="cover" title="Cover"/>
+  </guide>
+</package>

@@ -1,0 +1,177 @@
+/**/
+body {
+    margin-left: 10%;
+    margin-right: 10%
+    }
+h1, h2, h3 {
+    text-align: center;
+    /* all headings centered */
+    clear: both;
+    font-weight: normal
+    }
+h1 {
+    margin-bottom: 2em
+    }
+h2 {
+    margin-top: 2.99em;
+    font-size: x-large;
+    margin-bottom: 1.49em
+    }
+h3 {
+    font-size: medium
+    }
+p {
+    margin-top: 0.99em;
+    text-align: justify;
+    text-indent: 1em;
+    margin-bottom: 0.49em
+    }
+p.nonorm {
+    margin-top: 0.99em;
+    text-align: center;
+    margin-bottom: 0.49em
+    }
+p.nofollowspace {
+    margin-top: 0.99em;
+    text-align: center;
+    margin-bottom: 0
+    }
+p.nopriorspace {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0.49em
+    }
+p.nospace {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0
+    }
+p.bigbold {
+    font-size: x-large
+    }
+.center {
+    text-align: center
+    }
+.right {
+    text-align: right
+    }
+table {
+    margin-left: auto;
+    margin-right: auto
+    }
+.blockquote {
+    margin-left: 5%;
+    margin-right: 10%
+    }
+.smcap {
+    font-variant: small-caps
+    }
+div.titlepage {
+    text-align: center;
+    font-size: xx-large;
+    page-break-before: always;
+    margin-top: 3em;
+    margin-bottom: 3em
+    }
+div.titlepagesmall {
+    text-align: center;
+    margin-top: 3em;
+    margin-bottom: 3em
+    }
+div.titlepagemedium {
+    text-align: center;
+    font-size: x-large;
+    margin-top: 3em;
+    margin-bottom: 3em
+    }
+div.linemedium {
+    text-align: center;
+    font-size: x-large;
+    margin-top: 0.5em;
+    margin-bottom: 0.49em
+    }
+div.linelarge {
+    text-align: center;
+    font-size: large;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em
+    }
+div.linebook {
+    text-align: center;
+    font-size: large;
+    margin-top: 0.99em;
+    margin-bottom: 0.49em
+    }
+div.linebook0 {
+    text-align: center;
+    font-size: large;
+    margin-top: 0.99em
+    }
+span.emph {
+    font-size: large;
+    font-variant: small-caps
+    }
+span.smcap {
+    font-variant: small-caps
+    }
+div.contents1 {
+    text-align: center;
+    page-break-before: always;
+    margin-top: 3em;
+    margin-bottom: 3em
+    }
+div.contents2 {
+    text-align: center;
+    margin-top: 3em;
+    margin-bottom: 3em
+    }
+div.titlepage p {
+    text-indent: 10em;
+    line-height: 1.5;
+    margin-top: 1em
+    }
+div.titlepageb {
+    text-align: center;
+    page-break-before: always;
+    font-size: xx-large;
+    margin-top: 3em;
+    margin-bottom: 3em
+    }
+div.title {
+    text-align: center;
+    page-break-before: always;
+    font-size: xx-large;
+    margin-top: 3em;
+    margin-bottom: 3em
+    }
+div.sectionbreak {
+    page-break-before: always;
+    margin-top: 10em;
+    page-break-after: always
+    }
+div.separated {
+    margin-top: 1em;
+    margin-bottom: 1em
+    }
+div.separated2 {
+    margin-top: 1em;
+    margin-bottom: 3em
+    }
+div.endnotes {
+    text-align: center;
+    margin-top: 3em;
+    margin-bottom: 3em
+    }
+#coverpage {
+    text-align: center;
+    margin: 3em auto
+    }
+#authorwoodcut {
+    text-align: center;
+    margin: 3em auto
+    }
+#printersmark {
+    text-align: center;
+    margin: 3em auto
+    }
+/**/

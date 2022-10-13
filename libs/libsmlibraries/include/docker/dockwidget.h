@@ -33,7 +33,7 @@ class WidgetItem;
  * \ingroup docker
  * \class DockWidget dockwidget.h "docker/dockwidget.h"
  * \brief The DockWidget defines an QWidget that emulates the QtCreator
- * Toolbar.
+ *        QDockeWidget, sort of.
  *
  * It allows up to four toolbars at the est, West, North and South positions
  * plus a single header and a single footer. Various widgets can be added to
@@ -49,27 +49,6 @@ public:
    * Construct a DockWidget that is a child of parent.
    */
   explicit DockWidget(QWidget* parent);
-
-//  /*!
-//   * \brief Returns the central widget.
-//   *
-//   * \sa setWidget(QWidget*)
-//   */
-//  QWidget* widget();
-
-//  /*!
-//   * \brief Sets the central widget of the DockWidget.
-//   *
-//   * If the new QWidget is replacing an existing widget a pointer tothe old
-//   * QWidget is returned, otherwise a nullptr is returned. The old QWidget is
-//   * NOT deleted.
-//   *
-//   * \note If the QWidget is replaced with itself, the pointer is returned but
-//   * nothing else is done. You will need to delete it yourself.
-//   *
-//   * \sa widget()
-//   */
-//  QWidget* setWidget(QWidget* widget);
 
   /*!
    * \brief Adds a new ToolbarWidget at the new position, if that position is
@@ -174,6 +153,10 @@ public:
   void hoverMoveEvent(QHoverEvent* event);
   //! \reimplements{QWidget::mousePressEvent}
   void mousePressEvent(QMouseEvent* event) override;
+  //! \reimplements{QWidget::mouseMoveEvent}
+  void mouseMoveEvent(QMouseEvent*event) override;
+  //! \reimplements{QWidget::mouseReleaseEvent}
+  void mouseReleaseEvent(QMouseEvent*event) override;
   //! \reimplements{QWidget::event}
   bool event(QEvent* event) override;
 

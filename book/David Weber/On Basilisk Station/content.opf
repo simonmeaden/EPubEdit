@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="uuid_id" version="2.0">
+  <metadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opf="http://www.idpf.org/2007/opf" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:calibre="http://calibre.kovidgoyal.net/2009/metadata" xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc:publisher>Baen Books</dc:publisher>
+    <dc:rights>2006 by David Weber</dc:rights>
+    <dc:description>&lt;div&gt;&lt;h3 align="center" style="color: rgb(0, 0, 0); font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-style: normal; font-variant: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);"&gt;HONOR HARRINGTON&lt;/h3&gt;&lt;p align="left" style="color: rgb(0, 0, 0); font-size: 11px; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; margin-top: 9px; margin-bottom: 9px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: -webkit-left; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);"&gt;Having made him look a fool, she's been exiled to Basilisk Station in disgrace and set up for ruin by a superior who hates her.&lt;/p&gt;&lt;p align="left" style="color: rgb(0, 0, 0); font-size: 11px; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; margin-top: 9px; margin-bottom: 9px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: -webkit-left; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);"&gt;Her demoralized crew blames her for their ship's humiliating posting to an out-of-the-way picket station.&lt;/p&gt;&lt;p align="left" style="color: rgb(0, 0, 0); font-size: 11px; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; margin-top: 9px; margin-bottom: 9px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: -webkit-left; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);"&gt;The aborigines of the system's only habitable planet are smoking homicide-inducing hallucinogens.&lt;/p&gt;&lt;p align="left" style="color: rgb(0, 0, 0); font-size: 11px; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; margin-top: 9px; margin-bottom: 9px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: -webkit-left; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);"&gt;Parliament isn't sure it wants to keep the place; the major local industry is smuggling; the merchant cartels want her head; the star-conquering, so-called "Republic" of Haven is Up To Something; and Honor Harrington has a single, over-age light cruiser with an armament that doesn't work to police the entire star system.&lt;/p&gt;&lt;p align="left" style="color: rgb(0, 0, 0); font-size: 11px; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; margin-top: 9px; margin-bottom: 9px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-align: -webkit-left; text-indent: 0px; text-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);"&gt;But the people out to get her have made one mistake. They've made her mad.&lt;/p&gt;&lt;/div&gt;</dc:description>
+    <dc:language>en</dc:language>
+    <dc:creator opf:file-as="Weber, David" opf:role="aut">David Weber</dc:creator>
+    <meta name="calibre:timestamp" content="2013-10-04T18:42:40+00:00"/>
+    <dc:title>On Basilisk Station</dc:title>
+    <meta name="cover" content="cover"/>
+    <dc:date>1999-03-01T05:00:00+00:00</dc:date>
+    <meta name="calibre:title_sort" content="On Basilisk Station"/>
+    <dc:contributor opf:role="bkp">calibre (0.9.44) [http://calibre-ebook.com]</dc:contributor>
+    <dc:identifier opf:scheme="ISBN">067157793X</dc:identifier>
+    <dc:identifier id="uuid_id" opf:scheme="uuid">24a3837c-393e-430d-8fce-e857c9facff9</dc:identifier>
+    <dc:identifier opf:scheme="calibre">24a3837c-393e-430d-8fce-e857c9facff9</dc:identifier>
+    <dc:subject>Science Fiction</dc:subject>
+  </metadata>
+  <manifest>
+    <item href="cover.jpeg" id="cover" media-type="image/jpeg"/>
+    <item href="074343571001.jpg" id="RW_074343571001" media-type="image/jpeg"/>
+    <item href="074343571002.jpg" id="RW_074343571002" media-type="image/jpeg"/>
+    <item href="0743435710__p__split_000.htm" id="RW_0743435710__p_35" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_001.htm" id="RW_0743435710__p_34" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_002.htm" id="RW_0743435710__p_33" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_003.htm" id="RW_0743435710__p_32" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_004.htm" id="RW_0743435710__p_31" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_005.htm" id="RW_0743435710__p_30" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_006.htm" id="RW_0743435710__p_29" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_007.htm" id="RW_0743435710__p_28" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_008.htm" id="RW_0743435710__p_27" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_009.htm" id="RW_0743435710__p_26" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_010.htm" id="RW_0743435710__p_25" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_011.htm" id="RW_0743435710__p_24" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_012.htm" id="RW_0743435710__p_23" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_013.htm" id="RW_0743435710__p_22" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_014.htm" id="RW_0743435710__p_21" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_015.htm" id="RW_0743435710__p_20" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_016.htm" id="RW_0743435710__p_19" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_017.htm" id="RW_0743435710__p_18" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_018.htm" id="RW_0743435710__p_17" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_019.htm" id="RW_0743435710__p_16" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_020.htm" id="RW_0743435710__p_15" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_021.htm" id="RW_0743435710__p_14" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_022.htm" id="RW_0743435710__p_13" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_023.htm" id="RW_0743435710__p_12" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_024.htm" id="RW_0743435710__p_11" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_025.htm" id="RW_0743435710__p_10" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_026.htm" id="RW_0743435710__p_9" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_027.htm" id="RW_0743435710__p_8" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_028.htm" id="RW_0743435710__p_7" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_029.htm" id="RW_0743435710__p_6" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_030.htm" id="RW_0743435710__p_5" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_031.htm" id="RW_0743435710__p_4" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_032.htm" id="RW_0743435710__p_3" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_033.htm" id="RW_0743435710__p_2" media-type="application/xhtml+xml"/>
+    <item href="0743435710__p__split_034.htm" id="RW_0743435710__p_1" media-type="application/xhtml+xml"/>
+    <item href="0743435710_top.htm" id="RW_0743435710_top" media-type="application/xhtml+xml"/>
+    <item href="contents.xhtml" id="contents" media-type="application/xhtml+xml"/>
+    <item href="page_styles.css" id="page_css" media-type="text/css"/>
+    <item href="stylesheet.css" id="css" media-type="text/css"/>
+    <item href="titlepage.xhtml" id="titlepage" media-type="application/xhtml+xml"/>
+    <item href="toc.ncx" id="ncx" media-type="application/x-dtbncx+xml"/>
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="titlepage"/>
+    <itemref idref="contents"/>
+    <itemref idref="RW_0743435710__p_35"/>
+    <itemref idref="RW_0743435710__p_34"/>
+    <itemref idref="RW_0743435710__p_33"/>
+    <itemref idref="RW_0743435710__p_32"/>
+    <itemref idref="RW_0743435710__p_31"/>
+    <itemref idref="RW_0743435710__p_30"/>
+    <itemref idref="RW_0743435710__p_29"/>
+    <itemref idref="RW_0743435710__p_28"/>
+    <itemref idref="RW_0743435710__p_27"/>
+    <itemref idref="RW_0743435710__p_26"/>
+    <itemref idref="RW_0743435710__p_25"/>
+    <itemref idref="RW_0743435710__p_24"/>
+    <itemref idref="RW_0743435710__p_23"/>
+    <itemref idref="RW_0743435710__p_22"/>
+    <itemref idref="RW_0743435710__p_21"/>
+    <itemref idref="RW_0743435710__p_20"/>
+    <itemref idref="RW_0743435710__p_19"/>
+    <itemref idref="RW_0743435710__p_18"/>
+    <itemref idref="RW_0743435710__p_17"/>
+    <itemref idref="RW_0743435710__p_16"/>
+    <itemref idref="RW_0743435710__p_15"/>
+    <itemref idref="RW_0743435710__p_14"/>
+    <itemref idref="RW_0743435710__p_13"/>
+    <itemref idref="RW_0743435710__p_12"/>
+    <itemref idref="RW_0743435710__p_11"/>
+    <itemref idref="RW_0743435710__p_10"/>
+    <itemref idref="RW_0743435710__p_9"/>
+    <itemref idref="RW_0743435710__p_8"/>
+    <itemref idref="RW_0743435710__p_7"/>
+    <itemref idref="RW_0743435710__p_6"/>
+    <itemref idref="RW_0743435710__p_5"/>
+    <itemref idref="RW_0743435710__p_4"/>
+    <itemref idref="RW_0743435710__p_3"/>
+    <itemref idref="RW_0743435710__p_2"/>
+    <itemref idref="RW_0743435710__p_1"/>
+  </spine>
+  <guide>
+    <reference href="contents.xhtml" title="Table of Contents" type="toc"/>
+    <reference href="titlepage.xhtml" title="Cover" type="cover"/>
+    <reference href="0743435710__p__split_000.htm" title="About this title link" type="title-page"/>
+    <reference href="0743435710__p__split_000.htm" title="Copyright link" type="copyright-page"/>
+  </guide>
+</package>

@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "libs/libsmlibraries/src/labelled",
+		"source" : "libs/libsmlibraries/src/labelled"
+	}
+}

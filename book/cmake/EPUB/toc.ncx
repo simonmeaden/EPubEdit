@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="en">
+<head>
+<meta name="dtb:uid" content="urn:isbn:9781925904123"/>
+<meta name="dtb:depth" content="5"/>
+<meta name="dtb:totalPageCount" content="0"/>
+<meta name="dtb:maxPageNumber" content="0"/>
+</head>
+<docTitle><text>Professional CMake: A Practical Guide</text></docTitle>
+<navMap>
+<navPoint id="nav_1" playOrder="1">
+<navLabel><text>Professional CMake: A Practical Guide</text></navLabel>
+<content src="_professional_cmake_a_practical_guide.xhtml"/>
+</navPoint>
+<navPoint id="nav_2" playOrder="2">
+<navLabel><text>Preface</text></navLabel>
+<content src="_preface.xhtml"/>
+<navPoint id="nav_3" playOrder="3">
+<navLabel><text>Acknowledgments</text></navLabel>
+<content src="_preface.xhtml#_acknowledgments"/>
+</navPoint>
+</navPoint>
+<navPoint id="nav_4" playOrder="4">
+<navLabel><text>Part I: Fundamentals</text></navLabel>
+<content src="_part_i_fundamentals.xhtml"/>
+<navPoint id="nav_5" playOrder="5">
+<navLabel><text>1. Introduction</text></navLabel>
+<content src="_introduction.xhtml"/>
+</navPoint>
+<navPoint id="nav_6" playOrder="6">
+<navLabel><text>2. Setting Up A Project</text></navLabel>
+<content src="_setting_up_a_project.xhtml"/>
+</navPoint>
+<navPoint id="nav_7" playOrder="7">
+<navLabel><text>3. A Minimal Project</text></navLabel>
+<content src="_a_minimal_project.xhtml"/>
+</navPoint>
+<navPoint id="nav_8" playOrder="8">
+<navLabel><text>4. Building Simple Targets</text></navLabel>
+<content src="_building_simple_targets.xhtml"/>
+</navPoint>
+<navPoint id="nav_9" playOrder="9">
+<navLabel><text>5. Variables</text></navLabel>
+<content src="_variables.xhtml"/>
+</navPoint>
+<navPoint id="nav_10" playOrder="10">
+<navLabel><text>6. Flow Control</text></navLabel>
+<content src="_flow_control.xhtml"/>
+</navPoint>
+<navPoint id="nav_11" playOrder="11">
+<navLabel><text>7. Using Subdirectories</text></navLabel>
+<content src="_using_subdirectories.xhtml"/>
+</navPoint>
+<navPoint id="nav_12" playOrder="12">
+<navLabel><text>8. Functions And Macros</text></navLabel>
+<content src="_functions_and_macros.xhtml"/>
+</navPoint>
+<navPoint id="nav_13" playOrder="13">
+<navLabel><text>9. Properties</text></navLabel>
+<content src="_properties.xhtml"/>
+</navPoint>
+<navPoint id="nav_14" playOrder="14">
+<navLabel><text>10. Generator Expressions</text></navLabel>
+<content src="_generator_expressions.xhtml"/>
+</navPoint>
+<navPoint id="nav_15" playOrder="15">
+<navLabel><text>11. Modules</text></navLabel>
+<content src="_modules.xhtml"/>
+</navPoint>
+<navPoint id="nav_16" playOrder="16">
+<navLabel><text>12. Policies</text></navLabel>
+<content src="_policies.xhtml"/>
+</navPoint>
+<navPoint id="nav_17" playOrder="17">
+<navLabel><text>13. Debugging And Diagnostics</text></navLabel>
+<content src="_debugging_and_diagnostics.xhtml"/>
+</navPoint>
+</navPoint>
+<navPoint id="nav_18" playOrder="18">
+<navLabel><text>Part II: Builds In Depth</text></navLabel>
+<content src="_part_ii_builds_in_depth.xhtml"/>
+<navPoint id="nav_19" playOrder="19">
+<navLabel><text>14. Build Type</text></navLabel>
+<content src="_build_type.xhtml"/>
+</navPoint>
+<navPoint id="nav_20" playOrder="20">
+<navLabel><text>15. Compiler And Linker Essentials</text></navLabel>
+<content src="_compiler_and_linker_essentials.xhtml"/>
+</navPoint>
+<navPoint id="nav_21" playOrder="21">
+<navLabel><text>16. Language Requirements</text></navLabel>
+<content src="_language_requirements.xhtml"/>
+</navPoint>
+<navPoint id="nav_22" playOrder="22">
+<navLabel><text>17. Target Types</text></navLabel>
+<content src="_target_types.xhtml"/>
+</navPoint>
+<navPoint id="nav_23" playOrder="23">
+<navLabel><text>18. Custom Tasks</text></navLabel>
+<content src="_custom_tasks.xhtml"/>
+</navPoint>
+<navPoint id="nav_24" playOrder="24">
+<navLabel><text>19. Working With Files</text></navLabel>
+<content src="_working_with_files.xhtml"/>
+</navPoint>
+<navPoint id="nav_25" playOrder="25">
+<navLabel><text>20. Specifying Version Details</text></navLabel>
+<content src="_specifying_version_details.xhtml"/>
+</navPoint>
+<navPoint id="nav_26" playOrder="26">
+<navLabel><text>21. Libraries</text></navLabel>
+<content src="_libraries.xhtml"/>
+</navPoint>
+<navPoint id="nav_27" playOrder="27">
+<navLabel><text>22. Toolchains And Cross Compiling</text></navLabel>
+<content src="_toolchains_and_cross_compiling.xhtml"/>
+</navPoint>
+<navPoint id="nav_28" playOrder="28">
+<navLabel><text>23. Apple Features</text></navLabel>
+<content src="_apple_features.xhtml"/>
+</navPoint>
+</navPoint>
+<navPoint id="nav_29" playOrder="29">
+<navLabel><text>Part III: The Bigger Picture</text></navLabel>
+<content src="_part_iii_the_bigger_picture.xhtml"/>
+<navPoint id="nav_30" playOrder="30">
+<navLabel><text>24. Finding Things</text></navLabel>
+<content src="_finding_things.xhtml"/>
+</navPoint>
+<navPoint id="nav_31" playOrder="31">
+<navLabel><text>25. Testing</text></navLabel>
+<content src="_testing.xhtml"/>
+</navPoint>
+<navPoint id="nav_32" playOrder="32">
+<navLabel><text>26. Installing</text></navLabel>
+<content src="_installing.xhtml"/>
+</navPoint>
+<navPoint id="nav_33" playOrder="33">
+<navLabel><text>27. Packaging</text></navLabel>
+<content src="_packaging.xhtml"/>
+</navPoint>
+<navPoint id="nav_34" playOrder="34">
+<navLabel><text>28. External Content</text></navLabel>
+<content src="_external_content.xhtml"/>
+</navPoint>
+<navPoint id="nav_35" playOrder="35">
+<navLabel><text>29. Project Organization</text></navLabel>
+<content src="_project_organization.xhtml"/>
+</navPoint>
+<navPoint id="nav_36" playOrder="36">
+<navLabel><text>30. Build Performance</text></navLabel>
+<content src="_build_performance.xhtml"/>
+</navPoint>
+<navPoint id="nav_37" playOrder="37">
+<navLabel><text>31. Working With Qt</text></navLabel>
+<content src="_working_with_qt.xhtml"/>
+</navPoint>
+</navPoint>
+</navMap>
+</ncx>

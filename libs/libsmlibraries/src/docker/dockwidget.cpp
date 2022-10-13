@@ -18,29 +18,17 @@
 //=== DockWidget
 //====================================================================
 DockWidget::DockWidget(QWidget* parent)
-  : AbstractDockWidget(*new DockWidgetPrivate(this),
-                       parent)
+  : AbstractDockWidget(*new DockWidgetPrivate(this), parent)
 {
+  //  auto p = palette();
+  //  p.setColor(QPalette::Window, QColor("red"));
+  //  setPalette(p);
 }
 
 DockWidget::DockWidget(DockWidgetPrivate& d)
   : AbstractDockWidget(d)
 {
 }
-
-//QWidget*
-//DockWidget::widget()
-//{
-//  Q_D(DockWidget);
-//  return d->widget();
-//}
-
-//QWidget*
-//DockWidget::setWidget(QWidget* widget)
-//{
-//  Q_D(DockWidget);
-//  return d->setWidget(widget);
-//}
 
 void
 DockWidget::calculateGeometry(const QRect& rect)
@@ -115,7 +103,8 @@ DockWidget::resizeEvent(QResizeEvent* /*event*/)
   calculateGeometry(rect());
 }
 
-QWidget *DockWidget::clone(QWidget *widget)
+QWidget*
+DockWidget::clone(QWidget* widget)
 {
   auto anobject = qobject_cast<DockWidget*>(widget);
   if (anobject)
@@ -307,7 +296,7 @@ void
 DockWidget::hoverMoveEvent(QHoverEvent* event)
 {
   Q_D(DockWidget);
-  auto p = /*mapToGlobal(*/ event->position().toPoint() /*)*/;
+  auto p = event->position().toPoint();
   d->hoverMove(p);
 }
 
@@ -315,8 +304,21 @@ void
 DockWidget::mousePressEvent(QMouseEvent* event)
 {
   Q_D(DockWidget);
-  auto p = event->pos();
-  d->mousePress(p);
+  d->mousePress(event);
+}
+
+void
+DockWidget::mouseMoveEvent(QMouseEvent* event)
+{
+  Q_D(DockWidget);
+  d->mouseMove(event);
+}
+
+void
+DockWidget::mouseReleaseEvent(QMouseEvent* event)
+{
+  Q_D(DockWidget);
+  d->mouseRelease(event);
 }
 
 bool

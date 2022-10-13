@@ -23,15 +23,13 @@ class DockHeader;
  * \sa FooterWidget
  */
 class AbstractDockWidgetPrivate;
-class AbstractDockWidget : public QWidget, public CloneableWidgetInterface
+class AbstractDockWidget
+  : public QWidget
+  , public CloneableWidgetInterface
 {
   Q_OBJECT
   Q_DECLARE_PRIVATE(AbstractDockWidget)
 public:
-  /*!
-   * Construct an AbstractDockWidget that is a child of parent.
-   */
-  explicit AbstractDockWidget(QWidget* parent = nullptr);
 
   //! Returns the background color
   const QBrush& backColor() const;
@@ -72,7 +70,7 @@ public:
    *
    * \sa setWidget(QWidget*)
    */
-  QWidget* widget();
+  QWidget* centralWidget();
 
   /*!
    * \brief Sets the central widget of the DockWidget.
@@ -86,7 +84,7 @@ public:
    *
    * \sa widget()
    */
-  QWidget* setWidget(QWidget* widget);
+  QWidget* setCentralWidget(QWidget* widget);
 
 signals:
 
@@ -102,8 +100,10 @@ protected:
   //! Checks whether the mouse is hovering over a WidgetItem.
   bool dockItemHoverCheck(AbstractDockItem* item, QPoint pos);
   //! Check carried out when a mouse is clicked.
-  void mouseClickCheck(AbstractDockItem* item, QPoint pos);
-  //! Checks whether a ListWidget or ListButtonWidget is open and closes it if it is.
+  void mouseClickCheck(AbstractDockItem* item,
+                       QMouseEvent *event);
+  //! Checks whether a ListWidget or ListButtonWidget is open and closes it if
+  //! it is.
   void checkForOpenListWidgets(AbstractDockItem* item);
 
 private:
@@ -112,6 +112,5 @@ private:
   friend class ListWidget;
   void initGui();
 };
-
 
 #endif // ABSTRACTDOCKWIDGET_H

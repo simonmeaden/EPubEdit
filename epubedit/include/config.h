@@ -13,6 +13,7 @@ class BCP47Languages;
 
 #include "utilities/keymap.h"
 #include "widgets/iepubeditor.h"
+#include "widgets/isettingspage.h"
 
 class LimitedStringList : public QVector<QString>
 {
@@ -34,8 +35,7 @@ struct FileData
   int currentPosition;
 };
 
-class Config : public QObject
-{
+class Config : public QObject {
   Q_OBJECT
 
   Q_PROPERTY(bool rightSidebarVisible READ isRightSidebarVisible WRITE
@@ -150,6 +150,7 @@ public:
 
   static const int StatusTimeout = 20;
 
+  bool isModified() const;
 
 signals:
   void sendStatusMessage(const QString& message, int timeout);

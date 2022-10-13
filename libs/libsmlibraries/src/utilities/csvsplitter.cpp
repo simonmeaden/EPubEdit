@@ -24,7 +24,7 @@ QStringList split(const QString data, const QChar delimiter) {
         quote_detected = true;
       }
 
-    } else if (c == Characters::SQUOTE) {
+    } else if (c == Characters::SINGLEQUOTE) {
       // A single quote character inside a double quoted section
       // needs to be escaped in CPP.
       //            if (quote_detected && !quote_completed) {

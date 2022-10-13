@@ -42,18 +42,14 @@ void \mbox{\hyperlink{classHtmlScanner_a255fe41e5c8d0ce1359e9f5ad3e5df65}{move\+
 \mbox{\Hypertarget{classHtmlScanner_a63d497cd37ee12daab10f0d209977e29}\label{classHtmlScanner_a63d497cd37ee12daab10f0d209977e29}} 
 void \mbox{\hyperlink{classHtmlScanner_a63d497cd37ee12daab10f0d209977e29}{set\+Tag}} (int index, \mbox{\hyperlink{structTag}{Tag}} $\ast$tag)
 \begin{DoxyCompactList}\small\item\em Sets the \mbox{\hyperlink{structTag}{Tag}} at index to the new \mbox{\hyperlink{structTag}{Tag}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHtmlScanner_a3128328a5d6f83c6d8e92ac597f05be5}\label{classHtmlScanner_a3128328a5d6f83c6d8e92ac597f05be5}} 
+void \mbox{\hyperlink{classHtmlScanner_a3128328a5d6f83c6d8e92ac597f05be5}{insert\+Tag}} (int index, \mbox{\hyperlink{structTag}{Tag}} $\ast$tag)
+\begin{DoxyCompactList}\small\item\em Inserts the \mbox{\hyperlink{structTag}{Tag}} at index. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classHtmlScanner_a335a6a791eeecadbfafcb63c00fe2691}\label{classHtmlScanner_a335a6a791eeecadbfafcb63c00fe2691}} 
 void \mbox{\hyperlink{classHtmlScanner_a335a6a791eeecadbfafcb63c00fe2691}{replace\+Tag}} (\mbox{\hyperlink{structTag}{Tag}} $\ast$first\+Tag, \mbox{\hyperlink{structTag}{Tag}} $\ast$second\+Tag)
 \begin{DoxyCompactList}\small\item\em Replaces the \mbox{\hyperlink{structTag}{Tag}} at index to the new \mbox{\hyperlink{structTag}{Tag}}. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classHtmlScanner_a89789e41534d7d99835b2d56e65c546d}\label{classHtmlScanner_a89789e41534d7d99835b2d56e65c546d}} 
-void \mbox{\hyperlink{classHtmlScanner_a89789e41534d7d99835b2d56e65c546d}{swap\+Tags}} (int first\+Index, int second\+Index)
-\begin{DoxyCompactList}\small\item\em Swaps the two \mbox{\hyperlink{structTag}{Tag}}\textquotesingle{}s at index to the new \mbox{\hyperlink{structTag}{Tag}}. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classHtmlScanner_a2a97f39e1e0afebef5bbc4b0471b469e}\label{classHtmlScanner_a2a97f39e1e0afebef5bbc4b0471b469e}} 
-void \mbox{\hyperlink{classHtmlScanner_a2a97f39e1e0afebef5bbc4b0471b469e}{swap\+Tags}} (\mbox{\hyperlink{structTag}{Tag}} $\ast$fisrt\+Tag, \mbox{\hyperlink{structTag}{Tag}} $\ast$second\+Tag)
-\begin{DoxyCompactList}\small\item\em Swaps the two \mbox{\hyperlink{structTag}{Tag}}\textquotesingle{}s at index to the new \mbox{\hyperlink{structTag}{Tag}}. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classHtmlScanner_aff2495cad28055ffc6436c3da474b55f}\label{classHtmlScanner_aff2495cad28055ffc6436c3da474b55f}} 
 \mbox{\hyperlink{structTag}{Tag}} $\ast$ \mbox{\hyperlink{classHtmlScanner_aff2495cad28055ffc6436c3da474b55f}{tag\+At}} (int position)
-\begin{DoxyCompactList}\small\item\em Recovers the tag at index in the \mbox{\hyperlink{structTag}{Tag}} list. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Swaps the two \mbox{\hyperlink{structTag}{Tag}}\textquotesingle{}s at index to the new \mbox{\hyperlink{structTag}{Tag}}. / void swap\+Tags(\+Tag$\ast$ fisrt\+Tag, Tag$\ast$ second\+Tag);. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classHtmlScanner_a1227de123ff8fb475090b2a14685a671}\label{classHtmlScanner_a1227de123ff8fb475090b2a14685a671}} 
 bool \mbox{\hyperlink{classHtmlScanner_a1227de123ff8fb475090b2a14685a671}{is\+Valid\+Tag}} (\mbox{\hyperlink{structTag}{Tag}} $\ast$tag)
 \begin{DoxyCompactList}\small\item\em Returns true if the \mbox{\hyperlink{structTag}{Tag}} is a valid tag. \end{DoxyCompactList}\item 
@@ -69,7 +65,9 @@ bool \mbox{\hyperlink{classHtmlScanner_a927beffe521b29db77801dc4c7351992}{is\+Va
 void \mbox{\hyperlink{classHtmlScanner_a4c078da54fe686da8c8004c05e914080}{set\+Languages}} (\mbox{\hyperlink{classBCP47Languages}{BCP47\+Languages}} $\ast$languages)
 \begin{DoxyCompactList}\small\item\em Sets the language list to allow a language tag to be tested for validity. \end{DoxyCompactList}\item 
 const QVector$<$ \mbox{\hyperlink{structTagMatch}{Tag\+Match}} $\ast$ $>$ \& \mbox{\hyperlink{classHtmlScanner_a715db79e63f81f62ea113ff83e73fe52}{matched\+Tags}} () const
-\begin{DoxyCompactList}\small\item\em Returns the list of matching tags. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Returns the list of matching tags. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structTag}{Tag}} $\ast$ \mbox{\hyperlink{classHtmlScanner_a2510801b554f1fe68f36a4b917861bde}{matched\+Tag}} (\mbox{\hyperlink{structTag}{Tag}} $\ast$tag)
+\begin{DoxyCompactList}\small\item\em Returns the next matching tag to the supplied tag. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -83,7 +81,42 @@ Walks throughan html page, detecting and marking html tags and detecting incorre
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classHtmlScanner_a715db79e63f81f62ea113ff83e73fe52}\label{classHtmlScanner_a715db79e63f81f62ea113ff83e73fe52}} 
+\mbox{\Hypertarget{classHtmlScanner_a2510801b554f1fe68f36a4b917861bde}\label{classHtmlScanner_a2510801b554f1fe68f36a4b917861bde}} 
+\index{HtmlScanner@{HtmlScanner}!matchedTag@{matchedTag}}
+\index{matchedTag@{matchedTag}!HtmlScanner@{HtmlScanner}}
+\doxysubsubsection{\texorpdfstring{matchedTag()}{matchedTag()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structTag}{Tag}}$\ast$ Html\+Scanner\+::matched\+Tag (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structTag}{Tag}} $\ast$}]{tag }\end{DoxyParamCaption})}
+
+
+
+Returns the next matching tag to the supplied tag. 
+
+The match returned is the matching tag of the same type. For example if a
+\begin{DoxyCode}{0}
+\DoxyCodeLine{<html ..>}
+
+\end{DoxyCode}
+ tag is supplied then the first matching 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{<\(\backslash\)html>}
+
+\end{DoxyCode}
+ will be returned. Conversely if a
+\begin{DoxyCode}{0}
+\DoxyCodeLine{</html>}
+
+\end{DoxyCode}
+ is supplied the first previous
+\begin{DoxyCode}{0}
+\DoxyCodeLine{<html ...>}
+
+\end{DoxyCode}
+ will be returned. If there is no matching tag then
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{nullptr}}
+
+\end{DoxyCode}
+ is returned. \mbox{\Hypertarget{classHtmlScanner_a715db79e63f81f62ea113ff83e73fe52}\label{classHtmlScanner_a715db79e63f81f62ea113ff83e73fe52}} 
 \index{HtmlScanner@{HtmlScanner}!matchedTags@{matchedTags}}
 \index{matchedTags@{matchedTags}!HtmlScanner@{HtmlScanner}}
 \doxysubsubsection{\texorpdfstring{matchedTags()}{matchedTags()}}
@@ -123,7 +156,26 @@ If the tag is the final tag then nothing is done. \mbox{\Hypertarget{classHtmlSc
 
 Sets the language list to allow a language tag to be tested for validity. 
 
-If this is not set then language tag testing is not done. \mbox{\Hypertarget{classHtmlScanner_a5a946cad2bef7aeb3862066611b07e4a}\label{classHtmlScanner_a5a946cad2bef7aeb3862066611b07e4a}} 
+If this is not set then language tag testing is not done. \mbox{\Hypertarget{classHtmlScanner_aff2495cad28055ffc6436c3da474b55f}\label{classHtmlScanner_aff2495cad28055ffc6436c3da474b55f}} 
+\index{HtmlScanner@{HtmlScanner}!tagAt@{tagAt}}
+\index{tagAt@{tagAt}!HtmlScanner@{HtmlScanner}}
+\doxysubsubsection{\texorpdfstring{tagAt()}{tagAt()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structTag}{Tag}}$\ast$ Html\+Scanner\+::tag\+At (\begin{DoxyParamCaption}\item[{int}]{position }\end{DoxyParamCaption})}
+
+
+
+Swaps the two \mbox{\hyperlink{structTag}{Tag}}\textquotesingle{}s at index to the new \mbox{\hyperlink{structTag}{Tag}}. / void swap\+Tags(\+Tag$\ast$ fisrt\+Tag, Tag$\ast$ second\+Tag);. 
+
+\begin{DoxyVerb}    \brief Swaps the two Tag's at index to the new Tag.
+  &zwj;/
+\end{DoxyVerb}
+ void swap\+Tags(int first\+Index, int second\+Index);
+
+/$\ast$!
+
+/$\ast$!
+
+Recovers the tag at index in the \mbox{\hyperlink{structTag}{Tag}} list. \mbox{\Hypertarget{classHtmlScanner_a5a946cad2bef7aeb3862066611b07e4a}\label{classHtmlScanner_a5a946cad2bef7aeb3862066611b07e4a}} 
 \index{HtmlScanner@{HtmlScanner}!tagList@{tagList}}
 \index{tagList@{tagList}!HtmlScanner@{HtmlScanner}}
 \doxysubsubsection{\texorpdfstring{tagList()}{tagList()}}

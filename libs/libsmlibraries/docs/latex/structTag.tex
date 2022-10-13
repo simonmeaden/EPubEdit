@@ -30,7 +30,10 @@ int \mbox{\hyperlink{structTag_a84fa94ff77ec9b5326b786f799d2c1c9}{end}} ()
 int \mbox{\hyperlink{structTag_a50d1e7b7c3fe2c678ce5f493b70d6d1b}{length}} ()
 \begin{DoxyCompactList}\small\item\em Returns the tag length. \end{DoxyCompactList}\item 
 virtual QString \mbox{\hyperlink{structTag_a4da658a0743db8f0218cd3f256125217}{to\+String}} ()=0
-\begin{DoxyCompactList}\small\item\em Creates a string version of the tag. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Creates a string version of the tag. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structTag_a35a58834433027727befee80f6cec773}\label{structTag_a35a58834433027727befee80f6cec773}} 
+virtual void \mbox{\hyperlink{structTag_a35a58834433027727befee80f6cec773}{copy\+Tag\+Into}} (\mbox{\hyperlink{structTag}{Tag}} $\ast$tag)
+\begin{DoxyCompactList}\small\item\em Copies values from the supplied tag into this tag. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -48,7 +51,7 @@ QText\+Cursor \mbox{\hyperlink{structTag_ab7019996370e27697ba21c0f6271b60d}{end\
 \begin{DoxyCompactList}\small\item\em The QText\+Cursor at the end position of the tag. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{structTag_a744c79766e49115de69889b08e58059d}\label{structTag_a744c79766e49115de69889b08e58059d}} 
 QString \mbox{\hyperlink{structTag_a744c79766e49115de69889b08e58059d}{hover\+Text}}
-\begin{DoxyCompactList}\small\item\em text to display when hovering \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em text to display when hovering. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -81,7 +84,7 @@ Creates a string version of the tag.
 
 This is an empty virtual method in \mbox{\hyperlink{structTag}{Tag}}. 
 
-Implemented in \mbox{\hyperlink{structXmlTag_a92fcc642cc68298dd6d30244ad53962f}{Xml\+Tag}}, \mbox{\hyperlink{structHtmlTag_a2c745f07d04208772a8be9efd1fe688f}{Html\+Tag}}, \mbox{\hyperlink{structDocTypeTag_a0b75f3375b9b79cd1f02918a726d43c9}{Doc\+Type\+Tag}}, \mbox{\hyperlink{structCloserTag_af20db2bd19d79c1ae916985e3f6b03a1}{Closer\+Tag}}, \mbox{\hyperlink{structCommentTag_ad61cba18c6b96596ac2398add0f7a343}{Comment\+Tag}}, and \mbox{\hyperlink{structTextTag_a476cdfb0536bba4fbae8ebcc9a50f2c5}{Text\+Tag}}.
+Implemented in \mbox{\hyperlink{structXmlDeclaration_a2bc7da4f19d762ed01de7e13d2a77b04}{Xml\+Declaration}}, \mbox{\hyperlink{structHtmlTag_a2c745f07d04208772a8be9efd1fe688f}{Html\+Tag}}, \mbox{\hyperlink{structDocTypeTag_a0b75f3375b9b79cd1f02918a726d43c9}{Doc\+Type\+Tag}}, \mbox{\hyperlink{structCloserTag_af20db2bd19d79c1ae916985e3f6b03a1}{Closer\+Tag}}, \mbox{\hyperlink{structCommentTag_ad61cba18c6b96596ac2398add0f7a343}{Comment\+Tag}}, \mbox{\hyperlink{structTextTag_a476cdfb0536bba4fbae8ebcc9a50f2c5}{Text\+Tag}}, and \mbox{\hyperlink{structSpecialCharTag_aadda6091b6fa3b68c9ec7fcdc3e8c903}{Special\+Char\+Tag}}.
 
 
 

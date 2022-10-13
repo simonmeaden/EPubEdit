@@ -22,7 +22,7 @@
 class ContentsFrame;
 class EPubDocument;
 class EPubEdit;
-class CodeEdit;
+class HtmlEdit;
 class ImageEdit;
 class ListWidget;
 
@@ -86,7 +86,7 @@ protected:
   //  EPubEditorPrivate* d_ptr;
 
 private:
-  CodeEdit* m_codeedit = nullptr;
+  HtmlEdit* m_codeedit = nullptr;
   EPubEdit* m_epubEdit = nullptr;
   ImageEdit* m_imgEdit = nullptr;
   IEPubEditor* m_currentEditor = nullptr;

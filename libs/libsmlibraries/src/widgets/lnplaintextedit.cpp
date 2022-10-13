@@ -135,7 +135,7 @@ LNPlainTextEdit::LNPlainTextEdit(QWidget* parent)
   , m_lnAreaBackColor(QColorConstants::X11::grey90)
   , m_lnAreaTextColor(QColorConstants::X11::grey40)
   , m_lnAreaSelectedBackColor(QColorConstants::X11::grey80)
-  , m_lnAreaSelectedTextColor(QColorConstants::X11::yellowgreen)
+  , m_lnAreaSelectedTextColor(QColorConstants::X11::greenyellow)
 {
   setMouseTracking(true);
   setFontToSourceCodePro();
@@ -157,10 +157,41 @@ LNPlainTextEdit::LNPlainTextEdit(QWidget* parent)
           &LNPlainTextEdit::updateRequest,
           this,
           &LNPlainTextEdit::updateFoldArea);
+
+  enableBookmarks(true);
+  enableLineNumbers(true);
+  enableFolds(true);
+}
+
+LNPlainTextEdit::LNPlainTextEdit(LNPlainTextEditSettings* settings,
+                                 QWidget* parent)
+  : QPlainTextEdit(parent)
+  , m_settings(settings)
+  , m_lnAreaBackColor(QColorConstants::X11::grey90)
+  , m_lnAreaTextColor(QColorConstants::X11::grey40)
+  , m_lnAreaSelectedBackColor(QColorConstants::X11::grey80)
+  , m_lnAreaSelectedTextColor(QColorConstants::X11::greenyellow)
+{
+  setMouseTracking(true);
+  setFontToSourceCodePro();
+  loadStandardPixmaps();
+
   connect(this,
-          &LNPlainTextEdit::cursorPositionChanged,
+          &LNPlainTextEdit::blockCountChanged,
           this,
-          &LNPlainTextEdit::highlightCurrentLine);
+          &LNPlainTextEdit::updateViewableAreaWidth);
+  connect(this,
+          &LNPlainTextEdit::updateRequest,
+          this,
+          &LNPlainTextEdit::updateBookmarkArea);
+  connect(this,
+          &LNPlainTextEdit::updateRequest,
+          this,
+          &LNPlainTextEdit::updateLineNumberArea);
+  connect(this,
+          &LNPlainTextEdit::updateRequest,
+          this,
+          &LNPlainTextEdit::updateFoldArea);
 
   enableBookmarks(true);
   enableLineNumbers(true);
@@ -252,6 +283,18 @@ LNPlainTextEdit::setFontToSourceCodePro()
   setFont(font);
 }
 
+int
+LNPlainTextEdit::currentLineNumber()
+{
+  return m_lineNumber;
+}
+
+int
+LNPlainTextEdit::lineCount()
+{
+  return m_lineCount;
+}
+
 void
 LNPlainTextEdit::loadStandardPixmaps()
 {
@@ -281,6 +324,27 @@ const QStringList&
 LNPlainTextEdit::getFontFamilies() const
 {
   return m_fontFamilies;
+}
+
+SettingsWidget*
+LNPlainTextEdit::settingsPage()
+{
+  auto widget = new LNPlainTextEditSettingsWidget(m_settings, this);
+  return widget;
+}
+
+void
+LNPlainTextEdit::setSettingsPage(SettingsWidget* widget)
+{
+  auto settingsWidget = qobject_cast<LNPlainTextEditSettingsWidget*>(widget);
+  if (settingsWidget && m_settings->isModified()) {
+    enableBookmarks(m_settings->isEnabledBookmarks());
+    enableLineNumbers(settingsWidget->isEnabledLineNumbers());
+    enableFolds(m_settings->isEnabledFolds());
+    setShowNewline(m_settings->isDisplayLineEnds());
+    auto f = QFont(m_settings->fontFamily(), settingsWidget->fontSize());
+    setFont(f);
+  }
 }
 
 const QPixmap
@@ -411,138 +475,153 @@ LNPlainTextEdit::addCustomPixmap(const QPixmap pixmap)
 }
 
 void
-LNPlainTextEdit::paintBookmarkArea(QPaintEvent* event)
+LNPlainTextEdit::paintBookmarkArea(QPaintEvent* /*event*/)
 {
-  auto rect = m_bookmarkArea->rect();
-  QPainter painter(m_bookmarkArea);
-  painter.fillRect(rect, m_lnAreaBackColor);
+  if (m_bookmarkArea) {
+    auto rect = m_bookmarkArea->rect();
+    QPainter painter(m_bookmarkArea);
+    painter.fillRect(rect, m_lnAreaBackColor);
 
-  auto block = firstVisibleBlock();
-  auto blockNumber = block.blockNumber();
-  auto top =
-    qRound(blockBoundingGeometry(block).translated(contentOffset()).top());
-  auto bottom = top + qRound(blockBoundingRect(block).height());
-  auto height = fontMetrics().height();
-  auto blockHeight = blockBoundingRect(block).height();
+    auto block = firstVisibleBlock();
+    auto blockNumber = block.blockNumber();
+    auto top =
+      qRound(blockBoundingGeometry(block).translated(contentOffset()).top());
+    auto bottom = top + qRound(blockBoundingRect(block).height());
+    auto height = fontMetrics().height();
+    auto blockHeight = blockBoundingRect(block).height();
 
-  while (block.isValid() && top <= rect.bottom()) {
-    if (block.isVisible() && bottom >= rect.top()) {
-      int lineNumber = blockNumber + 1;
+    while (block.isValid() && top <= rect.bottom()) {
+      if (block.isVisible() && bottom >= rect.top()) {
+        int lineNumber = blockNumber + 1;
 
-      if (lineNumber == m_lineNumber)
-        painter.fillRect(
-          rect.x(), top, rect.width(), blockHeight, m_lnAreaSelectedBackColor);
+        if (lineNumber == m_lineNumber)
+          painter.fillRect(rect.x(),
+                           top,
+                           rect.width(),
+                           blockHeight,
+                           m_lnAreaSelectedBackColor);
 
-      if (m_bookmarkArea->hasHover(lineNumber)) {
-        int pxId = m_bookmarkArea->hoverIcon(lineNumber);
-        auto px = pixmap(pxId);
-        painter.drawPixmap(
-          Math::halfDifference(m_bookmarkArea->width(), px.width()),
-          top + Math::halfDifference(height, px.height()),
-          px);
+        if (m_bookmarkArea->hasHover(lineNumber)) {
+          int pxId = m_bookmarkArea->hoverIcon(lineNumber);
+          auto px = pixmap(pxId);
+          painter.drawPixmap(
+            Math::halfDifference(m_bookmarkArea->width(), px.width()),
+            top + Math::halfDifference(height, px.height()),
+            px);
+        }
+
+        if (hasBookmark(lineNumber)) {
+          auto data = bookmark(lineNumber);
+          auto pxId = data.pixmap;
+          auto px = pixmap(pxId);
+          painter.drawPixmap(
+            Math::halfDifference(m_bookmarkArea->width(), px.width()),
+            top + Math::halfDifference(height, px.height()),
+            px);
+          data.rect = QRect(0, top, width(), height);
+        }
       }
 
-      if (hasBookmark(lineNumber)) {
-        auto data = bookmark(lineNumber);
-        auto pxId = data.pixmap;
-        auto px = pixmap(pxId);
-        painter.drawPixmap(
-          Math::halfDifference(m_bookmarkArea->width(), px.width()),
-          top + Math::halfDifference(height, px.height()),
-          px);
-        data.rect = QRect(0, top, width(), height);
-      }
+      block = block.next();
+      top = bottom;
+      bottom = top + qRound(blockHeight);
+      ++blockNumber;
     }
-
-    block = block.next();
-    top = bottom;
-    bottom = top + qRound(blockHeight);
-    ++blockNumber;
   }
 }
 
 void
 LNPlainTextEdit::paintFoldArea(QPaintEvent* event)
 {
-  auto rect = event->rect();
-  QPainter painter(m_foldArea);
-  painter.fillRect(rect, m_lnAreaBackColor);
+  if (m_foldArea) {
+    auto rect = event->rect();
+    QPainter painter(m_foldArea);
+    painter.fillRect(rect, m_lnAreaBackColor);
 
-  auto block = firstVisibleBlock();
-  auto blockNumber = block.blockNumber();
-  auto top =
-    qRound(blockBoundingGeometry(block).translated(contentOffset()).top());
-  auto bottom = top + qRound(blockBoundingRect(block).height());
-  auto blockHeight = qRound(blockBoundingRect(block).height());
+    auto block = firstVisibleBlock();
+    auto blockNumber = block.blockNumber();
+    auto top =
+      qRound(blockBoundingGeometry(block).translated(contentOffset()).top());
+    auto bottom = top + qRound(blockBoundingRect(block).height());
+    auto blockHeight = qRound(blockBoundingRect(block).height());
 
-  while (block.isValid() && top <= rect.bottom()) {
-    if (block.isVisible() && bottom >= rect.top()) {
-      auto lineNumber = blockNumber + 1;
+    while (block.isValid() && top <= rect.bottom()) {
+      if (block.isVisible() && bottom >= rect.top()) {
+        auto lineNumber = blockNumber + 1;
 
-      if (lineNumber == m_lineNumber)
-        painter.fillRect(
-          rect.x(), top, rect.width(), blockHeight, m_lnAreaSelectedBackColor);
+        if (lineNumber == m_lineNumber)
+          painter.fillRect(rect.x(),
+                           top,
+                           rect.width(),
+                           blockHeight,
+                           m_lnAreaSelectedBackColor);
 
-      if (m_foldArea->hasFold(lineNumber)) {
-        QPixmap px;
-        if (m_foldArea->isFolded(lineNumber))
-          px = foldedPixmap(m_foldStyle);
-        else
-          px = unfoldedPixmap(m_foldStyle);
-        painter.drawPixmap(
-          Math::halfDifference(m_foldArea->width(), px.width()),
-          top + Math::halfDifference(blockHeight, px.height()),
-          px);
-        m_foldArea->set(lineNumber,
-                        QRect(0, top, m_foldArea->width(), blockHeight));
+        if (m_foldArea->hasFold(lineNumber)) {
+          QPixmap px;
+          if (m_foldArea->isFolded(lineNumber))
+            px = foldedPixmap(m_foldStyle);
+          else
+            px = unfoldedPixmap(m_foldStyle);
+          painter.drawPixmap(
+            Math::halfDifference(m_foldArea->width(), px.width()),
+            top + Math::halfDifference(blockHeight, px.height()),
+            px);
+          m_foldArea->set(lineNumber,
+                          QRect(0, top, m_foldArea->width(), blockHeight));
+        }
       }
-    }
 
-    block = block.next();
-    top = bottom;
-    bottom = top + blockHeight;
-    ++blockNumber;
+      block = block.next();
+      top = bottom;
+      bottom = top + blockHeight;
+      ++blockNumber;
+    }
   }
 }
 
 void
 LNPlainTextEdit::paintLNArea(QPaintEvent* event)
 {
-  auto rect = event->rect();
-  auto fm = fontMetrics();
+  if (m_lineNumberArea) {
+    auto rect = event->rect();
+    auto fm = fontMetrics();
 
-  QPainter painter(m_lineNumberArea);
-  painter.fillRect(rect, m_lnAreaBackColor);
+    QPainter painter(m_lineNumberArea);
+    painter.fillRect(rect, m_lnAreaBackColor);
 
-  QTextBlock block = firstVisibleBlock();
-  auto blockNumber = block.blockNumber();
-  auto top =
-    qRound(blockBoundingGeometry(block).translated(contentOffset()).top());
-  auto blockHeight = qRound(blockBoundingRect(block).height());
-  auto bottom = top + blockHeight;
+    QTextBlock block = firstVisibleBlock();
+    auto blockNumber = block.blockNumber();
+    auto top =
+      qRound(blockBoundingGeometry(block).translated(contentOffset()).top());
+    auto blockHeight = qRound(blockBoundingRect(block).height());
+    auto bottom = top + blockHeight;
 
-  while (block.isValid() && top <= event->rect().bottom()) {
-    if (block.isVisible() && bottom >= event->rect().top()) {
-      auto lineNumber = blockNumber + 1;
-      QString number = QString::number(lineNumber);
+    while (block.isValid() && top <= event->rect().bottom()) {
+      if (block.isVisible() && bottom >= event->rect().top()) {
+        auto lineNumber = blockNumber + 1;
+        QString number = QString::number(lineNumber);
 
-      if (lineNumber == m_lineNumber)
-        painter.fillRect(
-          rect.x(), top, rect.width(), blockHeight, m_lnAreaSelectedBackColor);
+        if (lineNumber == m_lineNumber)
+          painter.fillRect(rect.x(),
+                           top,
+                           rect.width(),
+                           blockHeight,
+                           m_lnAreaSelectedBackColor);
 
-      painter.setPen((textCursor().blockNumber() == blockNumber)
-                       ? m_lnAreaSelectedTextColor
-                       : m_lnAreaTextColor);
-      auto width = m_lineNumberArea->width();
-      painter.drawText((width - fm.horizontalAdvance(number)) - 3,
-                       bottom - fm.descent(),
-                       number);
+        painter.setPen((textCursor().blockNumber() == blockNumber)
+                         ? m_lnAreaSelectedTextColor
+                         : m_lnAreaTextColor);
+        auto width = m_lineNumberArea->width();
+        painter.drawText((width - fm.horizontalAdvance(number)) - 3,
+                         bottom - fm.descent(),
+                         number);
+      }
+
+      block = block.next();
+      top = bottom;
+      bottom = top + qRound(blockBoundingRect(block).height());
+      ++blockNumber;
     }
-
-    block = block.next();
-    top = bottom;
-    bottom = top + qRound(blockBoundingRect(block).height());
-    ++blockNumber;
   }
 }
 
@@ -635,7 +714,7 @@ LNPlainTextEdit::resizeEvent(QResizeEvent* event)
 }
 
 bool
-LNPlainTextEdit::highlightLine() const
+LNPlainTextEdit::isHighlightLine() const
 {
   return m_highlightLine;
 }
@@ -659,7 +738,7 @@ LNPlainTextEdit::setLNAreaTextColor(const QColor& foreColor)
 }
 
 const QColor&
-LNPlainTextEdit::lineNumberBackColor() const
+LNPlainTextEdit::lnAreaBackColor() const
 {
   return m_lnAreaBackColor;
 }
@@ -697,40 +776,49 @@ LNPlainTextEdit::setLineNumberBackColor(const QColor& backColor)
 void
 LNPlainTextEdit::updateViewableAreaWidth(int /*blockCount*/)
 {
-  setViewportMargins(m_bookmarkArea->width() + lineNumberAreaWidth() +
-                       m_foldArea->width(),
-                     0,
-                     0,
-                     0);
-}
-
-void
-LNPlainTextEdit::highlightCurrentLine()
-{
-  if (m_highlightLine) {
-    QVector<QTextEdit::ExtraSelection> extraSelections;
-
-    if (!isReadOnly()) {
-      QTextEdit::ExtraSelection selection;
-
-      selection.format.setBackground(m_lnAreaSelectedBackColor);
-      selection.format.setProperty(QTextFormat::FullWidthSelection, true);
-      selection.cursor = textCursor();
-      selection.cursor.clearSelection();
-      extraSelections.append(selection);
-    }
-
-    setExtraSelections(extraSelections);
+  auto width = 0;
+  if (m_bookmarkArea) {
+    width += m_bookmarkArea->width();
   }
+  if (m_lineNumberArea) {
+    width += lineNumberAreaWidth();
+  }
+  if (m_foldArea) {
+    width += m_foldArea->width();
+  }
+  setViewportMargins(width, 0, 0, 0);
 }
+
+// void
+// LNPlainTextEdit::highlightCurrentLine()
+//{
+//   if (m_highlightLine) {
+//     QVector<QTextEdit::ExtraSelection> extraSelections;
+
+//    if (!isReadOnly()) {
+//      QTextEdit::ExtraSelection selection;
+
+//      selection.format.setBackground(m_lnAreaSelectedBackColor);
+//      selection.format.setProperty(QTextFormat::FullWidthSelection, true);
+//      selection.cursor = textCursor();
+//      selection.cursor.clearSelection();
+//      extraSelections.append(selection);
+//    }
+
+//    setExtraSelections(extraSelections);
+//  }
+//}
 
 void
 LNPlainTextEdit::updateBookmarkArea(const QRect& rect, int dy)
 {
-  if (dy) {
-    m_bookmarkArea->scroll(0, dy);
-  } else {
-    m_bookmarkArea->update(0, rect.y(), m_bookmarkArea->width(), rect.height());
+  if (m_bookmarkArea) {
+    if (dy) {
+      m_bookmarkArea->scroll(0, dy);
+    } else {
+      m_bookmarkArea->update(
+        0, rect.y(), m_bookmarkArea->width(), rect.height());
+    }
   }
 
   if (rect.contains(viewport()->rect())) {
@@ -741,10 +829,12 @@ LNPlainTextEdit::updateBookmarkArea(const QRect& rect, int dy)
 void
 LNPlainTextEdit::updateFoldArea(const QRect& rect, int dy)
 {
-  if (dy) {
-    m_foldArea->scroll(0, dy);
-  } else {
-    m_foldArea->update(0, rect.y(), m_foldArea->width(), rect.height());
+  if (m_foldArea) {
+    if (dy) {
+      m_foldArea->scroll(0, dy);
+    } else {
+      m_foldArea->update(0, rect.y(), m_foldArea->width(), rect.height());
+    }
   }
 
   if (rect.contains(viewport()->rect())) {
@@ -755,11 +845,13 @@ LNPlainTextEdit::updateFoldArea(const QRect& rect, int dy)
 void
 LNPlainTextEdit::updateLineNumberArea(const QRect& rect, int dy)
 {
-  if (dy) {
-    m_lineNumberArea->scroll(0, dy);
-  } else {
-    m_lineNumberArea->update(
-      rect.x(), rect.y(), m_lineNumberArea->width(), rect.height());
+  if (m_lineNumberArea) {
+    if (dy) {
+      m_lineNumberArea->scroll(0, dy);
+    } else {
+      m_lineNumberArea->update(
+        rect.x(), rect.y(), m_lineNumberArea->width(), rect.height());
+    }
   }
 
   if (rect.contains(viewport()->rect())) {
@@ -1145,11 +1237,14 @@ void
 LNPlainTextEdit::mousePressEvent(QMouseEvent* event)
 {
   QPlainTextEdit::mousePressEvent(event);
+  m_currentCursor = cursorForPosition(event->position().toPoint());
+
   if (event->button() == Qt::LeftButton) {
-    auto data = calculateLineNumber(textCursor());
+    auto data = calculateLineNumber(m_currentCursor);
     m_lineNumber = data.first;
     m_lineCount = data.second;
     gotoLineNumber();
+    return;
   }
 }
 
@@ -1217,6 +1312,21 @@ LNPlainTextEdit::event(QEvent* event)
   return QPlainTextEdit::event(event);
 }
 
+void
+LNPlainTextEdit::paintEvent(QPaintEvent* event)
+{
+  QPlainTextEdit::paintEvent(event);
+
+  if (m_highlightLine) {
+    auto rect = event->rect();
+    auto tCursor = textCursor();
+    auto cRect = cursorRect(tCursor);
+    rect.setHeight(cRect.height());
+    QPainter painter(this);
+    painter.fillRect(rect, m_lnAreaSelectedBackColor);
+  }
+}
+
 // void
 // LNPlainTextEdit::hoverEnter(QHoverEvent* event)
 //{
@@ -1236,29 +1346,30 @@ void
 LNPlainTextEdit::hoverMove(QHoverEvent* event)
 {
   // TODO
-  auto bookmarkRect = m_bookmarkArea->rect();
-  auto pos = event->position().toPoint();
-  if (bookmarkRect.contains(pos)) {
-    auto data = calculateLineNumber(cursorForPosition(pos));
-    auto lineNumber = data.first;
-    if (m_bookmarkArea->hasHover(lineNumber)) {
-      if (!m_hoverWidget) {
-        m_hoverWidget = new HoverWidget(this);
-        connect(m_hoverWidget,
-                &HoverWidget::finished,
-                this,
-                &LNPlainTextEdit::bookmarkHoverFinished);
+  if (m_bookmarkArea) {
+    auto bookmarkRect = m_bookmarkArea->rect();
+    auto pos = event->position().toPoint();
+    if (bookmarkRect.contains(pos)) {
+      auto data = calculateLineNumber(cursorForPosition(pos));
+      auto lineNumber = data.first;
+      if (m_bookmarkArea->hasHover(lineNumber)) {
+        if (!m_hoverWidget) {
+          m_hoverWidget = new HoverWidget(this);
+          connect(m_hoverWidget,
+                  &HoverWidget::finished,
+                  this,
+                  &LNPlainTextEdit::bookmarkHoverFinished);
+        }
+        if (!m_hoverWidget->isVisible()) {
+          m_hoverWidget->setText(m_bookmarkArea->hoverText(lineNumber));
+          m_hoverWidget->setTitle(m_bookmarkArea->hoverTitle(lineNumber));
+          auto size = m_hoverWidget->sizeHint();
+          m_hoverWidget->setGeometry(m_bookmarkArea->x(), pos.y(), 500, 200);
+          m_hoverWidget->show(10000);
+        }
+      } else {
+        // TODO not certain what needs to go here
       }
-      if (!m_hoverWidget->isVisible()) {
-        m_hoverWidget->setText(m_bookmarkArea->hoverText(lineNumber));
-        m_hoverWidget->setTitle(m_bookmarkArea->hoverTitle(lineNumber));
-        auto size = m_hoverWidget->sizeHint();
-        m_hoverWidget->setGeometry(
-          m_bookmarkArea->x(), pos.y(), 500, 200);
-        m_hoverWidget->show(10000);
-      }
-    } else {
-      // TODO not certain what needs to go here
     }
   }
 }
@@ -1314,36 +1425,6 @@ LNPlainTextEdit::actionForKey(const QString& text, KeyEventMapper mapper)
 }
 
 void
-LNPlainTextEdit::showNewline()
-{
-  m_showNewline = true;
-  auto text = toPlainText();
-  QList<int> positions;
-  for (int i = 0; i < text.length(); i++) {
-    auto c = text.at(i);
-    if (c == Characters::NEWLINE) {
-      positions.append(i);
-    }
-  }
-  QList<int>::const_reverse_iterator it;
-  it = positions.crbegin();
-  while (it != positions.crend()) {
-    text.insert(*it, Characters::NEWLINE_LEFT_SYMBOL);
-    ++it;
-  }
-  setPlainText(text);
-}
-
-void
-LNPlainTextEdit::clearNewline()
-{
-  m_showNewline = false;
-  auto text = toPlainText();
-  text.replace(Characters::NEWLINE_LEFT_SYMBOL, "");
-  setPlainText(text);
-}
-
-void
 LNPlainTextEdit::showTabs()
 {
   m_showTabs = true;
@@ -1373,8 +1454,7 @@ LNPlainTextEdit::clearTabs()
   setPlainText(text);
 }
 
-void
-LNPlainTextEdit::contextMenuEvent(QContextMenuEvent* event)
+QMenu* LNPlainTextEdit::createContextMenu()
 {
   auto menu = createStandardContextMenu();
   if (m_bookmarkArea->isEnabled()) {
@@ -1404,6 +1484,13 @@ LNPlainTextEdit::contextMenuEvent(QContextMenuEvent* event)
     }
     menu->addMenu(submenu);
   }
+  return menu;
+}
+
+void
+LNPlainTextEdit::contextMenuEvent(QContextMenuEvent* event)
+{
+  auto menu = createContextMenu();
   menu->exec(event->globalPos());
   menu->deleteLater();
 }
@@ -1418,10 +1505,27 @@ void
 LNPlainTextEdit::setShowNewline(bool showNewline)
 {
   m_showNewline = showNewline;
+  auto text = toPlainText();
   if (m_showNewline) {
-
+    QList<int> positions;
+    for (int i = 0; i < text.length(); i++) {
+      auto c = text.at(i);
+      if (c == Characters::NEWLINE) {
+        positions.append(i);
+      }
+    }
+    QList<int>::const_reverse_iterator it;
+    it = positions.crbegin();
+    while (it != positions.crend()) {
+      text.insert(*it, Characters::NEWLINE_LEFT_SYMBOL);
+      ++it;
+    }
   } else {
+    m_showNewline = false;
+    auto text = toPlainText();
+    text.replace(Characters::NEWLINE_LEFT_SYMBOL, "");
   }
+  setPlainText(text);
 }
 
 bool
@@ -1445,7 +1549,7 @@ LNPlainTextEdit::setFoldStyle(Style foldStyle)
 void
 LNPlainTextEdit::enableBookmarks(bool enable)
 {
-  m_bookmarkAreaEnabled = enable;
+  m_settings->setEnabledBookmarks(enable);
   if (enable) {
     if (!m_bookmarkArea) {
       m_bookmarkArea = new BookmarkArea(this);
@@ -1463,13 +1567,13 @@ LNPlainTextEdit::enableBookmarks(bool enable)
 bool
 LNPlainTextEdit::isBookmarksEnabled()
 {
-  return m_bookmarkAreaEnabled;
+  return m_settings->isEnabledBookmarks();
 }
 
 void
 LNPlainTextEdit::enableFolds(bool enable)
 {
-  m_foldAreaEnabled = enable;
+  m_settings->setEnabledFolds(enable);
   if (enable) {
     if (!m_foldArea) {
       m_foldArea = new FoldArea(this);
@@ -1485,13 +1589,13 @@ LNPlainTextEdit::enableFolds(bool enable)
 bool
 LNPlainTextEdit::isFoldsEnabled()
 {
-  return m_foldAreaEnabled;
+  return m_settings->isEnabledFolds();
 }
 
 void
 LNPlainTextEdit::enableLineNumbers(bool enable)
 {
-  m_lineNumberAreaEnabled = enable;
+  m_settings->setEnabledLineNumbers(enable);
   if (enable) {
     if (!m_lineNumberArea) {
       m_lineNumberArea = new LineNumberArea(this);
@@ -1507,7 +1611,7 @@ LNPlainTextEdit::enableLineNumbers(bool enable)
 bool
 LNPlainTextEdit::isLineNumbersEnabled()
 {
-  return m_lineNumberAreaEnabled;
+  return m_settings->isEnabledLineNumbers();
 }
 
 //====================================================================
@@ -1995,4 +2099,313 @@ LNPlainTextEdit::BookmarkModel::headerData(int section,
   }
 
   return QVariant();
+}
+
+//====================================================================
+//=== LNPlainTextEditSettingsWidget
+//====================================================================
+LNPlainTextEditSettingsWidget::LNPlainTextEditSettingsWidget(
+  LNPlainTextEditSettings* settings,
+  LNPlainTextEdit* parent)
+  : SettingsWidget(parent)
+  , m_editor(parent)
+  , m_settings(settings)
+{
+}
+
+void
+LNPlainTextEditSettingsWidget::initGui(int& row)
+{
+  auto chk = new QCheckBox(tr("Enable bookmarks :"), this);
+  chk->setChecked(m_editor->isBookmarksEnabled());
+  chk->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+  connect(chk,
+          &QCheckBox::clicked,
+          this,
+          &LNPlainTextEditSettingsWidget::setEnabledBookmarks);
+  m_layout->addWidget(chk, row++, 0);
+
+  chk = new QCheckBox(tr("Enable line numbers :"), this);
+  chk->setChecked(m_editor->isLineNumbersEnabled());
+  chk->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+  connect(chk,
+          &QCheckBox::clicked,
+          this,
+          &LNPlainTextEditSettingsWidget::setEnabledLineNumbers);
+  m_layout->addWidget(chk, row++, 0);
+
+  chk = new QCheckBox(tr("Enable folds :"), this);
+  chk->setChecked(m_editor->isFoldsEnabled());
+  chk->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+  connect(chk,
+          &QCheckBox::clicked,
+          this,
+          &LNPlainTextEditSettingsWidget::setEnabledFolds);
+  m_layout->addWidget(chk, row++, 0);
+
+  chk = new QCheckBox(tr("Display line end :"), this);
+  chk->setChecked(m_editor->isShowNewline());
+  chk->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+  connect(chk,
+          &QCheckBox::clicked,
+          this,
+          &LNPlainTextEditSettingsWidget::setDisplayLineEnds);
+  m_layout->addWidget(chk, row++, 0);
+
+  auto fontBox = new QGroupBox(tr("Font"), this);
+  m_layout->addWidget(fontBox, row++, 0);
+  auto col = 0;
+  auto fontLayout = new QGridLayout;
+  fontBox->setLayout(fontLayout);
+
+  auto lbl = new QLabel(tr("Family:"), this);
+  fontLayout->addWidget(lbl, 0, col++);
+  auto familyBox = new QComboBox(this);
+  familyBox->addItems(m_editor->getFontFamilies());
+  auto font = m_editor->font();
+  familyBox->setCurrentText(font.family());
+  connect(familyBox,
+          &QComboBox::currentTextChanged,
+          this,
+          &LNPlainTextEditSettingsWidget::fontFamilyHasChanged);
+  fontLayout->addWidget(familyBox, 0, col++);
+
+  lbl = new QLabel(tr("Size:"), this);
+  fontLayout->addWidget(lbl, 0, col++);
+  auto sizeBox = new QComboBox(this);
+  sizeBox->addItems({ "6", "7", "8", "9", "10", "11", "12", "14", "16", "18" });
+  sizeBox->setCurrentText(QString::number(font.pointSize()));
+  connect(sizeBox,
+          &QComboBox::currentTextChanged,
+          this,
+          &LNPlainTextEditSettingsWidget::fontSizeHasChanged);
+  fontLayout->addWidget(sizeBox, 0, col++);
+
+  //  chk = new QCheckBox("Display tab characters :", this);
+  //  chk->setChecked(m_editor->isFoldsEnabled());
+  //  chk->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+  //  connect(
+  //    chk, &QCheckBox::clicked, this,
+  //    &LNPlainTextEditSettings::setEnableFolds);
+  //  m_layout->addWidget(chk, row++, 0);
+
+  //  chk = new QCheckBox("Load standard icons :", this);
+  //  chk->setChecked(m_editor->uses());
+  //  chk->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+  //  connect(
+  //    chk, &QCheckBox::clicked, this,
+  //    &LNPlainTextEditSettings::setEnableFolds);
+  //  m_layout->addWidget(chk, row++, 0);
+}
+
+const QString&
+LNPlainTextEditSettingsWidget::fontFamily() const
+{
+  return m_settings->fontFamily();
+}
+
+void
+LNPlainTextEditSettingsWidget::setFontFamily(const QString& fontFamily)
+{
+  m_settings->setFontFamily(fontFamily);
+}
+
+int
+LNPlainTextEditSettingsWidget::fontSize() const
+{
+  return m_settings->fontSize();
+}
+
+void
+LNPlainTextEditSettingsWidget::setFontSize(int fontSize)
+{
+  m_settings->setFontSize(fontSize);
+}
+
+void
+LNPlainTextEditSettingsWidget::fontFamilyHasChanged(const QString& text)
+{
+  setFontFamily(text);
+  emit fontFamilyChanged(text);
+}
+
+void
+LNPlainTextEditSettingsWidget::fontSizeHasChanged(const QString& text)
+{
+  auto size = text.toInt();
+  setFontSize(size);
+  emit fontSizeChanged(size);
+}
+
+bool
+LNPlainTextEditSettingsWidget::isDisplayLineEnds() const
+{
+  return m_settings->isDisplayLineEnds();
+}
+
+void
+LNPlainTextEditSettingsWidget::setDisplayLineEnds(bool displayLineEnds)
+{
+  m_settings->setDisplayLineEnds(displayLineEnds);
+}
+
+// bool
+// LNPlainTextEditSettings::useStandardIcons() const
+//{
+//   return m_useStandardIcons;
+// }
+
+// voidd
+// LNPlainTextEditSettings::setUseStandardIcons(bool useStandardIcons)
+//{
+//   if (m_useStandardIcons != useStandardIcons) {
+//     m_useStandardIcons = useStandardIcons;
+//     m_modified = true;
+//   }
+// }
+
+bool
+LNPlainTextEditSettingsWidget::isEnabledBookmarks() const
+{
+  return m_settings->isEnabledBookmarks();
+}
+
+void
+LNPlainTextEditSettingsWidget::setEnabledBookmarks(bool enable)
+{
+  m_settings->setEnabledBookmarks(enable);
+}
+
+bool
+LNPlainTextEditSettingsWidget::isEnabledLineNumbers() const
+{
+  return m_settings->isEnabledLineNumbers();
+}
+
+void
+LNPlainTextEditSettingsWidget::setEnabledLineNumbers(bool enable)
+{
+  m_settings->setEnabledLineNumbers(enable);
+}
+
+bool
+LNPlainTextEditSettingsWidget::isEnabledFolds() const
+{
+  return m_settings->isEnabledFolds();
+}
+
+void
+LNPlainTextEditSettingsWidget::setEnabledFolds(bool enable)
+{
+  m_settings->setEnabledFolds(enable);
+}
+
+bool
+LNPlainTextEditSettingsWidget::isModified() const
+{
+  return m_settings->isModified();
+}
+
+//====================================================================
+//=== LNPlainTextEditSettings
+//====================================================================
+LNPlainTextEditSettings::LNPlainTextEditSettings(QObject* parent)
+  : QObject(parent)
+{
+}
+
+LNPlainTextEditSettings::~LNPlainTextEditSettings() {}
+
+bool
+LNPlainTextEditSettings::isEnabledBookmarks() const
+{
+  return m_enableBookmarks;
+}
+
+void
+LNPlainTextEditSettings::setEnabledBookmarks(bool enable)
+{
+  if (m_enableBookmarks != enable) {
+    m_enableBookmarks = enable;
+    m_modified = true;
+  }
+}
+
+bool
+LNPlainTextEditSettings::isEnabledLineNumbers() const
+{
+  return m_enableLineNumbers;
+}
+
+void
+LNPlainTextEditSettings::setEnabledLineNumbers(bool enable)
+{
+  if (m_enableLineNumbers != enable) {
+    m_enableLineNumbers = enable;
+    m_modified = true;
+  }
+}
+
+bool
+LNPlainTextEditSettings::isEnabledFolds() const
+{
+  return m_enableFolds;
+}
+
+void
+LNPlainTextEditSettings::setEnabledFolds(bool enable)
+{
+  if (m_enableFolds != enable) {
+    m_enableFolds = enable;
+    m_modified = true;
+  }
+}
+
+bool
+LNPlainTextEditSettings::isModified() const
+{
+  return m_modified;
+}
+
+bool
+LNPlainTextEditSettings::isDisplayLineEnds() const
+{
+  return m_displayLineEnds;
+}
+
+void
+LNPlainTextEditSettings::setDisplayLineEnds(bool displayLineEnds)
+{
+  if (m_displayLineEnds != displayLineEnds) {
+    m_displayLineEnds = displayLineEnds;
+    m_modified = true;
+  }
+}
+
+int
+LNPlainTextEditSettings::fontSize() const
+{
+  return m_fontSize;
+}
+
+void
+LNPlainTextEditSettings::setFontSize(int fontSize)
+{
+  m_fontSize = fontSize;
+  m_modified = true;
+}
+
+const QString&
+LNPlainTextEditSettings::fontFamily() const
+{
+  return m_fontFamily;
+}
+
+void
+LNPlainTextEditSettings::setFontFamily(const QString& fontFamily)
+{
+  if (m_fontFamily != fontFamily) {
+    m_fontFamily = fontFamily;
+    m_modified = true;
+  }
 }

@@ -1,0 +1,5 @@
+-I/home/simonmeaden/workspace/epubedit/libs/libsmlibraries/src/labelled
+-I/home/simonmeaden/workspace/epubedit/build/6_clang/debug/libs/libsmlibraries/src/labelled
+-o
+/home/simonmeaden/workspace/epubedit/build/6_clang/debug/libs/libsmlibraries/src/labelled/__/__/include/utilities/moc_keymap.cpp
+/home/simonmeaden/workspace/epubedit/libs/libsmlibraries/include/utilities/keymap.h

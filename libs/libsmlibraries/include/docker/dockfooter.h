@@ -12,13 +12,105 @@
  * Please note that DockFooter buttons only allow icons, any text is ignored.
  */
 class DockFooterPrivate;
-class DockFooter : public AbstractDockItem
+class DockFooter
+  : public AbstractDockItem
 {
   Q_OBJECT
   Q_DECLARE_PRIVATE(DockFooter)
 public:
   //! d_ptr constructor
   explicit DockFooter(AbstractDockWidget* parent);
+
+  /*!
+   * \brief Adds an icon only ButtonWidget to the Header/Footer/Toolbar widget
+   * with an optional tooltip.
+   *
+   * \return a pointer to the stored wrapper.
+   */
+  ButtonWidget* addIconButton(WidgetPosition pos,
+                              QPixmap pixmap,
+                              const QString& tooltip = QString());
+  /*!
+   * \brief Adds an draggable icon only ButtonWidget to the Header/Footer/Toolbar widget
+   * with an optional tooltip.
+   *
+   * \return a pointer to the stored wrapper.
+   */
+  ButtonWidget* addDragIconButton(WidgetPosition pos,
+                              QPixmap pixmap,
+                              const QString& tooltip = QString());
+  /*!
+   * \brief Adds an icon only ListButtonWidget to the Header/Footer/Toolbar
+   * widget with an optional tooltip.
+   *
+   * \return a pointer to the stored wrapper.
+   */
+  ButtonWidget* addIconListButton(WidgetPosition pos,
+                                  QPixmap pixmap,
+                                  const QString& tooltip = QString());
+
+  /*!
+   * \brief Adds an icon with text ButtonWidget to the Header/Footer/Toolbar
+   * widget and an optional tooltip.
+   *
+   * \return a pointer to the stored wrapper.
+   */
+  ButtonWidget* addIconTextButton(WidgetPosition pos,
+    QPixmap pixmap,
+    const QString& text,
+    Arrangement textPos = Arrangement::TextBelowIcon,
+    const QString& tooltip = QString());
+  /*!
+   * \brief Adds an icon with text ListButtonWidget to the Header/Footer/Toolbar
+   * widget and an optional tooltip.
+   *
+   * \return a pointer to the stored wrapper.
+   */
+  ButtonWidget* addIconTextListButton(WidgetPosition pos,
+    QPixmap pixmap,
+    const QString& text,
+    Arrangement textPos = Arrangement::TextBelowIcon,
+    const QString& tooltip = QString());
+
+  /*!
+   * \brief Adds an text only ButtonWidget to the Header/Footer/Toolbar widget
+   * with an optional tooltip.
+   *
+   * \return a pointer to the stored wrapper.
+   */
+  ButtonWidget* addTextButton(WidgetPosition pos,
+                              const QString& text,
+                              const QString& tooltip = QString());
+  /*!
+   * \brief Adds an text only ListButtonWidget to the Header/Footer/Toolbar
+   * widget with an optional tooltip.
+   *
+   * \return a pointer to the stored wrapper.
+   */
+  ButtonWidget* addTextListButton(WidgetPosition pos,
+                                  const QString& text,
+                                  const QString& tooltip = QString());
+
+  /*!
+   * \brief Adds a text label to the Header/Footer/Toolbar widget
+   * with an optional tooltip.
+   *
+   * \return a pointer to the stored wrapper.
+   */
+  WidgetItem* addTextLabel(WidgetPosition pos,
+                           const QString& text,
+                           const QString& tooltip = QString());
+
+  /*!
+   * \brief addSpacer
+   * \return
+   */
+  WidgetItem* addSeperator(WidgetPosition);
+
+  /*!
+   * \brief Adds a custom widget to the Header/Footer/Toolbar widget.
+   */
+  WidgetItem* addCustomWidget(CustomWidget* w);
 
   QSize sizeHint() const;
 

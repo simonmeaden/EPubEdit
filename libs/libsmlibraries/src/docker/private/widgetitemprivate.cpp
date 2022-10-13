@@ -217,7 +217,7 @@ WidgetItemPrivate::isVisible() const
 QSize
 WidgetItemPrivate::sizeHint() const
 {
-  return m_minContentSize.grownBy(m_margins);
+  return m_minContentSize;
 }
 
 const QRect&

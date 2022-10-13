@@ -1,0 +1,80 @@
+\hypertarget{classHoverWidget}{}\doxysection{Hover\+Widget Class Reference}
+\label{classHoverWidget}\index{HoverWidget@{HoverWidget}}
+
+
+Displays a hover dialog in \mbox{\hyperlink{classLNPlainTextEdit}{LNPlain\+Text\+Edit}} windows where hover text is defined.  
+
+
+
+
+{\ttfamily \#include $<$hoverwidget.\+h$>$}
+
+Inheritance diagram for Hover\+Widget\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classHoverWidget}
+\end{center}
+\end{figure}
+\doxysubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classHoverWidget_a6472748fb0339160a2978ea9fa6e44e1}\label{classHoverWidget_a6472748fb0339160a2978ea9fa6e44e1}} 
+void \mbox{\hyperlink{classHoverWidget_a6472748fb0339160a2978ea9fa6e44e1}{finished}} ()
+\begin{DoxyCompactList}\small\item\em Signal sent when the dialog has finished displaying. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classHoverWidget_adcddcbf649eeb8375ec5366b636ca63a}\label{classHoverWidget_adcddcbf649eeb8375ec5366b636ca63a}} 
+\mbox{\hyperlink{classHoverWidget_adcddcbf649eeb8375ec5366b636ca63a}{Hover\+Widget}} (QWidget $\ast$parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Default constructor for \mbox{\hyperlink{classHoverWidget}{Hover\+Widget}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHoverWidget_a049462ddbc67b8ac065b2bbc3a60531d}\label{classHoverWidget_a049462ddbc67b8ac065b2bbc3a60531d}} 
+\mbox{\hyperlink{classHoverWidget_a049462ddbc67b8ac065b2bbc3a60531d}{Hover\+Widget}} (const QString \&Title, const QString \&Text, QWidget $\ast$parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{classHoverWidget}{Hover\+Widget}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHoverWidget_a191f64b3fe379f315acaa38399e60d94}\label{classHoverWidget_a191f64b3fe379f315acaa38399e60d94}} 
+void \mbox{\hyperlink{classHoverWidget_a191f64b3fe379f315acaa38399e60d94}{set\+Title}} (const QString \&Title)
+\begin{DoxyCompactList}\small\item\em Sets the title text. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHoverWidget_a40208a7041e190dd222ac2bd118f3859}\label{classHoverWidget_a40208a7041e190dd222ac2bd118f3859}} 
+void \mbox{\hyperlink{classHoverWidget_a40208a7041e190dd222ac2bd118f3859}{set\+Text}} (const QString \&Text)
+\begin{DoxyCompactList}\small\item\em Sets the text block. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHoverWidget_afb65cf6a19af7fd094ecc874b6746e71}\label{classHoverWidget_afb65cf6a19af7fd094ecc874b6746e71}} 
+void \mbox{\hyperlink{classHoverWidget_afb65cf6a19af7fd094ecc874b6746e71}{show}} (int timeout=0)
+\begin{DoxyCompactList}\small\item\em Displays the dialog. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHoverWidget_a6ac8e27630adea0332e459c7d4c86670}\label{classHoverWidget_a6ac8e27630adea0332e459c7d4c86670}} 
+void \mbox{\hyperlink{classHoverWidget_a6ac8e27630adea0332e459c7d4c86670}{set\+Margins}} (const QMargins \&Margins)
+\begin{DoxyCompactList}\small\item\em Allows the user to define margins for the dialog. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHoverWidget_a1a5a578aaae29bfb8f1c42589ed51cbb}\label{classHoverWidget_a1a5a578aaae29bfb8f1c42589ed51cbb}} 
+void \mbox{\hyperlink{classHoverWidget_a1a5a578aaae29bfb8f1c42589ed51cbb}{set\+Spacer}} (int Spacer)
+\begin{DoxyCompactList}\small\item\em Defines a spacer in pixels between the title block and the text block. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHoverWidget_a21c34e08c40025e3912601a007f6f2a8}\label{classHoverWidget_a21c34e08c40025e3912601a007f6f2a8}} 
+bool \mbox{\hyperlink{classHoverWidget_a21c34e08c40025e3912601a007f6f2a8}{is\+Empty}} ()
+\begin{DoxyCompactList}\small\item\em Returns true if no text was siupplied. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classHoverWidget_a62c87a94b3e726af535c01aa17a76293}\label{classHoverWidget_a62c87a94b3e726af535c01aa17a76293}} 
+bool \mbox{\hyperlink{classHoverWidget_a62c87a94b3e726af535c01aa17a76293}{event}} (QEvent $\ast$event) override
+\begin{DoxyCompactList}\small\item\em {\bfseries{Reimplements\+:}} QFrame\+::event \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Displays a hover dialog in \mbox{\hyperlink{classLNPlainTextEdit}{LNPlain\+Text\+Edit}} windows where hover text is defined. 
+
+The display holds two sections which are managed seperately. A title block and a text block.
+
+\begin{DoxySince}{Since}
+5.\+7.\+0 
+\end{DoxySince}
+\begin{DoxyParagraph}{License\+: The MIT License}
+
+\end{DoxyParagraph}
+\begin{DoxyCopyright}{Copyright}
+© 2022 Simon Meaden. All rights reserved. 
+\end{DoxyCopyright}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classLNPlainTextEdit}{LNPlain\+Text\+Edit}} 
+\end{DoxySeeAlso}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{hoverwidget_8h}{hoverwidget.\+h}}\end{DoxyCompactItemize}

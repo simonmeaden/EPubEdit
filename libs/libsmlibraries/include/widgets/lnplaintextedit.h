@@ -2,19 +2,26 @@
 #define LNPLAINTEXTEDIT_H
 
 #include <QAbstractItemModel>
+#include <QCheckBox>
+#include <QComboBox>
 #include <QDialog>
 #include <QDialogButtonBox>
+#include <QGridLayout>
 #include <QGroupBox>
 #include <QHeaderView>
+#include <QLabel>
 #include <QMenu>
 #include <QPainter>
 #include <QPixmap>
 #include <QPlainTextEdit>
+#include <QPushButton>
+#include <QSpinBox>
 #include <QStandardPaths>
 #include <QTableView>
 #include <QTextBlock>
 
 #include "utilities/keymap.h"
+#include "widgets/isettingspage.h"
 
 class LabelledSpinBox;
 class LabelledLineEdit;
@@ -87,13 +94,101 @@ private:
   void handleClicked(const QModelIndex& index);
 };
 
+class LNPlainTextEdit;
+
+class LNPlainTextEditSettings
+  : public QObject
+  , public ISettings
+{
+public:
+  LNPlainTextEditSettings(QObject* parent);
+  ~LNPlainTextEditSettings();
+
+  bool isEnabledBookmarks() const;
+  void setEnabledBookmarks(bool enable);
+
+  bool isEnabledLineNumbers() const;
+  void setEnabledLineNumbers(bool enable);
+
+  bool isEnabledFolds() const;
+  void setEnabledFolds(bool enable);
+
+  bool isModified() const override;
+
+  bool isDisplayLineEnds() const;
+  void setDisplayLineEnds(bool displayLineEnds);
+
+  int fontSize() const;
+  void setFontSize(int fontSize);
+
+  const QString& fontFamily() const;
+  void setFontFamily(const QString& fontFamily);
+
+protected:
+  bool m_modified = false;
+  bool m_enableBookmarks = true;
+  bool m_enableLineNumbers = true;
+  bool m_enableFolds = true;
+  bool m_displayLineEnds = false;
+  int m_fontSize = 10;
+  QString m_fontFamily = "Source Code Pro";
+};
+
+class LNPlainTextEditSettingsWidget : public SettingsWidget
+{
+  Q_OBJECT
+public:
+  LNPlainTextEditSettingsWidget(LNPlainTextEditSettings* settings,
+                                LNPlainTextEdit* parent);
+
+  bool isEnabledBookmarks() const;
+  void setEnabledBookmarks(bool enable);
+
+  bool isEnabledLineNumbers() const;
+  void setEnabledLineNumbers(bool enable);
+
+  bool isEnabledFolds() const;
+  void setEnabledFolds(bool enable);
+
+  // ISettings interface
+  bool isModified() const override;
+
+  //  bool useStandardIcons() const;
+  //  void setUseStandardIcons(bool useStandardIcons);
+
+  bool isDisplayLineEnds() const;
+  void setDisplayLineEnds(bool displayLineEnds);
+
+  int fontSize() const;
+  void setFontSize(int fontSize);
+
+  const QString& fontFamily() const;
+  void setFontFamily(const QString& fontFamily);
+
+signals:
+  void fontFamilyChanged(const QString&);
+  void fontSizeChanged(int);
+
+protected:
+  LNPlainTextEdit* m_editor;
+  LNPlainTextEditSettings* m_settings;
+
+  void initGui(int& row);
+
+private:
+  void fontFamilyHasChanged(const QString& text);
+  void fontSizeHasChanged(const QString& text);
+};
+
 /*!
- * \ingroup widgetsQElapsedTimer
+ * \ingroup widgets
  * \class LNPlainTextEdit lnplaintextedit.h "includes/widgets/lnplaintextedit.h"
  * \brief The LNPlainTextEdit class an extension of QPlainTextEdit that displays
  * line numbers and bookmarks.
  */
-class LNPlainTextEdit : public QPlainTextEdit
+class LNPlainTextEdit
+  : public QPlainTextEdit
+  , public ISettingsWidget
 {
   Q_OBJECT
 
@@ -178,7 +273,10 @@ class LNPlainTextEdit : public QPlainTextEdit
 
     const QRect& rect() const;
 
-    void insertHover(int lineNumber, int icon, const QString &title, const QString& text);
+    void insertHover(int lineNumber,
+                     int icon,
+                     const QString& title,
+                     const QString& text);
     bool hasHover(int lineNumber);
     void clearHovers();
 
@@ -259,7 +357,10 @@ class LNPlainTextEdit : public QPlainTextEdit
     int columnCount(const QModelIndex& = QModelIndex()) const;
     //! \reimplements{QAbstractTableModel::rowCount}
     int rowCount(const QModelIndex& = QModelIndex()) const;
-    //! \reimplements{QAbstractTableModel::data}
+    //! \reimplements{QAbstractTableModel::data}    int zoom() const;
+    void setZoom(int Zoom);
+    int m_zoom = 100;
+
     QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
     //! \reimplements{QAbstractTableModel::flags}
     Qt::ItemFlags flags(const QModelIndex& index) const;
@@ -272,9 +373,12 @@ class LNPlainTextEdit : public QPlainTextEdit
     QMap<int, BookmarkData*>* m_bookmarks;
   };
 
+//  friend class FoldArea;
+//  friend class BookmarkArea;
+//  friend class LineNumberArea;
+
 public:
-  friend class BookmarkArea;
-  friend class LineNumberArea;
+
   enum IconId
   {
     Bookmark = 0,
@@ -309,6 +413,7 @@ public:
 
   //! Constructor for LNPlainTextEdit
   LNPlainTextEdit(QWidget* parent = nullptr);
+  LNPlainTextEdit(LNPlainTextEditSettings *settings, QWidget* parent = nullptr);
 
   int addCustomPixmap(const QPixmap pixmap);
   const QPixmap pixmap(int id);
@@ -354,7 +459,10 @@ public:
    * the supplied text as a hover item when the cursor hovers over
    * the icon.
    */
-  void insertHoverItem(int lineNumber, int icon, const QString &title, const QString& text);
+  void insertHoverItem(int lineNumber,
+                       int icon,
+                       const QString& title,
+                       const QString& text);
   //! Checks whether there is an hover item at thte supplied line number.
   bool hasHoverItem(int lineNumber);
   //! Clears the hover items from the bookmark area.
@@ -376,14 +484,15 @@ public:
   void setFold(int lineNumber, bool folded);
 
   //! Returns the background color for the current line number.
-  const QColor& lineNumberBackColor() const;
+  const QColor& lnAreaBackColor() const;
   //! Sets the background color for the current line number.
   void setLineNumberBackColor(const QColor& backColor);
   //! Returns the foreground color for the current line number.
   const QColor& lnAreaTextColor() const;
   //! Sets the foreground color for the current line number.
   void setLNAreaTextColor(const QColor& foreColor);
-  //! Returns the background color for the selected line.https://cpp.hotexamples.com/examples/-/QFont/setWeight/cpp-qfont-setweight-method-examples.html
+  //! Returns the background color for the selected
+  //! line.https://cpp.hotexamples.com/examples/-/QFont/setWeight/cpp-qfont-setweight-method-examples.html
   const QColor& lnAreaSelectedBackColor() const;
   //! Sets the background color for the current line number.
   void setLNAreaSelectedBackColor(const QColor& backColor);
@@ -393,7 +502,7 @@ public:
   void setLNAreaSelectedTextColor(const QColor& textColor);
 
   //! Returns the value of the highlight line flag.
-  bool highlightLine() const;
+  bool isHighlightLine() const;
   //! Sets the value of the highlight line flag.
   void setHighlightLine(bool highlightLine);
 
@@ -435,16 +544,23 @@ public:
 
   bool isShowNewline();
   void setShowNewline(bool showNewline);
-  void showNewline();
-  void clearNewline();
 
   bool isShowTabs();
   void setShowTabs(bool showTabs);
   void showTabs();
   void clearTabs();
 
+  //! Returns the current line number
+  int currentLineNumber();
+  //! Returns the line count;
+  int lineCount();
+
   //! returns all known fixed width font families
   const QStringList& getFontFamilies() const;
+
+  // ISettingsWidget interface
+  SettingsWidget *settingsPage() override;
+  void setSettingsPage(SettingsWidget* widget) override;
 
 signals:
   void lineNumberChanged(int);
@@ -470,13 +586,30 @@ protected:
 
   bool event(QEvent* event) override;
 
-//  void hoverEnter(QHoverEvent* event);
+  void paintEvent(QPaintEvent* event) override;
+
+  //  void hoverEnter(QHoverEvent* event);
   void hoverLeave(QHoverEvent* event);
   void hoverMove(QHoverEvent* event);
 
+  //! Loads and sets the included version of the SourceCodePro font if
+  //! it is not already loaded on your OS. SourceCodePro is the default font
+  //! in LNPlainTextEdit. You will not need to do this manually.
   void setFontToSourceCodePro();
 
+  //! Returns the default context menu for the LNPlainTextEdit.
+  //!
+  //! Use this if you want to create an extended context menu for
+  //! your sub-class of LNPlainTextEdit.
+  //!
+  //! This is the LNPlaintextEdit equivalent of createStandardContextMenu()
+  //! with some extra options.
+  QMenu *createContextMenu();
+
+  QAction* actionForKey(const QString& text, KeyEventMapper mapper);
+
 private:
+  LNPlainTextEditSettings* m_settings;
   QStringList m_fontFamilies;
   BookmarkArea* m_bookmarkArea = nullptr;
   LineNumberArea* m_lineNumberArea = nullptr;
@@ -487,9 +620,6 @@ private:
   QColor m_lnAreaSelectedTextColor;
   bool m_highlightLine = true;
   QMap<KeyEventMapper, KeyMapper> m_keyMap;
-  bool m_bookmarkAreaEnabled = true;
-  bool m_lineNumberAreaEnabled = true;
-  bool m_foldAreaEnabled = true;
   static int m_customPixmap;
   static QMap<int, QPixmap> m_pixmaps;
   Style m_foldStyle = ArrowStyle;
@@ -498,6 +628,7 @@ private:
   QMap<int, BookmarkData> m_bookmarks;
   QMap<int, QString> m_oldBookmarks;
   HoverWidget* m_hoverWidget = nullptr;
+  QTextCursor m_currentCursor;
 
   bool m_showNewline = false;
   bool m_showTabs = false;
@@ -510,7 +641,7 @@ private:
   void goToBookmark(bool triggered);
 
   void updateViewableAreaWidth(int blockCount);
-  void highlightCurrentLine();
+  //  void highlightCurrentLine();
   void updateLineNumberArea(const QRect& rect, int dy);
   void updateBookmarkArea(const QRect& rect, int dy);
   void updateFoldArea(const QRect& rect, int dy);
@@ -551,7 +682,6 @@ private:
 
   int calculateColumn();
   QPair<int, int> calculateLineNumber(QTextCursor textCursor);
-  QAction* actionForKey(const QString& text, KeyEventMapper mapper);
 
   void appendIfNotInList(QStringList list, QStringList& fontFamilies)
   {

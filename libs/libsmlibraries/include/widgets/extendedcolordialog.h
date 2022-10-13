@@ -42,10 +42,161 @@ enum ColorType
 // clang-format off
 
 // These are declared in the cpp file as they are just internal classes.
-class ColorDropDisplay;
-class ColorDragModel;
-struct ColorDragData;
-class ColorDragTable;
+//class ColorDropDisplay;
+//class ColorDragModel;
+//struct ColorDragData;
+//class ColorDragTable;
+
+/// \cond DO_NOT_DOCUMENT
+
+/*!
+ * \internal
+ * \class ColorDropDisplay extendedcolordialog.h "include/widgets/extendedcolordialog.h"
+ */
+class ColorDropDisplay : public QFrame
+{
+  Q_OBJECT
+  //  enum Side
+  //  {
+  //    Left,  //!< The left hand (primary) side is specified
+  //    Right, //!< The right hand (secondary) side is specified
+  //  };
+
+public:
+  ColorDropDisplay(const QColor& color,
+                   const QColor& dropColor,
+                   QWidget* parent = nullptr);
+
+  void setPrimaryColor(const QColor& color, const QString& name);
+  void setPrimaryTextColor(const QColor& color, const QString& name);
+  void setSecondaryColor(const QColor& color, const QString& name);
+  void setSecondaryTextColor(const QColor& color, const QString& name);
+
+  static const QString DISPLAYLABELRIGHT;
+  static const QString DISPLAYLABELLEFT;
+  static const QString DISPLAYBORDER;
+
+  QColor primaryColor() const;
+  QColor secondaryColor() const;
+  QString primaryName() const;
+  QString secondaryName() const;
+
+signals:
+  void primaryColorChanged(const QColor& color, const QString& name);
+  void primaryTextColorChanged(const QColor& color, const QString& name);
+  void secondaryColorChanged(const QColor& color, const QString& name);
+  void secondaryTextColorChanged(const QColor& color, const QString& name);
+
+protected:
+  void dragEnterEvent(QDragEnterEvent* event) override;
+  void dropEvent(QDropEvent* event) override;
+
+private:
+  QLabel* m_left;
+  QLabel* m_right;
+  QColor m_primaryColor;
+  QColor m_primaryTextColor;
+  QString m_primaryName;
+  QString m_primaryTextName;
+  QColor m_secondaryColor;
+  QColor m_secondaryTextColor;
+  QString m_secondaryName;
+  QString m_secondaryTextName;
+  bool m_colorSet, m_dropColorSet;
+
+  QString calculateTextString(ColorType type);
+  QString primaryColorToStyle();
+  QString secondaryColorToStyle();
+};
+
+class ColorDragModel : public QAbstractTableModel
+{
+  Q_OBJECT
+
+  struct Data
+  {
+    Data(const QString& n, const QColor& f, const QColor& b)
+      : name(n)
+      , fore(f)
+      , back(b)
+    {}
+    QString name;
+    QColor fore;
+    QColor back;
+  };
+  typedef Data* Row;
+  typedef Row* Column;
+
+public:
+  ColorDragModel(int rows, int columns);
+  ~ColorDragModel();
+
+  Qt::ItemFlags flags(const QModelIndex& index) const override;
+  int rowCount(const QModelIndex& = QModelIndex()) const override;
+  int columnCount(const QModelIndex& = QModelIndex()) const override;
+  QVariant data(const QModelIndex& index,
+                int role = Qt::DisplayRole) const override;
+  QVariant headerData(int,
+                      Qt::Orientation,
+                      int = Qt::DisplayRole) const override;
+  void setColorData(int row,
+                    int column,
+                    const QString& name,
+                    const QColor& back,
+                    const QColor& fore);
+  QModelIndex index(int row,
+                    int column,
+                    const QModelIndex& = QModelIndex()) const override;
+  QModelIndex parent(const QModelIndex&) const override;
+
+private:
+  Column* m_data;
+  int m_rows = 0;
+  int m_columns = 0;
+};
+
+struct ColorDragData
+{
+  int r;
+  int g;
+  int b;
+  QString name;
+};
+
+QDataStream&
+operator<<(QDataStream& out, const ColorDragData& a);
+QDataStream&
+operator>>(QDataStream& in, ColorDragData& a);
+
+class ColorDragTable : public QTableView
+{
+  Q_OBJECT
+public:
+  ColorDragTable(int rows, int columns, QWidget* parent = nullptr);
+
+  QString name(const QModelIndex& index);
+  QColor foreground(const QModelIndex& index);
+  QColor background(const QModelIndex& index);
+  void setData(int row, int column, bool x11, const QString& back);
+
+protected:
+  void mousePressEvent(QMouseEvent* event) override;
+  void mouseMoveEvent(QMouseEvent* event) override;
+  void dragEnterEvent(QDragEnterEvent* event) override;
+  void dragMoveEvent(QDragMoveEvent*) override;
+
+private:
+  QPoint m_dragStartPosition;
+  QColor m_color;
+  QString m_name;
+  ColorDragModel* m_model;
+  QSize m_size;
+  QPixmap m_pixmap;
+};
+
+/// \endcond DO_NOT_DOCUMENT
+
+Q_DECLARE_METATYPE(ColorDragData)
 
 /*!
    \file extendedcolordialog.h extendedcolordialog.cpp
@@ -55,7 +206,7 @@ class ColorDragTable;
           name set and the X11 color name set.
 
   The dialog allows the user to display two different color fields with a text color
-  so that thet can be compared. Colors can be recovered using the color() and textColor()
+  so that that can be compared. Colors can be recovered using the color() and textColor()
   methods and initially set using the setColor() and setTextColor() methods. The dialog
   allows the user to switch between a standard color selection page and various SVG and
   X11 color sslection pages. Clicking on a color will set the primary (left) display.

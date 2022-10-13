@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="eng">
+  <head>
+    <meta content="704627ae-98f3-4d44-ae9b-226206a18161" name="dtb:uid"/>
+    <meta content="2" name="dtb:depth"/>
+    <meta content="calibre (0.9.10)" name="dtb:generator"/>
+    <meta content="0" name="dtb:totalPageCount"/>
+    <meta content="0" name="dtb:maxPageNumber"/>
+  </head>
+  <docTitle>
+    <text>Diamond Mask</text>
+  </docTitle>
+  <navMap>
+    <navPoint class="chapter" id="766d45ce-69c2-4bf6-90cc-7d122453ef0a" playOrder="1">
+      <navLabel>
+        <text>file:///F|/rah/Julian%20May/May,%20Julian%20-%20Galactic%20Milieu%202%20-%20Diamond%20Mask.txt</text>
+      </navLabel>
+      <content src="Diamond_Mask_split_001.html"/>
+    </navPoint>
+  </navMap>
+</ncx>

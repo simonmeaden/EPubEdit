@@ -10,27 +10,6 @@ DockWidgetPrivate::DockWidgetPrivate(DockWidget* parent)
 {
 }
 
-//QWidget*
-//DockWidgetPrivate::widget() const
-//{
-//  return m_widget;
-//}
-
-//QWidget*
-//DockWidgetPrivate::setWidget(QWidget* widget)
-//{
-//  if (widget == m_widget)
-//    return widget;
-
-//  auto oldWidget = m_widget;
-//  if (oldWidget) {
-//    m_layout->removeWidget(oldWidget);
-//  }
-//  m_widget = widget;
-//  m_layout->addWidget(m_widget);
-//  return oldWidget;
-//}
-
 void
 DockWidgetPrivate::calculateGeometry(const QRect& rect)
 {
@@ -84,6 +63,7 @@ DockWidgetPrivate::calculateGeometry(const QRect& rect)
 
   if (m_eastToolbar) {
     eastWidth += m_eastToolbar->sizeHint().width();
+    eastX = rect.width() - eastWidth;
   }
 
   if (m_westToolbar) {
@@ -320,9 +300,9 @@ DockWidgetPrivate::calculateGeometry(const QRect& rect)
   availableRect.moveTopLeft(QPoint(westWidth, northHeight));
   this->setAvailableRect(availableRect);
 
-  if (m_widget) {
+  if (m_centralWidget) {
     m_layout->setContentsMargins(
-      westWidth + 1, northHeight + 1, eastWidth - 1, southHeight - 1);
+      westWidth, northHeight, eastWidth, southHeight);
   }
 }
 
@@ -797,27 +777,70 @@ DockWidgetPrivate::hoverMove(QPoint pos)
 }
 
 void
-DockWidgetPrivate::mousePress(QPoint pos)
+DockWidgetPrivate::mousePress(QMouseEvent* event)
 {
   if (m_footer) {
-    mouseClickCheck(m_footer, pos);
+    mousePressCheck(m_footer, event);
   }
   if (m_header) {
-    mouseClickCheck(m_header, pos);
+    mousePressCheck(m_header, event);
   }
   if (m_northToolbar) {
-    mouseClickCheck(m_northToolbar, pos);
+    mousePressCheck(m_northToolbar, event);
   }
   if (m_southToolbar) {
-    mouseClickCheck(m_southToolbar, pos);
+    mousePressCheck(m_southToolbar, event);
   }
   if (m_eastToolbar) {
-    mouseClickCheck(m_eastToolbar, pos);
+    mousePressCheck(m_eastToolbar, event);
   }
   if (m_westToolbar) {
-    mouseClickCheck(m_westToolbar, pos);
+    mousePressCheck(m_westToolbar, event);
   }
-  // TODO the rest of the widgets.
+}
+
+void DockWidgetPrivate::mouseMove(QMouseEvent *event)
+{
+  if (m_footer) {
+    mouseMoveCheck(m_footer, event);
+  }
+  if (m_header) {
+    mouseMoveCheck(m_header, event);
+  }
+  if (m_northToolbar) {
+    mouseMoveCheck(m_northToolbar, event);
+  }
+  if (m_southToolbar) {
+    mouseMoveCheck(m_southToolbar, event);
+  }
+  if (m_eastToolbar) {
+    mouseMoveCheck(m_eastToolbar, event);
+  }
+  if (m_westToolbar) {
+    mouseMoveCheck(m_westToolbar, event);
+  }
+}
+
+void DockWidgetPrivate::mouseRelease(QMouseEvent *event)
+{
+  if (m_footer) {
+    mouseReleaseCheck(m_footer, event);
+  }
+  if (m_header) {
+    mouseReleaseCheck(m_header, event);
+  }
+  if (m_northToolbar) {
+    mouseReleaseCheck(m_northToolbar, event);
+  }
+  if (m_southToolbar) {
+    mouseReleaseCheck(m_southToolbar, event);
+  }
+  if (m_eastToolbar) {
+    mouseReleaseCheck(m_eastToolbar, event);
+  }
+  if (m_westToolbar) {
+    mouseReleaseCheck(m_westToolbar, event);
+  }
 }
 
 void

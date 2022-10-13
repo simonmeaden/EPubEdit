@@ -1,0 +1,72 @@
+\hypertarget{classLNSettingsDialog}{}\doxysection{LNSettings\+Dialog Class Reference}
+\label{classLNSettingsDialog}\index{LNSettingsDialog@{LNSettingsDialog}}
+
+
+Creates a settings dialog.  
+
+
+
+
+{\ttfamily \#include $<$lnsettingsdialog.\+h$>$}
+
+Inheritance diagram for LNSettings\+Dialog\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classLNSettingsDialog}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classLNSettingsDialog_a932f086200ca6085456541c9595bf05a}\label{classLNSettingsDialog_a932f086200ca6085456541c9595bf05a}} 
+{\bfseries LNSettings\+Dialog} (QWidget $\ast$parent=nullptr)
+\item 
+\mbox{\Hypertarget{classLNSettingsDialog_a3ef4f420e86f533e5fefef890be478d1}\label{classLNSettingsDialog_a3ef4f420e86f533e5fefef890be478d1}} 
+int {\bfseries add\+Tab} (QWidget $\ast$page, const QString \&label)
+\item 
+\mbox{\Hypertarget{classLNSettingsDialog_a7b2f6f1afacf14371fb08ba8379ca8f0}\label{classLNSettingsDialog_a7b2f6f1afacf14371fb08ba8379ca8f0}} 
+int {\bfseries add\+Tab} (QWidget $\ast$page, const QIcon \&icon, const QString \&label)
+\item 
+\mbox{\Hypertarget{classLNSettingsDialog_a87a7a2386b58387aa9ba40198277aae5}\label{classLNSettingsDialog_a87a7a2386b58387aa9ba40198277aae5}} 
+int {\bfseries insert\+Tab} (int index, QWidget $\ast$page, const QString \&label)
+\item 
+\mbox{\Hypertarget{classLNSettingsDialog_a974f680b0af24845e1cf77c359d8b607}\label{classLNSettingsDialog_a974f680b0af24845e1cf77c359d8b607}} 
+int {\bfseries insert\+Tab} (int index, QWidget $\ast$page, const QIcon \&icon, const QString \&label)
+\item 
+\mbox{\Hypertarget{classLNSettingsDialog_a90affe952512c4ec66622207cf592e10}\label{classLNSettingsDialog_a90affe952512c4ec66622207cf592e10}} 
+bool {\bfseries is\+Tab\+Enabled} (int index) const
+\item 
+\mbox{\Hypertarget{classLNSettingsDialog_a135d223467cd8db92dd4a2417291029c}\label{classLNSettingsDialog_a135d223467cd8db92dd4a2417291029c}} 
+bool {\bfseries is\+Tab\+Visible} (int index) const
+\item 
+\mbox{\Hypertarget{classLNSettingsDialog_a8f7f693edda1608ec4ff1ee26a15858f}\label{classLNSettingsDialog_a8f7f693edda1608ec4ff1ee26a15858f}} 
+void {\bfseries remove\+Tab} (int index)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classLNSettingsDialog_a94dc935e9f564fee1c40b4ba5d73bd11}\label{classLNSettingsDialog_a94dc935e9f564fee1c40b4ba5d73bd11}} 
+QTab\+Widget $\ast$ {\bfseries m\+\_\+tabs}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Creates a settings dialog. 
+
+\begin{DoxySince}{Since}
+5.\+7.\+0 
+\end{DoxySince}
+\begin{DoxyParagraph}{License\+: The MIT License}
+
+\end{DoxyParagraph}
+\begin{DoxyCopyright}{Copyright}
+© 2022 Simon Meaden. All rights reserved. 
+\end{DoxyCopyright}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{classLNPlainTextEdit}{LNPlain\+Text\+Edit}} 
+\end{DoxySeeAlso}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{lnsettingsdialog_8h}{lnsettingsdialog.\+h}}\end{DoxyCompactItemize}

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="pub-identifier">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc:language id="pub-language">en</dc:language>
+    <dc:identifier id="pub-identifier">urn:isbn:9781925904123</dc:identifier>
+    <meta property="identifier-type" refines="#pub-identifier">uuid</meta>
+    <dc:title id="pub-title">Professional CMake: A Practical Guide</dc:title>
+    <dc:creator id="creator1">Craig Scott</dc:creator>
+    <meta property="role" refines="#creator1">aut</meta>
+    <dc:publisher>Crascit Pty Ltd</dc:publisher>
+    <dc:date>2021-04-25T08:05:41Z</dc:date>
+    <meta property="dcterms:modified">2021-04-25T08:07:40Z</meta>
+    <dc:source>urn:isbn:9781925904116</dc:source>
+    <dc:subject>CMake</dc:subject>
+    <meta name="cover" content="item_cover"/>
+  </metadata>
+  <manifest>
+    <item id="item_cover" href="jacket/cover.png" media-type="image/png" properties="cover-image"/>
+    <item id="cover" href="cover.xhtml" media-type="application/xhtml+xml" properties="svg"/>
+    <item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>
+    <item id="toc" href="toc.xhtml" media-type="application/xhtml+xml"/>
+    <item id="item__professional_cmake_a_practical_guide" href="_professional_cmake_a_practical_guide.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="item__preface" href="_preface.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="item__part_i_fundamentals" href="_part_i_fundamentals.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="item__introduction" href="_introduction.xhtml" media-type="application/xhtml+xml" properties="scripted svg"/>
+    <item id="item__setting_up_a_project" href="_setting_up_a_project.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="item__a_minimal_project" href="_a_minimal_project.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="item__building_simple_targets" href="_building_simple_targets.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="item__variables" href="_variables.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="item__flow_control" href="_flow_control.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="item__using_subdirectories" href="_using_subdirectories.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="item__functions_and_macros" href="_functions_and_macros.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="item__properties" href="_properties.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="item__generator_expressions" href="_generator_expressions.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="item__modules" href="_modules.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="item__policies" href="_policies.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="item__debugging_and_diagnostics" href="_debugging_and_diagnostics.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="item__part_ii_builds_in_depth" href="_part_ii_builds_in_depth.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="item__build_type" href="_build_type.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="item__compiler_and_linker_essentials" href="_compiler_and_linker_essentials.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="item__language_requirements" href="_language_requirements.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="item__target_types" href="_target_types.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="item__custom_tasks" href="_custom_tasks.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="item__working_with_files" href="_working_with_files.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="item__specifying_version_details" href="_specifying_version_details.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="item__libraries" href="_libraries.xhtml" media-type="application/xhtml+xml" properties="scripted svg"/>
+    <item id="item__toolchains_and_cross_compiling" href="_toolchains_and_cross_compiling.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="item__apple_features" href="_apple_features.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="item__part_iii_the_bigger_picture" href="_part_iii_the_bigger_picture.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="item__finding_things" href="_finding_things.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="item__testing" href="_testing.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="item__installing" href="_installing.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="item__packaging" href="_packaging.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="item__external_content" href="_external_content.xhtml" media-type="application/xhtml+xml" properties="scripted svg"/>
+    <item id="item__project_organization" href="_project_organization.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="item__build_performance" href="_build_performance.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="item__working_with_qt" href="_working_with_qt.xhtml" media-type="application/xhtml+xml" properties="scripted"/>
+    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>
+    <item id="item_cmake-workflow" href="cmake-workflow.svg" media-type="image/svg+xml"/>
+    <item id="item_outofsource_dirtree" href="outofsource_dirtree.png" media-type="image/png"/>
+    <item id="item_cmake-gui" href="cmake-gui.png" media-type="image/png"/>
+    <item id="item_cmake-gui-generator" href="cmake-gui-generator.png" media-type="image/png"/>
+    <item id="item_ccmake" href="ccmake.png" media-type="image/png"/>
+    <item id="item_cmake_module_path_dirtree" href="cmake_module_path_dirtree.png" media-type="image/png"/>
+    <item id="item_profiling_sample" href="profiling_sample.png" media-type="image/png"/>
+    <item id="item_multiple_build_dirs" href="multiple_build_dirs.png" media-type="image/png"/>
+    <item id="item_compat-interface-private" href="compat-interface-private.svg" media-type="image/svg+xml"/>
+    <item id="item_compat-interface-public" href="compat-interface-public.svg" media-type="image/svg+xml"/>
+    <item id="item_static-shared-unsafe" href="static-shared-unsafe.svg" media-type="image/svg+xml"/>
+    <item id="item_static-shared-safe" href="static-shared-safe.svg" media-type="image/svg+xml"/>
+    <item id="item_macos_app_structure" href="macos_app_structure.png" media-type="image/png"/>
+    <item id="item_ios_app_structure" href="ios_app_structure.png" media-type="image/png"/>
+    <item id="item_macos_framework_structure" href="macos_framework_structure.png" media-type="image/png"/>
+    <item id="item_ios_framework_structure" href="ios_framework_structure.png" media-type="image/png"/>
+    <item id="item_macos_header_example" href="macos_header_example.png" media-type="image/png"/>
+    <item id="item_ios_header_example" href="ios_header_example.png" media-type="image/png"/>
+    <item id="item_macos_app_with_frameworks" href="macos_app_with_frameworks.png" media-type="image/png"/>
+    <item id="item_ep_default_prefix_dirs" href="ep_default_prefix_dirs.png" media-type="image/png"/>
+    <item id="item_fetchcontent-separate-deps" href="fetchcontent-separate-deps.svg" media-type="image/svg+xml"/>
+    <item id="item_fetchcontent-common-deps" href="fetchcontent-common-deps.svg" media-type="image/svg+xml"/>
+    <item id="item_fetchcontent_local_clones" href="fetchcontent_local_clones.png" media-type="image/png"/>
+    <item id="item_fetchcontent-source-dirs" href="fetchcontent-source-dirs.png" media-type="image/png"/>
+    <item id="item_cmake-gui-presets" href="cmake-gui-presets.png" media-type="image/png"/>
+    <item id="item_epub3" href="styles/epub3.css" media-type="text/css"/>
+    <item id="item_epub3-css3-only" href="styles/epub3-css3-only.css" media-type="text/css"/>
+    <item id="item_rouge-crascit" href="rouge-crascit.css" media-type="text/css"/>
+    <item id="item_epub3-fonts" href="styles/epub3-fonts.css" media-type="text/css"/>
+    <item id="item_notoserif-regular-latin" href="fonts/notoserif-regular-latin.ttf" media-type="application/vnd.ms-opentype"/>
+    <item id="item_notoserif-italic-latin" href="fonts/notoserif-italic-latin.ttf" media-type="application/vnd.ms-opentype"/>
+    <item id="item_notoserif-bold-latin" href="fonts/notoserif-bold-latin.ttf" media-type="application/vnd.ms-opentype"/>
+    <item id="item_notoserif-bolditalic-latin" href="fonts/notoserif-bolditalic-latin.ttf" media-type="application/vnd.ms-opentype"/>
+    <item id="item_mplus1p-regular-latin" href="fonts/mplus1p-regular-latin.ttf" media-type="application/vnd.ms-opentype"/>
+    <item id="item_mplus1p-light-latin" href="fonts/mplus1p-light-latin.ttf" media-type="application/vnd.ms-opentype"/>
+    <item id="item_mplus1p-bold-latin" href="fonts/mplus1p-bold-latin.ttf" media-type="application/vnd.ms-opentype"/>
+    <item id="item_mplus1mn-regular-ascii-conums" href="fonts/mplus1mn-regular-ascii-conums.ttf" media-type="application/vnd.ms-opentype"/>
+    <item id="item_mplus1mn-italic-ascii" href="fonts/mplus1mn-italic-ascii.ttf" media-type="application/vnd.ms-opentype"/>
+    <item id="item_mplus1mn-bold-ascii" href="fonts/mplus1mn-bold-ascii.ttf" media-type="application/vnd.ms-opentype"/>
+    <item id="item_mplus1mn-bolditalic-ascii" href="fonts/mplus1mn-bolditalic-ascii.ttf" media-type="application/vnd.ms-opentype"/>
+    <item id="item_fa-solid-900" href="fonts/awesome/fa-solid-900.ttf" media-type="application/vnd.ms-opentype"/>
+    <item id="item_assorted-icons" href="fonts/assorted-icons.ttf" media-type="application/vnd.ms-opentype"/>
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="cover"/>
+    <itemref idref="toc"/>
+    <itemref idref="item__professional_cmake_a_practical_guide"/>
+    <itemref idref="item__preface"/>
+    <itemref idref="item__part_i_fundamentals"/>
+    <itemref idref="item__introduction"/>
+    <itemref idref="item__setting_up_a_project"/>
+    <itemref idref="item__a_minimal_project"/>
+    <itemref idref="item__building_simple_targets"/>
+    <itemref idref="item__variables"/>
+    <itemref idref="item__flow_control"/>
+    <itemref idref="item__using_subdirectories"/>
+    <itemref idref="item__functions_and_macros"/>
+    <itemref idref="item__properties"/>
+    <itemref idref="item__generator_expressions"/>
+    <itemref idref="item__modules"/>
+    <itemref idref="item__policies"/>
+    <itemref idref="item__debugging_and_diagnostics"/>
+    <itemref idref="item__part_ii_builds_in_depth"/>
+    <itemref idref="item__build_type"/>
+    <itemref idref="item__compiler_and_linker_essentials"/>
+    <itemref idref="item__language_requirements"/>
+    <itemref idref="item__target_types"/>
+    <itemref idref="item__custom_tasks"/>
+    <itemref idref="item__working_with_files"/>
+    <itemref idref="item__specifying_version_details"/>
+    <itemref idref="item__libraries"/>
+    <itemref idref="item__toolchains_and_cross_compiling"/>
+    <itemref idref="item__apple_features"/>
+    <itemref idref="item__part_iii_the_bigger_picture"/>
+    <itemref idref="item__finding_things"/>
+    <itemref idref="item__testing"/>
+    <itemref idref="item__installing"/>
+    <itemref idref="item__packaging"/>
+    <itemref idref="item__external_content"/>
+    <itemref idref="item__project_organization"/>
+    <itemref idref="item__build_performance"/>
+    <itemref idref="item__working_with_qt"/>
+  </spine>
+</package>

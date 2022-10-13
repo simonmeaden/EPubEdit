@@ -21,5 +21,10 @@
         <file alias="Warning">icons/warning12.png</file>
         <file alias="WhiteDot">icons/whitedot.png</file>
         <file alias="YellowDot">icons/yellowdot.png</file>
+        <file alias="Settings">icons/settings.svg</file>
+        <file alias="SettingsGear">icons/reshot-icon-setting-gear-wrench-GL97BQNX6K.svg</file>
+        <file alias="Html">icons/html.png</file>
+        <file alias="Comment">icons/comment.png</file>
+        <file alias="Text">icons/text.png</file>
     </qresource>
 </RCC>

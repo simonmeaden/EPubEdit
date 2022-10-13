@@ -1,0 +1,5 @@
+-I/home/simonmeaden/workspace/epubedit/libs/libsmlibraries/src/widgets
+-I/home/simonmeaden/workspace/epubedit/build/6_clang/release/libs/libsmlibraries/src/widgets
+-o
+/home/simonmeaden/workspace/epubedit/build/6_clang/release/libs/libsmlibraries/src/widgets/__/__/include/widgets/moc_htmlscanner.cpp
+/home/simonmeaden/workspace/epubedit/libs/libsmlibraries/include/widgets/htmlscanner.h

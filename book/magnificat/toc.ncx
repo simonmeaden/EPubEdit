@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="eng">
+  <head>
+    <meta content="b1a67ac6-f7f2-41dc-bf1d-10c483bc91b6" name="dtb:uid"/>
+    <meta content="2" name="dtb:depth"/>
+    <meta content="calibre (0.9.10)" name="dtb:generator"/>
+    <meta content="0" name="dtb:totalPageCount"/>
+    <meta content="0" name="dtb:maxPageNumber"/>
+  </head>
+  <docTitle>
+    <text>Magnificat</text>
+  </docTitle>
+  <navMap>
+    <navPoint class="chapter" id="27bdf5de-f7f7-419a-82f5-4a4ebf854c49" playOrder="1">
+      <navLabel>
+        <text>file:///F|/rah/Julian%20May/May,%20Julian%20-%20Galactic%20Milieu%203%20-%20Magnificat.txt</text>
+      </navLabel>
+      <content src="Magnificat_split_001.html"/>
+    </navPoint>
+  </navMap>
+</ncx>

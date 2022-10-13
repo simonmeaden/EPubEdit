@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package version="2.0" unique-identifier="FB2BookID" xmlns="http://www.idpf.org/2007/opf">
+  <metadata xmlns:opf="http://www.idpf.org/2007/opf" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <dc:title>Who?</dc:title>
+    <dc:language xsi:type="dcterms:RFC3066">en</dc:language>
+    <dc:date opf:event="original-publication">1958</dc:date>
+    <dc:creator opf:role="aut" opf:file-as="Budrys, Algis">Algis Budrys</dc:creator>
+    <dc:publisher>Pyramid Books</dc:publisher>
+    <dc:identifier opf:scheme="URI" id="FB2BookID">urn:uuid:fbd-d84a88-6006-6545-1a8f-d1f7-063e-077b0e</dc:identifier>
+    <meta name="cover" content="who.jpg" />
+    <meta name="Sigil version" content="0.9.9" />
+    <dc:date opf:event="modification">2018-06-03</dc:date>
+  </metadata>
+  <manifest>
+    <item id="who.jpg" href="Images/who.jpg" media-type="image/jpeg"/>
+    <item id="mainCSS" href="Styles/main.css" media-type="text/css"/>
+    <item id="cover" href="Text/cover.xhtml" media-type="application/xhtml+xml"/>
+    <item id="title" href="Text/title.xhtml" media-type="application/xhtml+xml"/>
+    <item id="annotation" href="Text/annotation.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent2_0" href="Text/section2.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent3_0" href="Text/section3.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent4_0" href="Text/section4.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent5_0" href="Text/section5.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent6_0" href="Text/section6.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent7_0" href="Text/section7.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent8_0" href="Text/section8.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent9_0" href="Text/section9.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent10_0" href="Text/section10.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent11_0" href="Text/section11.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent12_0" href="Text/section12.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent13_0" href="Text/section13.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent14_0" href="Text/section14.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent15_0" href="Text/section15.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent16_0" href="Text/section16.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent17_0" href="Text/section17.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent18_0" href="Text/section18.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent19_0" href="Text/section19.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent20_0" href="Text/section20.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent21_0" href="Text/section21.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent22_0" href="Text/section22.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent23_0" href="Text/section23.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent24_0" href="Text/section24.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent25_0" href="Text/section25.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent26_0" href="Text/section26.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent27_0" href="Text/section27.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent28_0" href="Text/section28.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent29_0" href="Text/section29.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent30_0" href="Text/section30.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent31_0" href="Text/section31.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent32_0" href="Text/section32.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent33_0" href="Text/section33.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent34_0" href="Text/section34.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent35_0" href="Text/section35.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent36_0" href="Text/section36.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent37_0" href="Text/section37.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent38_0" href="Text/section38.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent39_0" href="Text/section39.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent40_0" href="Text/section40.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent41_0" href="Text/section41.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent42_0" href="Text/section42.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent43_0" href="Text/section43.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent44_0" href="Text/section44.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent45_0" href="Text/section45.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent46_0" href="Text/section46.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent47_0" href="Text/section47.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent48_0" href="Text/section48.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent49_0" href="Text/section49.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent50_0" href="Text/section50.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent51_0" href="Text/section51.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent52_0" href="Text/section52.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent53_0" href="Text/section53.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent54_0" href="Text/section54.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent55_0" href="Text/section55.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent56_0" href="Text/section56.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent57_0" href="Text/section57.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent58_0" href="Text/section58.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent59_0" href="Text/section59.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent60_0" href="Text/section60.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent61_0" href="Text/section61.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent62_0" href="Text/section62.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent63_0" href="Text/section63.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent64_0" href="Text/section64.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent65_0" href="Text/section65.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent66_0" href="Text/section66.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent67_0" href="Text/section67.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent68_0" href="Text/section68.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent69_0" href="Text/section69.xhtml" media-type="application/xhtml+xml"/>
+    <item id="bookcontent70_0" href="Text/section70.xhtml" media-type="application/xhtml+xml"/>
+    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="cover"/>
+    <itemref idref="title"/>
+    <itemref idref="annotation"/>
+    <itemref idref="bookcontent2_0"/>
+    <itemref idref="bookcontent3_0"/>
+    <itemref idref="bookcontent4_0"/>
+    <itemref idref="bookcontent5_0"/>
+    <itemref idref="bookcontent6_0"/>
+    <itemref idref="bookcontent7_0"/>
+    <itemref idref="bookcontent8_0"/>
+    <itemref idref="bookcontent9_0"/>
+    <itemref idref="bookcontent10_0"/>
+    <itemref idref="bookcontent11_0"/>
+    <itemref idref="bookcontent12_0"/>
+    <itemref idref="bookcontent13_0"/>
+    <itemref idref="bookcontent14_0"/>
+    <itemref idref="bookcontent15_0"/>
+    <itemref idref="bookcontent16_0"/>
+    <itemref idref="bookcontent17_0"/>
+    <itemref idref="bookcontent18_0"/>
+    <itemref idref="bookcontent19_0"/>
+    <itemref idref="bookcontent20_0"/>
+    <itemref idref="bookcontent21_0"/>
+    <itemref idref="bookcontent22_0"/>
+    <itemref idref="bookcontent23_0"/>
+    <itemref idref="bookcontent24_0"/>
+    <itemref idref="bookcontent25_0"/>
+    <itemref idref="bookcontent26_0"/>
+    <itemref idref="bookcontent27_0"/>
+    <itemref idref="bookcontent28_0"/>
+    <itemref idref="bookcontent29_0"/>
+    <itemref idref="bookcontent30_0"/>
+    <itemref idref="bookcontent31_0"/>
+    <itemref idref="bookcontent32_0"/>
+    <itemref idref="bookcontent33_0"/>
+    <itemref idref="bookcontent34_0"/>
+    <itemref idref="bookcontent35_0"/>
+    <itemref idref="bookcontent36_0"/>
+    <itemref idref="bookcontent37_0"/>
+    <itemref idref="bookcontent38_0"/>
+    <itemref idref="bookcontent39_0"/>
+    <itemref idref="bookcontent40_0"/>
+    <itemref idref="bookcontent41_0"/>
+    <itemref idref="bookcontent42_0"/>
+    <itemref idref="bookcontent43_0"/>
+    <itemref idref="bookcontent44_0"/>
+    <itemref idref="bookcontent45_0"/>
+    <itemref idref="bookcontent46_0"/>
+    <itemref idref="bookcontent47_0"/>
+    <itemref idref="bookcontent48_0"/>
+    <itemref idref="bookcontent49_0"/>
+    <itemref idref="bookcontent50_0"/>
+    <itemref idref="bookcontent51_0"/>
+    <itemref idref="bookcontent52_0"/>
+    <itemref idref="bookcontent53_0"/>
+    <itemref idref="bookcontent54_0"/>
+    <itemref idref="bookcontent55_0"/>
+    <itemref idref="bookcontent56_0"/>
+    <itemref idref="bookcontent57_0"/>
+    <itemref idref="bookcontent58_0"/>
+    <itemref idref="bookcontent59_0"/>
+    <itemref idref="bookcontent60_0"/>
+    <itemref idref="bookcontent61_0"/>
+    <itemref idref="bookcontent62_0"/>
+    <itemref idref="bookcontent63_0"/>
+    <itemref idref="bookcontent64_0"/>
+    <itemref idref="bookcontent65_0"/>
+    <itemref idref="bookcontent66_0"/>
+    <itemref idref="bookcontent67_0"/>
+    <itemref idref="bookcontent68_0"/>
+    <itemref idref="bookcontent69_0"/>
+    <itemref idref="bookcontent70_0"/>
+  </spine>
+  <guide>
+    <reference type="cover" title="Cover" href="Text/cover.xhtml"/>
+    <reference type="title-page" title="Title Page" href="Text/title.xhtml"/>
+    <reference type="notes" title="Notes" href="Text/annotation.xhtml"/>
+    <reference type="text" title="Text" href="Text/section2.xhtml"/>
+  </guide>
+</package>

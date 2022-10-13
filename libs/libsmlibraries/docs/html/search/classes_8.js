@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['keymapper_846',['KeyMapper',['../structKeyMapper.html',1,'']]]
+  ['isettings_880',['ISettings',['../classISettings.html',1,'']]]
 ];

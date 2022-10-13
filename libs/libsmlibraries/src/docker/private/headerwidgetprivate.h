@@ -27,7 +27,9 @@ public:
   void hoverEnter(QPoint pos);
   void hoverLeave();
   void hoverMove(QPoint pos);
-  void mousePress(QPoint pos);
+  void mousePress(QMouseEvent* event) override;
+  void mouseMove(QMouseEvent* event) override;
+  void mouseRelease(QMouseEvent* event) override;
   //  void mouseReleaseEvent(QMouseEvent*) ;
   //  bool event(QEvent* event) override;
   //  void resizeEvent(QResizeEvent* event) ;

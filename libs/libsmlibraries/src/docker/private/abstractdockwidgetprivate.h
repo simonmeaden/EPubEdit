@@ -5,6 +5,9 @@
 #include <QColor>
 #include <QHBoxLayout>
 #include <QToolTip>
+#include <QApplication>
+#include <QDrag>
+#include <QMimeData>
 
 #include "docker/abstractdockwidget.h"
 
@@ -35,18 +38,30 @@ public:
   void setAvailableRect(const QRect& newAvailableRect);
 
   bool dockItemHoverCheck(AbstractDockItem* item, QPoint pos);
-  void mouseClickCheck(AbstractDockItem* item, QPoint pos);
+
+  virtual void mousePress(QMouseEvent* event) = 0;
+  virtual void mouseMove(QMouseEvent* event) = 0;
+  virtual void mouseRelease(QMouseEvent* event) = 0;
+
+  void mousePressCheck(AbstractDockItem* item, QMouseEvent* event);
+  void mouseMoveCheck(AbstractDockItem* item, QMouseEvent* event);
+  void mouseReleaseCheck(AbstractDockItem* item, QMouseEvent* event);
+
+//  void dragEnterEvent(QDragEnterEvent* event);
+//  void dragMoveEvent(QDragMoveEvent* event);
+//  void dropEvent(QDropEvent *event);
+
   void checkForOpenListWidgets(AbstractDockItem* item);
 
   virtual AbstractDockWidget* clone(AbstractDockWidget* widget);
 
-  QWidget* widget() const;
-  QWidget* setWidget(QWidget* widget);
+  QWidget* setCentralWidget(QWidget* widget);
 
   AbstractDockWidget* q_ptr = nullptr;
   /// \cond DO_NOT_DOCUMENT
   QWidget* m_parent = nullptr;
-  QWidget* m_widget = nullptr;
+  QWidget* m_centralWidget = nullptr;
+  WidgetItem* m_currentItem = nullptr;
   QBrush m_backColor;
   QBrush m_hoverBackColor;
   QBrush m_selectedColor;

@@ -1,6 +1,7 @@
 #include "docker/private/abstractdockwidgetprivate.h"
 #include "docker/abstractdockitem.h"
 #include "docker/abstractdockwidget.h"
+#include "docker/draggablebuttonwidget.h"
 #include "docker/listbuttonwidget.h"
 #include "docker/listwidget.h"
 #include "utilities/x11colors.h"
@@ -9,7 +10,7 @@ AbstractDockWidgetPrivate::AbstractDockWidgetPrivate(
   AbstractDockWidget* dockWidget)
   : q_ptr(dockWidget)
   , m_parent(dockWidget)
-  , m_backColor(QColor(64, 65, 66))
+  , m_backColor(QColorConstants::X11::grey25)
   , m_hoverBackColor(QColorConstants::X11::grey43)
   , m_selectedColor(QColorConstants::X11::grey18)
   , m_spacerColor(QColorConstants::X11::DimGrey)
@@ -82,22 +83,20 @@ AbstractDockWidgetPrivate::clone(AbstractDockWidget* widget)
   return widget;
 }
 
-QWidget *AbstractDockWidgetPrivate::widget() const
+QWidget*
+AbstractDockWidgetPrivate::setCentralWidget(QWidget* widget)
 {
-  return m_widget;
-}
-
-QWidget *AbstractDockWidgetPrivate::setWidget(QWidget *widget)
-{
-  if (widget == m_widget)
+  if (widget == m_centralWidget)
     return widget;
 
-  auto oldWidget = m_widget;
+  auto oldWidget = m_centralWidget;
   if (oldWidget) {
     m_layout->removeWidget(oldWidget);
   }
-  m_widget = widget;
-  m_layout->addWidget(m_widget);
+  m_centralWidget = widget;
+  m_centralWidget->setSizePolicy(QSizePolicy::Expanding,
+                                 QSizePolicy::Expanding);
+  m_layout->addWidget(m_centralWidget);
   return oldWidget;
 }
 
@@ -165,19 +164,34 @@ AbstractDockWidgetPrivate::dockItemHoverCheck(AbstractDockItem* item,
 }
 
 void
-AbstractDockWidgetPrivate::mouseClickCheck(AbstractDockItem* item, QPoint pos)
+AbstractDockWidgetPrivate::mousePressCheck(AbstractDockItem* item,
+                                           QMouseEvent* event)
 {
   Q_Q(AbstractDockWidget);
   auto widgets = item->widgets();
+  auto pos = event->pos();
+  auto buttons = event->buttons();
 
   for (auto& w : widgets) {
     if (w->rect().contains(pos)) {
+      m_currentItem = w;
       if (w->isEnabled()) {
         switch (w->type()) {
           case Button: {
             auto bl = w->rect().bottomLeft();
             emit w->widgetClicked(bl);
             w->setSelected(true);
+            return;
+          }
+          case DragButton: {
+            auto dragBtn = qobject_cast<DraggableButtonWidget*>(w);
+            if (dragBtn) {
+              if (buttons.testFlag(Qt::LeftButton))
+                dragBtn->setDragStartPosition(pos);
+              auto bl = w->rect().bottomLeft();
+              emit w->widgetClicked(bl);
+              w->setSelected(true);
+            }
             return;
           }
           case MenuButton: {
@@ -224,3 +238,81 @@ AbstractDockWidgetPrivate::mouseClickCheck(AbstractDockItem* item, QPoint pos)
     }
   }
 }
+
+void
+AbstractDockWidgetPrivate::mouseMoveCheck(AbstractDockItem* item,
+                                          QMouseEvent* event)
+{
+  // TODO
+  if (!(event->buttons() & Qt::LeftButton))
+    return;
+
+  if (m_currentItem) {
+    auto dragBtn = qobject_cast<DraggableButtonWidget*>(m_currentItem);
+    if (dragBtn) {
+      auto hotSpot = event->position().toPoint();
+      auto drag = new QDrag(m_parent);
+      auto mimeData = new HtmlDragData;
+      mimeData->setData(dragBtn->data(QStringLiteral("application/x-dnd_htmleditbtn")));
+      drag->setMimeData(mimeData);
+      drag->setPixmap(dragBtn->pixmap());
+      drag->setHotSpot(hotSpot);
+      drag->exec(Qt::MoveAction);
+    }
+  }
+}
+
+void
+AbstractDockWidgetPrivate::mouseReleaseCheck(AbstractDockItem* item,
+                                             QMouseEvent* event)
+{
+//  // TODO
+//  if (m_currentItem) {
+//    m_currentItem = nullptr;
+//  }
+}
+
+//void
+//AbstractDockWidgetPrivate::dragEnterEvent(QDragEnterEvent* event)
+//{
+//  if (event->mimeData()->hasFormat(QStringLiteral("application/x-dnd_htmleditbtn")) &&
+//      event->source() != this->m_parent) {
+//    // we don't accept button drags from other htmledit's
+//    event->ignore();
+//  }
+//}
+
+//void
+//AbstractDockWidgetPrivate::dragMoveEvent(QDragMoveEvent* event)
+//{
+//  if (event->mimeData()->hasFormat(QStringLiteral("application/x-dnd_htmleditbtn"))) {
+//    if (event->source() == this->m_parent) {
+//      event->setDropAction(Qt::MoveAction);
+//      event->accept();
+//    } else {
+//      event->acceptProposedAction();
+//    }
+//  } else {
+//    event->ignore();
+//  }
+//}
+
+//void
+//AbstractDockWidgetPrivate::dropEvent(QDropEvent* event)
+//{
+//  auto mimeData = event->mimeData();
+//  if (mimeData->hasFormat(QStringLiteral("application/x-dnd_htmleditbtn"))) {
+//    auto type = mimeData->data("application/x-dnd_htmleditbtn");
+//    if (event->source() == this->m_parent) {
+//      event->setDropAction(Qt::MoveAction);
+//      event->accept();
+
+//      auto pos = event->position().toPoint();
+//      auto cursor =
+//    } else {
+//      event->acceptProposedAction();
+//    }
+//  } else {
+//    event->ignore();
+//  }
+//}

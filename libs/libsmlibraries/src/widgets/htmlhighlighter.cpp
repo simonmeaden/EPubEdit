@@ -1,49 +1,28 @@
 #include "widgets/htmlhighlighter.h"
-//#include "widgets/codeedit.h"
-#include "utilities/x11colors.h"
 #include "widgets/htmlscanner.h"
 
-HtmlHighlighter::HtmlHighlighter(HtmlScanner* scanner, QPlainTextEdit* parent)
+HtmlHighlighter::HtmlHighlighter(HtmlScanner* scanner, LNPlainTextEdit* parent)
   : QSyntaxHighlighter(parent->document())
   , m_editor(parent)
   , m_scanner(scanner)
   , m_backgroundColor(QColorConstants::White)
-  , m_matchColor(QColorConstants::X11::mediumblue)
+  , m_matchColor(QColorConstants::X11::chartreuse)
+  , m_matchBackgroundColor(QColorConstants::X11::grey50)
   , m_nameColor(QColorConstants::X11::mediumblue)
   , m_attrColor(QColorConstants::X11::darkslategray)
   , m_valueColor(QColorConstants::X11::midnightblue)
   , m_sQuoteColor(QColorConstants::Svg::olive)
   , m_dQuoteColor(QColorConstants::X11::darkgreen)
-  , m_lineBackgroundColor(QColorConstants::X11::azure)
   , m_commentColor(QColorConstants::X11::darkturquoise)
   , m_errorColor(QColorConstants::X11::orangered)
   , m_charForegroundColor(QColorConstants::White)
   , m_charBackgroundColor(QColorConstants::X11::lightgray)
-
+  , m_tagMatchUnderlineColor(QColorConstants::X11::darkgreen)
 {
-  m_lineTextFormat.setForeground(Qt::black);
-  m_lineTextFormat.setBackground(m_lineBackgroundColor);
-  m_lineMatchFormat.setForeground(m_matchColor);
-  m_lineMatchFormat.setBackground(m_lineBackgroundColor);
-  m_lineNameFormat.setForeground(m_nameColor);
-  m_lineNameFormat.setBackground(m_lineBackgroundColor);
-  m_lineAttrFormat.setForeground(m_attrColor);
-  m_lineAttrFormat.setBackground(m_lineBackgroundColor);
-  m_lineValueFormat.setForeground(m_valueColor);
-  m_lineValueFormat.setBackground(m_lineBackgroundColor);
-  m_lineSQuoteFormat.setForeground(m_sQuoteColor);
-  m_lineSQuoteFormat.setBackground(m_lineBackgroundColor);
-  m_lineDQuoteFormat.setForeground(m_dQuoteColor);
-  m_lineDQuoteFormat.setBackground(m_lineBackgroundColor);
-  m_lineCommentFormat.setForeground(m_commentColor);
-  m_lineCommentFormat.setBackground(m_lineBackgroundColor);
-  m_lineErrorFormat.setForeground(m_errorColor);
-  m_lineErrorFormat.setBackground(m_lineBackgroundColor);
-
   m_textFormat.setForeground(Qt::black);
   m_textFormat.setBackground(m_backgroundColor);
   m_matchFormat.setForeground(m_matchColor);
-  m_matchFormat.setBackground(m_backgroundColor);
+  m_matchFormat.setBackground(m_matchBackgroundColor);
   m_nameFormat.setForeground(m_nameColor);
   m_nameFormat.setBackground(m_backgroundColor);
   m_attrFormat.setForeground(m_attrColor);
@@ -57,17 +36,16 @@ HtmlHighlighter::HtmlHighlighter(HtmlScanner* scanner, QPlainTextEdit* parent)
   m_commentFormat.setForeground(m_commentColor);
   m_commentFormat.setBackground(m_backgroundColor);
   m_errorFormat.setForeground(m_errorColor);
-  m_lineErrorFormat.setBackground(m_backgroundColor);
   m_charFormat.setBackground(m_charForegroundColor);
   m_charFormat.setBackground(m_charBackgroundColor);
+  m_tagMatchFormat.setUnderlineStyle(QTextCharFormat::SingleUnderline);
+  m_tagMatchFormat.setUnderlineColor(QColorConstants::X11::darkgreen);
 }
 
 void
 HtmlHighlighter::setDoubleQuoteToError(Attribute* att)
 {
   if (att->errors.testFlag(ScannerError::MismatchedQuotes)) {
-    m_lineDQuoteFormat.setUnderlineStyle(QTextCharFormat::WaveUnderline);
-    m_lineDQuoteFormat.setUnderlineColor(QColor(Qt::red));
     m_dQuoteFormat.setUnderlineStyle(QTextCharFormat::WaveUnderline);
     m_dQuoteFormat.setUnderlineColor(QColor(Qt::red));
   }
@@ -76,7 +54,6 @@ HtmlHighlighter::setDoubleQuoteToError(Attribute* att)
 void
 HtmlHighlighter::clearDoubleQuotesFromError()
 {
-  m_lineDQuoteFormat.setUnderlineStyle(QTextCharFormat::NoUnderline);
   m_dQuoteFormat.setUnderlineStyle(QTextCharFormat::NoUnderline);
 }
 
@@ -84,8 +61,6 @@ void
 HtmlHighlighter::setSingleQuoteToError(Attribute* att)
 {
   if (att->errors.testFlag(ScannerError::MismatchedQuotes)) {
-    m_lineSQuoteFormat.setUnderlineStyle(QTextCharFormat::WaveUnderline);
-    m_lineSQuoteFormat.setUnderlineColor(QColor(Qt::red));
     m_sQuoteFormat.setUnderlineStyle(QTextCharFormat::WaveUnderline);
     m_sQuoteFormat.setUnderlineColor(QColor(Qt::red));
   }
@@ -94,25 +69,65 @@ HtmlHighlighter::setSingleQuoteToError(Attribute* att)
 void
 HtmlHighlighter::clearSingleQuotesFromError()
 {
-  m_lineSQuoteFormat.setUnderlineStyle(QTextCharFormat::NoUnderline);
   m_sQuoteFormat.setUnderlineStyle(QTextCharFormat::NoUnderline);
 }
 
-void
-HtmlHighlighter::highlightBlock(const QString& /*text*/)
+bool
+HtmlHighlighter::formatComment(Tag* tag,
+                               const QString& text,
+                               int blockStart,
+                               int blockEnd,
+                               int blockLength,
+                               int tagStart,
+                               int tagEnd,
+                               int tagOffset,
+                               int tagLength)
 {
+  auto comment = dynamic_cast<CommentTag*>(tag);
+  if (comment) {
+    int start = 0, length = 0;
+    if (blockStart <= tagStart && blockEnd >= tagEnd) {
+      // block totally within tag
+      start = tagOffset;
+      length = tagLength;
+    } else if (tagStart >= blockStart && blockEnd < tagEnd) {
+      // multiline tag start
+      start = tagOffset;
+      length = blockEnd - tagStart;
+    } else {
+      // multi line comment
+      if (text.isEmpty()) {
+        return true;
+      } else {
+        start = 0;
+        length = blockLength;
+      }
+    }
+    setFormat(start, length, m_commentFormat);
+  }
+  return false;
+}
+
+void
+HtmlHighlighter::highlightBlock(const QString& text)
+{
+
   auto block = currentBlock();
   auto blockStart = block.position();
-  auto blockText = block.text();
+  auto blockText = text;
   auto blockEnd = blockStart + blockText.length();
+  auto blockLength = text.length();
 
   for (auto tag : m_scanner->tagList()) {
+    auto tagStart = tag->start();
+    auto tagEnd = tag->end();
+    auto tagLength = tag->length();
+    auto tagOffset = tagStart - blockStart;
 
     // tag is completely outside block
-    if (tag->end() < blockStart || tag->start() > blockEnd)
+    if (tag->end() < blockStart || tag->start() >= blockEnd)
       continue;
 
-    auto lineNumber = block.blockNumber();
     auto type = tag->type;
 
     switch (type) {
@@ -121,10 +136,9 @@ HtmlHighlighter::highlightBlock(const QString& /*text*/)
         break;
       case TagText: {
         auto texttag = dynamic_cast<TextTag*>(tag);
-        setFormat(texttag->start() - blockStart,
-                  1,
-                  (lineNumber == m_currentLineNumber ? m_lineTextFormat
-                                                     : m_textFormat));
+        if (texttag){
+          setFormat(tagStart - blockStart, text.length(), m_textFormat);
+        }
         break;
       }
       case TagCharacter: {
@@ -135,55 +149,49 @@ HtmlHighlighter::highlightBlock(const QString& /*text*/)
       case TagHtml: {
         auto htmltag = dynamic_cast<HtmlTag*>(tag);
 
+        // tag start '<'
+        if (m_brktMatchStart > -1 && m_brktMatchEnd > -1) {
+          // these have to be separate in case of newline between them
+          if (m_brktMatchStart >= blockStart && m_brktMatchStart < blockEnd) {
+            setFormat(m_brktMatchStart - blockStart, 1, m_matchFormat);
+          }
+        } else {
+          setFormat(tag->start() - blockStart, 1, m_nameFormat);
+        }
+
         if (htmltag->errors.testFlag(MissingStartTag) ||
             htmltag->errors.testFlag(MissingEndTag)) {
-          setFormat(htmltag->start() - blockStart,
-                    htmltag->length(),
-                    (lineNumber == m_currentLineNumber ? m_lineErrorFormat
-                                                       : m_errorFormat));
+          setFormat(
+            htmltag->start() - blockStart, htmltag->length(), m_errorFormat);
         } else {
-          setFormat(htmltag->start() - blockStart,
-                    htmltag->length(),
-                    (lineNumber == m_currentLineNumber ? m_lineNameFormat
-                                                       : m_nameFormat));
 
           setFormat(htmltag->nameStart() - blockStart,
-                    htmltag->length(),
-                    (lineNumber == m_currentLineNumber ? m_lineNameFormat
-                                                       : m_nameFormat));
+                    htmltag->nameLength(),
+                    m_nameFormat);
 
           for (auto& att : htmltag->attributes) {
-            setFormat(
-              att->nameStartCursor.position() - blockStart,
-              att->name.length(),
-              (lineNumber == m_currentLineNumber
-                 ? (att->errors.testFlag(BadAttributeName) ? m_lineErrorFormat
-                                                           : m_lineAttrFormat)
-                 : (att->errors.testFlag(BadAttributeName) ? m_errorFormat
-                                                           : m_attrFormat)));
+            setFormat(att->nameStartCursor.position() - blockStart,
+                      att->name.length(),
+                      (att->errors.testFlag(BadAttributeName) ? m_errorFormat
+                                                              : m_attrFormat));
             if (att->hasValue()) {
               auto s = att->value;
               if (s.startsWith('"')) {
                 setDoubleQuoteToError(att);
                 setFormat(att->valueStartCursor.position() - blockStart,
                           s.length(),
-                          (lineNumber == m_currentLineNumber
-                             ? m_lineDQuoteFormat
-                             : m_dQuoteFormat));
+                          m_dQuoteFormat);
                 clearDoubleQuotesFromError();
               } else if (s.startsWith('\'')) {
                 setSingleQuoteToError(att);
                 setFormat(att->valueStartCursor.position() - blockStart,
                           s.length(),
-                          (lineNumber == m_currentLineNumber
-                             ? m_lineSQuoteFormat
-                             : m_sQuoteFormat));
+                          m_sQuoteFormat);
                 clearSingleQuotesFromError();
               } else {
                 setFormat(att->valueStartCursor.position() - blockStart,
                           att->value.length(),
-                          (lineNumber == m_currentLineNumber ? m_lineValueFormat
-                                                             : m_valueFormat));
+                          m_valueFormat);
               }
             }
           }
@@ -191,13 +199,17 @@ HtmlHighlighter::highlightBlock(const QString& /*text*/)
           if (htmltag->isClosed())
             setFormat(htmltag->closerStart() - blockStart,
                       1,
-                      (lineNumber == m_currentLineNumber
-                         ? m_lineNameFormat
-                         : m_nameFormat)); // / if needed
-          setFormat(tag->end() - blockStart - 1,
-                    1,
-                    (lineNumber == m_currentLineNumber ? m_lineNameFormat
-                                                       : m_nameFormat)); // >
+                      m_nameFormat); // / if needed
+
+          if (m_brktMatchStart > -1 && m_brktMatchEnd > -1) {
+            // these have to be separate in case of newline between them
+            if (m_brktMatchEnd >= blockStart && m_brktMatchEnd < blockEnd) {
+              setFormat(m_brktMatchEnd - blockStart, 1, m_matchFormat);
+            }
+          } else {
+            setFormat(tag->end() - blockStart - 1, 1,
+                      m_nameFormat); // >
+          }
         }
 
         break;
@@ -207,61 +219,48 @@ HtmlHighlighter::highlightBlock(const QString& /*text*/)
 
         setFormat(xmltag->start() - blockStart,
                   xmltag->length(),
-                  (lineNumber == m_currentLineNumber ? m_lineNameFormat
-                                                     : m_nameFormat)); // <
+                  m_nameFormat); // <
         if (xmltag->hasStarter()) {
-          setFormat(xmltag->start() - blockStart + 1,
-                    1,
-                    (lineNumber == m_currentLineNumber ? m_lineNameFormat
-                                                       : m_nameFormat)); // ?
+          setFormat(xmltag->start() - blockStart + 1, 1,
+                    m_nameFormat); // ?
         }
 
         setFormat(xmltag->nameStart() - blockStart,
                   xmltag->nameLength(),
-                  (lineNumber == m_currentLineNumber ? m_lineNameFormat
-                                                     : m_nameFormat)); // <
+                  m_nameFormat); // <
 
         for (auto& att : xmltag->attributes) {
           setFormat(att->nameStartCursor.position() - blockStart,
                     att->name.length(),
-                    (lineNumber == m_currentLineNumber ? m_lineAttrFormat
-                                                       : m_attrFormat));
+                    m_attrFormat);
           if (att->hasValue()) {
             auto s = att->value;
             if (s.startsWith('"')) {
               setDoubleQuoteToError(att);
               setFormat(att->valueStartCursor.position() - blockStart,
                         s.length(),
-                        (lineNumber == m_currentLineNumber ? m_lineDQuoteFormat
-                                                           : m_dQuoteFormat));
+                        m_dQuoteFormat);
               clearDoubleQuotesFromError();
             } else if (s.startsWith('\'')) {
               setSingleQuoteToError(att);
               setFormat(att->valueStartCursor.position() - blockStart,
                         s.length(),
-                        (lineNumber == m_currentLineNumber ? m_lineSQuoteFormat
-                                                           : m_sQuoteFormat));
+                        m_sQuoteFormat);
               clearSingleQuotesFromError();
             } else {
               setFormat(att->valueStartCursor.position() - blockStart,
                         att->value.length(),
-                        (lineNumber == m_currentLineNumber ? m_lineValueFormat
-                                                           : m_valueFormat));
+                        m_valueFormat);
             }
           }
         }
 
         if (xmltag->hasEnder()) {
-          setFormat(xmltag->end() - blockStart - 2,
-                    1,
-                    (lineNumber == m_currentLineNumber ? m_lineNameFormat
-                                                       : m_nameFormat)); // ?
+          setFormat(xmltag->end() - blockStart - 2, 1,
+                    m_nameFormat); // ?
         }
 
-        setFormat(tag->end() - blockStart - 1,
-                  1,
-                  (lineNumber == m_currentLineNumber ? m_lineNameFormat
-                                                     : m_nameFormat));
+        setFormat(tag->end() - blockStart - 1, 1, m_nameFormat);
         break;
       }
       case TagCloser: {
@@ -269,30 +268,31 @@ HtmlHighlighter::highlightBlock(const QString& /*text*/)
 
         if (closer->errors.testFlag(MissingStartTag) ||
             closer->errors.testFlag(MissingEndTag)) {
-          setFormat(closer->start() - blockStart,
-                    closer->length(),
-                    (lineNumber == m_currentLineNumber ? m_lineErrorFormat
-                                                       : m_errorFormat));
+          setFormat(
+            closer->start() - blockStart, closer->length(), m_errorFormat);
         } else {
-          setFormat(closer->start() - blockStart,
-                    closer->length(),
-                    (lineNumber == m_currentLineNumber ? m_lineNameFormat
-                                                       : m_nameFormat));
+          setFormat(
+            closer->start() - blockStart, closer->length(), m_nameFormat);
 
           setFormat(closer->nameStart() - blockStart,
                     closer->nameLength(),
-                    (lineNumber == m_currentLineNumber ? m_lineNameFormat
-                                                       : m_nameFormat)); // name
+                    m_nameFormat); // name
         }
 
         break;
       }
       case TagComment: {
-        auto comment = dynamic_cast<CommentTag*>(tag);
-        setFormat(tag->start() - blockStart,
-                  comment->length(),
-                  (lineNumber == m_currentLineNumber ? m_lineCommentFormat
-                                                     : m_commentFormat));
+        if (formatComment(tag,
+                          text,
+                          blockStart,
+                          blockEnd,
+                          blockLength,
+                          tagStart,
+                          tagEnd,
+                          tagOffset,
+                          tagLength)) {
+          continue;
+        }
         break;
       }
       case TagDoctype: {
@@ -300,60 +300,183 @@ HtmlHighlighter::highlightBlock(const QString& /*text*/)
         auto doctag = dynamic_cast<DocTypeTag*>(tag);
         setFormat(doctag->start() - blockStart,
                   doctag->length(),
-                  (lineNumber == m_currentLineNumber ? m_lineNameFormat
-                                                     : m_nameFormat)); // <
+                  m_nameFormat); // <
 
         setFormat(doctag->nameStart() - blockStart,
                   doctag->nameLength(),
-                  (lineNumber == m_currentLineNumber ? m_lineNameFormat
-                                                     : m_nameFormat)); // <
+                  m_nameFormat); // <
 
         for (auto i = 0; i < doctag->data.size(); i++) {
           auto data = doctag->dataAt(i);
           auto position = doctag->dataPosition(i);
           if (data.startsWith('"')) {
-            setFormat(position - blockStart,
-                      data.length(),
-                      (lineNumber == m_currentLineNumber ? m_lineDQuoteFormat
-                                                         : m_dQuoteFormat));
+            setFormat(position - blockStart, data.length(), m_dQuoteFormat);
           } else if (data.startsWith('\'')) {
-            setFormat(position - blockStart,
-                      data.length(),
-                      (lineNumber == m_currentLineNumber ? m_lineSQuoteFormat
-                                                         : m_sQuoteFormat));
+            setFormat(position - blockStart, data.length(), m_sQuoteFormat);
           } else {
-            setFormat(position - blockStart,
-                      data.length(),
-                      (lineNumber == m_currentLineNumber ? m_lineAttrFormat
-                                                         : m_attrFormat));
+            setFormat(position - blockStart, data.length(), m_attrFormat);
           }
         }
 
-        setFormat(tag->end() - blockStart - 1,
-                  1,
-                  (lineNumber == m_currentLineNumber ? m_lineNameFormat
-                                                     : m_nameFormat)); // >
+        setFormat(tag->end() - blockStart - 1, 1,
+                  m_nameFormat); // >
         break;
+      }
+    }
+  }
+
+  // matches "" '' <> () {} and []
+  if (m_brktMatchStart > -1 && m_brktMatchEnd > -1) {
+    // these have to be separate in case of newline between them
+    if (m_brktMatchStart >= blockStart && m_brktMatchStart < blockEnd) {
+      setFormat(m_brktMatchStart - blockStart, 1, m_matchFormat);
+    }
+    if (m_brktMatchEnd >= blockStart && m_brktMatchEnd < blockEnd) {
+      setFormat(m_brktMatchEnd - blockStart, 1, m_matchFormat);
+    }
+  }
+
+  if (m_startTagMatch && m_endTagMatch) {
+    if (m_startTagMatchModified) {
+      auto start = QTextCursor(m_startTagMatch->startCursor);
+      auto end = m_startTagMatch->endCursor;
+      while (start != end) {
+        start.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor);
+        auto newFormat = start.charFormat();
+        QTextCharFormat oldFormat(newFormat);
+        m_startTagFormats.append(oldFormat);
+        newFormat.setUnderlineStyle(QTextCharFormat::SingleUnderline);
+        newFormat.setUnderlineColor(m_tagMatchUnderlineColor);
+        start.setCharFormat(newFormat);
+        start.movePosition(QTextCursor::Left, QTextCursor::KeepAnchor);
+        start.movePosition(QTextCursor::Right, QTextCursor::MoveAnchor);
+      }
+      m_startTagMatchModified = false;
+    } else {
+      auto start = QTextCursor(m_startTagMatch->startCursor);
+      auto end = m_startTagMatch->endCursor;
+      while (start != end) {
+        start.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor);
+        auto newFormat = start.charFormat();
+        newFormat.setUnderlineStyle(QTextCharFormat::SingleUnderline);
+        newFormat.setUnderlineColor(m_tagMatchUnderlineColor);
+        start.setCharFormat(newFormat);
+        start.movePosition(QTextCursor::Left, QTextCursor::KeepAnchor);
+        start.movePosition(QTextCursor::Right, QTextCursor::MoveAnchor);
+      }
+    }
+
+    if (m_endTagMatchModified) {
+      auto start = QTextCursor(m_startTagMatch->startCursor);
+      auto end = m_endTagMatch->endCursor;
+      while (start != end) {
+        start.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor);
+        auto newFormat = start.charFormat();
+        QTextCharFormat oldFormat(newFormat);
+        m_endTagFormats.append(oldFormat);
+        newFormat.setUnderlineStyle(QTextCharFormat::SingleUnderline);
+        newFormat.setUnderlineColor(m_tagMatchUnderlineColor);
+        start.setCharFormat(newFormat);
+        start.movePosition(QTextCursor::Left, QTextCursor::KeepAnchor);
+        start.movePosition(QTextCursor::Right, QTextCursor::MoveAnchor);
+      }
+      m_endTagMatchModified = false;
+    } else {
+      auto start = QTextCursor(m_endTagMatch->startCursor);
+      auto end = m_endTagMatch->endCursor;
+      while (start != end) {
+        start.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor);
+        auto newFormat = start.charFormat();
+        newFormat.setUnderlineStyle(QTextCharFormat::SingleUnderline);
+        newFormat.setUnderlineColor(m_tagMatchUnderlineColor);
+        start.setCharFormat(newFormat);
+        start.movePosition(QTextCursor::Left, QTextCursor::KeepAnchor);
+        start.movePosition(QTextCursor::Right, QTextCursor::MoveAnchor);
       }
     }
   }
 }
 
-void
-HtmlHighlighter::setTextColor(const QBrush& newTextColor)
+Tag*
+HtmlHighlighter::endTagMatch() const
 {
-  m_textColor = newTextColor;
-  m_textFormat.setForeground(m_commentColor);
-  m_lineTextFormat.setForeground(m_commentColor);
+  return m_endTagMatch;
+}
+
+void
+HtmlHighlighter::setEndTagMatch(Tag* endTagMatch)
+{
+  if (m_endTagMatch && m_endTagMatch != endTagMatch) {
+    auto start = QTextCursor(m_endTagMatch->startCursor);
+    for (auto& format : m_endTagFormats) {
+      start.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor);
+      start.setCharFormat(format);
+      start.movePosition(QTextCursor::Left, QTextCursor::KeepAnchor);
+      start.movePosition(QTextCursor::Right, QTextCursor::MoveAnchor);
+    }
+    m_endTagFormats.clear();
+  }
+  m_endTagMatch = endTagMatch;
+  m_endTagMatchModified = true;
+  rehighlight();
+}
+
+Tag*
+HtmlHighlighter::startTagMatch() const
+{
+  return m_startTagMatch;
+}
+
+void
+HtmlHighlighter::setStartTagMatch(Tag* startTagMatch)
+{
+  if (m_startTagMatch && m_startTagMatch != startTagMatch) {
+    auto start = QTextCursor(m_startTagMatch->startCursor);
+    for (auto& format : m_startTagFormats) {
+      start.movePosition(QTextCursor::Right, QTextCursor::KeepAnchor);
+      start.setCharFormat(format);
+      start.movePosition(QTextCursor::Left, QTextCursor::KeepAnchor);
+      start.movePosition(QTextCursor::Right, QTextCursor::MoveAnchor);
+    }
+    m_startTagFormats.clear();
+  }
+  m_startTagMatch = startTagMatch;
+  m_startTagMatchModified = true;
   rehighlight();
 }
 
 void
-HtmlHighlighter::setErrorColor(const QColor& newError)
+HtmlHighlighter::setBracketMatchEnd(int brktMatchEnd)
 {
-  m_errorColor = newError;
+  m_brktMatchEnd = brktMatchEnd;
+}
+
+void
+HtmlHighlighter::clearBracketMatch()
+{
+  m_brktMatchStart = -1;
+  m_brktMatchEnd = -1;
+}
+
+void
+HtmlHighlighter::setBracketMatchStart(int brktMatchStart)
+{
+  m_brktMatchStart = brktMatchStart;
+}
+
+void
+HtmlHighlighter::setTextColor(const QColor& textColor)
+{
+  m_textColor = textColor;
+  m_textFormat.setForeground(textColor);
+  rehighlight();
+}
+
+void
+HtmlHighlighter::setErrorColor(const QColor& error)
+{
+  m_errorColor = error;
   m_errorFormat.setForeground(m_errorColor);
-  m_lineErrorFormat.setForeground(m_errorColor);
   rehighlight();
 }
 
@@ -362,7 +485,6 @@ HtmlHighlighter::setCommentColor(const QColor& comment)
 {
   m_commentColor = comment;
   m_commentFormat.setForeground(m_commentColor);
-  m_lineCommentFormat.setForeground(m_commentColor);
   rehighlight();
 }
 
@@ -371,7 +493,6 @@ HtmlHighlighter::setDQuoteColor(const QColor& dQuoteColor)
 {
   m_dQuoteColor = dQuoteColor;
   m_dQuoteFormat.setForeground(m_dQuoteColor);
-  m_lineSQuoteFormat.setBackground(m_lineBackgroundColor);
   rehighlight();
 }
 
@@ -380,22 +501,6 @@ HtmlHighlighter::setSQuoteColor(const QColor& sQuoteColor)
 {
   m_sQuoteColor = sQuoteColor;
   m_sQuoteFormat.setForeground(m_sQuoteColor);
-  m_lineSQuoteFormat.setForeground(m_sQuoteColor);
-  rehighlight();
-}
-
-void
-HtmlHighlighter::setLineBackground(const QColor& lineBackground)
-{
-  m_lineBackgroundColor = lineBackground;
-  m_lineTextFormat.setBackground(m_lineBackgroundColor);
-  m_lineMatchFormat.setBackground(m_lineBackgroundColor);
-  m_lineNameFormat.setBackground(m_lineBackgroundColor);
-  m_lineAttrFormat.setBackground(m_lineBackgroundColor);
-  m_lineValueFormat.setBackground(m_lineBackgroundColor);
-  m_lineSQuoteFormat.setBackground(m_lineBackgroundColor);
-  m_lineDQuoteFormat.setBackground(m_lineBackgroundColor);
-  m_lineCommentFormat.setBackground(m_lineBackgroundColor);
   rehighlight();
 }
 
@@ -404,7 +509,6 @@ HtmlHighlighter::setValueColor(const QColor& valueColor)
 {
   m_valueColor = valueColor;
   m_valueFormat.setForeground(m_valueColor);
-  m_lineValueFormat.setForeground(m_valueColor);
   rehighlight();
 }
 
@@ -413,7 +517,6 @@ HtmlHighlighter::setAttrColor(const QColor& attrColor)
 {
   m_attrColor = attrColor;
   m_attrFormat.setForeground(m_attrColor);
-  m_lineAttrFormat.setForeground(m_attrColor);
   rehighlight();
 }
 
@@ -422,16 +525,17 @@ HtmlHighlighter::setNameColor(const QColor& nameColor)
 {
   m_nameColor = nameColor;
   m_nameFormat.setForeground(m_nameColor);
-  m_lineNameFormat.setForeground(m_nameColor);
   rehighlight();
 }
 
 void
-HtmlHighlighter::setMatchColor(const QColor& matchColor)
+HtmlHighlighter::setMatchColor(const QColor& matchColor,
+                               const QColor& matchBackgound)
 {
   m_matchColor = matchColor;
+  m_matchBackgroundColor = matchBackgound;
   m_matchFormat.setForeground(m_matchColor);
-  m_lineMatchFormat.setForeground(m_matchColor);
+  m_matchFormat.setBackground(m_matchBackgroundColor);
   rehighlight();
 }
 
@@ -440,7 +544,6 @@ HtmlHighlighter::setBackground(const QColor& background)
 {
   m_backgroundColor = background;
   m_textFormat.setBackground(m_backgroundColor);
-  m_matchFormat.setBackground(m_backgroundColor);
   m_nameFormat.setBackground(m_backgroundColor);
   m_attrFormat.setBackground(m_backgroundColor);
   m_valueFormat.setBackground(m_backgroundColor);
@@ -462,6 +565,18 @@ HtmlHighlighter::setCharForegroundColor(const QColor& CharForegroundColor)
 {
   m_charForegroundColor = CharForegroundColor;
   m_charFormat.setForeground(m_charForegroundColor);
+}
+
+const QColor&
+HtmlHighlighter::tagMatchUnderlineColor() const
+{
+  return m_tagMatchUnderlineColor;
+}
+
+void
+HtmlHighlighter::setTagMatchUnderlineColor(const QColor& tagMatchUnderlineColor)
+{
+  m_tagMatchUnderlineColor = tagMatchUnderlineColor;
 }
 
 Tag*
@@ -515,7 +630,7 @@ HtmlHighlighter::cursorPosHasChanged()
     cstart = currentTag->start();
   if (prevTag)
     pend = prevTag->end();
-  if (cstart == pend && cstart == pos) {
+  if (cstart == pend || cstart == pos) {
     // at junction between tags
     if (prevTag && prevTag->type == TagText) {
       // at end of previous text so choose text

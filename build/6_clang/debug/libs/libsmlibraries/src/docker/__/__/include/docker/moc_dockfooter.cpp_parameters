@@ -1,0 +1,5 @@
+-I/home/simonmeaden/workspace/epubedit/libs/libsmlibraries/src/docker
+-I/home/simonmeaden/workspace/epubedit/build/6_clang/debug/libs/libsmlibraries/src/docker
+-o
+/home/simonmeaden/workspace/epubedit/build/6_clang/debug/libs/libsmlibraries/src/docker/__/__/include/docker/moc_dockfooter.cpp
+/home/simonmeaden/workspace/epubedit/libs/libsmlibraries/include/docker/dockfooter.h

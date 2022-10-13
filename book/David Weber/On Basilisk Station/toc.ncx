@@ -1,0 +1,219 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="eng">
+  <head>
+    <meta content="24a3837c-393e-430d-8fce-e857c9facff9" name="dtb:uid"/>
+    <meta content="2" name="dtb:depth"/>
+    <meta content="calibre (0.9.44)" name="dtb:generator"/>
+    <meta content="0" name="dtb:totalPageCount"/>
+    <meta content="0" name="dtb:maxPageNumber"/>
+  </head>
+  <docTitle>
+    <text>On Basilisk Station</text>
+  </docTitle>
+  <navMap>
+    <navPoint class="chapter" id="0c76bd33-1b81-4312-83e2-c50df0be03a5" playOrder="1">
+      <navLabel>
+        <text>PROLOGUE</text>
+      </navLabel>
+      <content src="0743435710__p__split_001.htm"/>
+    </navPoint>
+    <navPoint class="chapter" id="659b3d2e-8153-4a29-a530-e647449346a8" playOrder="2">
+      <navLabel>
+        <text>CHAPTER ONE</text>
+      </navLabel>
+      <content src="0743435710__p__split_002.htm"/>
+    </navPoint>
+    <navPoint class="chapter" id="70313e91-bea6-41b5-b6a8-ec2b42ebd2c1" playOrder="3">
+      <navLabel>
+        <text>CHAPTER TWO</text>
+      </navLabel>
+      <content src="0743435710__p__split_003.htm"/>
+    </navPoint>
+    <navPoint class="chapter" id="e60b5a0c-9517-4529-9598-874c0b28ce5b" playOrder="4">
+      <navLabel>
+        <text>CHAPTER THREE</text>
+      </navLabel>
+      <content src="0743435710__p__split_004.htm"/>
+    </navPoint>
+    <navPoint class="chapter" id="79d83978-4fe2-41ac-a08c-663359efe3de" playOrder="5">
+      <navLabel>
+        <text>CHAPTER FOUR</text>
+      </navLabel>
+      <content src="0743435710__p__split_005.htm"/>
+    </navPoint>
+    <navPoint class="chapter" id="78c8e5c7-0fec-4c7c-83e7-6157b9dc8c6a" playOrder="6">
+      <navLabel>
+        <text>CHAPTER FIVE</text>
+      </navLabel>
+      <content src="0743435710__p__split_006.htm"/>
+    </navPoint>
+    <navPoint class="chapter" id="e215e92c-5663-4b06-9f32-602e35278a98" playOrder="7">
+      <navLabel>
+        <text>CHAPTER SIX</text>
+      </navLabel>
+      <content src="0743435710__p__split_007.htm"/>
+    </navPoint>
+    <navPoint class="chapter" id="85b5cade-ff88-4610-9cff-2157dab748ee" playOrder="8">
+      <navLabel>
+        <text>CHAPTER SEVEN</text>
+      </navLabel>
+      <content src="0743435710__p__split_008.htm"/>
+    </navPoint>
+    <navPoint class="chapter" id="6cebf8df-f114-467c-b684-3465b8e9b3d9" playOrder="9">
+      <navLabel>
+        <text>CHAPTER EIGHT</text>
+      </navLabel>
+      <content src="0743435710__p__split_009.htm"/>
+    </navPoint>
+    <navPoint class="chapter" id="76d9aa1d-7479-40fe-b2d9-a7e42b10409d" playOrder="10">
+      <navLabel>
+        <text>CHAPTER NINE</text>
+      </navLabel>
+      <content src="0743435710__p__split_010.htm"/>
+    </navPoint>
+    <navPoint class="chapter" id="ba483474-0600-482c-a61b-34dc6e1d42da" playOrder="11">
+      <navLabel>
+        <text>CHAPTER TEN</text>
+      </navLabel>
+      <content src="0743435710__p__split_011.htm"/>
+    </navPoint>
+    <navPoint class="chapter" id="078cef37-4c95-47ea-8d20-a5595f42b969" playOrder="12">
+      <navLabel>
+        <text>CHAPTER ELEVEN</text>
+      </navLabel>
+      <content src="0743435710__p__split_012.htm"/>
+    </navPoint>
+    <navPoint class="chapter" id="aa1d0e03-8eee-4b14-b754-df746e800de3" playOrder="13">
+      <navLabel>
+        <text>CHAPTER TWELVE</text>
+      </navLabel>
+      <content src="0743435710__p__split_013.htm"/>
+    </navPoint>
+    <navPoint class="chapter" id="75e668e3-1fb0-4295-a99c-b22164ae80d8" playOrder="14">
+      <navLabel>
+        <text>CHAPTER THIRTEEN</text>
+      </navLabel>
+      <content src="0743435710__p__split_014.htm"/>
+    </navPoint>
+    <navPoint class="chapter" id="1b89e949-58ce-4850-a749-edd9dd81331b" playOrder="15">
+      <navLabel>
+        <text>CHAPTER FOURTEEN</text>
+      </navLabel>
+      <content src="0743435710__p__split_015.htm"/>
+    </navPoint>
+    <navPoint class="chapter" id="8ca79908-1120-47d5-acbb-69b9a1ab1184" playOrder="16">
+      <navLabel>
+        <text>CHAPTER FIFTEEN</text>
+      </navLabel>
+      <content src="0743435710__p__split_016.htm"/>
+    </navPoint>
+    <navPoint class="chapter" id="50fc2fef-eeb0-43c2-be76-80fd130c6c2d" playOrder="17">
+      <navLabel>
+        <text>CHAPTER SIXTEEN</text>
+      </navLabel>
+      <content src="0743435710__p__split_017.htm"/>
+    </navPoint>
+    <navPoint class="chapter" id="7a2bf29f-b0bb-4cc4-91f7-20fc8bdc2cc5" playOrder="18">
+      <navLabel>
+        <text>CHAPTER SEVENTEEN</text>
+      </navLabel>
+      <content src="0743435710__p__split_018.htm"/>
+    </navPoint>
+    <navPoint class="chapter" id="ee78a52f-1955-49f1-9217-3d7a58bd06dd" playOrder="19">
+      <navLabel>
+        <text>CHAPTER EIGHTEEN</text>
+      </navLabel>
+      <content src="0743435710__p__split_019.htm"/>
+    </navPoint>
+    <navPoint class="chapter" id="634848c2-86dd-4b01-9a08-18357f90b762" playOrder="20">
+      <navLabel>
+        <text>CHAPTER NINETEEN</text>
+      </navLabel>
+      <content src="0743435710__p__split_020.htm"/>
+    </navPoint>
+    <navPoint class="chapter" id="1d62b279-9558-4e73-a4ce-a46ed428c74a" playOrder="21">
+      <navLabel>
+        <text>CHAPTER TWENTY</text>
+      </navLabel>
+      <content src="0743435710__p__split_021.htm"/>
+    </navPoint>
+    <navPoint class="chapter" id="68689516-048d-4360-8684-1247da812360" playOrder="22">
+      <navLabel>
+        <text>CHAPTER TWENTY-ONE</text>
+      </navLabel>
+      <content src="0743435710__p__split_022.htm"/>
+    </navPoint>
+    <navPoint class="chapter" id="f20da65d-8b2b-4362-b2f2-e331b2d78edb" playOrder="23">
+      <navLabel>
+        <text>CHAPTER TWENTY-TWO</text>
+      </navLabel>
+      <content src="0743435710__p__split_023.htm"/>
+    </navPoint>
+    <navPoint class="chapter" id="6631ee33-e56d-4623-abd1-3b6c8b5aa232" playOrder="24">
+      <navLabel>
+        <text>CHAPTER TWENTY-THREE</text>
+      </navLabel>
+      <content src="0743435710__p__split_024.htm"/>
+    </navPoint>
+    <navPoint class="chapter" id="693b5f09-7ac3-4fb0-b66f-742a175609fb" playOrder="25">
+      <navLabel>
+        <text>CHAPTER TWENTY-FOUR</text>
+      </navLabel>
+      <content src="0743435710__p__split_025.htm"/>
+    </navPoint>
+    <navPoint class="chapter" id="e04d3cae-a268-42c8-9723-8e868d098e57" playOrder="26">
+      <navLabel>
+        <text>CHAPTER TWENTY-FIVE</text>
+      </navLabel>
+      <content src="0743435710__p__split_026.htm"/>
+    </navPoint>
+    <navPoint class="chapter" id="aeab6b8c-e237-442e-9039-a1c7e319cebc" playOrder="27">
+      <navLabel>
+        <text>CHAPTER TWENTY-SIX</text>
+      </navLabel>
+      <content src="0743435710__p__split_027.htm"/>
+    </navPoint>
+    <navPoint class="chapter" id="1ed66438-2eb8-4906-970e-0e7f84cc0487" playOrder="28">
+      <navLabel>
+        <text>CHAPTER TWENTY-SEVEN</text>
+      </navLabel>
+      <content src="0743435710__p__split_028.htm"/>
+    </navPoint>
+    <navPoint class="chapter" id="4f47080d-cc55-41b9-a021-987bb4c8bb90" playOrder="29">
+      <navLabel>
+        <text>CHAPTER TWENTY-EIGHT</text>
+      </navLabel>
+      <content src="0743435710__p__split_029.htm"/>
+    </navPoint>
+    <navPoint class="chapter" id="e9923f4c-0093-40e7-8706-70c9fc9f9439" playOrder="30">
+      <navLabel>
+        <text>CHAPTER TWENTY-NINE</text>
+      </navLabel>
+      <content src="0743435710__p__split_030.htm"/>
+    </navPoint>
+    <navPoint class="chapter" id="ed1229e1-655a-4f45-87c1-48772aaa06a3" playOrder="31">
+      <navLabel>
+        <text>CHAPTER THIRTY</text>
+      </navLabel>
+      <content src="0743435710__p__split_031.htm"/>
+    </navPoint>
+    <navPoint class="chapter" id="86bb05e0-cfe7-4268-92df-bedaa5b07bc5" playOrder="32">
+      <navLabel>
+        <text>CHAPTER THIRTY-ONE</text>
+      </navLabel>
+      <content src="0743435710__p__split_032.htm"/>
+    </navPoint>
+    <navPoint class="chapter" id="5229564a-9f63-4ab5-8c3b-2f6f3428e1d0" playOrder="33">
+      <navLabel>
+        <text>CHAPTER THIRTY-TWO</text>
+      </navLabel>
+      <content src="0743435710__p__split_033.htm"/>
+    </navPoint>
+    <navPoint class="chapter" id="cf42444f-95aa-4513-958e-f207ec6ef935" playOrder="34">
+      <navLabel>
+        <text>APPENDIX</text>
+      </navLabel>
+      <content src="0743435710__p__split_034.htm"/>
+    </navPoint>
+  </navMap>
+</ncx>

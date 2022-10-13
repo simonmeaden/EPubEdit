@@ -1,15 +1,4 @@
 
-qt_wrap_cpp(MOC_Files
-  ../../include/widgets/lnplaintextedit.h
-  ../../include/widgets/lntextedit.h
-  ../../include/widgets/helpdialogs.h
-  ../../include/widgets/htmlscanner.h
-  ../../include/widgets/htmlhighlighter.h
-  ../../include/widgets/htmltypes.h
-  ../../include/widgets/extendedcolordialog.h
-  ../../include/widgets/hoverwidget.h
-)
-
 target_sources(
     ${PROJECT_NAME}
   PRIVATE
@@ -22,17 +11,24 @@ target_sources(
   ../../include/widgets/htmlscanner.h
   ../../include/widgets/htmlhighlighter.h
   ../../include/widgets/htmltypes.h
+  ../../include/widgets/isettingspage.h
   ../../include/widgets/extendedcolordialog.h
   ../../include/widgets/hoverwidget.h
-  #
+  ../../include/widgets/lnsettingsdialog.h
+  ../../include/widgets/lnstatusbar.h
+   #
 
   # line number edits
   lnplaintextedit.cpp
   lntextedit.cpp
-  iepubeditor.h
-  iepubeditor.h
+  lnsettingsdialog.cpp
+  lnstatusbar.cpp
+  isettingspage.cpp
+#  iepubeditor.h
+  extendedcolordialog.cpp
 
   # help dialogs.
+  helpdialogs.cpp
   hoverwidget.cpp
 
   # HTML 5 scanner/highlighter
@@ -43,6 +39,6 @@ target_sources(
   # extended color dialog
   extendedcolordialog.cpp
 
-  widgets/icons.qrc
-  widgets/fonts.qrc
+  icons.qrc
+  fonts.qrc
 )

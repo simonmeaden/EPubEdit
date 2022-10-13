@@ -113,320 +113,421 @@ $(function() {
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">enum</span> TagType</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;{</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  NoType = -1, </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  TagText,     </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  TagComment,  </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  TagHtml,     </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  TagXml,      </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  TagDoctype,  </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  TagCloser,   </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;};</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keyword">enum</span> TagState</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;{</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  PreTag = 0,</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  OpenTag,</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  DoubleQuotes, <span class="comment">// inside double quote</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  SingleQuotes, <span class="comment">// inside single quotes</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  Text,</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  Comment,</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  NoState,</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  CloseTag,</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;};</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="keyword">enum</span> ExpectedState</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;{</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  NoExpectation = 0, <span class="comment">// Don&#39;t have any expectations</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  DocType = 0x1,</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  DoubleQuote = 0x10,    <span class="comment">// expect a double quote</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  SingleQuote = 0x20,    <span class="comment">// expect a single quote</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  EndDoubleQuote = 0x40, <span class="comment">// expect to end a double quote</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  EndSingleQuote = 0x80, <span class="comment">// expect to end a single quote</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  Name = 0x1000,  <span class="comment">// a tag name</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  Attr = 0x2000,  <span class="comment">// a tag attribute</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  Value = 0x4000, <span class="comment">// an attribute value</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  EndComment = 0x10000,</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;};</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;Q_DECLARE_FLAGS(ExpectedStates, ExpectedState)</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  NoType = -1,  </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  TagCharacter, </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  TagText,      </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="comment">//  TagWhitespace, //!&lt; A special case of TagText that only contains</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="comment">//  whitespace.</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  TagComment, </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  TagHtml,    </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  TagXml,     </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  TagDoctype, </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  TagCloser,  </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;};</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="keyword">enum</span> TagState</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;{</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  PreTag = 0,</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  OpenTag,</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  DoubleQuotes, <span class="comment">// inside double quote</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  SingleQuotes, <span class="comment">// inside single quotes</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  Text,</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  Comment,</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  NoState,</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  CloseTag,</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;};</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="keyword">enum</span> ExpectedState</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;{</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  NoExpectation = 0, <span class="comment">// Don&#39;t have any expectations</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  DocType = 0x1,</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  DoubleQuote = 0x10,    <span class="comment">// expect a double quote</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  SingleQuote = 0x20,    <span class="comment">// expect a single quote</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  EndDoubleQuote = 0x40, <span class="comment">// expect to end a double quote</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  EndSingleQuote = 0x80, <span class="comment">// expect to end a single quote</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  Name = 0x1000,  <span class="comment">// a tag name</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  Attr = 0x2000,  <span class="comment">// a tag attribute</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  Value = 0x4000, <span class="comment">// an attribute value</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  TextBlock = 0x10000,</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="keyword">enum</span> ScannerError</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;{</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  NoError = 0,</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  BadName = 0x1,</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;  MissingEndTag = 0x100,</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  MissingStartTag = 0x200,</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;  UnbalancedTags = 0x1000,</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  MisOrderedTags = 0x2000,</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  NoMatchingTag = 0x4000,</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  MismatchedQuotes = 0x10000,</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  BadAttributeName = 0x100000,</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  BadAttriuteValue = 0x200000,</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;};</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;Q_DECLARE_FLAGS(ScannerErrors, ScannerError)</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  EndComment = 0x100000,</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;};</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;Q_DECLARE_FLAGS(ExpectedStates, ExpectedState)</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="keyword">enum</span> ScannerError</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;{</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  NoError = 0,</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  TagNameError = 0x1,</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;  MissingEndTag = 0x100,   </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  MissingStartTag = 0x200, </div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  MisOrderedTags = 0x400,  </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  MismatchedQuotes = 0x1000,</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00131"></a><span class="lineno"><a class="line" href="structAttribute.html">  131</a></span>&#160;struct <a class="code" href="structAttribute.html">Attribute</a></div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;{</div>
-<div class="line"><a name="l00134"></a><span class="lineno"><a class="line" href="structAttribute.html#ad58628ef68f74acbab53eb80cd04d98f">  134</a></span>&#160;  QString <a class="code" href="structAttribute.html#ad58628ef68f74acbab53eb80cd04d98f">name</a>;</div>
-<div class="line"><a name="l00136"></a><span class="lineno"><a class="line" href="structAttribute.html#a58763b2c8a286160dad1b0d8e5f85b6e">  136</a></span>&#160;  QTextCursor <a class="code" href="structAttribute.html#a58763b2c8a286160dad1b0d8e5f85b6e">nameStartCursor</a>;</div>
-<div class="line"><a name="l00138"></a><span class="lineno"><a class="line" href="structAttribute.html#a3e78bec4176c3cbc32160827a537e436">  138</a></span>&#160;  QString <a class="code" href="structAttribute.html#a3e78bec4176c3cbc32160827a537e436">value</a>;</div>
-<div class="line"><a name="l00140"></a><span class="lineno"><a class="line" href="structAttribute.html#a6ed0777fdf08a1e031d67ea59c20ef5b">  140</a></span>&#160;  QTextCursor <a class="code" href="structAttribute.html#a6ed0777fdf08a1e031d67ea59c20ef5b">valueStartCursor</a>;</div>
-<div class="line"><a name="l00142"></a><span class="lineno"><a class="line" href="structAttribute.html#ac2061634b53ccab752607111b6604420">  142</a></span>&#160;  ScannerErrors errors = NoError;</div>
-<div class="line"><a name="l00144"></a><span class="lineno"><a class="line" href="structAttribute.html#a90c61e84715cc668781c5416add81a55">  144</a></span>&#160;  QString <a class="code" href="structAttribute.html#a90c61e84715cc668781c5416add81a55">hoverText</a>;</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
-<div class="line"><a name="l00152"></a><span class="lineno"><a class="line" href="structAttribute.html#a26f55aca786a7011d332cac1956e73e2">  152</a></span>&#160;  IsInType <a class="code" href="structAttribute.html#a26f55aca786a7011d332cac1956e73e2">isIn</a>(<span class="keywordtype">int</span> cursorPos);</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  BadAttributeName = 0x10000,</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;  BadAttributeValue = 0x20000,</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;  <span class="comment">//  xml declaration errors</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;  XmlTagNameCaseError = 0x100000,       </div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;  XmlTagNameError = 0x200000,           </div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;  XmlTagNamePositionError = 0x400000,   </div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;  XmlTagStartCharError = 0x800000,      </div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;  XmlTagStartPositionError = 0x1000000, </div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;  XmlAttributeError = 0x2000000,</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;  XmlTagEndError = 0x4000000,</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;  XmlTagEndPositionError = 0x8000000,</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;  XmlTagWrongVersion = 0x10000000,</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;};</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;Q_DECLARE_FLAGS(ScannerErrors, ScannerError)</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="keyword">enum</span> ScannerWarning</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;{</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;  NoWarning = 0,</div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
-<div class="line"><a name="l00157"></a><span class="lineno"><a class="line" href="structAttribute.html#a1949300aeaa241b07d8e2a65db2a82f8">  157</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="structAttribute.html#a1949300aeaa241b07d8e2a65db2a82f8">nameStart</a>();</div>
-<div class="line"><a name="l00161"></a><span class="lineno"><a class="line" href="structAttribute.html#abc3db4e2213ed58ac77c970b12235bef">  161</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="structAttribute.html#abc3db4e2213ed58ac77c970b12235bef">valueStart</a>();</div>
-<div class="line"><a name="l00166"></a><span class="lineno"><a class="line" href="structAttribute.html#a26692b7aa53e699bf836fff18a65b623">  166</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="structAttribute.html#a26692b7aa53e699bf836fff18a65b623">hasValue</a>();</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
-<div class="line"><a name="l00171"></a><span class="lineno"><a class="line" href="structAttribute.html#a1fa048dc3a0215815826ddd10d7db0be">  171</a></span>&#160;  QString <a class="code" href="structAttribute.html#a1fa048dc3a0215815826ddd10d7db0be">toString</a>();</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;};</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;  XmlTagStartWarning =</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    0x1, </div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;};</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;Q_DECLARE_FLAGS(ScannerWarnings, ScannerWarning)</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="keyword">enum</span> ScannerInfo</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;{</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;  NoInfo = 0,</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;  DocAttributeNotReqd =</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    0x1, </div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;};</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;Q_DECLARE_FLAGS(ScannerInfos, ScannerInfo)</div>
 <div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
-<div class="line"><a name="l00178"></a><span class="lineno"><a class="line" href="structTag.html">  178</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structTag.html">Tag</a></div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
+<div class="line"><a name="l00178"></a><span class="lineno"><a class="line" href="structAttribute.html">  178</a></span>&#160;struct <a class="code" href="structAttribute.html">Attribute</a></div>
 <div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;{</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;  <a class="code" href="structTag.html">Tag</a>() {}</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="structTag.html">Tag</a>() {}</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160; </div>
-<div class="line"><a name="l00189"></a><span class="lineno"><a class="line" href="structTag.html#a9bcf07edef2c8dce4c510da12960b1b9">  189</a></span>&#160;  <span class="keyword">virtual</span> IsInType <a class="code" href="structTag.html#a9bcf07edef2c8dce4c510da12960b1b9">isIn</a>(<span class="keywordtype">int</span> cursorPos);</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160; </div>
-<div class="line"><a name="l00194"></a><span class="lineno"><a class="line" href="structTag.html#a785a8d8a4b0832a642fd663a0d4da60a">  194</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="structTag.html#a785a8d8a4b0832a642fd663a0d4da60a">start</a>();</div>
-<div class="line"><a name="l00198"></a><span class="lineno"><a class="line" href="structTag.html#a84fa94ff77ec9b5326b786f799d2c1c9">  198</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="structTag.html#a84fa94ff77ec9b5326b786f799d2c1c9">end</a>();</div>
-<div class="line"><a name="l00202"></a><span class="lineno"><a class="line" href="structTag.html#a50d1e7b7c3fe2c678ce5f493b70d6d1b">  202</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="structTag.html#a50d1e7b7c3fe2c678ce5f493b70d6d1b">length</a>();</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160; </div>
-<div class="line"><a name="l00209"></a><span class="lineno"><a class="line" href="structTag.html#a4da658a0743db8f0218cd3f256125217">  209</a></span>&#160;  <span class="keyword">virtual</span> QString <a class="code" href="structTag.html#a4da658a0743db8f0218cd3f256125217">toString</a>() = 0;</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160; </div>
-<div class="line"><a name="l00212"></a><span class="lineno"><a class="line" href="structTag.html#a0302100af6a22b8999c1fa7ca4eb3221">  212</a></span>&#160;  TagType <a class="code" href="structTag.html#a0302100af6a22b8999c1fa7ca4eb3221">type</a> = NoType;</div>
-<div class="line"><a name="l00214"></a><span class="lineno"><a class="line" href="structTag.html#a8ab0fd2a17b456555ae05f019819afc2">  214</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="structTag.html#a8ab0fd2a17b456555ae05f019819afc2">selected</a> = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00216"></a><span class="lineno"><a class="line" href="structTag.html#a2595d60abc5b28aef28bb837676b04b6">  216</a></span>&#160;  QTextCursor <a class="code" href="structTag.html#a2595d60abc5b28aef28bb837676b04b6">startCursor</a>;</div>
-<div class="line"><a name="l00218"></a><span class="lineno"><a class="line" href="structTag.html#ab7019996370e27697ba21c0f6271b60d">  218</a></span>&#160;  QTextCursor <a class="code" href="structTag.html#ab7019996370e27697ba21c0f6271b60d">endCursor</a>;</div>
-<div class="line"><a name="l00220"></a><span class="lineno"><a class="line" href="structTag.html#a744c79766e49115de69889b08e58059d">  220</a></span>&#160;  QString <a class="code" href="structTag.html#a744c79766e49115de69889b08e58059d">hoverText</a>;</div>
+<div class="line"><a name="l00181"></a><span class="lineno"><a class="line" href="structAttribute.html#ad58628ef68f74acbab53eb80cd04d98f">  181</a></span>&#160;  QString <a class="code" href="structAttribute.html#ad58628ef68f74acbab53eb80cd04d98f">name</a>;</div>
+<div class="line"><a name="l00183"></a><span class="lineno"><a class="line" href="structAttribute.html#a58763b2c8a286160dad1b0d8e5f85b6e">  183</a></span>&#160;  QTextCursor <a class="code" href="structAttribute.html#a58763b2c8a286160dad1b0d8e5f85b6e">nameStartCursor</a>;</div>
+<div class="line"><a name="l00185"></a><span class="lineno"><a class="line" href="structAttribute.html#a3e78bec4176c3cbc32160827a537e436">  185</a></span>&#160;  QString <a class="code" href="structAttribute.html#a3e78bec4176c3cbc32160827a537e436">value</a>;</div>
+<div class="line"><a name="l00187"></a><span class="lineno"><a class="line" href="structAttribute.html#a6ed0777fdf08a1e031d67ea59c20ef5b">  187</a></span>&#160;  QTextCursor <a class="code" href="structAttribute.html#a6ed0777fdf08a1e031d67ea59c20ef5b">valueStartCursor</a>;</div>
+<div class="line"><a name="l00189"></a><span class="lineno"><a class="line" href="structAttribute.html#ac2061634b53ccab752607111b6604420">  189</a></span>&#160;  ScannerErrors errors = NoError;</div>
+<div class="line"><a name="l00191"></a><span class="lineno"><a class="line" href="structAttribute.html#a90c61e84715cc668781c5416add81a55">  191</a></span>&#160;  QString <a class="code" href="structAttribute.html#a90c61e84715cc668781c5416add81a55">hoverText</a>;</div>
+<div class="line"><a name="l00193"></a><span class="lineno"><a class="line" href="structAttribute.html#a567b487d3ab86489fadcf77672aa660a">  193</a></span>&#160;  <span class="keywordtype">int</span> assignPos = -1;</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160; </div>
+<div class="line"><a name="l00201"></a><span class="lineno"><a class="line" href="structAttribute.html#a26f55aca786a7011d332cac1956e73e2">  201</a></span>&#160;  IsInType <a class="code" href="structAttribute.html#a26f55aca786a7011d332cac1956e73e2">isIn</a>(<span class="keywordtype">int</span> cursorPos);</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160; </div>
+<div class="line"><a name="l00206"></a><span class="lineno"><a class="line" href="structAttribute.html#a1949300aeaa241b07d8e2a65db2a82f8">  206</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="structAttribute.html#a1949300aeaa241b07d8e2a65db2a82f8">nameStart</a>();</div>
+<div class="line"><a name="l00210"></a><span class="lineno"><a class="line" href="structAttribute.html#abc3db4e2213ed58ac77c970b12235bef">  210</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="structAttribute.html#abc3db4e2213ed58ac77c970b12235bef">valueStart</a>();</div>
+<div class="line"><a name="l00215"></a><span class="lineno"><a class="line" href="structAttribute.html#a26692b7aa53e699bf836fff18a65b623">  215</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="structAttribute.html#a26692b7aa53e699bf836fff18a65b623">hasValue</a>();</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160; </div>
+<div class="line"><a name="l00220"></a><span class="lineno"><a class="line" href="structAttribute.html#a1fa048dc3a0215815826ddd10d7db0be">  220</a></span>&#160;  QString <a class="code" href="structAttribute.html#a1fa048dc3a0215815826ddd10d7db0be">toString</a>();</div>
 <div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;};</div>
 <div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160; </div>
-<div class="line"><a name="l00227"></a><span class="lineno"><a class="line" href="structTextTag.html">  227</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structTextTag.html">TextTag</a> : <a class="code" href="structTag.html">Tag</a></div>
+<div class="line"><a name="l00227"></a><span class="lineno"><a class="line" href="structTag.html">  227</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structTag.html">Tag</a></div>
 <div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;{</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;  <a class="code" href="structTextTag.html">TextTag</a>()</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    : <a class="code" href="structTag.html">Tag</a>()</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;  {</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    <a class="code" href="structTag.html#a0302100af6a22b8999c1fa7ca4eb3221">type</a> = TagText;</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;  }</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160; </div>
-<div class="line"><a name="l00240"></a><span class="lineno"><a class="line" href="structTextTag.html#a476cdfb0536bba4fbae8ebcc9a50f2c5">  240</a></span>&#160;  QString <a class="code" href="structTextTag.html#a476cdfb0536bba4fbae8ebcc9a50f2c5">toString</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160; </div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;  <span class="comment">//  TagReturn* itemAt(int pos) override;</span></div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160; </div>
-<div class="line"><a name="l00247"></a><span class="lineno"><a class="line" href="structTextTag.html#a299ad64e92c80fdbbe475872e4ca2b38">  247</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="structTextTag.html#a299ad64e92c80fdbbe475872e4ca2b38">textStart</a>();</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160; </div>
-<div class="line"><a name="l00255"></a><span class="lineno"><a class="line" href="structTextTag.html#a27a6f34f716a8158537b099e73a243ad">  255</a></span>&#160;  IsInType <a class="code" href="structTextTag.html#a27a6f34f716a8158537b099e73a243ad">isIn</a>(<span class="keywordtype">int</span> cursorPos) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160; </div>
-<div class="line"><a name="l00260"></a><span class="lineno"><a class="line" href="structTextTag.html#aa07a3eea498b1b44e48c5db57338449e">  260</a></span>&#160;  QString <a class="code" href="structTextTag.html#aa07a3eea498b1b44e48c5db57338449e">text</a>;</div>
-<div class="line"><a name="l00262"></a><span class="lineno"><a class="line" href="structTextTag.html#a1cdcb5cf12140ca47dea8ed4ba0e1924">  262</a></span>&#160;  QTextCursor <a class="code" href="structTextTag.html#a1cdcb5cf12140ca47dea8ed4ba0e1924">textStartCursor</a>;</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;};</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160; </div>
-<div class="line"><a name="l00269"></a><span class="lineno"><a class="line" href="structErrorTag.html">  269</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structErrorTag.html">ErrorTag</a> : <a class="code" href="structTag.html">Tag</a></div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;{</div>
-<div class="line"><a name="l00272"></a><span class="lineno"><a class="line" href="structErrorTag.html#a0680f2e8829e23aab7a56b231c41dcff">  272</a></span>&#160;  ScannerErrors <a class="code" href="structErrorTag.html#a0680f2e8829e23aab7a56b231c41dcff">errors</a> = NoError;</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;  <span class="comment">//  bool matching = false;</span></div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;};</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160; </div>
-<div class="line"><a name="l00280"></a><span class="lineno"><a class="line" href="structNameTag.html">  280</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structNameTag.html">NameTag</a> : <a class="code" href="structErrorTag.html">ErrorTag</a></div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;{</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;  <a class="code" href="structNameTag.html">NameTag</a>()</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    : <a class="code" href="structErrorTag.html">ErrorTag</a>()</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;  {</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;  <a class="code" href="structTag.html">Tag</a>() {}</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;  <span class="keyword">virtual</span> ~<a class="code" href="structTag.html">Tag</a>() {}</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160; </div>
+<div class="line"><a name="l00238"></a><span class="lineno"><a class="line" href="structTag.html#a9bcf07edef2c8dce4c510da12960b1b9">  238</a></span>&#160;  <span class="keyword">virtual</span> IsInType <a class="code" href="structTag.html#a9bcf07edef2c8dce4c510da12960b1b9">isIn</a>(<span class="keywordtype">int</span> cursorPos);</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160; </div>
+<div class="line"><a name="l00243"></a><span class="lineno"><a class="line" href="structTag.html#a785a8d8a4b0832a642fd663a0d4da60a">  243</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="structTag.html#a785a8d8a4b0832a642fd663a0d4da60a">start</a>();</div>
+<div class="line"><a name="l00247"></a><span class="lineno"><a class="line" href="structTag.html#a84fa94ff77ec9b5326b786f799d2c1c9">  247</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="structTag.html#a84fa94ff77ec9b5326b786f799d2c1c9">end</a>();</div>
+<div class="line"><a name="l00251"></a><span class="lineno"><a class="line" href="structTag.html#a50d1e7b7c3fe2c678ce5f493b70d6d1b">  251</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="structTag.html#a50d1e7b7c3fe2c678ce5f493b70d6d1b">length</a>();</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160; </div>
+<div class="line"><a name="l00258"></a><span class="lineno"><a class="line" href="structTag.html#a4da658a0743db8f0218cd3f256125217">  258</a></span>&#160;  <span class="keyword">virtual</span> QString <a class="code" href="structTag.html#a4da658a0743db8f0218cd3f256125217">toString</a>() = 0;</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160; </div>
+<div class="line"><a name="l00261"></a><span class="lineno"><a class="line" href="structTag.html#a35a58834433027727befee80f6cec773">  261</a></span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="structTag.html#a35a58834433027727befee80f6cec773">copyTagInto</a>(<a class="code" href="structTag.html">Tag</a>* tag);</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160; </div>
+<div class="line"><a name="l00264"></a><span class="lineno"><a class="line" href="structTag.html#a0302100af6a22b8999c1fa7ca4eb3221">  264</a></span>&#160;  TagType <a class="code" href="structTag.html#a0302100af6a22b8999c1fa7ca4eb3221">type</a> = NoType;</div>
+<div class="line"><a name="l00266"></a><span class="lineno"><a class="line" href="structTag.html#a8ab0fd2a17b456555ae05f019819afc2">  266</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="structTag.html#a8ab0fd2a17b456555ae05f019819afc2">selected</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00268"></a><span class="lineno"><a class="line" href="structTag.html#a2595d60abc5b28aef28bb837676b04b6">  268</a></span>&#160;  QTextCursor <a class="code" href="structTag.html#a2595d60abc5b28aef28bb837676b04b6">startCursor</a>;</div>
+<div class="line"><a name="l00270"></a><span class="lineno"><a class="line" href="structTag.html#ab7019996370e27697ba21c0f6271b60d">  270</a></span>&#160;  QTextCursor <a class="code" href="structTag.html#ab7019996370e27697ba21c0f6271b60d">endCursor</a>;</div>
+<div class="line"><a name="l00272"></a><span class="lineno"><a class="line" href="structTag.html#a744c79766e49115de69889b08e58059d">  272</a></span>&#160;  QString <a class="code" href="structTag.html#a744c79766e49115de69889b08e58059d">hoverText</a>;</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;};</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160; </div>
+<div class="line"><a name="l00279"></a><span class="lineno"><a class="line" href="structSpecialCharTag.html">  279</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structSpecialCharTag.html">SpecialCharTag</a> : <a class="code" href="structTag.html">Tag</a></div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;{</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;  <a class="code" href="structSpecialCharTag.html">SpecialCharTag</a>(QChar c)</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    : character(c)</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;  {</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    <a class="code" href="structTag.html#a0302100af6a22b8999c1fa7ca4eb3221">type</a> = TagCharacter;</div>
 <div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;  }</div>
 <div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160; </div>
-<div class="line"><a name="l00290"></a><span class="lineno"><a class="line" href="structNameTag.html#a747d5798a306d6b6e72dd466a7452fcc">  290</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="structNameTag.html#a747d5798a306d6b6e72dd466a7452fcc">nameStart</a>();</div>
-<div class="line"><a name="l00294"></a><span class="lineno"><a class="line" href="structNameTag.html#afe489e7b5adb2bd76a9cbf127fdc4849">  294</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="structNameTag.html#afe489e7b5adb2bd76a9cbf127fdc4849">nameLength</a>();</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160; </div>
-<div class="line"><a name="l00302"></a><span class="lineno"><a class="line" href="structNameTag.html#af2a950ba2545f74ca3b5e8d4443545fb">  302</a></span>&#160;  IsInType <a class="code" href="structNameTag.html#af2a950ba2545f74ca3b5e8d4443545fb">isIn</a>(<span class="keywordtype">int</span> cursorPos) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160; </div>
-<div class="line"><a name="l00305"></a><span class="lineno"><a class="line" href="structNameTag.html#a3c8efde55629f23f50e8f56377b901a5">  305</a></span>&#160;  QString <a class="code" href="structNameTag.html#a3c8efde55629f23f50e8f56377b901a5">name</a>;</div>
-<div class="line"><a name="l00307"></a><span class="lineno"><a class="line" href="structNameTag.html#a9249eed11465dc73dc5ddfd3f3eb922b">  307</a></span>&#160;  QTextCursor <a class="code" href="structNameTag.html#a9249eed11465dc73dc5ddfd3f3eb922b">nameStartCursor</a>;</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;};</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160; </div>
-<div class="line"><a name="l00314"></a><span class="lineno"><a class="line" href="structClosedTag.html">  314</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structClosedTag.html">ClosedTag</a> : <a class="code" href="structNameTag.html">NameTag</a></div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;{</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160; </div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;  <a class="code" href="structClosedTag.html">ClosedTag</a>()</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;    : <a class="code" href="structNameTag.html">NameTag</a>()</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;  {</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;  }</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160; </div>
-<div class="line"><a name="l00330"></a><span class="lineno"><a class="line" href="structClosedTag.html#ae75c063e8009aeeb4b8966f4de6d263d">  330</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="structClosedTag.html#ae75c063e8009aeeb4b8966f4de6d263d">isClosed</a>();</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160; </div>
-<div class="line"><a name="l00335"></a><span class="lineno"><a class="line" href="structClosedTag.html#a8660880a22700edd01c67ba0a0c69308">  335</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="structClosedTag.html#a8660880a22700edd01c67ba0a0c69308">closerStart</a>();</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160; </div>
-<div class="line"><a name="l00338"></a><span class="lineno"><a class="line" href="structClosedTag.html#af60ce7626b46a957121829e61a4921d6">  338</a></span>&#160;  QTextCursor <a class="code" href="structClosedTag.html#af60ce7626b46a957121829e61a4921d6">closerStartCursor</a>;</div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;};</div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160; </div>
-<div class="line"><a name="l00342"></a><span class="lineno"><a class="line" href="structTagMatch.html">  342</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structTagMatch.html">TagMatch</a></div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;{</div>
-<div class="line"><a name="l00344"></a><span class="lineno"><a class="line" href="structTagMatch.html#a43a9340c3a3b7d069ccfd18d4a1c919d">  344</a></span>&#160;  <a class="code" href="structNameTag.html">NameTag</a>* <a class="code" href="structTagMatch.html#a43a9340c3a3b7d069ccfd18d4a1c919d">first</a>;  </div>
-<div class="line"><a name="l00345"></a><span class="lineno"><a class="line" href="structTagMatch.html#a9df1a861b529f20ccc117075b36e28e8">  345</a></span>&#160;  <a class="code" href="structNameTag.html">NameTag</a>* <a class="code" href="structTagMatch.html#a9df1a861b529f20ccc117075b36e28e8">second</a>; </div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;};</div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160; </div>
-<div class="line"><a name="l00352"></a><span class="lineno"><a class="line" href="structCommentTag.html">  352</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structCommentTag.html">CommentTag</a> : <a class="code" href="structErrorTag.html">ErrorTag</a></div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;{</div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;  <a class="code" href="structCommentTag.html">CommentTag</a>();</div>
+<div class="line"><a name="l00287"></a><span class="lineno"><a class="line" href="structSpecialCharTag.html#aadda6091b6fa3b68c9ec7fcdc3e8c903">  287</a></span>&#160;  QString <a class="code" href="structSpecialCharTag.html#aadda6091b6fa3b68c9ec7fcdc3e8c903">toString</a>()<span class="keyword"> override </span>{ <span class="keywordflow">return</span> QString(character); }</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160; </div>
+<div class="line"><a name="l00290"></a><span class="lineno"><a class="line" href="structSpecialCharTag.html#a83ca81d7f956a2d6ad1746bd8a420b07">  290</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="structSpecialCharTag.html#a83ca81d7f956a2d6ad1746bd8a420b07">copyTagInto</a>(<a class="code" href="structTag.html">Tag</a>* tag) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160; </div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;  QChar character;</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;};</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160; </div>
+<div class="line"><a name="l00299"></a><span class="lineno"><a class="line" href="structTextTag.html">  299</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structTextTag.html">TextTag</a> : <a class="code" href="structTag.html">Tag</a></div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;{</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;  <a class="code" href="structTextTag.html">TextTag</a>()</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    : <a class="code" href="structTag.html">Tag</a>()</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;  {</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    <a class="code" href="structTag.html#a0302100af6a22b8999c1fa7ca4eb3221">type</a> = TagText;</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;  }</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160; </div>
+<div class="line"><a name="l00312"></a><span class="lineno"><a class="line" href="structTextTag.html#a476cdfb0536bba4fbae8ebcc9a50f2c5">  312</a></span>&#160;  QString <a class="code" href="structTextTag.html#a476cdfb0536bba4fbae8ebcc9a50f2c5">toString</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160; </div>
+<div class="line"><a name="l00319"></a><span class="lineno"><a class="line" href="structTextTag.html#ac881739004b5f823534b5b02082ccacb">  319</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="structTextTag.html#ac881739004b5f823534b5b02082ccacb">textLength</a>();</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160; </div>
+<div class="line"><a name="l00327"></a><span class="lineno"><a class="line" href="structTextTag.html#a27a6f34f716a8158537b099e73a243ad">  327</a></span>&#160;  IsInType <a class="code" href="structTextTag.html#a27a6f34f716a8158537b099e73a243ad">isIn</a>(<span class="keywordtype">int</span> cursorPos) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160; </div>
+<div class="line"><a name="l00333"></a><span class="lineno"><a class="line" href="structTextTag.html#a6e65ea424d77e1f6df066be88810c2b0">  333</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="structTextTag.html#a6e65ea424d77e1f6df066be88810c2b0">isWhitespace</a>() { <span class="keywordflow">return</span> <a class="code" href="structTextTag.html#aa07a3eea498b1b44e48c5db57338449e">text</a>.trimmed().isEmpty(); }</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160; </div>
+<div class="line"><a name="l00338"></a><span class="lineno"><a class="line" href="structTextTag.html#aa07a3eea498b1b44e48c5db57338449e">  338</a></span>&#160;  QString <a class="code" href="structTextTag.html#aa07a3eea498b1b44e48c5db57338449e">text</a>;</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160; </div>
+<div class="line"><a name="l00341"></a><span class="lineno"><a class="line" href="structTextTag.html#a1a211e470ee0b0d1f553db52bbae111a">  341</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="structTextTag.html#a1a211e470ee0b0d1f553db52bbae111a">copyTagInto</a>(<a class="code" href="structTag.html">Tag</a>* tag) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;};</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160; </div>
+<div class="line"><a name="l00348"></a><span class="lineno"><a class="line" href="structErrorTag.html">  348</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structErrorTag.html">ErrorTag</a> : <a class="code" href="structTag.html">Tag</a></div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;{</div>
+<div class="line"><a name="l00351"></a><span class="lineno"><a class="line" href="structErrorTag.html#a0680f2e8829e23aab7a56b231c41dcff">  351</a></span>&#160;  ScannerErrors <a class="code" href="structErrorTag.html#a0680f2e8829e23aab7a56b231c41dcff">errors</a> = NoError;</div>
+<div class="line"><a name="l00353"></a><span class="lineno"><a class="line" href="structErrorTag.html#a401c79fbd9904b6e2510c16c0de6ebc0">  353</a></span>&#160;  ScannerWarnings <a class="code" href="structErrorTag.html#a401c79fbd9904b6e2510c16c0de6ebc0">warnings</a> = NoWarning;</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;  <span class="comment">//  bool matching = false;</span></div>
 <div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160; </div>
-<div class="line"><a name="l00361"></a><span class="lineno"><a class="line" href="structCommentTag.html#ad61cba18c6b96596ac2398add0f7a343">  361</a></span>&#160;  QString <a class="code" href="structCommentTag.html#ad61cba18c6b96596ac2398add0f7a343">toString</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160; </div>
-<div class="line"><a name="l00366"></a><span class="lineno"><a class="line" href="structCommentTag.html#a8d56e0f640bdfbaebd9533157304912f">  366</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="structCommentTag.html#a8d56e0f640bdfbaebd9533157304912f">textStart</a>();</div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160; </div>
-<div class="line"><a name="l00374"></a><span class="lineno"><a class="line" href="structCommentTag.html#a6355df42c221d461b12d53487d1d0833">  374</a></span>&#160;  IsInType <a class="code" href="structCommentTag.html#a6355df42c221d461b12d53487d1d0833">isIn</a>(<span class="keywordtype">int</span> cursorPos) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160; </div>
-<div class="line"><a name="l00377"></a><span class="lineno"><a class="line" href="structCommentTag.html#aa374f3d2ab18549e4c7fd4f78c57dc13">  377</a></span>&#160;  QString <a class="code" href="structCommentTag.html#aa374f3d2ab18549e4c7fd4f78c57dc13">text</a>;</div>
-<div class="line"><a name="l00379"></a><span class="lineno"><a class="line" href="structCommentTag.html#ac14c7340e00b1d4fa2f7b86bbdc133a5">  379</a></span>&#160;  QTextCursor <a class="code" href="structCommentTag.html#ac14c7340e00b1d4fa2f7b86bbdc133a5">textStartCursor</a>;</div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;};</div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160; </div>
-<div class="line"><a name="l00386"></a><span class="lineno"><a class="line" href="structCloserTag.html">  386</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structCloserTag.html">CloserTag</a> : <a class="code" href="structNameTag.html">NameTag</a></div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;{</div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;  <a class="code" href="structCloserTag.html">CloserTag</a>();</div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160; </div>
-<div class="line"><a name="l00395"></a><span class="lineno"><a class="line" href="structCloserTag.html#af20db2bd19d79c1ae916985e3f6b03a1">  395</a></span>&#160;  QString <a class="code" href="structCloserTag.html#af20db2bd19d79c1ae916985e3f6b03a1">toString</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;};</div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160; </div>
-<div class="line"><a name="l00402"></a><span class="lineno"><a class="line" href="structDocTypeTag.html">  402</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structDocTypeTag.html">DocTypeTag</a> : <a class="code" href="structClosedTag.html">ClosedTag</a></div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;{</div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;  <a class="code" href="structDocTypeTag.html">DocTypeTag</a>();</div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160; </div>
-<div class="line"><a name="l00411"></a><span class="lineno"><a class="line" href="structDocTypeTag.html#a0b75f3375b9b79cd1f02918a726d43c9">  411</a></span>&#160;  QString <a class="code" href="structDocTypeTag.html#a0b75f3375b9b79cd1f02918a726d43c9">toString</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160; </div>
-<div class="line"><a name="l00416"></a><span class="lineno"><a class="line" href="structDocTypeTag.html#a8b01cc1b0316a4c48cf9dc43750166ea">  416</a></span>&#160;  QString <a class="code" href="structDocTypeTag.html#a8b01cc1b0316a4c48cf9dc43750166ea">dataAt</a>(<span class="keywordtype">int</span> index);</div>
-<div class="line"><a name="l00420"></a><span class="lineno"><a class="line" href="structDocTypeTag.html#ae6d6717887777f1f51981776d2570d01">  420</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="structDocTypeTag.html#ae6d6717887777f1f51981776d2570d01">dataPosition</a>(<span class="keywordtype">int</span> index);</div>
-<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160; </div>
-<div class="line"><a name="l00428"></a><span class="lineno"><a class="line" href="structDocTypeTag.html#adbe661102ff0c9e07d86a3f9bdd1139a">  428</a></span>&#160;  IsInType <a class="code" href="structDocTypeTag.html#adbe661102ff0c9e07d86a3f9bdd1139a">isIn</a>(<span class="keywordtype">int</span> cursorPos) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160; </div>
-<div class="line"><a name="l00431"></a><span class="lineno"><a class="line" href="structDocTypeTag.html#a0277168651c1e043fc2cd743e6f22614">  431</a></span>&#160;  QVector&lt;QString&gt; <a class="code" href="structDocTypeTag.html#a0277168651c1e043fc2cd743e6f22614">data</a>;</div>
-<div class="line"><a name="l00433"></a><span class="lineno"><a class="line" href="structDocTypeTag.html#a57f0a1b1ead67d0bbe8e77c932732d68">  433</a></span>&#160;  QVector&lt;QTextCursor&gt; <a class="code" href="structDocTypeTag.html#a57f0a1b1ead67d0bbe8e77c932732d68">dataPosCursors</a>;</div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;};</div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160; </div>
-<div class="line"><a name="l00440"></a><span class="lineno"><a class="line" href="structHtmlTag.html">  440</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structHtmlTag.html">HtmlTag</a> : <a class="code" href="structClosedTag.html">ClosedTag</a></div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;{</div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;  <a class="code" href="structHtmlTag.html">HtmlTag</a>();</div>
-<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;  ~<a class="code" href="structHtmlTag.html">HtmlTag</a>();</div>
-<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160; </div>
-<div class="line"><a name="l00450"></a><span class="lineno"><a class="line" href="structHtmlTag.html#a2c745f07d04208772a8be9efd1fe688f">  450</a></span>&#160;  QString <a class="code" href="structHtmlTag.html#a2c745f07d04208772a8be9efd1fe688f">toString</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160; </div>
-<div class="line"><a name="l00458"></a><span class="lineno"><a class="line" href="structHtmlTag.html#add86c2e52b1dbe2e5e0bd68221a4d584">  458</a></span>&#160;  IsInType <a class="code" href="structHtmlTag.html#add86c2e52b1dbe2e5e0bd68221a4d584">isIn</a>(<span class="keywordtype">int</span> cursorPos) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160; </div>
-<div class="line"><a name="l00463"></a><span class="lineno"><a class="line" href="structHtmlTag.html#af948e26bed3fba9ae1306646a23a8a43">  463</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="structHtmlTag.html#af948e26bed3fba9ae1306646a23a8a43">hasAttributeIndex</a>() { <span class="keywordflow">return</span> (<a class="code" href="structHtmlTag.html#a0611bf7268ce2afa89de0f501f1b585b">attributeIndex</a> &gt;= 0); }</div>
-<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160; </div>
-<div class="line"><a name="l00466"></a><span class="lineno"><a class="line" href="structHtmlTag.html#a0611bf7268ce2afa89de0f501f1b585b">  466</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="structHtmlTag.html#a0611bf7268ce2afa89de0f501f1b585b">attributeIndex</a> = -1;</div>
-<div class="line"><a name="l00468"></a><span class="lineno"><a class="line" href="structHtmlTag.html#a9dbc0f706ba9df29e5adf1fdfbd3db1f">  468</a></span>&#160;  QVector&lt;Attribute*&gt; <a class="code" href="structHtmlTag.html#a9dbc0f706ba9df29e5adf1fdfbd3db1f">attributes</a>;</div>
-<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;};</div>
-<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160; </div>
-<div class="line"><a name="l00475"></a><span class="lineno"><a class="line" href="structXmlTag.html">  475</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structXmlTag.html">XmlTag</a> : <a class="code" href="structHtmlTag.html">HtmlTag</a></div>
-<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;{</div>
-<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;  <a class="code" href="structXmlTag.html">XmlTag</a>()</div>
-<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;    : <a class="code" href="structHtmlTag.html">HtmlTag</a>()</div>
-<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;  {</div>
-<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;    <a class="code" href="structTag.html#a0302100af6a22b8999c1fa7ca4eb3221">type</a> = TagXml;</div>
-<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;  }</div>
-<div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160; </div>
-<div class="line"><a name="l00488"></a><span class="lineno"><a class="line" href="structXmlTag.html#a92fcc642cc68298dd6d30244ad53962f">  488</a></span>&#160;  QString <a class="code" href="structXmlTag.html#a92fcc642cc68298dd6d30244ad53962f">toString</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160; </div>
-<div class="line"><a name="l00493"></a><span class="lineno"><a class="line" href="structXmlTag.html#acedbcfe0caf1b5b6da9682ab9994a7c5">  493</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="structXmlTag.html#acedbcfe0caf1b5b6da9682ab9994a7c5">hasStarter</a>() { <span class="keywordflow">return</span> (!<a class="code" href="structXmlTag.html#abf055b43504aa4340bf4a614e86c5354">startChar</a>.isNull()); }</div>
-<div class="line"><a name="l00497"></a><span class="lineno"><a class="line" href="structXmlTag.html#a5b5928a712f9a71f113bbac52453bb65">  497</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="structXmlTag.html#a5b5928a712f9a71f113bbac52453bb65">hasEnder</a>() { <span class="keywordflow">return</span> (!<a class="code" href="structXmlTag.html#a021153024e0d146f7838021c85b1c00e">endChar</a>.isNull()); }</div>
-<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160; </div>
-<div class="line"><a name="l00500"></a><span class="lineno"><a class="line" href="structXmlTag.html#abf055b43504aa4340bf4a614e86c5354">  500</a></span>&#160;  QChar <a class="code" href="structXmlTag.html#abf055b43504aa4340bf4a614e86c5354">startChar</a>;</div>
-<div class="line"><a name="l00502"></a><span class="lineno"><a class="line" href="structXmlTag.html#a021153024e0d146f7838021c85b1c00e">  502</a></span>&#160;  QChar <a class="code" href="structXmlTag.html#a021153024e0d146f7838021c85b1c00e">endChar</a>;</div>
-<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;};</div>
-<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160; </div>
-<div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;<span class="keyword">class </span><a class="code" href="classHtmlTypes.html">HtmlTypes</a>;</div>
-<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;<span class="keyword">class </span><a class="code" href="classBCP47Languages.html">BCP47Languages</a>;</div>
-<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160; </div>
-<div class="line"><a name="l00519"></a><span class="lineno"><a class="line" href="classHtmlScanner.html">  519</a></span>&#160;<span class="keyword">class </span><a class="code" href="classHtmlScanner.html">HtmlScanner</a> : <span class="keyword">public</span> QObject</div>
-<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;{</div>
-<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;  Q_OBJECT</div>
-<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160; </div>
-<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00527"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a56f79aa25587830ed4b6353a1554121c">  527</a></span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classHtmlScanner.html#a56f79aa25587830ed4b6353a1554121c">HtmlScanner</a>(QTextDocument* parent = <span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;  ~<a class="code" href="classHtmlScanner.html">HtmlScanner</a>();</div>
-<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160; </div>
-<div class="line"><a name="l00533"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a1c05f52acb97f43a989a717793c9440b">  533</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classHtmlScanner.html#a1c05f52acb97f43a989a717793c9440b">load</a>(<span class="keyword">const</span> QString&amp; text);</div>
-<div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160; </div>
-<div class="line"><a name="l00538"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a970915712b0e2133d120ad0470ddca3a">  538</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classHtmlScanner.html#a970915712b0e2133d120ad0470ddca3a">load</a>(QTextStream&amp; sin);</div>
-<div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160; </div>
-<div class="line"><a name="l00543"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a12b792144141ecedfed350ab578a1414">  543</a></span>&#160;  <a class="code" href="structTag.html">Tag</a>* <a class="code" href="classHtmlScanner.html#a12b792144141ecedfed350ab578a1414">rescanTag</a>(<span class="keyword">const</span> QString text, <span class="keywordtype">int</span> startPoint, <span class="keywordtype">int</span> count);</div>
+<div class="line"><a name="l00357"></a><span class="lineno"><a class="line" href="structErrorTag.html#a482fe06562a630515560a26f7edd04da">  357</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="structErrorTag.html#a482fe06562a630515560a26f7edd04da">copyTagInto</a>(<a class="code" href="structTag.html">Tag</a>* tag) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;};</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160; </div>
+<div class="line"><a name="l00364"></a><span class="lineno"><a class="line" href="structNameTag.html">  364</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structNameTag.html">NameTag</a> : <a class="code" href="structErrorTag.html">ErrorTag</a></div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;{</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;  <a class="code" href="structNameTag.html">NameTag</a>()</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    : <a class="code" href="structErrorTag.html">ErrorTag</a>()</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;  {</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;  }</div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160; </div>
+<div class="line"><a name="l00374"></a><span class="lineno"><a class="line" href="structNameTag.html#a747d5798a306d6b6e72dd466a7452fcc">  374</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="structNameTag.html#a747d5798a306d6b6e72dd466a7452fcc">nameStart</a>();</div>
+<div class="line"><a name="l00378"></a><span class="lineno"><a class="line" href="structNameTag.html#afe489e7b5adb2bd76a9cbf127fdc4849">  378</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="structNameTag.html#afe489e7b5adb2bd76a9cbf127fdc4849">nameLength</a>();</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160; </div>
+<div class="line"><a name="l00386"></a><span class="lineno"><a class="line" href="structNameTag.html#af2a950ba2545f74ca3b5e8d4443545fb">  386</a></span>&#160;  IsInType <a class="code" href="structNameTag.html#af2a950ba2545f74ca3b5e8d4443545fb">isIn</a>(<span class="keywordtype">int</span> cursorPos) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160; </div>
+<div class="line"><a name="l00389"></a><span class="lineno"><a class="line" href="structNameTag.html#a3c8efde55629f23f50e8f56377b901a5">  389</a></span>&#160;  QString <a class="code" href="structNameTag.html#a3c8efde55629f23f50e8f56377b901a5">name</a>;</div>
+<div class="line"><a name="l00391"></a><span class="lineno"><a class="line" href="structNameTag.html#a9249eed11465dc73dc5ddfd3f3eb922b">  391</a></span>&#160;  QTextCursor <a class="code" href="structNameTag.html#a9249eed11465dc73dc5ddfd3f3eb922b">nameStartCursor</a>;</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160; </div>
+<div class="line"><a name="l00394"></a><span class="lineno"><a class="line" href="structNameTag.html#a3261c689bdfa919d7220e4972446d212">  394</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="structNameTag.html#a3261c689bdfa919d7220e4972446d212">copyTagInto</a>(<a class="code" href="structTag.html">Tag</a>* tag) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160; </div>
+<div class="line"><a name="l00397"></a><span class="lineno"><a class="line" href="structNameTag.html#a6e0cb97cfc68255508e538a357961aaf">  397</a></span>&#160;  QList&lt;int&gt; <a class="code" href="structNameTag.html#a6e0cb97cfc68255508e538a357961aaf">newLines</a>;</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;};</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160; </div>
+<div class="line"><a name="l00404"></a><span class="lineno"><a class="line" href="structClosedTag.html">  404</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structClosedTag.html">ClosedTag</a> : <a class="code" href="structNameTag.html">NameTag</a></div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;{</div>
+<div class="line"><a name="l00414"></a><span class="lineno"><a class="line" href="structClosedTag.html#ae75c063e8009aeeb4b8966f4de6d263d">  414</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="structClosedTag.html#ae75c063e8009aeeb4b8966f4de6d263d">isClosed</a>();</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160; </div>
+<div class="line"><a name="l00419"></a><span class="lineno"><a class="line" href="structClosedTag.html#a8660880a22700edd01c67ba0a0c69308">  419</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="structClosedTag.html#a8660880a22700edd01c67ba0a0c69308">closerStart</a>();</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160; </div>
+<div class="line"><a name="l00422"></a><span class="lineno"><a class="line" href="structClosedTag.html#af60ce7626b46a957121829e61a4921d6">  422</a></span>&#160;  QTextCursor <a class="code" href="structClosedTag.html#af60ce7626b46a957121829e61a4921d6">closerStartCursor</a>;</div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160; </div>
+<div class="line"><a name="l00425"></a><span class="lineno"><a class="line" href="structClosedTag.html#a147f7bcecccee2ee93f6609674897bb0">  425</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="structClosedTag.html#a147f7bcecccee2ee93f6609674897bb0">copyTagInto</a>(<a class="code" href="structTag.html">Tag</a>* tag) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;};</div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160; </div>
+<div class="line"><a name="l00429"></a><span class="lineno"><a class="line" href="structTagMatch.html">  429</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structTagMatch.html">TagMatch</a></div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;{</div>
+<div class="line"><a name="l00431"></a><span class="lineno"><a class="line" href="structTagMatch.html#a43a9340c3a3b7d069ccfd18d4a1c919d">  431</a></span>&#160;  <a class="code" href="structNameTag.html">NameTag</a>* <a class="code" href="structTagMatch.html#a43a9340c3a3b7d069ccfd18d4a1c919d">first</a>;  </div>
+<div class="line"><a name="l00432"></a><span class="lineno"><a class="line" href="structTagMatch.html#a9df1a861b529f20ccc117075b36e28e8">  432</a></span>&#160;  <a class="code" href="structNameTag.html">NameTag</a>* <a class="code" href="structTagMatch.html#a9df1a861b529f20ccc117075b36e28e8">second</a>; </div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;};</div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160; </div>
+<div class="line"><a name="l00439"></a><span class="lineno"><a class="line" href="structCommentTag.html">  439</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structCommentTag.html">CommentTag</a> : <a class="code" href="structErrorTag.html">ErrorTag</a></div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;{</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;  <a class="code" href="structCommentTag.html">CommentTag</a>();</div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160; </div>
+<div class="line"><a name="l00448"></a><span class="lineno"><a class="line" href="structCommentTag.html#ad61cba18c6b96596ac2398add0f7a343">  448</a></span>&#160;  QString <a class="code" href="structCommentTag.html#ad61cba18c6b96596ac2398add0f7a343">toString</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160; </div>
+<div class="line"><a name="l00453"></a><span class="lineno"><a class="line" href="structCommentTag.html#a8d56e0f640bdfbaebd9533157304912f">  453</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="structCommentTag.html#a8d56e0f640bdfbaebd9533157304912f">textStart</a>();</div>
+<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160; </div>
+<div class="line"><a name="l00461"></a><span class="lineno"><a class="line" href="structCommentTag.html#a6355df42c221d461b12d53487d1d0833">  461</a></span>&#160;  IsInType <a class="code" href="structCommentTag.html#a6355df42c221d461b12d53487d1d0833">isIn</a>(<span class="keywordtype">int</span> cursorPos) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160; </div>
+<div class="line"><a name="l00464"></a><span class="lineno"><a class="line" href="structCommentTag.html#aa374f3d2ab18549e4c7fd4f78c57dc13">  464</a></span>&#160;  QString <a class="code" href="structCommentTag.html#aa374f3d2ab18549e4c7fd4f78c57dc13">text</a>;</div>
+<div class="line"><a name="l00466"></a><span class="lineno"><a class="line" href="structCommentTag.html#ac14c7340e00b1d4fa2f7b86bbdc133a5">  466</a></span>&#160;  QTextCursor <a class="code" href="structCommentTag.html#ac14c7340e00b1d4fa2f7b86bbdc133a5">textStartCursor</a>;</div>
+<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160; </div>
+<div class="line"><a name="l00469"></a><span class="lineno"><a class="line" href="structCommentTag.html#a331340eb1d48ab52ac19dace9523fb69">  469</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="structCommentTag.html#a331340eb1d48ab52ac19dace9523fb69">copyTagInto</a>(<a class="code" href="structTag.html">Tag</a>* tag) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;};</div>
+<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160; </div>
+<div class="line"><a name="l00476"></a><span class="lineno"><a class="line" href="structCloserTag.html">  476</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structCloserTag.html">CloserTag</a> : <a class="code" href="structNameTag.html">NameTag</a></div>
+<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;{</div>
+<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;  <a class="code" href="structCloserTag.html">CloserTag</a>();</div>
+<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160; </div>
+<div class="line"><a name="l00485"></a><span class="lineno"><a class="line" href="structCloserTag.html#af20db2bd19d79c1ae916985e3f6b03a1">  485</a></span>&#160;  QString <a class="code" href="structCloserTag.html#af20db2bd19d79c1ae916985e3f6b03a1">toString</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;};</div>
+<div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160; </div>
+<div class="line"><a name="l00492"></a><span class="lineno"><a class="line" href="structDocTypeTag.html">  492</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structDocTypeTag.html">DocTypeTag</a> : <a class="code" href="structClosedTag.html">ClosedTag</a></div>
+<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;{</div>
+<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;  <a class="code" href="structDocTypeTag.html">DocTypeTag</a>();</div>
+<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160; </div>
+<div class="line"><a name="l00501"></a><span class="lineno"><a class="line" href="structDocTypeTag.html#a0b75f3375b9b79cd1f02918a726d43c9">  501</a></span>&#160;  QString <a class="code" href="structDocTypeTag.html#a0b75f3375b9b79cd1f02918a726d43c9">toString</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160; </div>
+<div class="line"><a name="l00506"></a><span class="lineno"><a class="line" href="structDocTypeTag.html#a8b01cc1b0316a4c48cf9dc43750166ea">  506</a></span>&#160;  QString <a class="code" href="structDocTypeTag.html#a8b01cc1b0316a4c48cf9dc43750166ea">dataAt</a>(<span class="keywordtype">int</span> index);</div>
+<div class="line"><a name="l00510"></a><span class="lineno"><a class="line" href="structDocTypeTag.html#ae6d6717887777f1f51981776d2570d01">  510</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="structDocTypeTag.html#ae6d6717887777f1f51981776d2570d01">dataPosition</a>(<span class="keywordtype">int</span> index);</div>
+<div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160; </div>
+<div class="line"><a name="l00518"></a><span class="lineno"><a class="line" href="structDocTypeTag.html#adbe661102ff0c9e07d86a3f9bdd1139a">  518</a></span>&#160;  IsInType <a class="code" href="structDocTypeTag.html#adbe661102ff0c9e07d86a3f9bdd1139a">isIn</a>(<span class="keywordtype">int</span> cursorPos) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160; </div>
+<div class="line"><a name="l00521"></a><span class="lineno"><a class="line" href="structDocTypeTag.html#a0277168651c1e043fc2cd743e6f22614">  521</a></span>&#160;  QVector&lt;QString&gt; <a class="code" href="structDocTypeTag.html#a0277168651c1e043fc2cd743e6f22614">data</a>;</div>
+<div class="line"><a name="l00523"></a><span class="lineno"><a class="line" href="structDocTypeTag.html#a57f0a1b1ead67d0bbe8e77c932732d68">  523</a></span>&#160;  QVector&lt;QTextCursor&gt; <a class="code" href="structDocTypeTag.html#a57f0a1b1ead67d0bbe8e77c932732d68">dataPosCursors</a>;</div>
+<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160; </div>
+<div class="line"><a name="l00526"></a><span class="lineno"><a class="line" href="structDocTypeTag.html#a23b20b7c886e3d69320402011147a2ac">  526</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="structDocTypeTag.html#a23b20b7c886e3d69320402011147a2ac">copyTagInto</a>(<a class="code" href="structTag.html">Tag</a>* tag) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;};</div>
+<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160; </div>
+<div class="line"><a name="l00533"></a><span class="lineno"><a class="line" href="structHtmlTag.html">  533</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structHtmlTag.html">HtmlTag</a> : <a class="code" href="structClosedTag.html">ClosedTag</a></div>
+<div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160;{</div>
+<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;  <a class="code" href="structHtmlTag.html">HtmlTag</a>();</div>
+<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;  ~<a class="code" href="structHtmlTag.html">HtmlTag</a>();</div>
+<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160; </div>
+<div class="line"><a name="l00543"></a><span class="lineno"><a class="line" href="structHtmlTag.html#a2c745f07d04208772a8be9efd1fe688f">  543</a></span>&#160;  QString <a class="code" href="structHtmlTag.html#a2c745f07d04208772a8be9efd1fe688f">toString</a>() <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160; </div>
-<div class="line"><a name="l00550"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a5a946cad2bef7aeb3862066611b07e4a">  550</a></span>&#160;  QVector&lt;Tag*&gt; <a class="code" href="classHtmlScanner.html#a5a946cad2bef7aeb3862066611b07e4a">tagList</a>();</div>
-<div class="line"><a name="l00551"></a><span class="lineno">  551</span>&#160; </div>
-<div class="line"><a name="l00557"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#ae1575c9b4b3b388e5e5fea991fd55ec7">  557</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classHtmlScanner.html#ae1575c9b4b3b388e5e5fea991fd55ec7">moveTagRight</a>(<a class="code" href="structTag.html">Tag</a>* tag);</div>
-<div class="line"><a name="l00558"></a><span class="lineno">  558</span>&#160; </div>
-<div class="line"><a name="l00564"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a40c00e4238a1d4c496fbeb423b3fd244">  564</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classHtmlScanner.html#a40c00e4238a1d4c496fbeb423b3fd244">moveTagLeft</a>(<a class="code" href="structTag.html">Tag</a>* tag);</div>
-<div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160; </div>
-<div class="line"><a name="l00569"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a255fe41e5c8d0ce1359e9f5ad3e5df65">  569</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classHtmlScanner.html#a255fe41e5c8d0ce1359e9f5ad3e5df65">moveTo</a>(<a class="code" href="structTag.html">Tag</a>*, <span class="keywordtype">int</span> position);</div>
-<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160; </div>
-<div class="line"><a name="l00574"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a63d497cd37ee12daab10f0d209977e29">  574</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classHtmlScanner.html#a63d497cd37ee12daab10f0d209977e29">setTag</a>(<span class="keywordtype">int</span> index, <a class="code" href="structTag.html">Tag</a>* tag);</div>
-<div class="line"><a name="l00575"></a><span class="lineno">  575</span>&#160; </div>
-<div class="line"><a name="l00579"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a335a6a791eeecadbfafcb63c00fe2691">  579</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classHtmlScanner.html#a335a6a791eeecadbfafcb63c00fe2691">replaceTag</a>(<a class="code" href="structTag.html">Tag</a>* firstTag, <a class="code" href="structTag.html">Tag</a>* secondTag);</div>
-<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160; </div>
-<div class="line"><a name="l00584"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a89789e41534d7d99835b2d56e65c546d">  584</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classHtmlScanner.html#a89789e41534d7d99835b2d56e65c546d">swapTags</a>(<span class="keywordtype">int</span> firstIndex, <span class="keywordtype">int</span> secondIndex);</div>
-<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160; </div>
-<div class="line"><a name="l00589"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a2a97f39e1e0afebef5bbc4b0471b469e">  589</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classHtmlScanner.html#a2a97f39e1e0afebef5bbc4b0471b469e">swapTags</a>(<a class="code" href="structTag.html">Tag</a>* fisrtTag, <a class="code" href="structTag.html">Tag</a>* secondTag);</div>
-<div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160; </div>
-<div class="line"><a name="l00594"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#aff2495cad28055ffc6436c3da474b55f">  594</a></span>&#160;  <a class="code" href="structTag.html">Tag</a>* <a class="code" href="classHtmlScanner.html#aff2495cad28055ffc6436c3da474b55f">tagAt</a>(<span class="keywordtype">int</span> position);</div>
+<div class="line"><a name="l00551"></a><span class="lineno"><a class="line" href="structHtmlTag.html#add86c2e52b1dbe2e5e0bd68221a4d584">  551</a></span>&#160;  IsInType <a class="code" href="structHtmlTag.html#add86c2e52b1dbe2e5e0bd68221a4d584">isIn</a>(<span class="keywordtype">int</span> cursorPos) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00552"></a><span class="lineno">  552</span>&#160; </div>
+<div class="line"><a name="l00556"></a><span class="lineno"><a class="line" href="structHtmlTag.html#af948e26bed3fba9ae1306646a23a8a43">  556</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="structHtmlTag.html#af948e26bed3fba9ae1306646a23a8a43">hasAttributeIndex</a>() { <span class="keywordflow">return</span> (<a class="code" href="structHtmlTag.html#a0611bf7268ce2afa89de0f501f1b585b">attributeIndex</a> &gt;= 0); }</div>
+<div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160; </div>
+<div class="line"><a name="l00559"></a><span class="lineno"><a class="line" href="structHtmlTag.html#a0611bf7268ce2afa89de0f501f1b585b">  559</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="structHtmlTag.html#a0611bf7268ce2afa89de0f501f1b585b">attributeIndex</a> = -1;</div>
+<div class="line"><a name="l00561"></a><span class="lineno"><a class="line" href="structHtmlTag.html#a9dbc0f706ba9df29e5adf1fdfbd3db1f">  561</a></span>&#160;  QVector&lt;Attribute*&gt; <a class="code" href="structHtmlTag.html#a9dbc0f706ba9df29e5adf1fdfbd3db1f">attributes</a>;</div>
+<div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160; </div>
+<div class="line"><a name="l00564"></a><span class="lineno"><a class="line" href="structHtmlTag.html#a5add207afc7baf4ae2e3de705a4962fb">  564</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="structHtmlTag.html#a5add207afc7baf4ae2e3de705a4962fb">copyTagInto</a>(<a class="code" href="structTag.html">Tag</a>* tag) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;};</div>
+<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160; </div>
+<div class="line"><a name="l00571"></a><span class="lineno"><a class="line" href="structXmlDeclaration.html">  571</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structXmlDeclaration.html">XmlDeclaration</a> : <a class="code" href="structHtmlTag.html">HtmlTag</a></div>
+<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160;{</div>
+<div class="line"><a name="l00574"></a><span class="lineno"><a class="line" href="structXmlDeclaration.html#a59b8199861a06d48833e1ffbac0b4131">  574</a></span>&#160;  <a class="code" href="structXmlDeclaration.html#a59b8199861a06d48833e1ffbac0b4131">XmlDeclaration</a>()</div>
+<div class="line"><a name="l00575"></a><span class="lineno">  575</span>&#160;    : <a class="code" href="structHtmlTag.html">HtmlTag</a>()</div>
+<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;  {</div>
+<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;    <a class="code" href="structTag.html#a0302100af6a22b8999c1fa7ca4eb3221">type</a> = TagXml;</div>
+<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;  }</div>
+<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160; </div>
+<div class="line"><a name="l00585"></a><span class="lineno"><a class="line" href="structXmlDeclaration.html#a2bc7da4f19d762ed01de7e13d2a77b04">  585</a></span>&#160;  QString <a class="code" href="structXmlDeclaration.html#a2bc7da4f19d762ed01de7e13d2a77b04">toString</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160; </div>
+<div class="line"><a name="l00590"></a><span class="lineno"><a class="line" href="structXmlDeclaration.html#aabef89607a347318436585abf40ee755">  590</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="structXmlDeclaration.html#aabef89607a347318436585abf40ee755">hasStarter</a>() { <span class="keywordflow">return</span> (!<a class="code" href="structXmlDeclaration.html#a8bffbb035dd4c2e73c7ec65fea148f39">startChar</a>.isNull()); }</div>
+<div class="line"><a name="l00594"></a><span class="lineno"><a class="line" href="structXmlDeclaration.html#a7e9e5b391b8f5e73de0dc7820e364b9e">  594</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="structXmlDeclaration.html#a7e9e5b391b8f5e73de0dc7820e364b9e">hasEnder</a>() { <span class="keywordflow">return</span> (!<a class="code" href="structXmlDeclaration.html#a37eb6c398bc12eb679104cdad04e2790">endChar</a>.isNull()); }</div>
 <div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160; </div>
-<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;  <span class="comment">// TODO remove this. Only used during debugging</span></div>
-<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;  <span class="comment">//  QTextStream COUT;</span></div>
-<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160; </div>
-<div class="line"><a name="l00602"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a1227de123ff8fb475090b2a14685a671">  602</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="classHtmlScanner.html#a1227de123ff8fb475090b2a14685a671">isValidTag</a>(<a class="code" href="structTag.html">Tag</a>* tag);</div>
-<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160; </div>
-<div class="line"><a name="l00608"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a3f8f333ff8b1124fbbd7a76d583f9790">  608</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="classHtmlScanner.html#a3f8f333ff8b1124fbbd7a76d583f9790">isValidTagName</a>(<span class="keyword">const</span> QString&amp; name);</div>
-<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160; </div>
-<div class="line"><a name="l00614"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a4bee216ddf8de59ae8240a6307348ba0">  614</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="classHtmlScanner.html#a4bee216ddf8de59ae8240a6307348ba0">isValidAttributeForTag</a>(<span class="keyword">const</span> QString&amp; name, <span class="keyword">const</span> QString&amp; attribute);</div>
-<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160; </div>
-<div class="line"><a name="l00620"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a927beffe521b29db77801dc4c7351992">  620</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="classHtmlScanner.html#a927beffe521b29db77801dc4c7351992">isValidAttributeValueForTag</a>(<span class="keyword">const</span> QString&amp; name,</div>
-<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;                                   <span class="keyword">const</span> QString&amp; attribute,</div>
-<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;                                   <span class="keyword">const</span> QString&amp; value);</div>
-<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160; </div>
-<div class="line"><a name="l00630"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a4c078da54fe686da8c8004c05e914080">  630</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classHtmlScanner.html#a4c078da54fe686da8c8004c05e914080">setLanguages</a>(<a class="code" href="classBCP47Languages.html">BCP47Languages</a>* languages);</div>
+<div class="line"><a name="l00597"></a><span class="lineno"><a class="line" href="structXmlDeclaration.html#a8bffbb035dd4c2e73c7ec65fea148f39">  597</a></span>&#160;  QChar <a class="code" href="structXmlDeclaration.html#a8bffbb035dd4c2e73c7ec65fea148f39">startChar</a>;</div>
+<div class="line"><a name="l00599"></a><span class="lineno"><a class="line" href="structXmlDeclaration.html#a37eb6c398bc12eb679104cdad04e2790">  599</a></span>&#160;  QChar <a class="code" href="structXmlDeclaration.html#a37eb6c398bc12eb679104cdad04e2790">endChar</a>;</div>
+<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;};</div>
+<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160; </div>
+<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;<span class="keyword">class </span><a class="code" href="classHtmlTypes.html">HtmlTypes</a>;</div>
+<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;<span class="keyword">class </span><a class="code" href="classBCP47Languages.html">BCP47Languages</a>;</div>
+<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160; </div>
+<div class="line"><a name="l00616"></a><span class="lineno"><a class="line" href="classHtmlScanner.html">  616</a></span>&#160;<span class="keyword">class </span><a class="code" href="classHtmlScanner.html">HtmlScanner</a> : <span class="keyword">public</span> QObject</div>
+<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;{</div>
+<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;  Q_OBJECT</div>
+<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160; </div>
+<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00624"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a56f79aa25587830ed4b6353a1554121c">  624</a></span>&#160;  <span class="keyword">explicit</span> <a class="code" href="classHtmlScanner.html#a56f79aa25587830ed4b6353a1554121c">HtmlScanner</a>(QTextDocument* parent = <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;  ~<a class="code" href="classHtmlScanner.html">HtmlScanner</a>();</div>
+<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160; </div>
+<div class="line"><a name="l00630"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a1c05f52acb97f43a989a717793c9440b">  630</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classHtmlScanner.html#a1c05f52acb97f43a989a717793c9440b">load</a>(<span class="keyword">const</span> QString&amp; text);</div>
 <div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160; </div>
-<div class="line"><a name="l00638"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a715db79e63f81f62ea113ff83e73fe52">  638</a></span>&#160;  <span class="keyword">const</span> QVector&lt;TagMatch*&gt;&amp; <a class="code" href="classHtmlScanner.html#a715db79e63f81f62ea113ff83e73fe52">matchedTags</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160; </div>
-<div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160;  <span class="comment">//  QTextDocument *document() const;</span></div>
-<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;  <span class="comment">//  void setDocument(QTextDocument *Document);</span></div>
-<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160; </div>
-<div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160;signals:</div>
-<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160; </div>
-<div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;  Q_FLAG(ExpectedStates)</div>
-<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160; </div>
-<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;  QTextDocument* m_document = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;  ScannerErrors errors;</div>
-<div class="line"><a name="l00651"></a><span class="lineno">  651</span>&#160;  QVector&lt;Tag*&gt; m_tagList;</div>
-<div class="line"><a name="l00652"></a><span class="lineno">  652</span>&#160;  QVector&lt;TagMatch*&gt; m_matchedTags;</div>
-<div class="line"><a name="l00653"></a><span class="lineno">  653</span>&#160;  <a class="code" href="classHtmlTypes.html">HtmlTypes</a>* m_htmlTypes = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00654"></a><span class="lineno">  654</span>&#160; </div>
-<div class="line"><a name="l00655"></a><span class="lineno">  655</span>&#160;  <span class="comment">//  static QMap&lt;QString, QMap&lt;QString, QVector&lt;QString&gt;&gt;&gt; initTagTypeMap();</span></div>
-<div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160; </div>
-<div class="line"><a name="l00657"></a><span class="lineno">  657</span>&#160;  QVector&lt;Tag*&gt; scan(<span class="keyword">const</span> QString&amp; text, <span class="keywordtype">int</span> startPoint = 0, <span class="keywordtype">int</span> n = -1);</div>
-<div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;  <span class="keywordtype">void</span> addCharToString(QString&amp; s, QChar c, <span class="keywordtype">int</span>&amp; sPos, <span class="keywordtype">int</span> i);</div>
-<div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;  <span class="keywordtype">void</span> storeTagData(<a class="code" href="structNameTag.html">NameTag</a>* tag,</div>
-<div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;                    <a class="code" href="structNameTag.html">NameTag</a>* secondTag = <span class="keyword">nullptr</span>,</div>
-<div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160;                    ScannerError error = NoError);</div>
-<div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160;  <span class="keywordtype">void</span> checkTagOrder();</div>
-<div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160;  QTextCursor createCursor(<span class="keywordtype">int</span> position);</div>
-<div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160;}; <span class="comment">// end of HtmlScanner</span></div>
-<div class="line"><a name="l00665"></a><span class="lineno">  665</span>&#160;Q_DECLARE_OPERATORS_FOR_FLAGS(ExpectedStates)</div>
-<div class="line"><a name="l00666"></a><span class="lineno">  666</span>&#160; </div>
-<div class="line"><a name="l00667"></a><span class="lineno">  667</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// HTMLSCANNER_H</span></div>
+<div class="line"><a name="l00635"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a970915712b0e2133d120ad0470ddca3a">  635</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classHtmlScanner.html#a970915712b0e2133d120ad0470ddca3a">load</a>(QTextStream&amp; sin);</div>
+<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160; </div>
+<div class="line"><a name="l00640"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a12b792144141ecedfed350ab578a1414">  640</a></span>&#160;  <a class="code" href="structTag.html">Tag</a>* <a class="code" href="classHtmlScanner.html#a12b792144141ecedfed350ab578a1414">rescanTag</a>(<span class="keyword">const</span> QString text, <span class="keywordtype">int</span> startPoint, <span class="keywordtype">int</span> count);</div>
+<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160; </div>
+<div class="line"><a name="l00647"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a5a946cad2bef7aeb3862066611b07e4a">  647</a></span>&#160;  QVector&lt;Tag*&gt; <a class="code" href="classHtmlScanner.html#a5a946cad2bef7aeb3862066611b07e4a">tagList</a>();</div>
+<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160; </div>
+<div class="line"><a name="l00654"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#ae1575c9b4b3b388e5e5fea991fd55ec7">  654</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classHtmlScanner.html#ae1575c9b4b3b388e5e5fea991fd55ec7">moveTagRight</a>(<a class="code" href="structTag.html">Tag</a>* tag);</div>
+<div class="line"><a name="l00655"></a><span class="lineno">  655</span>&#160; </div>
+<div class="line"><a name="l00661"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a40c00e4238a1d4c496fbeb423b3fd244">  661</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classHtmlScanner.html#a40c00e4238a1d4c496fbeb423b3fd244">moveTagLeft</a>(<a class="code" href="structTag.html">Tag</a>* tag);</div>
+<div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160; </div>
+<div class="line"><a name="l00666"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a255fe41e5c8d0ce1359e9f5ad3e5df65">  666</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classHtmlScanner.html#a255fe41e5c8d0ce1359e9f5ad3e5df65">moveTo</a>(<a class="code" href="structTag.html">Tag</a>*, <span class="keywordtype">int</span> position);</div>
+<div class="line"><a name="l00667"></a><span class="lineno">  667</span>&#160; </div>
+<div class="line"><a name="l00672"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a63d497cd37ee12daab10f0d209977e29">  672</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classHtmlScanner.html#a63d497cd37ee12daab10f0d209977e29">setTag</a>(<span class="keywordtype">int</span> index, <a class="code" href="structTag.html">Tag</a>* tag);</div>
+<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160; </div>
+<div class="line"><a name="l00678"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a3128328a5d6f83c6d8e92ac597f05be5">  678</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classHtmlScanner.html#a3128328a5d6f83c6d8e92ac597f05be5">insertTag</a>(<span class="keywordtype">int</span> index, <a class="code" href="structTag.html">Tag</a>* tag);</div>
+<div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160; </div>
+<div class="line"><a name="l00683"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a335a6a791eeecadbfafcb63c00fe2691">  683</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classHtmlScanner.html#a335a6a791eeecadbfafcb63c00fe2691">replaceTag</a>(<a class="code" href="structTag.html">Tag</a>* firstTag, <a class="code" href="structTag.html">Tag</a>* secondTag);</div>
+<div class="line"><a name="l00684"></a><span class="lineno">  684</span>&#160; </div>
+<div class="line"><a name="l00685"></a><span class="lineno">  685</span>&#160;<span class="comment">//  /*!</span></div>
+<div class="line"><a name="l00686"></a><span class="lineno">  686</span>&#160;<span class="comment">//   *  \brief Swaps the two Tag&#39;s at index to the new Tag.</span></div>
+<div class="line"><a name="l00687"></a><span class="lineno">  687</span>&#160;<span class="comment">//   */</span></div>
+<div class="line"><a name="l00688"></a><span class="lineno">  688</span>&#160;<span class="comment">//  void swapTags(int firstIndex, int secondIndex);</span></div>
+<div class="line"><a name="l00689"></a><span class="lineno">  689</span>&#160; </div>
+<div class="line"><a name="l00690"></a><span class="lineno">  690</span>&#160;<span class="comment">//  /*!</span></div>
+<div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160;<span class="comment">//   *  \brief Swaps the two Tag&#39;s at index to the new Tag.</span></div>
+<div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160;<span class="comment">//   */</span></div>
+<div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160;<span class="comment">//  void swapTags(Tag* fisrtTag, Tag* secondTag);</span></div>
+<div class="line"><a name="l00694"></a><span class="lineno">  694</span>&#160; </div>
+<div class="line"><a name="l00698"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#aff2495cad28055ffc6436c3da474b55f">  698</a></span>&#160;  <a class="code" href="structTag.html">Tag</a>* <a class="code" href="classHtmlScanner.html#aff2495cad28055ffc6436c3da474b55f">tagAt</a>(<span class="keywordtype">int</span> position);</div>
+<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160; </div>
+<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;  <span class="comment">// TODO remove this. Only used during debugging</span></div>
+<div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160;  <span class="comment">//  QTextStream COUT;</span></div>
+<div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160; </div>
+<div class="line"><a name="l00706"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a1227de123ff8fb475090b2a14685a671">  706</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="classHtmlScanner.html#a1227de123ff8fb475090b2a14685a671">isValidTag</a>(<a class="code" href="structTag.html">Tag</a>* tag);</div>
+<div class="line"><a name="l00707"></a><span class="lineno">  707</span>&#160; </div>
+<div class="line"><a name="l00712"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a3f8f333ff8b1124fbbd7a76d583f9790">  712</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="classHtmlScanner.html#a3f8f333ff8b1124fbbd7a76d583f9790">isValidTagName</a>(<span class="keyword">const</span> QString&amp; name);</div>
+<div class="line"><a name="l00713"></a><span class="lineno">  713</span>&#160; </div>
+<div class="line"><a name="l00718"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a4bee216ddf8de59ae8240a6307348ba0">  718</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="classHtmlScanner.html#a4bee216ddf8de59ae8240a6307348ba0">isValidAttributeForTag</a>(<span class="keyword">const</span> QString&amp; name, <span class="keyword">const</span> QString&amp; attribute);</div>
+<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160; </div>
+<div class="line"><a name="l00724"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a927beffe521b29db77801dc4c7351992">  724</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="classHtmlScanner.html#a927beffe521b29db77801dc4c7351992">isValidAttributeValueForTag</a>(<span class="keyword">const</span> QString&amp; name,</div>
+<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;                                   <span class="keyword">const</span> QString&amp; attribute,</div>
+<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;                                   <span class="keyword">const</span> QString&amp; value);</div>
+<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160; </div>
+<div class="line"><a name="l00734"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a4c078da54fe686da8c8004c05e914080">  734</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classHtmlScanner.html#a4c078da54fe686da8c8004c05e914080">setLanguages</a>(<a class="code" href="classBCP47Languages.html">BCP47Languages</a>* languages);</div>
+<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160; </div>
+<div class="line"><a name="l00742"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a715db79e63f81f62ea113ff83e73fe52">  742</a></span>&#160;  <span class="keyword">const</span> QVector&lt;TagMatch*&gt;&amp; <a class="code" href="classHtmlScanner.html#a715db79e63f81f62ea113ff83e73fe52">matchedTags</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160; </div>
+<div class="line"><a name="l00753"></a><span class="lineno"><a class="line" href="classHtmlScanner.html#a2510801b554f1fe68f36a4b917861bde">  753</a></span>&#160;  <a class="code" href="structTag.html">Tag</a>* <a class="code" href="classHtmlScanner.html#a2510801b554f1fe68f36a4b917861bde">matchedTag</a>(<a class="code" href="structTag.html">Tag</a>* tag);</div>
+<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160; </div>
+<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;  <span class="comment">//  QTextDocument *document() const;</span></div>
+<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;  <span class="comment">//  void setDocument(QTextDocument *Document);</span></div>
+<div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160; </div>
+<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160;signals:</div>
+<div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160; </div>
+<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;  Q_FLAG(ExpectedStates)</div>
+<div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160; </div>
+<div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160;  QTextDocument* m_document = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;  ScannerErrors errors;</div>
+<div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;  QVector&lt;Tag*&gt; m_tagList;</div>
+<div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;  QVector&lt;TagMatch*&gt; m_matchedTags;</div>
+<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;  <a class="code" href="classHtmlTypes.html">HtmlTypes</a>* m_htmlTypes = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160; </div>
+<div class="line"><a name="l00770"></a><span class="lineno">  770</span>&#160;  <span class="comment">//  static QMap&lt;QString, QMap&lt;QString, QVector&lt;QString&gt;&gt;&gt; initTagTypeMap();</span></div>
+<div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160; </div>
+<div class="line"><a name="l00772"></a><span class="lineno">  772</span>&#160;  QVector&lt;Tag*&gt; scan(<span class="keyword">const</span> QString&amp; text, <span class="keywordtype">int</span> startPoint = 0, <span class="keywordtype">int</span> n = -1);</div>
+<div class="line"><a name="l00773"></a><span class="lineno">  773</span>&#160;  <span class="keywordtype">void</span> addCharToString(QString&amp; s,</div>
+<div class="line"><a name="l00774"></a><span class="lineno">  774</span>&#160;                       QChar c,</div>
+<div class="line"><a name="l00775"></a><span class="lineno">  775</span>&#160;                       <span class="keywordtype">int</span>&amp; sPos,</div>
+<div class="line"><a name="l00776"></a><span class="lineno">  776</span>&#160;                       <span class="keywordtype">int</span> i,</div>
+<div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160;                       TagState state = NoState);</div>
+<div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160;  <span class="keywordtype">void</span> storeTagData(<a class="code" href="structNameTag.html">NameTag</a>* tag,</div>
+<div class="line"><a name="l00779"></a><span class="lineno">  779</span>&#160;                    <a class="code" href="structNameTag.html">NameTag</a>* secondTag = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a name="l00780"></a><span class="lineno">  780</span>&#160;                    ScannerError error = NoError);</div>
+<div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160;  <span class="keywordtype">void</span> checkTagOrder();</div>
+<div class="line"><a name="l00782"></a><span class="lineno">  782</span>&#160;  QTextCursor createCursor(<span class="keywordtype">int</span> position);</div>
+<div class="line"><a name="l00783"></a><span class="lineno">  783</span>&#160;  <a class="code" href="structXmlDeclaration.html">XmlDeclaration</a>* createXmlDeclaration(QString&amp; s,</div>
+<div class="line"><a name="l00784"></a><span class="lineno">  784</span>&#160;                                       <span class="keywordtype">int</span>&amp; sPos,</div>
+<div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160;                                       TagState&amp; state,</div>
+<div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;                                       ExpectedStates&amp; expected,</div>
+<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;                                       <span class="keywordtype">bool</span>&amp; hasQuestion,</div>
+<div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160;                                       <span class="keywordtype">int</span>&amp; questionPos,</div>
+<div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160;                                       QChar&amp; storedChar,</div>
+<div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;                                       QTextCursor startCursor = QTextCursor());</div>
+<div class="line"><a name="l00791"></a><span class="lineno">  791</span>&#160;  <span class="keywordtype">void</span> checkXmlAttribute(<a class="code" href="structTag.html">Tag</a>* tag,</div>
+<div class="line"><a name="l00792"></a><span class="lineno">  792</span>&#160;                           <a class="code" href="structAttribute.html">Attribute</a>* attribute,</div>
+<div class="line"><a name="l00793"></a><span class="lineno">  793</span>&#160;                           QString&amp; s,</div>
+<div class="line"><a name="l00794"></a><span class="lineno">  794</span>&#160;                           <span class="keywordtype">int</span>&amp; sPos);</div>
+<div class="line"><a name="l00795"></a><span class="lineno">  795</span>&#160;  <span class="keywordtype">void</span> checkHtmlAttribute(<a class="code" href="structTag.html">Tag</a>* tag,</div>
+<div class="line"><a name="l00796"></a><span class="lineno">  796</span>&#160;                    <a class="code" href="structAttribute.html">Attribute</a>* attribute,</div>
+<div class="line"><a name="l00797"></a><span class="lineno">  797</span>&#160;                    QString&amp; s,</div>
+<div class="line"><a name="l00798"></a><span class="lineno">  798</span>&#160;                    <span class="keywordtype">int</span>&amp; sPos);</div>
+<div class="line"><a name="l00799"></a><span class="lineno">  799</span>&#160;  <span class="keywordtype">void</span> handleQuotedAttribute(<a class="code" href="structTag.html">Tag</a> *tag,</div>
+<div class="line"><a name="l00800"></a><span class="lineno">  800</span>&#160;                             <a class="code" href="structAttribute.html">Attribute</a>* attribute,</div>
+<div class="line"><a name="l00801"></a><span class="lineno">  801</span>&#160;                             QString&amp; s,</div>
+<div class="line"><a name="l00802"></a><span class="lineno">  802</span>&#160;                             <span class="keywordtype">int</span>&amp; sPos);</div>
+<div class="line"><a name="l00803"></a><span class="lineno">  803</span>&#160;  <span class="keywordtype">void</span> checkAttributeNameErrors(<a class="code" href="structTag.html">Tag</a> *tag, <a class="code" href="structAttribute.html">Attribute</a> *attribute, QString &amp;s);</div>
+<div class="line"><a name="l00804"></a><span class="lineno">  804</span>&#160;}; <span class="comment">// end of HtmlScanner</span></div>
+<div class="line"><a name="l00805"></a><span class="lineno">  805</span>&#160;Q_DECLARE_OPERATORS_FOR_FLAGS(ExpectedStates)</div>
+<div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160; </div>
+<div class="line"><a name="l00807"></a><span class="lineno">  807</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// HTMLSCANNER_H</span></div>
 <div class="ttc" id="aclassBCP47Languages_html"><div class="ttname"><a href="classBCP47Languages.html">BCP47Languages</a></div><div class="ttdoc">A utility class to supply IAIN language tag names.</div><div class="ttdef"><b>Definition:</b> languages.h:350</div></div>
-<div class="ttc" id="aclassHtmlScanner_html"><div class="ttname"><a href="classHtmlScanner.html">HtmlScanner</a></div><div class="ttdoc">Scanner/Parser for html code.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:520</div></div>
+<div class="ttc" id="aclassHtmlScanner_html"><div class="ttname"><a href="classHtmlScanner.html">HtmlScanner</a></div><div class="ttdoc">Scanner/Parser for html code.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:617</div></div>
 <div class="ttc" id="aclassHtmlScanner_html_a1227de123ff8fb475090b2a14685a671"><div class="ttname"><a href="classHtmlScanner.html#a1227de123ff8fb475090b2a14685a671">HtmlScanner::isValidTag</a></div><div class="ttdeci">bool isValidTag(Tag *tag)</div><div class="ttdoc">Returns true if the Tag is a valid tag.</div></div>
 <div class="ttc" id="aclassHtmlScanner_html_a12b792144141ecedfed350ab578a1414"><div class="ttname"><a href="classHtmlScanner.html#a12b792144141ecedfed350ab578a1414">HtmlScanner::rescanTag</a></div><div class="ttdeci">Tag * rescanTag(const QString text, int startPoint, int count)</div><div class="ttdoc">Scans part of an HTML 5 page starting at start for count characters.</div></div>
 <div class="ttc" id="aclassHtmlScanner_html_a1c05f52acb97f43a989a717793c9440b"><div class="ttname"><a href="classHtmlScanner.html#a1c05f52acb97f43a989a717793c9440b">HtmlScanner::load</a></div><div class="ttdeci">void load(const QString &amp;text)</div><div class="ttdoc">Scans an entire string of HTML 5 text.</div></div>
+<div class="ttc" id="aclassHtmlScanner_html_a2510801b554f1fe68f36a4b917861bde"><div class="ttname"><a href="classHtmlScanner.html#a2510801b554f1fe68f36a4b917861bde">HtmlScanner::matchedTag</a></div><div class="ttdeci">Tag * matchedTag(Tag *tag)</div><div class="ttdoc">Returns the next matching tag to the supplied tag.</div></div>
 <div class="ttc" id="aclassHtmlScanner_html_a255fe41e5c8d0ce1359e9f5ad3e5df65"><div class="ttname"><a href="classHtmlScanner.html#a255fe41e5c8d0ce1359e9f5ad3e5df65">HtmlScanner::moveTo</a></div><div class="ttdeci">void moveTo(Tag *, int position)</div><div class="ttdoc">Moves Tag to selected position.</div></div>
-<div class="ttc" id="aclassHtmlScanner_html_a2a97f39e1e0afebef5bbc4b0471b469e"><div class="ttname"><a href="classHtmlScanner.html#a2a97f39e1e0afebef5bbc4b0471b469e">HtmlScanner::swapTags</a></div><div class="ttdeci">void swapTags(Tag *fisrtTag, Tag *secondTag)</div><div class="ttdoc">Swaps the two Tag's at index to the new Tag.</div></div>
+<div class="ttc" id="aclassHtmlScanner_html_a3128328a5d6f83c6d8e92ac597f05be5"><div class="ttname"><a href="classHtmlScanner.html#a3128328a5d6f83c6d8e92ac597f05be5">HtmlScanner::insertTag</a></div><div class="ttdeci">void insertTag(int index, Tag *tag)</div><div class="ttdoc">Inserts the Tag at index.</div></div>
 <div class="ttc" id="aclassHtmlScanner_html_a335a6a791eeecadbfafcb63c00fe2691"><div class="ttname"><a href="classHtmlScanner.html#a335a6a791eeecadbfafcb63c00fe2691">HtmlScanner::replaceTag</a></div><div class="ttdeci">void replaceTag(Tag *firstTag, Tag *secondTag)</div><div class="ttdoc">Replaces the Tag at index to the new Tag.</div></div>
 <div class="ttc" id="aclassHtmlScanner_html_a3f8f333ff8b1124fbbd7a76d583f9790"><div class="ttname"><a href="classHtmlScanner.html#a3f8f333ff8b1124fbbd7a76d583f9790">HtmlScanner::isValidTagName</a></div><div class="ttdeci">bool isValidTagName(const QString &amp;name)</div><div class="ttdoc">Returns true if the Tag name is a valid tag, otherwise returns false.</div></div>
 <div class="ttc" id="aclassHtmlScanner_html_a40c00e4238a1d4c496fbeb423b3fd244"><div class="ttname"><a href="classHtmlScanner.html#a40c00e4238a1d4c496fbeb423b3fd244">HtmlScanner::moveTagLeft</a></div><div class="ttdeci">void moveTagLeft(Tag *tag)</div><div class="ttdoc">Moves the Tag one tag left.</div></div>
@@ -436,82 +537,95 @@ $(function() {
 <div class="ttc" id="aclassHtmlScanner_html_a5a946cad2bef7aeb3862066611b07e4a"><div class="ttname"><a href="classHtmlScanner.html#a5a946cad2bef7aeb3862066611b07e4a">HtmlScanner::tagList</a></div><div class="ttdeci">QVector&lt; Tag * &gt; tagList()</div><div class="ttdoc">Returns the HTML page as a list of Tag pointers.</div></div>
 <div class="ttc" id="aclassHtmlScanner_html_a63d497cd37ee12daab10f0d209977e29"><div class="ttname"><a href="classHtmlScanner.html#a63d497cd37ee12daab10f0d209977e29">HtmlScanner::setTag</a></div><div class="ttdeci">void setTag(int index, Tag *tag)</div><div class="ttdoc">Sets the Tag at index to the new Tag.</div></div>
 <div class="ttc" id="aclassHtmlScanner_html_a715db79e63f81f62ea113ff83e73fe52"><div class="ttname"><a href="classHtmlScanner.html#a715db79e63f81f62ea113ff83e73fe52">HtmlScanner::matchedTags</a></div><div class="ttdeci">const QVector&lt; TagMatch * &gt; &amp; matchedTags() const</div><div class="ttdoc">Returns the list of matching tags.</div></div>
-<div class="ttc" id="aclassHtmlScanner_html_a89789e41534d7d99835b2d56e65c546d"><div class="ttname"><a href="classHtmlScanner.html#a89789e41534d7d99835b2d56e65c546d">HtmlScanner::swapTags</a></div><div class="ttdeci">void swapTags(int firstIndex, int secondIndex)</div><div class="ttdoc">Swaps the two Tag's at index to the new Tag.</div></div>
 <div class="ttc" id="aclassHtmlScanner_html_a927beffe521b29db77801dc4c7351992"><div class="ttname"><a href="classHtmlScanner.html#a927beffe521b29db77801dc4c7351992">HtmlScanner::isValidAttributeValueForTag</a></div><div class="ttdeci">bool isValidAttributeValueForTag(const QString &amp;name, const QString &amp;attribute, const QString &amp;value)</div><div class="ttdoc">Returns true if the attribute value string is valid for the supplied tag name and attribute name,...</div></div>
 <div class="ttc" id="aclassHtmlScanner_html_a970915712b0e2133d120ad0470ddca3a"><div class="ttname"><a href="classHtmlScanner.html#a970915712b0e2133d120ad0470ddca3a">HtmlScanner::load</a></div><div class="ttdeci">void load(QTextStream &amp;sin)</div><div class="ttdoc">Scans an entire stream of HTML 5 text.</div></div>
 <div class="ttc" id="aclassHtmlScanner_html_ae1575c9b4b3b388e5e5fea991fd55ec7"><div class="ttname"><a href="classHtmlScanner.html#ae1575c9b4b3b388e5e5fea991fd55ec7">HtmlScanner::moveTagRight</a></div><div class="ttdeci">void moveTagRight(Tag *tag)</div><div class="ttdoc">Moves the Tag one tag right.</div></div>
-<div class="ttc" id="aclassHtmlScanner_html_aff2495cad28055ffc6436c3da474b55f"><div class="ttname"><a href="classHtmlScanner.html#aff2495cad28055ffc6436c3da474b55f">HtmlScanner::tagAt</a></div><div class="ttdeci">Tag * tagAt(int position)</div><div class="ttdoc">Recovers the tag at index in the Tag list.</div></div>
-<div class="ttc" id="aclassHtmlTypes_html"><div class="ttname"><a href="classHtmlTypes.html">HtmlTypes</a></div><div class="ttdoc">A utility class to test for correct html tag names and attribute names.</div><div class="ttdef"><b>Definition:</b> htmltypes.h:45</div></div>
-<div class="ttc" id="astructAttribute_html"><div class="ttname"><a href="structAttribute.html">Attribute</a></div><div class="ttdoc">Stores data about a parsed html attribute.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:132</div></div>
+<div class="ttc" id="aclassHtmlScanner_html_aff2495cad28055ffc6436c3da474b55f"><div class="ttname"><a href="classHtmlScanner.html#aff2495cad28055ffc6436c3da474b55f">HtmlScanner::tagAt</a></div><div class="ttdeci">Tag * tagAt(int position)</div><div class="ttdoc">Swaps the two Tag's at index to the new Tag. ‍/ void swapTags(Tag* fisrtTag, Tag* secondTag);.</div></div>
+<div class="ttc" id="aclassHtmlTypes_html"><div class="ttname"><a href="classHtmlTypes.html">HtmlTypes</a></div><div class="ttdoc">A utility class to test for correct html tag names and attribute names.</div><div class="ttdef"><b>Definition:</b> htmltypes.h:52</div></div>
+<div class="ttc" id="astructAttribute_html"><div class="ttname"><a href="structAttribute.html">Attribute</a></div><div class="ttdoc">Stores data about a parsed html attribute.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:179</div></div>
 <div class="ttc" id="astructAttribute_html_a1949300aeaa241b07d8e2a65db2a82f8"><div class="ttname"><a href="structAttribute.html#a1949300aeaa241b07d8e2a65db2a82f8">Attribute::nameStart</a></div><div class="ttdeci">int nameStart()</div><div class="ttdoc">Returns the attribute name start position.</div></div>
 <div class="ttc" id="astructAttribute_html_a1fa048dc3a0215815826ddd10d7db0be"><div class="ttname"><a href="structAttribute.html#a1fa048dc3a0215815826ddd10d7db0be">Attribute::toString</a></div><div class="ttdeci">QString toString()</div><div class="ttdoc">Creates a string version of the attribute.</div></div>
 <div class="ttc" id="astructAttribute_html_a26692b7aa53e699bf836fff18a65b623"><div class="ttname"><a href="structAttribute.html#a26692b7aa53e699bf836fff18a65b623">Attribute::hasValue</a></div><div class="ttdeci">bool hasValue()</div><div class="ttdoc">Tests whether the attribute has a value. Some html 5 tags have no values.</div></div>
 <div class="ttc" id="astructAttribute_html_a26f55aca786a7011d332cac1956e73e2"><div class="ttname"><a href="structAttribute.html#a26f55aca786a7011d332cac1956e73e2">Attribute::isIn</a></div><div class="ttdeci">IsInType isIn(int cursorPos)</div><div class="ttdoc">isIn method of the attribute.</div></div>
-<div class="ttc" id="astructAttribute_html_a3e78bec4176c3cbc32160827a537e436"><div class="ttname"><a href="structAttribute.html#a3e78bec4176c3cbc32160827a537e436">Attribute::value</a></div><div class="ttdeci">QString value</div><div class="ttdoc">The attrivute value.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:138</div></div>
-<div class="ttc" id="astructAttribute_html_a58763b2c8a286160dad1b0d8e5f85b6e"><div class="ttname"><a href="structAttribute.html#a58763b2c8a286160dad1b0d8e5f85b6e">Attribute::nameStartCursor</a></div><div class="ttdeci">QTextCursor nameStartCursor</div><div class="ttdoc">The start position of the tag.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:136</div></div>
-<div class="ttc" id="astructAttribute_html_a6ed0777fdf08a1e031d67ea59c20ef5b"><div class="ttname"><a href="structAttribute.html#a6ed0777fdf08a1e031d67ea59c20ef5b">Attribute::valueStartCursor</a></div><div class="ttdeci">QTextCursor valueStartCursor</div><div class="ttdoc">The end position of the tag.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:140</div></div>
-<div class="ttc" id="astructAttribute_html_a90c61e84715cc668781c5416add81a55"><div class="ttname"><a href="structAttribute.html#a90c61e84715cc668781c5416add81a55">Attribute::hoverText</a></div><div class="ttdeci">QString hoverText</div><div class="ttdoc">text to display when hovering</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:144</div></div>
+<div class="ttc" id="astructAttribute_html_a3e78bec4176c3cbc32160827a537e436"><div class="ttname"><a href="structAttribute.html#a3e78bec4176c3cbc32160827a537e436">Attribute::value</a></div><div class="ttdeci">QString value</div><div class="ttdoc">The attrivute value.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:185</div></div>
+<div class="ttc" id="astructAttribute_html_a58763b2c8a286160dad1b0d8e5f85b6e"><div class="ttname"><a href="structAttribute.html#a58763b2c8a286160dad1b0d8e5f85b6e">Attribute::nameStartCursor</a></div><div class="ttdeci">QTextCursor nameStartCursor</div><div class="ttdoc">The start position of the tag.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:183</div></div>
+<div class="ttc" id="astructAttribute_html_a6ed0777fdf08a1e031d67ea59c20ef5b"><div class="ttname"><a href="structAttribute.html#a6ed0777fdf08a1e031d67ea59c20ef5b">Attribute::valueStartCursor</a></div><div class="ttdeci">QTextCursor valueStartCursor</div><div class="ttdoc">The end position of the tag.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:187</div></div>
+<div class="ttc" id="astructAttribute_html_a90c61e84715cc668781c5416add81a55"><div class="ttname"><a href="structAttribute.html#a90c61e84715cc668781c5416add81a55">Attribute::hoverText</a></div><div class="ttdeci">QString hoverText</div><div class="ttdoc">text to display when hovering</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:191</div></div>
 <div class="ttc" id="astructAttribute_html_abc3db4e2213ed58ac77c970b12235bef"><div class="ttname"><a href="structAttribute.html#abc3db4e2213ed58ac77c970b12235bef">Attribute::valueStart</a></div><div class="ttdeci">int valueStart()</div><div class="ttdoc">Returns the attribute value start position.</div></div>
-<div class="ttc" id="astructAttribute_html_ad58628ef68f74acbab53eb80cd04d98f"><div class="ttname"><a href="structAttribute.html#ad58628ef68f74acbab53eb80cd04d98f">Attribute::name</a></div><div class="ttdeci">QString name</div><div class="ttdoc">The tag name.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:134</div></div>
-<div class="ttc" id="astructClosedTag_html"><div class="ttname"><a href="structClosedTag.html">ClosedTag</a></div><div class="ttdoc">Stores data for a closer tag for example.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:315</div></div>
+<div class="ttc" id="astructAttribute_html_ad58628ef68f74acbab53eb80cd04d98f"><div class="ttname"><a href="structAttribute.html#ad58628ef68f74acbab53eb80cd04d98f">Attribute::name</a></div><div class="ttdeci">QString name</div><div class="ttdoc">The tag name.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:181</div></div>
+<div class="ttc" id="astructClosedTag_html"><div class="ttname"><a href="structClosedTag.html">ClosedTag</a></div><div class="ttdoc">Stores data for a closer tag for example.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:405</div></div>
+<div class="ttc" id="astructClosedTag_html_a147f7bcecccee2ee93f6609674897bb0"><div class="ttname"><a href="structClosedTag.html#a147f7bcecccee2ee93f6609674897bb0">ClosedTag::copyTagInto</a></div><div class="ttdeci">void copyTagInto(Tag *tag) override</div><div class="ttdoc">Copies values from the supplied tag into this tag.</div></div>
 <div class="ttc" id="astructClosedTag_html_a8660880a22700edd01c67ba0a0c69308"><div class="ttname"><a href="structClosedTag.html#a8660880a22700edd01c67ba0a0c69308">ClosedTag::closerStart</a></div><div class="ttdeci">int closerStart()</div><div class="ttdoc">Returns the closer character position.</div></div>
 <div class="ttc" id="astructClosedTag_html_ae75c063e8009aeeb4b8966f4de6d263d"><div class="ttname"><a href="structClosedTag.html#ae75c063e8009aeeb4b8966f4de6d263d">ClosedTag::isClosed</a></div><div class="ttdeci">bool isClosed()</div></div>
-<div class="ttc" id="astructClosedTag_html_af60ce7626b46a957121829e61a4921d6"><div class="ttname"><a href="structClosedTag.html#af60ce7626b46a957121829e61a4921d6">ClosedTag::closerStartCursor</a></div><div class="ttdeci">QTextCursor closerStartCursor</div><div class="ttdoc">The QTextCursor at the start position of the tag closer character.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:338</div></div>
-<div class="ttc" id="astructCloserTag_html"><div class="ttname"><a href="structCloserTag.html">CloserTag</a></div><div class="ttdoc">Stores closer tags. These are tags that start with a backslash.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:387</div></div>
+<div class="ttc" id="astructClosedTag_html_af60ce7626b46a957121829e61a4921d6"><div class="ttname"><a href="structClosedTag.html#af60ce7626b46a957121829e61a4921d6">ClosedTag::closerStartCursor</a></div><div class="ttdeci">QTextCursor closerStartCursor</div><div class="ttdoc">The QTextCursor at the start position of the tag closer character.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:422</div></div>
+<div class="ttc" id="astructCloserTag_html"><div class="ttname"><a href="structCloserTag.html">CloserTag</a></div><div class="ttdoc">Stores closer tags. These are tags that start with a backslash.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:477</div></div>
 <div class="ttc" id="astructCloserTag_html_af20db2bd19d79c1ae916985e3f6b03a1"><div class="ttname"><a href="structCloserTag.html#af20db2bd19d79c1ae916985e3f6b03a1">CloserTag::toString</a></div><div class="ttdeci">QString toString() override</div><div class="ttdoc">Creates a string version of the tag.</div></div>
-<div class="ttc" id="astructCommentTag_html"><div class="ttname"><a href="structCommentTag.html">CommentTag</a></div><div class="ttdoc">Used to store html comments.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:353</div></div>
+<div class="ttc" id="astructCommentTag_html"><div class="ttname"><a href="structCommentTag.html">CommentTag</a></div><div class="ttdoc">Used to store html comments.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:440</div></div>
+<div class="ttc" id="astructCommentTag_html_a331340eb1d48ab52ac19dace9523fb69"><div class="ttname"><a href="structCommentTag.html#a331340eb1d48ab52ac19dace9523fb69">CommentTag::copyTagInto</a></div><div class="ttdeci">void copyTagInto(Tag *tag) override</div><div class="ttdoc">Copies values from the supplied tag into this tag.</div></div>
 <div class="ttc" id="astructCommentTag_html_a6355df42c221d461b12d53487d1d0833"><div class="ttname"><a href="structCommentTag.html#a6355df42c221d461b12d53487d1d0833">CommentTag::isIn</a></div><div class="ttdeci">IsInType isIn(int cursorPos) override</div><div class="ttdoc">isIn method of all Tag types.</div></div>
 <div class="ttc" id="astructCommentTag_html_a8d56e0f640bdfbaebd9533157304912f"><div class="ttname"><a href="structCommentTag.html#a8d56e0f640bdfbaebd9533157304912f">CommentTag::textStart</a></div><div class="ttdeci">int textStart()</div><div class="ttdoc">Returns the text start position.</div></div>
-<div class="ttc" id="astructCommentTag_html_aa374f3d2ab18549e4c7fd4f78c57dc13"><div class="ttname"><a href="structCommentTag.html#aa374f3d2ab18549e4c7fd4f78c57dc13">CommentTag::text</a></div><div class="ttdeci">QString text</div><div class="ttdoc">The tag text.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:377</div></div>
-<div class="ttc" id="astructCommentTag_html_ac14c7340e00b1d4fa2f7b86bbdc133a5"><div class="ttname"><a href="structCommentTag.html#ac14c7340e00b1d4fa2f7b86bbdc133a5">CommentTag::textStartCursor</a></div><div class="ttdeci">QTextCursor textStartCursor</div><div class="ttdoc">The QTextCursor at the start position of the tag text.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:379</div></div>
+<div class="ttc" id="astructCommentTag_html_aa374f3d2ab18549e4c7fd4f78c57dc13"><div class="ttname"><a href="structCommentTag.html#aa374f3d2ab18549e4c7fd4f78c57dc13">CommentTag::text</a></div><div class="ttdeci">QString text</div><div class="ttdoc">The tag text.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:464</div></div>
+<div class="ttc" id="astructCommentTag_html_ac14c7340e00b1d4fa2f7b86bbdc133a5"><div class="ttname"><a href="structCommentTag.html#ac14c7340e00b1d4fa2f7b86bbdc133a5">CommentTag::textStartCursor</a></div><div class="ttdeci">QTextCursor textStartCursor</div><div class="ttdoc">The QTextCursor at the start position of the tag text.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:466</div></div>
 <div class="ttc" id="astructCommentTag_html_ad61cba18c6b96596ac2398add0f7a343"><div class="ttname"><a href="structCommentTag.html#ad61cba18c6b96596ac2398add0f7a343">CommentTag::toString</a></div><div class="ttdeci">QString toString() override</div><div class="ttdoc">Creates a string version of the tag.</div></div>
-<div class="ttc" id="astructDocTypeTag_html"><div class="ttname"><a href="structDocTypeTag.html">DocTypeTag</a></div><div class="ttdoc">Stores DOCTYPE tags.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:403</div></div>
-<div class="ttc" id="astructDocTypeTag_html_a0277168651c1e043fc2cd743e6f22614"><div class="ttname"><a href="structDocTypeTag.html#a0277168651c1e043fc2cd743e6f22614">DocTypeTag::data</a></div><div class="ttdeci">QVector&lt; QString &gt; data</div><div class="ttdoc">The doctype data string.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:431</div></div>
+<div class="ttc" id="astructDocTypeTag_html"><div class="ttname"><a href="structDocTypeTag.html">DocTypeTag</a></div><div class="ttdoc">Stores DOCTYPE tags.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:493</div></div>
+<div class="ttc" id="astructDocTypeTag_html_a0277168651c1e043fc2cd743e6f22614"><div class="ttname"><a href="structDocTypeTag.html#a0277168651c1e043fc2cd743e6f22614">DocTypeTag::data</a></div><div class="ttdeci">QVector&lt; QString &gt; data</div><div class="ttdoc">The doctype data string.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:521</div></div>
 <div class="ttc" id="astructDocTypeTag_html_a0b75f3375b9b79cd1f02918a726d43c9"><div class="ttname"><a href="structDocTypeTag.html#a0b75f3375b9b79cd1f02918a726d43c9">DocTypeTag::toString</a></div><div class="ttdeci">QString toString() override</div><div class="ttdoc">Creates a string version of the tag.</div></div>
-<div class="ttc" id="astructDocTypeTag_html_a57f0a1b1ead67d0bbe8e77c932732d68"><div class="ttname"><a href="structDocTypeTag.html#a57f0a1b1ead67d0bbe8e77c932732d68">DocTypeTag::dataPosCursors</a></div><div class="ttdeci">QVector&lt; QTextCursor &gt; dataPosCursors</div><div class="ttdoc">The QTextCursor at the start position of each doctype data string.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:433</div></div>
+<div class="ttc" id="astructDocTypeTag_html_a23b20b7c886e3d69320402011147a2ac"><div class="ttname"><a href="structDocTypeTag.html#a23b20b7c886e3d69320402011147a2ac">DocTypeTag::copyTagInto</a></div><div class="ttdeci">void copyTagInto(Tag *tag) override</div><div class="ttdoc">Copies values from the supplied tag into this tag.</div></div>
+<div class="ttc" id="astructDocTypeTag_html_a57f0a1b1ead67d0bbe8e77c932732d68"><div class="ttname"><a href="structDocTypeTag.html#a57f0a1b1ead67d0bbe8e77c932732d68">DocTypeTag::dataPosCursors</a></div><div class="ttdeci">QVector&lt; QTextCursor &gt; dataPosCursors</div><div class="ttdoc">The QTextCursor at the start position of each doctype data string.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:523</div></div>
 <div class="ttc" id="astructDocTypeTag_html_a8b01cc1b0316a4c48cf9dc43750166ea"><div class="ttname"><a href="structDocTypeTag.html#a8b01cc1b0316a4c48cf9dc43750166ea">DocTypeTag::dataAt</a></div><div class="ttdeci">QString dataAt(int index)</div><div class="ttdoc">Returns the data string at index.</div></div>
 <div class="ttc" id="astructDocTypeTag_html_adbe661102ff0c9e07d86a3f9bdd1139a"><div class="ttname"><a href="structDocTypeTag.html#adbe661102ff0c9e07d86a3f9bdd1139a">DocTypeTag::isIn</a></div><div class="ttdeci">IsInType isIn(int cursorPos) override</div><div class="ttdoc">isIn method of all Tag types.</div></div>
 <div class="ttc" id="astructDocTypeTag_html_ae6d6717887777f1f51981776d2570d01"><div class="ttname"><a href="structDocTypeTag.html#ae6d6717887777f1f51981776d2570d01">DocTypeTag::dataPosition</a></div><div class="ttdeci">int dataPosition(int index)</div><div class="ttdoc">Returns the data position within the tag at index.</div></div>
-<div class="ttc" id="astructErrorTag_html"><div class="ttname"><a href="structErrorTag.html">ErrorTag</a></div><div class="ttdoc">Stores errors. Not created directly.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:270</div></div>
-<div class="ttc" id="astructErrorTag_html_a0680f2e8829e23aab7a56b231c41dcff"><div class="ttname"><a href="structErrorTag.html#a0680f2e8829e23aab7a56b231c41dcff">ErrorTag::errors</a></div><div class="ttdeci">ScannerErrors errors</div><div class="ttdoc">Stores tag parsing errors.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:272</div></div>
-<div class="ttc" id="astructHtmlTag_html"><div class="ttname"><a href="structHtmlTag.html">HtmlTag</a></div><div class="ttdoc">Stores tags. This is the most common type.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:441</div></div>
-<div class="ttc" id="astructHtmlTag_html_a0611bf7268ce2afa89de0f501f1b585b"><div class="ttname"><a href="structHtmlTag.html#a0611bf7268ce2afa89de0f501f1b585b">HtmlTag::attributeIndex</a></div><div class="ttdeci">int attributeIndex</div><div class="ttdoc">The index of the attribute that has been detected by the IsIn method.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:466</div></div>
+<div class="ttc" id="astructErrorTag_html"><div class="ttname"><a href="structErrorTag.html">ErrorTag</a></div><div class="ttdoc">Stores errors. Not created directly.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:349</div></div>
+<div class="ttc" id="astructErrorTag_html_a0680f2e8829e23aab7a56b231c41dcff"><div class="ttname"><a href="structErrorTag.html#a0680f2e8829e23aab7a56b231c41dcff">ErrorTag::errors</a></div><div class="ttdeci">ScannerErrors errors</div><div class="ttdoc">Stores tag parsing errors.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:351</div></div>
+<div class="ttc" id="astructErrorTag_html_a401c79fbd9904b6e2510c16c0de6ebc0"><div class="ttname"><a href="structErrorTag.html#a401c79fbd9904b6e2510c16c0de6ebc0">ErrorTag::warnings</a></div><div class="ttdeci">ScannerWarnings warnings</div><div class="ttdoc">Stores tag parsing warnings.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:353</div></div>
+<div class="ttc" id="astructErrorTag_html_a482fe06562a630515560a26f7edd04da"><div class="ttname"><a href="structErrorTag.html#a482fe06562a630515560a26f7edd04da">ErrorTag::copyTagInto</a></div><div class="ttdeci">void copyTagInto(Tag *tag) override</div><div class="ttdoc">Copies values from the supplied tag into this tag.</div></div>
+<div class="ttc" id="astructHtmlTag_html"><div class="ttname"><a href="structHtmlTag.html">HtmlTag</a></div><div class="ttdoc">Stores tags. This is the most common type.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:534</div></div>
+<div class="ttc" id="astructHtmlTag_html_a0611bf7268ce2afa89de0f501f1b585b"><div class="ttname"><a href="structHtmlTag.html#a0611bf7268ce2afa89de0f501f1b585b">HtmlTag::attributeIndex</a></div><div class="ttdeci">int attributeIndex</div><div class="ttdoc">The index of the attribute that has been detected by the IsIn method.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:559</div></div>
 <div class="ttc" id="astructHtmlTag_html_a2c745f07d04208772a8be9efd1fe688f"><div class="ttname"><a href="structHtmlTag.html#a2c745f07d04208772a8be9efd1fe688f">HtmlTag::toString</a></div><div class="ttdeci">QString toString() override</div><div class="ttdoc">Creates a string version of the tag.</div></div>
-<div class="ttc" id="astructHtmlTag_html_a9dbc0f706ba9df29e5adf1fdfbd3db1f"><div class="ttname"><a href="structHtmlTag.html#a9dbc0f706ba9df29e5adf1fdfbd3db1f">HtmlTag::attributes</a></div><div class="ttdeci">QVector&lt; Attribute * &gt; attributes</div><div class="ttdoc">List of attrubutes.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:468</div></div>
+<div class="ttc" id="astructHtmlTag_html_a5add207afc7baf4ae2e3de705a4962fb"><div class="ttname"><a href="structHtmlTag.html#a5add207afc7baf4ae2e3de705a4962fb">HtmlTag::copyTagInto</a></div><div class="ttdeci">void copyTagInto(Tag *tag) override</div><div class="ttdoc">Copies values from the supplied tag into this tag.</div></div>
+<div class="ttc" id="astructHtmlTag_html_a9dbc0f706ba9df29e5adf1fdfbd3db1f"><div class="ttname"><a href="structHtmlTag.html#a9dbc0f706ba9df29e5adf1fdfbd3db1f">HtmlTag::attributes</a></div><div class="ttdeci">QVector&lt; Attribute * &gt; attributes</div><div class="ttdoc">List of attrubutes.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:561</div></div>
 <div class="ttc" id="astructHtmlTag_html_add86c2e52b1dbe2e5e0bd68221a4d584"><div class="ttname"><a href="structHtmlTag.html#add86c2e52b1dbe2e5e0bd68221a4d584">HtmlTag::isIn</a></div><div class="ttdeci">IsInType isIn(int cursorPos) override</div><div class="ttdoc">isIn method of all Tag types.</div></div>
-<div class="ttc" id="astructHtmlTag_html_af948e26bed3fba9ae1306646a23a8a43"><div class="ttname"><a href="structHtmlTag.html#af948e26bed3fba9ae1306646a23a8a43">HtmlTag::hasAttributeIndex</a></div><div class="ttdeci">bool hasAttributeIndex()</div><div class="ttdoc">tests whther the HtmlTag has in attributeIndex value set.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:463</div></div>
-<div class="ttc" id="astructNameTag_html"><div class="ttname"><a href="structNameTag.html">NameTag</a></div><div class="ttdoc">Stores tag name. Not created directly.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:281</div></div>
-<div class="ttc" id="astructNameTag_html_a3c8efde55629f23f50e8f56377b901a5"><div class="ttname"><a href="structNameTag.html#a3c8efde55629f23f50e8f56377b901a5">NameTag::name</a></div><div class="ttdeci">QString name</div><div class="ttdoc">The tag name.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:305</div></div>
+<div class="ttc" id="astructHtmlTag_html_af948e26bed3fba9ae1306646a23a8a43"><div class="ttname"><a href="structHtmlTag.html#af948e26bed3fba9ae1306646a23a8a43">HtmlTag::hasAttributeIndex</a></div><div class="ttdeci">bool hasAttributeIndex()</div><div class="ttdoc">tests whther the HtmlTag has in attributeIndex value set.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:556</div></div>
+<div class="ttc" id="astructNameTag_html"><div class="ttname"><a href="structNameTag.html">NameTag</a></div><div class="ttdoc">Stores tag name. Not created directly.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:365</div></div>
+<div class="ttc" id="astructNameTag_html_a3261c689bdfa919d7220e4972446d212"><div class="ttname"><a href="structNameTag.html#a3261c689bdfa919d7220e4972446d212">NameTag::copyTagInto</a></div><div class="ttdeci">void copyTagInto(Tag *tag) override</div><div class="ttdoc">Copies values from the supplied tag into this tag.</div></div>
+<div class="ttc" id="astructNameTag_html_a3c8efde55629f23f50e8f56377b901a5"><div class="ttname"><a href="structNameTag.html#a3c8efde55629f23f50e8f56377b901a5">NameTag::name</a></div><div class="ttdeci">QString name</div><div class="ttdoc">The tag name.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:389</div></div>
+<div class="ttc" id="astructNameTag_html_a6e0cb97cfc68255508e538a357961aaf"><div class="ttname"><a href="structNameTag.html#a6e0cb97cfc68255508e538a357961aaf">NameTag::newLines</a></div><div class="ttdeci">QList&lt; int &gt; newLines</div><div class="ttdoc">Stores newlines inside tags.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:397</div></div>
 <div class="ttc" id="astructNameTag_html_a747d5798a306d6b6e72dd466a7452fcc"><div class="ttname"><a href="structNameTag.html#a747d5798a306d6b6e72dd466a7452fcc">NameTag::nameStart</a></div><div class="ttdeci">int nameStart()</div><div class="ttdoc">Returns the tag name start position.</div></div>
-<div class="ttc" id="astructNameTag_html_a9249eed11465dc73dc5ddfd3f3eb922b"><div class="ttname"><a href="structNameTag.html#a9249eed11465dc73dc5ddfd3f3eb922b">NameTag::nameStartCursor</a></div><div class="ttdeci">QTextCursor nameStartCursor</div><div class="ttdoc">The QTextCursor at the start position of the tag name.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:307</div></div>
+<div class="ttc" id="astructNameTag_html_a9249eed11465dc73dc5ddfd3f3eb922b"><div class="ttname"><a href="structNameTag.html#a9249eed11465dc73dc5ddfd3f3eb922b">NameTag::nameStartCursor</a></div><div class="ttdeci">QTextCursor nameStartCursor</div><div class="ttdoc">The QTextCursor at the start position of the tag name.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:391</div></div>
 <div class="ttc" id="astructNameTag_html_af2a950ba2545f74ca3b5e8d4443545fb"><div class="ttname"><a href="structNameTag.html#af2a950ba2545f74ca3b5e8d4443545fb">NameTag::isIn</a></div><div class="ttdeci">IsInType isIn(int cursorPos) override</div><div class="ttdoc">isIn method of all Tag types.</div></div>
 <div class="ttc" id="astructNameTag_html_afe489e7b5adb2bd76a9cbf127fdc4849"><div class="ttname"><a href="structNameTag.html#afe489e7b5adb2bd76a9cbf127fdc4849">NameTag::nameLength</a></div><div class="ttdeci">int nameLength()</div><div class="ttdoc">Returns the length of the text.</div></div>
-<div class="ttc" id="astructTagMatch_html"><div class="ttname"><a href="structTagMatch.html">TagMatch</a></div><div class="ttdoc">Stores two tags. Used when matching two tags.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:343</div></div>
-<div class="ttc" id="astructTagMatch_html_a43a9340c3a3b7d069ccfd18d4a1c919d"><div class="ttname"><a href="structTagMatch.html#a43a9340c3a3b7d069ccfd18d4a1c919d">TagMatch::first</a></div><div class="ttdeci">NameTag * first</div><div class="ttdoc">First member in a tag match.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:344</div></div>
-<div class="ttc" id="astructTagMatch_html_a9df1a861b529f20ccc117075b36e28e8"><div class="ttname"><a href="structTagMatch.html#a9df1a861b529f20ccc117075b36e28e8">TagMatch::second</a></div><div class="ttdeci">NameTag * second</div><div class="ttdoc">Second member in a tag match or nullptr if no match.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:345</div></div>
-<div class="ttc" id="astructTag_html"><div class="ttname"><a href="structTag.html">Tag</a></div><div class="ttdoc">Base struct of all Tag types.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:179</div></div>
-<div class="ttc" id="astructTag_html_a0302100af6a22b8999c1fa7ca4eb3221"><div class="ttname"><a href="structTag.html#a0302100af6a22b8999c1fa7ca4eb3221">Tag::type</a></div><div class="ttdeci">TagType type</div><div class="ttdoc">The Tag type.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:212</div></div>
-<div class="ttc" id="astructTag_html_a2595d60abc5b28aef28bb837676b04b6"><div class="ttname"><a href="structTag.html#a2595d60abc5b28aef28bb837676b04b6">Tag::startCursor</a></div><div class="ttdeci">QTextCursor startCursor</div><div class="ttdoc">The QTextCursor at the start position of the tag.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:216</div></div>
+<div class="ttc" id="astructSpecialCharTag_html"><div class="ttname"><a href="structSpecialCharTag.html">SpecialCharTag</a></div><div class="ttdoc">Handles special characters such as left newline character.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:280</div></div>
+<div class="ttc" id="astructSpecialCharTag_html_a83ca81d7f956a2d6ad1746bd8a420b07"><div class="ttname"><a href="structSpecialCharTag.html#a83ca81d7f956a2d6ad1746bd8a420b07">SpecialCharTag::copyTagInto</a></div><div class="ttdeci">void copyTagInto(Tag *tag) override</div><div class="ttdoc">Copies values from the supplied tag into this tag.</div></div>
+<div class="ttc" id="astructSpecialCharTag_html_aadda6091b6fa3b68c9ec7fcdc3e8c903"><div class="ttname"><a href="structSpecialCharTag.html#aadda6091b6fa3b68c9ec7fcdc3e8c903">SpecialCharTag::toString</a></div><div class="ttdeci">QString toString() override</div><div class="ttdoc">Creates a string version of the tag.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:287</div></div>
+<div class="ttc" id="astructTagMatch_html"><div class="ttname"><a href="structTagMatch.html">TagMatch</a></div><div class="ttdoc">Stores two tags. Used when matching two tags.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:430</div></div>
+<div class="ttc" id="astructTagMatch_html_a43a9340c3a3b7d069ccfd18d4a1c919d"><div class="ttname"><a href="structTagMatch.html#a43a9340c3a3b7d069ccfd18d4a1c919d">TagMatch::first</a></div><div class="ttdeci">NameTag * first</div><div class="ttdoc">First member in a tag match.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:431</div></div>
+<div class="ttc" id="astructTagMatch_html_a9df1a861b529f20ccc117075b36e28e8"><div class="ttname"><a href="structTagMatch.html#a9df1a861b529f20ccc117075b36e28e8">TagMatch::second</a></div><div class="ttdeci">NameTag * second</div><div class="ttdoc">Second member in a tag match or nullptr if no match.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:432</div></div>
+<div class="ttc" id="astructTag_html"><div class="ttname"><a href="structTag.html">Tag</a></div><div class="ttdoc">Base struct of all Tag types.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:228</div></div>
+<div class="ttc" id="astructTag_html_a0302100af6a22b8999c1fa7ca4eb3221"><div class="ttname"><a href="structTag.html#a0302100af6a22b8999c1fa7ca4eb3221">Tag::type</a></div><div class="ttdeci">TagType type</div><div class="ttdoc">The Tag type.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:264</div></div>
+<div class="ttc" id="astructTag_html_a2595d60abc5b28aef28bb837676b04b6"><div class="ttname"><a href="structTag.html#a2595d60abc5b28aef28bb837676b04b6">Tag::startCursor</a></div><div class="ttdeci">QTextCursor startCursor</div><div class="ttdoc">The QTextCursor at the start position of the tag.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:268</div></div>
+<div class="ttc" id="astructTag_html_a35a58834433027727befee80f6cec773"><div class="ttname"><a href="structTag.html#a35a58834433027727befee80f6cec773">Tag::copyTagInto</a></div><div class="ttdeci">virtual void copyTagInto(Tag *tag)</div><div class="ttdoc">Copies values from the supplied tag into this tag.</div></div>
 <div class="ttc" id="astructTag_html_a4da658a0743db8f0218cd3f256125217"><div class="ttname"><a href="structTag.html#a4da658a0743db8f0218cd3f256125217">Tag::toString</a></div><div class="ttdeci">virtual QString toString()=0</div><div class="ttdoc">Creates a string version of the tag.</div></div>
 <div class="ttc" id="astructTag_html_a50d1e7b7c3fe2c678ce5f493b70d6d1b"><div class="ttname"><a href="structTag.html#a50d1e7b7c3fe2c678ce5f493b70d6d1b">Tag::length</a></div><div class="ttdeci">int length()</div><div class="ttdoc">Returns the tag length.</div></div>
-<div class="ttc" id="astructTag_html_a744c79766e49115de69889b08e58059d"><div class="ttname"><a href="structTag.html#a744c79766e49115de69889b08e58059d">Tag::hoverText</a></div><div class="ttdeci">QString hoverText</div><div class="ttdoc">text to display when hovering</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:220</div></div>
+<div class="ttc" id="astructTag_html_a744c79766e49115de69889b08e58059d"><div class="ttname"><a href="structTag.html#a744c79766e49115de69889b08e58059d">Tag::hoverText</a></div><div class="ttdeci">QString hoverText</div><div class="ttdoc">text to display when hovering.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:272</div></div>
 <div class="ttc" id="astructTag_html_a785a8d8a4b0832a642fd663a0d4da60a"><div class="ttname"><a href="structTag.html#a785a8d8a4b0832a642fd663a0d4da60a">Tag::start</a></div><div class="ttdeci">int start()</div><div class="ttdoc">Returns the tag start position.</div></div>
 <div class="ttc" id="astructTag_html_a84fa94ff77ec9b5326b786f799d2c1c9"><div class="ttname"><a href="structTag.html#a84fa94ff77ec9b5326b786f799d2c1c9">Tag::end</a></div><div class="ttdeci">int end()</div><div class="ttdoc">Returns the tag end position.</div></div>
-<div class="ttc" id="astructTag_html_a8ab0fd2a17b456555ae05f019819afc2"><div class="ttname"><a href="structTag.html#a8ab0fd2a17b456555ae05f019819afc2">Tag::selected</a></div><div class="ttdeci">bool selected</div><div class="ttdoc">Indicates that the tag has been selected.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:214</div></div>
+<div class="ttc" id="astructTag_html_a8ab0fd2a17b456555ae05f019819afc2"><div class="ttname"><a href="structTag.html#a8ab0fd2a17b456555ae05f019819afc2">Tag::selected</a></div><div class="ttdeci">bool selected</div><div class="ttdoc">Indicates that the tag has been selected.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:266</div></div>
 <div class="ttc" id="astructTag_html_a9bcf07edef2c8dce4c510da12960b1b9"><div class="ttname"><a href="structTag.html#a9bcf07edef2c8dce4c510da12960b1b9">Tag::isIn</a></div><div class="ttdeci">virtual IsInType isIn(int cursorPos)</div><div class="ttdoc">isIn method of all Tag types.</div></div>
-<div class="ttc" id="astructTag_html_ab7019996370e27697ba21c0f6271b60d"><div class="ttname"><a href="structTag.html#ab7019996370e27697ba21c0f6271b60d">Tag::endCursor</a></div><div class="ttdeci">QTextCursor endCursor</div><div class="ttdoc">The QTextCursor at the end position of the tag.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:218</div></div>
-<div class="ttc" id="astructTextTag_html"><div class="ttname"><a href="structTextTag.html">TextTag</a></div><div class="ttdoc">A text block. Not created directly.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:228</div></div>
-<div class="ttc" id="astructTextTag_html_a1cdcb5cf12140ca47dea8ed4ba0e1924"><div class="ttname"><a href="structTextTag.html#a1cdcb5cf12140ca47dea8ed4ba0e1924">TextTag::textStartCursor</a></div><div class="ttdeci">QTextCursor textStartCursor</div><div class="ttdoc">The QTextCursor at the start position of the tag text.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:262</div></div>
+<div class="ttc" id="astructTag_html_ab7019996370e27697ba21c0f6271b60d"><div class="ttname"><a href="structTag.html#ab7019996370e27697ba21c0f6271b60d">Tag::endCursor</a></div><div class="ttdeci">QTextCursor endCursor</div><div class="ttdoc">The QTextCursor at the end position of the tag.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:270</div></div>
+<div class="ttc" id="astructTextTag_html"><div class="ttname"><a href="structTextTag.html">TextTag</a></div><div class="ttdoc">A text block. Not created directly.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:300</div></div>
+<div class="ttc" id="astructTextTag_html_a1a211e470ee0b0d1f553db52bbae111a"><div class="ttname"><a href="structTextTag.html#a1a211e470ee0b0d1f553db52bbae111a">TextTag::copyTagInto</a></div><div class="ttdeci">void copyTagInto(Tag *tag) override</div><div class="ttdoc">Copies values from the supplied tag into this tag.</div></div>
 <div class="ttc" id="astructTextTag_html_a27a6f34f716a8158537b099e73a243ad"><div class="ttname"><a href="structTextTag.html#a27a6f34f716a8158537b099e73a243ad">TextTag::isIn</a></div><div class="ttdeci">IsInType isIn(int cursorPos) override</div><div class="ttdoc">isIn method of all Tag types.</div></div>
-<div class="ttc" id="astructTextTag_html_a299ad64e92c80fdbbe475872e4ca2b38"><div class="ttname"><a href="structTextTag.html#a299ad64e92c80fdbbe475872e4ca2b38">TextTag::textStart</a></div><div class="ttdeci">int textStart()</div><div class="ttdoc">Returns the text start position.</div></div>
 <div class="ttc" id="astructTextTag_html_a476cdfb0536bba4fbae8ebcc9a50f2c5"><div class="ttname"><a href="structTextTag.html#a476cdfb0536bba4fbae8ebcc9a50f2c5">TextTag::toString</a></div><div class="ttdeci">QString toString() override</div><div class="ttdoc">Creates a string version of the tag.</div></div>
-<div class="ttc" id="astructTextTag_html_aa07a3eea498b1b44e48c5db57338449e"><div class="ttname"><a href="structTextTag.html#aa07a3eea498b1b44e48c5db57338449e">TextTag::text</a></div><div class="ttdeci">QString text</div><div class="ttdoc">the text string</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:260</div></div>
-<div class="ttc" id="astructXmlTag_html"><div class="ttname"><a href="structXmlTag.html">XmlTag</a></div><div class="ttdoc">Stores the xml tag at start of the file.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:476</div></div>
-<div class="ttc" id="astructXmlTag_html_a021153024e0d146f7838021c85b1c00e"><div class="ttname"><a href="structXmlTag.html#a021153024e0d146f7838021c85b1c00e">XmlTag::endChar</a></div><div class="ttdeci">QChar endChar</div><div class="ttdoc">end character (normally ?)</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:502</div></div>
-<div class="ttc" id="astructXmlTag_html_a5b5928a712f9a71f113bbac52453bb65"><div class="ttname"><a href="structXmlTag.html#a5b5928a712f9a71f113bbac52453bb65">XmlTag::hasEnder</a></div><div class="ttdeci">bool hasEnder()</div><div class="ttdoc">tests whether the XmlTag has an ender character set.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:497</div></div>
-<div class="ttc" id="astructXmlTag_html_a92fcc642cc68298dd6d30244ad53962f"><div class="ttname"><a href="structXmlTag.html#a92fcc642cc68298dd6d30244ad53962f">XmlTag::toString</a></div><div class="ttdeci">QString toString() override</div><div class="ttdoc">Creates a string version of the tag.</div></div>
-<div class="ttc" id="astructXmlTag_html_abf055b43504aa4340bf4a614e86c5354"><div class="ttname"><a href="structXmlTag.html#abf055b43504aa4340bf4a614e86c5354">XmlTag::startChar</a></div><div class="ttdeci">QChar startChar</div><div class="ttdoc">start character (normally ?)</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:500</div></div>
-<div class="ttc" id="astructXmlTag_html_acedbcfe0caf1b5b6da9682ab9994a7c5"><div class="ttname"><a href="structXmlTag.html#acedbcfe0caf1b5b6da9682ab9994a7c5">XmlTag::hasStarter</a></div><div class="ttdeci">bool hasStarter()</div><div class="ttdoc">tests whether the XmlTag has a starter character set.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:493</div></div>
+<div class="ttc" id="astructTextTag_html_a6e65ea424d77e1f6df066be88810c2b0"><div class="ttname"><a href="structTextTag.html#a6e65ea424d77e1f6df066be88810c2b0">TextTag::isWhitespace</a></div><div class="ttdeci">bool isWhitespace()</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:333</div></div>
+<div class="ttc" id="astructTextTag_html_aa07a3eea498b1b44e48c5db57338449e"><div class="ttname"><a href="structTextTag.html#aa07a3eea498b1b44e48c5db57338449e">TextTag::text</a></div><div class="ttdeci">QString text</div><div class="ttdoc">the text string</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:338</div></div>
+<div class="ttc" id="astructTextTag_html_ac881739004b5f823534b5b02082ccacb"><div class="ttname"><a href="structTextTag.html#ac881739004b5f823534b5b02082ccacb">TextTag::textLength</a></div><div class="ttdeci">int textLength()</div><div class="ttdoc">Returns the length of the text string.</div></div>
+<div class="ttc" id="astructXmlDeclaration_html"><div class="ttname"><a href="structXmlDeclaration.html">XmlDeclaration</a></div><div class="ttdef"><b>Definition:</b> htmlscanner.h:572</div></div>
+<div class="ttc" id="astructXmlDeclaration_html_a2bc7da4f19d762ed01de7e13d2a77b04"><div class="ttname"><a href="structXmlDeclaration.html#a2bc7da4f19d762ed01de7e13d2a77b04">XmlDeclaration::toString</a></div><div class="ttdeci">QString toString() override</div><div class="ttdoc">Creates a string version of the tag.</div></div>
+<div class="ttc" id="astructXmlDeclaration_html_a37eb6c398bc12eb679104cdad04e2790"><div class="ttname"><a href="structXmlDeclaration.html#a37eb6c398bc12eb679104cdad04e2790">XmlDeclaration::endChar</a></div><div class="ttdeci">QChar endChar</div><div class="ttdoc">end character (normally ?)</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:599</div></div>
+<div class="ttc" id="astructXmlDeclaration_html_a59b8199861a06d48833e1ffbac0b4131"><div class="ttname"><a href="structXmlDeclaration.html#a59b8199861a06d48833e1ffbac0b4131">XmlDeclaration::XmlDeclaration</a></div><div class="ttdeci">XmlDeclaration()</div><div class="ttdoc">Constructor.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:574</div></div>
+<div class="ttc" id="astructXmlDeclaration_html_a7e9e5b391b8f5e73de0dc7820e364b9e"><div class="ttname"><a href="structXmlDeclaration.html#a7e9e5b391b8f5e73de0dc7820e364b9e">XmlDeclaration::hasEnder</a></div><div class="ttdeci">bool hasEnder()</div><div class="ttdoc">tests whether the XmlTag has an ender character set.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:594</div></div>
+<div class="ttc" id="astructXmlDeclaration_html_a8bffbb035dd4c2e73c7ec65fea148f39"><div class="ttname"><a href="structXmlDeclaration.html#a8bffbb035dd4c2e73c7ec65fea148f39">XmlDeclaration::startChar</a></div><div class="ttdeci">QChar startChar</div><div class="ttdoc">start character (normally ?)</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:597</div></div>
+<div class="ttc" id="astructXmlDeclaration_html_aabef89607a347318436585abf40ee755"><div class="ttname"><a href="structXmlDeclaration.html#aabef89607a347318436585abf40ee755">XmlDeclaration::hasStarter</a></div><div class="ttdeci">bool hasStarter()</div><div class="ttdoc">tests whether the XmlTag has a starter character set.</div><div class="ttdef"><b>Definition:</b> htmlscanner.h:590</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

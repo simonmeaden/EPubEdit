@@ -12,15 +12,20 @@ class WidgetItem;
 class CustomWidget;
 class ButtonWidget;
 
+class DockHelper
+{};
+
 /*!
  * \ingroup docker
- * \class AbstractDockItem abstractdockitem.h "include/docker/abstractdockitem.h"
- * \brief This class is the base class of all the ToolbarWidget/HeaderWidget
- * and FooterWidget classes and does most of the background work of those
- * classes.
+ * \class AbstractDockItem abstractdockitem.h
+ * "include/docker/abstractdockitem.h" \brief This class is the base class of
+ * all the ToolbarWidget/HeaderWidget and FooterWidget classes and does most of
+ * the background work of those classes.
  */
 class AbstractDockItemPrivate;
-class AbstractDockItem : public QObject, public CloneableObjectInterface
+class AbstractDockItem
+  : public QObject
+  , public CloneableObjectInterface
 {
   Q_OBJECT
   Q_DECLARE_PRIVATE(AbstractDockItem)
@@ -29,94 +34,6 @@ public:
    * \brief Constructs a DockItem which is a child of parent.
    */
   explicit AbstractDockItem(DockPosition position, AbstractDockWidget* parent);
-
-  /*!
-   * \brief Adds an icon only ButtonWidget to the Header/Footer/Toolbar widget
-   * with an optional tooltip.
-   *
-   * \return a pointer to the stored wrapper.
-   */
-  ButtonWidget* addIconButton(WidgetPosition pos,
-                              QIcon icon,
-                              QSize iconSize,
-                              const QString& tooltip = QString());
-  /*!
-   * \brief Adds an icon only ListButtonWidget to the Header/Footer/Toolbar
-   * widget with an optional tooltip.
-   *
-   * \return a pointer to the stored wrapper.
-   */
-  ButtonWidget* addIconListButton(WidgetPosition pos,
-                                  QIcon icon,
-                                  QSize iconSize,
-                                  const QString& tooltip = QString());
-
-  /*!
-   * \brief Adds an icon with text ButtonWidget to the Header/Footer/Toolbar
-   * widget and an optional tooltip.
-   *
-   * \return a pointer to the stored wrapper.
-   */
-  ButtonWidget* addIconTextButton(
-    WidgetPosition pos,
-    QIcon icon,
-    QSize iconSize,
-    const QString& text,
-    Arrangement textPos = Arrangement::TextBelowIcon,
-    const QString& tooltip = QString());
-  /*!
-   * \brief Adds an icon with text ListButtonWidget to the Header/Footer/Toolbar
-   * widget and an optional tooltip.
-   *
-   * \return a pointer to the stored wrapper.
-   */
-  ButtonWidget* addIconTextListButton(
-    WidgetPosition pos,
-    QIcon icon,
-    QSize iconSize,
-    const QString& text,
-    Arrangement textPos = Arrangement::TextBelowIcon,
-    const QString& tooltip = QString());
-
-  /*!
-   * \brief Adds an text only ButtonWidget to the Header/Footer/Toolbar widget
-   * with an optional tooltip.
-   *
-   * \return a pointer to the stored wrapper.
-   */
-  ButtonWidget* addTextButton(WidgetPosition pos,
-                              const QString& text,
-                              const QString& tooltip = QString());
-  /*!
-   * \brief Adds an text only ListButtonWidget to the Header/Footer/Toolbar
-   * widget with an optional tooltip.
-   *
-   * \return a pointer to the stored wrapper.
-   */
-  ButtonWidget* addTextListButton(WidgetPosition pos,
-                                  const QString& text,
-                                  const QString& tooltip = QString());
-
-  /*!
-   * \brief Adds a text label to the Header/Footer/Toolbar widget
-   * with an optional tooltip.
-   *
-   * \return a pointer to the stored wrapper.
-   */
-  WidgetItem* addTextLabel(WidgetPosition pos,
-                           const QString& text,
-                           const QString& tooltip = QString());
-
-  /*!
-   * \brief addSpacer
-   * \return
-   */
-  WidgetItem* addSeperator(WidgetPosition);
-
-  /*!
-   * \brief Adds a custom widget to the Header/Footer/Toolbar widget.
-   */
-  WidgetItem* addCustomWidget(CustomWidget* w);
 
   /*!
    * \brief Sets the text in the Header/Footer/Toolbar widget.
@@ -200,7 +117,7 @@ public:
   //  int maxWidgetWidth() const;
   //  int maxWidgetHeight() const;
 
-  //! Returns the height of the DockItem.
+  //! ReturnsaddItem the height of the DockItem.
   int height();
   //! sets the height of the DockItem.
   void setHeight(int height);
@@ -234,6 +151,11 @@ public:
   //! Calculates the maximum widget sizes.
   void calcMaxWidgetSizes();
 
+  const QMargins& margins() const;
+  void setMargins(const QMargins& margins);
+
+  int spacer() const;
+  void setSpacer(int spacer);
 
 signals:
 
@@ -241,7 +163,7 @@ protected:
   //! protected d_ptr instance
   AbstractDockItemPrivate* d_ptr = nullptr;
 
-  //! protected d_ptr constructor
+  //! protected d_ptr constructoraddItem
   AbstractDockItem(AbstractDockItemPrivate& d);
 
   /*!
@@ -249,7 +171,6 @@ protected:
    * and settings into the supplied 'master'.
    */
   void clone(QObject* object) override;
-
 
   /*!
    * \brief Adds a prebuilt widget to the DockToolbar/DockHeader/DockFooter.
@@ -262,13 +183,7 @@ protected:
   WidgetItem* addItem(WidgetItem* item);
 
 private:
-  static const int HEIGHT = 25;
-  static const int WIDTH = 25;
-  static const int SPACER_TOP = 1;
-  static const int SPACER_BOTTOM = 1;
-  // just places a blank space at the end of the toolbar.
-  static const int TOOLBAR_ENDER = 5;
-
+  QMargins m_margins;
 
   friend class HeaderWidget;
   friend class FooterWidget;

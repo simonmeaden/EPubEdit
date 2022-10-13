@@ -1,0 +1,204 @@
+{
+	"BUILD_DIR" : "/home/simonmeaden/workspace/epubedit/build/6_clang/release/extlibs/quazip/qztest/qztest_autogen",
+	"CMAKE_BINARY_DIR" : "/home/simonmeaden/workspace/epubedit/build/6_clang/release",
+	"CMAKE_CURRENT_BINARY_DIR" : "/home/simonmeaden/workspace/epubedit/build/6_clang/release/extlibs/quazip/qztest",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest",
+	"CMAKE_EXECUTABLE" : "/usr/bin/cmake",
+	"CMAKE_LIST_FILES" : 
+	[
+		"/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/CMakeLists.txt",
+		"/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/qztest.qrc"
+	],
+	"CMAKE_SOURCE_DIR" : "/home/simonmeaden/workspace/epubedit",
+	"DEP_FILE" : "/home/simonmeaden/workspace/epubedit/build/6_clang/release/extlibs/quazip/qztest/qztest_autogen/deps",
+	"DEP_FILE_RULE_NAME" : "qztest_autogen/timestamp",
+	"HEADERS" : 
+	[
+		[
+			"/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/qztest.h",
+			"MU",
+			"EWIEGA46WW/moc_qztest.cpp",
+			null
+		],
+		[
+			"/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testjlcompress.h",
+			"MU",
+			"EWIEGA46WW/moc_testjlcompress.cpp",
+			null
+		],
+		[
+			"/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquachecksum32.h",
+			"MU",
+			"EWIEGA46WW/moc_testquachecksum32.cpp",
+			null
+		],
+		[
+			"/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquagzipfile.h",
+			"MU",
+			"EWIEGA46WW/moc_testquagzipfile.cpp",
+			null
+		],
+		[
+			"/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquaziodevice.h",
+			"MU",
+			"EWIEGA46WW/moc_testquaziodevice.cpp",
+			null
+		],
+		[
+			"/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazip.h",
+			"MU",
+			"EWIEGA46WW/moc_testquazip.cpp",
+			null
+		],
+		[
+			"/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipdir.h",
+			"MU",
+			"EWIEGA46WW/moc_testquazipdir.cpp",
+			null
+		],
+		[
+			"/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfile.h",
+			"MU",
+			"EWIEGA46WW/moc_testquazipfile.cpp",
+			null
+		],
+		[
+			"/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfileinfo.h",
+			"MU",
+			"EWIEGA46WW/moc_testquazipfileinfo.cpp",
+			null
+		],
+		[
+			"/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipnewinfo.h",
+			"MU",
+			"EWIEGA46WW/moc_testquazipnewinfo.cpp",
+			null
+		]
+	],
+	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
+	"INCLUDE_DIR" : "/home/simonmeaden/workspace/epubedit/build/6_clang/release/extlibs/quazip/qztest/qztest_autogen/include",
+	"MOC_COMPILATION_FILE" : "/home/simonmeaden/workspace/epubedit/build/6_clang/release/extlibs/quazip/qztest/qztest_autogen/mocs_compilation.cpp",
+	"MOC_DEFINITIONS" : 
+	[
+		"QT_CORE5COMPAT_LIB",
+		"QT_CORE_LIB",
+		"QT_NETWORK_LIB",
+		"QT_NO_DEBUG",
+		"QT_TESTCASE_BUILDDIR=\"/home/simonmeaden/workspace/epubedit/build/6_clang/release/extlibs/quazip/qztest\"",
+		"QT_TESTCASE_SOURCEDIR=\"/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest\"",
+		"QT_TESTLIB_LIB"
+	],
+	"MOC_DEPEND_FILTERS" : 
+	[
+		[
+			"Q_PLUGIN_METADATA",
+			"[\n][ \t]*Q_PLUGIN_METADATA[ \t]*\\([^\\)]*FILE[ \t]*\"([^\"]+)\""
+		]
+	],
+	"MOC_INCLUDES" : 
+	[
+		"/home/simonmeaden/workspace/epubedit/build/6_clang/release/extlibs/quazip/qztest",
+		"/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest",
+		"/home/simonmeaden/workspace/epubedit/extlibs/quazip",
+		"/home/simonmeaden/workspace/epubedit/extlibs/quazip/quazip",
+		"/usr/include/qt6/QtCore",
+		"/usr/include/qt6",
+		"/usr/lib64/qt6/mkspecs/linux-g++",
+		"/usr/include/qt6/QtCore5Compat",
+		"/usr/include/qt6/QtNetwork",
+		"/usr/include/qt6/QtTest",
+		"/usr/include",
+		"/usr/include/c++/12",
+		"/usr/include/c++/12/x86_64-redhat-linux",
+		"/usr/include/c++/12/backward",
+		"/usr/lib64/clang/14.0.0/include",
+		"/usr/local/include"
+	],
+	"MOC_MACRO_NAMES" : 
+	[
+		"Q_OBJECT",
+		"Q_GADGET",
+		"Q_GADGET_EXPORT",
+		"Q_NAMESPACE",
+		"Q_NAMESPACE_EXPORT"
+	],
+	"MOC_OPTIONS" : [],
+	"MOC_PATH_PREFIX" : false,
+	"MOC_PREDEFS_CMD" : 
+	[
+		"/usr/bin/clang++",
+		"-dM",
+		"-E",
+		"-c",
+		"/usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp"
+	],
+	"MOC_PREDEFS_FILE" : "/home/simonmeaden/workspace/epubedit/build/6_clang/release/extlibs/quazip/qztest/qztest_autogen/moc_predefs.h",
+	"MOC_RELAXED_MODE" : false,
+	"MOC_SKIP" : [],
+	"MULTI_CONFIG" : false,
+	"PARALLEL" : 4,
+	"PARSE_CACHE_FILE" : "/home/simonmeaden/workspace/epubedit/build/6_clang/release/extlibs/quazip/qztest/CMakeFiles/qztest_autogen.dir/ParseCache.txt",
+	"QT_MOC_EXECUTABLE" : "/usr/lib64/qt6/libexec/moc",
+	"QT_UIC_EXECUTABLE" : "/usr/lib64/qt6/libexec/uic",
+	"QT_VERSION_MAJOR" : 6,
+	"QT_VERSION_MINOR" : 3,
+	"SETTINGS_FILE" : "/home/simonmeaden/workspace/epubedit/build/6_clang/release/extlibs/quazip/qztest/CMakeFiles/qztest_autogen.dir/AutogenUsed.txt",
+	"SOURCES" : 
+	[
+		[
+			"/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/qztest.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testjlcompress.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquachecksum32.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquagzipfile.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquaziodevice.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazip.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipdir.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfile.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipfileinfo.cpp",
+			"MU",
+			null
+		],
+		[
+			"/home/simonmeaden/workspace/epubedit/extlibs/quazip/qztest/testquazipnewinfo.cpp",
+			"MU",
+			null
+		]
+	],
+	"UIC_OPTIONS" : [],
+	"UIC_SEARCH_PATHS" : [],
+	"UIC_SKIP" : [],
+	"UIC_UI_FILES" : [],
+	"VERBOSITY" : 0
+}

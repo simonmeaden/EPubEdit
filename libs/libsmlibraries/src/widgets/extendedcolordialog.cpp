@@ -13,155 +13,153 @@
 
 //namespace {
 
-/*!
- * \internal
- * \class ColorDropDisplay extendedcolordialog.h "include/widgets/extendedcolordialog.h"
- */
-class ColorDropDisplay : public QFrame
-{
-  Q_OBJECT
-  //  enum Side
-  //  {
-  //    Left,  //!< The left hand (primary) side is specified
-  //    Right, //!< The right hand (secondary) side is specified
-  //  };
+///*!
+// * \internal
+// * \class ColorDropDisplay extendedcolordialog.h "include/widgets/extendedcolordialog.h"
+// */
+//class ColorDropDisplay : public QFrame
+//{
+//  Q_OBJECT
+//  //  enum Side
+//  //  {
+//  //    Left,  //!< The left hand (primary) side is specified
+//  //    Right, //!< The right hand (secondary) side is specified
+//  //  };
 
-public:
-  ColorDropDisplay(const QColor& color,
-                   const QColor& dropColor,
-                   QWidget* parent = nullptr);
+//public:
+//  ColorDropDisplay(const QColor& color,
+//                   const QColor& dropColor,
+//                   QWidget* parent = nullptr);
 
-  void setPrimaryColor(const QColor& color, const QString& name);
-  void setPrimaryTextColor(const QColor& color, const QString& name);
-  void setSecondaryColor(const QColor& color, const QString& name);
-  void setSecondaryTextColor(const QColor& color, const QString& name);
+//  void setPrimaryColor(const QColor& color, const QString& name);
+//  void setPrimaryTextColor(const QColor& color, const QString& name);
+//  void setSecondaryColor(const QColor& color, const QString& name);
+//  void setSecondaryTextColor(const QColor& color, const QString& name);
 
-  static const QString DISPLAYLABELRIGHT;
-  static const QString DISPLAYLABELLEFT;
-  static const QString DISPLAYBORDER;
+//  static const QString DISPLAYLABELRIGHT;
+//  static const QString DISPLAYLABELLEFT;
+//  static const QString DISPLAYBORDER;
 
-  QColor primaryColor() const;
-  QColor secondaryColor() const;
-  QString primaryName() const;
-  QString secondaryName() const;
+//  QColor primaryColor() const;
+//  QColor secondaryColor() const;
+//  QString primaryName() const;
+//  QString secondaryName() const;
 
-signals:
-  void primaryColorChanged(const QColor& color, const QString& name);
-  void primaryTextColorChanged(const QColor& color, const QString& name);
-  void secondaryColorChanged(const QColor& color, const QString& name);
-  void secondaryTextColorChanged(const QColor& color, const QString& name);
+//signals:
+//  void primaryColorChanged(const QColor& color, const QString& name);
+//  void primaryTextColorChanged(const QColor& color, const QString& name);
+//  void secondaryColorChanged(const QColor& color, const QString& name);
+//  void secondaryTextColorChanged(const QColor& color, const QString& name);
 
-protected:
-  void dragEnterEvent(QDragEnterEvent* event) override;
-  void dropEvent(QDropEvent* event) override;
+//protected:
+//  void dragEnterEvent(QDragEnterEvent* event) override;
+//  void dropEvent(QDropEvent* event) override;
 
-private:
-  QLabel* m_left;
-  QLabel* m_right;
-  QColor m_primaryColor;
-  QColor m_primaryTextColor;
-  QString m_primaryName;
-  QString m_primaryTextName;
-  QColor m_secondaryColor;
-  QColor m_secondaryTextColor;
-  QString m_secondaryName;
-  QString m_secondaryTextName;
-  bool m_colorSet, m_dropColorSet;
+//private:
+//  QLabel* m_left;
+//  QLabel* m_right;
+//  QColor m_primaryColor;
+//  QColor m_primaryTextColor;
+//  QString m_primaryName;
+//  QString m_primaryTextName;
+//  QColor m_secondaryColor;
+//  QColor m_secondaryTextColor;
+//  QString m_secondaryName;
+//  QString m_secondaryTextName;
+//  bool m_colorSet, m_dropColorSet;
 
-  QString calculateTextString(ColorType type);
-  QString primaryColorToStyle();
-  QString secondaryColorToStyle();
-};
+//  QString calculateTextString(ColorType type);
+//  QString primaryColorToStyle();
+//  QString secondaryColorToStyle();
+//};
 
-class ColorDragModel : public QAbstractTableModel
-{
-  Q_OBJECT
+//class ColorDragModel : public QAbstractTableModel
+//{
+//  Q_OBJECT
 
-  struct Data
-  {
-    Data(const QString& n, const QColor& f, const QColor& b)
-      : name(n)
-      , fore(f)
-      , back(b)
-    {}
-    QString name;
-    QColor fore;
-    QColor back;
-  };
-  typedef Data* Row;
-  typedef Row* Column;
+//  struct Data
+//  {
+//    Data(const QString& n, const QColor& f, const QColor& b)
+//      : name(n)
+//      , fore(f)
+//      , back(b)
+//    {}
+//    QString name;
+//    QColor fore;
+//    QColor back;
+//  };
+//  typedef Data* Row;
+//  typedef Row* Column;
 
-public:
-  ColorDragModel(int rows, int columns);
-  ~ColorDragModel();
+//public:
+//  ColorDragModel(int rows, int columns);
+//  ~ColorDragModel();
 
-  Qt::ItemFlags flags(const QModelIndex& index) const override;
-  int rowCount(const QModelIndex& = QModelIndex()) const override;
-  int columnCount(const QModelIndex& = QModelIndex()) const override;
-  QVariant data(const QModelIndex& index,
-                int role = Qt::DisplayRole) const override;
-  QVariant headerData(int,
-                      Qt::Orientation,
-                      int = Qt::DisplayRole) const override;
-  void setColorData(int row,
-                    int column,
-                    const QString& name,
-                    const QColor& back,
-                    const QColor& fore);
-  QModelIndex index(int row,
-                    int column,
-                    const QModelIndex& = QModelIndex()) const override;
-  QModelIndex parent(const QModelIndex&) const override;
+//  Qt::ItemFlags flags(const QModelIndex& index) const override;
+//  int rowCount(const QModelIndex& = QModelIndex()) const override;
+//  int columnCount(const QModelIndex& = QModelIndex()) const override;
+//  QVariant data(const QModelIndex& index,
+//                int role = Qt::DisplayRole) const override;
+//  QVariant headerData(int,
+//                      Qt::Orientation,
+//                      int = Qt::DisplayRole) const override;
+//  void setColorData(int row,
+//                    int column,
+//                    const QString& name,
+//                    const QColor& back,
+//                    const QColor& fore);
+//  QModelIndex index(int row,
+//                    int column,
+//                    const QModelIndex& = QModelIndex()) const override;
+//  QModelIndex parent(const QModelIndex&) const override;
 
-private:
-  Column* m_data;
-  int m_rows = 0;
-  int m_columns = 0;
-};
+//private:
+//  Column* m_data;
+//  int m_rows = 0;
+//  int m_columns = 0;
+//};
 
-struct ColorDragData
-{
-  int r;
-  int g;
-  int b;
-  QString name;
-};
+//struct ColorDragData
+//{
+//  int r;
+//  int g;
+//  int b;
+//  QString name;
+//};
 
-QDataStream&
-operator<<(QDataStream& out, const ColorDragData& a);
-QDataStream&
-operator>>(QDataStream& in, ColorDragData& a);
+//QDataStream&
+//operator<<(QDataStream& out, const ColorDragData& a);
+//QDataStream&
+//operator>>(QDataStream& in, ColorDragData& a);
 
-class ColorDragTable : public QTableView
-{
-  Q_OBJECT
-public:
-  ColorDragTable(int rows, int columns, QWidget* parent = nullptr);
+//class ColorDragTable : public QTableView
+//{
+//  Q_OBJECT
+//public:
+//  ColorDragTable(int rows, int columns, QWidget* parent = nullptr);
 
-  QString name(const QModelIndex& index);
-  QColor foreground(const QModelIndex& index);
-  QColor background(const QModelIndex& index);
-  void setData(int row, int column, bool x11, const QString& back);
+//  QString name(const QModelIndex& index);
+//  QColor foreground(const QModelIndex& index);
+//  QColor background(const QModelIndex& index);
+//  void setData(int row, int column, bool x11, const QString& back);
 
-protected:
-  void mousePressEvent(QMouseEvent* event) override;
-  void mouseMoveEvent(QMouseEvent* event) override;
-  void dragEnterEvent(QDragEnterEvent* event) override;
-  void dragMoveEvent(QDragMoveEvent*) override;
+//protected:
+//  void mousePressEvent(QMouseEvent* event) override;
+//  void mouseMoveEvent(QMouseEvent* event) override;
+//  void dragEnterEvent(QDragEnterEvent* event) override;
+//  void dragMoveEvent(QDragMoveEvent*) override;
 
-private:
-  QPoint m_dragStartPosition;
-  QColor m_color;
-  QString m_name;
-  ColorDragModel* m_model;
-  QSize m_size;
-  QPixmap m_pixmap;
-};
+//private:
+//  QPoint m_dragStartPosition;
+//  QColor m_color;
+//  QString m_name;
+//  ColorDragModel* m_model;
+//  QSize m_size;
+//  QPixmap m_pixmap;
+//};
 
-Q_DECLARE_METATYPE(ColorDragData)
+//Q_DECLARE_METATYPE(ColorDragData)
 
-
-/// \cond DO_NOT_DOCUMENT
 
 const QString ColorDropDisplay::DISPLAYLABELRIGHT =
   "QLabel {"
@@ -640,6 +638,7 @@ ExtendedColorDialog::initSvgRedYellowBrown()
   table->setData(row++, column, false, "oldlace");
 
   row = 0;
+
   column++;
   table->setData(row++, column, false, "antiquewhite");
   table->setData(row++, column, false, "papayawhip");
@@ -674,7 +673,6 @@ ExtendedColorDialog::initX11BlueGreen()
   auto table = createColorTable();
 
   int row = 0, column = 0;
-  table->setData(row++, column, true, "mint cream");
   table->setData(row++, column, true, "mint cream");
   table->setData(row++, column, true, "alice blue");
   table->setData(row++, column, true, "azure");

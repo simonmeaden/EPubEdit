@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<svg xmlns='http://www.w3.org/2000/svg' width='310' height='392' version='1.0' shape-rendering='geometricPrecision' preserveAspectRatio='xMidYMid meet' viewBox='0 0 310 392'>
+  <defs>
+    <style type='text/css'>
+      @font-face { font-family: sans-serif; }
+    </style>
+    <filter id='shadowBlur' x='0' y='0' width='200%' height='200%'>
+      <feOffset in='SourceGraphic' dx='3.0003002' dy='3.0003002' result='offOut'/>
+      <feGaussianBlur in='offOut' stdDeviation='3'/>
+    </filter>
+  </defs>
+  <g stroke-width='1' stroke-linecap='square' stroke-linejoin='round'>
+    <rect x='0' y='0' width='310' height='392' style='fill: #ffffff'/>
+    <path stroke='#969696' fill='#969696' filter='url(#shadowBlur)' d='M210.0 35.0 Q215.0 35.0 215.0 42.0 L215.0 84.0 Q215.0 91.0 210.0 91.0 L120.0 91.0 L120.0 91.0 Q115.0 91.0 115.0 84.0 L115.0 42.0 L115.0 42.0 Q115.0 35.0 120.0 35.0 L210.0 35.0 z'/>
+    <path stroke='#969696' fill='#969696' filter='url(#shadowBlur)' d='M200.0 287.0 Q205.0 287.0 205.0 294.0 L205.0 350.0 Q205.0 357.0 200.0 357.0 L130.0 357.0 L130.0 357.0 Q125.0 357.0 125.0 350.0 L125.0 294.0 L125.0 294.0 Q125.0 287.0 130.0 287.0 L200.0 287.0 z'/>
+    <path stroke='#969696' fill='#969696' filter='url(#shadowBlur)' d='M100.0 161.0 Q105.0 161.0 105.0 168.0 L105.0 210.0 Q105.0 217.0 100.0 217.0 L50.0 217.0 L50.0 217.0 Q45.0 217.0 45.0 210.0 L45.0 168.0 L45.0 168.0 Q45.0 161.0 50.0 161.0 L100.0 161.0 z'/>
+    <path stroke='#969696' fill='#969696' filter='url(#shadowBlur)' d='M280.0 161.0 Q285.0 161.0 285.0 168.0 L285.0 210.0 Q285.0 217.0 280.0 217.0 L230.0 217.0 L230.0 217.0 Q225.0 217.0 225.0 210.0 L225.0 168.0 L225.0 168.0 Q225.0 161.0 230.0 161.0 L280.0 161.0 z'/>
+    <path stroke='#000000' stroke-width='1.0' stroke-linecap='round' stroke-linejoin='round' fill='#eeeeaa' d='M210.0 35.0 Q215.0 35.0 215.0 42.0 L215.0 84.0 Q215.0 91.0 210.0 91.0 L120.0 91.0 L120.0 91.0 Q115.0 91.0 115.0 84.0 L115.0 42.0 L115.0 42.0 Q115.0 35.0 120.0 35.0 L210.0 35.0 z'/>
+    <path stroke='#000000' stroke-width='1.0' stroke-linecap='round' stroke-linejoin='round' fill='#eeeeaa' d='M200.0 287.0 Q205.0 287.0 205.0 294.0 L205.0 350.0 Q205.0 357.0 200.0 357.0 L130.0 357.0 L130.0 357.0 Q125.0 357.0 125.0 350.0 L125.0 294.0 L125.0 294.0 Q125.0 287.0 130.0 287.0 L200.0 287.0 z'/>
+    <path stroke='#000000' stroke-width='1.0' stroke-linecap='round' stroke-linejoin='round' fill='#eeeeaa' d='M100.0 161.0 Q105.0 161.0 105.0 168.0 L105.0 210.0 Q105.0 217.0 100.0 217.0 L50.0 217.0 L50.0 217.0 Q45.0 217.0 45.0 210.0 L45.0 168.0 L45.0 168.0 Q45.0 161.0 50.0 161.0 L100.0 161.0 z'/>
+    <path stroke='#000000' stroke-width='1.0' stroke-linecap='round' stroke-linejoin='round' fill='#eeeeaa' d='M280.0 161.0 Q285.0 161.0 285.0 168.0 L285.0 210.0 Q285.0 217.0 280.0 217.0 L230.0 217.0 L230.0 217.0 Q225.0 217.0 225.0 210.0 L225.0 168.0 L225.0 168.0 Q225.0 161.0 230.0 161.0 L280.0 161.0 z'/>
+    <path stroke='#000000' stroke-width='1.0' stroke-linecap='round' stroke-linejoin='round' fill='none' d='M165.0 245.0 L255.0 245.0 L255.0 217.0 '/>
+    <path stroke='#000000' stroke-width='1.0' stroke-linecap='round' stroke-linejoin='round' fill='none' d='M165.0 245.0 L75.0 245.0 L75.0 217.0 '/>
+    <path stroke='none' stroke-width='1.0' stroke-linecap='round' stroke-linejoin='round' fill='#000000' d='M70.0 140.0 L75.0 154.0 L80.0 140.0 z'/>
+    <path stroke='none' stroke-width='1.0' stroke-linecap='round' stroke-linejoin='round' fill='#000000' d='M250.0 140.0 L255.0 154.0 L260.0 140.0 z'/>
+    <path stroke='none' stroke-width='1.0' stroke-linecap='round' stroke-linejoin='round' fill='#000000' d='M160.0 266.0 L165.0 280.0 L170.0 266.0 z'/>
+    <path stroke='#000000' stroke-width='1.0' stroke-linecap='round' stroke-linejoin='round' fill='none' d='M165.0 273.0 L165.0 245.0 '/>
+    <path stroke='#000000' stroke-width='1.0' stroke-linecap='round' stroke-linejoin='round' fill='none' d='M255.0 147.0 L255.0 119.0 L185.0 119.0 L185.0 91.0 '/>
+    <path stroke='#000000' stroke-width='1.0' stroke-linecap='round' stroke-linejoin='round' fill='none' d='M75.0 147.0 L75.0 119.0 L145.0 119.0 L145.0 91.0 '/>
+    <text x='145' y='320' font-family='sans-serif' font-size='15' stroke='none' fill='#000000'>
+      <![CDATA[Jerry]]>
+    </text>
+    <text x='152' y='334' font-family='sans-serif' font-size='15' stroke='none' fill='#000000'>
+      <![CDATA[1.5]]>
+    </text>
+    <text x='60' y='194' font-family='sans-serif' font-size='15' stroke='none' fill='#000000'>
+      <![CDATA[Foo]]>
+    </text>
+    <text x='134' y='68' font-family='sans-serif' font-size='15' stroke='none' fill='#000000'>
+      <![CDATA[TopProj]]>
+    </text>
+    <text x='241' y='194' font-family='sans-serif' font-size='15' stroke='none' fill='#000000'>
+      <![CDATA[Bar]]>
+    </text>
+  </g>
+</svg>

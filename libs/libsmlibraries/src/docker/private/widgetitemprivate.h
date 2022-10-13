@@ -137,14 +137,6 @@ protected:
   //! user data.
   QVariant m_data;
 
-  //! default top margin
-  static const int TOPMARGIN = 1;
-  //! default bottom margin
-  static const int BOTTOMMARGIN = 1;
-  //! default left margin
-  static const int LEFTMARGIN = 3;
-  //! default right margin
-  static const int RIGHTMARGIN = 3;
 };
 
 ///*!

@@ -1,6 +1,7 @@
 #include "docker/private/abstractdockitemprivate.h"
 #include "docker/abstractdockwidget.h"
 #include "docker/buttonwidget.h"
+#include "docker/draggablebuttonwidget.h"
 #include "docker/labelwidget.h"
 #include "docker/listbuttonwidget.h"
 #include "docker/seperatorwidget.h"
@@ -13,17 +14,18 @@ AbstractDockItemPrivate::AbstractDockItemPrivate(DockPosition position,
   : q_ptr(qptr)
   , m_parentDocker(parent)
   , m_dockPosition(position)
+  , m_margins(QMargins(LEFTMARGIN, TOPMARGIN, RIGHTMARGIN, BOTTOMMARGIN))
 {
   switch (m_dockPosition) {
     case West:
     case East: {
-      m_width = AbstractDockItem::WIDTH;
+      m_width = WIDTH;
       m_maxWidgetWidth = m_width;
       break;
     }
     case North:
     case South: {
-      m_height = AbstractDockItem::HEIGHT;
+      m_height = HEIGHT;
       m_maxWidgetHeight = m_height;
       break;
     }
@@ -34,12 +36,26 @@ AbstractDockItemPrivate::AbstractDockItemPrivate(DockPosition position,
 
 ButtonWidget*
 AbstractDockItemPrivate::addIconButton(WidgetPosition pos,
-                                       QIcon icon,
-                                       QSize iconSize,
+                                       QPixmap pixmap,
                                        const QString& tooltip)
 {
   ButtonWidget* w =
-    createButtonItem(Button, pos, icon, iconSize, QString(), IconOnly, tooltip);
+    createButtonItem(Button, pos, pixmap, QString(), IconOnly, tooltip);
+  calcMaxWidgetSizes();
+  q_ptr->connect(w,
+                 &WidgetItem::widgetChanged,
+                 q_ptr,
+                 &AbstractDockItem::calcMaxWidgetSizes);
+  return w;
+}
+
+DraggableButtonWidget*
+AbstractDockItemPrivate::addDragIconButton(WidgetPosition pos,
+                                           QPixmap pixmap,
+                                           const QString& tooltip)
+{
+  DraggableButtonWidget* w = dynamic_cast<DraggableButtonWidget*>(
+    createButtonItem(DragButton, pos, pixmap, QString(), IconOnly, tooltip));
   calcMaxWidgetSizes();
   q_ptr->connect(w,
                  &WidgetItem::widgetChanged,
@@ -50,12 +66,11 @@ AbstractDockItemPrivate::addIconButton(WidgetPosition pos,
 
 ButtonWidget*
 AbstractDockItemPrivate::addIconListButton(WidgetPosition pos,
-                                           QIcon icon,
-                                           QSize iconSize,
+                                           QPixmap pixmap,
                                            const QString& tooltip)
 {
-  ButtonWidget* w = createButtonItem(
-    MenuButton, pos, icon, iconSize, QString(), IconOnly, tooltip);
+  ButtonWidget* w =
+    createButtonItem(MenuButton, pos, pixmap, QString(), IconOnly, tooltip);
   calcMaxWidgetSizes();
   q_ptr->connect(w,
                  &WidgetItem::widgetChanged,
@@ -66,14 +81,13 @@ AbstractDockItemPrivate::addIconListButton(WidgetPosition pos,
 
 ButtonWidget*
 AbstractDockItemPrivate::addIconTextButton(WidgetPosition pos,
-                                           QIcon icon,
-                                           QSize iconSize,
+                                           QPixmap pixmap,
                                            const QString& text,
                                            Arrangement textPos,
                                            const QString& tooltip)
 {
   ButtonWidget* w =
-    createButtonItem(Button, pos, icon, iconSize, text, textPos, tooltip);
+    createButtonItem(Button, pos, pixmap, text, textPos, tooltip);
   calcMaxWidgetSizes();
   q_ptr->connect(w,
                  &WidgetItem::widgetChanged,
@@ -84,14 +98,13 @@ AbstractDockItemPrivate::addIconTextButton(WidgetPosition pos,
 
 ButtonWidget*
 AbstractDockItemPrivate::addIconTextListButton(WidgetPosition pos,
-                                               QIcon icon,
-                                               QSize iconSize,
+                                               QPixmap pixmap,
                                                const QString& text,
                                                Arrangement textPos,
                                                const QString& tooltip)
 {
   ButtonWidget* w =
-    createButtonItem(MenuButton, pos, icon, iconSize, text, textPos, tooltip);
+    createButtonItem(MenuButton, pos, pixmap, text, textPos, tooltip);
   calcMaxWidgetSizes();
   q_ptr->connect(w,
                  &WidgetItem::widgetChanged,
@@ -106,7 +119,7 @@ AbstractDockItemPrivate::addTextButton(WidgetPosition pos,
                                        const QString& tooltip)
 {
   ButtonWidget* w =
-    createButtonItem(Button, pos, QIcon(), QSize(), text, TextOnly, tooltip);
+    createButtonItem(Button, pos, QPixmap(), text, TextOnly, tooltip);
   calcMaxWidgetSizes();
   q_ptr->connect(w,
                  &WidgetItem::widgetChanged,
@@ -120,8 +133,8 @@ AbstractDockItemPrivate::addTextListButton(WidgetPosition pos,
                                            const QString& text,
                                            const QString& tooltip)
 {
-  ButtonWidget* w = createButtonItem(
-    MenuButton, pos, QIcon(), QSize(), text, TextOnly, tooltip);
+  ButtonWidget* w =
+    createButtonItem(MenuButton, pos, QPixmap(), text, TextOnly, tooltip);
   calcMaxWidgetSizes();
   q_ptr->connect(w,
                  &WidgetItem::widgetChanged,
@@ -206,6 +219,18 @@ AbstractDockItemPrivate::setToolTip(int index, const QString& tooltip)
     w->setTooltip(tooltip);
 }
 
+const QMargins&
+AbstractDockItemPrivate::margins() const
+{
+  return m_margins;
+}
+
+void
+AbstractDockItemPrivate::setMargins(const QMargins& margins)
+{
+  m_margins = margins;
+}
+
 void
 AbstractDockItemPrivate::calculateMaxSize(ButtonWidget* bw,
                                           QString text,
@@ -216,7 +241,7 @@ AbstractDockItemPrivate::calculateMaxSize(ButtonWidget* bw,
   auto fm = m_parentDocker->fontMetrics();
   switch (textPos) {
     case TextAboveAndBelow:
-      // TODO
+      // TODO maybe
       break;
     case TextAboveIcon:
     case TextBelowIcon: {
@@ -230,8 +255,8 @@ AbstractDockItemPrivate::calculateMaxSize(ButtonWidget* bw,
     }
     case TextToRight:
     case TextToLeft: {
-      width = bw->leftMargin() + fm.horizontalAdvance(text) +
-              bw->spacer() + bw->iconSize().width() + bw->rightMargin();
+      width = bw->leftMargin() + fm.horizontalAdvance(text) + bw->spacer() +
+              bw->iconSize().width() + bw->rightMargin();
       m_maxWidgetWidth = std::max(width, m_maxWidgetWidth);
       height = bw->topMargin() + height + bw->bottomMargin();
       m_maxWidgetHeight = std::max(height, m_maxWidgetHeight);
@@ -258,26 +283,35 @@ AbstractDockItemPrivate::calculateMaxSize(ButtonWidget* bw,
 
 void
 AbstractDockItemPrivate::setupButton(ButtonWidget* bw,
-                                     QIcon icon,
-                                     QSize iconSize,
+                                     QPixmap icon,
                                      const QString& text,
                                      Arrangement textPos,
                                      const QString& tooltip)
 {
-  bw->setIcon(icon);
-  bw->setIconSize(iconSize);
+  bw->setPixmap(icon);
   bw->setText(text);
   bw->setArrangement(textPos);
   bw->setTooltip(tooltip);
 
-//  calculateMaxSize(bw, text, textPos);
+  //  calculateMaxSize(bw, text, textPos);
+}
+
+int
+AbstractDockItemPrivate::spacer() const
+{
+  return m_spacer;
+}
+
+void
+AbstractDockItemPrivate::setSpacer(int Spacer)
+{
+  m_spacer = Spacer;
 }
 
 ButtonWidget*
 AbstractDockItemPrivate::createButtonItem(WidgetType type,
                                           WidgetPosition pos,
-                                          QIcon icon,
-                                          QSize iconSize,
+                                          QPixmap icon,
                                           const QString& text,
                                           Arrangement textPos,
                                           const QString& tooltip)
@@ -287,13 +321,19 @@ AbstractDockItemPrivate::createButtonItem(WidgetType type,
   switch (type) {
     case Button: {
       auto buttonWidget = new ButtonWidget(m_parentDocker);
-      setupButton(buttonWidget, icon, iconSize, text, textPos, tooltip);
+      setupButton(buttonWidget, icon, text, textPos, tooltip);
+      wrapper = buttonWidget;
+      break;
+    }
+    case DragButton: {
+      auto buttonWidget = new DraggableButtonWidget(m_parentDocker);
+      setupButton(buttonWidget, icon, text, textPos, tooltip);
       wrapper = buttonWidget;
       break;
     }
     case MenuButton: {
       auto listButton = new ListButtonWidget(m_parentDocker, q_ptr);
-      setupButton(listButton, icon, iconSize, text, textPos, tooltip);
+      setupButton(listButton, icon, text, textPos, tooltip);
       wrapper = listButton;
       break;
     }
@@ -400,30 +440,31 @@ AbstractDockItemPrivate::calculateGeometry(const QRect& rect)
   switch (m_dockPosition) {
     case East:
     case West: {
-      min = rect.y() + 1;
-      max = rect.bottom() - AbstractDockItem::TOOLBAR_ENDER;
+      min = m_rect.y() + 1;
+      max = m_rect.bottom() - TOOLBAR_ENDER;
       for (auto& w : m_widgets) {
         auto size = w->sizeHint();
-        auto x = rect.left() + Math::halfDifference(rect.width(), size.width());
+        auto x =
+          m_rect.left() + Math::halfDifference(m_rect.width(), size.width());
         auto widgetHeight = size.height();
         switch (w->widgetPosition()) {
           case Start: {
             auto y = min + Math::halfDifference(widgetHeight, size.height());
             auto contentsRect = QRect(x, y, size.width(), size.height());
             auto widgetRect = contentsRect;
-            widgetRect.setWidth(rect.width());
-            widgetRect.moveLeft(rect.left());
+            widgetRect.moveLeft(m_rect.left() + m_margins.left());
             w->setGeometry(widgetRect, contentsRect);
             min += widgetHeight;
+            min += m_spacer;
             break;
           }
           case End: {
             max -= widgetHeight;
+            max -= m_spacer;
             auto y = max + Math::halfDifference(widgetHeight, size.height());
             auto contentsRect = QRect(x, y, size.width(), size.height());
             auto widgetRect = contentsRect;
-            widgetRect.setWidth(rect.width());
-            widgetRect.moveLeft(rect.left());
+            widgetRect.moveLeft(m_rect.left() + m_margins.left());
             w->setGeometry(widgetRect, contentsRect);
           }
         }
@@ -432,19 +473,21 @@ AbstractDockItemPrivate::calculateGeometry(const QRect& rect)
     }
     case North:
     case South: {
-      min = rect.x() + 1;
-      max = rect.right() - AbstractDockItem::TOOLBAR_ENDER;
+      min = m_rect.x() + 1;
+      max = m_rect.right() - TOOLBAR_ENDER;
       for (auto& w : m_widgets) {
         auto size = w->sizeHint();
-        auto y = rect.top() + Math::halfDifference(rect.height(), size.height());
+        m_rect.setHeight(size.height() + m_margins.top() + m_margins.bottom());
+        auto y =
+          m_rect.top() + Math::halfDifference(m_rect.height(), size.height());
         auto widgetWidth = size.width();
         switch (w->widgetPosition()) {
           case Start: {
             auto x = min + Math::halfDifference(widgetWidth, size.width());
             auto contentsRect = QRect(x, y, size.width(), size.height());
             auto widgetRect = contentsRect;
-            widgetRect.setHeight(rect.height());
-            widgetRect.moveTop(rect.top());
+            widgetRect.setHeight(m_rect.height());
+            widgetRect.moveTop(m_rect.top());
             w->setGeometry(widgetRect, contentsRect);
             min += widgetWidth;
             break;
@@ -454,8 +497,8 @@ AbstractDockItemPrivate::calculateGeometry(const QRect& rect)
             auto x = max + Math::halfDifference(widgetWidth, size.width());
             auto contentsRect = QRect(x, y, size.width(), size.height());
             auto widgetRect = contentsRect;
-            widgetRect.moveTop(rect.top());
-            widgetRect.setHeight(rect.height());
+            widgetRect.moveTop(m_rect.top());
+            widgetRect.setHeight(m_rect.height());
             w->setGeometry(widgetRect, contentsRect);
           }
         }

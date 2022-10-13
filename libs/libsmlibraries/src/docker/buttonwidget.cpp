@@ -43,33 +43,34 @@ ButtonWidget::setIconRect(const QRect& iconRect)
   d->setIconRect(iconRect);
 }
 
-const QIcon&
-ButtonWidget::icon()
+const QPixmap&
+ButtonWidget::pixmap()
 {
   Q_D(ButtonWidget);
-  return d->icon();
+  return d->m_pixmap;
 }
 
 void
-ButtonWidget::setIcon(const QIcon& icon)
+ButtonWidget::setPixmap(const QPixmap& pixmap)
 {
   Q_D(ButtonWidget);
-  d->m_icon = icon;
+  d->m_pixmap = pixmap;
+  d->m_iconSize = pixmap.size();
 }
 
 const QSize&
 ButtonWidget::iconSize()
 {
   Q_D(ButtonWidget);
-  return d->iconSize();
+  return d->m_iconSize;
 }
 
-void
-ButtonWidget::setIconSize(const QSize& iconSize)
-{
-  Q_D(ButtonWidget);
-  d->setIconSize(iconSize);
-}
+//void
+//ButtonWidget::setIconSize(const QSize& iconSize)
+//{
+//  Q_D(ButtonWidget);
+//  d->m_iconSize = iconSize;
+//}
 
 int
 ButtonWidget::spacer()

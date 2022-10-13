@@ -1,0 +1,355 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "libs/libsmlibraries/tests/testlibsmlibraries/smlibtest"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_executable",
+			"target_link_libraries"
+		],
+		"files" : 
+		[
+			"libs/libsmlibraries/tests/testlibsmlibraries/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 1,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 6,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-O3 -DNDEBUG"
+				},
+				{
+					"fragment" : "-std=gnu++17"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 2,
+					"define" : "QT_CORE5COMPAT_LIB"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "QT_CORE_LIB"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "QT_GUI_LIB"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "QT_NETWORK_LIB"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "QT_NO_DEBUG"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "QT_WIDGETS_LIB"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "QT_XML_LIB"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"path" : "/home/simonmeaden/workspace/epubedit/build/6_clang/release/libs/libsmlibraries/tests/testlibsmlibraries"
+				},
+				{
+					"path" : "/home/simonmeaden/workspace/epubedit/libs/libsmlibraries/tests/testlibsmlibraries"
+				},
+				{
+					"backtrace" : 0,
+					"path" : "/home/simonmeaden/workspace/epubedit/build/6_clang/release/libs/libsmlibraries/tests/testlibsmlibraries/smlibtest_autogen/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/home/simonmeaden/workspace/epubedit/libs/libsmlibraries/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/home/simonmeaden/workspace/epubedit/libs/libsmlibraries/src/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/home/simonmeaden/workspace/epubedit/extlibs/quazip"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/home/simonmeaden/workspace/epubedit/extlibs/quazip/quazip"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/home/simonmeaden/workspace/epubedit/libs/qyamlcpp/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/usr/include/qt6/QtCore"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/usr/include/qt6"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/usr/lib64/qt6/mkspecs/linux-g++"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/usr/include/qt6/QtCore5Compat"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/usr/include/qt6/QtGui"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/usr/include/qt6/QtWidgets"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/usr/include/qt6/QtXml"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/usr/include/qt6/QtNetwork"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					2,
+					2
+				],
+				"standard" : "17"
+			},
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 2,
+			"id" : "QuaZip::@8e0568282309ae69d219"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "CuteLogger::@586417c8957326d19107"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "libsmlibraries::@f0325c5cd32f9f994ebd"
+		},
+		{
+			"backtrace" : 0,
+			"id" : "smlibtest_autogen::@29e7d59a03a241eff6d5"
+		},
+		{
+			"id" : "smlibtest_autogen_timestamp_deps::@29e7d59a03a241eff6d5"
+		}
+	],
+	"id" : "smlibtest::@29e7d59a03a241eff6d5",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "-O3 -DNDEBUG",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "-L/usr/local/opt/openssl/lib",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "-Wl,-rpath,/home/simonmeaden/workspace/epubedit/build/6_clang/release/extlibs/quazip/quazip:/home/simonmeaden/workspace/epubedit/build/6_clang/release/extlibs/CuteLogger",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "libs/libsmlibraries/liblibsmlibraries.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "extlibs/quazip/quazip/libquazip1-qt6.so.1.1",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "/usr/lib64/libyaml-cpp.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "-lgtest",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "/usr/lib64/libQt6Widgets.so.6.3.1",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "/usr/lib64/libQt6Xml.so.6.3.1",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "/usr/lib64/libQt6Network.so.6.3.1",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/lib64/libz.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/lib64/libQt6Svg.so.6.3.1",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "/usr/lib64/libQt6Gui.so.6.3.1",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/lib64/libGLX.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/lib64/libOpenGL.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/lib64/libtidy.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "extlibs/CuteLogger/libCuteLogger.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/lib64/libQt6Core5Compat.so.6.3.1",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "/usr/lib64/libQt6Core.so.6.3.1",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX"
+	},
+	"name" : "smlibtest",
+	"nameOnDisk" : "smlibtest",
+	"paths" : 
+	{
+		"build" : "libs/libsmlibraries/tests/testlibsmlibraries",
+		"source" : "libs/libsmlibraries/tests/testlibsmlibraries"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2
+			]
+		},
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				3
+			]
+		},
+		{
+			"name" : "CMake Rules",
+			"sourceIndexes" : 
+			[
+				4
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 0,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "build/6_clang/release/libs/libsmlibraries/tests/testlibsmlibraries/smlibtest_autogen/mocs_compilation.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "libs/libsmlibraries/tests/testlibsmlibraries/main.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "libs/libsmlibraries/tests/testlibsmlibraries/testbcp47languages.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/6_clang/release/libs/libsmlibraries/tests/testlibsmlibraries/smlibtest_autogen/timestamp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/6_clang/release/libs/libsmlibraries/tests/testlibsmlibraries/smlibtest_autogen/timestamp.rule",
+			"sourceGroupIndex" : 2
+		}
+	],
+	"type" : "EXECUTABLE"
+}

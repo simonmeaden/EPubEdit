@@ -77,7 +77,8 @@ $(function() {
 
 <p>stores a set of Key maps for storage in a configuration file.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;QMap&gt;</code><br />
+<div class="textblock"><code>#include &lt;QKeySequence&gt;</code><br />
+<code>#include &lt;QMap&gt;</code><br />
 <code>#include &quot;qyamlcpp.h&quot;</code><br />
 </div>
 <p><a href="keymap_8h_source.html">Go to the source code of this file.</a></p>
@@ -96,9 +97,19 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a1e621eeffccff09f81cca0b0fd62dc39"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keymap_8h.html#a1e621eeffccff09f81cca0b0fd62dc39">KeyEventMapper</a> { <a class="el" href="keymap_8h.html#a1e621eeffccff09f81cca0b0fd62dc39a101f5c3557c0c90f333b30c9469831c8">NoKey</a>
+<tr class="memitem:a1e621eeffccff09f81cca0b0fd62dc39"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="keymap_8h.html#a1e621eeffccff09f81cca0b0fd62dc39">KeyEventMapper</a> { <br />
+&#160;&#160;<a class="el" href="keymap_8h.html#a1e621eeffccff09f81cca0b0fd62dc39a101f5c3557c0c90f333b30c9469831c8">NoKey</a>
 , <a class="el" href="keymap_8h.html#a1e621eeffccff09f81cca0b0fd62dc39ae4829263875aeeb4b6cd5b17dc273215">PreviousBookmark</a>
 , <a class="el" href="keymap_8h.html#a1e621eeffccff09f81cca0b0fd62dc39a1e84ab686bfb0589f425bf06d7ee0ead">NextBookmark</a>
+, <a class="el" href="keymap_8h.html#a1e621eeffccff09f81cca0b0fd62dc39a10c077cb32e87f7c1c7315bb8f50cf57">GoToBookmark</a>
+, <br />
+&#160;&#160;<a class="el" href="keymap_8h.html#a1e621eeffccff09f81cca0b0fd62dc39a4d12744ca7b245035eadf93b19491429">AddBookmark</a>
+, <a class="el" href="keymap_8h.html#a1e621eeffccff09f81cca0b0fd62dc39af1daa7950d47d34ecd0152b1c8985557">ToggleBookmark</a>
+, <a class="el" href="keymap_8h.html#a1e621eeffccff09f81cca0b0fd62dc39a7fb0385af6cd208968f10acc9da0a991">EditBookmark</a>
+, <a class="el" href="keymap_8h.html#a1e621eeffccff09f81cca0b0fd62dc39ab087dc87d743063ac8000e6b1b19cf19">RemoveBookmark</a>
+, <br />
+&#160;&#160;<a class="el" href="keymap_8h.html#a1e621eeffccff09f81cca0b0fd62dc39a34f1f36570772904a8355f64e39a59ed">ClearBookmarks</a>
+<br />
  }</td></tr>
 <tr class="separator:a1e621eeffccff09f81cca0b0fd62dc39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -142,6 +153,18 @@ Emitter &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
 <tr><td class="fieldname"><a id="a1e621eeffccff09f81cca0b0fd62dc39ae4829263875aeeb4b6cd5b17dc273215"></a>PreviousBookmark&#160;</td><td class="fielddoc"><p>Go to the previous bookmark. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a1e621eeffccff09f81cca0b0fd62dc39a1e84ab686bfb0589f425bf06d7ee0ead"></a>NextBookmark&#160;</td><td class="fielddoc"><p>Go to the next bookmark. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1e621eeffccff09f81cca0b0fd62dc39a10c077cb32e87f7c1c7315bb8f50cf57"></a>GoToBookmark&#160;</td><td class="fielddoc"><p>Go to selected bookmark. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1e621eeffccff09f81cca0b0fd62dc39a4d12744ca7b245035eadf93b19491429"></a>AddBookmark&#160;</td><td class="fielddoc"><p>Add a new bookmark. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1e621eeffccff09f81cca0b0fd62dc39af1daa7950d47d34ecd0152b1c8985557"></a>ToggleBookmark&#160;</td><td class="fielddoc"><p>Toggle current bookmark. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1e621eeffccff09f81cca0b0fd62dc39a7fb0385af6cd208968f10acc9da0a991"></a>EditBookmark&#160;</td><td class="fielddoc"><p>Edit bookmark. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1e621eeffccff09f81cca0b0fd62dc39ab087dc87d743063ac8000e6b1b19cf19"></a>RemoveBookmark&#160;</td><td class="fielddoc"><p>Remove current bookmark. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1e621eeffccff09f81cca0b0fd62dc39a34f1f36570772904a8355f64e39a59ed"></a>ClearBookmarks&#160;</td><td class="fielddoc"><p>Clears all bookmarks. </p>
 </td></tr>
 </table>
 

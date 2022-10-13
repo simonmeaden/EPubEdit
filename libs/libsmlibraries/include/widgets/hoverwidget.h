@@ -18,6 +18,20 @@
 
 #include "utilities/x11colors.h"
 
+/*!
+   \file hoverwidget.h "widgets/hoverwidget.h"
+   \class HoverWidget hoverwidget.h
+   \brief Displays a hover dialog in LNPlainTextEdit windows where hover text
+          is defined.
+
+  The display holds two sections which are managed seperately. A title block
+  and a text block.
+
+   \since 5.7.0
+   \license{The MIT License}
+   \copyright © 2022 Simon Meaden. All rights reserved.
+   \see LNPlainTextEdit
+*/
 class HoverWidget : public QFrame
 {
   Q_OBJECT
@@ -26,6 +40,7 @@ class HoverWidget : public QFrame
     Title,
     Text,
   };
+
   class HoverHighlighter : public QSyntaxHighlighter
   {
   public:
@@ -40,29 +55,38 @@ class HoverWidget : public QFrame
   };
 
 public:
+  //! Default constructor for HoverWidget
   explicit HoverWidget(QWidget* parent = nullptr);
+  //! Constructor for HoverWidget
   explicit HoverWidget(const QString& Title,
                        const QString& Text,
                        QWidget* parent = nullptr);
 
+  //! Sets the title text
   void setTitle(const QString& Title);
+  //! Sets the text block
   void setText(const QString& Text);
 
+  //! Displays the dialog
   void show(int timeout = 0);
 
+  //! Allows the user to define margins for the dialog
   void setMargins(const QMargins& Margins);
 
+  //! Defines a spacer in pixels between the title block and the text block
   void setSpacer(int Spacer);
 
+  //! Returns true if no text was siupplied.
   bool isEmpty();
 
 signals:
+  //! Signal sent when the dialog has finished displaying.
   void finished();
 
 protected:
+  //! \reimplements{QFrame::event}
   bool event(QEvent* event) override;
 
-  void hoverLeave(QHoverEvent* event);
 
 private:
   int m_width = 0;
@@ -85,6 +109,7 @@ private:
   QPlainTextEdit* m_editor;
   QToolButton* m_copyBtn;
 
+  void hoverLeave(QHoverEvent* event);
   void buttonClicked(bool);
   void timedout();
   void buildGui();

@@ -1,0 +1,33 @@
+{
+	"BUILD_DIR" : "/home/simonmeaden/workspace/epubedit/build/6_clang/debug/epubedit/epubedit_autogen",
+	"CMAKE_BINARY_DIR" : "/home/simonmeaden/workspace/epubedit/build/6_clang/debug",
+	"CMAKE_CURRENT_BINARY_DIR" : "/home/simonmeaden/workspace/epubedit/build/6_clang/debug/epubedit",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/home/simonmeaden/workspace/epubedit/epubedit",
+	"CMAKE_SOURCE_DIR" : "/home/simonmeaden/workspace/epubedit",
+	"INCLUDE_DIR" : "/home/simonmeaden/workspace/epubedit/build/6_clang/debug/epubedit/epubedit_autogen/include",
+	"INPUTS" : 
+	[
+		"/home/simonmeaden/workspace/epubedit/epubedit/src/forms/images/go-up-skip.svg",
+		"/home/simonmeaden/workspace/epubedit/epubedit/src/forms/images/go-previous.svg",
+		"/home/simonmeaden/workspace/epubedit/epubedit/src/forms/images/go-down.svg",
+		"/home/simonmeaden/workspace/epubedit/epubedit/src/forms/images/go-previous-skip.svg",
+		"/home/simonmeaden/workspace/epubedit/epubedit/src/forms/images/go-bottom.svg",
+		"/home/simonmeaden/workspace/epubedit/epubedit/src/forms/images/go-next-skip.svg",
+		"/home/simonmeaden/workspace/epubedit/epubedit/src/forms/images/go-top.svg",
+		"/home/simonmeaden/workspace/epubedit/epubedit/src/forms/images/go-up.svg",
+		"/home/simonmeaden/workspace/epubedit/epubedit/src/forms/images/go-down-skip.svg",
+		"/home/simonmeaden/workspace/epubedit/epubedit/src/forms/images/go-last.svg",
+		"/home/simonmeaden/workspace/epubedit/epubedit/src/forms/images/go-next.svg",
+		"/home/simonmeaden/workspace/epubedit/epubedit/src/forms/images/go-first.svg"
+	],
+	"LOCK_FILE" : "/home/simonmeaden/workspace/epubedit/build/6_clang/debug/epubedit/CMakeFiles/epubedit_autogen.dir/AutoRcc_languagetagbuilderdialogresource_GYHPFG4CL2_Lock.lock",
+	"MULTI_CONFIG" : false,
+	"OPTIONS" : [ "-name", "languagetagbuilderdialogresource" ],
+	"OUTPUT_CHECKSUM" : "GYHPFG4CL2",
+	"OUTPUT_NAME" : "qrc_languagetagbuilderdialogresource.cpp",
+	"RCC_EXECUTABLE" : "/usr/lib64/qt6/libexec/rcc",
+	"RCC_LIST_OPTIONS" : [ "--list" ],
+	"SETTINGS_FILE" : "/home/simonmeaden/workspace/epubedit/build/6_clang/debug/epubedit/CMakeFiles/epubedit_autogen.dir/AutoRcc_languagetagbuilderdialogresource_GYHPFG4CL2_Used.txt",
+	"SOURCE" : "/home/simonmeaden/workspace/epubedit/epubedit/src/forms/languagetagbuilderdialogresource.qrc",
+	"VERBOSITY" : 0
+}

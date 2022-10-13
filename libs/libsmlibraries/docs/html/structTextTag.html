@@ -90,13 +90,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a476cdfb0536bba4fbae8ebcc9a50f2c5"><td class="memItemLeft" align="right" valign="top">QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTextTag.html#a476cdfb0536bba4fbae8ebcc9a50f2c5">toString</a> () override</td></tr>
 <tr class="memdesc:a476cdfb0536bba4fbae8ebcc9a50f2c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a string version of the tag.  <a href="structTextTag.html#a476cdfb0536bba4fbae8ebcc9a50f2c5">More...</a><br /></td></tr>
 <tr class="separator:a476cdfb0536bba4fbae8ebcc9a50f2c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a299ad64e92c80fdbbe475872e4ca2b38"><td class="memItemLeft" align="right" valign="top"><a id="a299ad64e92c80fdbbe475872e4ca2b38"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTextTag.html#a299ad64e92c80fdbbe475872e4ca2b38">textStart</a> ()</td></tr>
-<tr class="memdesc:a299ad64e92c80fdbbe475872e4ca2b38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the text start position. <br /></td></tr>
-<tr class="separator:a299ad64e92c80fdbbe475872e4ca2b38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac881739004b5f823534b5b02082ccacb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTextTag.html#ac881739004b5f823534b5b02082ccacb">textLength</a> ()</td></tr>
+<tr class="memdesc:ac881739004b5f823534b5b02082ccacb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the length of the text string.  <a href="structTextTag.html#ac881739004b5f823534b5b02082ccacb">More...</a><br /></td></tr>
+<tr class="separator:ac881739004b5f823534b5b02082ccacb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a27a6f34f716a8158537b099e73a243ad"><td class="memItemLeft" align="right" valign="top">IsInType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTextTag.html#a27a6f34f716a8158537b099e73a243ad">isIn</a> (int cursorPos) override</td></tr>
 <tr class="memdesc:a27a6f34f716a8158537b099e73a243ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">isIn method of all <a class="el" href="structTag.html" title="Base struct of all Tag types.">Tag</a> types.  <a href="structTextTag.html#a27a6f34f716a8158537b099e73a243ad">More...</a><br /></td></tr>
 <tr class="separator:a27a6f34f716a8158537b099e73a243ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e65ea424d77e1f6df066be88810c2b0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTextTag.html#a6e65ea424d77e1f6df066be88810c2b0">isWhitespace</a> ()</td></tr>
+<tr class="separator:a6e65ea424d77e1f6df066be88810c2b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a211e470ee0b0d1f553db52bbae111a"><td class="memItemLeft" align="right" valign="top"><a id="a1a211e470ee0b0d1f553db52bbae111a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTextTag.html#a1a211e470ee0b0d1f553db52bbae111a">copyTagInto</a> (<a class="el" href="structTag.html">Tag</a> *tag) override</td></tr>
+<tr class="memdesc:a1a211e470ee0b0d1f553db52bbae111a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies values from the supplied tag into this tag. <br /></td></tr>
+<tr class="separator:a1a211e470ee0b0d1f553db52bbae111a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_structTag"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_structTag')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="structTag.html">Tag</a></td></tr>
 <tr class="memitem:a785a8d8a4b0832a642fd663a0d4da60a inherit pub_methods_structTag"><td class="memItemLeft" align="right" valign="top"><a id="a785a8d8a4b0832a642fd663a0d4da60a"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTag.html#a785a8d8a4b0832a642fd663a0d4da60a">start</a> ()</td></tr>
@@ -117,10 +122,6 @@ Public Attributes</h2></td></tr>
 QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTextTag.html#aa07a3eea498b1b44e48c5db57338449e">text</a></td></tr>
 <tr class="memdesc:aa07a3eea498b1b44e48c5db57338449e"><td class="mdescLeft">&#160;</td><td class="mdescRight">the text string <br /></td></tr>
 <tr class="separator:aa07a3eea498b1b44e48c5db57338449e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1cdcb5cf12140ca47dea8ed4ba0e1924"><td class="memItemLeft" align="right" valign="top"><a id="a1cdcb5cf12140ca47dea8ed4ba0e1924"></a>
-QTextCursor&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTextTag.html#a1cdcb5cf12140ca47dea8ed4ba0e1924">textStartCursor</a></td></tr>
-<tr class="memdesc:a1cdcb5cf12140ca47dea8ed4ba0e1924"><td class="mdescLeft">&#160;</td><td class="mdescRight">The QTextCursor at the start position of the tag text. <br /></td></tr>
-<tr class="separator:a1cdcb5cf12140ca47dea8ed4ba0e1924"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_structTag"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_structTag')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="structTag.html">Tag</a></td></tr>
 <tr class="memitem:a0302100af6a22b8999c1fa7ca4eb3221 inherit pub_attribs_structTag"><td class="memItemLeft" align="right" valign="top"><a id="a0302100af6a22b8999c1fa7ca4eb3221"></a>
 TagType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTag.html#a0302100af6a22b8999c1fa7ca4eb3221">type</a> = NoType</td></tr>
@@ -140,7 +141,7 @@ QTextCursor&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
 <tr class="separator:ab7019996370e27697ba21c0f6271b60d inherit pub_attribs_structTag"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a744c79766e49115de69889b08e58059d inherit pub_attribs_structTag"><td class="memItemLeft" align="right" valign="top"><a id="a744c79766e49115de69889b08e58059d"></a>
 QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structTag.html#a744c79766e49115de69889b08e58059d">hoverText</a></td></tr>
-<tr class="memdesc:a744c79766e49115de69889b08e58059d inherit pub_attribs_structTag"><td class="mdescLeft">&#160;</td><td class="mdescRight">text to display when hovering <br /></td></tr>
+<tr class="memdesc:a744c79766e49115de69889b08e58059d inherit pub_attribs_structTag"><td class="mdescLeft">&#160;</td><td class="mdescRight">text to display when hovering. <br /></td></tr>
 <tr class="separator:a744c79766e49115de69889b08e58059d inherit pub_attribs_structTag"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -174,6 +175,54 @@ QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="s
 <p>Returns the result of a test whether the cursor is within the tag. Returns one of the IsInType values. </p>
 
 <p>Reimplemented from <a class="el" href="structTag.html#a9bcf07edef2c8dce4c510da12960b1b9">Tag</a>.</p>
+
+</div>
+</div>
+<a id="a6e65ea424d77e1f6df066be88810c2b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e65ea424d77e1f6df066be88810c2b0">&#9670;&nbsp;</a></span>isWhitespace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool TextTag::isWhitespace </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Returns true if the string only contains whitespace characters.</p>
+<p>This includes</p><div class="fragment"><div class="line">\t, \n, \v, \f and \r </div>
+</div><!-- fragment --><p> characters as well as space characters. </p>
+
+</div>
+</div>
+<a id="ac881739004b5f823534b5b02082ccacb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac881739004b5f823534b5b02082ccacb">&#9670;&nbsp;</a></span>textLength()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int TextTag::textLength </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the length of the text string. </p>
+<p>Equivalent of calling <a class="el" href="structTextTag.html#aa07a3eea498b1b44e48c5db57338449e" title="the text string">text()</a>.<a class="el" href="structTag.html#a50d1e7b7c3fe2c678ce5f493b70d6d1b" title="Returns the tag length.">length()</a>. </p>
 
 </div>
 </div>

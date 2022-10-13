@@ -12,9 +12,6 @@ class ButtonWidgetPrivate : public WidgetItemPrivate
 public:
   ButtonWidgetPrivate(AbstractDockWidget* parent, WidgetItem* qptr);
 
-  const QIcon& icon();
-//  void setIcon(const QIcon& newIcon);
-
   const QSize& iconSize();
   void setIconSize(const QSize& newIconSize);
 
@@ -32,6 +29,9 @@ public:
 
   WidgetItem* clone(WidgetItem* widget = nullptr);
 
+  bool isShowBorder() const;
+  void setShowBorder(bool ShowBorder);
+
 protected:
   // WidgetWrapper interface
   const QSize calcMinimumSize();
@@ -45,14 +45,17 @@ protected:
 private:
   Arrangement m_arrangement = IconOnly;
   QRect m_iconRect;
-  QIcon m_icon;
+  QPixmap m_pixmap;
   QIcon::Mode m_iconMode = QIcon::Normal;
+  bool m_showBorder = true;
   QSize m_iconSize;
   QRect m_textRect;
   QString m_text;
   int m_spacer = 0;
   QColor m_textColor;
   QList<QMetaObject::Connection> m_connections;
+
+  static int BUTTON_ROUND;
 };
 
 #endif // BUTTONWIDGETPRIVATE_H

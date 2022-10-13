@@ -105,13 +105,13 @@ struct convert<QList<T>>
 };
 
 ////! Conversion YAML::convert template class for QMap<K, V>
-//template<class K, class V>
-//struct convert<QMap<K, V>>
+// template<class K, class V>
+// struct convert<QMap<K, V>>
 //{
-//  //! encode a QMap<K, V> into a YAML Node.
-//  static Node encode(const QMap<K, V>& rhs)
-//  {
-//    Node node(NodeType::Map);
+//   //! encode a QMap<K, V> into a YAML Node.
+//   static Node encode(const QMap<K, V>& rhs)
+//   {
+//     Node node(NodeType::Map);
 
 //    std::map<K, V> smap = rhs.toStdMap();
 //    node = smap;
@@ -136,32 +136,32 @@ struct convert<QList<T>>
 template<typename Key, typename Value>
 struct convert<QMap<Key, Value>>
 {
-    static Node encode(const QMap<Key,Value>& rhs)
-    {
-        Node node(NodeType::Map);
-        auto it = rhs.constBegin();
-        while (it != rhs.constEnd())
-        {
-            node.force_insert(it.key(), it.value());
-            ++it;
-        }
-        return node;
+  //! encode a QMap<Key, Value> into a YAML Node.
+  static Node encode(const QMap<Key, Value>& rhs)
+  {
+    Node node(NodeType::Map);
+    auto it = rhs.constBegin();
+    while (it != rhs.constEnd()) {
+      node.force_insert(it.key(), it.value());
+      ++it;
     }
+    return node;
+  }
 
-    static bool decode(const Node& node, QMap<Key, Value>& rhs)
-    {
-        if (!node.IsMap())
-            return false;
+  //! decodes a YAML node back into a QMap<Key, Value>
+  static bool decode(const Node& node, QMap<Key, Value>& rhs)
+  {
+    if (!node.IsMap())
+      return false;
 
-        rhs.clear();
-        const_iterator it = node.begin();
-        while (it != node.end())
-        {
-            rhs[it->first.as<Key>()] = it->second.as<Value>();
-            ++it;
-        }
-        return true;
+    rhs.clear();
+    const_iterator it = node.begin();
+    while (it != node.end()) {
+      rhs[it->first.as<Key>()] = it->second.as<Value>();
+      ++it;
     }
+    return true;
+  }
 };
 
 ////! Conversion YAML::convert template class for QList<T>

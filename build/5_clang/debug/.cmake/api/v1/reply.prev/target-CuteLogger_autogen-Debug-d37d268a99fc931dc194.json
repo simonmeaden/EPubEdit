@@ -1,0 +1,71 @@
+{
+	"backtrace" : 0,
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : 
+		[
+			"extlibs/CuteLogger/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			}
+		]
+	},
+	"dependencies" : 
+	[
+		{
+			"id" : "CuteLogger_autogen_timestamp_deps::@586417c8957326d19107"
+		}
+	],
+	"id" : "CuteLogger_autogen::@586417c8957326d19107",
+	"isGeneratorProvided" : true,
+	"name" : "CuteLogger_autogen",
+	"paths" : 
+	{
+		"build" : "extlibs/CuteLogger",
+		"source" : "extlibs/CuteLogger"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		},
+		{
+			"name" : "CMake Rules",
+			"sourceIndexes" : 
+			[
+				1,
+				2
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/5_clang/debug/extlibs/CuteLogger/CMakeFiles/CuteLogger_autogen",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/5_clang/debug/extlibs/CuteLogger/CMakeFiles/CuteLogger_autogen.rule",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/5_clang/debug/extlibs/CuteLogger/CuteLogger_autogen/timestamp.rule",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "UTILITY"
+}

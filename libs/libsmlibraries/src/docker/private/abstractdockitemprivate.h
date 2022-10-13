@@ -3,6 +3,7 @@
 
 #include "docker/abstractdockitem.h"
 
+class DraggableButtonWidget;
 class AbstractDockItemPrivate
 {
   Q_DECLARE_PUBLIC(AbstractDockItem)
@@ -12,24 +13,22 @@ public:
                           AbstractDockItem* qptr);
 
   ButtonWidget* addIconButton(WidgetPosition pos,
-                              QIcon icon,
-                              QSize iconSize,
+                              QPixmap pixmap,
                               const QString& tooltip = QString());
+  DraggableButtonWidget* addDragIconButton(WidgetPosition pos,
+                              QPixmap pixmap,
+                               const QString& tooltip = QString());
   ButtonWidget* addIconListButton(WidgetPosition pos,
-                                  QIcon icon,
-                                  QSize iconSize,
+                                  QPixmap pixmap,
                                   const QString& tooltip = QString());
-  ButtonWidget* addIconTextButton(
-    WidgetPosition pos,
-    QIcon icon,
-    QSize iconSize,
+  ButtonWidget* addIconTextButton(WidgetPosition pos,
+    QPixmap pixmap,
     const QString& text,
     Arrangement textPos = Arrangement::TextBelowIcon,
     const QString& tooltip = QString());
   ButtonWidget* addIconTextListButton(
     WidgetPosition pos,
-    QIcon icon,
-    QSize iconSize,
+    QPixmap pixmap,
     const QString& text,
     Arrangement textPos = Arrangement::TextBelowIcon,
     const QString& tooltip = QString());
@@ -95,18 +94,19 @@ public:
   QSize calcMaxContentsSize();
   void calculateGeometry(const QRect& rect);
 
+  const QMargins &margins() const;
+  void setMargins(const QMargins &margins);
+
   WidgetItem* addItem(WidgetItem* item);
 
   ButtonWidget* createButtonItem(WidgetType type,
                                  WidgetPosition pos,
-                                 QIcon icon,
-                                 QSize iconSize,
+                                 QPixmap icon,
                                  const QString& text,
                                  Arrangement textPos,
                                  const QString& tooltip);
   void setupButton(ButtonWidget* bw,
-                   QIcon icon,
-                   QSize iconSize,
+                   QPixmap icon,
                    const QString& text,
                    Arrangement textPos,
                    const QString& tooltip);
@@ -122,6 +122,12 @@ public:
   int m_height;
   int m_maxWidgetWidth = 0;
   int m_maxWidgetHeight = 0;
+  //! margins
+  QMargins m_margins;
+  int m_spacer = SPACER; //!< space between widgets
+
+  int spacer() const;
+  void setSpacer(int Spacer);
 
 private:
   void calculateMaxSize(ButtonWidget* bw, QString text, Arrangement textPos);

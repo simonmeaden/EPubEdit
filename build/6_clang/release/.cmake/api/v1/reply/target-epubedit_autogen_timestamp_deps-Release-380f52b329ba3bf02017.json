@@ -1,0 +1,70 @@
+{
+	"backtrace" : 0,
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : 
+		[
+			"epubedit/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			}
+		]
+	},
+	"dependencies" : 
+	[
+		{
+			"id" : "QuaZip::@8e0568282309ae69d219"
+		},
+		{
+			"id" : "CuteLogger::@586417c8957326d19107"
+		},
+		{
+			"id" : "libsmlibraries::@f0325c5cd32f9f994ebd"
+		}
+	],
+	"id" : "epubedit_autogen_timestamp_deps::@411b33e57057579a4b39",
+	"isGeneratorProvided" : true,
+	"name" : "epubedit_autogen_timestamp_deps",
+	"paths" : 
+	{
+		"build" : "epubedit",
+		"source" : "epubedit"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		},
+		{
+			"name" : "CMake Rules",
+			"sourceIndexes" : 
+			[
+				1
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/6_clang/release/epubedit/CMakeFiles/epubedit_autogen_timestamp_deps",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/6_clang/release/epubedit/CMakeFiles/epubedit_autogen_timestamp_deps.rule",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "UTILITY"
+}

@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package xmlns="http://www.idpf.org/2007/opf" version="2.0" unique-identifier="uuid_id">
+  <metadata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opf="http://www.idpf.org/2007/opf" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:calibre="http://calibre.kovidgoyal.net/2009/metadata" xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc:publisher>Tor</dc:publisher>
+    <meta name="calibre:series_index" content="3"/>
+    <meta name="calibre:title_sort" content="Magnificat"/>
+    <meta name="calibre:rating" content="8.00"/>
+    <dc:description>&lt;div&gt;&lt;p class="description"&gt;By the mid-twenty-first century, humanity is beginning to enjoy membership in the Galactic Milieu. Human colonies are thriving on numerous planets, life on Earth is peaceful and prosperous, and as more humans are being born with metapsychic abilities, it will not be long before these gifted minds at last achieve total Unity.&lt;/p&gt;
+&lt;p class="description"&gt;But xenophobia is deeply rooted in the human soul. A growing corps of rebels plots to keep the people of Earth forever separate, led by a man obsessed with human superiority: Marc Remillard. Marc's goal is nothing less than the elevation of human metapsychics above all others, by way of artificial enhancement of mental faculties. His methods are unpalatable, his goal horrific. And so Marc and his coconspirators continue their work in secret.  &lt;/p&gt;
+&lt;p class="description"&gt;Only the very Unity he fears and abhors can foil Marc's plans. And only his brother, Jack the Bodiless, and the young woman called Diamond Mask can hope to lead the metaconcert to destroy Marc, Unify humanity, and pave the way for the Golden Age of the Galactic Milieu to begin . . .  &lt;/p&gt;
+&lt;p class="description"&gt;&lt;br&gt;"A CERTAIN CROWD-PLEASER."  &lt;br&gt;--Kirkus Reviews&lt;/p&gt;
+&lt;p class="description"&gt;### From Booklist&lt;/p&gt;
+&lt;p class="description"&gt;May concludes the Galactic Milieu trilogy, which is a prequel to the multivolume Saga of Pliocene Exile that describes the absorption of the human race into a union of civilized metapsychic races. The focus here is, as in *Diamond Mask* (1994), on three characters: the potent metapsychic Dorothea, the mutant genius Jack the Bodiless, and the ambitious metapsychic lunatic Fury. The plot is as convoluted as usual in May's work and as impossible to summarize. The ending is actually enough of a surprise to be well worth not describing; at least it should be mentioned that it is one of a number of enormously powerful scenes. *Magnificat* is obviously the wrong book with which to start either Galactic Milieu or May's work in general, but readers familiar with May's ambitious, sometimes sprawling, often magnificent sagas will find it richly rewarding. *Roland Green*&lt;/p&gt;
+&lt;p class="description"&gt;### From the Publisher&lt;/p&gt;
+&lt;p class="description"&gt;I read Julian May's Pliocene Exile books long ago, and though I loved them, I confess I was a bit baffled by all the references to the rebellion, and to characters like Diamond Mask and Jack the Bodiless. So getting to edit (and read--at last!) the three books of the Galactic Milieu, which finally explain all those mysterious and tantalizing hints, was a real blast. They really do bring everything full circle, and I am more amazed than ever at a mind that could pull off such a thoroughly complex and rich cycle of stories. Just don't ask me to summarize them!  &lt;br&gt;                                                        --Shelly Shapiro, Executive Editor&lt;/p&gt;&lt;p class="description"&gt;"FASCINATING . . . May has cemented her position as one of this generation's foremost storytellers. . . .This satisfying end to a remarkable feat of the imagination is a necessary purchase." &lt;br&gt;--Library Journal&lt;/p&gt;&lt;p class="description"&gt;&lt;br&gt;&lt;/p&gt;&lt;/div&gt;</dc:description>
+    <dc:language>en</dc:language>
+    <dc:creator opf:file-as="May, Julian" opf:role="aut">Julian May</dc:creator>
+    <meta name="calibre:timestamp" content="2011-11-19T12:36:47+00:00"/>
+    <dc:title>Magnificat</dc:title>
+    <meta name="cover" content="cover"/>
+    <dc:date>1995-01-01T05:00:00+00:00</dc:date>
+    <meta name="calibre:series" content="Galactic Milieu Trilogy"/>
+    <dc:contributor opf:role="bkp">calibre (0.9.10) [http://calibre-ebook.com]</dc:contributor>
+    <dc:identifier opf:scheme="ISBN">9780002229685</dc:identifier>
+    <dc:identifier opf:scheme="GOOGLE">AeZAAAAACAAJ</dc:identifier>
+    <dc:identifier opf:scheme="AMAZON">0345362497</dc:identifier>
+    <dc:identifier opf:scheme="FF">m/julian-may/magnificat</dc:identifier>
+    <dc:identifier opf:scheme="FICTIONDB">julian-may~magnificat~106656~b</dc:identifier>
+    <dc:identifier opf:scheme="GOODREADS">41335</dc:identifier>
+    <dc:identifier id="uuid_id" opf:scheme="uuid">b1a67ac6-f7f2-41dc-bf1d-10c483bc91b6</dc:identifier>
+  </metadata>
+  <manifest>
+    <item href="cover.jpeg" id="cover" media-type="image/jpeg"/>
+    <item href="Magnificat_split_000.html" id="id19" media-type="application/xhtml+xml"/>
+    <item href="Magnificat_split_001.html" id="id18" media-type="application/xhtml+xml"/>
+    <item href="Magnificat_split_002.html" id="id17" media-type="application/xhtml+xml"/>
+    <item href="Magnificat_split_003.html" id="id16" media-type="application/xhtml+xml"/>
+    <item href="Magnificat_split_004.html" id="id15" media-type="application/xhtml+xml"/>
+    <item href="Magnificat_split_005.html" id="id14" media-type="application/xhtml+xml"/>
+    <item href="Magnificat_split_006.html" id="id13" media-type="application/xhtml+xml"/>
+    <item href="Magnificat_split_007.html" id="id12" media-type="application/xhtml+xml"/>
+    <item href="Magnificat_split_008.html" id="id11" media-type="application/xhtml+xml"/>
+    <item href="jacket.xhtml" id="calibre_jacket" media-type="application/xhtml+xml"/>
+    <item href="page_styles.css" id="page_css" media-type="text/css"/>
+    <item href="stylesheet.css" id="css" media-type="text/css"/>
+    <item href="titlepage.xhtml" id="titlepage" media-type="application/xhtml+xml"/>
+    <item href="toc.ncx" media-type="application/x-dtbncx+xml" id="ncx"/>
+  </manifest>
+  <spine toc="ncx">
+    <itemref idref="titlepage"/>
+    <itemref idref="calibre_jacket"/>
+    <itemref idref="id19"/>
+    <itemref idref="id18"/>
+    <itemref idref="id17"/>
+    <itemref idref="id16"/>
+    <itemref idref="id15"/>
+    <itemref idref="id14"/>
+    <itemref idref="id13"/>
+    <itemref idref="id12"/>
+    <itemref idref="id11"/>
+  </spine>
+  <guide>
+    <reference href="Magnificat_split_008.html#filepos1072255" type="toc" title="Table of Contents"/>
+    <reference href="titlepage.xhtml" type="cover" title="Cover"/>
+  </guide>
+</package>

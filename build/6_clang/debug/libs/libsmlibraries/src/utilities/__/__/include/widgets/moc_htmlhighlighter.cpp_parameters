@@ -1,0 +1,5 @@
+-I/home/simonmeaden/workspace/epubedit/libs/libsmlibraries/src/utilities
+-I/home/simonmeaden/workspace/epubedit/build/6_clang/debug/libs/libsmlibraries/src/utilities
+-o
+/home/simonmeaden/workspace/epubedit/build/6_clang/debug/libs/libsmlibraries/src/utilities/__/__/include/widgets/moc_htmlhighlighter.cpp
+/home/simonmeaden/workspace/epubedit/libs/libsmlibraries/include/widgets/htmlhighlighter.h

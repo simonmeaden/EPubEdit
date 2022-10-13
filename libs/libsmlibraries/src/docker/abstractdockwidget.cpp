@@ -6,13 +6,6 @@
 #include "docker/widgetitem.h"
 #include "utilities/x11colors.h"
 
-AbstractDockWidget::AbstractDockWidget(QWidget* parent)
-  : QWidget(parent)
-  , d_ptr(new AbstractDockWidgetPrivate(this))
-{
-  initGui();
-}
-
 AbstractDockWidget::AbstractDockWidget(AbstractDockWidgetPrivate& d)
   : d_ptr(&d)
 {
@@ -28,17 +21,17 @@ AbstractDockWidget::AbstractDockWidget(AbstractDockWidgetPrivate& d,
 }
 
 QWidget*
-AbstractDockWidget::widget()
+AbstractDockWidget::centralWidget()
 {
   Q_D(AbstractDockWidget);
-  return d->m_widget;
+  return d->m_centralWidget;
 }
 
 QWidget*
-AbstractDockWidget::setWidget(QWidget* widget)
+AbstractDockWidget::setCentralWidget(QWidget* widget)
 {
   Q_D(AbstractDockWidget);
-  return d->setWidget(widget);
+  return d->setCentralWidget(widget);
 }
 
 const QColor&
@@ -50,6 +43,7 @@ AbstractDockWidget::textColor() const
 void
 AbstractDockWidget::initGui()
 {
+  setContentsMargins(0, 0, 0, 0);
   setAutoFillBackground(true);
   setMouseTracking(true);
   setAttribute(Qt::WA_Hover);
@@ -80,7 +74,8 @@ AbstractDockWidget::availableRect() const
   return d_ptr->availableRect();
 }
 
-QWidget *AbstractDockWidget::clone(QWidget* widget)
+QWidget*
+AbstractDockWidget::clone(QWidget* widget)
 {
   auto awidget = qobject_cast<AbstractDockWidget*>(widget);
   if (awidget)
@@ -137,7 +132,7 @@ AbstractDockWidget::dockItemHoverCheck(AbstractDockItem* item, QPoint pos)
 }
 
 void
-AbstractDockWidget::mouseClickCheck(AbstractDockItem* item, QPoint pos)
+AbstractDockWidget::mouseClickCheck(AbstractDockItem* item, QMouseEvent* event)
 {
-  d_ptr->mouseClickCheck(item, pos);
+  d_ptr->mousePressCheck(item, event);
 }

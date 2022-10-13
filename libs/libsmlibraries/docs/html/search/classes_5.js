@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['filedownloader_836',['FileDownloader',['../classFileDownloader.html',1,'']]],
-  ['footerwidget_837',['FooterWidget',['../classFooterWidget.html',1,'']]]
+  ['filedownloader_869',['FileDownloader',['../classFileDownloader.html',1,'']]],
+  ['footerwidget_870',['FooterWidget',['../classFooterWidget.html',1,'']]]
 ];

@@ -109,6 +109,89 @@ DockFooter::DockFooter(DockFooterPrivate& d)
 {
 }
 
+ButtonWidget*
+DockFooter::addIconButton(WidgetPosition pos,
+                                QPixmap pixmap,
+                                const QString& tooltip)
+{
+  Q_D(AbstractDockItem);
+  return d->addIconButton(pos, pixmap, tooltip);
+}
+
+ButtonWidget*
+DockFooter::addDragIconButton(WidgetPosition pos,
+                                    QPixmap pixmap,
+                                    const QString& tooltip)
+{
+  Q_D(AbstractDockItem);
+  return d->addIconButton(pos, pixmap,  tooltip);
+}
+
+ButtonWidget*
+DockFooter::addIconListButton(WidgetPosition pos,
+                                    QPixmap pixmap,
+                                    const QString& tooltip)
+{
+  return d_ptr->addIconListButton(pos, pixmap, tooltip);
+}
+
+ButtonWidget*
+DockFooter::addIconTextButton(WidgetPosition pos,
+                                    QPixmap pixmap,
+                                    const QString& text,
+                                    Arrangement textPos,
+                                    const QString& tooltip)
+{
+  return d_ptr->addIconTextButton(pos, pixmap, text, textPos, tooltip);
+}
+
+ButtonWidget*
+DockFooter::addIconTextListButton(WidgetPosition pos,
+                                        QPixmap pixmap,
+                                        const QString& text,
+                                        Arrangement textPos,
+                                        const QString& tooltip)
+{
+  return d_ptr->addIconTextListButton(
+    pos, pixmap,  text, textPos, tooltip);
+}
+
+ButtonWidget*
+DockFooter::addTextButton(WidgetPosition pos,
+                                const QString& text,
+                                const QString& tooltip)
+{
+  return d_ptr->addTextButton(pos, text, tooltip);
+}
+
+ButtonWidget*
+DockFooter::addTextListButton(WidgetPosition pos,
+                                    const QString& text,
+                                    const QString& tooltip)
+{
+  return d_ptr->addTextListButton(pos, text, tooltip);
+}
+
+WidgetItem*
+DockFooter::addTextLabel(WidgetPosition pos,
+                               const QString& text,
+                               const QString& tooltip)
+{
+  return d_ptr->addTextLabel(pos, text, tooltip);
+}
+
+WidgetItem*
+DockFooter::addSeperator(WidgetPosition pos)
+{
+  return d_ptr->addSeperator(pos);
+}
+
+WidgetItem*
+DockFooter::addCustomWidget(CustomWidget* item)
+{
+  return d_ptr->addCustomWidget(item);
+}
+
 WidgetItem*
 DockFooter::addListWidget(WidgetPosition pos, const QString& tooltip)
 {

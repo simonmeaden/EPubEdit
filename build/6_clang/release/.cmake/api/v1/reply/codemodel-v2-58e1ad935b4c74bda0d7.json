@@ -1,0 +1,597 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						6,
+						17
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Release-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : "."
+				},
+				{
+					"build" : "extlibs",
+					"childIndexes" : 
+					[
+						2,
+						5
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-extlibs-Release-c735386faa133e63d091.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "extlibs"
+				},
+				{
+					"build" : "extlibs/quazip",
+					"childIndexes" : 
+					[
+						3,
+						4
+					],
+					"jsonFile" : "directory-extlibs.quazip-Release-13e53b1f8a82d26a3de5.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 1,
+					"source" : "extlibs/quazip"
+				},
+				{
+					"build" : "extlibs/quazip/quazip",
+					"jsonFile" : "directory-extlibs.quazip.quazip-Release-0a632bc0b9196f70cd70.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 2,
+					"source" : "extlibs/quazip/quazip",
+					"targetIndexes" : 
+					[
+						3,
+						4,
+						5
+					]
+				},
+				{
+					"build" : "extlibs/quazip/qztest",
+					"jsonFile" : "directory-extlibs.quazip.qztest-Release-042168062c20b687abca.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 3,
+					"source" : "extlibs/quazip/qztest",
+					"targetIndexes" : 
+					[
+						6,
+						14,
+						15,
+						16
+					]
+				},
+				{
+					"build" : "extlibs/CuteLogger",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-extlibs.CuteLogger-Release-25208b959c06a1f86995.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 4,
+					"source" : "extlibs/CuteLogger",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				},
+				{
+					"build" : "libs",
+					"childIndexes" : 
+					[
+						7,
+						8
+					],
+					"jsonFile" : "directory-libs-Release-ec580da4e47c3b0e73da.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "libs"
+				},
+				{
+					"build" : "libs/qyamlcpp",
+					"jsonFile" : "directory-libs.qyamlcpp-Release-5ddea3260e4ee5b54a46.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"parentIndex" : 6,
+					"projectIndex" : 5,
+					"source" : "libs/qyamlcpp"
+				},
+				{
+					"build" : "libs/libsmlibraries",
+					"childIndexes" : 
+					[
+						9,
+						15
+					],
+					"jsonFile" : "directory-libs.libsmlibraries-Release-a49682f11ea8bb120d65.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 6,
+					"projectIndex" : 6,
+					"source" : "libs/libsmlibraries",
+					"targetIndexes" : 
+					[
+						7,
+						11,
+						12,
+						13
+					]
+				},
+				{
+					"build" : "libs/libsmlibraries/src",
+					"childIndexes" : 
+					[
+						10,
+						11,
+						12,
+						13,
+						14
+					],
+					"jsonFile" : "directory-libs.libsmlibraries.src-Release-bbb30c85751a502923c2.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 8,
+					"projectIndex" : 6,
+					"source" : "libs/libsmlibraries/src"
+				},
+				{
+					"build" : "libs/libsmlibraries/src/translate",
+					"jsonFile" : "directory-libs.libsmlibraries.src.translate-Release-ee360a082dc6671d8255.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 9,
+					"projectIndex" : 6,
+					"source" : "libs/libsmlibraries/src/translate"
+				},
+				{
+					"build" : "libs/libsmlibraries/src/docker",
+					"jsonFile" : "directory-libs.libsmlibraries.src.docker-Release-11bdcade90c18d75270a.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 9,
+					"projectIndex" : 6,
+					"source" : "libs/libsmlibraries/src/docker"
+				},
+				{
+					"build" : "libs/libsmlibraries/src/labelled",
+					"jsonFile" : "directory-libs.libsmlibraries.src.labelled-Release-212f20ffd58013e1ec19.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 9,
+					"projectIndex" : 6,
+					"source" : "libs/libsmlibraries/src/labelled"
+				},
+				{
+					"build" : "libs/libsmlibraries/src/widgets",
+					"jsonFile" : "directory-libs.libsmlibraries.src.widgets-Release-d87d7bff6b82de62a454.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 9,
+					"projectIndex" : 6,
+					"source" : "libs/libsmlibraries/src/widgets"
+				},
+				{
+					"build" : "libs/libsmlibraries/src/utilities",
+					"jsonFile" : "directory-libs.libsmlibraries.src.utilities-Release-12de1a837059aab55233.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 9,
+					"projectIndex" : 6,
+					"source" : "libs/libsmlibraries/src/utilities"
+				},
+				{
+					"build" : "libs/libsmlibraries/tests",
+					"childIndexes" : 
+					[
+						16
+					],
+					"jsonFile" : "directory-libs.libsmlibraries.tests-Release-917d585c2b62547df497.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 8,
+					"projectIndex" : 6,
+					"source" : "libs/libsmlibraries/tests"
+				},
+				{
+					"build" : "libs/libsmlibraries/tests/testlibsmlibraries",
+					"jsonFile" : "directory-libs.libsmlibraries.tests.testlibsmlibraries-Release-9cdc6c9ec2c302e0da21.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 15,
+					"projectIndex" : 6,
+					"source" : "libs/libsmlibraries/tests/testlibsmlibraries",
+					"targetIndexes" : 
+					[
+						17,
+						18,
+						19
+					]
+				},
+				{
+					"build" : "epubedit",
+					"childIndexes" : 
+					[
+						18
+					],
+					"jsonFile" : "directory-epubedit-Release-c5a3300c103428274fb5.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 7,
+					"source" : "epubedit",
+					"targetIndexes" : 
+					[
+						8,
+						9,
+						10
+					]
+				},
+				{
+					"build" : "epubedit/src",
+					"childIndexes" : 
+					[
+						19
+					],
+					"jsonFile" : "directory-epubedit.src-Release-16ab602860717dc96c3b.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 17,
+					"projectIndex" : 7,
+					"source" : "epubedit/src"
+				},
+				{
+					"build" : "epubedit/src/document",
+					"jsonFile" : "directory-epubedit.src.document-Release-18a2d3978d3a8e97eb9e.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 18,
+					"projectIndex" : 7,
+					"source" : "epubedit/src/document"
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1,
+						4,
+						5,
+						6,
+						7
+					],
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						6
+					],
+					"name" : "EPubEdit"
+				},
+				{
+					"childIndexes" : 
+					[
+						2,
+						3
+					],
+					"directoryIndexes" : 
+					[
+						2
+					],
+					"name" : "QuaZip",
+					"parentIndex" : 0
+				},
+				{
+					"directoryIndexes" : 
+					[
+						3
+					],
+					"name" : "QuaZip_Library",
+					"parentIndex" : 1,
+					"targetIndexes" : 
+					[
+						3,
+						4,
+						5
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						4
+					],
+					"name" : "qztest",
+					"parentIndex" : 1,
+					"targetIndexes" : 
+					[
+						6,
+						14,
+						15,
+						16
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						5
+					],
+					"name" : "CuteLogger",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						7
+					],
+					"name" : "qyamlcpp",
+					"parentIndex" : 0
+				},
+				{
+					"directoryIndexes" : 
+					[
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16
+					],
+					"name" : "libsmlibraries",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						7,
+						11,
+						12,
+						13,
+						17,
+						18,
+						19
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						17,
+						18,
+						19
+					],
+					"name" : "epubedit",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						8,
+						9,
+						10
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 5,
+					"id" : "CuteLogger::@586417c8957326d19107",
+					"jsonFile" : "target-CuteLogger-Release-f8014ead07248d283187.json",
+					"name" : "CuteLogger",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "CuteLogger_autogen::@586417c8957326d19107",
+					"jsonFile" : "target-CuteLogger_autogen-Release-033ab073cae7c92a7c44.json",
+					"name" : "CuteLogger_autogen",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "CuteLogger_autogen_timestamp_deps::@586417c8957326d19107",
+					"jsonFile" : "target-CuteLogger_autogen_timestamp_deps-Release-5e84f8dafe27ad292a0b.json",
+					"name" : "CuteLogger_autogen_timestamp_deps",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "QuaZip::@8e0568282309ae69d219",
+					"jsonFile" : "target-QuaZip-Release-49a72ab6f99d1b200511.json",
+					"name" : "QuaZip",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "QuaZip_autogen::@8e0568282309ae69d219",
+					"jsonFile" : "target-QuaZip_autogen-Release-39a6b62282eb81875011.json",
+					"name" : "QuaZip_autogen",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "QuaZip_autogen_timestamp_deps::@8e0568282309ae69d219",
+					"jsonFile" : "target-QuaZip_autogen_timestamp_deps-Release-10e26e949d64ce427cb6.json",
+					"name" : "QuaZip_autogen_timestamp_deps",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "check::@b357e9bc245a47d0e08e",
+					"jsonFile" : "target-check-Release-da7a16ac97bb2a90acf4.json",
+					"name" : "check",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 8,
+					"id" : "doc_doxygen::@f0325c5cd32f9f994ebd",
+					"jsonFile" : "target-doc_doxygen-Release-3d741b3935baceb3ed4b.json",
+					"name" : "doc_doxygen",
+					"projectIndex" : 6
+				},
+				{
+					"directoryIndex" : 17,
+					"id" : "epubedit::@411b33e57057579a4b39",
+					"jsonFile" : "target-epubedit-Release-682b835da2863289f8d5.json",
+					"name" : "epubedit",
+					"projectIndex" : 7
+				},
+				{
+					"directoryIndex" : 17,
+					"id" : "epubedit_autogen::@411b33e57057579a4b39",
+					"jsonFile" : "target-epubedit_autogen-Release-5ebe18c84b880e1973ed.json",
+					"name" : "epubedit_autogen",
+					"projectIndex" : 7
+				},
+				{
+					"directoryIndex" : 17,
+					"id" : "epubedit_autogen_timestamp_deps::@411b33e57057579a4b39",
+					"jsonFile" : "target-epubedit_autogen_timestamp_deps-Release-380f52b329ba3bf02017.json",
+					"name" : "epubedit_autogen_timestamp_deps",
+					"projectIndex" : 7
+				},
+				{
+					"directoryIndex" : 8,
+					"id" : "libsmlibraries::@f0325c5cd32f9f994ebd",
+					"jsonFile" : "target-libsmlibraries-Release-406dcd5271026d1acf05.json",
+					"name" : "libsmlibraries",
+					"projectIndex" : 6
+				},
+				{
+					"directoryIndex" : 8,
+					"id" : "libsmlibraries_autogen::@f0325c5cd32f9f994ebd",
+					"jsonFile" : "target-libsmlibraries_autogen-Release-719a5a2b3c82978c92fd.json",
+					"name" : "libsmlibraries_autogen",
+					"projectIndex" : 6
+				},
+				{
+					"directoryIndex" : 8,
+					"id" : "libsmlibraries_autogen_timestamp_deps::@f0325c5cd32f9f994ebd",
+					"jsonFile" : "target-libsmlibraries_autogen_timestamp_deps-Release-da9b4dfc4690b2b123cf.json",
+					"name" : "libsmlibraries_autogen_timestamp_deps",
+					"projectIndex" : 6
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "qztest::@b357e9bc245a47d0e08e",
+					"jsonFile" : "target-qztest-Release-1da20a2f762751a72a2f.json",
+					"name" : "qztest",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "qztest_autogen::@b357e9bc245a47d0e08e",
+					"jsonFile" : "target-qztest_autogen-Release-d43476df37f5fa02fe2a.json",
+					"name" : "qztest_autogen",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "qztest_autogen_timestamp_deps::@b357e9bc245a47d0e08e",
+					"jsonFile" : "target-qztest_autogen_timestamp_deps-Release-59d46da6608ae18008b8.json",
+					"name" : "qztest_autogen_timestamp_deps",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 16,
+					"id" : "smlibtest::@29e7d59a03a241eff6d5",
+					"jsonFile" : "target-smlibtest-Release-484285f5f1219a68db32.json",
+					"name" : "smlibtest",
+					"projectIndex" : 6
+				},
+				{
+					"directoryIndex" : 16,
+					"id" : "smlibtest_autogen::@29e7d59a03a241eff6d5",
+					"jsonFile" : "target-smlibtest_autogen-Release-654b44545bf47d99abef.json",
+					"name" : "smlibtest_autogen",
+					"projectIndex" : 6
+				},
+				{
+					"directoryIndex" : 16,
+					"id" : "smlibtest_autogen_timestamp_deps::@29e7d59a03a241eff6d5",
+					"jsonFile" : "target-smlibtest_autogen_timestamp_deps-Release-9cdc9221e59519655381.json",
+					"name" : "smlibtest_autogen_timestamp_deps",
+					"projectIndex" : 6
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/simonmeaden/workspace/epubedit/build/6_clang/release",
+		"source" : "/home/simonmeaden/workspace/epubedit"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

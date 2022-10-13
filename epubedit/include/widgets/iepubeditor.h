@@ -16,7 +16,7 @@
  * methods.
  *
  * \sa EPubEdit - EPub text editor.
- * \sa CodeEdit - EPub html code editor
+ * \sa HtmlEdit - EPub html code editor
  * \sa ImageEdit - Simple image editor.
  */
 class IEPubEditor

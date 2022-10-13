@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ncx version="2005-1" xml:lang="en-US" xmlns="http://www.daisy.org/z3986/2005/ncx/">
+<head>
+<meta name="dtb:uid" content="urn:isbn:9781466812369"/>
+<meta name="dtb:depth" content="1"/>
+<meta name="dtb:totalPageCount" content="352"/>
+<meta name="dtb:maxPageNumber" content="0"/>
+</head>
+<docTitle>
+<text>A Daughter of No Nation</text>
+</docTitle>
+<docAuthor><text>A. M. Dellamonica</text></docAuthor>
+<navMap>
+<navPoint class="other" id="navpoint-1" playOrder="1"><navLabel><text>Cover</text></navLabel><content src="xhtml/cover.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-2" playOrder="2"><navLabel><text>Title Page</text></navLabel><content src="xhtml/title.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-3" playOrder="3"><navLabel><text>Copyright Notice</text></navLabel><content src="xhtml/copyrightnotice.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-4" playOrder="4"><navLabel><text>Dedication</text></navLabel><content src="xhtml/dedication.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-5" playOrder="5"><navLabel><text>Acknowledgments</text></navLabel><content src="xhtml/acknowledgments.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-6" playOrder="6"><navLabel><text>Chapter 1</text></navLabel><content src="xhtml/chapter1.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-7" playOrder="7"><navLabel><text>Chapter 2</text></navLabel><content src="xhtml/chapter2.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-8" playOrder="8"><navLabel><text>Chapter 3</text></navLabel><content src="xhtml/chapter3.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-9" playOrder="9"><navLabel><text>Chapter 4</text></navLabel><content src="xhtml/chapter4.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-10" playOrder="10"><navLabel><text>Chapter 5</text></navLabel><content src="xhtml/chapter5.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-11" playOrder="11"><navLabel><text>Chapter 6</text></navLabel><content src="xhtml/chapter6.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-12" playOrder="12"><navLabel><text>Chapter 7</text></navLabel><content src="xhtml/chapter7.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-13" playOrder="13"><navLabel><text>Chapter 8</text></navLabel><content src="xhtml/chapter8.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-14" playOrder="14"><navLabel><text>Chapter 9</text></navLabel><content src="xhtml/chapter9.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-15" playOrder="15"><navLabel><text>Chapter 10</text></navLabel><content src="xhtml/chapter10.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-16" playOrder="16"><navLabel><text>Chapter 11</text></navLabel><content src="xhtml/chapter11.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-17" playOrder="17"><navLabel><text>Chapter 12</text></navLabel><content src="xhtml/chapter12.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-18" playOrder="18"><navLabel><text>Chapter 13</text></navLabel><content src="xhtml/chapter13.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-19" playOrder="19"><navLabel><text>Chapter 14</text></navLabel><content src="xhtml/chapter14.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-20" playOrder="20"><navLabel><text>Chapter 15</text></navLabel><content src="xhtml/chapter15.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-21" playOrder="21"><navLabel><text>Chapter 16</text></navLabel><content src="xhtml/chapter16.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-22" playOrder="22"><navLabel><text>Chapter 17</text></navLabel><content src="xhtml/chapter17.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-23" playOrder="23"><navLabel><text>Chapter 18</text></navLabel><content src="xhtml/chapter18.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-24" playOrder="24"><navLabel><text>Chapter 19</text></navLabel><content src="xhtml/chapter19.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-25" playOrder="25"><navLabel><text>Chapter 20</text></navLabel><content src="xhtml/chapter20.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-26" playOrder="26"><navLabel><text>Chapter 21</text></navLabel><content src="xhtml/chapter21.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-27" playOrder="27"><navLabel><text>Chapter 22</text></navLabel><content src="xhtml/chapter22.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-28" playOrder="28"><navLabel><text>Chapter 23</text></navLabel><content src="xhtml/chapter23.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-29" playOrder="29"><navLabel><text>Chapter 24</text></navLabel><content src="xhtml/chapter24.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-30" playOrder="30"><navLabel><text>Chapter 25</text></navLabel><content src="xhtml/chapter25.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-31" playOrder="31"><navLabel><text>Chapter 26</text></navLabel><content src="xhtml/chapter26.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-32" playOrder="32"><navLabel><text>Chapter 27</text></navLabel><content src="xhtml/chapter27.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-33" playOrder="33"><navLabel><text>Chapter 28</text></navLabel><content src="xhtml/chapter28.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-34" playOrder="34"><navLabel><text>Chapter 29</text></navLabel><content src="xhtml/chapter29.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-35" playOrder="35"><navLabel><text>Chapter 30</text></navLabel><content src="xhtml/chapter30.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-36" playOrder="36"><navLabel><text>Chapter 31</text></navLabel><content src="xhtml/chapter31.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-37" playOrder="37"><navLabel><text>About the Author</text></navLabel><content src="xhtml/abouttheauthor.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-38" playOrder="38"><navLabel><text>Also by A. M. Dellamonica</text></navLabel><content src="xhtml/adcard.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-39" playOrder="39"><navLabel><text>Newsletter Sign-up</text></navLabel><content src="xhtml/newsletter.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-40" playOrder="40"><navLabel><text>Contents</text></navLabel><content src="xhtml/contents.xhtml"/></navPoint>
+<navPoint class="other" id="navpoint-41" playOrder="41"><navLabel><text>Copyright</text></navLabel><content src="xhtml/copyright.xhtml"/></navPoint>
+</navMap>
+</ncx>

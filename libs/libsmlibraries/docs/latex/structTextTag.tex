@@ -20,20 +20,21 @@ Inheritance diagram for Text\+Tag\+:\begin{figure}[H]
 \item 
 QString \mbox{\hyperlink{structTextTag_a476cdfb0536bba4fbae8ebcc9a50f2c5}{to\+String}} () override
 \begin{DoxyCompactList}\small\item\em Creates a string version of the tag. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structTextTag_a299ad64e92c80fdbbe475872e4ca2b38}\label{structTextTag_a299ad64e92c80fdbbe475872e4ca2b38}} 
-int \mbox{\hyperlink{structTextTag_a299ad64e92c80fdbbe475872e4ca2b38}{text\+Start}} ()
-\begin{DoxyCompactList}\small\item\em Returns the text start position. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{structTextTag_ac881739004b5f823534b5b02082ccacb}{text\+Length}} ()
+\begin{DoxyCompactList}\small\item\em Returns the length of the text string. \end{DoxyCompactList}\item 
 Is\+In\+Type \mbox{\hyperlink{structTextTag_a27a6f34f716a8158537b099e73a243ad}{is\+In}} (int cursor\+Pos) override
-\begin{DoxyCompactList}\small\item\em is\+In method of all \mbox{\hyperlink{structTag}{Tag}} types. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em is\+In method of all \mbox{\hyperlink{structTag}{Tag}} types. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structTextTag_a6e65ea424d77e1f6df066be88810c2b0}{is\+Whitespace}} ()
+\item 
+\mbox{\Hypertarget{structTextTag_a1a211e470ee0b0d1f553db52bbae111a}\label{structTextTag_a1a211e470ee0b0d1f553db52bbae111a}} 
+void \mbox{\hyperlink{structTextTag_a1a211e470ee0b0d1f553db52bbae111a}{copy\+Tag\+Into}} (\mbox{\hyperlink{structTag}{Tag}} $\ast$tag) override
+\begin{DoxyCompactList}\small\item\em Copies values from the supplied tag into this tag. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{structTextTag_aa07a3eea498b1b44e48c5db57338449e}\label{structTextTag_aa07a3eea498b1b44e48c5db57338449e}} 
 QString \mbox{\hyperlink{structTextTag_aa07a3eea498b1b44e48c5db57338449e}{text}}
-\begin{DoxyCompactList}\small\item\em the text string \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{structTextTag_a1cdcb5cf12140ca47dea8ed4ba0e1924}\label{structTextTag_a1cdcb5cf12140ca47dea8ed4ba0e1924}} 
-QText\+Cursor \mbox{\hyperlink{structTextTag_a1cdcb5cf12140ca47dea8ed4ba0e1924}{text\+Start\+Cursor}}
-\begin{DoxyCompactList}\small\item\em The QText\+Cursor at the start position of the tag text. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em the text string \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -54,7 +55,30 @@ Returns the result of a test whether the cursor is within the tag. Returns one o
 
 Reimplemented from \mbox{\hyperlink{structTag_a9bcf07edef2c8dce4c510da12960b1b9}{Tag}}.
 
-\mbox{\Hypertarget{structTextTag_a476cdfb0536bba4fbae8ebcc9a50f2c5}\label{structTextTag_a476cdfb0536bba4fbae8ebcc9a50f2c5}} 
+\mbox{\Hypertarget{structTextTag_a6e65ea424d77e1f6df066be88810c2b0}\label{structTextTag_a6e65ea424d77e1f6df066be88810c2b0}} 
+\index{TextTag@{TextTag}!isWhitespace@{isWhitespace}}
+\index{isWhitespace@{isWhitespace}!TextTag@{TextTag}}
+\doxysubsubsection{\texorpdfstring{isWhitespace()}{isWhitespace()}}
+{\footnotesize\ttfamily bool Text\+Tag\+::is\+Whitespace (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns true if the string only contains whitespace characters.
+
+This includes
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\(\backslash\)t, \(\backslash\)n, \(\backslash\)v, \(\backslash\)f and \(\backslash\)r }
+
+\end{DoxyCode}
+ characters as well as space characters. \mbox{\Hypertarget{structTextTag_ac881739004b5f823534b5b02082ccacb}\label{structTextTag_ac881739004b5f823534b5b02082ccacb}} 
+\index{TextTag@{TextTag}!textLength@{textLength}}
+\index{textLength@{textLength}!TextTag@{TextTag}}
+\doxysubsubsection{\texorpdfstring{textLength()}{textLength()}}
+{\footnotesize\ttfamily int Text\+Tag\+::text\+Length (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns the length of the text string. 
+
+Equivalent of calling \mbox{\hyperlink{structTextTag_aa07a3eea498b1b44e48c5db57338449e}{text()}}.\mbox{\hyperlink{structTag_a50d1e7b7c3fe2c678ce5f493b70d6d1b}{length()}}. \mbox{\Hypertarget{structTextTag_a476cdfb0536bba4fbae8ebcc9a50f2c5}\label{structTextTag_a476cdfb0536bba4fbae8ebcc9a50f2c5}} 
 \index{TextTag@{TextTag}!toString@{toString}}
 \index{toString@{toString}!TextTag@{TextTag}}
 \doxysubsubsection{\texorpdfstring{toString()}{toString()}}

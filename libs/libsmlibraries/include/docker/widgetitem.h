@@ -162,7 +162,6 @@ protected:
   const QSize& minContentSize() const;
   void widgetWasClicked(QPoint pos);
 
-  static const int TEXT_SPACER = 2;
   /// \endcond DO_NOT_DOCUMENT
 
   friend class AbstractDockItem;

@@ -27,11 +27,11 @@ FooterWidget::footer()
   return d_ptr->footer();
 }
 
-//QWidget*
-//FooterWidget::setWidget(QWidget* widget)
+// QWidget*
+// FooterWidget::setWidget(QWidget* widget)
 //{
-//  return d_ptr->setWidget(widget);
-//}
+//   return d_ptr->setWidget(widget);
+// }
 
 void
 FooterWidget::hideWidget()
@@ -87,9 +87,21 @@ FooterWidget::hoverMoveEvent(QHoverEvent* event)
 void
 FooterWidget::mousePressEvent(QMouseEvent* event)
 {
-  auto pos = event->pos();
-  setFocus();
-  d_ptr->mousePress(pos);
+  Q_D(FooterWidget);
+  d->mousePress(event);
+}
+
+void FooterWidget::mouseReleaseEvent(QMouseEvent *event)
+{
+  Q_D(FooterWidget);
+  d->mouseRelease(event);
+ }
+
+void
+FooterWidget::mouseMoveEvent(QMouseEvent*event)
+{
+  Q_D(FooterWidget);
+  d->mouseMove(event);
 }
 
 void
@@ -148,7 +160,8 @@ FooterWidget::focusOutEvent(QFocusEvent* event)
   QWidget::focusOutEvent(event);
 }
 
-QWidget *FooterWidget::clone(QWidget *widget)
+QWidget*
+FooterWidget::clone(QWidget* widget)
 {
   auto anobject = qobject_cast<FooterWidget*>(widget);
   if (anobject)

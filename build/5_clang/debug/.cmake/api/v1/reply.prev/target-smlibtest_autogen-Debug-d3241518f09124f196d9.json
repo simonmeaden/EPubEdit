@@ -1,0 +1,71 @@
+{
+	"backtrace" : 0,
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : 
+		[
+			"libs/libsmlibraries/tests/testlibsmlibraries/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			}
+		]
+	},
+	"dependencies" : 
+	[
+		{
+			"id" : "smlibtest_autogen_timestamp_deps::@29e7d59a03a241eff6d5"
+		}
+	],
+	"id" : "smlibtest_autogen::@29e7d59a03a241eff6d5",
+	"isGeneratorProvided" : true,
+	"name" : "smlibtest_autogen",
+	"paths" : 
+	{
+		"build" : "libs/libsmlibraries/tests/testlibsmlibraries",
+		"source" : "libs/libsmlibraries/tests/testlibsmlibraries"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		},
+		{
+			"name" : "CMake Rules",
+			"sourceIndexes" : 
+			[
+				1,
+				2
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/5_clang/debug/libs/libsmlibraries/tests/testlibsmlibraries/CMakeFiles/smlibtest_autogen",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/5_clang/debug/libs/libsmlibraries/tests/testlibsmlibraries/CMakeFiles/smlibtest_autogen.rule",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/5_clang/debug/libs/libsmlibraries/tests/testlibsmlibraries/smlibtest_autogen/timestamp.rule",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "UTILITY"
+}

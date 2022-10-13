@@ -278,6 +278,7 @@ struct Tag
  */
 struct SpecialCharTag : Tag
 {
+  //! Constructor
   SpecialCharTag(QChar c)
     : character(c)
   {
@@ -289,6 +290,7 @@ struct SpecialCharTag : Tag
   //! Copies values from the supplied tag into this tag.
   void copyTagInto(Tag* tag) override;
 
+  //! stores special character
   QChar character;
 };
 
@@ -328,8 +330,8 @@ struct TextTag : Tag
 
   //! Returns true if the string only contains whitespace characters.
   //!
-  //! This includes  '\t', '\n', '\v', '\f' and '\r' characters as well as space
-  //! characters.
+  //! This includes  \code \t, \n, \v, \f and \r \endcode characters as well as
+  //! space characters.
   bool isWhitespace() { return text.trimmed().isEmpty(); }
 
   /*!
@@ -349,6 +351,7 @@ struct ErrorTag : Tag
 {
   //! Stores tag parsing errors.
   ScannerErrors errors = NoError;
+  //! Stores tag parsing warnings.
   ScannerWarnings warnings = NoWarning;
   //  bool matching = false;
 
@@ -569,6 +572,7 @@ struct HtmlTag : ClosedTag
  */
 struct XmlDeclaration : HtmlTag
 {
+  //! Constructor
   XmlDeclaration()
     : HtmlTag()
   {
@@ -675,20 +679,24 @@ public:
    */
   void insertTag(int index, Tag* tag);
 
+  void insertAfter(Tag* tag, Tag* insertTag);
+
   /*!
    *  \brief Replaces the Tag at index to the new Tag.
    */
   void replaceTag(Tag* firstTag, Tag* secondTag);
 
-//  /*!
-//   *  \brief Swaps the two Tag's at index to the new Tag.
-//   */
-//  void swapTags(int firstIndex, int secondIndex);
+  int indexOfTag(Tag* tag);
 
-//  /*!
-//   *  \brief Swaps the two Tag's at index to the new Tag.
-//   */
-//  void swapTags(Tag* fisrtTag, Tag* secondTag);
+  //  /*!
+  //   *  \brief Swaps the two Tag's at index to the new Tag.
+  //   */
+  //  void swapTags(int firstIndex, int secondIndex);
+
+  //  /*!
+  //   *  \brief Swaps the two Tag's at index to the new Tag.
+  //   */
+  //  void swapTags(Tag* fisrtTag, Tag* secondTag);
 
   /*!
    * \brief Recovers the tag at index in the Tag list.
@@ -739,8 +747,16 @@ public:
    */
   const QVector<TagMatch*>& matchedTags() const;
 
-  //  QTextDocument *document() const;
-  //  void setDocument(QTextDocument *Document);
+  /*!
+   * \brief Returns the next matching tag to the supplied tag.
+   *
+   * The match returned is the matching tag of the same type. For example
+   * if a \code<html ..>\endcode tag is supplied then the first matching
+   * \code<\html>\endcode will be returned. Conversely if a \code</html>\endcode
+   * is supplied the first previous \code<html ...>\endcode will be returned.
+   * If there is no matching tag then\code nullptr\endcode is returned.
+   */
+  Tag* matchedTag(Tag* tag);
 
 signals:
 
@@ -775,19 +791,16 @@ private:
                                        int& questionPos,
                                        QChar& storedChar,
                                        QTextCursor startCursor = QTextCursor());
-  void checkXmlAttribute(Tag* tag,
-                           Attribute* attribute,
-                           QString& s,
-                           int& sPos);
+  void checkXmlAttribute(Tag* tag, Attribute* attribute, QString& s, int& sPos);
   void checkHtmlAttribute(Tag* tag,
-                    Attribute* attribute,
-                    QString& s,
-                    int& sPos);
-  void handleQuotedAttribute(Tag *tag,
+                          Attribute* attribute,
+                          QString& s,
+                          int& sPos);
+  void handleQuotedAttribute(Tag* tag,
                              Attribute* attribute,
                              QString& s,
                              int& sPos);
-  void checkAttributeNameErrors(Tag *tag, Attribute *attribute, QString &s);
+  void checkAttributeNameErrors(Tag* tag, Attribute* attribute, QString& s);
 }; // end of HtmlScanner
 Q_DECLARE_OPERATORS_FOR_FLAGS(ExpectedStates)
 

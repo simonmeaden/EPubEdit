@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['xmltag_878',['XmlTag',['../structXmlTag.html',1,'']]]
+  ['widgetitem_918',['WidgetItem',['../classWidgetItem.html',1,'']]]
 ];
